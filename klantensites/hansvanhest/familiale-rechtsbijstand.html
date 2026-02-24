@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Familiale Verzekering & Rechtsbijstand | Hans van Hest KBC</title>
+  <meta name="description" content="Bescherm uw gezin met familiale verzekering en rechtsbijstand. Aansprakelijkheid tot €40M, juridische bijstand en materiële schade dekking.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --kbc-blue: #0D2A50;
+      --kbc-blue-light: #0097DB;
+      --kbc-accent: #0097DB;
+      --white: #FFFFFF;
+      --off-white: #F7F8FA;
+      --gray-50: #F2F4F7;
+      --gray-100: #E4E7EC;
+      --gray-400: #8896A7;
+      --gray-600: #5A6B80;
+      --gray-800: #2D3A4A;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background-color: var(--white);
+    }
+
+    header {
+      background-color: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 0;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--kbc-blue);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .logo-mark {
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .logo-text h1 {
+      font-size: 1.2rem;
+      color: var(--kbc-blue);
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--gray-800);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--kbc-accent);
+    }
+
+    nav a.active {
+      color: var(--kbc-accent);
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--kbc-accent);
+      border-radius: 2px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--kbc-blue) 0%, #1a3a6b 100%);
+      color: var(--white);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 5rem 2rem;
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--kbc-blue);
+      margin-bottom: 2rem;
+      line-height: 1.1;
+    }
+
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      max-width: 800px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .feature-card {
+      background-color: var(--off-white);
+      padding: 2rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--kbc-accent);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      color: var(--kbc-blue);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .feature-card ul {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .feature-card li {
+      color: var(--gray-600);
+      padding: 0.4rem 0;
+      font-size: 0.95rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .feature-card li:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7rem;
+      width: 6px;
+      height: 6px;
+      background-color: var(--kbc-accent);
+      border-radius: 50%;
+    }
+
+    .highlight {
+      background-color: var(--gray-50);
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--gray-100);
+      margin: 2rem 0;
+    }
+
+    .highlight h3 {
+      color: var(--kbc-blue);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .highlight p {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--gray-50);
+      border-radius: 8px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--kbc-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .levels-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .level-card {
+      background-color: var(--white);
+      border: 2px solid var(--gray-100);
+      padding: 2rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .level-card:hover {
+      border-color: var(--kbc-accent);
+      box-shadow: 0 4px 20px rgba(0, 151, 219, 0.1);
+    }
+
+    .level-card.featured {
+      border-color: var(--kbc-accent);
+      box-shadow: 0 4px 20px rgba(0, 151, 219, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .level-badge {
+      display: inline-block;
+      background-color: var(--kbc-accent);
+      color: var(--white);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .level-card h3 {
+      font-size: 1.5rem;
+      color: var(--kbc-blue);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .level-card .description {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .coverage-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .coverage-list li {
+      color: var(--gray-600);
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .coverage-list li:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      width: 5px;
+      height: 5px;
+      background-color: var(--kbc-accent);
+      border-radius: 50%;
+    }
+
+    .price-tag {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--kbc-accent);
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .coverage-details {
+      background-color: var(--off-white);
+      padding: 3rem 2rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    .coverage-details h3 {
+      font-size: 1.4rem;
+      color: var(--kbc-blue);
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .detail-item {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: 6px;
+      border-left: 4px solid var(--kbc-accent);
+    }
+
+    .detail-item h4 {
+      color: var(--kbc-blue);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .detail-item p {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, var(--kbc-blue) 0%, #1a3a6b 100%);
+      color: var(--white);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 8px;
+      margin: 4rem 0;
+    }
+
+    .cta-section h2 {
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: var(--kbc-accent);
+      color: var(--white);
+      padding: 1rem 2.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      background-color: #0078b8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 151, 219, 0.3);
+    }
+
+    footer {
+      background-color: var(--kbc-blue);
+      color: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-content p {
+      margin: 0.5rem 0;
+    }
+
+    .footer-link {
+      color: var(--kbc-accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      section h2 {
+        font-size: 2rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .levels-section {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-section {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .header-container {
+        padding: 0 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 409.47 319.37" xmlns="http://www.w3.org/2000/svg" aria-label="KBC Logo">
+            <g>
+              <circle fill="#0097db" cx="207.09" cy="70.68" r="70.69"/>
+              <path fill="#0097db" d="M259.22,127.89c-13.47,14.6-37.22,29.2-67.69,29.2-23.64,0-44-9.19-56.95-19.4C57.4,145.79,0,157.27,0,157.27v31.25l409.45-.04v-64.44s-70.15-.43-150.22,3.85h-.01Z"/>
+            </g>
+            <g>
+              <path fill="#0D2A50" d="M48.64,279.9v38.08H0v-101.31h48.64v45.59h.28l28.63-45.59h58.32l-42.71,52.36,40.3,48.95h-55.66l-28.83-38.08h-.33,0Z"/>
+              <path fill="#0D2A50" d="M409.47,313.8c-11.48,3.51-26.56,5.58-40.06,5.58-48.12,0-83.46-13.68-83.46-53.46,0-35.95,34.24-51.57,81.06-51.57,13.01,0,29.54,1.44,42.46,5.56l-.02,34.82c-9.58-5.8-19.16-9.42-32.88-9.42-17.86,0-35.7,8.79-35.7,21.56s17.77,21.56,35.7,21.56c13.5,0,23.3-3.74,32.88-9.27l.02,34.65h0Z"/>
+              <path fill="#0D2A50" d="M143.84,216.67h98.33c25.54,0,33.91,9.93,33.91,25.4,0,17.31-15.47,24.83-31.36,25.68v.28c16.32,1.28,32.21,3.12,32.21,23.55,0,13.34-8.37,26.39-36.46,26.39h-96.63v-101.31h0ZM192.48,297.39h25.36c9.51,0,12.74-3.94,12.74-9.75s-3.27-9.99-12.63-9.99h-25.47v19.75h0ZM192.48,259.61h24.23c9.36,0,13.03-3.79,13.03-9.61,0-6.67-3.7-10-12.35-10h-24.91v19.61h0Z"/>
+            </g>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Hans van Hest</h1>
+          <span>Verzekeringen</span>
+        </div>
+      </a>
+      
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="autoverzekering.html">Autoverzekering</a>
+        <a href="woning-brand.html">Woning & Brand</a>
+        <a href="familiale-rechtsbijstand.html" class="active">Familiale & Rechtsbijstand</a>
+        <a href="hospitalisatie-gezondheid.html">Hospitalisatie</a>
+        <a href="zelfstandigen-bedrijven.html">Zelfstandigen</a>
+        <a href="pensioensparen-beleggen.html">Pensioen</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Familiale Verzekering & Rechtsbijstand</h1>
+      <p>Bescherm uw gezin tegen aansprakelijkheid en zorg voor juridische ondersteuning wanneer u deze het meest nodig heeft</p>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2>BA Privéleven</h2>
+    <p class="section-intro">De Burgerlijke Aansprakelijkheid voor privépersonen biedt volledige bescherming voor u en uw gezin tegen financiële gevolgen van schadeclaims.</p>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Wie zijn verzekerd</h3>
+        <ul>
+          <li>U en uw gezinsleden</li>
+          <li>Medewoningen in uw huishouden</li>
+          <li>Co-ouders van uw kinderen</li>
+          <li>Huishoudhulp en babysitters</li>
+        </ul>
+      </div>
+      
+      <div class="feature-card">
+        <h3>Fysiek letsel</h3>
+        <ul>
+          <li>Tot €40.000.000 dekking</li>
+          <li>Geen franchise</li>
+          <li>Inbegrepen: medische kosten, vervangingsinkomsten, schadevergoeding</li>
+        </ul>
+      </div>
+      
+      <div class="feature-card">
+        <h3>Materiële schade</h3>
+        <ul>
+          <li>Tot €10.000.000 dekking</li>
+          <li>Breuk, diefstal en vernielingen</li>
+          <li>Schadevergoeding en herstelkosten</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stats-container" style="margin-top: 3rem;">
+      <div class="stat-box">
+        <div class="stat-value">€40M</div>
+        <div class="stat-label">Aansprakelijkheid fysiek letsel</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">€10M</div>
+        <div class="stat-label">Aansprakelijkheid materiële schade</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Franchise fysiek letsel</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="background-color: var(--off-white); padding: 5rem 2rem; margin: 0;">
+    <div class="container">
+      <h2>Rechtsbijstand</h2>
+      <p class="section-intro">Maak gebruik van professionele juridische ondersteuning en verdediging zonder zorgen over de kosten. Wij bieden drie niveaus van rechtsbijstandsverzekering.</p>
+      
+      <div class="levels-section">
+        <div class="level-card">
+          <div class="level-badge">BASIS</div>
+          <h3>Privéleven</h3>
+          <p class="description">Essentiële juridische bescherming voor uw dagelijkse leven</p>
+          <ul class="coverage-list">
+            <li>Juridische bijstand privépersonen</li>
+            <li>Nabestaandenbijstand</li>
+            <li>Geschillen met derden</li>
+          </ul>
+          <div class="price-tag">Tot €100.000 juridische kosten</div>
+        </div>
+        
+        <div class="level-card featured">
+          <div class="level-badge" style="background-color: var(--kbc-blue);">UITGEBREID</div>
+          <h3>Contractuele Geschillen</h3>
+          <p class="description">Uitbreiding voor geschillen over aankoop en huur</p>
+          <ul class="coverage-list">
+            <li>Alles van Privéleven</li>
+            <li>Koop- en huurgeschillen</li>
+            <li>Consumentengerechtschappen</li>
+            <li>Schadevergoedingsvorderingen</li>
+          </ul>
+          <div class="price-tag">Ongeveer €64 per jaar extra</div>
+        </div>
+        
+        <div class="level-card">
+          <div class="level-badge">VOLLEDIG</div>
+          <h3>Uitgebreide Dekking</h3>
+          <p class="description">Volledige rechtsbijstand voor alle juridische geschillen</p>
+          <ul class="coverage-list">
+            <li>Alles van Contractuele Geschillen</li>
+            <li>Administratieve geschillen</li>
+            <li>Fiscale geschillen</li>
+            <li>Arbeidsrechtelijke geschillen</li>
+            <li>Bouwgeschillen</li>
+            <li>Echtscheidingszaken (1e)</li>
+            <li>Fiscaal voordeel inbegrepen</li>
+          </ul>
+          <div class="price-tag">Meest uitgebreide bescherming</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2>Dekking en Schadeloosstelling</h2>
+    <p class="section-intro">Ontdek precies wat wordt gedekt door onze rechtsbijstand- en aansprakelijkheidsverzekeringen.</p>
+    
+    <div class="coverage-details">
+      <h3>Tussenkomsten bij Schade</h3>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <h4>Materiële schade</h4>
+          <p>Tot €12.500 tussenkomst voor beschadiging of verlies van goederen van derden.</p>
+        </div>
+        <div class="detail-item">
+          <h4>Fysiek letsel</h4>
+          <p>Tot €25.000 tussenkomst voor medische kosten en schadevergoeding bij verwonding van derden.</p>
+        </div>
+        <div class="detail-item">
+          <h4>Juridische kosten</h4>
+          <p>Tot €100.000 voor juridische procesvoeringkosten onder het Privéleven-niveau, met uitbreidingen beschikbaar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <h3>Geografische Dekking</h3>
+      <p><strong>Burgerlijke Aansprakelijkheid:</strong> Wereldwijd verzekerd. Uw gezin is beschermd waar u ook ter wereld bent.</p>
+      <p><strong>Rechtsbijstand:</strong> Primair in Nederland en België. Controleer de precieze reikwijdte voor uw specifieke rechtsbijstandsniveau.</p>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="cta-section">
+      <h2>Klaar om uw gezin te beschermen?</h2>
+      <p>Laat u adviseren over de beste familiale verzekering en rechtsbijstand voor uw situatie.</p>
+      <a href="mailto:info@hansvanhest.nl" class="cta-button">Neem contact op</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>Verbonden verzekeringsagent van <strong>KBC Verzekeringen NV</strong></p>
+      <p>Website door <a href="https://the-bair-company.vercel.app" class="footer-link">The Bair Company</a></p>
+      <p style="margin-top: 1.5rem; font-size: 0.85rem; opacity: 0.8;">Hans van Hest Verzekeringen - Professionele verzekeringsbegeleiding</p>
+    </div>
+  </footer>
+</body>
+</html>
