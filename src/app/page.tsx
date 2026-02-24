@@ -85,82 +85,6 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CUSTOM CURSOR — Dot + Ring with hover detection
-   ═══════════════════════════════════════════════════════════ */
-
-function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    let mouseX = 0,
-      mouseY = 0;
-    let dotX = 0,
-      dotY = 0,
-      ringX = 0,
-      ringY = 0;
-    let hovering = false;
-    let rafId: number;
-
-    const onMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-
-    const animate = () => {
-      dotX += (mouseX - dotX) * 0.2;
-      dotY += (mouseY - dotY) * 0.2;
-      ringX += (mouseX - ringX) * 0.08;
-      ringY += (mouseY - ringY) * 0.08;
-
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`;
-      }
-      if (ringRef.current) {
-        const s = hovering ? 64 : 40;
-        ringRef.current.style.transform = `translate(${ringX - s / 2}px, ${ringY - s / 2}px)`;
-      }
-      rafId = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener("mousemove", onMove);
-    rafId = requestAnimationFrame(animate);
-
-    const onEnter = () => {
-      hovering = true;
-      ringRef.current?.classList.add("hovering");
-    };
-    const onLeave = () => {
-      hovering = false;
-      ringRef.current?.classList.remove("hovering");
-    };
-
-    const attach = () => {
-      document.querySelectorAll("a, button, [data-hover]").forEach((el) => {
-        el.addEventListener("mouseenter", onEnter);
-        el.addEventListener("mouseleave", onLeave);
-      });
-    };
-    attach();
-    const obs = new MutationObserver(attach);
-    obs.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(rafId);
-      obs.disconnect();
-    };
-  }, []);
-
-  return (
-    <>
-      <div ref={dotRef} className="cursor-dot hidden md:block" />
-      <div ref={ringRef} className="cursor-ring hidden md:block" />
-    </>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
    FULLSCREEN NAV — Circle clip-path reveal
    ═══════════════════════════════════════════════════════════ */
 
@@ -947,8 +871,7 @@ export default function Home() {
     <>
       {/* ── LAYERS ── */}
       <div className="noise" />
-      <CustomCursor />
-      <IntroLoader onDone={handleIntroDone} />
+<IntroLoader onDone={handleIntroDone} />
       <FullScreenNav open={navOpen} onClose={() => setNavOpen(false)} lang={lang} setLang={setLang} t={t} />
 
       {/* ── FIXED NAV BAR ── */}
