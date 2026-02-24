@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>if(!sessionStorage.getItem('hvh_auth'))window.location.replace('gate.html');</script>
   <title>Hans van Hest — KBC Verzekeringen Leuven | Persoonlijk advies, totale zekerheid</title>
   <meta name="description" content="Hans van Hest, uw erkend KBC-verzekeringsagent in Leuven. Persoonlijk advies voor auto-, woning-, brand-, familiale en levensverzekeringen. Maak vandaag nog een afspraak.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1024,16 +1025,35 @@
           <p style="margin-top:0.2rem;">Website door <a href="https://the-bair-company.vercel.app" target="_blank">The Bair Company</a></p>
         </div>
         <div class="footer-legal">
-          <a href="#">Disclaimer</a>
-          <a href="#">Privacy</a>
-          <a href="#">Klachten</a>
-          <a href="#">Duurzaamheid</a>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="cookiebeleid.html">Cookiebeleid</a>
+          <a href="disclaimer.html#klachtenprocedure">Klachten</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- COOKIE BANNER -->
+  <div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#0D2A50;color:#fff;padding:1.2rem 2rem;font-family:'Inter',sans-serif;font-size:0.875rem;line-height:1.6;box-shadow:0 -4px 20px rgba(0,0,0,0.15);">
+    <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+      <p style="margin:0;flex:1;min-width:280px;">Deze website gebruikt cookies om uw ervaring te verbeteren. Strikt noodzakelijke cookies zijn altijd actief. U kunt analytische cookies aanvaarden of weigeren. <a href="cookiebeleid.html" style="color:#0097DB;text-decoration:underline;">Meer info</a></p>
+      <div style="display:flex;gap:0.75rem;flex-shrink:0;">
+        <button onclick="acceptCookies(false)" style="padding:0.55rem 1.2rem;background:transparent;border:1px solid rgba(255,255,255,0.4);color:#fff;border-radius:4px;font-size:0.8rem;font-weight:500;cursor:pointer;">Alleen noodzakelijk</button>
+        <button onclick="acceptCookies(true)" style="padding:0.55rem 1.2rem;background:#0097DB;border:1px solid #0097DB;color:#fff;border-radius:4px;font-size:0.8rem;font-weight:600;cursor:pointer;">Alle cookies aanvaarden</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // Cookie consent
+    function acceptCookies(all) {
+      localStorage.setItem('hvh_cookies', all ? 'all' : 'essential');
+      document.getElementById('cookieBanner').style.display = 'none';
+    }
+    if (!localStorage.getItem('hvh_cookies')) {
+      document.getElementById('cookieBanner').style.display = 'block';
+    }
     // Mobile nav
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobileNav');

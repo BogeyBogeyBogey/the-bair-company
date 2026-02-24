@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>if(!sessionStorage.getItem('hvh_auth'))window.location.replace('gate.html');</script>
+    <meta name="description" content="Juridische verklaring en disclaimer voor Hans van Hest KBC verzekeringsagent">
+    <title>Juridische Verklaring | Hans van Hest Verzekeringen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-mark {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-mark svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #0D2A50;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: #0097DB;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: #0D2A50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            color: #0097DB;
+            border-bottom-color: #0097DB;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0D2A50 0%, #0097DB 100%);
+            color: white;
+            padding: 4rem 1.5rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #0D2A50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0097DB;
+        }
+
+        section h3 {
+            font-size: 1.1rem;
+            color: #0D2A50;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-item {
+            padding: 1.2rem;
+            background: #f9f9f9;
+            border-left: 4px solid #0097DB;
+            border-radius: 4px;
+        }
+
+        .info-item strong {
+            color: #0D2A50;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .info-item span {
+            color: #555;
+            font-size: 0.95rem;
+            word-break: break-word;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .procedure-steps {
+            counter-reset: step-counter;
+            margin: 2rem 0;
+        }
+
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: 1.5rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #0097DB;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .step h4 {
+            color: #0D2A50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .step p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .disclaimer-box {
+            background: #f0f7ff;
+            border-left: 5px solid #0097DB;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .disclaimer-box p {
+            margin-bottom: 0.8rem;
+            color: #0D2A50;
+        }
+
+        a {
+            color: #0097DB;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0D2A50;
+            text-decoration: underline;
+        }
+
+        .last-updated {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: #0D2A50;
+            color: white;
+            padding: 3rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #0097DB;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            font-size: 0.9rem;
+            color: #ddd;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #0097DB;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .footer-bottom a {
+            color: #0097DB;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-mark">
+                    <svg viewBox="0 0 409.47 319.37" xmlns="http://www.w3.org/2000/svg" aria-label="KBC Logo">
+                        <g>
+                            <circle fill="#0097db" cx="207.09" cy="70.68" r="70.69"/>
+                            <path fill="#0097db" d="M259.22,127.89c-13.47,14.6-37.22,29.2-67.69,29.2-23.64,0-44-9.19-56.95-19.4C57.4,145.79,0,157.27,0,157.27v31.25l409.45-.04v-64.44s-70.15-.43-150.22,3.85h-.01Z"/>
+                        </g>
+                        <g>
+                            <path fill="#0D2A50" d="M48.64,279.9v38.08H0v-101.31h48.64v45.59h.28l28.63-45.59h58.32l-42.71,52.36,40.3,48.95h-55.66l-28.83-38.08h-.33,0Z"/>
+                            <path fill="#0D2A50" d="M409.47,313.8c-11.48,3.51-26.56,5.58-40.06,5.58-48.12,0-83.46-13.68-83.46-53.46,0-35.95,34.24-51.57,81.06-51.57,13.01,0,29.54,1.44,42.46,5.56l-.02,34.82c-9.58-5.8-19.16-9.42-32.88-9.42-17.86,0-35.7,8.79-35.7,21.56s17.77,21.56,35.7,21.56c13.5,0,23.3-3.74,32.88-9.27l.02,34.65h0Z"/>
+                            <path fill="#0D2A50" d="M143.84,216.67h98.33c25.54,0,33.91,9.93,33.91,25.4,0,17.31-15.47,24.83-31.36,25.68v.28c16.32,1.28,32.21,3.12,32.21,23.55,0,13.34-8.37,26.39-36.46,26.39h-96.63v-101.31h0ZM192.48,297.39h25.36c9.51,0,12.74-3.94,12.74-9.75s-3.27-9.99-12.63-9.99h-25.47v19.75h0ZM192.48,259.61h24.23c9.36,0,13.03-3.79,13.03-9.61,0-6.67-3.7-10-12.35-10h-24.91v19.61h0Z"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Hans van Hest</h1>
+                    <span>Verzekeringen</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="autoverzekering.html">Autoverzekering</a>
+                <a href="woning-brand.html">Woning & Brand</a>
+                <a href="familiale-rechtsbijstand.html">Rechtsbijstand</a>
+                <a href="hospitalisatie-gezondheid.html">Gezondheid</a>
+                <a href="zelfstandigen-bedrijven.html">Zelfstandigen</a>
+                <a href="pensioensparen-beleggen.html">Pensioen</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / Juridische Verklaring
+            </div>
+            <h1>Juridische Verklaring</h1>
+            <p>Disclaimer en wettelijke informatie</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Identificatie -->
+        <section>
+            <h2>Identificatie van het Kantoor</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Ondernemingsnaam</strong>
+                    <span>Hans van Hest</span>
+                </div>
+                <div class="info-item">
+                    <strong>Adres</strong>
+                    <span>Diestsesteenweg 104 G<br>3010 Leuven</span>
+                </div>
+                <div class="info-item">
+                    <strong>Ondernemingsnummer</strong>
+                    <span>BE 0XXX.XXX.XXX</span>
+                </div>
+                <div class="info-item">
+                    <strong>BTW-nummer</strong>
+                    <span>BE 0XXX.XXX.XXX</span>
+                </div>
+                <div class="info-item">
+                    <strong>RPR</strong>
+                    <span>Rechtbank van Koophandel Leuven</span>
+                </div>
+                <div class="info-item">
+                    <strong>Telefoon</strong>
+                    <span>016 12 34 56</span>
+                </div>
+                <div class="info-item">
+                    <strong>E-mail</strong>
+                    <span><a href="mailto:info@hansvanhest.be">info@hansvanhest.be</a></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statuut -->
+        <section>
+            <h2>Statuut als Verzekeringstussenpersoon</h2>
+            <div class="disclaimer-box">
+                <p>Hans van Hest is ingeschreven als <strong>verbonden verzekeringsagent</strong> onder FSMA-nr. <strong>XXXXXX A</strong> in het register van verzekeringstussenpersonen, bijgehouden door de Autoriteit voor Financiële Diensten en Markten (FSMA), Congresstraat 12-14, 1000 Brussel (<a href="https://www.fsma.be" target="_blank" rel="noopener">www.fsma.be</a>).</p>
+            </div>
+
+            <h3>Principaal</h3>
+            <div class="disclaimer-box">
+                <p>Als verbonden agent treedt Hans van Hest op voor rekening van <strong>KBC Verzekeringen NV</strong>, Professor Roger Van Overstraetenplein 2, 3000 Leuven, BTW BE 0403.552.563, RPR Leuven. KBC Verzekeringen NV is toegelaten voor alle takken onder code 0014 (K.B. 4 juli 1979, Nationale Bank van België).</p>
+            </div>
+        </section>
+
+        <!-- Disclaimer -->
+        <section>
+            <h2>Disclaimer</h2>
+            <ul>
+                <li>De informatie op deze website is louter informatief en vormt geen bindend aanbod.</li>
+                <li>Hans van Hest besteedt de grootste zorg aan de inhoud van deze website, maar kan geen absolute garantie bieden omtrent de juistheid, volledigheid en actualiteit ervan.</li>
+                <li>Voor concrete offertes, gedetailleerde informatie en contractuele verbintenissen dient u rechtstreeks contact op te nemen met het kantoor.</li>
+                <li>Deze website richt zich tot consumenten en ondernemingen in België.</li>
+            </ul>
+        </section>
+
+        <!-- AssurMiFID -->
+        <section>
+            <h2>AssurMiFID-Gedragsregels</h2>
+            <p>Het kantoor van Hans van Hest naleeft de AssurMiFID-gedragsregels zoals vastgesteld in de wet van 30 juli 2013 tot bescherming van afnemers van financiële producten en diensten, en de bijhorende koninklijke besluiten en reglementen.</p>
+            <p>Meer informatie over deze gedragsregels is beschikbaar op ons kantoor of via de <a href="https://www.fsma.be" target="_blank" rel="noopener">FSMA</a>.</p>
+        </section>
+
+        <!-- Intellectuele Eigendom -->
+        <section>
+            <h2>Intellectuele Eigendom</h2>
+            <p>Alle teksten, beelden, logo's, merken en andere inhoud op deze website zijn eigendom van hun respectieve eigenaars, waaronder:</p>
+            <ul>
+                <li>KBC Groep NV</li>
+                <li>KBC Verzekeringen NV</li>
+                <li>Hans van Hest</li>
+            </ul>
+            <p>De reproductie of verspreiding van deze inhoud zonder voorafgaande schriftelijke toestemming van de eigenaar is verboden. Alle rechten voorbehouden.</p>
+        </section>
+
+        <!-- Klachtenprocedure -->
+        <section>
+            <h2>Klachtenprocedure</h2>
+            <p>Bent u ontevreden over onze dienstverlening? Volg dan de volgende procedure:</p>
+            
+            <div class="procedure-steps">
+                <div class="step">
+                    <h4>Stap 1: Contact met ons kantoor</h4>
+                    <p><strong>Hans van Hest</strong><br>Diestsesteenweg 104 G, 3010 Leuven<br>Telefoon: 016 12 34 56<br>E-mail: <a href="mailto:info@hansvanhest.be">info@hansvanhest.be</a></p>
+                    <p>Neem eerst contact met ons op. We zullen uw klacht in behandeling nemen en proberen het geschil zo snel mogelijk op te lossen.</p>
+                </div>
+
+                <div class="step">
+                    <h4>Stap 2: KBC-Klachtenmanagement</h4>
+                    <p><strong>KBC Klachtenmanagement</strong><br>Brusselsesteenweg 100<br>3000 Leuven<br>E-mail: <a href="mailto:klachten@kbc.be">klachten@kbc.be</a><br>Telefoon (gratis): 0800 620 84<br>Telefoon: 078 15 20 45</p>
+                    <p>Indien u geen bevrediging ontvangt van ons kantoor, kunt u zich richten tot KBC-Klachtenmanagement.</p>
+                </div>
+
+                <div class="step">
+                    <h4>Stap 3: Ombudsman van de Verzekeringen</h4>
+                    <p><strong>Ombudsman van de Verzekeringen</strong><br>De Meeûsplantsoen 35<br>1000 Brussel<br>Website: <a href="https://www.ombudsman-insurance.be" target="_blank" rel="noopener">www.ombudsman-insurance.be</a></p>
+                    <p>Bent u nog niet tevreden na stap 2? Dan kunt u uw klacht indienen bij de Ombudsman van de Verzekeringen.</p>
+                </div>
+            </div>
+
+            <p><strong>Juridische stappen:</strong> U behoudt steeds het recht om een gerechtelijke procedure in te leiden.</p>
+        </section>
+
+        <!-- Toepasselijk Recht -->
+        <section>
+            <h2>Toepasselijk Recht</h2>
+            <ul>
+                <li><strong>Belgisch recht</strong> is van toepassing op alle gebruiksvoorwaarden en de relatie tussen Hans van Hest en de bezoeker van deze website.</li>
+                <li>Alle geschillen vallen onder de <strong>bevoegdheid van de rechtbanken van Leuven</strong>.</li>
+            </ul>
+        </section>
+
+        <!-- Aanvullende Links -->
+        <section>
+            <h2>Aanvullende Informatie</h2>
+            <p>Voor meer informatie over onze privacypraktijken en het gebruik van cookies, raadpleeg alstublieft:</p>
+            <ul>
+                <li><a href="privacy.html">Privacyverklaring</a></li>
+                <li><a href="cookiebeleid.html">Cookiebeleid</a></li>
+            </ul>
+            <div class="last-updated">
+                <p>Laatst bijgewerkt: 24 februari 2026</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Over Ons</h3>
+                <p>Hans van Hest is uw vertrouwde KBC verzekeringsagent in Leuven met meer dan 20 jaar ervaring in verzekeringen.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contactgegevens</h3>
+                <p>Diestsesteenweg 104 G<br>3010 Leuven</p>
+                <p>Telefoon: <a href="tel:0161234556">016 12 34 56</a><br>E-mail: <a href="mailto:info@hansvanhest.be">info@hansvanhest.be</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Juridisch</h3>
+                <a href="disclaimer.html">Juridische Verklaring</a><br>
+                <a href="privacy.html">Privacyverklaring</a><br>
+                <a href="cookiebeleid.html">Cookiebeleid</a>
+            </div>
+            <div class="footer-section">
+                <h3>Verzekeringen</h3>
+                <a href="autoverzekering.html">Autoverzekering</a><br>
+                <a href="woning-brand.html">Woning & Brand</a><br>
+                <a href="hospitalisatie-gezondheid.html">Gezondheid</a><br>
+                <a href="familiale-rechtsbijstand.html">Rechtsbijstand</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Hans van Hest. Alle rechten voorbehouden.<br>Website door <a href="https://www.thebaircompany.com" target="_blank" rel="noopener">The Bair Company</a></p>
+        </div>
+    </footer>
+</body>
+</html>

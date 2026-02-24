@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Hans van Hest Verzekeringen</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0D2A50;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .gate {
+      background: #fff;
+      border-radius: 12px;
+      padding: 3rem 2.5rem;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .gate-logo { margin-bottom: 1.5rem; }
+    .gate-logo svg { height: 48px; }
+    .gate h1 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0D2A50;
+      margin-bottom: 0.35rem;
+    }
+    .gate p {
+      font-size: 0.85rem;
+      color: #5A6B80;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    .gate input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #E4E7EC;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      text-align: center;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .gate input:focus { border-color: #0097DB; }
+    .gate input.error { border-color: #e74c3c; animation: shake 0.4s; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .gate button {
+      width: 100%;
+      padding: 0.85rem;
+      background: #0D2A50;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.75rem;
+      transition: background 0.2s;
+    }
+    .gate button:hover { background: #0097DB; }
+    .gate-hint {
+      font-size: 0.75rem;
+      color: #C8CDD6;
+      margin-top: 1.5rem;
+    }
+    .gate-tbc {
+      font-size: 0.7rem;
+      color: #8896A7;
+      margin-top: 1rem;
+    }
+    .gate-tbc a { color: #0097DB; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="gate">
+    <div class="gate-logo">
+      <svg viewBox="0 0 409.47 319.37" xmlns="http://www.w3.org/2000/svg" aria-label="KBC Logo"><g><circle fill="#0097db" cx="207.09" cy="70.68" r="70.69"/><path fill="#0097db" d="M259.22,127.89c-13.47,14.6-37.22,29.2-67.69,29.2-23.64,0-44-9.19-56.95-19.4C57.4,145.79,0,157.27,0,157.27v31.25l409.45-.04v-64.44s-70.15-.43-150.22,3.85h-.01Z"/></g><g><path fill="#0D2A50" d="M48.64,279.9v38.08H0v-101.31h48.64v45.59h.28l28.63-45.59h58.32l-42.71,52.36,40.3,48.95h-55.66l-28.83-38.08h-.33,0Z"/><path fill="#0D2A50" d="M409.47,313.8c-11.48,3.51-26.56,5.58-40.06,5.58-48.12,0-83.46-13.68-83.46-53.46,0-35.95,34.24-51.57,81.06-51.57,13.01,0,29.54,1.44,42.46,5.56l-.02,34.82c-9.58-5.8-19.16-9.42-32.88-9.42-17.86,0-35.7,8.79-35.7,21.56s17.77,21.56,35.7,21.56c13.5,0,23.3-3.74,32.88-9.27l.02,34.65h0Z"/><path fill="#0D2A50" d="M143.84,216.67h98.33c25.54,0,33.91,9.93,33.91,25.4,0,17.31-15.47,24.83-31.36,25.68v.28c16.32,1.28,32.21,3.12,32.21,23.55,0,13.34-8.37,26.39-36.46,26.39h-96.63v-101.31h0ZM192.48,297.39h25.36c9.51,0,12.74-3.94,12.74-9.75s-3.27-9.99-12.63-9.99h-25.47v19.75h0ZM192.48,259.61h24.23c9.36,0,13.03-3.79,13.03-9.61,0-6.67-3.7-10-12.35-10h-24.91v19.61h0Z"/></g></svg>
+    </div>
+    <h1>Hans van Hest — Preview</h1>
+    <p>Deze website is in ontwikkeling. Voer het wachtwoord in om de preview te bekijken.</p>
+    <form onsubmit="return checkPass()">
+      <input type="password" id="pw" placeholder="Wachtwoord" autocomplete="off" autofocus>
+      <button type="submit">Bekijk preview</button>
+    </form>
+    <div class="gate-hint">Wachtwoord ontvangen van The Bair Company</div>
+    <div class="gate-tbc">Een project van <a href="https://the-bair-company.vercel.app" target="_blank">The Bair Company</a></div>
+  </div>
+  <script>
+    // Simple hash check (not cryptographically secure, but fine for WIP preview)
+    function simpleHash(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) {
+        h = ((h << 5) - h) + str.charCodeAt(i);
+        h |= 0;
+      }
+      return h;
+    }
+    const HASH = -1947531205; // hash of "Hansie"
+
+    // Check if already authenticated
+    if (sessionStorage.getItem('hvh_auth') === 'ok') {
+      window.location.replace('index.html');
+    }
+
+    function checkPass() {
+      const input = document.getElementById('pw');
+      if (simpleHash(input.value) === HASH) {
+        sessionStorage.setItem('hvh_auth', 'ok');
+        window.location.replace('index.html');
+      } else {
+        input.classList.add('error');
+        input.value = '';
+        input.placeholder = 'Onjuist wachtwoord';
+        setTimeout(() => { input.classList.remove('error'); input.placeholder = 'Wachtwoord'; }, 1500);
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
