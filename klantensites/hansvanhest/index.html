@@ -171,10 +171,10 @@
       overflow: hidden;
     }
     .hero-bg { position: absolute; inset: 0; }
-    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-bg img, .hero-bg video { width: 100%; height: 100%; object-fit: cover; }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,56,101,0.9) 0%, rgba(0,56,101,0.65) 50%, rgba(0,56,101,0.35) 100%);
+      background: linear-gradient(135deg, rgba(0,56,101,0.85) 0%, rgba(0,56,101,0.55) 50%, rgba(0,56,101,0.25) 100%);
     }
     .hero-content {
       position: relative; z-index: 2;
@@ -206,6 +206,54 @@
       font-weight: 300;
     }
     .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ═══ VIDEO SOUND TOGGLE ═══ */
+    .hero-sound-toggle {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2rem;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all var(--ease);
+    }
+    .hero-sound-toggle:hover {
+      background: rgba(0,0,0,0.75);
+      border-color: rgba(255,255,255,0.5);
+    }
+    .hero-sound-toggle .sound-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .hero-sound-toggle .sound-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 14px;
+    }
+    .hero-sound-toggle .sound-bars span {
+      display: block;
+      width: 3px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: height 0.3s ease;
+    }
+    .hero-sound-toggle.muted .sound-bars span {
+      height: 3px !important;
+    }
 
     /* ═══ BUTTONS ═══ */
     .btn {
@@ -551,6 +599,7 @@
       .hamburger { display: flex; }
       .hero { min-height: 440px; }
       .hero h2 { font-size: clamp(2rem, 6vw, 2.6rem); }
+      .hero-sound-toggle { bottom: 1rem; right: 1rem; padding: 0.45rem 0.85rem; font-size: 0.75rem; }
       .action-cards { grid-template-columns: 1fr; margin-top: -2rem; }
       .services-grid { grid-template-columns: 1fr; }
       .trust-grid { grid-template-columns: 1fr; }
@@ -638,7 +687,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
-      <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=1600&q=80" alt="Familie in hun woning" loading="eager">
+      <video id="heroVideo" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=1600&q=80">
+        <source src="hansvanhesttrailer.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -650,6 +701,16 @@
         <a href="#services" class="btn btn-ghost">Ontdek ons aanbod</a>
       </div>
     </div>
+    <button class="hero-sound-toggle muted" id="soundToggle" aria-label="Geluid aan/uit" title="Geluid aan/uit">
+      <svg class="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line class="mute-line" x1="23" y1="9" x2="17" y2="15" style="display:inline"></line>
+        <line class="mute-line" x1="17" y1="9" x2="23" y2="15" style="display:inline"></line>
+        <path class="sound-wave-1" d="M15.54 8.46a5 5 0 0 1 0 7.07" style="display:none"></path>
+        <path class="sound-wave-2" d="M19.07 4.93a10 10 0 0 1 0 14.14" style="display:none"></path>
+      </svg>
+      <span id="soundLabel">Geluid aan</span>
+    </button>
   </section>
 
   <!-- ACTION CARDS -->
@@ -1054,6 +1115,31 @@
     if (!localStorage.getItem('hvh_cookies')) {
       document.getElementById('cookieBanner').style.display = 'block';
     }
+    // Hero video sound toggle
+    (function() {
+      const video = document.getElementById('heroVideo');
+      const toggle = document.getElementById('soundToggle');
+      const label = document.getElementById('soundLabel');
+      if (video && toggle) {
+        toggle.addEventListener('click', function() {
+          if (video.muted) {
+            video.muted = false;
+            toggle.classList.remove('muted');
+            label.textContent = 'Geluid uit';
+            toggle.querySelector('.mute-line').style.display = 'none';
+            toggle.querySelectorAll('.mute-line').forEach(l => l.style.display = 'none');
+            toggle.querySelectorAll('.sound-wave-1, .sound-wave-2').forEach(w => w.style.display = 'inline');
+          } else {
+            video.muted = true;
+            toggle.classList.add('muted');
+            label.textContent = 'Geluid aan';
+            toggle.querySelectorAll('.mute-line').forEach(l => l.style.display = 'inline');
+            toggle.querySelectorAll('.sound-wave-1, .sound-wave-2').forEach(w => w.style.display = 'none');
+          }
+        });
+      }
+    })();
+
     // Mobile nav
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobileNav');
