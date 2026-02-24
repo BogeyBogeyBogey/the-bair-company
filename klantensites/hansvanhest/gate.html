@@ -112,7 +112,8 @@
       }
       return h;
     }
-    const HASH = -1947531205; // hash of "Hansie"
+    const HASH_UPPER = -2140696006; // "Hansie"
+    const HASH_LOWER = -1224563174; // "hansie"
 
     // Check if already authenticated
     if (sessionStorage.getItem('hvh_auth') === 'ok') {
@@ -121,7 +122,8 @@
 
     function checkPass() {
       const input = document.getElementById('pw');
-      if (simpleHash(input.value) === HASH) {
+      const h = simpleHash(input.value);
+      if (h === HASH_UPPER || h === HASH_LOWER) {
         sessionStorage.setItem('hvh_auth', 'ok');
         window.location.replace('index.html');
       } else {
