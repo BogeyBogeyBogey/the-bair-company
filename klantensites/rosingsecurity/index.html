@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosing Security — Bewakingsexpert voor bedrijven en evenementen | 24/7</title>
+  <meta name="description" content="Rosing Security: uw bewakingsexpert in Vlaams-Brabant. Industriele bewaking, mobiele patrouilles, evenementbeveiliging en event services. 24/7 bereikbaar. Vergunning MIBZ 16.1135.12.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0A0A0A;
+      --dark: #111111;
+      --dark-2: #1A1A1A;
+      --dark-3: #222222;
+      --red: #E31E24;
+      --red-dark: #B8191E;
+      --red-glow: rgba(227,30,36,0.3);
+      --white: #FFFFFF;
+      --gray-100: #F0F0F0;
+      --gray-200: #D0D0D0;
+      --gray-400: #888888;
+      --gray-600: #555555;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Bebas Neue', Impact, sans-serif;
+      --ease: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      --shadow-red: 0 0 40px rgba(227,30,36,0.15);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-200);
+      line-height: 1.65;
+      background: var(--black);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: color var(--ease); }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ::selection { background: rgba(227,30,36,0.4); color: var(--white); }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ═══ TOP BAR ═══ */
+    .top-bar {
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.78rem;
+      padding: 0.4rem 0;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .top-bar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-bar a { color: var(--white); }
+    .top-bar a:hover { opacity: 0.8; }
+    .top-bar-left { display: flex; gap: 1.5rem; align-items: center; }
+    .top-bar-right { font-weight: 700; letter-spacing: 0.05em; }
+
+    /* ═══ HEADER ═══ */
+    .header {
+      background: var(--black);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: all var(--ease);
+    }
+    .header.scrolled {
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo { display: flex; align-items: center; gap: 0.75rem; }
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: var(--red);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .logo-text h1 {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .logo-text h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+    .logo-text span {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* NAV */
+    .nav-desktop { display: flex; gap: 0.25rem; align-items: center; }
+    .nav-desktop a {
+      color: var(--gray-400);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      transition: all var(--ease);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .nav-desktop a:hover, .nav-desktop a.active {
+      color: var(--white);
+      background: rgba(255,255,255,0.06);
+    }
+    .nav-cta {
+      background: var(--red) !important;
+      color: var(--white) !important;
+      padding: 0.55rem 1.2rem !important;
+    }
+    .nav-cta:hover { background: var(--red-dark) !important; }
+
+    /* HAMBURGER */
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 0.5rem; z-index: 200; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); transition: all var(--ease); }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* MOBILE NAV */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(20px);
+      z-index: 150;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--gray-400);
+      padding: 0.5rem 2rem;
+      transition: color var(--ease);
+      letter-spacing: 0.05em;
+    }
+    .mobile-nav a:hover { color: var(--red); }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.3);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.5) 50%, rgba(10,10,10,0.7) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 6rem 2rem;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(227,30,36,0.4);
+      border-radius: 4px;
+      background: rgba(227,30,36,0.08);
+    }
+    .hero h2 {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 400;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .hero h2 em {
+      font-style: normal;
+      color: var(--red);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      max-width: 550px;
+      color: var(--gray-200);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ═══ BUTTONS ═══ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem; font-weight: 700; font-size: 0.85rem;
+      transition: all var(--ease); letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 4px;
+    }
+    .btn-red { background: var(--red); color: var(--white); }
+    .btn-red:hover { background: var(--red-dark); box-shadow: var(--shadow-red); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.2); }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+    .btn-dark { background: var(--dark-2); color: var(--white); border: 1px solid rgba(255,255,255,0.1); }
+    .btn-dark:hover { background: var(--dark-3); border-color: var(--red); }
+
+    /* ═══ STATS BAR ═══ */
+    .stats-bar {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 3rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item h3 {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-item p {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══ SECTION HEADERS ═══ */
+    section { padding: 6rem 0; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--gray-400);
+      max-width: 600px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ═══ ABOUT / WAAROM ═══ */
+    .about { background: var(--black); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .about-image {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .about-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+    .about-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--red);
+    }
+    .about-text p {
+      color: var(--gray-200);
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .about-text p strong { color: var(--white); }
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--dark);
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .about-feature-icon {
+      width: 36px; height: 36px;
+      background: rgba(227,30,36,0.1);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red);
+      font-weight: 900;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .about-feature h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.15rem;
+    }
+    .about-feature p {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ═══ SERVICES ═══ */
+    .services { background: var(--dark); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all var(--ease);
+      position: relative;
+    }
+    .service-card:hover {
+      border-color: rgba(227,30,36,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .service-card-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    .service-card-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+      filter: brightness(0.6);
+    }
+    .service-card:hover .service-card-image img {
+      transform: scale(1.08);
+      filter: brightness(0.75);
+    }
+    .service-card-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(transparent, var(--dark-2));
+    }
+    .service-card-num {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: rgba(255,255,255,0.15);
+      z-index: 2;
+    }
+    .service-card-body { padding: 1.5rem; }
+    .service-card-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.03em;
+    }
+    .service-card-body p {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .service-card-link {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all var(--ease);
+    }
+    .service-card-link:hover { color: var(--white); }
+
+    /* ═══ CTA BANNER ═══ */
+    .cta-banner {
+      background: var(--red);
+      padding: 4rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(0,0,0,0.03) 20px,
+        rgba(0,0,0,0.03) 40px
+      );
+    }
+    .cta-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      position: relative;
+      letter-spacing: 0.02em;
+    }
+    .cta-banner p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      position: relative;
+      font-weight: 300;
+    }
+    .cta-banner .btn {
+      position: relative;
+      background: var(--white);
+      color: var(--red);
+    }
+    .cta-banner .btn:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* ═══ EVENTS SECTION ═══ */
+    .events { background: var(--black); }
+    .events-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .events-services-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+    .events-service-item {
+      padding: 0.85rem 1rem;
+      background: var(--dark);
+      border-radius: 6px;
+      border-left: 3px solid var(--red);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray-200);
+      transition: all var(--ease);
+    }
+    .events-service-item:hover {
+      background: var(--dark-2);
+      color: var(--white);
+    }
+    .events-image {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .events-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+
+    /* ═══ REFERENTIES ═══ */
+    .referenties { background: var(--dark); }
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .ref-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all var(--ease);
+    }
+    .ref-card:hover {
+      border-color: rgba(227,30,36,0.3);
+      transform: translateY(-3px);
+    }
+    .ref-card h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .ref-card p {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+    }
+    .ref-card-icon {
+      width: 50px; height: 50px;
+      background: rgba(227,30,36,0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      color: var(--red);
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+    }
+
+    /* ═══ MOBILE BEWAKING DETAIL ═══ */
+    .mobile-bewaking { background: var(--black); }
+    .mb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .mb-card {
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: all var(--ease);
+    }
+    .mb-card:hover { border-color: rgba(227,30,36,0.2); }
+    .mb-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+    .mb-card p {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      line-height: 1.7;
+    }
+    .mb-card-accent {
+      width: 40px; height: 3px;
+      background: var(--red);
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ═══ CONTACT ═══ */
+    .contact { background: var(--dark); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    .contact-info-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
+    .contact-info-card h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+    .contact-info-card p {
+      color: var(--gray-200);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .contact-info-card a { color: var(--white); font-weight: 600; }
+    .contact-info-card a:hover { color: var(--red); }
+    .contact-phone {
+      font-family: var(--font-display);
+      font-size: 2rem !important;
+      color: var(--white) !important;
+      letter-spacing: 0.02em;
+    }
+    .contact-form {
+      background: var(--dark-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 2.5rem;
+    }
+    .contact-form h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: border-color var(--ease);
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--red);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 4rem 0 0;
+      font-size: 0.85rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-top: 0.75rem;
+    }
+    .footer-brand .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--white);
+      letter-spacing: 0.03em;
+    }
+    .footer-brand .footer-logo em { font-style: normal; color: var(--red); }
+    .footer-col h4 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gray-400);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block;
+      color: var(--gray-600);
+      font-size: 0.82rem;
+      padding: 0.25rem 0;
+      transition: color var(--ease);
+    }
+    .footer-col a:hover { color: var(--red); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      color: var(--gray-600);
+      font-size: 0.78rem;
+    }
+    .footer-bottom a { color: var(--gray-600); }
+    .footer-bottom a:hover { color: var(--red); }
+    .footer-legal { display: flex; gap: 1.5rem; }
+
+    /* ═══ SCROLL REVEAL ═══ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .ref-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-desktop { display: none; }
+      .hamburger { display: flex; }
+      .hero { min-height: 70vh; }
+      .hero h2 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
+      .about-grid, .events-layout, .contact-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .mb-grid { grid-template-columns: 1fr; }
+      .ref-grid { grid-template-columns: 1fr 1fr; }
+      .about-features { grid-template-columns: 1fr; }
+      .events-services-list { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 0.75rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item h3 { font-size: 2.5rem; }
+      section { padding: 4rem 0; }
+      .form-row { grid-template-columns: 1fr; }
+      .top-bar-left span:first-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span>Vergunning MIBZ 16.1135.12</span>
+        <a href="mailto:info@rosingsecurity.be">info@rosingsecurity.be</a>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:+32475896380">24/7 Servicelijn: 0475 89 63 80</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">RS</div>
+        <div class="logo-text">
+          <h1>Rosing <em>Security</em></h1>
+          <span>Your security partner</span>
+        </div>
+      </a>
+      <nav class="nav-desktop">
+        <a href="#about">Waarom Rosing</a>
+        <a href="#diensten">Diensten</a>
+        <a href="#events">Events</a>
+        <a href="#referenties">Referenties</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about" onclick="closeMobile()">Waarom Rosing</a>
+    <a href="#diensten" onclick="closeMobile()">Diensten</a>
+    <a href="#events" onclick="closeMobile()">Events</a>
+    <a href="#referenties" onclick="closeMobile()">Referenties</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1600&q=80" alt="Security bewaking" loading="eager">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Bewakingsexpert sinds 2009</div>
+      <h2>ONZE ERVARING,<br>UW <em>VEILIGHEID</em></h2>
+      <p>Rosing Security staat garant voor professionele bewaking van bedrijven, domeinen en evenementen. 24/7 bereikbaar, discreet of zichtbaar preventief. Velen beloven het, wij leveren het.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-red">Vraag een offerte</a>
+        <a href="#diensten" class="btn btn-ghost">Onze diensten</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <h3>15+</h3>
+          <p>Jaar ervaring</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>24/7</h3>
+          <p>Bereikbaar</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>110%</h3>
+          <p>Inzet</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>MIBZ</h3>
+          <p>Erkend en vergund</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WAAROM ROSING -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-tag">Waarom Rosing</div>
+      <h2 class="section-title">JARENLANGE EXPERTISE,<br>UNIEKE DIENSTVERLENING</h2>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?w=800&q=80" alt="Professioneel beveiligingsteam">
+        </div>
+        <div class="about-text reveal">
+          <p><strong>Rosing Security en Rosing Events &amp; Services</strong> bezitten een jarenlange expertise en unieke dienstverlening. Door ons streven naar hoge kwaliteit en maatwerk zijn wij een van de marktleiders binnen onze domeinen.</p>
+          <p>Een doorgedreven service en een perfect opgeleid en functionerend team staan garant voor uw veiligheid. Discreet en/of preventief, steeds een tot in de puntjes verzorgde beveiliging.</p>
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="about-feature-icon">01</div>
+              <div>
+                <h4>Maatwerk</h4>
+                <p>Op maat en volledig geintegreerde aanpak</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">02</div>
+              <div>
+                <h4>Snelle respons</h4>
+                <p>Snelste responstijden in uw regio</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">03</div>
+              <div>
+                <h4>Erkend</h4>
+                <p>Vergund onder MIBZ 16.1135.12</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">04</div>
+              <div>
+                <h4>Concurrentieel</h4>
+                <p>Flexibiliteit en snelheid aan scherpe prijzen</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIENSTEN -->
+  <section class="services" id="diensten">
+    <div class="container">
+      <div class="section-tag">Onze diensten</div>
+      <h2 class="section-title">ROSING SECURITY — BEWAKING</h2>
+      <p class="section-subtitle">Van industriele bewaking tot mobiele patrouilles en alarminterventie. Wij beschermen uw eigendommen, personeel en bezoekers.</p>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-card-image">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Industriele bewaking">
+            <div class="service-card-num">01</div>
+          </div>
+          <div class="service-card-body">
+            <h3>INDUSTRIELE BEWAKING</h3>
+            <p>Permanente of tijdelijke bewaking van kantoor, bedrijfspand, domein of magazijn. De veiligheid van uw eigendom, personeel en bezoekers zijn onze prioriteit.</p>
+            <a href="#contact" class="service-card-link">Meer info &#8594;</a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-card-image">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80" alt="Winkelbewaking">
+            <div class="service-card-num">02</div>
+          </div>
+          <div class="service-card-body">
+            <h3>WINKELBEWAKING</h3>
+            <p>Winkel en winkelcentra zijn vaak drukke omgevingen. Wij staan klaar voor elke opdracht — discreet of zichtbaar preventief. Toegangs- en uitgangscontrole, persoonscontrole en meer.</p>
+            <a href="#contact" class="service-card-link">Meer info &#8594;</a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-card-image">
+            <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&q=80" alt="Domeinbewaking">
+            <div class="service-card-num">03</div>
+          </div>
+          <div class="service-card-body">
+            <h3>DOMEINBEWAKING</h3>
+            <p>Langdurige of korte bewakingsopdrachten voor een veilige omgeving. Uw domein — privaat en overheid — in alle discretie van bewaking voorzien.</p>
+            <a href="#contact" class="service-card-link">Meer info &#8594;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOBIELE BEWAKING -->
+  <section class="mobile-bewaking">
+    <div class="container">
+      <div class="section-tag">24/7 Paraat</div>
+      <h2 class="section-title">MOBIELE BEWAKING &amp; INTERVENTIE</h2>
+      <p class="section-subtitle">Pro-actieve mobiele bewaking en ontrading door preventie. Onze agenten beschikken over goed uitgeruste apparatuur en een grondige kennis van alarmsystemen.</p>
+      <div class="mb-grid">
+        <div class="mb-card reveal">
+          <div class="mb-card-accent"></div>
+          <h4>PREVENTIEVE PATROUILLES</h4>
+          <p>In samenspraak bepaalt u de frequentie, traject en te controleren punten. Via ons taggingssysteem voeren wij preventieve rondes uit met onze mobiele bewakingspatrouille.</p>
+        </div>
+        <div class="mb-card reveal">
+          <div class="mb-card-accent"></div>
+          <h4>INTERVENTIE NA ALARM</h4>
+          <p>Loopt er een alarm binnen? Dan zijn wij meteen paraat om ter plaatse te gaan voor interne en externe controles. Snel en vastberaden actie bij brand-, inbraak- of bedrijfsprocessen.</p>
+        </div>
+        <div class="mb-card reveal">
+          <div class="mb-card-accent"></div>
+          <h4>CONTROLERONDES</h4>
+          <p>Externe controlerondes (perimeter, deuren, ramen), interne controlerondes, opsporen van technische defecten, controle op kritische bedrijfsprocessen en bezoekersverslag.</p>
+        </div>
+        <div class="mb-card reveal">
+          <div class="mb-card-accent"></div>
+          <h4>OPENING &amp; SLUITING</h4>
+          <p>Openen en sluiten van gebouwen, doven van lichten en uitschakelen van apparaten, controle van personeel op aanwezigheid. Volledige ontzorging buiten kantooruren.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="container">
+      <h2>VEILIGHEID BEGINT MET EEN GESPREK</h2>
+      <p>Bel onze 24/7 servicelijn of vraag vrijblijvend een offerte aan</p>
+      <a href="tel:+32475896380" class="btn">Bel 0475 89 63 80</a>
+    </div>
+  </div>
+
+  <!-- ROSING EVENTS & SERVICES -->
+  <section class="events" id="events">
+    <div class="container">
+      <div class="section-tag">Rosing Events &amp; Services</div>
+      <h2 class="section-title">UW EVENT &amp; ORGANISING PARTNER</h2>
+      <div class="events-layout">
+        <div class="reveal">
+          <p class="section-subtitle" style="margin-bottom:1.5rem;">Dankzij Rosing Event Services kunnen we u een totaalpakket en specifieke diensten aanbieden. Ervaren teamleden zorgen voor net die extra diensten die u kunnen bijstaan op alle momenten.</p>
+          <p style="font-size:0.9rem;color:var(--gray-400);line-height:1.8;margin-bottom:1.5rem;">Elke activiteit, elk evenement brengt niet alleen risico's mee die bewaking vereisen — maar ook een dienstverlening en organisatie die vlekkeloos verloopt. Rosing Events &amp; Services kan u deze aanvulling bieden.</p>
+          <div class="events-services-list">
+            <div class="events-service-item">Host &amp; Hostessen</div>
+            <div class="events-service-item">Parkingboys</div>
+            <div class="events-service-item">Evenementmedewerkers</div>
+            <div class="events-service-item">Ticket- en uitnodigingscontrole</div>
+            <div class="events-service-item">Vestiarediensten</div>
+            <div class="events-service-item">Klantenonthaal</div>
+            <div class="events-service-item">VIP begeleiding</div>
+            <div class="events-service-item">Receptie &amp; conciergediensten</div>
+            <div class="events-service-item">Totale evenementcoordinatie</div>
+            <div class="events-service-item">Toegangscontrole &amp; security</div>
+          </div>
+        </div>
+        <div class="events-image reveal">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Evenement beveiliging">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENTIES -->
+  <section class="referenties" id="referenties">
+    <div class="container">
+      <div class="section-tag">Referenties</div>
+      <h2 class="section-title">EEN GREEP UIT ONZE REFERENTIES</h2>
+      <p class="section-subtitle">Onderstaande referenties zijn slechts een selectie uit ons breed klantenbestand. Wij bespreken graag meer referenties in een persoonlijk gesprek.</p>
+      <div class="ref-grid">
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">B</div>
+          <h4>Bosch</h4>
+          <p>Industriele bewaking</p>
+        </div>
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">G</div>
+          <h4>Graspop Metal Meeting</h4>
+          <p>Evenementbeveiliging</p>
+        </div>
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">W</div>
+          <h4>Waregem Koerse</h4>
+          <p>Evenementbeveiliging</p>
+        </div>
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">L</div>
+          <h4>Laundry Day</h4>
+          <p>Evenementbeveiliging</p>
+        </div>
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">A</div>
+          <h4>American Jeansstore</h4>
+          <p>Winkelbewaking</p>
+        </div>
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">J</div>
+          <h4>Juwelier Timmermans</h4>
+          <p>Bedrijfsbewaking</p>
+        </div>
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">H</div>
+          <h4>Hengelhoef Holiday Suites</h4>
+          <p>Domeinbewaking</p>
+        </div>
+        <div class="ref-card reveal">
+          <div class="ref-card-icon">F</div>
+          <h4>Fiesta Rociera</h4>
+          <p>Evenementbeveiliging</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-tag">Contact</div>
+      <h2 class="section-title">NEEM CONTACT OP</h2>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-info-card reveal">
+            <h4>24/7 Servicelijn</h4>
+            <p class="contact-phone"><a href="tel:+32475896380">0475 89 63 80</a></p>
+          </div>
+          <div class="contact-info-card reveal">
+            <h4>Bedrijfsleider</h4>
+            <p><strong style="color:var(--white)">Robert Houblon</strong></p>
+            <p>Zaakvoerder Rosing Security</p>
+          </div>
+          <div class="contact-info-card reveal">
+            <h4>Kantoor</h4>
+            <p>Tiensesteenweg 124<br>3380 Glabbeek (Bunsbeek)<br>Belgie</p>
+          </div>
+          <div class="contact-info-card reveal">
+            <h4>Bedrijfsgegevens</h4>
+            <p>BTW: BE 0810.883.178<br>Vergunning: MIBZ 16.1135.12</p>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <h3>VRIJBLIJVENDE OFFERTE</h3>
+          <form onsubmit="event.preventDefault(); alert('Bedankt! Wij nemen zo snel mogelijk contact op.');">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Naam</label>
+                <input type="text" required placeholder="Uw naam">
+              </div>
+              <div class="form-group">
+                <label>Bedrijf</label>
+                <input type="text" placeholder="Bedrijfsnaam">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" required placeholder="uw@email.be">
+              </div>
+              <div class="form-group">
+                <label>Telefoon</label>
+                <input type="tel" placeholder="Uw telefoonnummer">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Type dienst</label>
+              <select>
+                <option value="">Selecteer een dienst</option>
+                <option>Industriele bewaking</option>
+                <option>Winkelbewaking</option>
+                <option>Domeinbewaking</option>
+                <option>Mobiele bewaking</option>
+                <option>Interventie na alarm</option>
+                <option>Evenementbeveiliging</option>
+                <option>Event services (host, parking, vestiaire...)</option>
+                <option>Totale evenementcoordinatie</option>
+                <option>Andere</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Uw bericht</label>
+              <textarea placeholder="Beschrijf kort uw beveiligingsnoden..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-red" style="width:100%;justify-content:center;">Verstuur aanvraag</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">ROSING <em>SECURITY</em></div>
+          <p>Rosing Security en Rosing Events &amp; Services: uw bewakingsexpert voor bedrijven en evenementen. Jarenlange expertise, hoge kwaliteit en maatwerk. 24/7 bereikbaar voor uw veiligheid.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Security</h4>
+          <a href="#diensten">Industriele bewaking</a>
+          <a href="#diensten">Winkelbewaking</a>
+          <a href="#diensten">Domeinbewaking</a>
+          <a href="#diensten">Mobiele bewaking</a>
+          <a href="#diensten">Interventie na alarm</a>
+        </div>
+        <div class="footer-col">
+          <h4>Events</h4>
+          <a href="#events">Evenementbeveiliging</a>
+          <a href="#events">Host &amp; Hostessen</a>
+          <a href="#events">VIP begeleiding</a>
+          <a href="#events">Parkingboys</a>
+          <a href="#events">Totale coordinatie</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+32475896380">0475 89 63 80</a>
+          <a href="mailto:info@rosingsecurity.be">info@rosingsecurity.be</a>
+          <a href="#contact">Offerte aanvragen</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 Rosing Security. Alle rechten voorbehouden. Vergunning MIBZ 16.1135.12</span>
+        <div class="footer-legal">
+          <a href="#">Disclaimer</a>
+          <a href="#">Privacy</a>
+          <span>Website door <a href="https://thebaircompany.be" style="color:var(--gray-400)">The Bair Company</a></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobile() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Sticky header
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
