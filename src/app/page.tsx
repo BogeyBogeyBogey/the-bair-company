@@ -2,25 +2,106 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { translations, Lang } from "../lib/translations";
+
+/* ═══════════════════════════════════════════════════════════
+   TYPES & DATA
+   ═══════════════════════════════════════════════════════════ */
+
+interface CollageImage {
+  src: string;
+  alt: string;
+  w: number;
+  h: number;
+  className: string;
+}
+
+const HERO_IMAGES: CollageImage[] = [
+  {
+    src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80",
+    alt: "Branding project",
+    w: 600, h: 750,
+    className: "col-img col-img-1",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80",
+    alt: "Digital dashboard",
+    w: 500, h: 340,
+    className: "col-img col-img-2",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=450&q=80",
+    alt: "Abstract art",
+    w: 450, h: 600,
+    className: "col-img col-img-3",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1555421689-d68471e189f2?w=550&q=80",
+    alt: "Creative workspace",
+    w: 550, h: 370,
+    className: "col-img col-img-4",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=80",
+    alt: "Typography design",
+    w: 400, h: 530,
+    className: "col-img col-img-5",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=480&q=80",
+    alt: "Mobile app design",
+    w: 480, h: 320,
+    className: "col-img col-img-6",
+  },
+];
+
+const PROJECTS = [
+  {
+    title: "GiGi Money",
+    tag: "Fintech · Web App",
+    src: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&q=80",
+    color: "#6C5CE7",
+  },
+  {
+    title: "Artoah",
+    tag: "Branding · Website",
+    src: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80",
+    color: "#00B894",
+  },
+  {
+    title: "Mooi Studio",
+    tag: "E-commerce · Design",
+    src: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&q=80",
+    color: "#E17055",
+  },
+  {
+    title: "Pulse Digital",
+    tag: "SaaS · Dashboard",
+    src: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&q=80",
+    color: "#0984E3",
+  },
+];
+
+const SERVICES = [
+  { icon: "✦", title: "Websites", desc: "Visueel krachtige, razendsnelle websites die converteren." },
+  { icon: "◈", title: "Apps", desc: "Mobiele en web apps die aanvoelen als magie." },
+  { icon: "◉", title: "Branding", desc: "Merken bouwen die in het geheugen blijven hangen." },
+  { icon: "◎", title: "Social Media", desc: "Content die stopt, raakt en aanzet tot actie." },
+  { icon: "✧", title: "Marketing", desc: "Strategieën die groeien vanuit data en creativiteit." },
+  { icon: "◇", title: "Workshops", desc: "Leer het zelf — of laat ons het samen doen." },
+];
 
 /* ═══════════════════════════════════════════════════════════
    HOOKS
    ═══════════════════════════════════════════════════════════ */
 
-function useInView(threshold = 0.15) {
+function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
-      },
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
       { threshold }
     );
     obs.observe(el);
@@ -29,33 +110,27 @@ function useInView(threshold = 0.15) {
   return { ref, visible };
 }
 
-function useMousePosition() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+function useParallax() {
+  const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
-    const handler = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", handler);
-    return () => window.removeEventListener("mousemove", handler);
+    const handler = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
   }, []);
-  return pos;
+  return scrollY;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   INTRO LOADER — Curtain split reveal
+   INTRO LOADER
    ═══════════════════════════════════════════════════════════ */
 
 function IntroLoader({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<"loading" | "reveal" | "done">("loading");
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("reveal"), 1400);
-    const t2 = setTimeout(() => {
-      setPhase("done");
-      onDone();
-    }, 2800);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    const t1 = setTimeout(() => setPhase("reveal"), 1200);
+    const t2 = setTimeout(() => { setPhase("done"); onDone(); }, 2200);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [onDone]);
 
   if (phase === "done") return null;
@@ -65,17 +140,9 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
       <div className="intro-half intro-half--top" />
       <div className="intro-half intro-half--bottom" />
       <div className="intro-center">
-        <Image
-          src="/logo-light.png"
-          alt="B"
-          width={48}
-          height={48}
-          className="rounded-full mb-6"
-          style={{ animation: "breathe 2s ease infinite" }}
-        />
         <div
-          className="text-[0.6rem] tracking-[0.4em] uppercase text-muted/60"
-          style={{ fontFamily: "var(--font-display)" }}
+          className="font-display text-3xl font-bold tracking-tight"
+          style={{ opacity: phase === "loading" ? 1 : 0, transition: "opacity 0.4s ease" }}
         >
           THE BAIR COMPANY
         </div>
@@ -85,254 +152,123 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FULLSCREEN NAV — Circle clip-path reveal
+   NAVIGATION
    ═══════════════════════════════════════════════════════════ */
 
-function FullScreenNav({
-  open,
-  onClose,
-  lang,
-  setLang,
-  t,
-}: {
-  open: boolean;
-  onClose: () => void;
-  lang: Lang;
-  setLang: (l: Lang) => void;
-  t: (typeof translations)["nl"];
-}) {
+function Nav() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   const links = [
-    { href: "#services", label: t.nav.services, num: "01" },
-    { href: "#projects", label: t.nav.projects, num: "02" },
-    { href: "#about", label: t.nav.about, num: "03" },
-    { href: "#contact", label: t.nav.contact, num: "04" },
+    { label: "Work", href: "#work" },
+    { label: "Services", href: "#services" },
+    { label: "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
   ];
 
   return (
-    <div className={`fs-nav ${open ? "open" : ""}`}>
-      <div className="w-full px-6 md:px-[5vw] flex flex-col lg:flex-row lg:items-center">
-        <div className="flex-1">
-          {links.map((link, i) => (
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 transition-all duration-500 ${
+          scrolled ? "py-4 nav-bg-blur" : "py-6"
+        }`}
+      >
+        <a href="#" className="font-display text-sm font-bold tracking-[0.2em] uppercase">
+          TBC<span className="text-accent">.</span>
+        </a>
+
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-10 h-10 flex flex-col items-center justify-center gap-[6px] group z-[90]"
+          aria-label="Menu"
+        >
+          <span className={`block w-6 h-[1.5px] bg-foreground transition-all duration-300 ${open ? "rotate-45 translate-y-[3.75px]" : "group-hover:w-5"}`} />
+          <span className={`block w-6 h-[1.5px] bg-foreground transition-all duration-300 ${open ? "-rotate-45 -translate-y-[3.75px]" : "group-hover:w-7"}`} />
+        </button>
+      </header>
+
+      <div className={`fs-nav ${open ? "open" : ""}`}>
+        <nav className="w-full px-8 md:px-16">
+          {links.map((l, i) => (
             <a
-              key={link.href}
-              href={link.href}
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
               className="fs-nav-link"
-              data-hover
-              onClick={onClose}
-              style={{
-                transitionDelay: open ? `${0.1 + i * 0.05}s` : "0s",
-              }}
+              style={{ transitionDelay: open ? `${i * 0.08}s` : "0s" }}
             >
-              <span className="fs-nav-num">{link.num}</span>
-              {link.label}
+              <span className="fs-nav-num">{String(i + 1).padStart(2, "0")}</span>
+              {l.label}
             </a>
           ))}
-        </div>
-        <div className="flex flex-col gap-6 pt-12 lg:pt-0 lg:pl-12">
-          <div className="flex gap-4">
-            {(["nl", "en"] as const).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                data-hover
-                className={`text-sm uppercase tracking-widest transition-colors ${
-                  lang === l ? "text-foreground" : "text-muted/30 hover:text-muted"
-                }`}
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {l}
-              </button>
-            ))}
+          <div className="mt-12 flex gap-6 text-sm text-muted">
+            <a href="mailto:hello@thebaircompany.com" className="hover:text-foreground transition-colors">hello@thebaircompany.com</a>
           </div>
-          <a
-            href="mailto:kristofbogaerts@hotmail.com"
-            data-hover
-            className="text-muted/40 hover:text-accent transition-colors text-sm"
-          >
-            kristofbogaerts@hotmail.com
-          </a>
-        </div>
+        </nav>
       </div>
-    </div>
+    </>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MARQUEE — Diagonal scrolling text strip
+   HERO — Scattered Image Collage
    ═══════════════════════════════════════════════════════════ */
 
-function MarqueeStrip({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
-  const content = [...items, ...items];
+function HeroCollage() {
+  const scrollY = useParallax();
+
   return (
-    <div
-      className="marquee-wrap py-6 md:py-8 border-y border-border/20"
-      style={{
-        transform: `rotate(${reverse ? "1" : "-1"}deg)`,
-        margin: "0 -3vw",
-      }}
-    >
-      <div className={`marquee-track ${reverse ? "reverse" : ""}`}>
-        {content.map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-5 md:gap-8 px-5 md:px-8">
-            <span
-              className="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-muted/30"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              {item}
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-accent/30" />
-          </span>
+    <section className="relative min-h-screen overflow-hidden flex items-center justify-center">
+      {/* Background grain */}
+      <div className="noise" />
+
+      {/* Scattered images with parallax */}
+      <div className="collage-container">
+        {HERO_IMAGES.map((img, i) => (
+          <div
+            key={i}
+            className={img.className}
+            style={{
+              transform: `translateY(${scrollY * (0.03 + i * 0.015)}px)`,
+            }}
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={img.w}
+              height={img.h}
+              className="collage-img-inner"
+              priority={i < 3}
+            />
+          </div>
         ))}
       </div>
-    </div>
-  );
-}
 
-/* ═══════════════════════════════════════════════════════════
-   HERO — Giant viewport-filling typography
-   ═══════════════════════════════════════════════════════════ */
-
-function HeroSection({
-  t,
-  ready,
-  mouse,
-}: {
-  t: (typeof translations)["nl"];
-  ready: boolean;
-  mouse: { x: number; y: number };
-}) {
-  return (
-    <section className="h-screen flex flex-col justify-center relative overflow-hidden">
-      {/* Gradient orbs following mouse */}
-      <div
-        className="glow-orb w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] absolute opacity-[0.06]"
-        style={{
-          background: "radial-gradient(circle, #2E8AFF, transparent 70%)",
-          top: "-10%",
-          left: "30%",
-          transform: `translate(${ready ? (mouse.x - 500) * 0.02 : 0}px, ${ready ? (mouse.y - 300) * 0.02 : 0}px)`,
-          transition: "transform 0.5s ease-out",
-        }}
-      />
-      <div
-        className="glow-orb w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] absolute opacity-[0.04]"
-        style={{
-          background: "radial-gradient(circle, #FF6B35, transparent 70%)",
-          bottom: "0",
-          right: "10%",
-          transform: `translate(${ready ? (mouse.x - 500) * -0.01 : 0}px, ${ready ? (mouse.y - 300) * -0.01 : 0}px)`,
-          transition: "transform 0.5s ease-out",
-        }}
-      />
-
-      <div className="relative z-10 px-6 md:px-[5vw] w-full">
-        {/* Badge */}
-        <div
-          className="mb-8 md:mb-12"
-          style={{
-            opacity: ready ? 1 : 0,
-            transform: ready ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s",
-          }}
-        >
-          <span
-            className="text-[0.6rem] md:text-xs tracking-[0.3em] uppercase text-muted/50"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            ◆ {t.hero.badge}
-          </span>
-        </div>
-
-        {/* GIANT TEXT */}
-        <h1 className="leading-[0.85]">
-          {/* Line 1 — bold */}
-          <span
-            className="block text-[14vw] md:text-[11vw] font-extrabold tracking-[-0.03em]"
-            style={{
-              fontFamily: "var(--font-display)",
-              opacity: ready ? 1 : 0,
-              transform: ready ? "translateY(0)" : "translateY(80px)",
-              transition: "all 1s cubic-bezier(0.22,1,0.36,1) 0.4s",
-            }}
-          >
-            {t.hero.title1}
-          </span>
-
-          {/* Line 2 — outlined / stroke */}
-          <span
-            className="block text-[18vw] md:text-[15vw] font-extrabold tracking-[-0.03em] text-stroke"
-            style={{
-              fontFamily: "var(--font-display)",
-              opacity: ready ? 1 : 0,
-              transform: ready ? "translateY(0)" : "translateY(80px)",
-              transition: "all 1s cubic-bezier(0.22,1,0.36,1) 0.55s",
-            }}
-          >
-            {t.hero.title2}
-          </span>
-
-          {/* Line 3 — gradient fill */}
-          <span
-            className="block text-[14vw] md:text-[11vw] font-extrabold tracking-[-0.03em] gradient-text"
-            style={{
-              fontFamily: "var(--font-display)",
-              opacity: ready ? 1 : 0,
-              transform: ready ? "translateY(0)" : "translateY(80px)",
-              transition: "all 1s cubic-bezier(0.22,1,0.36,1) 0.7s",
-            }}
-          >
-            {t.hero.title3}
-          </span>
+      {/* Center text overlay */}
+      <div className="relative z-10 text-center pointer-events-none hero-text-container">
+        <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-6 opacity-80">
+          Creatief Digitaal Bureau
+        </p>
+        <h1 className="font-display hero-title font-extrabold leading-[0.9] tracking-tight">
+          <span className="block">The Bair</span>
+          <span className="block text-stroke">Company</span>
         </h1>
-
-        {/* Bottom row */}
-        <div
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mt-8 md:mt-12"
-          style={{
-            opacity: ready ? 1 : 0,
-            transform: ready ? "translateY(0)" : "translateY(30px)",
-            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.9s",
-          }}
-        >
-          <p className="text-muted text-sm md:text-base max-w-md leading-relaxed">{t.hero.subtitle}</p>
-          <div className="flex gap-3">
-            <a
-              href="#projects"
-              data-hover
-              className="mag-btn bg-foreground text-background px-6 md:px-8 py-3 md:py-4 rounded-full text-xs md:text-sm font-bold tracking-wider uppercase"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              <span>{t.hero.cta1}</span>
-            </a>
-            <a
-              href="#contact"
-              data-hover
-              className="border border-border/50 text-foreground px-6 md:px-8 py-3 md:py-4 rounded-full text-xs md:text-sm font-medium tracking-wider uppercase hover:border-accent/50 hover:text-accent transition-all duration-300"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              {t.hero.cta2}
-            </a>
-          </div>
-        </div>
+        <p className="mt-8 text-base md:text-lg text-foreground/60 max-w-md mx-auto font-light leading-relaxed">
+          Van idee tot impact — wij maken digitaal tastbaar.
+        </p>
       </div>
 
       {/* Scroll indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        style={{
-          animation: "float 3s ease-in-out infinite",
-          opacity: ready ? 0.4 : 0,
-          transition: "opacity 1s ease 1.2s",
-        }}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span
-            className="text-[0.55rem] tracking-[0.3em] uppercase text-muted/40"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Scroll
-          </span>
-          <div className="w-px h-8 bg-gradient-to-b from-muted/40 to-transparent" />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+        <span className="text-[10px] tracking-[0.3em] uppercase text-muted">Scroll</span>
+        <div className="w-[1px] h-8 bg-muted/30 relative overflow-hidden">
+          <div className="absolute w-full h-1/2 bg-accent animate-scroll-line" />
         </div>
       </div>
     </section>
@@ -340,377 +276,54 @@ function HeroSection({
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SERVICES — Editorial list with hover reveals
+   WORK / PROJECTS — Asymmetric Grid
    ═══════════════════════════════════════════════════════════ */
 
-function ServicesSection({ t }: { t: (typeof translations)["nl"] }) {
-  const { ref, visible } = useInView(0.1);
+function WorkSection() {
+  const { ref, visible } = useInView(0.05);
 
   return (
-    <section id="services" ref={ref} className="py-24 md:py-40 px-6 md:px-[5vw]">
-      {/* Badge */}
-      <div
-        className="flex items-center gap-4 mb-6"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(20px)",
-          transition: "all 0.7s cubic-bezier(0.22,1,0.36,1)",
-        }}
-      >
-        <div className="w-12 h-px bg-accent" />
-        <span
-          className="text-xs tracking-[0.3em] uppercase text-accent"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          {t.services.badge}
-        </span>
-      </div>
-
-      {/* Title — split at period, second part in serif italic gradient */}
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 md:mb-24">
-        <h2
-          className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.9]"
-          style={{
-            fontFamily: "var(--font-display)",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s",
-          }}
-        >
-          {t.services.title.split(",")[0]},
-          <br />
-          <span className="gradient-text" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
-            {t.services.title.split(",")[1]?.trim() || t.services.title.split(".")[1]?.trim() || ""}
+    <section id="work" ref={ref} className="py-32 md:py-48 px-6 md:px-10">
+      <div className="max-w-7xl mx-auto">
+        <div className={`mb-20 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <span className="font-mono text-xs tracking-[0.3em] uppercase text-accent">
+            Selected Work
           </span>
-        </h2>
-        <p
-          className="text-muted max-w-md text-sm md:text-base leading-relaxed"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s",
-          }}
-        >
-          {t.services.subtitle}
-        </p>
-      </div>
-
-      {/* Service rows — editorial list */}
-      <div>
-        {t.services.items.map((item, i) => (
-          <div
-            key={i}
-            className="service-row"
-            data-hover
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: `all 0.6s cubic-bezier(0.22,1,0.36,1) ${0.3 + i * 0.08}s`,
-            }}
-          >
-            <span className="sr-num">0{i + 1}</span>
-            <span className="sr-title">{item.title}</span>
-            <span className="sr-desc hidden lg:block">{item.description}</span>
-            <span className="sr-arrow">
-              <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                <path d="M7 17L17 7M17 7H7M17 7v10" />
-              </svg>
-            </span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   PROJECTS — Horizontal scroll on desktop, stacked on mobile
-   ═══════════════════════════════════════════════════════════ */
-
-function ProjectsSection({ t }: { t: (typeof translations)["nl"] }) {
-  const { ref: headerRef, visible: headerVisible } = useInView(0.1);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const panels = t.projects.items;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const scrollable = sectionRef.current.offsetHeight - window.innerHeight;
-      if (scrollable <= 0) return;
-      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
-      setProgress(p);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const moveX = progress * (panels.length - 1) * 84;
-
-  return (
-    <section id="projects">
-      {/* Section header */}
-      <div ref={headerRef} className="px-6 md:px-[5vw] pt-24 md:pt-40 pb-12">
-        <div
-          className="flex items-center gap-4 mb-6"
-          style={{
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.7s cubic-bezier(0.22,1,0.36,1)",
-          }}
-        >
-          <div className="w-12 h-px bg-accent" />
-          <span
-            className="text-xs tracking-[0.3em] uppercase text-accent"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            {t.projects.badge}
-          </span>
-        </div>
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-          <h2
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight"
-            style={{
-              fontFamily: "var(--font-display)",
-              opacity: headerVisible ? 1 : 0,
-              transform: headerVisible ? "translateY(0)" : "translateY(30px)",
-              transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s",
-            }}
-          >
-            {t.projects.title}
+          <h2 className="font-display text-5xl md:text-7xl font-bold mt-4 leading-[1.05]">
+            Projecten die<br />
+            <span className="font-serif italic font-normal">het verschil</span> maken
           </h2>
-          <p
-            className="text-muted max-w-md text-sm md:text-base leading-relaxed"
-            style={{
-              opacity: headerVisible ? 1 : 0,
-              transition: "opacity 0.7s ease 0.2s",
-            }}
-          >
-            {t.projects.subtitle}
-          </p>
         </div>
-      </div>
 
-      {/* Desktop: Horizontal scroll */}
-      <div
-        ref={sectionRef}
-        className="hidden md:block"
-        style={{ height: `${(panels.length + 1) * 100}vh` }}
-      >
-        <div className="sticky top-0 h-screen overflow-hidden flex items-center">
-          <div
-            className="h-scroll-track pl-[5vw]"
-            style={{
-              transform: `translateX(-${moveX}vw)`,
-            }}
-          >
-            {panels.map((project, i) => (
-              <a
-                key={i}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-hover
-                className={`h-panel bg-gradient-to-br ${project.color} group`}
-              >
-                {/* Huge background letter */}
-                <span
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-extrabold text-white/[0.03] group-hover:text-white/[0.07] transition-all duration-700 select-none"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {project.title.charAt(0)}
-                </span>
-
-                {/* Arrow */}
-                <div className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                  <svg
-                    className="w-5 h-5 text-white/70"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                  >
-                    <path d="M7 17L17 7M17 7H7M17 7v10" />
-                  </svg>
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[0.6rem] tracking-widest uppercase text-white/30 bg-white/5 px-3 py-1 rounded-full"
-                        style={{ fontFamily: "var(--font-display)" }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <h3
-                    className="text-3xl md:text-5xl font-extrabold text-white/80 mb-3 group-hover:text-white transition-colors duration-300"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {project.title}
-                  </h3>
-                  <p className="text-white/40 max-w-lg text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">
-                    {project.description}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-
-          {/* Progress bar */}
-          <div className="absolute bottom-8 left-[5vw] right-[5vw] h-px bg-border/20">
+        <div className="project-grid">
+          {PROJECTS.map((p, i) => (
             <div
-              className="h-full bg-accent/60 transition-[width] duration-100"
-              style={{ width: `${progress * 100}%` }}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile: Vertical stacked cards */}
-      <div className="md:hidden px-6 pb-12 flex flex-col gap-6">
-        {panels.map((project, i) => (
-          <a
-            key={i}
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`rounded-2xl bg-gradient-to-br ${project.color} p-6 min-h-[50vh] flex flex-col justify-end relative overflow-hidden`}
-          >
-            <span
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-extrabold text-white/[0.03] select-none"
-              style={{ fontFamily: "var(--font-display)" }}
+              key={p.title}
+              className={`project-card group transition-all duration-700 ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+              }`}
+              style={{ transitionDelay: `${i * 150}ms` }}
             >
-              {project.title.charAt(0)}
-            </span>
-            <div className="relative z-10">
-              <div className="flex flex-wrap gap-2 mb-3">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[0.55rem] tracking-widest uppercase text-white/30 bg-white/5 px-2 py-1 rounded-full"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className="project-card-img">
+                <Image
+                  src={p.src}
+                  alt={p.title}
+                  width={800}
+                  height={600}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+                  style={{ background: p.color }}
+                />
               </div>
-              <h3
-                className="text-2xl font-extrabold text-white/80 mb-2"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {project.title}
-              </h3>
-              <p className="text-white/40 text-sm leading-relaxed">{project.description}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ABOUT — Large title + stats
-   ═══════════════════════════════════════════════════════════ */
-
-function AboutSection({ t }: { t: (typeof translations)["nl"] }) {
-  const { ref, visible } = useInView(0.1);
-
-  return (
-    <section id="about" ref={ref} className="py-24 md:py-40 px-6 md:px-[5vw]">
-      {/* Badge */}
-      <div
-        className="flex items-center gap-4 mb-6"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(20px)",
-          transition: "all 0.7s cubic-bezier(0.22,1,0.36,1)",
-        }}
-      >
-        <div className="w-12 h-px bg-accent" />
-        <span
-          className="text-xs tracking-[0.3em] uppercase text-accent"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          {t.about.badge}
-        </span>
-      </div>
-
-      {/* Giant title */}
-      <h2
-        className="text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-16 md:mb-24 leading-[0.9]"
-        style={{
-          fontFamily: "var(--font-display)",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(40px)",
-          transition: "all 0.9s cubic-bezier(0.22,1,0.36,1) 0.1s",
-        }}
-      >
-        {t.about.title.split(".")[0]}.
-        <br />
-        <span className="gradient-text" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
-          {t.about.title.split(".")[1]?.trim() || ""}
-        </span>
-      </h2>
-
-      <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-        {/* Text */}
-        <div className="lg:w-3/5 space-y-6">
-          <p
-            className="text-muted text-base md:text-lg leading-relaxed"
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s",
-            }}
-          >
-            {t.about.p1}
-          </p>
-          <p
-            className="text-muted text-base md:text-lg leading-relaxed"
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s",
-            }}
-          >
-            {t.about.p2}
-          </p>
-        </div>
-
-        {/* Stats — oversized numbers */}
-        <div className="lg:w-2/5 flex flex-col gap-10">
-          {[
-            { num: "2+", label: t.about.stat1label },
-            { num: "2+", label: t.about.stat2label },
-            { num: "\u221E", label: t.about.stat3label },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateX(0)" : "translateX(30px)",
-                transition: `all 0.7s cubic-bezier(0.22,1,0.36,1) ${0.3 + i * 0.1}s`,
-              }}
-            >
-              <span
-                className="text-6xl md:text-8xl font-extrabold gradient-text block leading-none"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {stat.num}
-              </span>
-              <span
-                className="text-muted/60 text-xs tracking-[0.2em] uppercase mt-2 block"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {stat.label}
-              </span>
+              <div className="mt-5 flex items-start justify-between">
+                <div>
+                  <h3 className="font-display text-xl font-bold">{p.title}</h3>
+                  <p className="text-sm text-muted mt-1">{p.tag}</p>
+                </div>
+                <span className="text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 mt-1">→</span>
+              </div>
             </div>
           ))}
         </div>
@@ -720,263 +333,256 @@ function AboutSection({ t }: { t: (typeof translations)["nl"] }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CONTACT — Dramatic heading + clean form
+   MARQUEE STRIP
    ═══════════════════════════════════════════════════════════ */
 
-function ContactSection({ t }: { t: (typeof translations)["nl"] }) {
-  const { ref, visible } = useInView(0.1);
+function MarqueeStrip() {
+  const items = ["Websites", "◈", "Apps", "◈", "Branding", "◈", "Social Media", "◈", "Marketing", "◈", "Workshops", "◈"];
+  const track = [...items, ...items, ...items];
 
   return (
-    <section id="contact" ref={ref} className="py-24 md:py-40 px-6 md:px-[5vw]">
-      <div className="max-w-5xl mx-auto">
-        {/* Giant heading */}
-        <h2
-          className="text-4xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tight mb-4 text-center leading-[0.9]"
-          style={{
-            fontFamily: "var(--font-display)",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0) scale(1)" : "translateY(40px) scale(0.95)",
-            transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
-          }}
-        >
-          {t.contact.title}
-        </h2>
-        <p
-          className="text-muted text-center text-sm md:text-base mb-12 md:mb-16"
-          style={{
-            opacity: visible ? 1 : 0,
-            transition: "opacity 0.7s ease 0.2s",
-          }}
-        >
-          {t.contact.subtitle}
-        </p>
+    <div className="marquee-wrap border-y border-border py-5 overflow-hidden">
+      <div className="marquee-track">
+        {track.map((t, i) => (
+          <span key={i} className="font-display text-2xl md:text-4xl font-bold mx-6 md:mx-10 whitespace-nowrap text-foreground/10 hover:text-foreground/40 transition-colors duration-500">
+            {t}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-        {/* Form */}
-        <form
-          className="bg-surface/50 border border-border/20 rounded-3xl p-6 sm:p-10 md:p-12 backdrop-blur-sm"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s",
-          }}
-          onSubmit={(e) => {
-            e.preventDefault();
-            const form = e.target as HTMLFormElement;
-            const name = (form.elements.namedItem("name") as HTMLInputElement).value;
-            const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-            const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
-            window.location.href = `mailto:kristofbogaerts@hotmail.com?subject=Contact via The Bair Company — ${name}&body=${encodeURIComponent(`Van: ${name}\nEmail: ${email}\n\n${message}`)}`;
-          }}
-        >
-          <div className="grid sm:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label
-                className="text-[0.6rem] tracking-[0.2em] uppercase text-muted/50 block mb-2"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {t.contact.name}
-              </label>
-              <input
-                name="name"
-                type="text"
-                required
-                className="w-full bg-background/80 border border-border/20 rounded-xl px-5 py-3.5 text-sm text-foreground placeholder:text-muted/15 focus:outline-none focus:border-accent/30 transition-all duration-300"
-                placeholder="Jan Janssen"
-              />
-            </div>
-            <div>
-              <label
-                className="text-[0.6rem] tracking-[0.2em] uppercase text-muted/50 block mb-2"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {t.contact.email}
-              </label>
-              <input
-                name="email"
-                type="email"
-                required
-                className="w-full bg-background/80 border border-border/20 rounded-xl px-5 py-3.5 text-sm text-foreground placeholder:text-muted/15 focus:outline-none focus:border-accent/30 transition-all duration-300"
-                placeholder="jan@voorbeeld.be"
-              />
-            </div>
-          </div>
-          <div className="mb-6">
-            <label
-              className="text-[0.6rem] tracking-[0.2em] uppercase text-muted/50 block mb-2"
-              style={{ fontFamily: "var(--font-display)" }}
+/* ═══════════════════════════════════════════════════════════
+   SERVICES — Clean minimal list
+   ═══════════════════════════════════════════════════════════ */
+
+function ServicesSection() {
+  const { ref, visible } = useInView(0.05);
+
+  return (
+    <section id="services" ref={ref} className="py-32 md:py-48 px-6 md:px-10">
+      <div className="max-w-5xl mx-auto">
+        <div className={`mb-16 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <span className="font-mono text-xs tracking-[0.3em] uppercase text-accent">
+            Diensten
+          </span>
+          <h2 className="font-display text-5xl md:text-7xl font-bold mt-4 leading-[1.05]">
+            Wat wij<br />
+            <span className="font-serif italic font-normal">voor je</span> doen
+          </h2>
+        </div>
+
+        <div>
+          {SERVICES.map((s, i) => (
+            <div
+              key={s.title}
+              className={`service-row transition-all duration-700 ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
-              {t.contact.message}
-            </label>
-            <textarea
-              name="message"
-              required
-              rows={5}
-              className="w-full bg-background/80 border border-border/20 rounded-xl px-5 py-3.5 text-sm text-foreground placeholder:text-muted/15 focus:outline-none focus:border-accent/30 transition-all duration-300 resize-none"
-              placeholder="..."
-            />
-          </div>
-          <button
-            type="submit"
-            data-hover
-            className="mag-btn w-full bg-foreground text-background py-4 rounded-full font-bold text-sm tracking-wider uppercase"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            <span>{t.contact.send}</span>
-          </button>
-          <p className="text-center text-muted/25 text-xs mt-4 tracking-wide">
-            {t.contact.or}{" "}
-            <a
-              href="mailto:kristofbogaerts@hotmail.com"
-              data-hover
-              className="text-accent/60 hover:text-accent transition-colors"
-            >
-              kristofbogaerts@hotmail.com
-            </a>
-          </p>
-        </form>
+              <span className="sr-num">{s.icon}</span>
+              <span className="sr-title">{s.title}</span>
+              <span className="sr-desc">{s.desc}</span>
+              <span className="sr-arrow">→</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MAIN PAGE — Orchestrator
+   IMAGE BAND — Full-width scattered strip
+   ═══════════════════════════════════════════════════════════ */
+
+function ImageBand() {
+  const scrollY = useParallax();
+
+  const images = [
+    "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=500&q=80",
+    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&q=80",
+    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80",
+    "https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=500&q=80",
+    "https://images.unsplash.com/photo-1535303311164-664fc9ec6532?w=500&q=80",
+  ];
+
+  return (
+    <div className="relative py-16 overflow-hidden">
+      <div className="flex gap-6 md:gap-8 image-band" style={{ transform: `translateX(${-scrollY * 0.1}px)` }}>
+        {[...images, ...images].map((src, i) => (
+          <div key={i} className={`flex-none w-48 md:w-72 ${i % 2 === 0 ? "-mt-8" : "mt-8"}`}>
+            <div className="relative overflow-hidden rounded-lg aspect-[4/5]">
+              <Image
+                src={src}
+                alt="Creative work"
+                fill
+                className="object-cover hover:scale-110 transition-transform duration-700"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ABOUT
+   ═══════════════════════════════════════════════════════════ */
+
+function AboutSection() {
+  const { ref, visible } = useInView(0.1);
+
+  return (
+    <section id="about" ref={ref} className="py-32 md:py-48 px-6 md:px-10">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <span className="font-mono text-xs tracking-[0.3em] uppercase text-accent">Over ons</span>
+          <h2 className="font-display text-4xl md:text-6xl font-bold mt-4 mb-8 leading-[1.1]">
+            Creatief<br />
+            <span className="font-serif italic font-normal">zonder grenzen</span>
+          </h2>
+          <div className="space-y-5 text-foreground/60 leading-relaxed">
+            <p>
+              The Bair Company is een creatief digitaal bureau dat merken helpt groeien
+              door middel van design, technologie en strategie. Wij geloven dat de mooiste
+              resultaten ontstaan wanneer creativiteit geen grenzen kent.
+            </p>
+            <p>
+              Van branding tot code, van social media tot workshops — wij combineren al
+              onze skills onder één dak. Geen gedoe met tien verschillende bureaus. Eén team,
+              één visie, onbeperkte mogelijkheden.
+            </p>
+          </div>
+          <div className="mt-10 flex gap-12">
+            <div>
+              <span className="font-display text-4xl font-bold text-accent">50+</span>
+              <p className="text-sm text-muted mt-1">Projecten</p>
+            </div>
+            <div>
+              <span className="font-display text-4xl font-bold text-accent">100%</span>
+              <p className="text-sm text-muted mt-1">Passie</p>
+            </div>
+            <div>
+              <span className="font-display text-4xl font-bold text-accent">∞</span>
+              <p className="text-sm text-muted mt-1">Creativiteit</p>
+            </div>
+          </div>
+        </div>
+
+        <div className={`relative transition-all duration-1000 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
+          <div className="about-img-collage">
+            <div className="about-img-1">
+              <Image
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80"
+                alt="Team collaboration"
+                width={600}
+                height={400}
+                className="rounded-lg object-cover w-full"
+              />
+            </div>
+            <div className="about-img-2">
+              <Image
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80"
+                alt="Creative coding"
+                width={400}
+                height={300}
+                className="rounded-lg object-cover w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════════════════════ */
+
+function ContactSection() {
+  const { ref, visible } = useInView(0.1);
+
+  return (
+    <section id="contact" ref={ref} className="py-32 md:py-48 px-6 md:px-10 relative">
+      <div className="max-w-4xl mx-auto text-center">
+        <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <span className="font-mono text-xs tracking-[0.3em] uppercase text-accent">
+            Contact
+          </span>
+          <h2 className="font-display text-5xl md:text-8xl font-bold mt-6 mb-6 leading-[1]">
+            Laten we<br />
+            <span className="font-serif italic font-normal">iets moois</span><br />
+            maken.
+          </h2>
+          <p className="text-foreground/50 text-lg mb-12 max-w-lg mx-auto">
+            Klaar om jouw merk naar het volgende niveau te tillen?
+            Stuur ons een bericht.
+          </p>
+          <a
+            href="mailto:hello@thebaircompany.com"
+            className="mag-btn inline-flex items-center gap-3 border border-foreground/20 rounded-full px-10 py-4 text-lg font-display font-bold hover:border-accent transition-colors duration-500"
+          >
+            <span>hello@thebaircompany.com</span>
+          </a>
+
+          <div className="mt-16 flex justify-center gap-10 text-sm text-muted">
+            <a href="#" className="hover:text-foreground transition-colors">Instagram</a>
+            <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>
+            <a href="#" className="hover:text-foreground transition-colors">Behance</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+
+function Footer() {
+  return (
+    <footer className="border-t border-border px-6 md:px-10 py-8">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted">
+        <span className="font-display font-bold tracking-[0.15em]">
+          TBC<span className="text-accent">.</span>
+        </span>
+        <span>© {new Date().getFullYear()} The Bair Company. Alle rechten voorbehouden.</span>
+      </div>
+    </footer>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HOME
    ═══════════════════════════════════════════════════════════ */
 
 export default function Home() {
-  const [lang, setLang] = useState<Lang>("nl");
-  const [navOpen, setNavOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [ready, setReady] = useState(false);
-  const t = translations[lang];
-  const mouse = useMousePosition();
-
-  const handleIntroDone = useCallback(() => setReady(true), []);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Lock body scroll when nav is open
-  useEffect(() => {
-    document.body.style.overflow = navOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [navOpen]);
+  const [loaded, setLoaded] = useState(false);
+  const handleDone = useCallback(() => setLoaded(true), []);
 
   return (
     <>
-      {/* ── LAYERS ── */}
-      <div className="noise" />
-<IntroLoader onDone={handleIntroDone} />
-      <FullScreenNav open={navOpen} onClose={() => setNavOpen(false)} lang={lang} setLang={setLang} t={t} />
-
-      {/* ── FIXED NAV BAR ── */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-[85] px-6 md:px-[5vw] h-20 flex items-center justify-between transition-all duration-500 ${
-          scrolled ? "bg-background/60 backdrop-blur-2xl" : ""
-        }`}
-      >
-        <a href="#" className="flex items-center gap-3 group" data-hover>
-          <Image
-            src="/logo-light.png"
-            alt="The Bair Company"
-            width={28}
-            height={28}
-            className="rounded-full transition-transform duration-300 group-hover:scale-110"
-          />
-          <span
-            className="font-bold text-[0.6rem] tracking-[0.2em] uppercase hidden sm:inline text-foreground/70"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            The Bair Company
-          </span>
-        </a>
-
-        <div className="flex items-center gap-6">
-          {/* Desktop language toggle */}
-          <div className="hidden md:flex items-center gap-1">
-            {(["nl", "en"] as const).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                data-hover
-                className={`px-2 py-1 text-[0.6rem] tracking-[0.15em] uppercase transition-colors ${
-                  lang === l ? "text-foreground" : "text-muted/25 hover:text-muted"
-                }`}
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-
-          {/* Hamburger */}
-          <button
-            onClick={() => setNavOpen(!navOpen)}
-            className="relative z-[90] w-10 h-10 flex flex-col items-center justify-center gap-[6px]"
-            data-hover
-            aria-label="Menu"
-          >
-            <span
-              className={`block w-6 h-[1.5px] bg-foreground transition-all duration-300 origin-center ${
-                navOpen ? "rotate-45 translate-y-[7.5px]" : ""
-              }`}
-            />
-            <span
-              className={`block w-4 h-[1.5px] bg-foreground transition-all duration-300 ${
-                navOpen ? "opacity-0 scale-0" : ""
-              }`}
-            />
-            <span
-              className={`block w-6 h-[1.5px] bg-foreground transition-all duration-300 origin-center ${
-                navOpen ? "-rotate-45 -translate-y-[7.5px]" : ""
-              }`}
-            />
-          </button>
-        </div>
-      </nav>
-
-      {/* ── CONTENT ── */}
-      <main>
-        <HeroSection t={t} ready={ready} mouse={mouse} />
-
-        <MarqueeStrip items={t.services.items.map((s) => s.title)} />
-
-        <ServicesSection t={t} />
-
-        <ProjectsSection t={t} />
-
-        <MarqueeStrip
-          items={["NEXT.JS", "REACT", "FIGMA", "TAILWIND", "AI", "NODE.JS", "TYPESCRIPT", "VERCEL"]}
-          reverse
-        />
-
-        <AboutSection t={t} />
-
-        <ContactSection t={t} />
-      </main>
-
-      {/* ── FOOTER ── */}
-      <footer className="border-t border-border/15 py-12 px-6 md:px-[5vw]">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div className="flex items-center gap-3">
-            <Image src="/logo-light.png" alt="B" width={20} height={20} className="rounded-full opacity-50" />
-            <span
-              className="text-[0.55rem] tracking-[0.2em] uppercase text-muted/30"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              The Bair Company — {t.footer.tagline}
-            </span>
-          </div>
-          <p className="text-muted/20 text-[0.55rem] tracking-wider">
-            &copy; {new Date().getFullYear()} {t.footer.rights}
-          </p>
-        </div>
-      </footer>
+      <IntroLoader onDone={handleDone} />
+      <div className={`transition-opacity duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}>
+        <Nav />
+        <main>
+          <HeroCollage />
+          <MarqueeStrip />
+          <WorkSection />
+          <ImageBand />
+          <ServicesSection />
+          <AboutSection />
+          <ContactSection />
+        </main>
+        <Footer />
+        <div className="noise" />
+      </div>
     </>
   );
 }
