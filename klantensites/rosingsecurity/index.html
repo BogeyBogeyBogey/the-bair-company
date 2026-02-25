@@ -54,11 +54,7 @@
       font-weight: 600;
       letter-spacing: 0.03em;
     }
-    .top-bar .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
     .top-bar a { color: var(--white); }
     .top-bar a:hover { opacity: 0.8; }
     .top-bar-left { display: flex; gap: 1.5rem; align-items: center; }
@@ -80,155 +76,160 @@
       box-shadow: 0 4px 30px rgba(0,0,0,0.5);
     }
     .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between; height: 80px;
     }
     .logo { display: flex; align-items: center; gap: 0.75rem; }
     .logo-icon {
       width: 44px; height: 44px;
       background: var(--red);
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-family: var(--font-display);
       font-size: 1.6rem;
       color: var(--white);
-      letter-spacing: -0.02em;
     }
-    .logo-text h1 {
-      font-family: var(--font-body);
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-    }
-    .logo-text h1 em {
-      font-style: normal;
-      color: var(--red);
-    }
-    .logo-text span {
-      font-size: 0.65rem;
-      font-weight: 500;
-      color: var(--gray-400);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-    }
+    .logo-text h1 { font-family: var(--font-body); font-size: 1.15rem; font-weight: 800; color: var(--white); line-height: 1.1; }
+    .logo-text h1 em { font-style: normal; color: var(--red); }
+    .logo-text span { font-size: 0.65rem; font-weight: 500; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.15em; }
 
-    /* NAV */
     .nav-desktop { display: flex; gap: 0.25rem; align-items: center; }
     .nav-desktop a {
-      color: var(--gray-400);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.5rem 0.9rem;
-      border-radius: 6px;
-      transition: all var(--ease);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      color: var(--gray-400); font-size: 0.82rem; font-weight: 600;
+      padding: 0.5rem 0.9rem; border-radius: 6px;
+      transition: all var(--ease); text-transform: uppercase; letter-spacing: 0.06em;
     }
-    .nav-desktop a:hover, .nav-desktop a.active {
-      color: var(--white);
-      background: rgba(255,255,255,0.06);
-    }
-    .nav-cta {
-      background: var(--red) !important;
-      color: var(--white) !important;
-      padding: 0.55rem 1.2rem !important;
-    }
+    .nav-desktop a:hover, .nav-desktop a.active { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-cta { background: var(--red) !important; color: var(--white) !important; padding: 0.55rem 1.2rem !important; }
     .nav-cta:hover { background: var(--red-dark) !important; }
 
-    /* HAMBURGER */
     .hamburger { display: none; flex-direction: column; gap: 5px; padding: 0.5rem; z-index: 200; }
     .hamburger span { width: 24px; height: 2px; background: var(--white); transition: all var(--ease); }
     .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-    /* MOBILE NAV */
     .mobile-nav {
       display: none; position: fixed; inset: 0;
-      background: rgba(10,10,10,0.98);
-      backdrop-filter: blur(20px);
-      z-index: 150;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
+      background: rgba(10,10,10,0.98); backdrop-filter: blur(20px);
+      z-index: 150; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;
     }
     .mobile-nav.open { display: flex; }
     .mobile-nav a {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      color: var(--gray-400);
-      padding: 0.5rem 2rem;
-      transition: color var(--ease);
-      letter-spacing: 0.05em;
+      font-family: var(--font-display); font-size: 2.2rem;
+      color: var(--gray-400); padding: 0.5rem 2rem; transition: color var(--ease); letter-spacing: 0.05em;
     }
     .mobile-nav a:hover { color: var(--red); }
 
     /* ═══ HERO ═══ */
     .hero {
       position: relative;
-      min-height: 85vh;
+      min-height: 90vh;
       display: flex;
       align-items: center;
       overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-    }
+    .hero-bg { position: absolute; inset: 0; }
     .hero-bg img {
       width: 100%; height: 100%; object-fit: cover;
-      filter: brightness(0.3);
+      filter: brightness(0.25);
+      transform: scale(1.05);
     }
+    /* Parallax applied via JS */
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.5) 50%, rgba(10,10,10,0.7) 100%);
+      background: linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.4) 50%, rgba(10,10,10,0.75) 100%);
+    }
+    /* Particle canvas */
+    #heroParticles {
+      position: absolute; inset: 0; z-index: 1;
+      pointer-events: none;
+    }
+    /* Scan line overlay */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
     }
     .hero-content {
-      position: relative; z-index: 2;
+      position: relative; z-index: 3;
       max-width: 1200px; margin: 0 auto; padding: 6rem 2rem;
     }
     .hero-tag {
       display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 1.5rem;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 1.5rem;
       padding: 0.4rem 1rem;
       border: 1px solid rgba(227,30,36,0.4);
       border-radius: 4px;
       background: rgba(227,30,36,0.08);
+      animation: tagPulse 3s ease-in-out infinite;
+    }
+    @keyframes tagPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(227,30,36,0); }
+      50% { box-shadow: 0 0 20px 2px rgba(227,30,36,0.2); }
     }
     .hero h2 {
       font-family: var(--font-display);
-      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
       font-weight: 400;
       line-height: 0.95;
       color: var(--white);
       margin-bottom: 1.5rem;
       letter-spacing: 0.02em;
     }
-    .hero h2 em {
-      font-style: normal;
-      color: var(--red);
+    .hero h2 em { font-style: normal; color: var(--red); }
+
+    /* ═══ GLITCH TEXT EFFECT ═══ */
+    .glitch {
+      position: relative;
+      display: inline-block;
     }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+    .glitch::before {
+      color: var(--red);
+      z-index: -1;
+      animation: glitch1 4s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      color: #00ffff;
+      z-index: -1;
+      animation: glitch2 3s infinite linear alternate-reverse;
+    }
+    @keyframes glitch1 {
+      0%, 92% { clip-path: inset(0 0 0 0); transform: translate(0); }
+      93% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 1px); }
+      94% { clip-path: inset(50% 0 20% 0); transform: translate(3px, -1px); }
+      95% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 2px); }
+      96% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -1px); }
+      97%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+    }
+    @keyframes glitch2 {
+      0%, 90% { clip-path: inset(0 0 0 0); transform: translate(0); opacity: 0; }
+      91% { clip-path: inset(30% 0 40% 0); transform: translate(4px, -2px); opacity: 0.7; }
+      92% { clip-path: inset(60% 0 10% 0); transform: translate(-4px, 1px); opacity: 0.7; }
+      93% { clip-path: inset(15% 0 60% 0); transform: translate(2px, 2px); opacity: 0.7; }
+      94%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); opacity: 0; }
+    }
+
     .hero p {
-      font-size: 1.1rem;
-      line-height: 1.75;
-      max-width: 550px;
-      color: var(--gray-200);
-      margin-bottom: 2.5rem;
-      font-weight: 300;
+      font-size: 1.1rem; line-height: 1.75; max-width: 550px;
+      color: var(--gray-200); margin-bottom: 2.5rem; font-weight: 300;
     }
     .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
 
@@ -237,523 +238,457 @@
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.85rem 2rem; font-weight: 700; font-size: 0.85rem;
       transition: all var(--ease); letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border-radius: 4px;
+      text-transform: uppercase; border-radius: 4px;
+      position: relative; overflow: hidden;
     }
+    .btn::after {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      transition: width 0.6s ease, height 0.6s ease;
+      transform: translate(-50%, -50%);
+    }
+    .btn:hover::after { width: 300px; height: 300px; }
     .btn-red { background: var(--red); color: var(--white); }
-    .btn-red:hover { background: var(--red-dark); box-shadow: var(--shadow-red); transform: translateY(-2px); }
+    .btn-red:hover { background: var(--red-dark); box-shadow: 0 0 50px rgba(227,30,36,0.4); transform: translateY(-3px); }
     .btn-ghost { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.2); }
-    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
-    .btn-dark { background: var(--dark-2); color: var(--white); border: 1px solid rgba(255,255,255,0.1); }
-    .btn-dark:hover { background: var(--dark-3); border-color: var(--red); }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.05); transform: translateY(-3px); }
 
     /* ═══ STATS BAR ═══ */
     .stats-bar {
       background: var(--dark);
       border-top: 1px solid rgba(255,255,255,0.04);
       border-bottom: 1px solid rgba(255,255,255,0.04);
-      padding: 3rem 0;
+      padding: 3.5rem 0;
+      position: relative;
     }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      text-align: center;
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+    .stat-item { position: relative; }
+    .stat-item::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 20%; height: 60%;
+      width: 1px;
+      background: rgba(255,255,255,0.06);
     }
+    .stat-item:last-child::after { display: none; }
     .stat-item h3 {
       font-family: var(--font-display);
-      font-size: 3.5rem;
+      font-size: 4rem;
       color: var(--red);
       line-height: 1;
       margin-bottom: 0.3rem;
     }
     .stat-item p {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--gray-400);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.1em;
     }
 
     /* ═══ SECTION HEADERS ═══ */
     section { padding: 6rem 0; }
     .section-tag {
       display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 1rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 1rem;
     }
     .section-title {
       font-family: var(--font-display);
       font-size: clamp(2.2rem, 4vw, 3.5rem);
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 1.25rem;
-      letter-spacing: 0.02em;
+      color: var(--white); line-height: 1;
+      margin-bottom: 1.25rem; letter-spacing: 0.02em;
     }
-    .section-subtitle {
-      font-size: 1rem;
-      color: var(--gray-400);
-      max-width: 600px;
-      line-height: 1.7;
-      font-weight: 300;
-    }
+    .section-subtitle { font-size: 1rem; color: var(--gray-400); max-width: 600px; line-height: 1.7; font-weight: 300; }
 
     /* ═══ ABOUT / WAAROM ═══ */
     .about { background: var(--black); }
     .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      margin-top: 3rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; margin-top: 3rem;
     }
-    .about-image {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .about-image img {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-    }
+    .about-image { position: relative; border-radius: 8px; overflow: hidden; }
+    .about-image img { width: 100%; height: 400px; object-fit: cover; transition: transform 0.8s ease; }
+    .about-image:hover img { transform: scale(1.05); }
     .about-image::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 4px;
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 4px;
       background: var(--red);
     }
-    .about-text p {
-      color: var(--gray-200);
-      margin-bottom: 1.25rem;
-      font-size: 0.95rem;
-      line-height: 1.8;
-    }
+    .about-text p { color: var(--gray-200); margin-bottom: 1.25rem; font-size: 0.95rem; line-height: 1.8; }
     .about-text p strong { color: var(--white); }
-    .about-features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
+    .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
     .about-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 1rem;
-      background: var(--dark);
-      border-radius: 6px;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem; background: var(--dark); border-radius: 6px;
       border: 1px solid rgba(255,255,255,0.04);
+      transition: all var(--ease);
+    }
+    .about-feature:hover {
+      border-color: rgba(227,30,36,0.2);
+      transform: translateX(6px);
     }
     .about-feature-icon {
       width: 36px; height: 36px;
-      background: rgba(227,30,36,0.1);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--red);
-      font-weight: 900;
-      font-size: 0.9rem;
-      flex-shrink: 0;
+      background: rgba(227,30,36,0.1); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--red); font-weight: 900; font-size: 0.9rem; flex-shrink: 0;
     }
-    .about-feature h4 {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.15rem;
-    }
-    .about-feature p {
-      font-size: 0.75rem;
-      color: var(--gray-400);
-      line-height: 1.5;
-      margin: 0;
-    }
+    .about-feature h4 { font-size: 0.82rem; font-weight: 700; color: var(--white); margin-bottom: 0.15rem; }
+    .about-feature p { font-size: 0.75rem; color: var(--gray-400); line-height: 1.5; margin: 0; }
 
     /* ═══ SERVICES ═══ */
     .services { background: var(--dark); }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
     .service-card {
-      background: var(--dark-2);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px;
-      overflow: hidden;
-      transition: all var(--ease);
+      background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; overflow: hidden; transition: all 0.5s ease;
       position: relative;
     }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--red); transform: scaleX(0);
+      transition: transform 0.5s ease; transform-origin: left;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
     .service-card:hover {
       border-color: rgba(227,30,36,0.3);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      transform: translateY(-8px);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.5), 0 0 40px rgba(227,30,36,0.08);
     }
-    .service-card-image {
-      height: 200px;
-      overflow: hidden;
-      position: relative;
-    }
+    .service-card-image { height: 200px; overflow: hidden; position: relative; }
     .service-card-image img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s ease;
-      filter: brightness(0.6);
+      transition: transform 0.8s ease, filter 0.5s ease;
+      filter: brightness(0.5) saturate(0.7);
     }
     .service-card:hover .service-card-image img {
-      transform: scale(1.08);
-      filter: brightness(0.75);
+      transform: scale(1.12);
+      filter: brightness(0.7) saturate(1);
     }
     .service-card-image::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 80px;
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 80px;
       background: linear-gradient(transparent, var(--dark-2));
     }
     .service-card-num {
-      position: absolute;
-      top: 1rem; left: 1rem;
-      font-family: var(--font-display);
-      font-size: 2rem;
-      color: rgba(255,255,255,0.15);
-      z-index: 2;
+      position: absolute; top: 1rem; left: 1rem;
+      font-family: var(--font-display); font-size: 2.5rem;
+      color: rgba(255,255,255,0.1); z-index: 2;
     }
     .service-card-body { padding: 1.5rem; }
     .service-card-body h3 {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      color: var(--white);
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.03em;
+      font-family: var(--font-display); font-size: 1.6rem;
+      color: var(--white); margin-bottom: 0.75rem; letter-spacing: 0.03em;
     }
-    .service-card-body p {
-      font-size: 0.85rem;
-      color: var(--gray-400);
-      line-height: 1.7;
-      margin-bottom: 1.25rem;
-    }
+    .service-card-body p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.7; margin-bottom: 1.25rem; }
     .service-card-link {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--red);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--red); text-transform: uppercase; letter-spacing: 0.08em;
       transition: all var(--ease);
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      cursor: pointer; border: none; background: none; padding: 0;
     }
+    .service-card-link span {
+      display: inline-block; transition: transform var(--ease);
+    }
+    .service-card:hover .service-card-link span { transform: translateX(6px); }
     .service-card-link:hover { color: var(--white); }
+    .service-card-link.open span { transform: rotate(90deg) !important; }
+    .service-card:has(.service-expand.open) { transform: translateY(0) !important; }
+
+    /* ═══ ACCORDION EXPAND ═══ */
+    .service-expand {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .service-expand.open { max-height: 600px; }
+    .service-expand-inner {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 0;
+      padding-top: 1.25rem;
+    }
+    .service-expand-inner ul {
+      list-style: none; padding: 0; margin: 0 0 1.25rem 0;
+    }
+    .service-expand-inner ul li {
+      font-size: 0.82rem; color: var(--gray-200); line-height: 1.8;
+      padding-left: 1.2rem; position: relative;
+    }
+    .service-expand-inner ul li::before {
+      content: ''; position: absolute; left: 0; top: 0.65rem;
+      width: 6px; height: 6px; background: var(--red);
+      border-radius: 1px; transform: rotate(45deg);
+    }
+    .service-expand-inner .expand-highlight {
+      font-size: 0.8rem; color: var(--gray-400); font-style: italic;
+      line-height: 1.7; margin-bottom: 1.25rem;
+    }
+    .service-expand-inner .btn-sm {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem;
+      background: var(--red); color: var(--white);
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border-radius: 4px; transition: all var(--ease);
+    }
+    .service-expand-inner .btn-sm:hover {
+      background: var(--white); color: var(--black);
+      transform: translateY(-2px);
+    }
+
+    /* ═══ MOBILE BEWAKING ═══ */
+    .mobile-bewaking { background: var(--black); }
+    .mb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .mb-card {
+      background: var(--dark); border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 8px; padding: 2rem; transition: all 0.4s ease;
+      position: relative; overflow: hidden;
+    }
+    .mb-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(227,30,36,0.03) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .mb-card:hover::before { opacity: 1; }
+    .mb-card:hover { border-color: rgba(227,30,36,0.2); transform: translateY(-4px); }
+    .mb-card h4 {
+      font-family: var(--font-display); font-size: 1.3rem;
+      color: var(--white); margin-bottom: 0.5rem; letter-spacing: 0.03em;
+      position: relative;
+    }
+    .mb-card p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.7; position: relative; }
+    .mb-card-accent {
+      width: 40px; height: 3px; background: var(--red);
+      border-radius: 2px; margin-bottom: 1.25rem;
+      transition: width 0.4s ease; position: relative;
+    }
+    .mb-card:hover .mb-card-accent { width: 80px; }
 
     /* ═══ CTA BANNER ═══ */
     .cta-banner {
-      background: var(--red);
-      padding: 4rem 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      background: var(--red); padding: 4.5rem 0;
+      text-align: center; position: relative; overflow: hidden;
     }
     .cta-banner::before {
-      content: '';
-      position: absolute;
-      top: -50%; left: -50%;
+      content: ''; position: absolute; top: -50%; left: -50%;
       width: 200%; height: 200%;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 20px,
-        rgba(0,0,0,0.03) 20px,
-        rgba(0,0,0,0.03) 40px
-      );
+      background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,0,0,0.04) 20px, rgba(0,0,0,0.04) 40px);
+      animation: ctaStripes 20s linear infinite;
     }
+    @keyframes ctaStripes { from { transform: translateX(0); } to { transform: translateX(56px); } }
     .cta-banner h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      color: var(--white);
-      margin-bottom: 0.75rem;
-      position: relative;
-      letter-spacing: 0.02em;
+      font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem);
+      color: var(--white); margin-bottom: 0.75rem; position: relative; letter-spacing: 0.02em;
     }
     .cta-banner p {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 2rem;
-      position: relative;
-      font-weight: 300;
+      font-size: 1.05rem; color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem; position: relative; font-weight: 300;
     }
     .cta-banner .btn {
-      position: relative;
-      background: var(--white);
-      color: var(--red);
+      position: relative; background: var(--white); color: var(--red);
     }
-    .cta-banner .btn:hover {
-      background: var(--black);
-      color: var(--white);
-    }
+    .cta-banner .btn:hover { background: var(--black); color: var(--white); transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
 
-    /* ═══ EVENTS SECTION ═══ */
+    /* ═══ EVENTS ═══ */
     .events { background: var(--black); }
     .events-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      margin-top: 3rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; margin-top: 3rem;
     }
-    .events-services-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-top: 2rem;
-    }
+    .events-services-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2rem; }
     .events-service-item {
-      padding: 0.85rem 1rem;
-      background: var(--dark);
-      border-radius: 6px;
-      border-left: 3px solid var(--red);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--gray-200);
+      padding: 0.85rem 1rem; background: var(--dark);
+      border-radius: 6px; border-left: 3px solid var(--red);
+      font-size: 0.85rem; font-weight: 500; color: var(--gray-200);
       transition: all var(--ease);
     }
     .events-service-item:hover {
-      background: var(--dark-2);
-      color: var(--white);
+      background: var(--dark-2); color: var(--white);
+      transform: translateX(6px); border-left-color: var(--white);
     }
-    .events-image {
-      position: relative;
-      border-radius: 8px;
+    .events-image { position: relative; border-radius: 8px; overflow: hidden; }
+    .events-image img { width: 100%; height: 500px; object-fit: cover; transition: transform 0.8s ease; }
+    .events-image:hover img { transform: scale(1.05); }
+
+    /* ═══ MARQUEE REFERENTIES ═══ */
+    .marquee-section {
+      background: var(--dark);
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
       overflow: hidden;
     }
-    .events-image img {
-      width: 100%;
-      height: 500px;
-      object-fit: cover;
+    .marquee-track {
+      display: flex;
+      animation: marquee 25s linear infinite;
+      width: max-content;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0 2.5rem;
+      white-space: nowrap;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--gray-600);
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+    .marquee-item:hover { color: var(--red); }
+    .marquee-dot {
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     /* ═══ REFERENTIES ═══ */
     .referenties { background: var(--dark); }
-    .ref-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
+    .ref-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
     .ref-card {
-      background: var(--dark-2);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      transition: all var(--ease);
+      background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; padding: 2rem 1.5rem; text-align: center;
+      transition: all 0.4s ease; position: relative; overflow: hidden;
     }
-    .ref-card:hover {
-      border-color: rgba(227,30,36,0.3);
-      transform: translateY(-3px);
+    .ref-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(227,30,36,0.06) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.4s ease;
     }
-    .ref-card h4 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.3rem;
-    }
-    .ref-card p {
-      font-size: 0.75rem;
-      color: var(--gray-400);
-    }
+    .ref-card:hover::before { opacity: 1; }
+    .ref-card:hover { border-color: rgba(227,30,36,0.3); transform: translateY(-6px) scale(1.02); }
+    .ref-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; position: relative; }
+    .ref-card p { font-size: 0.75rem; color: var(--gray-400); position: relative; }
     .ref-card-icon {
       width: 50px; height: 50px;
-      background: rgba(227,30,36,0.08);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-      color: var(--red);
-      font-family: var(--font-display);
-      font-size: 1.2rem;
+      background: rgba(227,30,36,0.08); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem; color: var(--red);
+      font-family: var(--font-display); font-size: 1.2rem;
+      position: relative;
+      transition: all 0.4s ease;
     }
-
-    /* ═══ MOBILE BEWAKING DETAIL ═══ */
-    .mobile-bewaking { background: var(--black); }
-    .mb-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-    .mb-card {
-      background: var(--dark);
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 8px;
-      padding: 2rem;
-      transition: all var(--ease);
-    }
-    .mb-card:hover { border-color: rgba(227,30,36,0.2); }
-    .mb-card h4 {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.03em;
-    }
-    .mb-card p {
-      font-size: 0.85rem;
-      color: var(--gray-400);
-      line-height: 1.7;
-    }
-    .mb-card-accent {
-      width: 40px; height: 3px;
-      background: var(--red);
-      border-radius: 2px;
-      margin-bottom: 1.25rem;
+    .ref-card:hover .ref-card-icon {
+      background: var(--red); color: var(--white);
+      box-shadow: 0 0 25px rgba(227,30,36,0.3);
     }
 
     /* ═══ CONTACT ═══ */
     .contact { background: var(--dark); }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      margin-top: 3rem;
-    }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; }
     .contact-info-card {
-      background: var(--dark-2);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 2rem;
-      margin-bottom: 1rem;
+      background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; padding: 2rem; margin-bottom: 1rem;
+      transition: all var(--ease);
     }
+    .contact-info-card:hover { border-color: rgba(227,30,36,0.15); }
     .contact-info-card h4 {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--red);
-      margin-bottom: 0.75rem;
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--red); margin-bottom: 0.75rem;
     }
-    .contact-info-card p {
-      color: var(--gray-200);
-      font-size: 0.9rem;
-      line-height: 1.8;
-    }
+    .contact-info-card p { color: var(--gray-200); font-size: 0.9rem; line-height: 1.8; }
     .contact-info-card a { color: var(--white); font-weight: 600; }
     .contact-info-card a:hover { color: var(--red); }
-    .contact-phone {
-      font-family: var(--font-display);
-      font-size: 2rem !important;
-      color: var(--white) !important;
-      letter-spacing: 0.02em;
-    }
+    .contact-phone { font-family: var(--font-display); font-size: 2rem !important; color: var(--white) !important; }
     .contact-form {
-      background: var(--dark-2);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 2.5rem;
+      background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; padding: 2.5rem;
     }
-    .contact-form h3 {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      color: var(--white);
-      margin-bottom: 1.5rem;
-    }
+    .contact-form h3 { font-family: var(--font-display); font-size: 1.8rem; color: var(--white); margin-bottom: 1.5rem; }
     .form-group { margin-bottom: 1.25rem; }
     .form-group label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--gray-400);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.4rem;
+      display: block; font-size: 0.75rem; font-weight: 600;
+      color: var(--gray-400); text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 0.4rem;
     }
     .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background: var(--dark);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 4px;
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      transition: border-color var(--ease);
+      width: 100%; padding: 0.75rem 1rem;
+      background: var(--dark); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px; color: var(--white);
+      font-family: var(--font-body); font-size: 0.9rem;
+      transition: all var(--ease);
     }
     .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      outline: none;
-      border-color: var(--red);
+      outline: none; border-color: var(--red);
+      box-shadow: 0 0 20px rgba(227,30,36,0.1);
     }
     .form-group textarea { resize: vertical; min-height: 120px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
     /* ═══ FOOTER ═══ */
     .footer {
-      background: var(--black);
-      border-top: 1px solid rgba(255,255,255,0.04);
-      padding: 4rem 0 0;
-      font-size: 0.85rem;
+      background: var(--black); border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 4rem 0 0; font-size: 0.85rem;
     }
     .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 2.5rem;
-      padding-bottom: 2.5rem;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2.5rem; padding-bottom: 2.5rem;
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
-    .footer-brand p {
-      font-size: 0.82rem;
-      color: var(--gray-600);
-      line-height: 1.7;
-      margin-top: 0.75rem;
-    }
-    .footer-brand .footer-logo {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: var(--white);
-      letter-spacing: 0.03em;
-    }
+    .footer-brand p { font-size: 0.82rem; color: var(--gray-600); line-height: 1.7; margin-top: 0.75rem; }
+    .footer-brand .footer-logo { font-family: var(--font-display); font-size: 1.5rem; color: var(--white); letter-spacing: 0.03em; }
     .footer-brand .footer-logo em { font-style: normal; color: var(--red); }
     .footer-col h4 {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--gray-400);
-      margin-bottom: 1rem;
+      font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--gray-400); margin-bottom: 1rem;
     }
-    .footer-col a {
-      display: block;
-      color: var(--gray-600);
-      font-size: 0.82rem;
-      padding: 0.25rem 0;
-      transition: color var(--ease);
-    }
+    .footer-col a { display: block; color: var(--gray-600); font-size: 0.82rem; padding: 0.25rem 0; transition: color var(--ease); }
     .footer-col a:hover { color: var(--red); }
     .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 0;
-      color: var(--gray-600);
-      font-size: 0.78rem;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 0; color: var(--gray-600); font-size: 0.78rem;
     }
     .footer-bottom a { color: var(--gray-600); }
     .footer-bottom a:hover { color: var(--red); }
     .footer-legal { display: flex; gap: 1.5rem; }
 
-    /* ═══ SCROLL REVEAL ═══ */
+    /* ═══ SCROLL REVEALS ═══ */
     .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      opacity: 0; transform: translateY(35px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale {
+      opacity: 0; transform: scale(0.9);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* Stagger children */
+    .stagger-children > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .stagger-children.visible > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger-children.visible > *:nth-child(2) { transition-delay: 0.1s; }
+    .stagger-children.visible > *:nth-child(3) { transition-delay: 0.15s; }
+    .stagger-children.visible > *:nth-child(4) { transition-delay: 0.2s; }
+    .stagger-children.visible > *:nth-child(5) { transition-delay: 0.25s; }
+    .stagger-children.visible > *:nth-child(6) { transition-delay: 0.3s; }
+    .stagger-children.visible > *:nth-child(7) { transition-delay: 0.35s; }
+    .stagger-children.visible > *:nth-child(8) { transition-delay: 0.4s; }
+    .stagger-children.visible > *:nth-child(9) { transition-delay: 0.45s; }
+    .stagger-children.visible > *:nth-child(10) { transition-delay: 0.5s; }
+    .stagger-children.visible > * { opacity: 1; transform: translateY(0); }
 
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 1024px) {
@@ -765,21 +700,21 @@
     @media (max-width: 768px) {
       .nav-desktop { display: none; }
       .hamburger { display: flex; }
-      .hero { min-height: 70vh; }
+      .hero { min-height: 75vh; }
       .hero h2 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
       .about-grid, .events-layout, .contact-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .mb-grid { grid-template-columns: 1fr; }
+      .services-grid, .mb-grid { grid-template-columns: 1fr; }
       .ref-grid { grid-template-columns: 1fr 1fr; }
-      .about-features { grid-template-columns: 1fr; }
-      .events-services-list { grid-template-columns: 1fr; }
+      .about-features, .events-services-list { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .footer-bottom { flex-direction: column; text-align: center; gap: 0.75rem; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item h3 { font-size: 2.5rem; }
+      .stat-item h3 { font-size: 2.8rem; }
+      .stat-item::after { display: none; }
       section { padding: 4rem 0; }
       .form-row { grid-template-columns: 1fr; }
       .top-bar-left span:first-child { display: none; }
+      .glitch::before, .glitch::after { display: none; }
     }
   </style>
 </head>
@@ -831,14 +766,15 @@
   </div>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg">
+  <section class="hero" id="heroSection">
+    <div class="hero-bg" id="heroBg">
       <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1600&q=80" alt="Security bewaking" loading="eager">
     </div>
+    <canvas id="heroParticles"></canvas>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-tag">Bewakingsexpert sinds 2009</div>
-      <h2>ONZE ERVARING,<br>UW <em>VEILIGHEID</em></h2>
+      <h2>ONZE ERVARING,<br>UW <span class="glitch" data-text="VEILIGHEID"><em>VEILIGHEID</em></span></h2>
       <p>Rosing Security staat garant voor professionele bewaking van bedrijven, domeinen en evenementen. 24/7 bereikbaar, discreet of zichtbaar preventief. Velen beloven het, wij leveren het.</p>
       <div class="hero-buttons">
         <a href="#contact" class="btn btn-red">Vraag een offerte</a>
@@ -850,9 +786,9 @@
   <!-- STATS BAR -->
   <div class="stats-bar">
     <div class="container">
-      <div class="stats-grid">
+      <div class="stats-grid" id="statsGrid">
         <div class="stat-item reveal">
-          <h3>15+</h3>
+          <h3><span class="counter" data-target="15" data-suffix="+">0</span></h3>
           <p>Jaar ervaring</p>
         </div>
         <div class="stat-item reveal">
@@ -860,12 +796,12 @@
           <p>Bereikbaar</p>
         </div>
         <div class="stat-item reveal">
-          <h3>110%</h3>
-          <p>Inzet</p>
+          <h3><span class="counter" data-target="500" data-suffix="+">0</span></h3>
+          <p>Opdrachten</p>
         </div>
         <div class="stat-item reveal">
-          <h3>MIBZ</h3>
-          <p>Erkend en vergund</p>
+          <h3><span class="counter" data-target="110" data-suffix="%">0</span></h3>
+          <p>Inzet</p>
         </div>
       </div>
     </div>
@@ -877,13 +813,13 @@
       <div class="section-tag">Waarom Rosing</div>
       <h2 class="section-title">JARENLANGE EXPERTISE,<br>UNIEKE DIENSTVERLENING</h2>
       <div class="about-grid">
-        <div class="about-image reveal">
-          <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?w=800&q=80" alt="Professioneel beveiligingsteam">
+        <div class="about-image reveal-left">
+          <img src="robert.jpg" alt="Robert Houblon — zaakvoerder Rosing Security">
         </div>
-        <div class="about-text reveal">
+        <div class="about-text reveal-right">
           <p><strong>Rosing Security en Rosing Events &amp; Services</strong> bezitten een jarenlange expertise en unieke dienstverlening. Door ons streven naar hoge kwaliteit en maatwerk zijn wij een van de marktleiders binnen onze domeinen.</p>
           <p>Een doorgedreven service en een perfect opgeleid en functionerend team staan garant voor uw veiligheid. Discreet en/of preventief, steeds een tot in de puntjes verzorgde beveiliging.</p>
-          <div class="about-features">
+          <div class="about-features stagger-children">
             <div class="about-feature">
               <div class="about-feature-icon">01</div>
               <div>
@@ -924,38 +860,83 @@
       <div class="section-tag">Onze diensten</div>
       <h2 class="section-title">ROSING SECURITY — BEWAKING</h2>
       <p class="section-subtitle">Van industriele bewaking tot mobiele patrouilles en alarminterventie. Wij beschermen uw eigendommen, personeel en bezoekers.</p>
-      <div class="services-grid">
-        <div class="service-card reveal">
+      <div class="services-grid stagger-children">
+        <div class="service-card">
           <div class="service-card-image">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Industriele bewaking">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Industriele bewaking">
             <div class="service-card-num">01</div>
           </div>
           <div class="service-card-body">
             <h3>INDUSTRIELE BEWAKING</h3>
-            <p>Permanente of tijdelijke bewaking van kantoor, bedrijfspand, domein of magazijn. De veiligheid van uw eigendom, personeel en bezoekers zijn onze prioriteit.</p>
-            <a href="#contact" class="service-card-link">Meer info &#8594;</a>
+            <p>Permanente of tijdelijke bewaking van fabrieken, magazijnen en productiesites. Wij beschermen uw eigendom, personeel en bezoekers — 24 uur per dag, 7 dagen per week.</p>
+            <button class="service-card-link" onclick="toggleExpand(this)">Meer info <span>&#8594;</span></button>
+          </div>
+          <div class="service-expand">
+            <div class="service-expand-inner">
+              <p class="expand-highlight">Elke industriële site is uniek. Daarom analyseren wij eerst uw situatie grondig en stellen een beveiligingsplan op maat samen — zodat u zich volledig kunt focussen op uw core business.</p>
+              <ul>
+                <li>Permanente bewaking van productiesites, opslagfaciliteiten en logistieke centra</li>
+                <li>Toegangscontrole: registratie en verificatie van werknemers, bezoekers en leveranciers</li>
+                <li>Patrouilles over het volledige terrein — te voet en per voertuig</li>
+                <li>Sleutelbeheer en sluitrondes na werkuren</li>
+                <li>Incidentrapportage en directe communicatie met uw management</li>
+                <li>Gecertificeerde bewakingsagenten met kennis van veiligheidsprotocollen</li>
+                <li>Flexibele inzet: tijdelijk (bv. verbouwing of piekperiode) of structureel</li>
+              </ul>
+              <a href="#contact" class="btn-sm">Offerte aanvragen &#8594;</a>
+            </div>
           </div>
         </div>
-        <div class="service-card reveal">
+        <div class="service-card">
           <div class="service-card-image">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80" alt="Winkelbewaking">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" alt="Winkelbewaking">
             <div class="service-card-num">02</div>
           </div>
           <div class="service-card-body">
             <h3>WINKELBEWAKING</h3>
-            <p>Winkel en winkelcentra zijn vaak drukke omgevingen. Wij staan klaar voor elke opdracht — discreet of zichtbaar preventief. Toegangs- en uitgangscontrole, persoonscontrole en meer.</p>
-            <a href="#contact" class="service-card-link">Meer info &#8594;</a>
+            <p>Discreet of zichtbaar aanwezig in uw winkel of winkelcentrum. Wij voorkomen winkeldiefstal, garanderen een veilige winkelervaring en beschermen uw omzet.</p>
+            <button class="service-card-link" onclick="toggleExpand(this)">Meer info <span>&#8594;</span></button>
+          </div>
+          <div class="service-expand">
+            <div class="service-expand-inner">
+              <p class="expand-highlight">Winkeldiefstal kost de Belgische retail sector jaarlijks miljoenen euro. Onze getrainde winkelinspecteurs en bewakingsagenten pakken dit probleem proactief aan — zichtbaar of undercover.</p>
+              <ul>
+                <li>Winkelinspecteurs in burger voor discrete preventie en observatie</li>
+                <li>Bewakingsagenten in uniform als zichtbaar afschrikmiddel</li>
+                <li>Toegangs- en uitgangscontrole bij drukke periodes en evenementen</li>
+                <li>Persoonscontrole en interventie bij verdacht gedrag</li>
+                <li>Samenwerking met uw personeel: signaleren, rapporteren en voorkomen</li>
+                <li>Inzetbaar in individuele winkels, winkelcentra en retailparken</li>
+                <li>Flexibele planning: weekends, koopavonden, solden en feestdagen</li>
+              </ul>
+              <a href="#contact" class="btn-sm">Offerte aanvragen &#8594;</a>
+            </div>
           </div>
         </div>
-        <div class="service-card reveal">
+        <div class="service-card">
           <div class="service-card-image">
-            <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&q=80" alt="Domeinbewaking">
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Domeinbewaking">
             <div class="service-card-num">03</div>
           </div>
           <div class="service-card-body">
             <h3>DOMEINBEWAKING</h3>
-            <p>Langdurige of korte bewakingsopdrachten voor een veilige omgeving. Uw domein — privaat en overheid — in alle discretie van bewaking voorzien.</p>
-            <a href="#contact" class="service-card-link">Meer info &#8594;</a>
+            <p>Bewaking van industrieterreinen, bouwwerven, privédomeinen en overheidssites. Uw terrein wordt continu beveiligd — dag en nacht, discreet en doeltreffend.</p>
+            <button class="service-card-link" onclick="toggleExpand(this)">Meer info <span>&#8594;</span></button>
+          </div>
+          <div class="service-expand">
+            <div class="service-expand-inner">
+              <p class="expand-highlight">Open terreinen en grote domeinen zijn kwetsbaar voor inbraak, vandalisme en ongeoorloofde toegang. Onze bewakingsagenten patrouilleren uw terrein en vormen een betrouwbare eerste verdedigingslinie.</p>
+              <ul>
+                <li>Bewaking van industriezones, haventerreinen en bedrijvenparken</li>
+                <li>Werfbewaking tijdens en na de bouwfase — bescherming van materiaal en machines</li>
+                <li>Patrouilles over uitgestrekte privédomeinen en landgoederen</li>
+                <li>Perimetersurveillance: controle van hekken, poorten en toegangswegen</li>
+                <li>Bewaking van overheidssites en openbare infrastructuur</li>
+                <li>Nachtbewaking en weekendbewaking voor extra bescherming buiten de werkuren</li>
+                <li>Rapportage en logboek per dienst — volledige transparantie</li>
+              </ul>
+              <a href="#contact" class="btn-sm">Offerte aanvragen &#8594;</a>
+            </div>
           </div>
         </div>
       </div>
@@ -968,23 +949,23 @@
       <div class="section-tag">24/7 Paraat</div>
       <h2 class="section-title">MOBIELE BEWAKING &amp; INTERVENTIE</h2>
       <p class="section-subtitle">Pro-actieve mobiele bewaking en ontrading door preventie. Onze agenten beschikken over goed uitgeruste apparatuur en een grondige kennis van alarmsystemen.</p>
-      <div class="mb-grid">
-        <div class="mb-card reveal">
+      <div class="mb-grid stagger-children">
+        <div class="mb-card">
           <div class="mb-card-accent"></div>
           <h4>PREVENTIEVE PATROUILLES</h4>
           <p>In samenspraak bepaalt u de frequentie, traject en te controleren punten. Via ons taggingssysteem voeren wij preventieve rondes uit met onze mobiele bewakingspatrouille.</p>
         </div>
-        <div class="mb-card reveal">
+        <div class="mb-card">
           <div class="mb-card-accent"></div>
           <h4>INTERVENTIE NA ALARM</h4>
           <p>Loopt er een alarm binnen? Dan zijn wij meteen paraat om ter plaatse te gaan voor interne en externe controles. Snel en vastberaden actie bij brand-, inbraak- of bedrijfsprocessen.</p>
         </div>
-        <div class="mb-card reveal">
+        <div class="mb-card">
           <div class="mb-card-accent"></div>
           <h4>CONTROLERONDES</h4>
           <p>Externe controlerondes (perimeter, deuren, ramen), interne controlerondes, opsporen van technische defecten, controle op kritische bedrijfsprocessen en bezoekersverslag.</p>
         </div>
-        <div class="mb-card reveal">
+        <div class="mb-card">
           <div class="mb-card-accent"></div>
           <h4>OPENING &amp; SLUITING</h4>
           <p>Openen en sluiten van gebouwen, doven van lichten en uitschakelen van apparaten, controle van personeel op aanwezigheid. Volledige ontzorging buiten kantooruren.</p>
@@ -1008,10 +989,10 @@
       <div class="section-tag">Rosing Events &amp; Services</div>
       <h2 class="section-title">UW EVENT &amp; ORGANISING PARTNER</h2>
       <div class="events-layout">
-        <div class="reveal">
+        <div class="reveal-left">
           <p class="section-subtitle" style="margin-bottom:1.5rem;">Dankzij Rosing Event Services kunnen we u een totaalpakket en specifieke diensten aanbieden. Ervaren teamleden zorgen voor net die extra diensten die u kunnen bijstaan op alle momenten.</p>
           <p style="font-size:0.9rem;color:var(--gray-400);line-height:1.8;margin-bottom:1.5rem;">Elke activiteit, elk evenement brengt niet alleen risico's mee die bewaking vereisen — maar ook een dienstverlening en organisatie die vlekkeloos verloopt. Rosing Events &amp; Services kan u deze aanvulling bieden.</p>
-          <div class="events-services-list">
+          <div class="events-services-list stagger-children">
             <div class="events-service-item">Host &amp; Hostessen</div>
             <div class="events-service-item">Parkingboys</div>
             <div class="events-service-item">Evenementmedewerkers</div>
@@ -1024,7 +1005,7 @@
             <div class="events-service-item">Toegangscontrole &amp; security</div>
           </div>
         </div>
-        <div class="events-image reveal">
+        <div class="events-image reveal-right">
           <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Evenement beveiliging">
         </div>
       </div>
@@ -1032,55 +1013,33 @@
   </section>
 
   <!-- REFERENTIES -->
-  <section class="referenties" id="referenties">
+  <section class="referenties" id="referenties" style="padding-bottom:1rem;">
     <div class="container">
-      <div class="section-tag">Referenties</div>
-      <h2 class="section-title">EEN GREEP UIT ONZE REFERENTIES</h2>
-      <p class="section-subtitle">Onderstaande referenties zijn slechts een selectie uit ons breed klantenbestand. Wij bespreken graag meer referenties in een persoonlijk gesprek.</p>
-      <div class="ref-grid">
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">B</div>
-          <h4>Bosch</h4>
-          <p>Industriele bewaking</p>
-        </div>
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">G</div>
-          <h4>Graspop Metal Meeting</h4>
-          <p>Evenementbeveiliging</p>
-        </div>
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">W</div>
-          <h4>Waregem Koerse</h4>
-          <p>Evenementbeveiliging</p>
-        </div>
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">L</div>
-          <h4>Laundry Day</h4>
-          <p>Evenementbeveiliging</p>
-        </div>
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">A</div>
-          <h4>American Jeansstore</h4>
-          <p>Winkelbewaking</p>
-        </div>
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">J</div>
-          <h4>Juwelier Timmermans</h4>
-          <p>Bedrijfsbewaking</p>
-        </div>
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">H</div>
-          <h4>Hengelhoef Holiday Suites</h4>
-          <p>Domeinbewaking</p>
-        </div>
-        <div class="ref-card reveal">
-          <div class="ref-card-icon">F</div>
-          <h4>Fiesta Rociera</h4>
-          <p>Evenementbeveiliging</p>
-        </div>
-      </div>
+      <div class="section-tag reveal">Referenties</div>
+      <h2 class="section-title reveal">EEN GREEP UIT ONZE REFERENTIES</h2>
     </div>
   </section>
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item"><span class="marquee-dot"></span> BOSCH</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> GRASPOP METAL MEETING</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> WAREGEM KOERSE</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> LAUNDRY DAY</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> AMERICAN JEANSSTORE</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> JUWELIER TIMMERMANS</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> HENGELHOEF</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> FIESTA ROCIERA</div>
+      <!-- Duplicated for seamless loop -->
+      <div class="marquee-item"><span class="marquee-dot"></span> BOSCH</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> GRASPOP METAL MEETING</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> WAREGEM KOERSE</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> LAUNDRY DAY</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> AMERICAN JEANSSTORE</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> JUWELIER TIMMERMANS</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> HENGELHOEF</div>
+      <div class="marquee-item"><span class="marquee-dot"></span> FIESTA ROCIERA</div>
+    </div>
+  </div>
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
@@ -1107,7 +1066,7 @@
             <p>BTW: BE 0810.883.178<br>Vergunning: MIBZ 16.1135.12</p>
           </div>
         </div>
-        <div class="contact-form reveal">
+        <div class="contact-form reveal-scale">
           <h3>VRIJBLIJVENDE OFFERTE</h3>
           <form onsubmit="event.preventDefault(); alert('Bedankt! Wij nemen zo snel mogelijk contact op.');">
             <div class="form-row">
@@ -1199,7 +1158,7 @@
   </footer>
 
   <script>
-    // Mobile nav
+    // ═══ MOBILE NAV ═══
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobileNav');
     hamburger.addEventListener('click', () => {
@@ -1213,23 +1172,157 @@
       document.body.style.overflow = '';
     }
 
-    // Sticky header
+    // ═══ SERVICE ACCORDION ═══
+    function toggleExpand(btn) {
+      const card = btn.closest('.service-card');
+      const expand = card.querySelector('.service-expand');
+      const isOpen = expand.classList.contains('open');
+      // Close all others first
+      document.querySelectorAll('.service-expand.open').forEach(el => {
+        el.classList.remove('open');
+        el.closest('.service-card').querySelector('.service-card-link').classList.remove('open');
+      });
+      // Toggle this one
+      if (!isOpen) {
+        expand.classList.add('open');
+        btn.classList.add('open');
+      }
+    }
+
+    // ═══ STICKY HEADER ═══
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
+    // ═══ PARALLAX HERO ═══
+    const heroBg = document.getElementById('heroBg');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        heroBg.style.transform = 'translateY(' + scrolled * 0.35 + 'px)';
+      }
+    });
+
+    // ═══ PARTICLE CANVAS ═══
+    (function() {
+      const canvas = document.getElementById('heroParticles');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let w, h;
+
+      function resize() {
+        const hero = document.getElementById('heroSection');
+        w = canvas.width = hero.offsetWidth;
+        h = canvas.height = hero.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      class Particle {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.size = Math.random() * 2 + 0.5;
+          this.speedX = (Math.random() - 0.5) * 0.4;
+          this.speedY = (Math.random() - 0.5) * 0.4;
+          this.opacity = Math.random() * 0.5 + 0.1;
+          this.isRed = Math.random() > 0.85;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.isRed
+            ? 'rgba(227,30,36,' + this.opacity + ')'
+            : 'rgba(255,255,255,' + this.opacity + ')';
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+      // Draw connecting lines between nearby particles
+      function drawLines() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = 'rgba(227,30,36,' + (0.06 * (1 - dist / 120)) + ')';
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => { p.update(); p.draw(); });
+        drawLines();
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // ═══ ANIMATED COUNTERS ═══
+    function animateCounters() {
+      document.querySelectorAll('.counter').forEach(counter => {
+        if (counter.dataset.animated) return;
+        const target = parseInt(counter.dataset.target);
+        const suffix = counter.dataset.suffix || '';
+        const duration = 2000;
+        const start = performance.now();
+
+        function update(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(eased * target);
+          counter.textContent = current + suffix;
+          if (progress < 1) requestAnimationFrame(update);
+          else counter.textContent = target + suffix;
+        }
+        counter.dataset.animated = 'true';
+        requestAnimationFrame(update);
+      });
+    }
+
+    // ═══ SCROLL REVEAL (all types) ═══
+    const allReveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          // Trigger counters if in stats section
+          if (entry.target.closest('.stats-bar') || entry.target.closest('#statsGrid')) {
+            animateCounters();
+          }
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
+    }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+    allReveals.forEach(el => revealObserver.observe(el));
+
+    // Also observe the stats grid directly for counters
+    const statsGrid = document.getElementById('statsGrid');
+    if (statsGrid) {
+      const statsObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) { animateCounters(); statsObserver.unobserve(statsGrid); }
+      }, { threshold: 0.3 });
+      statsObserver.observe(statsGrid);
+    }
   </script>
 </body>
 </html>
