@@ -67,6 +67,9 @@ header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.75rem 2.5rem;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 .brand {
   font-family: var(--font-display);
@@ -410,6 +413,7 @@ header {
   border: 1px solid rgba(255,255,255,0.06);
   border-right: none;
   transition: background 0.4s var(--ease);
+  cursor: pointer;
 }
 .dienst:nth-child(3n) { border-right: 1px solid rgba(255,255,255,0.06); }
 .dienst:nth-child(n+4) { border-top: none; }
@@ -419,12 +423,47 @@ header {
   font-size: 0.7rem; letter-spacing: 0.2em;
   color: var(--grey); margin-bottom: 1.5rem;
 }
+.dienst-header {
+  display: flex; justify-content: space-between; align-items: center;
+}
 .dienst h4 {
   font-family: var(--font-display);
   font-size: 1.2rem; font-weight: 600;
   margin-bottom: 0.75rem;
 }
+.dienst-toggle {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--grey);
+  transition: all 0.3s var(--ease); flex-shrink: 0;
+  margin-top: -0.5rem;
+}
+.dienst.open .dienst-toggle {
+  transform: rotate(45deg);
+  background: var(--white); color: var(--black);
+  border-color: var(--white);
+}
 .dienst p { font-size: 0.85rem; line-height: 1.7; color: var(--grey); }
+.dienst-details {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s var(--ease), opacity 0.4s var(--ease), margin 0.4s var(--ease);
+  opacity: 0; margin-top: 0;
+}
+.dienst.open .dienst-details {
+  max-height: 500px; opacity: 1; margin-top: 1.25rem;
+}
+.dienst-details p {
+  font-size: 0.85rem; line-height: 1.8; color: rgba(240,237,232,0.7);
+  margin-bottom: 0.75rem;
+}
+.dienst-details .dienst-cta {
+  display: inline-block; margin-top: 0.5rem;
+  font-size: 0.75rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--accent);
+  font-weight: 500; transition: opacity 0.3s;
+}
+.dienst-details .dienst-cta:hover { opacity: 0.7; }
 
 /* ── OVER ── */
 .over {
@@ -556,7 +595,7 @@ footer a:hover { color: var(--white); }
 
 <!-- HERO -->
 <section class="hero">
-  <p class="hero-tagline">Creatief bureau — Antwerpen</p>
+  <p class="hero-tagline">Creatief bureau — Glabbeek</p>
   <h1 class="hero-title"><span class="serif">Merken</span> die blijven hangen</h1>
   <div class="hero-scroll">Scroll</div>
 </section>
@@ -673,12 +712,66 @@ footer a:hover { color: var(--white); }
   <p class="portfolio-label">Wat we doen</p>
   <h2 class="portfolio-title">Studio</h2>
   <div class="diensten-grid">
-    <div class="dienst reveal"><div class="dienst-num">01</div><h4>Branding & Identiteit</h4><p>Logo, huisstijl, merkstrategie. We geven jouw merk een gezicht dat werkt op elk touchpoint.</p></div>
-    <div class="dienst reveal"><div class="dienst-num">02</div><h4>Web Design</h4><p>Van wireframe tot pixel-perfect ontwerp. Interfaces die niet alleen mooi zijn maar ook intuïtief aanvoelen.</p></div>
-    <div class="dienst reveal"><div class="dienst-num">03</div><h4>Webontwikkeling</h4><p>Snelle, responsive websites gebouwd met moderne technologieën. Performance en schoonheid gaan samen.</p></div>
-    <div class="dienst reveal"><div class="dienst-num">04</div><h4>Social Media</h4><p>Content creatie en strategie die jouw merk zichtbaar maakt op de platformen die er toe doen.</p></div>
-    <div class="dienst reveal"><div class="dienst-num">05</div><h4>Marketing</h4><p>Campagnes die resultaat opleveren. Van strategie tot uitvoering, data-gedreven en creatief.</p></div>
-    <div class="dienst reveal"><div class="dienst-num">06</div><h4>Apps & Producten</h4><p>Digitale producten van concept tot lancering. UI/UX design en ontwikkeling onder één dak.</p></div>
+    <div class="dienst reveal" onclick="toggleDienst(this)">
+      <div class="dienst-num">01</div>
+      <div class="dienst-header"><h4>Branding & Identiteit</h4><div class="dienst-toggle">+</div></div>
+      <p>Logo, huisstijl, merkstrategie. We geven jouw merk een gezicht dat werkt op elk touchpoint.</p>
+      <div class="dienst-details">
+        <p>Eerste indrukken tellen. Jouw merk heeft gemiddeld 7 seconden om te overtuigen. Wij zorgen ervoor dat elke seconde raak is — van logo en kleurenpalet tot tone of voice en merkrichtlijnen.</p>
+        <p>Het resultaat? Een herkenbaar merk dat vertrouwen wekt en klanten aantrekt, nog vóór je eerste verkoopgesprek.</p>
+        <a href="#contact" class="dienst-cta">Start jouw merktraject →</a>
+      </div>
+    </div>
+    <div class="dienst reveal" onclick="toggleDienst(this)">
+      <div class="dienst-num">02</div>
+      <div class="dienst-header"><h4>Web Design</h4><div class="dienst-toggle">+</div></div>
+      <p>Van wireframe tot pixel-perfect ontwerp. Interfaces die niet alleen mooi zijn maar ook intuïtief aanvoelen.</p>
+      <div class="dienst-details">
+        <p>94% van eerste indrukken online gaat over design. Wij ontwerpen websites die bezoekers vasthouden, door flows begeleiden en converteren. Geen template-werk, maar maatwerk dat jouw verhaal vertelt.</p>
+        <p>Elke pixel heeft een doel. Elke interactie voelt vanzelfsprekend aan.</p>
+        <a href="#contact" class="dienst-cta">Laat je site ontwerpen →</a>
+      </div>
+    </div>
+    <div class="dienst reveal" onclick="toggleDienst(this)">
+      <div class="dienst-num">03</div>
+      <div class="dienst-header"><h4>Webontwikkeling</h4><div class="dienst-toggle">+</div></div>
+      <p>Snelle, responsive websites gebouwd met moderne technologieën. Performance en schoonheid gaan samen.</p>
+      <div class="dienst-details">
+        <p>Een trage website kost je klanten — letterlijk. Elke seconde extra laadtijd verlaagt je conversie met 7%. Wij bouwen razendsnelle sites die scoren bij Google én bij je bezoekers.</p>
+        <p>Van Next.js tot headless CMS: we kiezen de technologie die past bij jouw groeiambitie, niet wat hip is deze week.</p>
+        <a href="#contact" class="dienst-cta">Bespreek je project →</a>
+      </div>
+    </div>
+    <div class="dienst reveal" onclick="toggleDienst(this)">
+      <div class="dienst-num">04</div>
+      <div class="dienst-header"><h4>Social Media</h4><div class="dienst-toggle">+</div></div>
+      <p>Content creatie en strategie die jouw merk zichtbaar maakt op de platformen die er toe doen.</p>
+      <div class="dienst-details">
+        <p>Posten zonder plan is schreeuwen in de leegte. Wij bouwen een contentstrategie die jouw doelgroep aanspreekt, engagement opbouwt en volgers omzet in klanten.</p>
+        <p>Van Reels en carousels tot community management — consistent, on-brand en resultaatgericht.</p>
+        <a href="#contact" class="dienst-cta">Boost je social presence →</a>
+      </div>
+    </div>
+    <div class="dienst reveal" onclick="toggleDienst(this)">
+      <div class="dienst-num">05</div>
+      <div class="dienst-header"><h4>Marketing</h4><div class="dienst-toggle">+</div></div>
+      <p>Campagnes die resultaat opleveren. Van strategie tot uitvoering, data-gedreven en creatief.</p>
+      <div class="dienst-details">
+        <p>Geen budget verspillen aan "zien wat het doet". Wij lanceren campagnes op basis van data, testen continu en optimaliseren tot elke euro rendeert.</p>
+        <p>Google Ads, Meta campaigns, e-mail automation — alles meetbaar, alles traceerbaar, alles gericht op groei.</p>
+        <a href="#contact" class="dienst-cta">Plan je campagne →</a>
+      </div>
+    </div>
+    <div class="dienst reveal" onclick="toggleDienst(this)">
+      <div class="dienst-num">06</div>
+      <div class="dienst-header"><h4>Apps & Producten</h4><div class="dienst-toggle">+</div></div>
+      <p>Digitale producten van concept tot lancering. UI/UX design en ontwikkeling onder één dak.</p>
+      <div class="dienst-details">
+        <p>Van idee tot App Store — wij begeleiden het volledige traject. Gebruikersonderzoek, prototyping, design, development en lancering. Geen eindeloze loops tussen verschillende bureaus.</p>
+        <p>Eén team, één visie, één product dat je gebruikers niet meer willen missen.</p>
+        <a href="#contact" class="dienst-cta">Start je product →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -995,74 +1088,144 @@ function closeMob() {
   menuBtn.textContent = 'Menu';
 }
 
-// ── Drag-to-scroll portfolio
+// ── Infinite circular carousel
 const track = document.getElementById('dragTrack');
-let isDragging = false, startX, dragOffset = 0;
-track.dataset.offset = '0';
+let isDragging = false, startX, startY, dragMoved = false;
+let currentOffset = 0;
+let touchDirection = null; // 'horizontal' | 'vertical' | null
 
+// Clone cards for infinite loop effect
+function setupInfiniteTrack() {
+  const cards = Array.from(track.querySelectorAll('.project-card'));
+  // Clone all cards and append + prepend for seamless loop
+  cards.forEach(card => {
+    const cloneEnd = card.cloneNode(true);
+    cloneEnd.classList.add('clone');
+    track.appendChild(cloneEnd);
+  });
+  cards.forEach(card => {
+    const cloneStart = card.cloneNode(true);
+    cloneStart.classList.add('clone');
+    track.insertBefore(cloneStart, track.firstChild);
+  });
+  // Set initial offset to skip the prepended clones
+  const cardWidth = cards[0].offsetWidth + 32; // card width + gap
+  currentOffset = -(cardWidth * cards.length);
+  track.style.transform = `translateX(${currentOffset}px)`;
+}
+
+function getOriginalWidth() {
+  const origCards = track.querySelectorAll('.project-card:not(.clone)');
+  if (origCards.length === 0) return 1;
+  const cardWidth = origCards[0].offsetWidth + 32;
+  return cardWidth * origCards.length;
+}
+
+function wrapOffset() {
+  const origWidth = getOriginalWidth();
+  // Wrap around seamlessly
+  if (currentOffset > 0) {
+    currentOffset -= origWidth;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${currentOffset}px)`;
+  } else if (currentOffset < -(origWidth * 2)) {
+    currentOffset += origWidth;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${currentOffset}px)`;
+  }
+}
+
+setupInfiniteTrack();
+// Re-init reels on cloned cards
+setupReelHovers();
+
+// Mouse drag
 track.addEventListener('mousedown', (e) => {
-  isDragging = true;
+  isDragging = true; dragMoved = false;
   startX = e.pageX;
   track.classList.add('dragging');
   track.style.transition = 'none';
   e.preventDefault();
 });
-
 document.addEventListener('mouseup', () => {
-  if (isDragging) { isDragging = false; track.classList.remove('dragging'); }
+  if (isDragging) {
+    isDragging = false;
+    track.classList.remove('dragging');
+    wrapOffset();
+  }
 });
-
 document.addEventListener('mousemove', (e) => {
   if (!isDragging) return;
+  dragMoved = true;
   const dx = e.pageX - startX;
-  const current = parseFloat(track.dataset.offset) || 0;
-  const next = current + dx;
-  const max = track.scrollWidth - window.innerWidth + 40;
-  const clamped = Math.max(-max, Math.min(0, next));
-  track.style.transform = `translateX(${clamped}px)`;
-  track.dataset.offset = clamped;
+  currentOffset += dx;
+  track.style.transform = `translateX(${currentOffset}px)`;
   startX = e.pageX;
 });
 
-// Touch
+// Touch — with direction lock to fix vertical scroll issue
 track.addEventListener('touchstart', (e) => {
-  isDragging = true;
+  isDragging = true; dragMoved = false;
+  touchDirection = null;
   startX = e.touches[0].pageX;
+  startY = e.touches[0].pageY;
   track.style.transition = 'none';
 }, { passive: true });
-document.addEventListener('touchend', () => { isDragging = false; });
+
+document.addEventListener('touchend', () => {
+  if (isDragging) {
+    isDragging = false;
+    touchDirection = null;
+    wrapOffset();
+  }
+});
+
 document.addEventListener('touchmove', (e) => {
   if (!isDragging) return;
   const dx = e.touches[0].pageX - startX;
-  const current = parseFloat(track.dataset.offset) || 0;
-  const next = current + dx;
-  const max = track.scrollWidth - window.innerWidth + 40;
-  const clamped = Math.max(-max, Math.min(0, next));
-  track.style.transform = `translateX(${clamped}px)`;
-  track.dataset.offset = clamped;
+  const dy = e.touches[0].pageY - startY;
+
+  // Determine direction on first significant move
+  if (!touchDirection) {
+    if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
+    touchDirection = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+  }
+
+  // If vertical swipe, let browser handle normal scrolling
+  if (touchDirection === 'vertical') {
+    isDragging = false;
+    return;
+  }
+
+  // Horizontal swipe — prevent page scroll, move carousel
+  e.preventDefault();
+  dragMoved = true;
+  currentOffset += dx;
+  track.style.transform = `translateX(${currentOffset}px)`;
   startX = e.touches[0].pageX;
-}, { passive: true });
+  startY = e.touches[0].pageY;
+}, { passive: false });
 
 // Wheel
 document.querySelector('.portfolio').addEventListener('wheel', (e) => {
   if (Math.abs(e.deltaY) < 5) return;
   e.preventDefault();
-  const current = parseFloat(track.dataset.offset) || 0;
-  const next = current - e.deltaY * 2;
-  const max = track.scrollWidth - window.innerWidth + 40;
-  const clamped = Math.max(-max, Math.min(0, next));
+  currentOffset -= e.deltaY * 2;
   track.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-  track.style.transform = `translateX(${clamped}px)`;
-  track.dataset.offset = clamped;
+  track.style.transform = `translateX(${currentOffset}px)`;
+  setTimeout(wrapOffset, 350);
 }, { passive: false });
 
 // Prevent card link click during drag
-let dragMoved = false;
 track.addEventListener('mousedown', () => { dragMoved = false; });
-track.addEventListener('mousemove', () => { if (isDragging) dragMoved = true; });
 track.querySelectorAll('.project-card').forEach(card => {
   card.addEventListener('click', (e) => { if (dragMoved) e.preventDefault(); });
 });
+
+// ── Toggle diensten accordion
+function toggleDienst(el) {
+  el.classList.toggle('open');
+}
 
 // ── Init reels
 initReels();
