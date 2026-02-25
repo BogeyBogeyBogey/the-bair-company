@@ -550,6 +550,7 @@ footer a:hover { color: var(--white); }
   .drag-track { padding: 0 1.5rem; gap: 1.25rem; }
   .project-card { width: 320px; }
   .reel-play { display: none; }
+  .card-video { opacity: 0.7; }  /* More visible on mobile since there's no hover */
   .diensten { padding: 5rem 1.5rem; }
   .diensten-grid { grid-template-columns: 1fr; }
   .dienst { border-right: 1px solid rgba(255,255,255,0.06) !important; }
@@ -952,8 +953,11 @@ function setupReelHovers() {
   document.querySelectorAll('.project-card').forEach(card => {
 
     // ── Video cards (real mp4)
+    // Skip if already initialized (prevent duplicate listeners)
+    if (card._videoInit) return;
     const video = card.querySelector('.card-video');
     if (video) {
+      card._videoInit = true;
       card.addEventListener('mouseenter', () => {
         video.currentTime = 0;
         video.play().catch(() => {});
@@ -961,11 +965,11 @@ function setupReelHovers() {
       card.addEventListener('mouseleave', () => {
         video.pause();
       });
-      // Auto-play on mobile
+      // Auto-play on mobile — lower threshold so videos trigger earlier
       if ('ontouchstart' in window) {
         const obs = new IntersectionObserver((entries) => {
           entries.forEach(e => {
-            if (e.isIntersecting && e.intersectionRatio > 0.6) {
+            if (e.isIntersecting && e.intersectionRatio > 0.3) {
               card.classList.add('mobile-active');
               video.play().catch(() => {});
             } else {
@@ -973,7 +977,7 @@ function setupReelHovers() {
               video.pause();
             }
           });
-        }, { threshold: [0, 0.6] });
+        }, { threshold: [0, 0.3] });
         obs.observe(card);
       }
       return; // skip slideshow logic
@@ -1101,17 +1105,35 @@ const FRICTION = 0.94;        // How fast the spin decays (higher = longer spin)
 const VELOCITY_SCALE = 1.8;   // How much the throw amplifies
 const MIN_VELOCITY = 0.3;     // Below this, stop the animation
 
+// Recreate video elements in cloned cards so mobile browsers treat them as fresh
+function refreshClonedVideos(clone) {
+  clone.querySelectorAll('.card-video').forEach(oldVid => {
+    const newVid = document.createElement('video');
+    newVid.className = oldVid.className;
+    newVid.src = oldVid.src;
+    newVid.muted = true;
+    newVid.loop = true;
+    newVid.playsInline = true;
+    newVid.preload = 'metadata';
+    newVid.setAttribute('playsinline', '');
+    newVid.setAttribute('muted', '');
+    oldVid.parentNode.replaceChild(newVid, oldVid);
+  });
+}
+
 // Clone cards for infinite loop effect
 function setupInfiniteTrack() {
   const cards = Array.from(track.querySelectorAll('.project-card'));
   cards.forEach(card => {
     const cloneEnd = card.cloneNode(true);
     cloneEnd.classList.add('clone');
+    refreshClonedVideos(cloneEnd);
     track.appendChild(cloneEnd);
   });
   cards.forEach(card => {
     const cloneStart = card.cloneNode(true);
     cloneStart.classList.add('clone');
+    refreshClonedVideos(cloneStart);
     track.insertBefore(cloneStart, track.firstChild);
   });
   const cardWidth = cards[0].offsetWidth + 32;
