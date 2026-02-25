@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bair Company</title>
+<meta name="description" content="The Bair Company — Creatief bureau voor merken die durven opvallen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #f0ede8;
+  --grey: #666;
+  --accent: #2E8AFF;
+  --pink: #ec4899;
+  --amber: #f59e0b;
+  --emerald: #10b981;
+  --red: #ef4444;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+::-webkit-scrollbar { width: 0; height: 0; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+::selection { background: var(--accent); color: var(--black); }
+
+/* ── LOADER ── */
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 1s var(--ease), visibility 1s;
+}
+.loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-word {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+.loader-word span {
+  display: inline-block;
+  transform: translateY(120%);
+  animation: loaderUp 0.5s var(--ease) forwards;
+}
+@keyframes loaderUp { to { transform: translateY(0); } }
+
+/* ── HEADER ── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.75rem 2.5rem;
+}
+.brand {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+}
+.nav-pills { display: flex; gap: 0.5rem; }
+.nav-pill {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  font-size: 0.8rem; letter-spacing: 0.05em;
+  transition: all 0.3s var(--ease);
+}
+.nav-pill:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+.menu-btn { display: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
+
+.mobile-nav {
+  position: fixed; inset: 0; z-index: 99;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2rem;
+  opacity: 0; visibility: hidden;
+  transition: all 0.5s var(--ease);
+}
+.mobile-nav.open { opacity: 1; visibility: visible; }
+.mobile-nav a {
+  font-family: var(--font-display);
+  font-size: 2.5rem; font-weight: 600;
+  transition: opacity 0.3s;
+}
+.mobile-nav a:hover { opacity: 0.4; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 0 2rem;
+  position: relative;
+}
+.hero-tagline {
+  font-size: 0.7rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--grey);
+  margin-bottom: 2rem;
+  opacity: 0; animation: fadeIn 0.8s 1.8s var(--ease) forwards;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-weight: 800; line-height: 0.95;
+  letter-spacing: -0.03em; max-width: 900px;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 1s 2s var(--ease) forwards;
+}
+.hero-title .serif {
+  font-family: var(--font-serif);
+  font-weight: 400; font-style: italic;
+}
+.hero-scroll {
+  position: absolute; bottom: 2.5rem;
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--grey);
+  opacity: 0; animation: fadeIn 0.8s 2.8s var(--ease) forwards;
+}
+.hero-scroll::after {
+  content: ''; display: block;
+  width: 1px; height: 40px;
+  background: var(--grey);
+  margin: 0.75rem auto 0;
+  animation: scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse { 0%,100% { opacity: 0.2; height: 40px; } 50% { opacity: 0.8; height: 55px; } }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ══════════════════════════════════════════
+   PORTFOLIO — Horizontal Drag Gallery
+   with VIDEO-STYLE TRAILER reels
+   ══════════════════════════════════════════ */
+.portfolio {
+  padding: 6rem 0 8rem;
+  overflow: hidden;
+}
+.portfolio-header {
+  padding: 0 2.5rem; margin-bottom: 3rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.portfolio-label {
+  font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--grey);
+  margin-bottom: 0.75rem;
+}
+.portfolio-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700; letter-spacing: -0.02em;
+}
+.portfolio-hint {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.hint-text {
+  font-size: 0.7rem; color: var(--grey); letter-spacing: 0.2em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.hint-line {
+  display: block; width: 60px; height: 1px;
+  background: var(--grey); position: relative; overflow: hidden;
+}
+.hint-line::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--white);
+  animation: hintSlide 2s ease-in-out infinite;
+}
+@keyframes hintSlide {
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
+}
+
+.drag-track {
+  display: flex; gap: 2rem;
+  padding: 0 2.5rem;
+  cursor: grab; user-select: none;
+}
+.drag-track.dragging { cursor: grabbing; }
+
+/* ── PROJECT CARD ── */
+.project-card {
+  flex-shrink: 0;
+  width: 400px;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #111;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  position: relative;
+  display: block;
+}
+.project-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+
+/* ── REEL VIEWPORT — Video-style trailer ── */
+.reel-viewport {
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  position: relative;
+  background: #0d0d0d;
+}
+/* ── Video cards ── */
+.card-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  transition: opacity 0.6s var(--ease);
+}
+.has-video:hover .card-video,
+.has-video.mobile-active .card-video {
+  opacity: 1;
+}
+
+/* Each slide is a full-cover image */
+.reel-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  /* Ken Burns effect */
+  transform: scale(1);
+  animation: none;
+}
+.reel-slide:first-child {
+  opacity: 1; /* Show first slide by default */
+}
+.reel-slide.active {
+  opacity: 1;
+}
+.reel-slide.active.kenburns {
+  animation: kenBurns 4s ease-in-out forwards;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.08) translate(-1%, -1%); }
+}
+
+/* Progress bar at bottom of reel */
+.reel-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.6);
+  z-index: 6;
+  width: 0%;
+  transition: width 0.3s linear;
+}
+.project-card:hover .reel-progress {
+  animation: progressFill var(--reel-duration, 12s) linear infinite;
+}
+@keyframes progressFill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* Slide counter */
+.reel-counter {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  z-index: 5;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-display);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+.project-card:hover .reel-counter { opacity: 1; }
+
+/* Slide label overlay — shows what's on screen */
+.reel-label {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  z-index: 5;
+  display: flex; align-items: center; gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+.project-card:hover .reel-label { opacity: 1; }
+.reel-label-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ff3b30;
+  animation: blink 1.5s ease infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.reel-label-text {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+/* Gradient vignette */
+.reel-vignette {
+  position: absolute; inset: 0; z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, transparent 20%, transparent 75%, rgba(10,10,10,0.85) 100%),
+    linear-gradient(to right, rgba(10,10,10,0.2) 0%, transparent 15%, transparent 85%, rgba(10,10,10,0.2) 100%);
+}
+
+/* Play indicator */
+.reel-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 4;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 1;
+  transition: all 0.4s var(--ease);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.reel-play::after {
+  content: '';
+  display: block;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent var(--white);
+  margin-left: 3px;
+}
+.project-card:hover .reel-play {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Color stripe */
+.card-stripe {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; z-index: 7;
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease);
+}
+.project-card:hover .card-stripe { transform: scaleX(1); }
+
+/* Card info (below the reel) */
+.card-info {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.card-meta h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+.card-meta span {
+  font-size: 0.7rem; color: var(--grey);
+  letter-spacing: 0.05em;
+}
+.card-arrow {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.3s var(--ease);
+  flex-shrink: 0;
+}
+.project-card:hover .card-arrow {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+/* ── DIENSTEN ── */
+.diensten {
+  padding: 8rem 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.diensten-grid {
+  margin-top: 4rem;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.dienst {
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-right: none;
+  transition: background 0.4s var(--ease);
+}
+.dienst:nth-child(3n) { border-right: 1px solid rgba(255,255,255,0.06); }
+.dienst:nth-child(n+4) { border-top: none; }
+.dienst:hover { background: rgba(255,255,255,0.03); }
+.dienst-num {
+  font-family: var(--font-display);
+  font-size: 0.7rem; letter-spacing: 0.2em;
+  color: var(--grey); margin-bottom: 1.5rem;
+}
+.dienst h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.dienst p { font-size: 0.85rem; line-height: 1.7; color: var(--grey); }
+
+/* ── OVER ── */
+.over {
+  padding: 8rem 2.5rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: start;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.over-left .section-label {
+  font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--grey);
+  margin-bottom: 1.5rem;
+}
+.over-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-style: italic; line-height: 1.4;
+}
+.over-right p {
+  font-size: 1rem; line-height: 1.8;
+  color: var(--grey); margin-bottom: 1.25rem;
+}
+.over-stats { margin-top: 3rem; display: flex; gap: 3rem; }
+.stat-val { font-family: var(--font-display); font-size: 2rem; font-weight: 700; }
+.stat-label {
+  font-size: 0.7rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--grey); margin-top: 0.25rem;
+}
+
+/* ── CONTACT ── */
+.contact-cta {
+  padding: 10rem 2.5rem; text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.contact-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800; line-height: 1; letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+.contact-cta h2 .serif { font-family: var(--font-serif); font-weight: 400; font-style: italic; }
+.contact-cta p { color: var(--grey); font-size: 1rem; margin-bottom: 2.5rem; }
+.cta-btn {
+  display: inline-block; padding: 1rem 3rem;
+  background: var(--white); color: var(--black);
+  border-radius: 100px; font-size: 0.85rem;
+  font-weight: 500; letter-spacing: 0.1em;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.cta-btn:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(255,255,255,0.1); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 2rem 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.75rem; color: var(--grey);
+}
+footer a { transition: color 0.3s; }
+footer a:hover { color: var(--white); }
+.footer-links { display: flex; gap: 2rem; }
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .diensten-grid { grid-template-columns: 1fr 1fr; }
+  .dienst:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.06); }
+  .dienst:nth-child(odd):not(:first-child) { border-right: none; }
+}
+@media (max-width: 768px) {
+  header { padding: 1.25rem 1.5rem; }
+  .nav-pills { display: none; }
+  .menu-btn { display: block; }
+  .hero { padding: 0 1.5rem; }
+  .portfolio-header { padding: 0 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .drag-track { padding: 0 1.5rem; gap: 1.25rem; }
+  .project-card { width: 320px; }
+  .reel-play { display: none; }
+  .diensten { padding: 5rem 1.5rem; }
+  .diensten-grid { grid-template-columns: 1fr; }
+  .dienst { border-right: 1px solid rgba(255,255,255,0.06) !important; }
+  .dienst + .dienst { border-top: none; }
+  .over { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+  .over-stats { flex-wrap: wrap; gap: 2rem; }
+  .contact-cta { padding: 6rem 1.5rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .project-card { width: 280px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-word">
+    <span style="animation-delay:0.2s">T</span><span style="animation-delay:0.25s">H</span><span style="animation-delay:0.3s">E</span><span style="animation-delay:0.38s">&nbsp;</span><span style="animation-delay:0.4s">B</span><span style="animation-delay:0.45s">A</span><span style="animation-delay:0.5s">I</span><span style="animation-delay:0.55s">R</span><span style="animation-delay:0.65s">&nbsp;</span><span style="animation-delay:0.7s">C</span><span style="animation-delay:0.75s">O</span><span style="animation-delay:0.8s">.</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="brand">The Bair Co.</a>
+  <nav class="nav-pills">
+    <a href="#werk" class="nav-pill">Portfolio</a>
+    <a href="#diensten" class="nav-pill">Studio</a>
+    <a href="#over" class="nav-pill">Over</a>
+    <a href="#contact" class="nav-pill">Contact</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn">Menu</button>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#werk" onclick="closeMob()">Portfolio</a>
+  <a href="#diensten" onclick="closeMob()">Studio</a>
+  <a href="#over" onclick="closeMob()">Over</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-tagline">Creatief bureau — Antwerpen</p>
+  <h1 class="hero-title"><span class="serif">Merken</span> die blijven hangen</h1>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="werk">
+  <div class="portfolio-header reveal">
+    <div>
+      <h2 class="portfolio-title">Portfolio</h2>
+    </div>
+    <div class="portfolio-hint">
+      <span class="hint-text">Sleep</span>
+      <span class="hint-line"></span>
+    </div>
+  </div>
+
+  <div class="drag-track" id="dragTrack">
+
+    <!-- ▸ GiGi Money -->
+    <a href="https://www.gigimoney.com" target="_blank" class="project-card" data-project="gigi" style="--card-color: var(--accent); --reel-duration: 15s;">
+      <div class="reel-viewport">
+        <div class="reel-slides" data-reel="gigi"></div>
+        <div class="reel-vignette"></div>
+        <div class="reel-label">
+          <div class="reel-label-dot"></div>
+          <span class="reel-label-text">Homepage</span>
+        </div>
+        <div class="reel-counter">1 / 5</div>
+        <div class="reel-play"></div>
+        <div class="reel-progress"></div>
+        <div class="card-stripe" style="background: var(--accent);"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-meta">
+          <h3>GiGi Money</h3>
+          <span>Fintech · Branding · Web</span>
+        </div>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+    <!-- ▸ Rosing Security -->
+    <a href="https://rosingsecurity.vercel.app" target="_blank" class="project-card" data-project="rosing" style="--card-color: var(--red); --reel-duration: 12s;">
+      <div class="reel-viewport">
+        <div class="reel-slides" data-reel="rosing"></div>
+        <div class="reel-vignette"></div>
+        <div class="reel-label">
+          <div class="reel-label-dot"></div>
+          <span class="reel-label-text">Homepage</span>
+        </div>
+        <div class="reel-counter">1 / 5</div>
+        <div class="reel-play"></div>
+        <div class="reel-progress"></div>
+        <div class="card-stripe" style="background: var(--red);"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-meta">
+          <h3>Rosing Security</h3>
+          <span>Security · Animatie · Web</span>
+        </div>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+    <!-- ▸ Artoah -->
+    <a href="https://www.artoah.be" target="_blank" class="project-card has-video" data-project="artoah" style="--card-color: var(--amber);">
+      <div class="reel-viewport">
+        <video class="card-video" src="portfolioartoah.mp4" muted loop playsinline preload="metadata"></video>
+        <div class="reel-vignette"></div>
+        <div class="reel-label">
+          <div class="reel-label-dot"></div>
+          <span class="reel-label-text">Showreel</span>
+        </div>
+        <div class="reel-play"></div>
+        <div class="card-stripe" style="background: var(--amber);"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-meta">
+          <h3>Artoah</h3>
+          <span>Farm · Storytelling · Video</span>
+        </div>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+    <!-- ▸ Hans van Hest -->
+    <a href="https://hansvanhestkbc.vercel.app" target="_blank" class="project-card" data-project="hvh" style="--card-color: var(--emerald); --reel-duration: 12s;">
+      <div class="reel-viewport">
+        <div class="reel-slides" data-reel="hvh"></div>
+        <div class="reel-vignette"></div>
+        <div class="reel-label">
+          <div class="reel-label-dot"></div>
+          <span class="reel-label-text">Homepage</span>
+        </div>
+        <div class="reel-counter">1 / 5</div>
+        <div class="reel-play"></div>
+        <div class="reel-progress"></div>
+        <div class="card-stripe" style="background: var(--emerald);"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-meta">
+          <h3>Hans van Hest — KBC</h3>
+          <span>Verzekeringen · Landing page</span>
+        </div>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- DIENSTEN -->
+<section class="diensten reveal" id="diensten">
+  <p class="portfolio-label">Wat we doen</p>
+  <h2 class="portfolio-title">Studio</h2>
+  <div class="diensten-grid">
+    <div class="dienst reveal"><div class="dienst-num">01</div><h4>Branding & Identiteit</h4><p>Logo, huisstijl, merkstrategie. We geven jouw merk een gezicht dat werkt op elk touchpoint.</p></div>
+    <div class="dienst reveal"><div class="dienst-num">02</div><h4>Web Design</h4><p>Van wireframe tot pixel-perfect ontwerp. Interfaces die niet alleen mooi zijn maar ook intuïtief aanvoelen.</p></div>
+    <div class="dienst reveal"><div class="dienst-num">03</div><h4>Webontwikkeling</h4><p>Snelle, responsive websites gebouwd met moderne technologieën. Performance en schoonheid gaan samen.</p></div>
+    <div class="dienst reveal"><div class="dienst-num">04</div><h4>Social Media</h4><p>Content creatie en strategie die jouw merk zichtbaar maakt op de platformen die er toe doen.</p></div>
+    <div class="dienst reveal"><div class="dienst-num">05</div><h4>Marketing</h4><p>Campagnes die resultaat opleveren. Van strategie tot uitvoering, data-gedreven en creatief.</p></div>
+    <div class="dienst reveal"><div class="dienst-num">06</div><h4>Apps & Producten</h4><p>Digitale producten van concept tot lancering. UI/UX design en ontwikkeling onder één dak.</p></div>
+  </div>
+</section>
+
+<!-- OVER -->
+<section class="over reveal" id="over">
+  <div class="over-left">
+    <p class="section-label">Over ons</p>
+    <h2 class="over-quote">Klein bureau, grote ambities — elk project krijgt onze volledige aandacht.</h2>
+  </div>
+  <div class="over-right">
+    <p>The Bair Company is een creatief bureau dat gelooft in de kracht van goed design. We zijn bewust klein gebleven — geen lagen management, geen eindeloze vergaderingen.</p>
+    <p>Gewoon directe lijnen, scherpe ideeën en werk waar we achter staan. We combineren design thinking met de nieuwste technologieën om merken te bouwen die niet alleen mooi zijn, maar ook écht werken.</p>
+    <div class="over-stats">
+      <div><div class="stat-val">4+</div><div class="stat-label">Projecten</div></div>
+      <div><div class="stat-val">3+</div><div class="stat-label">Klanten</div></div>
+      <div><div class="stat-val">∞</div><div class="stat-label">Koffie</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-cta reveal" id="contact">
+  <h2>Klaar voor iets <span class="serif">moois</span>?</h2>
+  <p>Vertel ons over jouw project. We luisteren graag.</p>
+  <a href="mailto:kristofbogaerts@hotmail.com" class="cta-btn">Neem contact op</a>
+</section>
+
+<footer>
+  <span>&copy; 2026 The Bair Company</span>
+  <div class="footer-links">
+    <a href="mailto:kristofbogaerts@hotmail.com">Email</a>
+    <a href="#werk">Portfolio</a>
+    <a href="#diensten">Studio</a>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+// TRAILER REEL SYSTEM
+// Each project card gets a slideshow of images
+// that plays on hover, like a video trailer.
+// Replace image URLs with real screenshots later!
+// ══════════════════════════════════════════
+
+const reelData = {
+  gigi: {
+    slides: [
+      {
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=1000&fit=crop',
+        label: 'Homepage'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&h=1000&fit=crop',
+        label: 'App Interface'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop',
+        label: 'Dashboard'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=1000&fit=crop',
+        label: 'Features'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=1000&fit=crop',
+        label: 'Branding'
+      }
+    ],
+    interval: 3000
+  },
+  rosing: {
+    slides: [
+      {
+        image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=800&h=1000&fit=crop',
+        label: 'Homepage'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&h=1000&fit=crop',
+        label: 'Beveiligingssystemen'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&h=1000&fit=crop',
+        label: 'Diensten'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=800&h=1000&fit=crop',
+        label: 'Camerabewaking'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=1000&fit=crop',
+        label: 'Contact'
+      }
+    ],
+    interval: 2400
+  },
+  artoah: {
+    slides: [
+      {
+        image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&h=1000&fit=crop',
+        label: 'Homepage'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=800&h=1000&fit=crop',
+        label: 'Hoeve-ijs'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=1000&fit=crop',
+        label: 'Bakkerij'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=800&h=1000&fit=crop',
+        label: 'Winkel'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?w=800&h=1000&fit=crop',
+        label: 'Kampen'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=1000&fit=crop',
+        label: 'Boerderijleven'
+      }
+    ],
+    interval: 2500
+  },
+  hvh: {
+    slides: [
+      {
+        image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=1000&fit=crop',
+        label: 'Homepage'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=1000&fit=crop',
+        label: 'Verzekeringen'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=1000&fit=crop',
+        label: 'Services'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=1000&fit=crop',
+        label: 'Contact'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=1000&fit=crop',
+        label: 'Over KBC'
+      }
+    ],
+    interval: 2400
+  }
+};
+
+// ── Initialize reels
+function initReels() {
+  Object.keys(reelData).forEach(key => {
+    const container = document.querySelector(`[data-reel="${key}"]`);
+    if (!container) return;
+
+    const data = reelData[key];
+
+    // Create slide elements
+    data.slides.forEach((slide, i) => {
+      const div = document.createElement('div');
+      div.className = 'reel-slide' + (i === 0 ? ' active' : '');
+      div.style.backgroundImage = `url(${slide.image})`;
+      div.dataset.label = slide.label;
+      container.appendChild(div);
+    });
+
+    // Store state
+    container._currentSlide = 0;
+    container._totalSlides = data.slides.length;
+    container._interval = data.interval;
+    container._timer = null;
+    container._data = data;
+  });
+}
+
+// ── Start/stop reel on hover
+function setupReelHovers() {
+  document.querySelectorAll('.project-card').forEach(card => {
+
+    // ── Video cards (real mp4)
+    const video = card.querySelector('.card-video');
+    if (video) {
+      card.addEventListener('mouseenter', () => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      });
+      card.addEventListener('mouseleave', () => {
+        video.pause();
+      });
+      // Auto-play on mobile
+      if ('ontouchstart' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting && e.intersectionRatio > 0.6) {
+              card.classList.add('mobile-active');
+              video.play().catch(() => {});
+            } else {
+              card.classList.remove('mobile-active');
+              video.pause();
+            }
+          });
+        }, { threshold: [0, 0.6] });
+        obs.observe(card);
+      }
+      return; // skip slideshow logic
+    }
+
+    // ── Slideshow cards (image reel)
+    const reelContainer = card.querySelector('.reel-slides');
+    if (!reelContainer) return;
+
+    const labelEl = card.querySelector('.reel-label-text');
+    const counterEl = card.querySelector('.reel-counter');
+
+    card.addEventListener('mouseenter', () => {
+      startReel(reelContainer, labelEl, counterEl);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      stopReel(reelContainer, labelEl, counterEl);
+    });
+
+    // Auto-play on mobile (intersection observer)
+    if ('ontouchstart' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && e.intersectionRatio > 0.6) {
+            startReel(reelContainer, labelEl, counterEl);
+          } else {
+            stopReel(reelContainer, labelEl, counterEl);
+          }
+        });
+      }, { threshold: [0, 0.6] });
+      obs.observe(card);
+    }
+  });
+}
+
+function startReel(container, labelEl, counterEl) {
+  if (container._timer) return;
+
+  const advance = () => {
+    const slides = container.querySelectorAll('.reel-slide');
+    const current = container._currentSlide;
+    const next = (current + 1) % container._totalSlides;
+
+    // Remove active + kenburns from old
+    slides[current].classList.remove('active', 'kenburns');
+
+    // Add to new
+    slides[next].classList.add('active', 'kenburns');
+
+    container._currentSlide = next;
+
+    // Update label
+    if (labelEl && container._data) {
+      labelEl.textContent = container._data.slides[next].label;
+    }
+    // Update counter
+    if (counterEl) {
+      counterEl.textContent = `${next + 1} / ${container._totalSlides}`;
+    }
+  };
+
+  // Add kenburns to current slide
+  const slides = container.querySelectorAll('.reel-slide');
+  slides[container._currentSlide].classList.add('kenburns');
+
+  container._timer = setInterval(advance, container._interval);
+}
+
+function stopReel(container, labelEl, counterEl) {
+  if (container._timer) {
+    clearInterval(container._timer);
+    container._timer = null;
+  }
+
+  // Reset to first slide
+  const slides = container.querySelectorAll('.reel-slide');
+  slides.forEach((s, i) => {
+    s.classList.remove('active', 'kenburns');
+    if (i === 0) s.classList.add('active');
+  });
+  container._currentSlide = 0;
+
+  // Reset label/counter
+  if (labelEl && container._data) {
+    labelEl.textContent = container._data.slides[0].label;
+  }
+  if (counterEl) {
+    counterEl.textContent = `1 / ${container._totalSlides}`;
+  }
+}
+
+// ── Loader
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 1600);
+});
+
+// ── Mobile menu
+const menuBtn = document.getElementById('menuBtn');
+const mobileNav = document.getElementById('mobileNav');
+let mobOpen = false;
+menuBtn.addEventListener('click', () => {
+  mobOpen = !mobOpen;
+  mobileNav.classList.toggle('open', mobOpen);
+  menuBtn.textContent = mobOpen ? 'Sluit' : 'Menu';
+});
+function closeMob() {
+  mobOpen = false;
+  mobileNav.classList.remove('open');
+  menuBtn.textContent = 'Menu';
+}
+
+// ── Drag-to-scroll portfolio
+const track = document.getElementById('dragTrack');
+let isDragging = false, startX, dragOffset = 0;
+track.dataset.offset = '0';
+
+track.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.pageX;
+  track.classList.add('dragging');
+  track.style.transition = 'none';
+  e.preventDefault();
+});
+
+document.addEventListener('mouseup', () => {
+  if (isDragging) { isDragging = false; track.classList.remove('dragging'); }
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  const dx = e.pageX - startX;
+  const current = parseFloat(track.dataset.offset) || 0;
+  const next = current + dx;
+  const max = track.scrollWidth - window.innerWidth + 40;
+  const clamped = Math.max(-max, Math.min(0, next));
+  track.style.transform = `translateX(${clamped}px)`;
+  track.dataset.offset = clamped;
+  startX = e.pageX;
+});
+
+// Touch
+track.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  startX = e.touches[0].pageX;
+  track.style.transition = 'none';
+}, { passive: true });
+document.addEventListener('touchend', () => { isDragging = false; });
+document.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  const dx = e.touches[0].pageX - startX;
+  const current = parseFloat(track.dataset.offset) || 0;
+  const next = current + dx;
+  const max = track.scrollWidth - window.innerWidth + 40;
+  const clamped = Math.max(-max, Math.min(0, next));
+  track.style.transform = `translateX(${clamped}px)`;
+  track.dataset.offset = clamped;
+  startX = e.touches[0].pageX;
+}, { passive: true });
+
+// Wheel
+document.querySelector('.portfolio').addEventListener('wheel', (e) => {
+  if (Math.abs(e.deltaY) < 5) return;
+  e.preventDefault();
+  const current = parseFloat(track.dataset.offset) || 0;
+  const next = current - e.deltaY * 2;
+  const max = track.scrollWidth - window.innerWidth + 40;
+  const clamped = Math.max(-max, Math.min(0, next));
+  track.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+  track.style.transform = `translateX(${clamped}px)`;
+  track.dataset.offset = clamped;
+}, { passive: false });
+
+// Prevent card link click during drag
+let dragMoved = false;
+track.addEventListener('mousedown', () => { dragMoved = false; });
+track.addEventListener('mousemove', () => { if (isDragging) dragMoved = true; });
+track.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('click', (e) => { if (dragMoved) e.preventDefault(); });
+});
+
+// ── Init reels
+initReels();
+setupReelHovers();
+
+// ── Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => obs.observe(el));
+
+// ── Smooth anchors
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>

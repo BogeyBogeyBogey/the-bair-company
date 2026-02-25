@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hans van Hest — KBC Verzekeringsagent Leuven</title>
+  <meta name="description" content="Hans van Hest, uw KBC verzekeringsagent in Leuven. Persoonlijk advies voor auto-, woning-, brand-, familiale en levensverzekeringen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════
+       CSS VARIABLES — KBC Brand Identity
+       ═══════════════════════════════════════ */
+    :root {
+      --kbc-blue: #003865;
+      --kbc-blue-dark: #002847;
+      --kbc-blue-light: #0A4D8C;
+      --kbc-blue-soft: #E8F0F8;
+      --kbc-blue-muted: #4A7FAB;
+      --white: #FFFFFF;
+      --off-white: #F8F9FB;
+      --warm-gray: #F2F0ED;
+      --text-dark: #1A1A2E;
+      --text-body: #4A4A5A;
+      --text-muted: #8A8A9A;
+      --border: #E2E4E8;
+      --shadow-sm: 0 1px 3px rgba(0,56,101,0.06);
+      --shadow-md: 0 4px 20px rgba(0,56,101,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,56,101,0.12);
+      --radius: 12px;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Playfair Display', Georgia, serif;
+    }
+
+    /* ═══ RESET & BASE ═══ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-body);
+      background: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ═══════════════════════════════════════
+       HEADER / NAVIGATION
+       ═══════════════════════════════════════ */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: all 0.4s ease;
+    }
+
+    .header.scrolled {
+      border-bottom-color: var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-kbc {
+      width: 48px;
+      height: 48px;
+      background: var(--kbc-blue);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-text {
+      line-height: 1.2;
+    }
+
+    .logo-name {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-dark);
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-desktop a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-body);
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-desktop a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--kbc-blue);
+      transition: width 0.3s ease;
+    }
+
+    .nav-desktop a:hover {
+      color: var(--kbc-blue);
+    }
+
+    .nav-desktop a:hover::after {
+      width: 100%;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--kbc-blue);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--kbc-blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(0,56,101,0.3);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--kbc-blue);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      border: 2px solid var(--kbc-blue);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      background: var(--kbc-blue);
+      color: var(--white);
+    }
+
+    /* Mobile menu toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile nav */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--white);
+      z-index: 99;
+      padding: 100px 24px 40px;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav-mobile.open {
+      display: flex;
+    }
+
+    .nav-mobile a {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-dark);
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.3s ease;
+    }
+
+    .nav-mobile a:hover {
+      color: var(--kbc-blue);
+    }
+
+    /* ═══════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--kbc-blue) 0%, var(--kbc-blue-dark) 100%);
+    }
+
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 0%, transparent 40%),
+        radial-gradient(circle at 60% 80%, rgba(255,255,255,0.15) 0%, transparent 45%);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 140px 0 100px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ADE80;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: var(--white);
+      color: var(--kbc-blue);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: transparent;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-img-main {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      object-fit: cover;
+      aspect-ratio: 3/4;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero-trust {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 16px 24px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-trust-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--kbc-blue-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .hero-trust-text {
+      line-height: 1.3;
+    }
+
+    .hero-trust-num {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text-dark);
+    }
+
+    .hero-trust-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════
+       TRUST BAR
+       ═══════════════════════════════════════ */
+    .trust-bar {
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+    }
+
+    .trust-items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .trust-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--kbc-blue);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       SERVICES / VERZEKERINGEN
+       ═══════════════════════════════════════ */
+    .services {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
+
+    .section-tag {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--kbc-blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--kbc-blue);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      transform-origin: left;
+    }
+
+    .service-card:hover {
+      border-color: var(--kbc-blue-soft);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--kbc-blue-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════
+       WHY CHOOSE US
+       ═══════════════════════════════════════ */
+    .why {
+      padding: 100px 0;
+      background: var(--off-white);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .why-image {
+      position: relative;
+    }
+
+    .why-img {
+      border-radius: 20px;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .why-stat {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      background: var(--kbc-blue);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .why-stat-num {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .why-stat-label {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    .why-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .why-feature {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .why-feature-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--kbc-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .why-feature-icon svg {
+      width: 14px;
+      height: 14px;
+      color: white;
+    }
+
+    .why-feature h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .why-feature p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════
+       TESTIMONIALS
+       ═══════════════════════════════════════ */
+    .testimonials {
+      padding: 100px 0;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .testimonial-stars {
+      color: #F59E0B;
+      font-size: 16px;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .testimonial-text {
+      font-size: 15px;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--kbc-blue-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--kbc-blue);
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+
+    .testimonial-role {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════
+       CTA SECTION
+       ═══════════════════════════════════════ */
+    .cta {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--kbc-blue) 0%, var(--kbc-blue-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background-image:
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.2) 0%, transparent 45%);
+    }
+
+    .cta-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .cta p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+       ═══════════════════════════════════════ */
+    .contact {
+      padding: 100px 0;
+      background: var(--off-white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .contact-info-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--kbc-blue-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-info-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--kbc-blue);
+    }
+
+    .contact-info-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .contact-info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .contact-form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-dark);
+      transition: border-color 0.3s ease;
+      background: var(--white);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--kbc-blue);
+      box-shadow: 0 0 0 3px rgba(0,56,101,0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ */
+    .footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+      padding: 60px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul a {
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col ul a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .footer-bottom a {
+      color: rgba(255,255,255,0.4);
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--white);
+    }
+
+    /* ═══════════════════════════════════════
+       MAP PLACEHOLDER
+       ═══════════════════════════════════════ */
+    .map-container {
+      width: 100%;
+      height: 300px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+       ═══════════════════════════════════════ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-desktop { display: none; }
+      .menu-toggle { display: flex; }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 120px 0 80px;
+        gap: 40px;
+      }
+
+      .hero-subtitle { margin: 0 auto 36px; }
+      .hero-buttons { justify-content: center; }
+      .hero-image { order: -1; }
+      .hero-img-main { max-width: 300px; aspect-ratio: 3/4; }
+      .hero-trust { bottom: -16px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 48px; }
+      .why-stat { right: 0; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .trust-items { gap: 24px; }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ═══ HEADER ═══ -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <div class="logo-kbc">KBC</div>
+        <div class="logo-text">
+          <div class="logo-name">Hans van Hest</div>
+          <div class="logo-sub">KBC Verzekeringen</div>
+        </div>
+      </a>
+
+      <nav class="nav-desktop">
+        <a href="#verzekeringen">Verzekeringen</a>
+        <a href="#waarom">Waarom wij</a>
+        <a href="#getuigenissen">Getuigenissen</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn-primary">Gratis advies</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile nav -->
+  <div class="nav-mobile" id="navMobile">
+    <a href="#verzekeringen" onclick="closeMenu()">Verzekeringen</a>
+    <a href="#waarom" onclick="closeMenu()">Waarom wij</a>
+    <a href="#getuigenissen" onclick="closeMenu()">Getuigenissen</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="fade-in">
+          <div class="hero-badge">Uw KBC agent in Leuven</div>
+          <h1>
+            Verzekerd van<br>
+            <em>persoonlijk</em> advies
+          </h1>
+          <p class="hero-subtitle">
+            Al jaren het vertrouwde aanspreekpunt voor families en ondernemers in Leuven.
+            Samen zoeken we de verzekering die écht bij u past.
+          </p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn-hero-primary">
+              Maak een afspraak
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#verzekeringen" class="btn-hero-secondary">
+              Bekijk verzekeringen
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-image fade-in">
+          <img
+            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"
+            alt="Hans van Hest — KBC Verzekeringsagent"
+            class="hero-img-main"
+          >
+          <div class="hero-trust">
+            <div class="hero-trust-icon">🛡️</div>
+            <div class="hero-trust-text">
+              <div class="hero-trust-num">15+ jaar</div>
+              <div class="hero-trust-label">ervaring in verzekeringen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRUST BAR ═══ -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-items">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Erkend KBC-agent
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Persoonlijke begeleiding
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Snel schadeafhandeling
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Gratis adviesgesprek
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ VERZEKERINGEN ═══ -->
+  <section class="services" id="verzekeringen">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-tag">Onze Verzekeringen</div>
+        <h2 class="section-title">De juiste bescherming voor elk moment</h2>
+        <p class="section-subtitle">
+          Of het nu gaat om uw woning, uw gezin of uw bedrijf — wij bieden maatwerkadvies
+          dat perfect aansluit bij uw situatie.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <div class="service-icon">🚗</div>
+          <h3>Autoverzekering</h3>
+          <p>BA auto, omnium, rechtsbijstand en pechverhelping. Rij zorgeloos met de juiste dekking.</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">🏠</div>
+          <h3>Woningverzekering</h3>
+          <p>Bescherm uw huis tegen brand, waterschade, storm en diefstal. Uw thuis verdient het beste.</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">👨‍👩‍👧‍👦</div>
+          <h3>Familiale verzekering</h3>
+          <p>Bescherming voor u en uw gezin tegen schade aan derden. Essentieel voor elk huishouden.</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">🔥</div>
+          <h3>Brandverzekering</h3>
+          <p>Uitgebreide dekking tegen brand, ontploffing en aanverwante risico's voor uw eigendom.</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">❤️</div>
+          <h3>Levensverzekering</h3>
+          <p>Bescherm de financiële toekomst van uw gezin. Pensioensparen en schuldsaldoverzekering.</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">💼</div>
+          <h3>Bedrijfsverzekeringen</h3>
+          <p>Arbeidsongevallen, beroepsaansprakelijkheid en bedrijfsschade. Uw zaak in goede handen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WAAROM WIJ ═══ -->
+  <section class="why" id="waarom">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-image fade-in">
+          <img
+            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80"
+            alt="Persoonlijk adviesgesprek"
+            class="why-img"
+          >
+          <div class="why-stat">
+            <div class="why-stat-num">98%</div>
+            <div class="why-stat-label">Klant&shy;tevreden&shy;heid</div>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <div class="section-tag">Waarom Hans van Hest</div>
+          <h2 class="section-title" style="text-align:left">Uw vertrouwde partner in Leuven</h2>
+          <p class="section-subtitle" style="text-align:left">
+            Bij ons bent u geen dossiernummer. Wij nemen de tijd om uw situatie
+            grondig te analyseren en zoeken samen de beste oplossing.
+          </p>
+
+          <ul class="why-features">
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Persoonlijk contact</h4>
+                <p>Altijd bereikbaar voor advies, vragen of bij schade. U spreekt rechtstreeks met Hans.</p>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Onafhankelijk advies</h4>
+                <p>We vergelijken de beste KBC-formules en kiezen wat écht bij u past — niet wat het meeste oplevert.</p>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Snelle schadeafhandeling</h4>
+                <p>Bij schade helpen wij u meteen verder. Geen wachtrijen, geen omwegen.</p>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Centraal in Leuven</h4>
+                <p>Ons kantoor aan de Diestsesteenweg is makkelijk bereikbaar — met parking vlak naast de deur.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GETUIGENISSEN ═══ -->
+  <section class="testimonials" id="getuigenissen">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-tag">Getuigenissen</div>
+        <h2 class="section-title">Wat onze klanten zeggen</h2>
+        <p class="section-subtitle">
+          Ontdek waarom honderden gezinnen en bedrijven uit Leuven op ons vertrouwen.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Hans heeft ons uitstekend begeleid bij het zoeken naar de juiste woningverzekering.
+            Alles duidelijk uitgelegd, geen kleine lettertjes."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SK</div>
+            <div>
+              <div class="testimonial-name">Sophie & Karel</div>
+              <div class="testimonial-role">Woningverzekering</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Na een aanrijding was Hans binnen het uur bereikbaar en heeft hij alles geregeld.
+            Dat is pas service waar je op kunt rekenen."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JV</div>
+            <div>
+              <div class="testimonial-name">Jan Vermeulen</div>
+              <div class="testimonial-role">Autoverzekering</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Als zelfstandige wil je niet nadenken over verzekeringen — je wilt dat iemand dat voor je doet.
+            Hans doet dat perfect."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">LD</div>
+            <div>
+              <div class="testimonial-name">Lisa De Smet</div>
+              <div class="testimonial-role">Bedrijfsverzekering</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-content fade-in">
+        <h2>Klaar voor een vrijblijvend adviesgesprek?</h2>
+        <p>
+          Neem vandaag nog contact op en ontdek hoe wij u en uw gezin
+          optimaal kunnen beschermen. Eerste gesprek altijd gratis.
+        </p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn-hero-primary">
+            Maak een afspraak
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="tel:+3216000000" class="btn-hero-secondary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Bel ons
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-tag">Contact</div>
+        <h2 class="section-title">Neem contact met ons op</h2>
+        <p class="section-subtitle">
+          Kom langs op kantoor, bel ons of vul het formulier in. Wij nemen zo snel mogelijk contact op.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="fade-in">
+          <div class="contact-info-list">
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Adres</div>
+                <div class="contact-info-value">Diestsesteenweg 104 G<br>3010 Leuven</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Telefoon</div>
+                <div class="contact-info-value">+32 16 00 00 00</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">E-mail</div>
+                <div class="contact-info-value">hans.vanhest@kbcagent.be</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Openingsuren</div>
+                <div class="contact-info-value">Ma – Vr: 9:00 – 18:00<br>Za: op afspraak</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.5!2d4.7147!3d50.878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDUyJzQxLjQiTiA0wrA0Mic1My4yIkU!5e0!3m2!1snl!2sbe!4v1"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Locatie Hans van Hest KBC Verzekeringen"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <div class="contact-form">
+            <h3 style="font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:24px;">Vraag een gratis adviesgesprek aan</h3>
+            <form action="#" method="POST" onsubmit="handleSubmit(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Voornaam</label>
+                  <input type="text" name="voornaam" placeholder="Jan" required>
+                </div>
+                <div class="form-group">
+                  <label>Achternaam</label>
+                  <input type="text" name="achternaam" placeholder="Jansen" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" name="email" placeholder="jan@voorbeeld.be" required>
+              </div>
+
+              <div class="form-group">
+                <label>Telefoonnummer</label>
+                <input type="tel" name="telefoon" placeholder="+32 4xx xx xx xx">
+              </div>
+
+              <div class="form-group">
+                <label>Interesse in</label>
+                <select name="interesse">
+                  <option value="">Kies een verzekering...</option>
+                  <option>Autoverzekering</option>
+                  <option>Woningverzekering</option>
+                  <option>Brandverzekering</option>
+                  <option>Familiale verzekering</option>
+                  <option>Levensverzekering</option>
+                  <option>Bedrijfsverzekeringen</option>
+                  <option>Andere</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Bericht</label>
+                <textarea name="bericht" placeholder="Vertel ons kort waarmee we u kunnen helpen..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:16px 32px;font-size:15px;">
+                Verstuur aanvraag
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="logo-kbc" style="width:40px;height:40px;font-size:12px;">KBC</div>
+            <div>
+              <div style="color:#fff;font-weight:700;font-size:15px;">Hans van Hest</div>
+              <div style="font-size:12px;">KBC Verzekeringen</div>
+            </div>
+          </div>
+          <p>
+            Uw vertrouwde KBC verzekeringsagent in Leuven. Persoonlijk advies voor particulieren en ondernemers.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Verzekeringen</h4>
+          <ul>
+            <li><a href="#verzekeringen">Auto</a></li>
+            <li><a href="#verzekeringen">Woning</a></li>
+            <li><a href="#verzekeringen">Familiale</a></li>
+            <li><a href="#verzekeringen">Leven</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Kantoor</h4>
+          <ul>
+            <li><a href="#waarom">Over ons</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#getuigenissen">Getuigenissen</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+3216000000">+32 16 00 00 00</a></li>
+            <li><a href="mailto:hans.vanhest@kbcagent.be">hans.vanhest@kbcagent.be</a></li>
+            <li><a>Diestsesteenweg 104 G</a></li>
+            <li><a>3010 Leuven</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Hans van Hest — KBC Verzekeringen. Alle rechten voorbehouden.</span>
+        <a href="https://thebaircompany.com" target="_blank" rel="noopener">
+          Website door The Bair Company
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ═══ Header scroll effect ═══
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ═══ Mobile menu ═══
+    const menuToggle = document.getElementById('menuToggle');
+    const navMobile = document.getElementById('navMobile');
+    let menuOpen = false;
+
+    menuToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      navMobile.classList.toggle('open', menuOpen);
+      const spans = menuToggle.querySelectorAll('span');
+      if (menuOpen) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '';
+        spans[2].style.transform = '';
+      }
+    });
+
+    function closeMenu() {
+      menuOpen = false;
+      navMobile.classList.remove('open');
+      const spans = menuToggle.querySelectorAll('span');
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+
+    // ═══ Scroll animations ═══
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          fadeObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => fadeObs.observe(el));
+
+    // ═══ Form handler ═══
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.innerHTML = '✓ Verzonden!';
+      btn.style.background = '#059669';
+      setTimeout(() => {
+        btn.innerHTML = 'Verstuur aanvraag <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
