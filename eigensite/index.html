@@ -1086,16 +1086,24 @@ function closeMob() {
   menuBtn.textContent = 'Menu';
 }
 
-// ── Infinite circular carousel
+// ── Infinite circular carousel with MOMENTUM (like spinning a wheel)
 const track = document.getElementById('dragTrack');
 let isDragging = false, startX, startY, dragMoved = false;
 let currentOffset = 0;
-let touchDirection = null; // 'horizontal' | 'vertical' | null
+let touchDirection = null;
+
+// Velocity / momentum tracking
+let velocity = 0;
+let lastMoveTime = 0;
+let lastMoveX = 0;
+let momentumRAF = null;
+const FRICTION = 0.94;        // How fast the spin decays (higher = longer spin)
+const VELOCITY_SCALE = 1.8;   // How much the throw amplifies
+const MIN_VELOCITY = 0.3;     // Below this, stop the animation
 
 // Clone cards for infinite loop effect
 function setupInfiniteTrack() {
   const cards = Array.from(track.querySelectorAll('.project-card'));
-  // Clone all cards and append + prepend for seamless loop
   cards.forEach(card => {
     const cloneEnd = card.cloneNode(true);
     cloneEnd.classList.add('clone');
@@ -1106,8 +1114,7 @@ function setupInfiniteTrack() {
     cloneStart.classList.add('clone');
     track.insertBefore(cloneStart, track.firstChild);
   });
-  // Set initial offset to skip the prepended clones
-  const cardWidth = cards[0].offsetWidth + 32; // card width + gap
+  const cardWidth = cards[0].offsetWidth + 32;
   currentOffset = -(cardWidth * cards.length);
   track.style.transform = `translateX(${currentOffset}px)`;
 }
@@ -1121,7 +1128,6 @@ function getOriginalWidth() {
 
 function wrapOffset() {
   const origWidth = getOriginalWidth();
-  // Wrap around seamlessly
   if (currentOffset > 0) {
     currentOffset -= origWidth;
     track.style.transition = 'none';
@@ -1133,40 +1139,97 @@ function wrapOffset() {
   }
 }
 
+function applyOffset() {
+  track.style.transition = 'none';
+  track.style.transform = `translateX(${currentOffset}px)`;
+  wrapOffset();
+}
+
+// ── Momentum animation loop (the "spinning wheel" effect)
+function startMomentum() {
+  if (momentumRAF) cancelAnimationFrame(momentumRAF);
+
+  function tick() {
+    velocity *= FRICTION;
+
+    if (Math.abs(velocity) < MIN_VELOCITY) {
+      velocity = 0;
+      momentumRAF = null;
+      return;
+    }
+
+    currentOffset += velocity;
+    applyOffset();
+    momentumRAF = requestAnimationFrame(tick);
+  }
+
+  momentumRAF = requestAnimationFrame(tick);
+}
+
+function stopMomentum() {
+  if (momentumRAF) {
+    cancelAnimationFrame(momentumRAF);
+    momentumRAF = null;
+  }
+  velocity = 0;
+}
+
+// Track velocity from drag movements
+function trackVelocity(currentX) {
+  const now = performance.now();
+  const dt = now - lastMoveTime;
+  if (dt > 0 && dt < 100) {  // only count recent moves
+    velocity = ((currentX - lastMoveX) / dt) * 16 * VELOCITY_SCALE;
+  }
+  lastMoveTime = now;
+  lastMoveX = currentX;
+}
+
 setupInfiniteTrack();
-// Re-init reels on cloned cards
 setupReelHovers();
 
-// Mouse drag
+// ── Mouse drag
 track.addEventListener('mousedown', (e) => {
+  stopMomentum();
   isDragging = true; dragMoved = false;
   startX = e.pageX;
+  lastMoveX = e.pageX;
+  lastMoveTime = performance.now();
+  velocity = 0;
   track.classList.add('dragging');
   track.style.transition = 'none';
   e.preventDefault();
 });
+
 document.addEventListener('mouseup', () => {
   if (isDragging) {
     isDragging = false;
     track.classList.remove('dragging');
-    wrapOffset();
+    // Launch momentum with current velocity
+    startMomentum();
   }
 });
+
 document.addEventListener('mousemove', (e) => {
   if (!isDragging) return;
   dragMoved = true;
   const dx = e.pageX - startX;
   currentOffset += dx;
-  track.style.transform = `translateX(${currentOffset}px)`;
+  applyOffset();
+  trackVelocity(e.pageX);
   startX = e.pageX;
 });
 
-// Touch — with direction lock to fix vertical scroll issue
+// ── Touch — with direction lock + momentum
 track.addEventListener('touchstart', (e) => {
+  stopMomentum();
   isDragging = true; dragMoved = false;
   touchDirection = null;
   startX = e.touches[0].pageX;
   startY = e.touches[0].pageY;
+  lastMoveX = e.touches[0].pageX;
+  lastMoveTime = performance.now();
+  velocity = 0;
   track.style.transition = 'none';
 }, { passive: true });
 
@@ -1174,7 +1237,7 @@ document.addEventListener('touchend', () => {
   if (isDragging) {
     isDragging = false;
     touchDirection = null;
-    wrapOffset();
+    startMomentum();
   }
 });
 
@@ -1183,35 +1246,32 @@ document.addEventListener('touchmove', (e) => {
   const dx = e.touches[0].pageX - startX;
   const dy = e.touches[0].pageY - startY;
 
-  // Determine direction on first significant move
   if (!touchDirection) {
     if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
     touchDirection = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
   }
 
-  // If vertical swipe, let browser handle normal scrolling
   if (touchDirection === 'vertical') {
     isDragging = false;
     return;
   }
 
-  // Horizontal swipe — prevent page scroll, move carousel
   e.preventDefault();
   dragMoved = true;
   currentOffset += dx;
-  track.style.transform = `translateX(${currentOffset}px)`;
+  applyOffset();
+  trackVelocity(e.touches[0].pageX);
   startX = e.touches[0].pageX;
   startY = e.touches[0].pageY;
 }, { passive: false });
 
-// Wheel
+// ── Wheel (also with momentum feel)
 document.querySelector('.portfolio').addEventListener('wheel', (e) => {
   if (Math.abs(e.deltaY) < 5) return;
   e.preventDefault();
-  currentOffset -= e.deltaY * 2;
-  track.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-  track.style.transform = `translateX(${currentOffset}px)`;
-  setTimeout(wrapOffset, 350);
+  stopMomentum();
+  velocity = -e.deltaY * 1.5;
+  startMomentum();
 }, { passive: false });
 
 // Prevent card link click during drag
