@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artoah — Social Media Content Kalender</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0f08;
+  --bg-card: #161c10;
+  --bg-card-hover: #1e2618;
+  --bg-surface: #111610;
+  --border: #2a3320;
+  --border-light: #3a4830;
+  --text: #e8e6e1;
+  --text-muted: #9ca38e;
+  --text-dim: #6b7360;
+  --accent: #E8C547;
+  --accent-hover: #f0d060;
+  --forest: #2D5016;
+  --forest-light: #4a7a2e;
+  --sage: #7A9B5C;
+  --cream: #FDF8F0;
+  --gold: #C9A84C;
+  --ig-pink: #E1306C;
+  --ig-purple: #833AB4;
+  --ig-orange: #F77737;
+  --fb-blue: #1877F2;
+  --pillar-product: #E8C547;
+  --pillar-verhaal: #7A9B5C;
+  --pillar-educatie: #5B9BD5;
+  --pillar-community: #E1306C;
+  --pillar-promo: #F77737;
+  --goal-awareness: #5B9BD5;
+  --goal-engagement: #7A9B5C;
+  --goal-conversie: #E8C547;
+  --goal-vertrouwen: #C9A84C;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ======== LANDING PAGE ======== */
+.landing { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+.landing-header { text-align: center; margin-bottom: 60px; }
+.landing-logo { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--forest) 0%, var(--sage) 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 28px; font-weight: 800; color: var(--cream); font-family: 'Playfair Display', serif; box-shadow: 0 0 40px rgba(122,155,92,0.2); }
+.landing-title { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: var(--cream); margin-bottom: 8px; letter-spacing: -0.5px; }
+.landing-subtitle { font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+.landing-desc { font-size: 17px; color: var(--text-dim); max-width: 500px; margin: 0 auto; line-height: 1.6; }
+.landing-badge { display: inline-block; background: var(--bg-card); border: 1px solid var(--border); padding: 6px 16px; border-radius: 20px; font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 20px; letter-spacing: 1px; }
+
+.platforms { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+.platform-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 48px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 240px;
+}
+.platform-card:hover {
+  border-color: var(--border-light);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.platform-icon { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 30px; }
+.platform-icon.ig { background: linear-gradient(135deg, #833AB4, #E1306C, #F77737); }
+.platform-icon.fb { background: var(--fb-blue); }
+.platform-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.platform-count { font-size: 13px; color: var(--text-muted); }
+.platform-count span { color: var(--accent); font-weight: 700; }
+
+.landing-footer { margin-top: 60px; text-align: center; font-size: 12px; color: var(--text-dim); }
+.landing-footer a { color: var(--sage); text-decoration: none; }
+
+/* ======== CALENDAR VIEW ======== */
+.calendar-view { display: none; min-height: 100vh; }
+.calendar-view.active { display: block; }
+
+.cal-header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.cal-header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.cal-back { background: none; border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.cal-back:hover { border-color: var(--border-light); color: var(--text); }
+.cal-brand { display: flex; align-items: center; gap: 12px; }
+.cal-brand-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: white; }
+.cal-brand-icon.ig { background: linear-gradient(135deg, #833AB4, #E1306C, #F77737); }
+.cal-brand-icon.fb { background: var(--fb-blue); }
+.cal-brand-name { font-weight: 700; font-size: 18px; }
+.cal-brand-sub { font-size: 12px; color: var(--text-muted); }
+.cal-stats { display: flex; gap: 20px; font-size: 13px; color: var(--text-muted); }
+.cal-stat span { color: var(--accent); font-weight: 700; }
+
+/* Week tabs */
+.week-tabs {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  position: sticky;
+  top: 72px;
+  z-index: 99;
+}
+.week-tabs-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; padding: 12px 0; }
+.week-tab {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.week-tab:hover { color: var(--text); background: var(--bg-card); }
+.week-tab.active { background: var(--accent); color: var(--bg); font-weight: 700; border-color: var(--accent); }
+.week-tab.mix-tab { margin-left: auto; border: 1px solid var(--border); }
+.week-tab.mix-tab:hover { border-color: var(--accent); color: var(--accent); }
+.week-tab.mix-tab.active { background: var(--accent); color: var(--bg); }
+
+/* Post grid */
+.posts-container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+.posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+
+/* Post card */
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+.post-card:hover { border-color: var(--border-light); box-shadow: var(--shadow); }
+.post-card-header { display: flex; align-items: center; gap: 10px; padding: 16px 16px 12px; }
+.post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--forest), var(--sage)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--cream); font-family: 'Playfair Display', serif; flex-shrink: 0; }
+.post-meta { flex: 1; }
+.post-brand { font-size: 14px; font-weight: 700; }
+.post-day { font-size: 12px; color: var(--text-muted); }
+.post-type-badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.type-beeld { background: rgba(122,155,92,0.15); color: var(--sage); }
+.type-video { background: rgba(225,48,108,0.15); color: var(--ig-pink); }
+.type-carousel { background: rgba(91,155,213,0.15); color: var(--pillar-educatie); }
+.type-tekst { background: rgba(232,197,71,0.15); color: var(--accent); }
+.type-poll { background: rgba(247,119,55,0.15); color: var(--ig-orange); }
+.type-story { background: rgba(131,58,180,0.15); color: var(--ig-purple); }
+
+/* Visual suggestion */
+.post-visual {
+  margin: 0 16px;
+  padding: 14px 16px;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.post-visual-label { font-weight: 600; color: var(--text-muted); margin-bottom: 4px; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.post-caption {
+  padding: 14px 16px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text);
+  white-space: pre-line;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.post-caption::-webkit-scrollbar { width: 4px; }
+.post-caption::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.post-tags { padding: 0 16px 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.tag-pillar-product { background: rgba(232,197,71,0.12); color: var(--pillar-product); }
+.tag-pillar-verhaal { background: rgba(122,155,92,0.12); color: var(--pillar-verhaal); }
+.tag-pillar-educatie { background: rgba(91,155,213,0.12); color: var(--pillar-educatie); }
+.tag-pillar-community { background: rgba(225,48,108,0.12); color: var(--pillar-community); }
+.tag-pillar-promo { background: rgba(247,119,55,0.12); color: var(--pillar-promo); }
+.tag-goal { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border); }
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding: 0;
+}
+.post-action {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  transition: all 0.2s;
+}
+.post-action:not(:last-child) { border-right: 1px solid var(--border); }
+.post-action:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.post-action.copy-btn:hover { color: var(--accent); }
+.post-action svg { width: 16px; height: 16px; }
+
+/* ======== CONTENT MIX ======== */
+.content-mix { max-width: 1100px; margin: 0 auto; padding: 24px; display: none; }
+.content-mix.active { display: block; }
+.mix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.mix-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+.mix-card-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+.mix-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.mix-bar-label { font-size: 13px; color: var(--text-muted); width: 100px; flex-shrink: 0; }
+.mix-bar-track { flex: 1; height: 28px; background: var(--bg-surface); border-radius: 6px; overflow: hidden; position: relative; }
+.mix-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 700; color: var(--bg); transition: width 0.6s ease; }
+.mix-bar-count { font-size: 13px; color: var(--text-muted); width: 36px; text-align: right; flex-shrink: 0; }
+
+/* ======== TOAST ======== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--accent);
+  color: var(--bg);
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 9999;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 30px rgba(232,197,71,0.3);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+  .landing-title { font-size: 28px; }
+  .platforms { flex-direction: column; align-items: center; }
+  .platform-card { min-width: 200px; padding: 30px 36px; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .mix-grid { grid-template-columns: 1fr; }
+  .cal-header-inner { justify-content: center; text-align: center; }
+  .cal-stats { display: none; }
+  .week-tabs-inner { gap: 2px; }
+  .week-tab { padding: 8px 12px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LANDING PAGE -->
+<div class="landing" id="landing">
+  <div class="landing-header">
+    <div class="landing-badge">CAMPAGNE 2026</div>
+    <div class="landing-logo">A</div>
+    <div class="landing-title">Artoah's Family Farm</div>
+    <div class="landing-subtitle">Social Media Content Kalender</div>
+    <div class="landing-desc">Campagne "Van Hoeve tot Thuis" — Alle posts klaar om te kopiëren en te plaatsen. Kies je platform hieronder.</div>
+  </div>
+  <div class="platforms">
+    <div class="platform-card" onclick="openPlatform('instagram')">
+      <div class="platform-icon ig">📸</div>
+      <div class="platform-name">Instagram</div>
+      <div class="platform-count"><span>18</span> posts · 6 weken</div>
+    </div>
+    <div class="platform-card" onclick="openPlatform('facebook')">
+      <div class="platform-icon fb">👍</div>
+      <div class="platform-name">Facebook</div>
+      <div class="platform-count"><span>18</span> posts · 6 weken</div>
+    </div>
+  </div>
+  <div class="landing-footer">Content opgesteld door <a href="#">The Bair Company</a> · Campagne "Van Hoeve tot Thuis" · Artoah Relaunch 2026</div>
+</div>
+
+<!-- INSTAGRAM CALENDAR -->
+<div class="calendar-view" id="cal-instagram">
+  <div class="cal-header">
+    <div class="cal-header-inner">
+      <button class="cal-back" onclick="goBack()">← Terug</button>
+      <div class="cal-brand">
+        <div class="cal-brand-icon ig">📸</div>
+        <div>
+          <div class="cal-brand-name">Instagram</div>
+          <div class="cal-brand-sub">Artoah's Family Farm</div>
+        </div>
+      </div>
+      <div class="cal-stats">
+        <div><span>6</span> weken</div>
+        <div><span>18</span> posts</div>
+        <div><span>3</span> per week</div>
+      </div>
+    </div>
+  </div>
+  <div class="week-tabs">
+    <div class="week-tabs-inner" id="ig-week-tabs"></div>
+  </div>
+  <div class="posts-container" id="ig-posts"></div>
+  <div class="content-mix" id="ig-mix"></div>
+</div>
+
+<!-- FACEBOOK CALENDAR -->
+<div class="calendar-view" id="cal-facebook">
+  <div class="cal-header">
+    <div class="cal-header-inner">
+      <button class="cal-back" onclick="goBack()">← Terug</button>
+      <div class="cal-brand">
+        <div class="cal-brand-icon fb">👍</div>
+        <div>
+          <div class="cal-brand-name">Facebook</div>
+          <div class="cal-brand-sub">Artoah's Family Farm</div>
+        </div>
+      </div>
+      <div class="cal-stats">
+        <div><span>6</span> weken</div>
+        <div><span>18</span> posts</div>
+        <div><span>3</span> per week</div>
+      </div>
+    </div>
+  </div>
+  <div class="week-tabs">
+    <div class="week-tabs-inner" id="fb-week-tabs"></div>
+  </div>
+  <div class="posts-container" id="fb-posts"></div>
+  <div class="content-mix" id="fb-mix"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Caption gekopieerd!</div>
+
+<script>
+// ========== POST DATA ==========
+const weeks = [
+  { label: 'Week 1', sub: 'Teaser' },
+  { label: 'Week 2', sub: 'Pre-launch' },
+  { label: 'Week 3', sub: 'LAUNCH' },
+  { label: 'Week 4', sub: 'Momentum' },
+  { label: 'Week 5', sub: 'Producten' },
+  { label: 'Week 6', sub: 'Community' }
+];
+
+const igPosts = [
+  // WEEK 1 — Teaser
+  { week:1, day:'Dag 1', dayName:'Ma', type:'Beeld', typeCls:'type-beeld', pillar:'Verhaal', pillarCls:'tag-pillar-verhaal', goal:'Awareness',
+    visual:'Close-up van deeg dat rijst, of meel op een houten werkblad. Warme, zachte belichting.',
+    caption:`Er broeit iets op de hoeve... 🌾
+
+Binnenkort openen we de deuren van iets heel speciaals. Vers gebakken, met liefde gemaakt, en dichter bij huis dan je denkt.
+
+Stay tuned.
+
+#binnenkort #artoah #hoevewinkel #landen #korteketen #comingsoon` },
+
+  { week:1, day:'Dag 3', dayName:'Wo', type:'Video', typeCls:'type-video', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Awareness',
+    visual:'Reel 10-15 sec: close-up van een koe → melk gieten → zwart scherm met "???"',
+    caption:`Van koe tot... Dat vertellen we je binnenkort. 🐄
+
+Eén ding is zeker: het wordt puur, het wordt vers, en het komt van recht naast de deur.
+
+#artoah #familyfarm #landen #puur #korteketen #hoeveproducten` },
+
+  { week:1, day:'Dag 5', dayName:'Vr', type:'Beeld', typeCls:'type-beeld', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Awareness',
+    visual:'Countdown-visual met sfeerbeeld van de hoeve op de achtergrond. Groot cijfer of afteltekst.',
+    caption:`Nog even geduld... ⏳
+
+Op [DATUM] onthullen we waar we de afgelopen maanden keihard aan gewerkt hebben. Nieuwe producten. Een gloednieuwe winkel. En een manier om alles online te bestellen.
+
+We kunnen niet wachten om het met jullie te delen.
+
+#artoah #relaunch #hoevewinkel #landen #binnenkort` },
+
+  // WEEK 2 — Pre-launch
+  { week:2, day:'Dag 1', dayName:'Ma', type:'Carousel', typeCls:'type-carousel', pillar:'Verhaal', pillarCls:'tag-pillar-verhaal', goal:'Awareness',
+    visual:'Carousel 4-5 slides: sneak peeks van de winkelinrichting, werkzaamheden, Stefanie die dozen uitpakt.',
+    caption:`Sneak peek achter de schermen... 👀
+
+We zijn druk bezig om alles klaar te krijgen. De planken worden gevuld, de oven wordt warm, en de eerste taarten zijn al geproefd (gewoon om zeker te zijn 😉).
+
+Binnenkort mogen jullie binnenkijken.
+
+#artoah #sneakpeek #hoevewinkel #landen #comingsoon #achterhetgordijn` },
+
+  { week:2, day:'Dag 3', dayName:'Wo', type:'Video', typeCls:'type-video', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Engagement',
+    visual:'Reel 20-30 sec: close-up van handen die deeg kneden, meel dat stoft, brood dat de oven ingaat.',
+    caption:`Het geheim van goed brood? Tijd, geduld, en liefde. ❤️
+
+Geen haast. Geen shortcuts. Gewoon eerlijk vakmanschap met ingrediënten van bij ons.
+
+Binnenkort proeven jullie het zelf.
+
+#ambachtelijkbrood #artoah #hoevewinkel #landen #versbrood #bakkerij #puurnatuur` },
+
+  { week:2, day:'Dag 5', dayName:'Vr', type:'Story', typeCls:'type-story', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Awareness',
+    visual:'Story-reeks: countdown 3-2-1 met elke dag een nieuw productfoto. Feed-post met overzicht.',
+    caption:`Nog 3 dagen! 🎉
+
+Dit weekend is het zo ver. Maak je klaar voor:
+🍞 Vers brood uit eigen oven
+🧁 Hemelse patisserie
+🍦 Hoeve-ijs in 20+ smaken
+🧈 Verse boter & zuivel
+🛒 Online bestellen via artoah.be
+
+Wie is er bij? Laat een 🙋 achter!
+
+#artoah #countdown #relaunch #hoevewinkel #landen` },
+
+  // WEEK 3 — LAUNCH
+  { week:3, day:'Dag 1', dayName:'Ma', type:'Carousel', typeCls:'type-carousel', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Awareness',
+    visual:'Carousel 5 slides: 1) winkel exterieur 2) broodafdeling 3) ijsvitrine 4) patisserie 5) website screenshot. OF een rondleiding-reel.',
+    caption:`Het is zover! Welkom bij het nieuwe Artoah. 🌿
+
+Wat begon als een familieboerderij met verse melk en hoeve-ijs, is uitgegroeid tot zoveel meer:
+
+🍞 Vers gebakken brood, elke dag uit onze eigen oven
+🧁 Hemelse patisserie met onze eigen boter en eieren
+🏪 Een gezellige hoevewinkel waar je alles kan proeven
+🎓 Workshops voor jong en oud
+🛒 Een gloednieuwe website waar je online kan bestellen!
+
+Van onze hoeve, vers op jouw tafel.
+
+📍 Rumsdorpstraat 120, 3400 Landen
+🔗 Link in bio
+
+#artoah #familyfarm #hoevewinkel #landen #versbrood #patisserie #hoeveijs #korteketen #lokaalislekker #nieuw #grandopening` },
+
+  { week:3, day:'Dag 3', dayName:'Wo', type:'Beeld', typeCls:'type-beeld', pillar:'Verhaal', pillarCls:'tag-pillar-verhaal', goal:'Vertrouwen',
+    visual:'Mooie portretfoto van Stefanie in de winkel of bij de koeien. Warm licht, authentiek.',
+    caption:`"Toen ik klein was, speelde ik tussen de koeien. Nu sta ik elke ochtend om 5 uur op om jullie het lekkerste te geven wat onze boerderij te bieden heeft."
+
+Dit is meer dan een winkel. Dit is ons levenswerk, onze passie, ons thuis. En vanaf vandaag mogen we het met jullie delen.
+
+Welkom bij Artoah. 🌾
+
+#artoah #familyfarm #ondernemerschap #mijnverhaal #landen #hoevewinkel #metliefdegemaakt` },
+
+  { week:3, day:'Dag 5', dayName:'Vr', type:'Video', typeCls:'type-video', pillar:'Community', pillarCls:'tag-pillar-community', goal:'Engagement',
+    visual:'Reel: compilatie van de eerste bezoekers, blije gezichten, kinderen bij de koeien, iemand die ijs proeft.',
+    caption:`Wat een eerste week! 🥰
+
+Bedankt aan iedereen die al is langsgekomen. Jullie reacties, jullie lachende gezichten, jullie "mmm dit is lekker" — het maakt alles de moeite waard.
+
+Dit is nog maar het begin.
+
+📍 Rumsdorpstraat 120, Landen
+Open: Do-Za 10:00-18:00 | Zo 10:00-17:00
+
+#artoah #dankjewel #hoevewinkel #landen #eersteweek #klanten #lokaalislekker` },
+
+  // WEEK 4 — Momentum
+  { week:4, day:'Dag 1', dayName:'Ma', type:'Video', typeCls:'type-video', pillar:'Educatie', pillarCls:'tag-pillar-educatie', goal:'Engagement',
+    visual:'Reel 30 sec: timelapse van deeg kneden → rijzen → vormen → oven in → goudbruin eruit.',
+    caption:`Van deeg tot knapperig brood. Elke dag opnieuw. 🍞
+
+Geen E-nummers. Geen kunstmatige toevoegingen. Gewoon goed meel, onze eigen boter, en twee handen die weten wat ze doen.
+
+Kom het proeven in onze hoevewinkel of bestel via artoah.be
+
+#versbrood #ambachtelijk #artoah #hoevewinkel #landen #bakkerij #puurnatuur #zonderpoespas` },
+
+  { week:4, day:'Dag 3', dayName:'Wo', type:'Carousel', typeCls:'type-carousel', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Awareness',
+    visual:'Carousel: elke slide een andere smaak ijs met de naam erbij. Mooie kleuren, close-up bolletjes.',
+    caption:`20+ smaken. 0 kilometer. 100% hemels. 🍦
+
+Ons hoeve-ijs wordt gemaakt met verse melk van onze eigen koeien. Geen poeder. Geen concentraat. Gewoon puur en romig, zoals ijs hoort te zijn.
+
+Welke smaak probeer jij eerst? Vertel het in de comments! 👇
+
+#hoeveijs #artoah #landen #ambachtelijkijs #lokaalislekker #korteketen #ijstijd` },
+
+  { week:4, day:'Dag 5', dayName:'Vr', type:'Beeld', typeCls:'type-beeld', pillar:'Community', pillarCls:'tag-pillar-community', goal:'Vertrouwen',
+    visual:'Quote-graphic met mooie achtergrond (hoeve-sfeer), of foto van klant met toestemming.',
+    caption:`"Sinds ik de boter van Artoah geproefd heb, wil ik geen andere meer." — een vaste klant 🧈
+
+Dit soort reacties maakt alles de moeite waard. Bedankt voor jullie vertrouwen en steun.
+
+Heb jij al geproefd? Vertel ons wat je favoriet is! ❤️
+
+#artoah #klantenliefde #hoevewinkel #landen #testimonial #dankbaar` },
+
+  // WEEK 5 — Producten
+  { week:5, day:'Dag 1', dayName:'Ma', type:'Video', typeCls:'type-video', pillar:'Educatie', pillarCls:'tag-pillar-educatie', goal:'Engagement',
+    visual:'Reel "Een dag op de hoeve": 5:30 koeien melken → 7:00 brood in de oven → 8:30 winkel openen → 9:00 eerste klant.',
+    caption:`05:30 — De koeien melken 🐄
+07:00 — Het brood gaat de oven in 🍞
+08:30 — De winkel opent 🏪
+09:00 — De eerste klant kiest een taart uit 🎂
+
+Dit is een gewone ochtend op Artoah. Elke dag anders, elke dag vers.
+
+#behindthescenes #boerderijleven #artoah #dagstart #hoevewinkel #landen #echtvoedsel` },
+
+  { week:5, day:'Dag 3', dayName:'Wo', type:'Beeld', typeCls:'type-beeld', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Awareness',
+    visual:'Flatlay of close-up van patisserie: taarten, eclairs, croissants. Mooi gestyled op houten ondergrond.',
+    caption:`Onze patisserie is gemaakt met dezelfde liefde als de rest: met eigen boter, eigen eieren, en heel veel geduld. 🧁
+
+Van klassieke taarten tot seizoensgebonden verrassingen — er is altijd iets nieuws te ontdekken.
+
+Tip: bestel je taart vooraf via artoah.be en haal ze op wanneer het jou past.
+
+#patisserie #artoah #hoevewinkel #landen #ambachtelijk #taart #gebak #metliefdegemaakt` },
+
+  { week:5, day:'Dag 5', dayName:'Vr', type:'Carousel', typeCls:'type-carousel', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Conversie',
+    visual:'Carousel: stap-voor-stap screenshots van de website. 1) Homepage 2) Producten kiezen 3) In winkelmand 4) Bestelling plaatsen 5) Afhalen.',
+    caption:`Online bestellen bij Artoah? Zo simpel is het! 🛒
+
+1️⃣ Ga naar artoah.be
+2️⃣ Kies je favoriete producten
+3️⃣ Plaats je bestelling
+4️⃣ Haal alles af aan de hoeve wanneer het jou past
+
+Makkelijker kan niet. Van onze hoeve, vers op jouw tafel.
+
+🔗 Link in bio
+
+#artoah #onlinebestellen #hoevewinkel #landen #gemakkelijk #versvandehoeve` },
+
+  // WEEK 6 — Community
+  { week:6, day:'Dag 1', dayName:'Ma', type:'Beeld', typeCls:'type-beeld', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Conversie',
+    visual:'Sfeervolle foto van kinderen op de boerderij, of een workshop-setting met deeg en meel.',
+    caption:`Leren waar je eten vandaan komt. Met je handen in de aarde. En daarna proeven van het resultaat. 🌱
+
+Onze workshops zijn er voor kinderen, gezinnen en iedereen die het boerderijleven wil beleven. Van boter karnen tot brood bakken.
+
+📅 Meer info en inschrijven via de link in bio.
+
+#workshops #artoah #boerderij #kinderen #gezinsuitje #landen #leren #natuur #korteketen` },
+
+  { week:6, day:'Dag 3', dayName:'Wo', type:'Beeld', typeCls:'type-beeld', pillar:'Community', pillarCls:'tag-pillar-community', goal:'Engagement',
+    visual:'Mooie foto van een klant die geniet (met toestemming), of quote-graphic met hoeve als achtergrond.',
+    caption:`"Het ijs van Artoah smaakt naar vroeger. Naar zomers bij oma." — Julie, mama van 3
+
+Jullie verhalen zijn de mooiste reclame die we ons kunnen wensen. 🥰
+
+Heb jij ook een Artoah-moment? Tag ons in je foto's of stuur ons een DM!
+
+#artoah #klantenverhaal #hoevewinkel #landen #lokaalislekker #korteketen #dankbaar` },
+
+  { week:6, day:'Dag 5', dayName:'Vr', type:'Carousel', typeCls:'type-carousel', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Engagement',
+    visual:'Carousel: zondagsbrunch flatlay met hoeve-producten. Slides: 1) Overzicht 2) Brood 3) Boter 4) Eieren 5) "Alles beschikbaar via artoah.be"',
+    caption:`Zondagsbrunch, boerenversie. ☀️
+
+Knapperig brood uit onze oven. Verse boter recht van de karton. Scharreleieren van onze eigen kippen. En als dessert? Een bolletje hoeve-ijs.
+
+Alles van hier. Alles vers. Alles beschikbaar via artoah.be of in onze hoevewinkel.
+
+Geniet ervan. Jullie verdienen het. 🌾
+
+#zondagsbrunch #artoah #hoeveproducten #landen #versvandehoeve #lokaalislekker #weekendvibes` }
+];
+
+const fbPosts = [
+  // WEEK 1 — Teaser
+  { week:1, day:'Dag 1', dayName:'Ma', type:'Beeld', typeCls:'type-beeld', pillar:'Verhaal', pillarCls:'tag-pillar-verhaal', goal:'Awareness',
+    visual:'Sfeerbeeld van de hoeve in ochtendlicht. Warm, uitnodigend.',
+    caption:`Er broeit iets op de boerderij... 🌾
+
+We kunnen het bijna niet meer stilhouden! Binnenkort openen we de deuren van iets heel speciaals. Hou deze pagina in de gaten!` },
+
+  { week:1, day:'Dag 3', dayName:'Wo', type:'Video', typeCls:'type-video', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Awareness',
+    visual:'Video 10-15 sec: close-up van een koe → melk → zwart scherm met "???".',
+    caption:`Van koe tot... ja, tot wat eigenlijk? 🐄
+
+Dat vertellen we heel binnenkort. Eén ding is zeker: het wordt lekker, het wordt vers, en het komt van bij ons in Landen.
+
+Hou deze pagina in de gaten! 👀` },
+
+  { week:1, day:'Dag 5', dayName:'Vr', type:'Beeld', typeCls:'type-beeld', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Awareness',
+    visual:'Countdown-visual met sfeerbeeld. Warm kleurenpalet.',
+    caption:`Nog even geduld, lieve mensen! ⏳
+
+Op [DATUM] is het zover. Nieuwe producten, een vernieuwde hoevewinkel, en ja... ook online bestellen wordt mogelijk!
+
+We kunnen niet wachten. En jullie? 🎉` },
+
+  // WEEK 2 — Pre-launch
+  { week:2, day:'Dag 1', dayName:'Ma', type:'Video', typeCls:'type-video', pillar:'Verhaal', pillarCls:'tag-pillar-verhaal', goal:'Engagement',
+    visual:'Korte video (30 sec): Stefanie stelt de koeien voor bij naam. Speels, persoonlijk.',
+    caption:`Mogen wij even voorstellen? 🐄❤️
+
+Dit zijn onze dames: Bella, Noor, Karamel en de rest van de kudde. Ze geven ons elke dag de verse melk waarmee we alles maken — van ijs tot boter tot room.
+
+Zij zijn de echte sterren van Artoah. 🌟
+
+Hebben jullie al eens een koe van dichtbij gezien? Binnenkort kan dat bij ons!` },
+
+  { week:2, day:'Dag 3', dayName:'Wo', type:'Tekst', typeCls:'type-tekst', pillar:'Educatie', pillarCls:'tag-pillar-educatie', goal:'Engagement',
+    visual:'Eventueel een eenvoudige infographic over korte keten, of gewoon een tekst-post met mooi achtergrondbeeld.',
+    caption:`Wist je dat... 🤔
+
+🥛 Onze melk legt 0 kilometer af van koe tot winkel?
+🍞 Ons brood wordt gebakken met onze eigen boter?
+🧁 Onze taarten worden gemaakt met eieren van onze scharrelhennes?
+
+Korte keten is niet zomaar een modewoord bij ons. Het is hoe we al generaties werken. Van onze hoeve, vers op jouw tafel.
+
+Benieuwd hoe het smaakt? Nog even geduld...` },
+
+  { week:2, day:'Dag 5', dayName:'Vr', type:'Beeld', typeCls:'type-beeld', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Awareness',
+    visual:'Mooie foto van de hoevewinkeldeur (of buitenkant) met een "Coming Soon" bordje.',
+    caption:`Nog 3 dagen en dan is het zo ver! 🎉
+
+Een paar tips voor je eerste bezoek aan het nieuwe Artoah:
+
+📍 Rumsdorpstraat 120, 3400 Landen
+⏰ Openingsuren: Do-Za 10:00-18:00 | Zo 10:00-17:00
+🅿️ Gratis parking aan de hoeve
+💡 Tip: breng een koeltas mee voor de zuivelproducten!
+
+We kijken ernaar uit om jullie te verwelkomen!` },
+
+  // WEEK 3 — LAUNCH
+  { week:3, day:'Dag 1', dayName:'Ma', type:'Beeld', typeCls:'type-beeld', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Awareness',
+    visual:'Mooie overzichtsfoto van de winkel met producten. Of carousel met foto\'s van elk producttype.',
+    caption:`Het is zover, en we zijn zo trots! 🌿
+
+Artoah's Family Farm heeft een nieuw gezicht gekregen. Naast onze verse melk, boter en hoeve-ijs vind je nu ook:
+
+🍞 Dagelijks vers brood uit onze eigen oven
+🧁 Taarten en patisserie met onze eigen ingrediënten
+🏪 Een prachtige vernieuwde hoevewinkel
+🎓 Workshops op de boerderij
+🛒 Je kan nu ook ONLINE BESTELLEN via onze nieuwe website!
+
+Kom gerust eens langs om te proeven, of bestel vanuit je luie zetel.
+
+📍 Rumsdorpstraat 120, Landen
+🌐 artoah.be` },
+
+  { week:3, day:'Dag 3', dayName:'Wo', type:'Tekst', typeCls:'type-tekst', pillar:'Verhaal', pillarCls:'tag-pillar-verhaal', goal:'Vertrouwen',
+    visual:'Foto van Stefanie in de winkel of bij de dieren. Warm, persoonlijk.',
+    caption:`Even persoonlijk... ❤️
+
+Deze boerderij is mijn thuis. Hier ben ik opgegroeid, tussen de koeien en de velden. En nu mag ik iets openen waar ik al jaren van droom: een hoevewinkel met niet alleen onze verse zuivel, maar ook brood, patisserie en zoveel meer.
+
+Elk product dat hier over de toonbank gaat, is met liefde gemaakt. Dat beloof ik.
+
+Kom gerust eens langs, de koffie staat klaar! ☕` },
+
+  { week:3, day:'Dag 5', dayName:'Vr', type:'Beeld', typeCls:'type-beeld', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Conversie',
+    visual:'Feestelijke visual: "Openingsweekend actie!" met duidelijke tekst over het gratis ijsje.',
+    caption:`🎉 OPENINGSWEEKEND ACTIE! 🎉
+
+Om onze lancering te vieren, trakteren we dit weekend:
+
+🍦 Gratis bolletje hoeve-ijs bij elke aankoop!
+
+Kom langs, proef onze producten, en ontdek alles wat Artoah te bieden heeft.
+
+📍 Rumsdorpstraat 120, Landen
+⏰ Za 10:00-18:00 | Zo 10:00-17:00
+
+Delen = lief! 💛` },
+
+  // WEEK 4 — Momentum
+  { week:4, day:'Dag 1', dayName:'Ma', type:'Beeld', typeCls:'type-beeld', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Awareness',
+    visual:'Close-up van verse hoeveboter op een houten plankje. Misschien met kruiden erbij.',
+    caption:`🧈 Product van de week: onze verse hoeveboter
+
+Gemaakt met room van onze eigen koeien. Gekarnd op de boerderij. Zonder toevoegingen.
+
+Smeer het op een snee van ons vers brood en je begrijpt meteen het verschil met supermarktboter.
+
+Beschikbaar in onze hoevewinkel en online via artoah.be` },
+
+  { week:4, day:'Dag 3', dayName:'Wo', type:'Tekst', typeCls:'type-tekst', pillar:'Educatie', pillarCls:'tag-pillar-educatie', goal:'Engagement',
+    visual:'Optioneel: foto van een croque-monsieur met gesmolten boter. Simpel maar smakelijk.',
+    caption:`🍴 Recepttip: De Ultieme Croque van de Hoeve
+
+Nodig:
+• 2 sneden vers Artoah-brood
+• Dikke laag Artoah hoeveboter
+• Kaas naar keuze
+• Snuifje zout
+
+Smeer de boter royaal. Leg de kaas ertussen. Bak goudbruin in de pan.
+
+Simpel? Ja. Hemels? Absoluut.
+
+Heb jij al een favoriet recept met onze producten? Deel het hieronder! 👇` },
+
+  { week:4, day:'Dag 5', dayName:'Vr', type:'Poll', typeCls:'type-poll', pillar:'Community', pillarCls:'tag-pillar-community', goal:'Engagement',
+    visual:'Poll-post of gewone tekst met vraag. Eventueel foto van ijsbolletjes in verschillende kleuren.',
+    caption:`🍦 POLL TIME! 🍦
+
+Welke smaak hoeve-ijs is jullie absolute favoriet?
+
+🍓 Aardbei
+🍫 Chocolade
+🍦 Vanille
+🌿 Pistache
+
+Of heb je een andere favoriet? Vertel het ons in de comments!
+
+P.S. We hebben meer dan 20 smaken. Allemaal gemaakt met verse melk van onze eigen koeien. Geen poeder, geen concentraat — gewoon puur ijs. 🐄` },
+
+  // WEEK 5 — Producten
+  { week:5, day:'Dag 1', dayName:'Ma', type:'Beeld', typeCls:'type-beeld', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Awareness',
+    visual:'Close-up van een mooi desembrood, aangesneden zodat je de structuur ziet. Houten snijplank.',
+    caption:`🍞 Product van de week: ons desembrood
+
+Langzaam gerezen. Met zuurdesem dat we zelf kweken. Gebakken in onze eigen oven, elke ochtend opnieuw.
+
+Het resultaat? Een knapperige korst, een luchtige kruim, en een smaak die je nergens anders vindt.
+
+Beschikbaar in de hoevewinkel en online via artoah.be
+
+Tip: bestel voor 20u 's avonds, haal op de volgende dag! 📦` },
+
+  { week:5, day:'Dag 3', dayName:'Wo', type:'Tekst', typeCls:'type-tekst', pillar:'Educatie', pillarCls:'tag-pillar-educatie', goal:'Engagement',
+    visual:'Eventueel infographic met 5 icoontjes en korte teksten.',
+    caption:`🌱 5 redenen om lokaal te kopen:
+
+1️⃣ Verser kan niet — van hoeve naar jou, zonder omwegen
+2️⃣ Je weet exact waar het vandaan komt
+3️⃣ Je steunt een lokale familie en de lokale economie
+4️⃣ Minder transport = minder CO2
+5️⃣ Het smaakt gewoon BETER
+
+Bij Artoah zijn al onze producten 100% van eigen bodem. Van de melk in je koffie tot het brood op je ontbijttafel.
+
+Welke reden spreekt jou het meest aan? 💚` },
+
+  { week:5, day:'Dag 5', dayName:'Vr', type:'Video', typeCls:'type-video', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Conversie',
+    visual:'Screenrecording van de website: navigeren → product kiezen → bestellen. Of simpele stap-voor-stap visuele guide.',
+    caption:`Geen tijd om langs te komen? Geen probleem! 🛒
+
+Op onze gloednieuwe website kan je al onze producten online bestellen. Je kiest wat je wilt, plaatst je bestelling, en haalt het op aan de hoeve wanneer het jou past.
+
+Makkelijker kan niet. 😊
+
+🌐 Bestel via: artoah.be` },
+
+  // WEEK 6 — Community
+  { week:6, day:'Dag 1', dayName:'Ma', type:'Beeld', typeCls:'type-beeld', pillar:'Promo', pillarCls:'tag-pillar-promo', goal:'Conversie',
+    visual:'Sfeervolle foto van kinderen op de boerderij. Workshop-setting met meel, deeg, lachende gezichten.',
+    caption:`Wist je dat je bij ons op de boerderij ook workshops kan volgen? 🌾
+
+Denk aan: zelf boter karnen, brood bakken, of een rondleiding met de dieren. Leuk voor kinderen, maar ook voor volwassenen die willen ontdekken hoe echt voedsel gemaakt wordt.
+
+📅 Alle info vind je op onze website: artoah.be
+📧 Of stuur ons een berichtje!` },
+
+  { week:6, day:'Dag 3', dayName:'Wo', type:'Tekst', typeCls:'type-tekst', pillar:'Community', pillarCls:'tag-pillar-community', goal:'Vertrouwen',
+    visual:'Quote-graphic met hoeve-achtergrond, of simpele tekst-post.',
+    caption:`"Sinds ik de boter van Artoah geproefd heb, wil ik geen andere meer." 🧈
+
+Dit soort berichten krijgen we steeds vaker, en het raakt ons elke keer opnieuw. Bedankt aan iedereen die ons steunt!
+
+Heb jij ook al iets lekkers ontdekt bij ons? Laat het weten in de reacties! 👇❤️` },
+
+  { week:6, day:'Dag 5', dayName:'Vr', type:'Beeld', typeCls:'type-beeld', pillar:'Producten', pillarCls:'tag-pillar-product', goal:'Engagement',
+    visual:'Flatlay van een zondagsbrunch met Artoah-producten: brood, boter, eieren, confituur, koffie. Warm zonlicht.',
+    caption:`Zondagsbrunch? Wij hebben alles wat je nodig hebt! ☀️
+
+🍞 Vers brood uit onze eigen oven
+🧈 Hoeveboter, vers gekarnd
+🥚 Scharreleieren van onze eigen kippen
+🍓 Seizoensconfituur
+🍦 En als dessert: een bolletje hoeve-ijs
+
+Bestel je brunchpakket via artoah.be of stel je eigen selectie samen in onze hoevewinkel.
+
+Goed weekend, allemaal! 🌾` }
+];
+
+// ========== RENDERING ==========
+function renderWeekTabs(platform, containerId) {
+  const container = document.getElementById(containerId);
+  let html = '';
+  weeks.forEach((w, i) => {
+    const cls = i === 0 ? 'week-tab active' : 'week-tab';
+    html += `<button class="${cls}" data-week="${i+1}" onclick="switchWeek('${platform}', ${i+1}, this)">${w.label} <span style="opacity:0.5;margin-left:2px">· ${w.sub}</span></button>`;
+  });
+  html += `<button class="week-tab mix-tab" onclick="showMix('${platform}', this)">📊 Content Mix</button>`;
+  container.innerHTML = html;
+}
+
+function renderPosts(platform, posts, containerId, week) {
+  const container = document.getElementById(containerId);
+  const filtered = posts.filter(p => p.week === week);
+  let html = '<div class="posts-grid">';
+  filtered.forEach((p, i) => {
+    html += `
+    <div class="post-card">
+      <div class="post-card-header">
+        <div class="post-avatar">A</div>
+        <div class="post-meta">
+          <div class="post-brand">artoah</div>
+          <div class="post-day">${p.day} · ${p.dayName}</div>
+        </div>
+        <span class="post-type-badge ${p.typeCls}">${getTypeIcon(p.type)} ${p.type}</span>
+      </div>
+      <div class="post-visual">
+        <span class="post-visual-label">📷 Visuele suggestie</span>
+        ${p.visual}
+      </div>
+      <div class="post-caption">${escapeHtml(p.caption)}</div>
+      <div class="post-tags">
+        <span class="tag ${p.pillarCls}">${getPillarIcon(p.pillar)} ${p.pillar}</span>
+        <span class="tag tag-goal">🎯 ${p.goal}</span>
+      </div>
+      <div class="post-actions">
+        <button class="post-action" onclick="likePost(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          Like
+        </button>
+        <button class="post-action" onclick="commentPost(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Comment
+        </button>
+        <button class="post-action copy-btn" onclick="copyCaption(this, '${platform}', ${posts.indexOf(p)})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Kopieer
+        </button>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function getTypeIcon(type) {
+  const icons = { 'Beeld':'🖼', 'Video':'🎬', 'Carousel':'📊', 'Tekst':'📝', 'Poll':'🗳', 'Story':'📱' };
+  return icons[type] || '📄';
+}
+function getPillarIcon(pillar) {
+  const icons = { 'Producten':'🧀', 'Verhaal':'📖', 'Educatie':'🎓', 'Community':'🤝', 'Promo':'📢' };
+  return icons[pillar] || '📌';
+}
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ========== CONTENT MIX ANALYTICS ==========
+function renderMix(platform, posts, containerId) {
+  const container = document.getElementById(containerId);
+  // Count types
+  const types = {};
+  const pillars = {};
+  const goals = {};
+  posts.forEach(p => {
+    types[p.type] = (types[p.type]||0) + 1;
+    pillars[p.pillar] = (pillars[p.pillar]||0) + 1;
+    goals[p.goal] = (goals[p.goal]||0) + 1;
+  });
+  const total = posts.length;
+
+  const typeColors = { 'Beeld':'#7A9B5C', 'Video':'#E1306C', 'Carousel':'#5B9BD5', 'Tekst':'#E8C547', 'Poll':'#F77737', 'Story':'#833AB4' };
+  const pillarColors = { 'Producten':'#E8C547', 'Verhaal':'#7A9B5C', 'Educatie':'#5B9BD5', 'Community':'#E1306C', 'Promo':'#F77737' };
+  const goalColors = { 'Awareness':'#5B9BD5', 'Engagement':'#7A9B5C', 'Conversie':'#E8C547', 'Vertrouwen':'#C9A84C' };
+
+  function bars(data, colors) {
+    return Object.entries(data).sort((a,b) => b[1]-a[1]).map(([k,v]) => {
+      const pct = Math.round(v/total*100);
+      const color = colors[k] || '#888';
+      return `<div class="mix-bar-row">
+        <div class="mix-bar-label">${k}</div>
+        <div class="mix-bar-track"><div class="mix-bar-fill" style="width:${pct}%;background:${color}">${pct}%</div></div>
+        <div class="mix-bar-count">${v}</div>
+      </div>`;
+    }).join('');
+  }
+
+  container.innerHTML = `
+    <div class="mix-grid">
+      <div class="mix-card">
+        <div class="mix-card-title">📊 Post Type Verdeling</div>
+        ${bars(types, typeColors)}
+      </div>
+      <div class="mix-card">
+        <div class="mix-card-title">🎨 Content Pijler Verdeling</div>
+        ${bars(pillars, pillarColors)}
+      </div>
+      <div class="mix-card">
+        <div class="mix-card-title">🎯 Doel Verdeling</div>
+        ${bars(goals, goalColors)}
+      </div>
+      <div class="mix-card">
+        <div class="mix-card-title">📋 Overzicht</div>
+        <div style="font-size:14px;color:var(--text-muted);line-height:2">
+          <div>Totaal posts: <span style="color:var(--accent);font-weight:700">${total}</span></div>
+          <div>Periode: <span style="color:var(--text);font-weight:600">6 weken</span></div>
+          <div>Frequentie: <span style="color:var(--text);font-weight:600">3x per week (Ma/Wo/Vr)</span></div>
+          <div>Campagne: <span style="color:var(--text);font-weight:600">"Van Hoeve tot Thuis"</span></div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+            <strong style="color:var(--text)">Vaste hashtags:</strong><br>
+            <span style="color:var(--sage)">#artoah #familyfarm #hoevewinkel #landen #korteketen</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ========== NAVIGATION ==========
+function openPlatform(platform) {
+  document.getElementById('landing').style.display = 'none';
+  const calId = 'cal-' + platform;
+  document.getElementById(calId).classList.add('active');
+  const posts = platform === 'instagram' ? igPosts : fbPosts;
+  const tabsId = platform === 'instagram' ? 'ig-week-tabs' : 'fb-week-tabs';
+  const postsId = platform === 'instagram' ? 'ig-posts' : 'fb-posts';
+  const mixId = platform === 'instagram' ? 'ig-mix' : 'fb-mix';
+  renderWeekTabs(platform, tabsId);
+  renderPosts(platform, posts, postsId, 1);
+  renderMix(platform, posts, mixId);
+}
+
+function goBack() {
+  document.querySelectorAll('.calendar-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('landing').style.display = 'flex';
+}
+
+function switchWeek(platform, week, btn) {
+  const posts = platform === 'instagram' ? igPosts : fbPosts;
+  const postsId = platform === 'instagram' ? 'ig-posts' : 'fb-posts';
+  const mixId = platform === 'instagram' ? 'ig-mix' : 'fb-mix';
+  // Update tabs
+  btn.closest('.week-tabs-inner').querySelectorAll('.week-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  // Show posts, hide mix
+  document.getElementById(postsId).style.display = 'block';
+  document.getElementById(mixId).classList.remove('active');
+  renderPosts(platform, posts, postsId, week);
+}
+
+function showMix(platform, btn) {
+  const postsId = platform === 'instagram' ? 'ig-posts' : 'fb-posts';
+  const mixId = platform === 'instagram' ? 'ig-mix' : 'fb-mix';
+  btn.closest('.week-tabs-inner').querySelectorAll('.week-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(postsId).style.display = 'none';
+  document.getElementById(mixId).classList.add('active');
+}
+
+// ========== ACTIONS ==========
+function copyCaption(btn, platform, index) {
+  const posts = platform === 'instagram' ? igPosts : fbPosts;
+  const text = posts[index].caption;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('✓ Caption gekopieerd!');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Gekopieerd!`;
+    btn.style.color = 'var(--accent)';
+    setTimeout(() => {
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Kopieer`;
+      btn.style.color = '';
+    }, 2000);
+  });
+}
+
+function likePost(btn) {
+  btn.style.color = '#E1306C';
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="#E1306C" stroke="#E1306C" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> Liked`;
+}
+
+function commentPost(btn) {
+  showToast('💬 Comment-functie is decoratief');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>

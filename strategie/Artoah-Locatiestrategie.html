@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artoah — Locatiestrategie & Reclamepunten</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f8faf8; color: #1a1a1a; }
+.header { background: linear-gradient(135deg, #1B4332, #2D6A4F); color: white; padding: 40px 24px; text-align: center; }
+.header h1 { font-size: 28px; margin-bottom: 8px; }
+.header p { opacity: 0.85; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+#map { height: 500px; border-radius: 12px; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.section { background: white; border-radius: 12px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.section h2 { color: #1B4332; font-size: 22px; margin-bottom: 16px; border-bottom: 3px solid #2D6A4F; padding-bottom: 8px; }
+.section h3 { color: #2D6A4F; font-size: 17px; margin: 16px 0 8px; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: #2D6A4F; color: white; padding: 10px 14px; text-align: left; }
+td { padding: 10px 14px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f0f7f2; }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.badge-green { background: #dcfce7; color: #166534; }
+.badge-red { background: #fee2e2; color: #991b1b; }
+.badge-yellow { background: #fef9c3; color: #854d0e; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.reclame-card { background: #f0f7f2; border-left: 4px solid #2D6A4F; padding: 16px 20px; margin: 12px 0; border-radius: 0 8px 8px 0; }
+.reclame-card h4 { color: #1B4332; margin-bottom: 6px; }
+.reclame-card p { color: #444; font-size: 14px; line-height: 1.5; }
+.priority { font-weight: 700; }
+.priority-1 { color: #166534; }
+.priority-2 { color: #854d0e; }
+.priority-3 { color: #6b7280; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 12px 0; font-size: 13px; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 14px; height: 14px; border-radius: 50%; }
+.insight-box { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 2px solid #86efac; border-radius: 12px; padding: 20px; margin: 16px 0; }
+.insight-box h3 { color: #166534; margin-bottom: 8px; }
+.footer { text-align: center; padding: 24px; color: #888; font-size: 13px; }
+@media (max-width: 768px) {
+  .header h1 { font-size: 22px; }
+  #map { height: 350px; }
+  table { font-size: 12px; }
+  th, td { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Artoah — Locatiestrategie & Reclamepunten</h1>
+  <p>Analyse van fietsroutes, wandelnetwerken, verkeersaders en concurrentlocaties • februari 2026</p>
+</div>
+
+<div class="container">
+
+  <!-- KAART -->
+  <div id="map"></div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div> Artoah</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Concurrenten</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Reclamepunten</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> Toeristische punten</div>
+  </div>
+
+  <!-- LIGGING TOV ROUTES -->
+  <div class="section">
+    <h2>1. Ligging ten opzichte van routes & wegen</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Locatie</th>
+          <th>Fietsroutes</th>
+          <th>Wandelroutes</th>
+          <th>Verkeersader</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Artoah</strong><br><small>Rumsdorpstraat 120, Landen</small></td>
+          <td>Fietsknooppuntennetwerk Vlaams-Brabant door Landen. Vlakke routes rond Neerlanden/Overwinden.</td>
+          <td>Wandelnetwerk Getevallei (virtuele knooppunten in Landen). GR Hageland passeert noordelijk.</td>
+          <td>N80 Landen–Sint-Truiden, dichtbij E40 afrit Landen</td>
+          <td><span class="badge badge-green">Goed</span></td>
+        </tr>
+        <tr>
+          <td><strong>De Ijshut</strong><br><small>St-Truidensesteenweg 44, Zoutleeuw</small></td>
+          <td>Twee Getenroute (35 km) passeert langs Zoutleeuw. IJzerenwegroute. Fietsroute Getevallei (44,8 km).</td>
+          <td>Streek-GR Hageland (km 70). GR 128 Vlaanderenroute. Wandelnetwerk Getevallei (fysieke borden!).</td>
+          <td>Ligt AAN de N80 (St-Truidensesteenweg) — maximale zichtbaarheid</td>
+          <td><span class="badge badge-red">Sterk</span></td>
+        </tr>
+        <tr>
+          <td><strong>Melkerhei</strong><br><small>Heidestraat 163, Neerlinter</small></td>
+          <td>Twee Getenroute passeert door Linter. Fietsknooppunt nabij Neerlinter.</td>
+          <td>GR Hageland etappe Zoutleeuw–Neerlinter–Ransberg. Wandelnetwerk Getevallei (fysieke knooppunten).</td>
+          <td>Rustige landelijke weg, niet aan hoofdweg. Goed voor fietsers, minder voor autoverkeer.</td>
+          <td><span class="badge badge-yellow">Matig</span></td>
+        </tr>
+        <tr>
+          <td><strong>Fruit Vanhellemont</strong><br><small>Hamelendreef 81, Tienen</small></td>
+          <td>Dicht bij fietsknooppunten rond Tienen. Tienen is startpunt van meerdere routes.</td>
+          <td>Minder sterk — Tienen centrum, niet aan GR-pad.</td>
+          <td>N3 Tienen–Sint-Truiden. Dicht bij E40 afrit Tienen. Goed bereikbaar per auto.</td>
+          <td><span class="badge badge-green">Goed</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <h3>Belangrijkste inzicht</h3>
+      <p><strong>De Ijshut</strong> heeft de beste ligging: recht aan de N80 (doorgaand verkeer) EN op het kruispunt van 3 grote fiets-/wandelroutes. <strong>Artoah</strong> scoort goed op autobereikbaarheid (E40) maar mist nog zichtbaarheid langs fiets-/wandelroutes. <strong>Melkerhei</strong> is perfect voor fietsers maar moeilijk te vinden per auto.</p>
+    </div>
+  </div>
+
+  <!-- VERKEERSADERS -->
+  <div class="section">
+    <h2>2. Verkeersaders in de regio</h2>
+
+    <h3>Snelweg</h3>
+    <table>
+      <tr><td><strong>E40</strong> (Brussel ↔ Luik)</td><td>Afrit Landen + afrit Tienen. Primaire toegangsweg voor bezoekers van buiten de regio. De E40 is samen met de E19 de belangrijkste verkeersas van België.</td></tr>
+    </table>
+
+    <h3>Gewestwegen (N-wegen)</h3>
+    <table>
+      <tr><td><strong>N80</strong></td><td>Landen ↔ Sint-Truiden. De Ijshut ligt hieraan! Drukke verbindingsweg, lokaal bestuur Landen wil deze NIET opwaarderen tot bovenlokale weg.</td></tr>
+      <tr><td><strong>N3</strong></td><td>Tienen ↔ Sint-Truiden (↔ Luik). Belangrijkste doorgaande route. Fruit Vanhellemont ligt nabij.</td></tr>
+      <tr><td><strong>N29</strong></td><td>Tienen ↔ Diest. Verbindt Hageland noord-zuid.</td></tr>
+      <tr><td><strong>N64</strong></td><td>Landen ↔ Hannuit (Wallonië). Grensverkeer.</td></tr>
+    </table>
+  </div>
+
+  <!-- FIETS & WANDELROUTES -->
+  <div class="section">
+    <h2>3. Fiets- & wandelroutes als klantenkanaal</h2>
+
+    <h3>Fietsroutes</h3>
+    <table>
+      <thead><tr><th>Route</th><th>Afstand</th><th>Passeert langs</th><th>Kans voor Artoah</th></tr></thead>
+      <tbody>
+        <tr><td>Fietsknooppuntennetwerk Vlaams-Brabant</td><td>2.150 km totaal</td><td>Heel de provincie, incl. Landen</td><td><span class="badge badge-green">Hoog</span> — laat je opnemen als rustpunt</td></tr>
+        <tr><td>Twee Getenroute</td><td>35 km</td><td>Zoutleeuw → Linter → Budingen</td><td><span class="badge badge-yellow">Matig</span> — passeert niet direct door Landen</td></tr>
+        <tr><td>Fietsroute Getevallei</td><td>44,8 km</td><td>Zoutleeuw en omgeving</td><td><span class="badge badge-yellow">Matig</span> — extra bewegwijzering nodig</td></tr>
+        <tr><td>Getelinie (WO I-route)</td><td>63 km</td><td>Halen → Geetbets → Linter → Zoutleeuw → Tienen</td><td><span class="badge badge-green">Hoog</span> — historisch toerisme</td></tr>
+        <tr><td>Eddy Merckx Route (lang)</td><td>Variabel</td><td>Heel Hageland</td><td><span class="badge badge-green">Hoog</span> — sportieve fietsers = ijskopers</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Wandelroutes</h3>
+    <table>
+      <thead><tr><th>Route</th><th>Afstand</th><th>Nabij Artoah?</th><th>Kans</th></tr></thead>
+      <tbody>
+        <tr><td>Wandelnetwerk Getevallei</td><td>510 km</td><td>Ja — virtuele knooppunten in Landen</td><td><span class="badge badge-green">Hoog</span> — word een officieel rustpunt</td></tr>
+        <tr><td>Streek-GR Hageland</td><td>158 km</td><td>Passeert noordelijk via Zoutleeuw/Linter</td><td><span class="badge badge-yellow">Matig</span> — bewegwijzering/verwijzing nodig</td></tr>
+        <tr><td>GR 128 Vlaanderenroute</td><td>650 km</td><td>Via Zoutleeuw</td><td><span class="badge badge-yellow">Matig</span> — lange-afstandswandelaars</td></tr>
+        <tr><td>Dagwandeling Zoutleeuw–Neerlinter–Ransberg</td><td>~20 km</td><td>Nee, maar Neerlinter = dichtbij</td><td><span class="badge badge-green">Hoog</span> — dagjestoeristen</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- STRATEGISCHE RECLAMEPUNTEN -->
+  <div class="section">
+    <h2>4. Strategische reclamepunten</h2>
+    <p style="margin-bottom:16px; color:#555;">Hieronder de 8 beste locaties voor wegwijzerborden, spandoeken of reclamepanelen, gerangschikt op prioriteit.</p>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-1">Prioriteit 1</span> — Afrit E40 Landen (richting centrum)</h4>
+      <p>De eerste indruk voor bezoekers van buiten de regio. Plaats een bruine toeristische bewegwijzering ("Hoevewinkel Artoah — 3 km") op de afritweg richting Landen-centrum. Vraag dit aan bij het Agentschap Wegen & Verkeer en/of de stad Landen. <strong>Verwacht bereik: 15.000+ voertuigen/dag.</strong></p>
+    </div>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-1">Prioriteit 1</span> — N80 kruispunt richting Rumsdorp</h4>
+      <p>De N80 is de drukste gewestweg in de regio. Plaats een verwijzingsbord op het kruispunt N80/afslag naar Rumsdorpstraat. Dit is ook het punt waar De Ijshut-klanten langskomen — onderschep ze! <strong>Verwacht bereik: 8.000+ voertuigen/dag.</strong></p>
+    </div>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-1">Prioriteit 1</span> — Fietsknooppunt(en) nabij Landen</h4>
+      <p>Contacteer Toerisme Vlaams-Brabant om Artoah op te nemen als officieel rustpunt/bezoekpunt op het fietsknooppuntennetwerk. Dit staat op ALLE fietskaarten en apps. Gratis als je erkend wordt. <strong>Bereik: alle fietstoeristen in de provincie.</strong></p>
+    </div>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-2">Prioriteit 2</span> — Centrum Landen (Marktplein/kerk)</h4>
+      <p>Klein wegwijzerbord bij het marktplein of aan de kerk, waar wandelaars en fietsers vaak stoppen. Combineer met een QR-code naar de website voor workshops. <strong>Bereik: lokaal publiek + toeristen.</strong></p>
+    </div>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-2">Prioriteit 2</span> — N80 ter hoogte van Walshoutem (richting Sint-Truiden)</h4>
+      <p>Vang het verkeer vanuit Sint-Truiden/Limburg op. Reclamebord met "Hoevewinkel + Bakworkshops — Afslag 2 km". Walshoutem is een deelgemeente van Landen, dus vergunning via eigen gemeente. <strong>Bereik: 8.000+ voertuigen/dag.</strong></p>
+    </div>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-2">Prioriteit 2</span> — Wandelnetwerk Getevallei startpunten</h4>
+      <p>Bij de infoborden van het Wandelnetwerk Getevallei in Landen een flyer/QR-code plaatsen. Contacteer Regionaal Landschap Zuid-Hageland voor partnerschap. <strong>Bereik: alle wandelaars die in Landen starten.</strong></p>
+    </div>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-3">Prioriteit 3</span> — Provinciaal Domein Het Vinne (Zoutleeuw)</h4>
+      <p>Het Vinne is het enige natuurlijke meer van Vlaanderen en een grote trekpleister. Veel fietsers en wandelaars vertrekken hier. Flyers in het bezoekerscentrum of een verwijzingsbord. <strong>Bereik: 100.000+ bezoekers/jaar.</strong></p>
+    </div>
+
+    <div class="reclame-card">
+      <h4><span class="priority priority-3">Prioriteit 3</span> — Hoegaarden centrum (brouwerijdorp)</h4>
+      <p>Hoegaarden trekt biertoeristen aan. Combinatie "Hoegaarden bier + Artoah bakworkshop" als dagje uit. Flyers in horeca of bij het toeristisch infopunt. <strong>Bereik: biertoeristen, fietsers Hoegaarden-route.</strong></p>
+    </div>
+  </div>
+
+  <!-- CONCRETE ACTIES -->
+  <div class="section">
+    <h2>5. Concrete acties — wat nu doen?</h2>
+
+    <table>
+      <thead><tr><th>#</th><th>Actie</th><th>Kost</th><th>Prioriteit</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Google Maps/Mijn Bedrijf claimen</strong> — zodat je verschijnt wanneer fietsers/wandelaars "hoevewinkel" zoeken op hun telefoon</td><td>Gratis</td><td><span class="badge badge-green">Nu</span></td></tr>
+        <tr><td>2</td><td><strong>Toerisme Vlaams-Brabant contacteren</strong> — vraag opname als rustpunt op fietskaart en knooppuntenapp</td><td>Gratis</td><td><span class="badge badge-green">Nu</span></td></tr>
+        <tr><td>3</td><td><strong>Regionaal Landschap Zuid-Hageland contacteren</strong> — partnerschap Wandelnetwerk Getevallei</td><td>Gratis</td><td><span class="badge badge-green">Nu</span></td></tr>
+        <tr><td>4</td><td><strong>Bruine toeristische borden aanvragen</strong> bij AWV (afrit E40) en stad Landen (lokale wegen)</td><td>€200–500</td><td><span class="badge badge-yellow">Binnenkort</span></td></tr>
+        <tr><td>5</td><td><strong>2 reclameborden langs N80</strong> — bij kruispunt Rumsdorp + Walshoutem</td><td>€300–800/jaar</td><td><span class="badge badge-yellow">Binnenkort</span></td></tr>
+        <tr><td>6</td><td><strong>Flyers bij Het Vinne</strong> + Hoegaarden toeristisch infopunt</td><td>€50–100</td><td><span class="badge badge-yellow">Binnenkort</span></td></tr>
+        <tr><td>7</td><td><strong>UiTinVlaanderen workshops publiceren</strong> — verschijnt in alle toeristengidsen</td><td>Gratis</td><td><span class="badge badge-green">Nu</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  Opgesteld door The Bair Company • 24 februari 2026 • Bronnen: Fietsknooppunt.be, Toerisme Vlaams-Brabant, Stad Landen, Regionaal Landschap Zuid-Hageland, Wegen & Verkeer
+</div>
+
+<script>
+// Initialiseer kaart gecentreerd op Landen
+const map = L.map('map').setView([50.755, 5.08], 12);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors',
+  maxZoom: 18
+}).addTo(map);
+
+// Custom iconen
+function makeIcon(color, size = 12) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${size}px;height:${size}px;background:${color};border:2px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2]
+  });
+}
+
+const greenIcon = makeIcon('#16a34a', 18);
+const redIcon = makeIcon('#dc2626', 14);
+const yellowIcon = makeIcon('#f59e0b', 12);
+const blueIcon = makeIcon('#3b82f6', 12);
+
+// ARTOAH
+L.marker([50.7563, 5.0815], { icon: greenIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#16a34a">★ ARTOAH</b><br>Rumsdorpstraat 120, Landen<br><small>Hoevewinkel + Bakkerij + IJs + Workshops</small>')
+  .openPopup();
+
+// CONCURRENTEN
+L.marker([50.8310, 5.0898], { icon: redIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#dc2626">De Ijshut</b><br>St-Truidensesteenweg 44, Zoutleeuw<br><small>Aan de N80 — hoge zichtbaarheid</small>');
+
+L.marker([50.8177, 5.0510], { icon: redIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#dc2626">Melkerhei / Chez Mémé</b><br>Heidestraat 163, Neerlinter<br><small>2.595 IG-volgers — sterkste online concurrent</small>');
+
+L.marker([50.7944, 4.9417], { icon: redIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#dc2626">Fruit Vanhellemont</b><br>Hamelendreef 81, Tienen<br><small>Grootste concurrent qua schaal (15 medewerkers)</small>');
+
+// RECLAMEPUNTEN
+L.marker([50.7480, 5.0550], { icon: yellowIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#f59e0b">📍 Reclamepunt 1</b><br>Afrit E40 Landen<br><small>Prioriteit 1 — 15.000+ voertuigen/dag</small>');
+
+L.marker([50.7620, 5.0870], { icon: yellowIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#f59e0b">📍 Reclamepunt 2</b><br>N80 kruispunt richting Rumsdorp<br><small>Prioriteit 1 — 8.000+ voertuigen/dag</small>');
+
+L.marker([50.7650, 5.0500], { icon: yellowIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#f59e0b">📍 Reclamepunt 3</b><br>Centrum Landen (Marktplein)<br><small>Prioriteit 2 — lokaal publiek + toeristen</small>');
+
+L.marker([50.7755, 5.1080], { icon: yellowIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#f59e0b">📍 Reclamepunt 4</b><br>N80 Walshoutem<br><small>Prioriteit 2 — verkeer vanuit Limburg</small>');
+
+// TOERISTISCHE PUNTEN
+L.marker([50.8350, 5.0720], { icon: blueIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#3b82f6">🏞️ Het Vinne</b><br>Provinciaal Domein, Zoutleeuw<br><small>Enig natuurlijk meer van Vlaanderen — 100K+ bezoekers/jaar</small>');
+
+L.marker([50.7890, 4.8730], { icon: blueIcon })
+  .addTo(map)
+  .bindPopup('<b style="color:#3b82f6">🍺 Hoegaarden</b><br>Brouwerijdorp<br><small>Biertoerisme — combinatie met Artoah als dagje uit</small>');
+
+// Verkeersaders als lijnen
+// E40 (bij benadering door Landen)
+L.polyline([
+  [50.745, 4.85], [50.748, 4.95], [50.748, 5.05], [50.746, 5.15]
+], { color: '#6366f1', weight: 4, opacity: 0.6, dashArray: '10,6' })
+  .addTo(map)
+  .bindPopup('E40 Brussel ↔ Luik');
+
+// N80
+L.polyline([
+  [50.755, 5.08], [50.775, 5.10], [50.800, 5.10], [50.830, 5.09]
+], { color: '#ef4444', weight: 3, opacity: 0.5, dashArray: '6,4' })
+  .addTo(map)
+  .bindPopup('N80 Landen ↔ Sint-Truiden');
+
+// N3
+L.polyline([
+  [50.795, 4.94], [50.810, 4.98], [50.830, 5.05], [50.830, 5.09]
+], { color: '#f97316', weight: 3, opacity: 0.5, dashArray: '6,4' })
+  .addTo(map)
+  .bindPopup('N3 Tienen ↔ Sint-Truiden');
+
+</script>
+
+</body>
+</html>

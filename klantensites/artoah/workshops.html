@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakworkshops — Artoah's Family Farm | Landen</title>
+    <meta name="description" content="Beleef een unieke bakworkshop op Artoah's Family Farm in Landen. Teambuilding, kinderworkshops, zuurdesem, brood bakken en meer. Boek nu!">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://artoah.vercel.app/workshops">
+    <meta property="og:title" content="Bakworkshops — Artoah's Family Farm | Landen">
+    <meta property="og:description" content="Beleef een unieke bakworkshop op Artoah's Family Farm. Teambuilding, kinderworkshops, zuurdesem, brood bakken en meer.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1763570645098-371723617ee9?w=1200&q=80">
+    <meta property="og:locale" content="nl_BE">
+    <meta property="og:site_name" content="Artoah's Family Farm">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bakworkshops — Artoah's Family Farm | Landen">
+    <meta name="twitter:description" content="Beleef een unieke bakworkshop op de boerderij. Teambuilding, kinderworkshops, zuurdesem en meer.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1763570645098-371723617ee9?w=1200&q=80">
+    <!-- Canonical & Robots -->
+    <link rel="canonical" href="https://artoah.vercel.app/workshops">
+    <meta name="robots" content="index, follow">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest: #2D5016; --forest-dark: #1A3409; --sage: #7A9B5C;
+            --cream: #FDF8F0; --warm-cream: #F5EDE0; --butter: #E8C547;
+            --gold: #C9A84C; --gold-light: #E8D48B; --terracotta: #C4723A;
+            --charcoal: #2C2C2C; --text: #3D3D3D; --text-light: #6B6B6B; --white: #FFFFFF;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); background: var(--cream); line-height: 1.7; overflow-x: hidden; }
+        .site-content { display: none; }
+        .site-content.visible { display: block; }
+        .top-bar { background: var(--forest-dark); color: var(--white); padding: 8px 0; font-size: 13px; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar a { color: var(--white); text-decoration: none; opacity: 0.85; transition: opacity 0.3s; }
+        .top-bar a:hover { opacity: 1; }
+        .top-bar-left { display: flex; gap: 24px; }
+        .top-bar svg { width: 16px; height: 16px; vertical-align: middle; margin-right: 6px; }
+        .navbar { background: rgba(255,255,255,0.97); padding: 16px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.06); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--forest); text-decoration: none; letter-spacing: -0.5px; }
+        .logo span { color: var(--sage); }
+        .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.3s; position: relative; white-space: nowrap; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--forest); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.active { color: var(--forest); font-weight: 600; }
+        .nav-links a.active::after { width: 100%; }
+        .nav-cta { background: var(--forest) !important; color: var(--white) !important; padding: 10px 20px; border-radius: 6px; font-size: 12px !important; transition: background 0.3s !important; }
+        .nav-cta:hover { background: var(--forest-dark) !important; }
+        .nav-cta::after { display: none !important; }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--charcoal); margin: 5px 0; transition: 0.3s; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        section { padding: 100px 0; }
+        .section-label { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 700; color: var(--charcoal); margin-bottom: 16px; line-height: 1.15; }
+        .section-subtitle { font-size: 17px; color: var(--text-light); max-width: 650px; line-height: 1.8; }
+        .section-header { margin-bottom: 70px; }
+        .section-header.center { text-align: center; }
+        .section-header.center .section-subtitle { margin: 0 auto; }
+        .gold-divider { width: 80px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); margin: 0 auto 24px; border: none; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; border-radius: 6px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s; border: none; cursor: pointer; background: var(--butter); color: var(--forest-dark); }
+        .btn-primary:hover { background: #d4b23e; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,197,71,0.3); }
+        .btn-outline-dark { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--forest); border: 1.5px solid var(--forest); padding: 16px 36px; border-radius: 6px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .btn-outline-dark:hover { background: var(--forest); color: var(--white); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1), transform 0.8s cubic-bezier(0.23,1,0.32,1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .page-hero { position: relative; padding: 140px 0 100px; background: var(--forest-dark); color: var(--white); overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; inset: 0; background: url('workshopbakken.png') center/cover; opacity: 0.25; }
+        .page-hero .container { position: relative; z-index: 1; }
+        .page-hero .breadcrumb { font-size: 13px; margin-bottom: 20px; opacity: 0.7; }
+        .page-hero .breadcrumb a { color: var(--white); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+        .page-hero .breadcrumb a:hover { opacity: 1; }
+        .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 60px); font-weight: 700; margin-bottom: 16px; line-height: 1.1; }
+        .page-hero h1 em { font-style: italic; color: var(--butter); }
+        .page-hero p { font-size: 18px; max-width: 600px; opacity: 0.85; line-height: 1.8; font-weight: 300; }
+        .category-nav { background: var(--white); border-bottom: 1px solid #eee; position: sticky; top: 60px; z-index: 50; }
+        .category-nav .container { display: flex; gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .category-nav a { padding: 18px 28px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-light); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s; }
+        .category-nav a:hover, .category-nav a.active { color: var(--forest); border-bottom-color: var(--gold); }
+        .workshop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .workshop-card { background: var(--white); border-radius: 20px; overflow: hidden; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s; }
+        .workshop-card:hover { transform: translateY(-6px); box-shadow: 0 24px 64px rgba(0,0,0,0.1); }
+        .workshop-card-image { height: 220px; overflow: hidden; position: relative; }
+        .workshop-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.23,1,0.32,1); }
+        .workshop-card:hover .workshop-card-image img { transform: scale(1.06); }
+        .workshop-tag { position: absolute; top: 16px; left: 16px; background: var(--forest); color: var(--white); padding: 6px 14px; border-radius: 50px; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+        .workshop-tag.kids { background: var(--terracotta); }
+        .workshop-tag.team { background: var(--sage); }
+        .workshop-tag.course { background: var(--gold); color: var(--forest-dark); }
+        .workshop-card-body { padding: 28px; }
+        .workshop-card-body h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--charcoal); margin-bottom: 10px; line-height: 1.25; }
+        .workshop-card-body p { font-size: 14px; color: var(--text-light); line-height: 1.7; margin-bottom: 20px; }
+        .workshop-meta { display: flex; gap: 20px; padding-top: 16px; border-top: 1px solid #f0f0f0; font-size: 12px; color: var(--text-light); }
+        .workshop-meta span { display: flex; align-items: center; gap: 6px; }
+        .cta-banner { background: var(--forest); border-radius: 24px; padding: 72px; text-align: center; color: var(--white); }
+        .cta-banner .section-title { color: var(--white); }
+        .cta-banner p { max-width: 550px; margin: 0 auto 36px; opacity: 0.85; font-size: 17px; line-height: 1.8; font-weight: 300; }
+        footer { background: var(--forest-dark); color: var(--white); padding: 48px 0 28px; }
+        .footer-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 28px; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; }
+        .footer-links { display: flex; gap: 28px; }
+        .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color 0.3s; letter-spacing: 0.3px; }
+        .footer-links a:hover { color: var(--white); }
+        .footer-bottom { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.3); }
+        @media (max-width: 968px) {
+            .workshop-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        }
+        @media (max-width: 640px) {
+            .workshop-grid { grid-template-columns: 1fr; }
+            section { padding: 70px 0; }
+            .page-hero { padding: 120px 0 70px; }
+            .page-hero h1 { font-size: 32px; }
+            .cta-banner { padding: 48px 24px; }
+            .footer-top, .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .top-bar .container { flex-direction: column; gap: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-content visible">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-left">
+                    <a href="mailto:info@artoah.be">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        info@artoah.be
+                    </a>
+                    <a href="tel:+32499216065">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        0499 21 60 65
+                    </a>
+                </div>
+                <div class="top-bar-right">
+                    <span>Rumsdorpstraat 120, 3400 Landen</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAV -->
+        <nav class="navbar">
+            <div class="container">
+                <a href="./" class="logo">Artoah<span>'s</span></a>
+                <ul class="nav-links">
+                    <li><a href="./">Home</a></li>
+                    <li><a href="zuivel">Zuivel & Hoeve-ijs</a></li>
+                    <li><a href="bakkerij">Brood & Patisserie</a></li>
+                    <li><a href="workshops" class="active">Workshops</a></li>
+                    <li><a href="kampen">Kampen 2026</a></li>
+                    <li><a href="winkel">Winkel</a></li>
+                    <li><a href="./#contact" class="nav-cta">Contact</a></li>
+                </ul>
+                <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </nav>
+
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <div class="container">
+                <div class="breadcrumb"><a href="./">Home</a> &rsaquo; Workshops</div>
+                <h1>Bak mee op <em>de boerderij</em></h1>
+                <p>Ontdek de magie van ambachtelijk bakken in onze gezellige werkplaats. Van zuurdesembrood tot cupcakes versieren &mdash; voor elk wat wils.</p>
+            </div>
+        </section>
+
+        <!-- CATEGORY NAV -->
+        <div class="category-nav">
+            <div class="container">
+                <a href="#groepen" class="active">Groepen & Teambuilding</a>
+                <a href="#brood">Brood & Zuurdesem</a>
+                <a href="#creatief">Creatief Bakken</a>
+                <a href="#kinderen">Kinderworkshops</a>
+            </div>
+        </div>
+
+        <!-- GROEPEN & TEAMBUILDING -->
+        <section id="groepen" style="padding:100px 0;background:var(--cream);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <div class="section-label">Samen bakken</div>
+                    <h2 class="section-title">Groepen & Teambuilding</h2>
+                    <p class="section-subtitle">Een unieke ervaring voor je team, vriendengroep of vrijgezellenfeest. Samen kneden, bakken en proeven op de boerderij.</p>
+                </div>
+                <div class="workshop-grid">
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="https://images.unsplash.com/photo-1763570645098-371723617ee9?w=800&q=80" alt="Teambuilding bakworkshop" loading="lazy">
+                            <div class="workshop-tag team">Teambuilding</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Teambuilding Bakworkshop</h3>
+                            <p>Versterk de band met je collega's terwijl jullie samen brood kneden, deeg vormen en genieten van het resultaat. Een origineel alternatief voor de klassieke teambuilding.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 8&ndash;25 personen</span>
+                                <span>&#x23F1; 2&ndash;3 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&q=80" alt="Vrijgezellenworkshop" loading="lazy">
+                            <div class="workshop-tag team">Groepservaring</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Vrijgezellen &amp; Vriendengroepen</h3>
+                            <p>Vier je vrijgezellenfeest of vriendenuitje op een bijzondere manier. Samen bakken, lachen en proeven in een ontspannen sfeer op de boerderij.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 6&ndash;20 personen</span>
+                                <span>&#x23F1; 2&ndash;3 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80" alt="Demonstratieworkshop" loading="lazy">
+                            <div class="workshop-tag team">Demo & Proeverij</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Demonstratieworkshop + Degustatie</h3>
+                            <p>Kijk hoe onze bakker het doet en proef het resultaat. Ideaal als introductie of voor groepen die willen genieten zonder zelf de handen vuil te maken.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 10&ndash;30 personen</span>
+                                <span>&#x23F1; 1,5&ndash;2 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BROOD & ZUURDESEM -->
+        <section id="brood" style="padding:100px 0;background:var(--white);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <div class="section-label">Leer het vak</div>
+                    <h2 class="section-title">Brood & Zuurdesem</h2>
+                    <p class="section-subtitle">Duik dieper in de wereld van ambachtelijk brood. Van je eerste wit brood tot het onderhouden van je eigen zuurdesemstarter.</p>
+                </div>
+                <div class="workshop-grid">
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="./brood-bakken.jpg" alt="Ambachtelijk brood bakken" loading="lazy">
+                            <div class="workshop-tag">Brood</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Ambachtelijk Brood Bakken</h3>
+                            <p>Leer de basis van brood bakken: wit brood, volkoren en spelt. Je gaat naar huis met je eigen versgebakken broden en de kennis om het thuis te herhalen.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 4&ndash;12 personen</span>
+                                <span>&#x23F1; 3 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="./zuurdesem.jpg" alt="Zuurdesem-workshop" loading="lazy">
+                            <div class="workshop-tag course">Cursus</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Zuurdesem-workshop</h3>
+                            <p>Maak je eigen zuurdesemstarter en leer hoe je die thuis onderhoudt. We bakken samen een prachtig zuurdesembrood van begin tot eind.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 4&ndash;10 personen</span>
+                                <span>&#x23F1; 4 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80" alt="Mini-cursus brood" loading="lazy">
+                            <div class="workshop-tag course">3&ndash;4 lessen</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Mini-cursus Bakken</h3>
+                            <p>Een verdiepende cursus over 3 tot 4 lessen. Elk les bouw je verder op je kennis: van basisdeeg tot geavanceerde technieken en recepten.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 4&ndash;8 personen</span>
+                                <span>&#x23F1; 3&ndash;4 sessies</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CREATIEF BAKKEN -->
+        <section id="creatief" style="padding:100px 0;background:var(--cream);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <div class="section-label">Laat je creativiteit los</div>
+                    <h2 class="section-title">Creatief Bakken</h2>
+                    <p class="section-subtitle">Koekjes decoreren, cupcakes versieren of streekgebak maken &mdash; lekker creatief bezig zijn en alles mee naar huis nemen.</p>
+                </div>
+                <div class="workshop-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&q=80" alt="Koekjes bakken" loading="lazy">
+                            <div class="workshop-tag">Creatief</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Koekjes Bakken</h3>
+                            <p>Bak klassieke koekjes en ontdek streekrecepten die al generaties meegaan. Perfect om samen te doen en alles mee naar huis te nemen.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 4&ndash;14 personen</span>
+                                <span>&#x23F1; 2 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="./cupcakes.jpg" alt="Cupcakes versieren" loading="lazy">
+                            <div class="workshop-tag">Creatief</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Cupcakes Versieren</h3>
+                            <p>Leer de mooiste versieringen en technieken voor cupcakes. Van swirls tot fondant &mdash; creatief en lekker tegelijk.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F465; 4&ndash;14 personen</span>
+                                <span>&#x23F1; 2 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KINDERWORKSHOPS -->
+        <section id="kinderen" style="padding:100px 0;background:var(--white);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <div class="section-label">Voor de kleintjes</div>
+                    <h2 class="section-title">Kinderworkshops</h2>
+                    <p class="section-subtitle">Kleine bakkers, groot plezier! Onze kinderworkshops zijn perfect voor verjaardagsfeestjes, ouder-kindmomenten of gewoon een leuke namiddag.</p>
+                </div>
+                <div class="workshop-grid">
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?w=800&q=80" alt="Kinderbakworkshop" loading="lazy">
+                            <div class="workshop-tag kids">Kids</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Kinderbakworkshop</h3>
+                            <p>Broodjes vormen, koekjes versieren en lekker knoeien met deeg. Een leuke en leerzame ervaring voor kinderen van 5 tot 12 jaar.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F476; 5&ndash;12 jaar</span>
+                                <span>&#x23F1; 1,5&ndash;2 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="./ouder-kind.jpg" alt="Ouder-kind workshop" loading="lazy">
+                            <div class="workshop-tag kids">Ouder & Kind</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Ouder-Kind Workshop</h3>
+                            <p>Samen bakken schept een band. Een gezellige workshop waar ouder en kind samen kneden, vormen en proeven. Een herinnering voor het leven.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F476; 4&ndash;12 jaar + ouder</span>
+                                <span>&#x23F1; 2 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workshop-card reveal">
+                        <div class="workshop-card-image">
+                            <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&q=80" alt="Verjaardagsworkshop" loading="lazy">
+                            <div class="workshop-tag kids">Verjaardag</div>
+                        </div>
+                        <div class="workshop-card-body">
+                            <h3>Verjaardagsworkshop Bakken</h3>
+                            <p>Vier je verjaardag op de boerderij! De jarige en vriendjes bakken samen hun eigen taart of koekjes. Inclusief een feestelijk moment.</p>
+                            <div class="workshop-meta">
+                                <span>&#x1F476; 5&ndash;12 jaar</span>
+                                <span>&#x23F1; 2&ndash;2,5 uur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section style="padding:100px 0;background:var(--cream);">
+            <div class="container">
+                <div class="cta-banner reveal">
+                    <div class="section-label" style="color:var(--gold-light);">Boek nu</div>
+                    <h2 class="section-title">Interesse in een workshop?</h2>
+                    <p>Neem contact op voor beschikbare data, prijzen en een programma op maat. We stellen graag een workshop samen die perfect bij jouw groep past.</p>
+                    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+                        <a href="mailto:info@artoah.be?subject=Workshop%20aanvraag" class="btn-primary">Stuur een e-mail &rarr;</a>
+                        <a href="tel:+32499216065" class="btn-outline-dark" style="border-color:rgba(255,255,255,0.3);color:var(--white);">Bel ons: 0499 21 60 65</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                <div class="footer-top">
+                    <div class="footer-logo">Artoah's Family Farm</div>
+                    <div class="footer-links">
+                        <a href="zuivel">Zuivel & Ijs</a>
+                        <a href="bakkerij">Brood & Patisserie</a>
+                        <a href="workshops">Workshops</a>
+                        <a href="kampen">Kampen</a>
+                        <a href="winkel">Winkel</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>&copy; 2026 Artoah's Family Farm &mdash; Alle rechten voorbehouden</span>
+                    <span>Rumsdorpstraat 120, 3400 Landen | BE0637791133</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+    // Password gate removed
+    document.querySelector('.site-content').classList.add('visible');
+    document.querySelector('.hamburger')?.addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+    (function() {
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+            });
+        }, { threshold: 0.15 });
+        reveals.forEach(function(el) { observer.observe(el); });
+    })();
+    document.querySelectorAll('.category-nav a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            document.querySelectorAll('.category-nav a').forEach(function(a) { a.classList.remove('active'); });
+            this.classList.add('active');
+        });
+    });
+    (function() {
+        var sections = document.querySelectorAll('.category-nav a');
+        var targets = [];
+        sections.forEach(function(link) {
+            var target = document.querySelector(link.getAttribute('href'));
+            if (target) targets.push({ link: link, target: target });
+        });
+        window.addEventListener('scroll', function() {
+            var scrollPos = window.scrollY + 200;
+            targets.forEach(function(item) {
+                if (item.target.offsetTop <= scrollPos && item.target.offsetTop + item.target.offsetHeight > scrollPos) {
+                    sections.forEach(function(a) { a.classList.remove('active'); });
+                    item.link.classList.add('active');
+                }
+            });
+        });
+    })();
+    </script>
+</body>
+</html>

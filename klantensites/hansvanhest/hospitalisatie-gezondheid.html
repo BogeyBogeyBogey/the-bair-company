@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>if(!sessionStorage.getItem('hvh_auth'))window.location.replace('gate.html');</script>
+    <title>Hospitalisatie & Gezondheid Verzekering | Hans van Hest</title>
+    <meta name="description" content="Ruime hospitalisatie & gezondheid verzekering met coverage voor ziekenhuisopname, ambulante zorg en voor- en nazorg. Tot 70 jaar insluitbaar.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --kbc-blue: #0D2A50;
+            --kbc-blue-light: #0097DB;
+            --kbc-accent: #0097DB;
+            --white: #FFFFFF;
+            --off-white: #F7F8FA;
+            --gray-50: #F2F4F7;
+            --gray-100: #E4E7EC;
+            --gray-400: #8896A7;
+            --gray-600: #5A6B80;
+            --gray-800: #2D3A4A;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--gray-100);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            text-decoration: none;
+            color: var(--kbc-blue);
+        }
+        
+        .logo-mark {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+        
+        .logo-mark svg {
+            width: 44px;
+            height: auto;
+        }
+        
+        .logo-text h1 {
+            
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--kbc-blue);
+            margin-bottom: 0.25rem;
+        }
+        
+        .logo-text span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        nav a {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        nav a:hover {
+            color: var(--kbc-accent);
+        }
+        
+        nav a.active {
+            color: var(--kbc-blue);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                padding: var(--spacing-md);
+            }
+            
+            nav ul {
+                justify-content: center;
+                gap: var(--spacing-md);
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--kbc-blue) 0%, #0a1f38 100%);
+            color: var(--white);
+            padding: var(--spacing-2xl) var(--spacing-md);
+            text-align: center;
+        }
+        
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+        
+        section {
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .section-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            color: var(--kbc-blue);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Overview Box */
+        .overview-box {
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--gray-50) 100%);
+            border-left: 4px solid var(--kbc-accent);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .overview-stat {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--kbc-accent);
+            display: inline-block;
+        }
+        
+        .overview-box p {
+            margin-top: var(--spacing-md);
+            line-height: 1.8;
+        }
+        
+        /* Coverage Grid */
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .coverage-card {
+            background: var(--white);
+            border: 2px solid var(--gray-100);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+        
+        .coverage-card:hover {
+            border-color: var(--kbc-accent);
+            box-shadow: 0 8px 24px rgba(0, 151, 219, 0.1);
+        }
+        
+        .coverage-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--kbc-blue);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .coverage-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .coverage-card li {
+            padding: var(--spacing-xs) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+            color: var(--gray-600);
+        }
+        
+        .coverage-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--kbc-accent);
+            font-weight: bold;
+        }
+        
+        /* Franchise Section */
+        .franchise-container {
+            background: var(--gray-50);
+            padding: var(--spacing-xl);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .franchise-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .franchise-table th {
+            background-color: var(--kbc-blue);
+            color: var(--white);
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .franchise-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .franchise-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .franchise-table tr:hover {
+            background-color: rgba(0, 151, 219, 0.05);
+        }
+        
+        .franchise-amount {
+            font-weight: 600;
+            color: var(--kbc-blue);
+        }
+        
+        .premium-discount {
+            color: var(--kbc-accent);
+            font-weight: 600;
+        }
+        
+        /* Family Discounts */
+        .discounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .discount-card {
+            background: linear-gradient(135deg, var(--kbc-accent) 0%, #0077b3 100%);
+            color: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .discount-card .discount-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .discount-card p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+        
+        /* Key Info Section */
+        .key-info {
+            background: var(--off-white);
+            padding: var(--spacing-xl);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .key-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .key-info-item {
+            padding: var(--spacing-md);
+            background: var(--white);
+            border-radius: 6px;
+            border-left: 3px solid var(--kbc-accent);
+        }
+        
+        .key-info-item strong {
+            color: var(--kbc-blue);
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .key-info-item p {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--kbc-blue) 0%, #0a1f38 100%);
+            color: var(--white);
+            padding: var(--spacing-2xl) var(--spacing-md);
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .cta-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-lg);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            background-color: var(--kbc-accent);
+            color: var(--white);
+            padding: var(--spacing-md) var(--spacing-xl);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid var(--kbc-accent);
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--kbc-accent);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--kbc-blue);
+            color: var(--white);
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .footer-content a {
+            color: var(--kbc-accent);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-content a:hover {
+            opacity: 0.8;
+        }
+        
+        .footer-divider {
+            width: 1px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .footer-credit {
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+            
+            .footer-divider {
+                display: none;
+            }
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-lg {
+            margin-top: var(--spacing-lg);
+        }
+        
+        .mt-xl {
+            margin-top: var(--spacing-xl);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            main {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+            
+            .section-header h3 {
+                font-size: 1.75rem;
+            }
+            
+            .coverage-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .franchise-table {
+                font-size: 0.9rem;
+            }
+            
+            .franchise-table th,
+            .franchise-table td {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-mark">
+                    <svg viewBox="0 0 409.47 319.37" xmlns="http://www.w3.org/2000/svg" aria-label="KBC Logo">
+                        <g>
+                            <circle fill="#0097db" cx="207.09" cy="70.68" r="70.69"/>
+                            <path fill="#0097db" d="M259.22,127.89c-13.47,14.6-37.22,29.2-67.69,29.2-23.64,0-44-9.19-56.95-19.4C57.4,145.79,0,157.27,0,157.27v31.25l409.45-.04v-64.44s-70.15-.43-150.22,3.85h-.01Z"/>
+                        </g>
+                        <g>
+                            <path fill="#0D2A50" d="M48.64,279.9v38.08H0v-101.31h48.64v45.59h.28l28.63-45.59h58.32l-42.71,52.36,40.3,48.95h-55.66l-28.83-38.08h-.33,0Z"/>
+                            <path fill="#0D2A50" d="M409.47,313.8c-11.48,3.51-26.56,5.58-40.06,5.58-48.12,0-83.46-13.68-83.46-53.46,0-35.95,34.24-51.57,81.06-51.57,13.01,0,29.54,1.44,42.46,5.56l-.02,34.82c-9.58-5.8-19.16-9.42-32.88-9.42-17.86,0-35.7,8.79-35.7,21.56s17.77,21.56,35.7,21.56c13.5,0,23.3-3.74,32.88-9.27l.02,34.65h0Z"/>
+                            <path fill="#0D2A50" d="M143.84,216.67h98.33c25.54,0,33.91,9.93,33.91,25.4,0,17.31-15.47,24.83-31.36,25.68v.28c16.32,1.28,32.21,3.12,32.21,23.55,0,13.34-8.37,26.39-36.46,26.39h-96.63v-101.31h0ZM192.48,297.39h25.36c9.51,0,12.74-3.94,12.74-9.75s-3.27-9.99-12.63-9.99h-25.47v19.75h0ZM192.48,259.61h24.23c9.36,0,13.03-3.79,13.03-9.61,0-6.67-3.7-10-12.35-10h-24.91v19.61h0Z"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Hans van Hest</h1>
+                    <span>Verzekeringen</span>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="autoverzekering.html">Auto</a></li>
+                    <li><a href="woning-brand.html">Woning & Brand</a></li>
+                    <li><a href="familiale-rechtsbijstand.html">Rechtsbijstand</a></li>
+                    <li><a href="hospitalisatie-gezondheid.html" class="active">Gezondheid</a></li>
+                    <li><a href="zelfstandigen-bedrijven.html">Bedrijven</a></li>
+                    <li><a href="pensioensparen-beleggen.html">Pensioen</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h2>Hospitalisatie & Gezondheid</h2>
+            <p>Laat medische kosten u niet verrassen. Ruime dekking voor ziekenhuisopnames en gerelateerde zorg met flexibele franchiseniveaus.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Overview Section -->
+        <section>
+            <div class="section-header">
+                <h3>Waarom Hospitalisatie Verzekering?</h3>
+            </div>
+            <div class="overview-box">
+                <div class="overview-stat">88%</div>
+                <p>van de Belgische bevolking heeft een hospitalisatieverzekering. Een ziekenhuisopname brengt hoge kosten met zich mee die niet altijd gedekt zijn door de basisverzekering. Onze hospitalisatieverzekering biedt U en Uw gezin bescherming tegen onverwachte medische uitgaven. Met dekking voor ziekenhuisopnames, ambulante zorg bij zware ziektes en voor- en nazorg krijgt U een echt compleet pakket.</p>
+            </div>
+        </section>
+
+        <!-- Coverage Details -->
+        <section>
+            <div class="section-header">
+                <h3>Onze Dekkingspakket</h3>
+                <p>Uitgebreide bescherming voor alle situaties</p>
+            </div>
+            
+            <div class="coverage-grid">
+                <div class="coverage-card">
+                    <h4>Ziekenhuisopname</h4>
+                    <ul>
+                        <li>Geplande opnames gedekt</li>
+                        <li>Spoedopnames gedekt</li>
+                        <li>Ruime dekking voor kamerkeuze</li>
+                        <li>Ondersteunende zorg inbegrepen</li>
+                    </ul>
+                </div>
+
+                <div class="coverage-card">
+                    <h4>Ambulante Zorg</h4>
+                    <ul>
+                        <li>31 zware ziektes gedekt</li>
+                        <li>Kanker en oncologie</li>
+                        <li>Multiple sclerose (MS)</li>
+                        <li>Diabetes en dementie</li>
+                    </ul>
+                </div>
+
+                <div class="coverage-card">
+                    <h4>Voor- en Nazorg</h4>
+                    <ul>
+                        <li>2 maanden voorbereiding</li>
+                        <li>6 maanden herstel erna</li>
+                        <li>Langer dan concurrenten</li>
+                        <li>Continuïteit van zorg</li>
+                    </ul>
+                </div>
+
+                <div class="coverage-card">
+                    <h4>Aanvullende Dekking</h4>
+                    <ul>
+                        <li>Thuisbevalling: forfait €625</li>
+                        <li>Medisch vervoer: tot €1.250</li>
+                        <li>Geneeskundig advies inbegrepen</li>
+                        <li>24/7 ondersteuning beschikbaar</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Franchise Options -->
+        <section>
+            <div class="section-header">
+                <h3>Franchise Opties</h3>
+                <p>Kies de franchise die bij U past en bespaar op premies</p>
+            </div>
+            
+            <div class="franchise-container">
+                <table class="franchise-table">
+                    <thead>
+                        <tr>
+                            <th>Franchise</th>
+                            <th>Premie Reductie</th>
+                            <th>Ideaal Voor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="franchise-amount">€0</span></td>
+                            <td><span class="premium-discount">Standaard</span></td>
+                            <td>Maximale dekking zonder risico</td>
+                        </tr>
+                        <tr>
+                            <td><span class="franchise-amount">€100</span></td>
+                            <td><span class="premium-discount">-5-10%</span></td>
+                            <td>Lichte kostenbesparing</td>
+                        </tr>
+                        <tr>
+                            <td><span class="franchise-amount">€200</span></td>
+                            <td><span class="premium-discount">-10-15%</span></td>
+                            <td>Evenwichtig risico-besparing</td>
+                        </tr>
+                        <tr>
+                            <td><span class="franchise-amount">€300</span></td>
+                            <td><span class="premium-discount">-15-20%</span></td>
+                            <td>Gezinnen met laag risico</td>
+                        </tr>
+                        <tr>
+                            <td><span class="franchise-amount">€500</span></td>
+                            <td><span class="premium-discount">-20-25%</span></td>
+                            <td>Maximum besparing</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="color: var(--gray-600); font-size: 0.9rem;"><strong>Tip:</strong> Een hogere franchise leidt tot lagere premies, maar betekent dat u meer zelf betaalt in geval van een ziekenhuisopname. Kies de optie die het best aansluit bij uw financiële mogelijkheden.</p>
+            </div>
+        </section>
+
+        <!-- Family Discounts -->
+        <section>
+            <div class="section-header">
+                <h3>Familiekorting</h3>
+                <p>Hoe meer gezinsleden verzekerd, hoe meer u bespaart</p>
+            </div>
+            
+            <div class="discounts-grid">
+                <div class="discount-card">
+                    <div class="discount-amount">5%</div>
+                    <p>Korting vanaf 2 verzekerde gezinsleden</p>
+                </div>
+                <div class="discount-card">
+                    <div class="discount-amount">10%</div>
+                    <p>Korting vanaf 3 verzekerde gezinsleden</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hospitalisatieplan Section -->
+        <section>
+            <div class="section-header">
+                <h3>Hospitalisatieplan (Tak 21 Spaarplan)</h3>
+                <p>Bereid u voor op stijgende premies met leeftijd</p>
+            </div>
+            
+            <div class="overview-box">
+                <p>Ons Hospitalisatieplan is een unieke Tak 21 spaarformule speciaal ontworpen voor hospitalisatieverzekering. Met dit plan spaart u systematisch in om toekomstige premiestijgingen op te vangen door ouderdom. Dit geeft u zekerheid dat uw premie in de toekomst niet onbetaalbaar wordt, en u blijft altijd optimaal verzekerd. Een intelligente investering in uw gezondheid en financiële stabiliteit.</p>
+            </div>
+        </section>
+
+        <!-- Key Information -->
+        <section>
+            <div class="section-header">
+                <h3>Belangrijke Informatie</h3>
+                <p>Wat u moet weten over onze dekking</p>
+            </div>
+            
+            <div class="key-info">
+                <div class="key-info-grid">
+                    <div class="key-info-item">
+                        <strong>Tot welke leeftijd?</strong>
+                        <p>Insluitbaar tot 70 jaar. Daarna kan de verzekering op basis van wederzijds akkoord verlengd worden.</p>
+                    </div>
+                    <div class="key-info-item">
+                        <strong>Levenslange Dekking</strong>
+                        <p>Eenmaal ingeschreven, geniet u van levenslange dekking. Geen hoogte- of duurbeperking.</p>
+                    </div>
+                    <div class="key-info-item">
+                        <strong>Vereisten</strong>
+                        <p>Belgisch woonrecht en verplichte inschriving bij de sociale zekerheid zijn vereist.</p>
+                    </div>
+                    <div class="key-info-item">
+                        <strong>Waarborgtermijn</strong>
+                        <p>Meestal 30 dagen. Na deze periode kunnen geen voorbehouden meer geldend worden gemaakt.</p>
+                    </div>
+                    <div class="key-info-item">
+                        <strong>Claim Proces</strong>
+                        <p>Eenvoudig indiening via online portal of per post. Snelle afhandeling en duidelijke communicatie.</p>
+                    </div>
+                    <div class="key-info-item">
+                        <strong>Regelmatige Toetsing</strong>
+                        <p>Uw dekking wordt jaarlijks getoetst. Aanpassingen waar nodig om u optimaal verzekerd te houden.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h3>Klaar voor de Juiste Bescherming?</h3>
+            <p>Neem contact met ons op voor een persoonlijk adviesgesprek. We helpen u de beste hospitalisatieverzekering kiezen voor U en uw gezin.</p>
+            <a href="tel:+32" class="cta-button">Bel Nu voor Advies</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <span class="footer-credit">Website door <a href="https://the-bair-company.vercel.app" target="_blank">The Bair Company</a></span>
+                <div class="footer-divider"></div>
+                <span>Verbonden verzekeringsagent van KBC Verzekeringen NV</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
