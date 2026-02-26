@@ -7,7 +7,9 @@
 <meta name="description" content="The Bair Company — Creatief bureau voor merken die durven opvallen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
 :root {
   --black: #0a0a0a;
@@ -45,6 +47,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: var(--black);
   display: flex; align-items: center; justify-content: center;
   transition: opacity 0.25s var(--ease), visibility 0.25s;
+  will-change: opacity;
 }
 .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-word {
@@ -70,6 +73,7 @@ header {
   background: rgba(10,10,10,0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  transform: translateZ(0);
 }
 .brand {
   font-family: var(--font-display);
@@ -115,7 +119,7 @@ header {
   font-size: 0.7rem; letter-spacing: 0.3em;
   text-transform: uppercase; color: var(--grey);
   margin-bottom: 2rem;
-  opacity: 0; animation: fadeIn 0.8s 1.8s var(--ease) forwards;
+  opacity: 0; animation: fadeIn 0.6s 0.55s var(--ease) forwards;
 }
 .hero-title {
   font-family: var(--font-display);
@@ -123,7 +127,7 @@ header {
   font-weight: 800; line-height: 0.95;
   letter-spacing: -0.03em; max-width: 900px;
   opacity: 0; transform: translateY(30px);
-  animation: fadeUp 1s 2s var(--ease) forwards;
+  animation: fadeUp 0.8s 0.65s var(--ease) forwards;
 }
 .hero-title .serif {
   font-family: var(--font-serif);
@@ -133,7 +137,7 @@ header {
   position: absolute; bottom: 2.5rem;
   font-size: 0.65rem; letter-spacing: 0.3em;
   text-transform: uppercase; color: var(--grey);
-  opacity: 0; animation: fadeIn 0.8s 2.8s var(--ease) forwards;
+  opacity: 0; animation: fadeIn 0.6s 1.1s var(--ease) forwards;
 }
 .hero-scroll::after {
   content: ''; display: block;
@@ -195,6 +199,7 @@ header {
   display: flex; gap: 2rem;
   padding: 0 2.5rem;
   cursor: grab; user-select: none;
+  will-change: transform;
 }
 .drag-track.dragging { cursor: grabbing; }
 
@@ -209,6 +214,8 @@ header {
   position: relative;
   display: block;
   filter: brightness(0.75);
+  contain: layout style;
+  will-change: transform, filter;
 }
 .project-card.center-card {
   transform: scale(1.08);
@@ -277,6 +284,7 @@ header {
   opacity: 0.4;
   transition: opacity 0.6s var(--ease);
   background: #1a1a1a;
+  transform: translateZ(0);
 }
 .has-video:hover .card-video,
 .has-video.mobile-active .card-video {
@@ -307,8 +315,9 @@ header {
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
   /* Ken Burns effect */
-  transform: scale(1);
+  transform: scale(1) translateZ(0);
   animation: none;
+  will-change: opacity, transform;
 }
 .reel-slide:first-child {
   opacity: 1; /* Show first slide by default */
@@ -465,6 +474,8 @@ header {
 .diensten {
   padding: 8rem 2.5rem;
   border-top: 1px solid rgba(255,255,255,0.06);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
 .diensten-grid {
   margin-top: 4rem;
@@ -533,6 +544,8 @@ header {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 6rem; align-items: start;
   border-top: 1px solid rgba(255,255,255,0.06);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 .over-left .section-label {
   font-size: 0.7rem; letter-spacing: 0.25em;
@@ -559,6 +572,8 @@ header {
 .contact-cta {
   padding: 10rem 2.5rem; text-align: center;
   border-top: 1px solid rgba(255,255,255,0.06);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
 }
 .contact-cta h2 {
   font-family: var(--font-display);
@@ -592,6 +607,7 @@ footer a:hover { color: var(--white); }
 .reveal {
   opacity: 0; transform: translateY(30px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  will-change: opacity, transform;
 }
 .reveal.vis { opacity: 1; transform: translateY(0); }
 .reveal-d1 { transition-delay: 0.1s; }
@@ -682,7 +698,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ GiGi Money — Commercials & Social (FIRST — eye-catching) -->
     <div class="project-card has-video" data-project="gigi-socials" data-video="portfoliogigimoneysocials.mp4" style="--card-color: var(--pink);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliogigimoneysocials.mp4" muted loop playsinline preload="auto"></video>
+        <video class="card-video" src="portfoliogigimoneysocials.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -703,7 +719,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ GiGi Money — Site & App -->
     <div class="project-card has-video" data-project="gigi-site" data-video="portfoliogigimoneysiteandapp.mp4" style="--card-color: var(--accent);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="auto"></video>
+        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -747,7 +763,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ Artoah -->
     <div class="project-card has-video" data-project="artoah" data-video="portfolioartoah.mp4" style="--card-color: var(--amber);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfolioartoah.mp4" muted loop playsinline preload="auto"></video>
+        <video class="card-video" src="portfolioartoah.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -768,7 +784,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ Hans van Hest -->
     <div class="project-card has-video" data-project="hvh" data-video="portfoliohansvanhest.mp4" style="--card-color: var(--emerald);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliohansvanhest.mp4" muted loop playsinline preload="auto"></video>
+        <video class="card-video" src="portfoliohansvanhest.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -893,7 +909,7 @@ footer a:hover { color: var(--white); }
 <!-- VIDEO MODAL -->
 <div class="video-modal" id="videoModal">
   <button class="video-modal-close" id="videoModalClose">✕</button>
-  <video id="modalVideo" controls playsinline></video>
+  <video id="modalVideo" controls playsinline preload="none"></video>
   <div class="video-modal-title" id="modalTitle"></div>
 </div>
 
@@ -909,23 +925,23 @@ const reelData = {
   rosing: {
     slides: [
       {
-        image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Homepage'
       },
       {
-        image: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Beveiligingssystemen'
       },
       {
-        image: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Diensten'
       },
       {
-        image: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Camerabewaking'
       },
       {
-        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Contact'
       }
     ],
@@ -934,27 +950,27 @@ const reelData = {
   artoah: {
     slides: [
       {
-        image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Homepage'
       },
       {
-        image: 'https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Hoeve-ijs'
       },
       {
-        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Bakkerij'
       },
       {
-        image: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Winkel'
       },
       {
-        image: 'https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Kampen'
       },
       {
-        image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Boerderijleven'
       }
     ],
@@ -963,23 +979,23 @@ const reelData = {
   hvh: {
     slides: [
       {
-        image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Homepage'
       },
       {
-        image: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Verzekeringen'
       },
       {
-        image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Services'
       },
       {
-        image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Contact'
       },
       {
-        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=1000&fit=crop',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=750&fit=crop&q=75&auto=format',
         label: 'Over KBC'
       }
     ],
@@ -995,11 +1011,11 @@ function initReels() {
 
     const data = reelData[key];
 
-    // Create slide elements
+    // Create slide elements (images are lazy-loaded via IntersectionObserver)
     data.slides.forEach((slide, i) => {
       const div = document.createElement('div');
       div.className = 'reel-slide' + (i === 0 ? ' active' : '');
-      div.style.backgroundImage = `url(${slide.image})`;
+      div.dataset.bg = slide.image; // defer image loading
       div.dataset.label = slide.label;
       container.appendChild(div);
     });
@@ -1135,9 +1151,9 @@ function stopReel(container, labelEl, counterEl) {
   }
 }
 
-// ── Loader
-window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('done'), 680);
+// ── Loader — use DOMContentLoaded instead of 'load' so we don't wait for videos
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 500);
 });
 
 // ── Mobile menu
@@ -1179,7 +1195,7 @@ function refreshClonedVideos(clone) {
     newVid.muted = true;
     newVid.loop = true;
     newVid.playsInline = true;
-    newVid.preload = 'auto';
+    newVid.preload = 'none';
     newVid.setAttribute('playsinline', '');
     newVid.setAttribute('muted', '');
     oldVid.parentNode.replaceChild(newVid, oldVid);
@@ -1315,15 +1331,17 @@ setupInfiniteTrack();
 setupReelHovers();
 highlightCenterCard();
 
-// ── Force-load all videos (especially important on mobile)
-document.querySelectorAll('.card-video').forEach(vid => {
-  // Mark video as loaded once data is available
-  vid.addEventListener('loadeddata', () => {
-    vid.setAttribute('data-loaded', 'true');
+// ── Start loading videos once hero text is visible (~0.65s)
+// This keeps initial page load fast, but buffers videos before the user scrolls down
+setTimeout(() => {
+  document.querySelectorAll('.card-video').forEach(vid => {
+    vid.addEventListener('loadeddata', () => {
+      vid.setAttribute('data-loaded', 'true');
+    });
+    vid.preload = 'auto';
+    vid.load();
   });
-  // Force the browser to start loading
-  vid.load();
-});
+}, 650);
 
 // ── Mouse drag
 track.addEventListener('mousedown', (e) => {
@@ -1449,7 +1467,20 @@ function toggleDienst(el) {
 
 // ── Init reels
 initReels();
-setupReelHovers();
+
+// ── Lazy-load reel slide images when portfolio section nears viewport
+const lazyObs = new IntersectionObserver((entries, observer) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.reel-slide[data-bg]').forEach(slide => {
+        slide.style.backgroundImage = `url(${slide.dataset.bg})`;
+        delete slide.dataset.bg;
+      });
+      observer.unobserve(e.target);
+    }
+  });
+}, { rootMargin: '200px 0px' }); // start loading 200px before visible
+document.querySelectorAll('.reel-slides').forEach(el => lazyObs.observe(el.closest('.project-card') || el));
 
 // ── Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
