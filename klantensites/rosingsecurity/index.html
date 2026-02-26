@@ -7,7 +7,7 @@
   <meta name="description" content="Rosing Security: uw bewakingsexpert in Vlaams-Brabant. Industriele bewaking, mobiele patrouilles, evenementbeveiliging en event services. 24/7 bereikbaar. Vergunning MIBZ 16.1135.12.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --black: #050505;
@@ -645,15 +645,55 @@
     }
     .events-services-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 2rem; }
     .events-service-item {
-      padding: 0.8rem 1rem; background: var(--dark-2);
+      background: var(--dark-2);
       border-radius: 3px; border-left: 3px solid var(--red);
-      font-size: 0.82rem; font-weight: 500; color: var(--gray-200);
-      transition: all 0.4s ease;
+      transition: all 0.4s ease; overflow: hidden;
     }
     .events-service-item:hover {
-      background: rgba(227,30,36,0.05); color: var(--white);
-      transform: translateX(8px); border-left-color: var(--red-bright);
+      background: rgba(227,30,36,0.05);
+      border-left-color: var(--red-bright);
       box-shadow: -4px 0 20px rgba(227,30,36,0.1);
+    }
+    .events-service-header {
+      padding: 0.8rem 1rem; display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; user-select: none;
+      font-size: 0.82rem; font-weight: 500; color: var(--gray-200);
+      transition: color 0.3s ease;
+    }
+    .events-service-item:hover .events-service-header { color: var(--white); }
+    .events-service-header .toggle-icon {
+      width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--gray-600); border-radius: 50%;
+      font-size: 0.85rem; font-weight: 300; color: var(--red);
+      transition: all 0.4s ease; flex-shrink: 0; margin-left: 0.8rem;
+      font-family: var(--font-mono);
+    }
+    .events-service-item.open .toggle-icon {
+      transform: rotate(45deg); border-color: var(--red); background: rgba(227,30,36,0.15);
+    }
+    .events-service-body {
+      max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .events-service-item.open .events-service-body {
+      max-height: 600px;
+    }
+    .events-service-body-inner {
+      padding: 0 1rem 0.6rem 1rem;
+      font-size: 0.78rem; line-height: 1.85; color: var(--gray-400);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 0.8rem;
+    }
+    .events-collapse-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 0.6rem; width: 24px; height: 24px;
+      font-size: 0.7rem; font-family: var(--font-mono);
+      color: var(--red); background: rgba(227,30,36,0.08);
+      border: 1px solid rgba(227,30,36,0.2); border-radius: 50%;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .events-collapse-btn:hover {
+      background: rgba(227,30,36,0.15); border-color: var(--red);
+      transform: scale(1.15);
     }
     .events-image {
       position: relative; border-radius: 4px; overflow: hidden;
@@ -1023,7 +1063,7 @@
       <div class="services-grid stagger-children">
         <div class="service-card">
           <div class="service-card-image">
-            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Industriele bewaking">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Industriele bewaking" loading="lazy">
             <div class="service-card-num">SVC—01</div>
           </div>
           <div class="service-card-body">
@@ -1049,7 +1089,7 @@
         </div>
         <div class="service-card">
           <div class="service-card-image">
-            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" alt="Winkelbewaking">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" alt="Winkelbewaking" loading="lazy">
             <div class="service-card-num">SVC—02</div>
           </div>
           <div class="service-card-body">
@@ -1075,7 +1115,7 @@
         </div>
         <div class="service-card">
           <div class="service-card-image">
-            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Domeinbewaking">
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Domeinbewaking" loading="lazy">
             <div class="service-card-num">SVC—03</div>
           </div>
           <div class="service-card-body">
@@ -1157,16 +1197,57 @@
           <p class="section-subtitle" style="margin-bottom:1.5rem;">Dankzij Rosing Event Services kunnen we u een totaalpakket en specifieke diensten aanbieden. Ervaren teamleden zorgen voor net die extra diensten die u kunnen bijstaan op alle momenten.</p>
           <p style="font-size:0.88rem;color:var(--gray-400);line-height:1.85;margin-bottom:1.5rem;">Elke activiteit, elk evenement brengt niet alleen risico's mee — maar ook een dienstverlening en organisatie die vlekkeloos verloopt. Rosing Events &amp; Services kan u deze aanvulling bieden.</p>
           <div class="events-services-list stagger-children">
-            <div class="events-service-item">Host &amp; Hostessen</div>
-            <div class="events-service-item">Parkingboys</div>
-            <div class="events-service-item">Evenementmedewerkers</div>
-            <div class="events-service-item">Ticket- en uitnodigingscontrole</div>
-            <div class="events-service-item">Vestiarediensten</div>
-            <div class="events-service-item">Klantenonthaal</div>
-            <div class="events-service-item">VIP begeleiding</div>
-            <div class="events-service-item">Receptie &amp; conciergediensten</div>
-            <div class="events-service-item">Totale evenementcoördinatie</div>
-            <div class="events-service-item">Toegangscontrole &amp; security</div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Host &amp; Hostessen</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Onze hosts en hostessen zijn het visitekaartje van uw evenement. Professioneel opgeleid in gastvrijheid en communicatie, zorgen zij voor een warm onthaal van iedere gast. Ze begeleiden bezoekers naar de juiste locatie en zijn aanspreekpunt voor praktische vragen. Of het nu gaat om een bedrijfsgala, beurs of privéfeest — zij maken de eerste indruk onvergetelijk. Meertalig inzetbaar en altijd representatief gekleed volgens uw dresscode.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Parkingboys</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Een vlotte parking is het begin van een geslaagd event. Onze parkingboys begeleiden gasten efficiënt naar beschikbare plaatsen en zorgen voor een gestroomlijnd verkeersverloop. Bij high-end evenementen bieden wij ook valet parking aan, waarbij voertuigen veilig worden geparkeerd en weer voorgereden. Onze medewerkers zijn getraind in verkeersbegeleiding en werken met professionele signalisatie. Zo vermijdt u chaos en biedt u uw gasten comfort vanaf het eerste moment.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Evenementmedewerkers</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Ons team van ervaren evenementmedewerkers vormt de ruggengraat van elk succesvol event. Ze zijn flexibel inzetbaar voor uiteenlopende taken: van opbouw en afbraak tot logistieke ondersteuning tijdens het evenement zelf. Elk teamlid wordt gebrieft op uw specifieke wensen en draagt bij aan een vlekkeloos verloop. Ze communiceren via portofoons en werken nauw samen met uw eigen organisatieteam. Beschikbaar voor zowel kleinschalige bijeenkomsten als grootschalige festivals en beurzen.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Ticket- en uitnodigingscontrole</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Wij verzorgen professionele toegangscontrole op basis van tickets, uitnodigingen of gastenlijsten. Onze medewerkers werken met digitale scansystemen en kunnen ook manuele controles uitvoeren wanneer nodig. Ze hanteren een vriendelijke maar assertieve aanpak om ongenode gasten te weren zonder de sfeer te verstoren. Bij VIP-evenementen werken we met meerdere toegangsniveaus en aparte check-in balies. Elke controle wordt discreet en efficiënt uitgevoerd, zodat uw gasten zich welkom voelen.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Vestiairediensten</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Een goed georganiseerde vestiaire draagt bij aan het comfort en de tevredenheid van uw gasten. Onze vestiairemedewerkers werken met een professioneel nummeringssysteem zodat jassen en tassen snel en correct worden teruggegeven. We zorgen voor voldoende capaciteit, ook bij piekdrukte aan het einde van een evenement. Waardevolle items worden extra beveiligd opgeslagen. Onze vestiaire kan op maat ingericht worden in elke ruimte, van hotellobby tot festivallocatie.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Klantenonthaal</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Eerste indrukken tellen — en ons klantenonthaal maakt daar het verschil. Onze medewerkers ontvangen uw bezoekers, klanten of gasten met een professionele en warme benadering. Ze registreren bezoekers, delen badges uit en begeleiden hen naar de juiste persoon of ruimte. Ideaal voor bedrijfsrecepties, open dagen, showrooms en congressen. Meertalig beschikbaar en altijd op de hoogte van het programma en de plattegrond van uw locatie.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>VIP-begeleiding</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Voor uw belangrijkste gasten bieden wij discrete en persoonlijke VIP-begeleiding aan. Onze medewerkers zorgen ervoor dat VIP's op een exclusieve manier ontvangen, begeleid en verzorgd worden gedurende het hele evenement. Van luchthaven-pickup tot persoonlijke assistent tijdens het event — alles wordt op maat geregeld. Ze fungeren als aanspreekpunt en zorgen dat elke wens wordt ingewilligd. Discretie, representativiteit en proactiviteit staan hierbij centraal.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Receptie &amp; conciërgediensten</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Onze receptionisten en conciërges zijn veelzijdig inzetbaar bij evenementen, bedrijven en tijdelijke locaties. Ze beheren de receptie, beantwoorden vragen, coördineren leveranciers en zorgen dat alles op rolletjes loopt achter de schermen. Onze conciërges denken proactief mee en lossen problemen op voordat ze zichtbaar worden. Perfect voor meerdaagse congressen, pop-up locaties of als versterking van uw eigen receptieteam. Altijd professioneel, altijd beschikbaar.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Totale evenementcoördinatie</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Laat de volledige coördinatie van uw evenement aan ons over. Van de eerste planning tot de laatste afbraak — Rosing Events neemt het complete projectmanagement op zich. Wij stellen een draaiboek op, coördineren alle betrokken partijen en zorgen voor een naadloze uitvoering op de dag zelf. Onze eventmanagers hebben jarenlange ervaring met zowel intieme bedrijfsevents als grote publieksevenementen. U geniet van uw event, wij regelen de rest.</div></div>
+            </div>
+
+            <div class="events-service-item">
+              <div class="events-service-header"><span>Toegangscontrole &amp; security</span><span class="toggle-icon">+</span></div>
+              <div class="events-service-body"><div class="events-service-body-inner">Veiligheid en toegangscontrole zijn onlosmakelijk verbonden met elk geslaagd evenement. Onze beveiligingsagenten zijn vergund volgens de wet op de private veiligheid en getraind in crowd management en conflictbeheersing. Ze controleren toegang, bewaken perimeters en grijpen preventief in wanneer nodig. Bij grootschalige events werken we samen met politie en hulpdiensten volgens een vooraf opgesteld veiligheidsplan. Uw gasten voelen zich veilig, zonder dat de sfeer eronder lijdt.</div></div>
+            </div>
+
           </div>
         </div>
         <div class="events-image reveal-right">
@@ -1334,7 +1415,7 @@
           <h4>Events</h4>
           <a href="#events">Evenementbeveiliging</a>
           <a href="#events">Host &amp; Hostessen</a>
-          <a href="#events">VIP begeleiding</a>
+          <a href="#events">VIP-begeleiding</a>
           <a href="#events">Parkingboys</a>
           <a href="#events">Totale coördinatie</a>
         </div>
@@ -1393,9 +1474,40 @@
     }
     animateRing();
 
-    document.querySelectorAll('a, button, .service-card, .mb-card, .ref-card, .events-service-item').forEach(el => {
+    document.querySelectorAll('a, button, .service-card, .mb-card, .ref-card, .events-service-header').forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+    });
+
+    // ═══ EVENTS ACCORDION ═══
+    function closeItem(item) {
+      item.classList.remove('open');
+      // Scroll naar de header zodat die zichtbaar blijft
+      item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    // Voeg inklap-knop toe onderaan elke body
+    document.querySelectorAll('.events-service-body-inner').forEach(inner => {
+      const btn = document.createElement('div');
+      btn.className = 'events-collapse-btn';
+      btn.innerHTML = '&#x2715;';
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const item = btn.closest('.events-service-item');
+        closeItem(item);
+      });
+      inner.appendChild(btn);
+    });
+    document.querySelectorAll('.events-service-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const wasOpen = item.classList.contains('open');
+        // Sluit alle andere items
+        document.querySelectorAll('.events-service-item.open').forEach(openItem => {
+          openItem.classList.remove('open');
+        });
+        // Toggle huidige item
+        if (!wasOpen) item.classList.add('open');
+      });
     });
 
     // ═══ SCROLL PROGRESS ═══
