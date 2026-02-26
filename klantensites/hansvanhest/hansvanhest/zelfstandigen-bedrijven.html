@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>if(!sessionStorage.getItem('hvh_auth'))window.location.replace('gate.html');</script>
+  <title>Verzekeringen voor Zelfstandigen & Bedrijven | Hans van Hest KBC Verzekeringen</title>
+  <meta name="description" content="Bescherm uw bedrijf met professionele verzekeringen voor zelfstandigen en bedrijven. KBC-oplossingen voor inkomenszekerheid, aansprakelijkheid, en pensioen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --kbc-blue: #0D2A50;
+      --kbc-blue-light: #0097DB;
+      --kbc-accent: #0097DB;
+      --white: #FFFFFF;
+      --off-white: #F7F8FA;
+      --gray-50: #F2F4F7;
+      --gray-100: #E4E7EC;
+      --gray-400: #8896A7;
+      --gray-600: #5A6B80;
+      --gray-800: #2D3A4A;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-800);
+      background-color: var(--white);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      color: var(--kbc-blue);
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      margin-top: 0;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      margin-top: 0;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: var(--gray-700);
+    }
+
+    a {
+      color: var(--kbc-accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--kbc-blue);
+    }
+
+    button {
+      background-color: var(--kbc-accent);
+      color: var(--white);
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    button:hover {
+      background-color: var(--kbc-blue);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--kbc-blue);
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg {
+      width: 44px;
+      height: auto;
+    }
+
+    .logo-text h1 {
+      font-size: 1.05rem;
+      margin: 0;
+      color: var(--kbc-blue);
+    }
+
+    .logo-text span {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      display: block;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--gray-800);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--kbc-accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--kbc-blue) 0%, var(--kbc-blue) 60%, var(--kbc-accent) 100%);
+      color: var(--white);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      color: var(--white);
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      color: var(--off-white);
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-cta button {
+      background-color: var(--white);
+      color: var(--kbc-blue);
+      font-weight: 700;
+    }
+
+    .hero-cta button:hover {
+      background-color: var(--off-white);
+    }
+
+    .hero-cta .secondary {
+      background-color: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+    }
+
+    .hero-cta .secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Overview Section */
+    .overview {
+      background-color: var(--off-white);
+      padding: 4rem 2rem;
+    }
+
+    .overview-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .overview h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .overview p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--gray-700);
+      margin-bottom: 1.5rem;
+    }
+
+    .overview-highlight {
+      background-color: var(--white);
+      border-left: 4px solid var(--kbc-accent);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin: 2rem 0;
+    }
+
+    /* Products Grid */
+    .products {
+      padding: 4rem 2rem;
+    }
+
+    .products h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background-color: var(--off-white);
+      border-radius: 8px;
+      padding: 2rem;
+      border: 1px solid var(--gray-100);
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 24px rgba(13, 42, 80, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .product-card h3 {
+      color: var(--kbc-blue);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .product-card p {
+      color: var(--gray-700);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .product-highlights {
+      background-color: var(--white);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1.5rem 0;
+      border-left: 3px solid var(--kbc-accent);
+    }
+
+    .product-highlights ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .product-highlights li {
+      padding: 0.5rem 0;
+      color: var(--gray-700);
+      font-size: 0.95rem;
+    }
+
+    .product-highlights li:before {
+      content: "- ";
+      color: var(--kbc-accent);
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    .product-card button {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    /* Checklist Section */
+    .checklist-section {
+      background-color: var(--white);
+      padding: 4rem 2rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .checklist-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .checklist-section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      background-color: var(--off-white);
+      border-radius: 8px;
+      align-items: flex-start;
+    }
+
+    .checklist-icon {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border-radius: 50%;
+      background-color: var(--kbc-accent);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .checklist-item h4 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    .checklist-item p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--kbc-blue) 0%, var(--kbc-accent) 100%);
+      color: var(--white);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-section p {
+      color: var(--off-white);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-buttons button {
+      background-color: var(--white);
+      color: var(--kbc-blue);
+      font-weight: 700;
+      min-width: 200px;
+    }
+
+    .cta-buttons button:hover {
+      background-color: var(--off-white);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--kbc-blue);
+      color: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: var(--kbc-accent);
+    }
+
+    footer a:hover {
+      color: var(--white);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.75rem;
+      }
+
+      .hero {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .checklist-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-cta,
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .hero-cta button,
+      .cta-buttons button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      nav ul {
+        gap: 0.5rem;
+      }
+
+      nav a {
+        font-size: 0.8rem;
+      }
+
+      .header-content {
+        padding: 0.75rem 1rem;
+      }
+
+      .logo-text h1 {
+        font-size: 1.05rem;
+      }
+
+      .logo-text span {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 409.47 319.37" xmlns="http://www.w3.org/2000/svg" aria-label="KBC Logo">
+            <g>
+              <circle fill="#0097db" cx="207.09" cy="70.68" r="70.69"/>
+              <path fill="#0097db" d="M259.22,127.89c-13.47,14.6-37.22,29.2-67.69,29.2-23.64,0-44-9.19-56.95-19.4C57.4,145.79,0,157.27,0,157.27v31.25l409.45-.04v-64.44s-70.15-.43-150.22,3.85h-.01Z"/>
+            </g>
+            <g>
+              <path fill="#0D2A50" d="M48.64,279.9v38.08H0v-101.31h48.64v45.59h.28l28.63-45.59h58.32l-42.71,52.36,40.3,48.95h-55.66l-28.83-38.08h-.33,0Z"/>
+              <path fill="#0D2A50" d="M409.47,313.8c-11.48,3.51-26.56,5.58-40.06,5.58-48.12,0-83.46-13.68-83.46-53.46,0-35.95,34.24-51.57,81.06-51.57,13.01,0,29.54,1.44,42.46,5.56l-.02,34.82c-9.58-5.8-19.16-9.42-32.88-9.42-17.86,0-35.7,8.79-35.7,21.56s17.77,21.56,35.7,21.56c13.5,0,23.3-3.74,32.88-9.27l.02,34.65h0Z"/>
+              <path fill="#0D2A50" d="M143.84,216.67h98.33c25.54,0,33.91,9.93,33.91,25.4,0,17.31-15.47,24.83-31.36,25.68v.28c16.32,1.28,32.21,3.12,32.21,23.55,0,13.34-8.37,26.39-36.46,26.39h-96.63v-101.31h0ZM192.48,297.39h25.36c9.51,0,12.74-3.94,12.74-9.75s-3.27-9.99-12.63-9.99h-25.47v19.75h0ZM192.48,259.61h24.23c9.36,0,13.03-3.79,13.03-9.61,0-6.67-3.7-10-12.35-10h-24.91v19.61h0Z"/>
+            </g>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Hans van Hest</h1>
+          <span>Verzekeringen</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="autoverzekering.html">Auto</a></li>
+          <li><a href="woning-brand.html">Woning & Brand</a></li>
+          <li><a href="familiale-rechtsbijstand.html">Juridisch</a></li>
+          <li><a href="hospitalisatie-gezondheid.html">Gezondheid</a></li>
+          <li><a href="zelfstandigen-bedrijven.html" class="active">Bedrijven</a></li>
+          <li><a href="pensioensparen-beleggen.html">Pensioen</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Verzekeringen voor Zelfstandigen & Bedrijven</h1>
+      <p>Bescherm uw inkomsten en bouw toekomstzekerheid. Professionele oplossingen speciaal voor ondernemers.</p>
+      <div class="hero-cta">
+        <button>Contacteer Hans van Hest</button>
+        <button class="secondary">Meer informatie</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="overview">
+    <div class="overview-content">
+      <h2>Waarom verzekeringen cruciaal zijn voor uw bedrijf</h2>
+      <p>Als zelfstandige of ondernemer hebt u geen ziekendagen. Als u ziek wordt en niet kunt werken, stopt uw inkomsten direct. Dit vormt een reëel financieel risico voor u en uw gezin.</p>
+      <p>Een goed verzekeringspakket beschermt u tegen onverwachte tegenslagen, zorgt voor bedrijfscontinuïteit en geeft u de zekerheid om zonder zorgen te ondernemen.</p>
+      <div class="overview-highlight">
+        <strong>Statistiek:</strong> 1 op de 3 zelfstandigen onder de 35 jaar zal gedurende minstens 6 maanden niet kunnen werken. Bent u verzekerd?
+      </div>
+      <p>KBC biedt complete verzekeringoplossingen die speciaal zijn afgestemd op de behoeften van zelfstandigen en ondernemers.</p>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products">
+    <div class="container">
+      <h2>Onze Verzekeringen voor Bedrijven</h2>
+      <div class="products-grid">
+
+        <!-- Gewaarborgd Inkomen -->
+        <div class="product-card">
+          <h3>Gewaarborgd Inkomen</h3>
+          <p>Bescherming van uw inkomsten wanneer u niet kunt werken door ziekte of ongeval.</p>
+          <div class="product-highlights">
+            <ul>
+              <li><strong>€77/dag</strong> - Gezinslast</li>
+              <li><strong>€61/dag</strong> - Alleenstaand</li>
+              <li><strong>€47/dag</strong> - Samenwonend</li>
+            </ul>
+          </div>
+          <p><strong>Voordelen:</strong></p>
+          <p>Dit is een wettelijk erkende ziekteverzekering voor zelfstandigen. U betaalt een premie van ongeveer 9,25% van uw inkomsten, en deze premie is volledig aftrekbaar als bedrijfsuitgave.</p>
+          <p><strong>Waarom nodig:</strong> 1 op de 3 zelfstandigen onder 35 jaar zal minstens 6 maanden niet kunnen werken. Deze verzekering garandeert uw inkomsten.</p>
+          <button>Meer info</button>
+        </div>
+
+        <!-- BA Beroepsaansprakelijkheid -->
+        <div class="product-card">
+          <h3>BA Beroepsaansprakelijkheid</h3>
+          <p>Bescherming tegen aansprakelijkheidsvorderingen van cliënten of derden.</p>
+          <div class="product-highlights">
+            <ul>
+              <li>Dekking van fouten in uw werk</li>
+              <li>Ook zuiver financiële schade gedekt</li>
+              <li>Juridische ondersteuning inbegrepen</li>
+              <li>Maatwerk naar beroepsgroep</li>
+            </ul>
+          </div>
+          <p><strong>Waarom nodig:</strong> Een fout in uw diensten of product kan grote financiële gevolgen hebben. Deze verzekering beschermt u tegen kostbare juridische procedures en schadevergoedingen.</p>
+          <button>Meer info</button>
+        </div>
+
+        <!-- Groepsverzekering -->
+        <div class="product-card">
+          <h3>Groepsverzekering</h3>
+          <p>Bouw supplementair pensioen op voor uw medewerkers met aantrekkelijke voordelen.</p>
+          <div class="product-highlights">
+            <ul>
+              <li>WAP-garantie vanaf 1,75%</li>
+              <li>Fiscale voordelen voor werkgever</li>
+              <li>Aantrekkelijk voor werknemers</li>
+              <li>Flexibele inbreng</li>
+            </ul>
+          </div>
+          <p><strong>Waarom nodig:</strong> Een groepsverzekering helpt u getalenteerde medewerkers aan te trekken en te behouden. De werkgever geniet fiscale voordelen en bouwt tegelijk pensioen op.</p>
+          <button>Meer info</button>
+        </div>
+
+        <!-- Aanvullend Pensioen -->
+        <div class="product-card">
+          <h3>Aanvullend Pensioen</h3>
+          <p>Zorg zelf voor uw pensioen via IPT, VAPZ of POZ - fiscaal voordelig.</p>
+          <div class="product-highlights">
+            <ul>
+              <li><strong>IPT:</strong> Via vennootschap, fiscaal aftrekbaar</li>
+              <li><strong>VAPZ:</strong> Meest tax-friendly voor zelfstandigen</li>
+              <li><strong>POZ:</strong> Voor professionele beoefenaars</li>
+              <li>Volledig beheer door u</li>
+            </ul>
+          </div>
+          <p><strong>Waarom nodig:</strong> Als zelfstandige bent u zelf verantwoordelijk voor uw pensioen. Deze producten bieden aantrekkelijke fiscale faciliteiten om efficiënt pensioen op te bouwen.</p>
+          <button>Meer info</button>
+        </div>
+
+        <!-- Collectieve Hospitalisatieverzekering -->
+        <div class="product-card">
+          <h3>Collectieve Hospitalisatieverzekering</h3>
+          <p>Uitgebreide ziekenhuis- en gezondheidsvoordelen voor uw werknemers.</p>
+          <div class="product-highlights">
+            <ul>
+              <li>Extralegaal voordeel voor werknemers</li>
+              <li>Ruime dekking ziekenhuis</li>
+              <li>Tandarts en brillen inbegrepen</li>
+              <li>Fiscale voordelen voor werkgever</li>
+            </ul>
+          </div>
+          <p><strong>Waarom nodig:</strong> Deze verzekering maakt u aantrekkelijker als werkgever en zorgt ervoor dat uw team goed verzekerd is tegen medische kosten.</p>
+          <button>Meer info</button>
+        </div>
+
+        <!-- Arbeidsongevallenverzekering -->
+        <div class="product-card">
+          <h3>Arbeidsongevallenverzekering</h3>
+          <p>Wettelijk verplichte verzekering tegen arbeidsongevallen voor werknemers.</p>
+          <div class="product-highlights">
+            <ul>
+              <li>Wettelijk verplicht</li>
+              <li>Dekt invaliditeit en overlijden</li>
+              <li>Werknemersbescherming</li>
+              <li>Nazorg en revalidatie</li>
+            </ul>
+          </div>
+          <p><strong>Waarom nodig:</strong> Dit is wettelijk verplicht voor alle werkgevers met werknemers. Het biedt essentiële bescherming in geval van een ongeval op het werk.</p>
+          <button>Meer info</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Checklist Section -->
+  <section class="checklist-section">
+    <div class="checklist-container">
+      <h2>Welke Verzekeringen Heeft U Nodig?</h2>
+      <p style="text-align: center; margin-bottom: 2rem; color: var(--gray-700);">Controleer welke bescherming essentieel is voor uw situatie:</p>
+      
+      <div class="checklist-grid">
+        <div class="checklist-item">
+          <div class="checklist-icon">1</div>
+          <div>
+            <h4>Werkt u alleen?</h4>
+            <p>Gewaarborgd Inkomen en BA zijn minimaal nodig om uw inkomsten en reputatie te beschermen.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-icon">2</div>
+          <div>
+            <h4>Heeft u werknemers?</h4>
+            <p>Arbeidsongevallenverzekering is wettelijk verplicht. Hospitalisatieverzekering en groepsverzekering maken u aantrekkelijk als werkgever.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-icon">3</div>
+          <div>
+            <h4>Denkt u aan pensioen?</h4>
+            <p>Aanvullend pensioen via IPT, VAPZ of POZ biedt aantrekkelijke fiscale voordelen om zelf voor uw toekomst in te spelen.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-icon">4</div>
+          <div>
+            <h4>Werkt u in een dienstverlened beroep?</h4>
+            <p>BA Beroepsaansprakelijkheid is essentieel. Fouten kunnen kostbaar zijn - wees beschermd tegen aansprakelijkheidsvorderingen.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-icon">5</div>
+          <div>
+            <h4>Bent u jong ondernemer onder 35?</h4>
+            <p>Statistieken tonen: 1 op de 3 zal arbeidsongeschikt worden. Gewaarborgd Inkomen is een must-have voor uw zekerheid.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-icon">6</div>
+          <div>
+            <h4>Wilt u groei plannen?</h4>
+            <p>Groepsverzekering helpt u getalenteerde medewerkers vast te houden en biedt tegelijk pensioenopbouw.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-highlight" style="margin-top: 2rem; text-align: center;">
+        <p style="margin: 0;"><strong>Beter veilig dan sorry:</strong> Een gepast verzekeringspakket geeft u rust om focus te leggen op wat u het best doet: uw bedrijf runnen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Klaar voor de Juiste Bescherming?</h2>
+      <p>Hans van Hest biedt deskundig advies op maat. Ontdek welke verzekeringen u echt nodig hebt en hoeveel u kunt besparen.</p>
+      <div class="cta-buttons">
+        <button>Neem contact op</button>
+        <button class="secondary" style="background-color: transparent; border: 2px solid white; color: white;">Vraag offerte aan</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p><strong>Hans van Hest</strong> - KBC Verzekeringagent</p>
+      <p>Verbonden verzekeringsagent van KBC Verzekeringen NV</p>
+      <p>Website door <a href="https://the-bair-company.vercel.app">The Bair Company</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Set active nav link based on current page
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPage = window.location.pathname.split('/').pop();
+      document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === currentPage || 
+            (currentPage === '' && link.getAttribute('href') === 'index.html')) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -615,24 +615,43 @@ footer a:hover { color: var(--white); }
 
   <div class="drag-track" id="dragTrack">
 
-    <!-- ▸ GiGi Money -->
-    <a href="https://www.gigimoney.com" target="_blank" class="project-card" data-project="gigi" style="--card-color: var(--accent); --reel-duration: 15s;">
+    <!-- ▸ GiGi Money — Site & App -->
+    <a href="https://www.gigimoney.com" target="_blank" class="project-card has-video" data-project="gigi-site" style="--card-color: var(--accent);">
       <div class="reel-viewport">
-        <div class="reel-slides" data-reel="gigi"></div>
+        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="metadata"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
-          <span class="reel-label-text">Homepage</span>
+          <span class="reel-label-text">Showreel</span>
         </div>
-        <div class="reel-counter">1 / 5</div>
         <div class="reel-play"></div>
-        <div class="reel-progress"></div>
         <div class="card-stripe" style="background: var(--accent);"></div>
       </div>
       <div class="card-info">
         <div class="card-meta">
           <h3>GiGi Money</h3>
-          <span>Fintech · Branding · Web</span>
+          <span>Fintech · Website · App</span>
+        </div>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+    <!-- ▸ GiGi Money — Commercials & Social -->
+    <a href="https://www.gigimoney.com" target="_blank" class="project-card has-video" data-project="gigi-socials" style="--card-color: var(--pink);">
+      <div class="reel-viewport">
+        <video class="card-video" src="portfoliogigimoneysocials.mp4" muted loop playsinline preload="metadata"></video>
+        <div class="reel-vignette"></div>
+        <div class="reel-label">
+          <div class="reel-label-dot"></div>
+          <span class="reel-label-text">Showreel</span>
+        </div>
+        <div class="reel-play"></div>
+        <div class="card-stripe" style="background: var(--pink);"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-meta">
+          <h3>GiGi Money</h3>
+          <span>Commercials · Social Media</span>
         </div>
         <div class="card-arrow">↗</div>
       </div>
@@ -816,31 +835,6 @@ footer a:hover { color: var(--white); }
 // ══════════════════════════════════════════
 
 const reelData = {
-  gigi: {
-    slides: [
-      {
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=1000&fit=crop',
-        label: 'Homepage'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&h=1000&fit=crop',
-        label: 'App Interface'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop',
-        label: 'Dashboard'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=1000&fit=crop',
-        label: 'Features'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=1000&fit=crop',
-        label: 'Branding'
-      }
-    ],
-    interval: 3000
-  },
   rosing: {
     slides: [
       {
