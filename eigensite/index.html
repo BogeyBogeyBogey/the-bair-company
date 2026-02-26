@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Bair Company</title>
 <meta name="description" content="The Bair Company — Creatief bureau voor merken die durven opvallen.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-weight='800' font-size='18' fill='%23f0ede8'%3EB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://images.unsplash.com">
@@ -742,6 +743,43 @@ header {
 .dienst[data-color="red"]::after { background: linear-gradient(90deg, transparent, #ef4444, transparent); }
 .dienst[data-color="violet"]::after { background: linear-gradient(90deg, transparent, #8b5cf6, transparent); }
 
+/* ── OFFERTE CTA in Diensten ── */
+.diensten-cta-wrap {
+  margin-top: 4rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.diensten-cta-wrap p {
+  color: var(--grey);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.offerte-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  transition: all 0.4s var(--ease);
+  text-decoration: none;
+}
+.offerte-btn:hover {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+  transform: scale(1.05);
+  box-shadow: 0 10px 40px rgba(255,255,255,0.08);
+}
+.offerte-btn-arrow { transition: transform 0.3s var(--ease); }
+.offerte-btn:hover .offerte-btn-arrow { transform: translateX(4px); }
+
 /* ── OVER ── */
 .over {
   padding: 8rem 2.5rem;
@@ -796,16 +834,349 @@ header {
 }
 .cta-btn:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(255,255,255,0.1); }
 
-/* ── FOOTER ── */
-footer {
-  padding: 2rem 2.5rem;
+/* ── WERKPROCES ── */
+.werkproces {
+  padding: 8rem 2.5rem;
   border-top: 1px solid rgba(255,255,255,0.06);
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.75rem; color: var(--grey);
 }
-footer a { transition: color 0.3s; }
-footer a:hover { color: var(--white); }
-.footer-links { display: flex; gap: 2rem; }
+.werkproces-label {
+  font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--grey);
+  margin-bottom: 1.5rem;
+}
+.werkproces-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.werkproces-subtitle {
+  color: var(--grey); font-size: 1rem; line-height: 1.7;
+  max-width: 600px; margin-bottom: 4rem;
+}
+.werkproces-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.werkproces-steps::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--pink), var(--amber), var(--emerald));
+  opacity: 0.2;
+  z-index: 0;
+}
+.stap {
+  text-align: center;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.stap-num {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 700;
+  transition: all 0.5s var(--ease);
+}
+.stap:hover .stap-num {
+  border-color: var(--accent);
+  background: rgba(46,138,255,0.06);
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(46,138,255,0.1);
+}
+.stap h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.stap p {
+  font-size: 0.85rem; line-height: 1.7;
+  color: var(--grey);
+}
+.stap-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials {
+  padding: 8rem 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.testimonials-label {
+  font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--grey);
+  margin-bottom: 1.5rem;
+}
+.testimonials-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 4rem;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.testimonial {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1.25rem;
+  padding: 2.5rem 2rem;
+  text-align: left;
+  transition: all 0.5s var(--ease);
+  position: relative;
+}
+.testimonial:hover {
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+.testimonial-quote {
+  font-size: 2rem;
+  color: var(--accent);
+  opacity: 0.3;
+  font-family: Georgia, serif;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.testimonial p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(240,237,232,0.8);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.testimonial-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--pink));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.8rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.testimonial-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem; font-weight: 600;
+}
+.testimonial-role {
+  font-size: 0.7rem;
+  color: var(--grey);
+  letter-spacing: 0.05em;
+}
+
+/* ── CONTACT FORM ── */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.25rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-group label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1.25rem;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: all 0.3s var(--ease);
+  outline: none;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent);
+  background: rgba(46,138,255,0.04);
+  box-shadow: 0 0 20px rgba(46,138,255,0.06);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+.form-group select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+.form-group select option {
+  background: var(--black);
+  color: var(--white);
+}
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.1rem 3rem;
+  background: var(--white);
+  color: var(--black);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  transition: all 0.3s var(--ease);
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+  margin-top: 0.5rem;
+}
+.form-submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 40px rgba(255,255,255,0.1);
+}
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 3rem 0;
+}
+.form-success.show { display: block; }
+.form-success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.form-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.form-success p {
+  color: var(--grey); font-size: 0.95rem;
+}
+.contact-direct {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+.contact-direct a {
+  color: var(--accent);
+  transition: color 0.3s;
+}
+.contact-direct a:hover { color: var(--white); }
+
+/* ── SOCIAL ICONS ── */
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.social-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s var(--ease);
+}
+.social-icon:hover {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+.social-icon svg {
+  width: 16px; height: 16px;
+  fill: var(--grey);
+  transition: fill 0.3s;
+}
+.social-icon:hover svg { fill: var(--white); }
+
+/* ── FOOTER (enhanced) ── */
+footer {
+  padding: 4rem 2.5rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.footer-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--grey);
+  margin-bottom: 1.5rem;
+  max-width: 300px;
+}
+.footer-col h5 {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 1.25rem;
+}
+.footer-col a {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--grey);
+  margin-bottom: 0.75rem;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--white); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.25);
+}
+.footer-legal { display: flex; gap: 2rem; }
+.footer-bottom a { color: rgba(255,255,255,0.25); transition: color 0.3s; }
+.footer-bottom a:hover { color: var(--grey); }
 
 /* ── REVEAL ── */
 .reveal {
@@ -820,6 +1191,10 @@ footer a:hover { color: var(--white); }
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .diensten-grid { grid-template-columns: 1fr 1fr; }
+  .werkproces-steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .werkproces-steps::before { display: none; }
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 768px) {
   header { padding: 1.25rem 1.5rem; }
@@ -830,17 +1205,29 @@ footer a:hover { color: var(--white); }
   .drag-track { padding: 0 1.5rem; gap: 1.25rem; }
   .project-card { width: 320px; }
   .reel-play { display: none; }
-  .card-video { opacity: 0.8; }  /* More visible on mobile since there's no hover */
+  .card-video { opacity: 0.8; }
   .has-video .card-video { opacity: 0.8; }
   .has-video.mobile-active .card-video { opacity: 1; }
   .diensten { padding: 5rem 1.5rem; }
   .diensten-grid { grid-template-columns: 1fr; gap: 1rem; }
   .dienst-num { font-size: 2.5rem; }
   .dienst-art { width: 100px; height: 100px; }
+  .werkproces { padding: 5rem 1.5rem; }
+  .werkproces-steps { grid-template-columns: 1fr; gap: 2rem; }
+  .werkproces-steps::before { display: none; }
+  .stap { text-align: left; display: flex; gap: 1.25rem; align-items: flex-start; padding: 0; }
+  .stap-num { margin: 0; flex-shrink: 0; width: 60px; height: 60px; font-size: 1.2rem; }
+  .stap-content { text-align: left; }
   .over { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
   .over-stats { flex-wrap: wrap; gap: 2rem; }
+  .testimonials { padding: 5rem 1.5rem; }
+  .testimonials-grid { grid-template-columns: 1fr; }
   .contact-cta { padding: 6rem 1.5rem; }
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  footer { padding: 3rem 1.5rem 1.5rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; }
 }
 @media (max-width: 480px) {
   .project-card { width: 280px; }
@@ -864,6 +1251,10 @@ footer a:hover { color: var(--white); }
     <a href="#diensten" class="nav-pill">Studio</a>
     <a href="#over" class="nav-pill">Over</a>
     <a href="#contact" class="nav-pill">Contact</a>
+    <div class="social-icons" style="margin-left:0.5rem">
+      <a href="https://www.instagram.com/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.linkedin.com/company/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </div>
   </nav>
   <button class="menu-btn" id="menuBtn">Menu</button>
 </header>
@@ -1085,6 +1476,48 @@ footer a:hover { color: var(--white); }
     </div>
 
   </div>
+
+  <div class="diensten-cta-wrap reveal">
+    <p>Elk project is uniek. Laat ons samen bekijken wat jouw merk nodig heeft.</p>
+    <a href="#contact" class="offerte-btn">Vraag een vrijblijvende offerte <span class="offerte-btn-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- WERKPROCES -->
+<section class="werkproces" id="werkproces">
+  <p class="werkproces-label reveal">Zo werken wij</p>
+  <h2 class="werkproces-title reveal">Van eerste idee tot eindresultaat</h2>
+  <p class="werkproces-subtitle reveal">Geen verrassingen, wel een helder traject. Zo weet je altijd waar je aan toe bent.</p>
+  <div class="werkproces-steps">
+    <div class="stap reveal">
+      <div class="stap-num"><span class="stap-icon">💬</span></div>
+      <div class="stap-content">
+        <h4>Kennismaking</h4>
+        <p>We luisteren naar jouw verhaal, doelen en uitdagingen. Samen bepalen we de richting.</p>
+      </div>
+    </div>
+    <div class="stap reveal">
+      <div class="stap-num"><span class="stap-icon">✏️</span></div>
+      <div class="stap-content">
+        <h4>Concept & Design</h4>
+        <p>We vertalen jouw visie naar een strak ontwerp. Je krijgt een voorstel met duidelijke visuele richting.</p>
+      </div>
+    </div>
+    <div class="stap reveal">
+      <div class="stap-num"><span class="stap-icon">⚡</span></div>
+      <div class="stap-content">
+        <h4>Realisatie</h4>
+        <p>We bouwen met oog voor detail. Je ziet het resultaat groeien met tussentijdse feedback-momenten.</p>
+      </div>
+    </div>
+    <div class="stap reveal">
+      <div class="stap-num"><span class="stap-icon">🚀</span></div>
+      <div class="stap-content">
+        <h4>Lancering & Support</h4>
+        <p>Go live! En daarna laten we je niet los. Ondersteuning en doorgroei wanneer je dat nodig hebt.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- OVER -->
@@ -1097,9 +1530,50 @@ footer a:hover { color: var(--white); }
     <p>The Bair Company is een creatief bureau dat gelooft in de kracht van goed design. We zijn bewust klein gebleven — geen lagen management, geen eindeloze vergaderingen.</p>
     <p>Gewoon directe lijnen, scherpe ideeën en werk waar we achter staan. We combineren design thinking met de nieuwste technologieën om merken te bouwen die niet alleen mooi zijn, maar ook écht werken.</p>
     <div class="over-stats">
-      <div><div class="stat-val">4+</div><div class="stat-label">Projecten</div></div>
-      <div><div class="stat-val">3+</div><div class="stat-label">Klanten</div></div>
-      <div><div class="stat-val">∞</div><div class="stat-label">Koffie</div></div>
+      <div><div class="stat-val">100%</div><div class="stat-label">Persoonlijke aanpak</div></div>
+      <div><div class="stat-val">24u</div><div class="stat-label">Reactietijd</div></div>
+      <div><div class="stat-val">0</div><div class="stat-label">Doorgeschoven projecten</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <p class="testimonials-label reveal">Wat klanten zeggen</p>
+  <h2 class="testimonials-title reveal">Tevreden <span class="serif">samenwerkingen</span></h2>
+  <div class="testimonials-grid">
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">"</div>
+      <p>Ze denken echt mee met je merk. Geen standaard template, maar iets dat volledig bij ons past. De samenwerking voelde moeiteloos.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">GS</div>
+        <div>
+          <div class="testimonial-name">GiGi Social Money</div>
+          <div class="testimonial-role">Social Media & Webdesign</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">"</div>
+      <p>Snelle communicatie, creatieve oplossingen en een eindresultaat waar we direct trots op waren. Aanrader voor elke ondernemer.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--emerald),var(--amber))">RS</div>
+        <div>
+          <div class="testimonial-name">Rosing Security</div>
+          <div class="testimonial-role">Website & Branding</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">"</div>
+      <p>Van concept tot lancering: alles werd helder uitgelegd, ook voor iemand zonder technische achtergrond. Top service.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--amber),var(--red))">AO</div>
+        <div>
+          <div class="testimonial-name">Artoah</div>
+          <div class="testimonial-role">Webshop & Branding</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1108,15 +1582,89 @@ footer a:hover { color: var(--white); }
 <section class="contact-cta reveal" id="contact">
   <h2>Klaar voor iets <span class="serif">moois</span>?</h2>
   <p>Vertel ons over jouw project. We luisteren graag.</p>
-  <a href="mailto:kristofbogaerts@hotmail.com" class="cta-btn">Neem contact op</a>
+
+  <form class="contact-form" id="contactForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="naam">Naam</label>
+        <input type="text" id="naam" name="naam" placeholder="Je naam" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="naam@bedrijf.be" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="dienst">Waar kan ik je mee helpen?</label>
+      <select id="dienst" name="dienst">
+        <option value="" disabled selected>Kies een dienst</option>
+        <option value="branding">Branding & Identiteit</option>
+        <option value="webdesign">Web Design</option>
+        <option value="webontwikkeling">Webontwikkeling</option>
+        <option value="social">Social Media</option>
+        <option value="marketing">Marketing & Strategie</option>
+        <option value="apps">Apps & Producten</option>
+        <option value="anders">Iets anders</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="bericht">Vertel iets meer</label>
+      <textarea id="bericht" name="bericht" placeholder="Beschrijf kort je project, je doelen, je timing..." required></textarea>
+    </div>
+    <button type="submit" class="form-submit">Verstuur bericht <span>→</span></button>
+  </form>
+
+  <div class="form-success" id="formSuccess">
+    <div class="form-success-icon">✓</div>
+    <h3>Bericht verzonden!</h3>
+    <p>Bedankt voor je bericht. We nemen zo snel mogelijk contact op.</p>
+  </div>
+
+  <div class="contact-direct">
+    Of mail rechtstreeks naar <a href="mailto:hello@thebaircompany.be">hello@thebaircompany.be</a>
+  </div>
 </section>
 
 <footer>
-  <span>&copy; 2026 The Bair Company</span>
-  <div class="footer-links">
-    <a href="mailto:kristofbogaerts@hotmail.com">Email</a>
-    <a href="#werk">Portfolio</a>
-    <a href="#diensten">Studio</a>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">The Bair Co.</div>
+      <p class="footer-desc">Creatief bureau uit Glabbeek. Wij bouwen merken die blijven hangen — van strategie tot pixel.</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://www.linkedin.com/company/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navigatie</h5>
+      <a href="#werk">Portfolio</a>
+      <a href="#diensten">Studio</a>
+      <a href="#werkproces">Werkproces</a>
+      <a href="#over">Over ons</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Diensten</h5>
+      <a href="#diensten">Branding</a>
+      <a href="#diensten">Web Design</a>
+      <a href="#diensten">Webontwikkeling</a>
+      <a href="#diensten">Social Media</a>
+      <a href="#diensten">Marketing</a>
+      <a href="#diensten">Apps</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="mailto:hello@thebaircompany.be">hello@thebaircompany.be</a>
+      <a href="#">Glabbeek, België</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 The Bair Company. Alle rechten voorbehouden.</span>
+    <div class="footer-legal">
+      <a href="#">Privacybeleid</a>
+      <a href="#">Algemene voorwaarden</a>
+      <span>BTW: BE 0XXX.XXX.XXX</span>
+    </div>
   </div>
 </footer>
 
@@ -1681,6 +2229,37 @@ if (dienstenSection && dienstenGlow) {
     const rect = dienstenSection.getBoundingClientRect();
     dienstenGlow.style.left = (e.clientX - rect.left) + 'px';
     dienstenGlow.style.top = (e.clientY - rect.top) + 'px';
+  });
+}
+
+// ── Contact form handling
+const contactForm = document.getElementById('contactForm');
+const formSuccess = document.getElementById('formSuccess');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Collect form data
+    const formData = new FormData(contactForm);
+    const naam = formData.get('naam');
+    const email = formData.get('email');
+    const dienst = formData.get('dienst');
+    const bericht = formData.get('bericht');
+
+    // Build mailto link with form data as fallback
+    const subject = encodeURIComponent(`Nieuw project — ${dienst || 'Algemeen'}`);
+    const body = encodeURIComponent(`Naam: ${naam}\nE-mail: ${email}\nDienst: ${dienst || 'Niet gespecificeerd'}\n\nBericht:\n${bericht}`);
+    window.location.href = `mailto:hello@thebaircompany.be?subject=${subject}&body=${body}`;
+
+    // Show success message
+    contactForm.style.display = 'none';
+    formSuccess.classList.add('show');
+
+    // Reset after 5 seconds
+    setTimeout(() => {
+      contactForm.style.display = 'grid';
+      formSuccess.classList.remove('show');
+      contactForm.reset();
+    }, 5000);
   });
 }
 
