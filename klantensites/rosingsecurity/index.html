@@ -1287,7 +1287,34 @@
           </div>
         </div>
         <div class="events-image reveal-right">
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Evenement beveiliging" loading="lazy">
+          <div class="events-slider" id="eventsSlider">
+            <div class="events-slide active">
+              <img src="slider-eventcoördinatie.png" alt="Evenementcoördinatie Rosing Events" loading="lazy">
+              <div class="events-slide-caption"><span>01</span> — Evenementcoördinatie</div>
+            </div>
+            <div class="events-slide">
+              <img src="slider-hostess.png" alt="Host &amp; Hostessen Rosing Events" loading="lazy">
+              <div class="events-slide-caption"><span>02</span> — Host &amp; Hostessen</div>
+            </div>
+            <div class="events-slide">
+              <img src="slider-parking.png" alt="Parkingbegeleiding Rosing Events" loading="lazy">
+              <div class="events-slide-caption"><span>03</span> — Parkingbegeleiding</div>
+            </div>
+            <div class="events-slide">
+              <img src="slidereventsecurity.png" alt="Event security Rosing" loading="lazy">
+              <div class="events-slide-caption"><span>04</span> — Event security</div>
+            </div>
+            <div class="events-slide">
+              <img src="slider-vipbegeleiding.png" alt="VIP-begeleiding Rosing Events" loading="lazy">
+              <div class="events-slide-caption"><span>05</span> — VIP-begeleiding</div>
+            </div>
+            <div class="events-slide">
+              <img src="slider-ticketcontrole.png" alt="Ticketcontrole Rosing Events" loading="lazy">
+              <div class="events-slide-caption"><span>06</span> — Ticketcontrole</div>
+            </div>
+            <div class="events-slider-counter"><span id="sliderCurrent">01</span> / 06</div>
+            <div class="events-slider-dots" id="sliderDots"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1514,6 +1541,31 @@
       el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
     });
+
+    // ═══ EVENTS IMAGE SLIDER ═══
+    (function() {
+      const slides = document.querySelectorAll('.events-slide');
+      const counter = document.getElementById('sliderCurrent');
+      const dotsContainer = document.getElementById('sliderDots');
+      let current = 0;
+      // Bouw dots
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'events-slider-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      });
+      const dots = dotsContainer.querySelectorAll('.events-slider-dot');
+      function goTo(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = index;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        counter.textContent = String(current + 1).padStart(2, '0');
+      }
+      setInterval(() => goTo((current + 1) % slides.length), 4000);
+    })();
 
     // ═══ EVENTS ACCORDION ═══
     function closeItem(item) {

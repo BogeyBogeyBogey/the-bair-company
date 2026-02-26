@@ -44,7 +44,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: fixed; inset: 0; z-index: 9999;
   background: var(--black);
   display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.5s var(--ease), visibility 0.5s;
+  transition: opacity 0.4s var(--ease), visibility 0.4s;
 }
 .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-word {
@@ -58,7 +58,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .loader-word span {
   display: inline-block;
   transform: translateY(120%);
-  animation: loaderUp 0.25s var(--ease) forwards;
+  animation: loaderUp 0.2s var(--ease) forwards;
 }
 @keyframes loaderUp { to { transform: translateY(0); } }
 
@@ -224,6 +224,41 @@ header {
 .project-card.center-card:hover {
   transform: translateY(-8px) scale(1.1);
 }
+
+/* ── VIDEO MODAL ── */
+.video-modal {
+  position: fixed; inset: 0; z-index: 9998;
+  background: rgba(0,0,0,0.92);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.4s var(--ease), visibility 0.4s;
+  cursor: pointer;
+}
+.video-modal.active { opacity: 1; visibility: visible; }
+.video-modal video {
+  max-width: 90vw; max-height: 85vh;
+  border-radius: 1rem;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+}
+.video-modal-close {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; color: var(--white);
+  backdrop-filter: blur(10px);
+  transition: background 0.3s, transform 0.3s;
+  cursor: pointer; z-index: 2;
+}
+.video-modal-close:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
+.video-modal-title {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display); font-size: 1rem;
+  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(240,237,232,0.6);
+}
+.project-card { cursor: pointer; }
 
 /* ── REEL VIEWPORT — Video-style trailer ── */
 .reel-viewport {
@@ -599,7 +634,7 @@ footer a:hover { color: var(--white); }
 <!-- LOADER -->
 <div class="loader" id="loader">
   <div class="loader-word">
-    <span style="animation-delay:0.1s">T</span><span style="animation-delay:0.125s">H</span><span style="animation-delay:0.15s">E</span><span style="animation-delay:0.19s">&nbsp;</span><span style="animation-delay:0.2s">B</span><span style="animation-delay:0.225s">A</span><span style="animation-delay:0.25s">I</span><span style="animation-delay:0.275s">R</span><span style="animation-delay:0.325s">&nbsp;</span><span style="animation-delay:0.35s">C</span><span style="animation-delay:0.375s">O</span><span style="animation-delay:0.4s">.</span>
+    <span style="animation-delay:0.08s">T</span><span style="animation-delay:0.1s">H</span><span style="animation-delay:0.12s">E</span><span style="animation-delay:0.152s">&nbsp;</span><span style="animation-delay:0.16s">B</span><span style="animation-delay:0.18s">A</span><span style="animation-delay:0.2s">I</span><span style="animation-delay:0.22s">R</span><span style="animation-delay:0.26s">&nbsp;</span><span style="animation-delay:0.28s">C</span><span style="animation-delay:0.3s">O</span><span style="animation-delay:0.32s">.</span>
   </div>
 </div>
 
@@ -644,29 +679,8 @@ footer a:hover { color: var(--white); }
 
   <div class="drag-track" id="dragTrack">
 
-    <!-- ▸ GiGi Money — Site & App -->
-    <a href="https://www.gigimoney.com" target="_blank" class="project-card has-video" data-project="gigi-site" style="--card-color: var(--accent);">
-      <div class="reel-viewport">
-        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="auto"></video>
-        <div class="reel-vignette"></div>
-        <div class="reel-label">
-          <div class="reel-label-dot"></div>
-          <span class="reel-label-text">Showreel</span>
-        </div>
-        <div class="reel-play"></div>
-        <div class="card-stripe" style="background: var(--accent);"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-meta">
-          <h3>GiGi Money</h3>
-          <span>Fintech · Website · App</span>
-        </div>
-        <div class="card-arrow">↗</div>
-      </div>
-    </a>
-
-    <!-- ▸ GiGi Money — Commercials & Social -->
-    <a href="https://www.gigimoney.com" target="_blank" class="project-card has-video" data-project="gigi-socials" style="--card-color: var(--pink);">
+    <!-- ▸ GiGi Money — Commercials & Social (FIRST — eye-catching) -->
+    <div class="project-card has-video" data-project="gigi-socials" data-video="portfoliogigimoneysocials.mp4" style="--card-color: var(--pink);">
       <div class="reel-viewport">
         <video class="card-video" src="portfoliogigimoneysocials.mp4" muted loop playsinline preload="auto"></video>
         <div class="reel-vignette"></div>
@@ -682,12 +696,33 @@ footer a:hover { color: var(--white); }
           <h3>GiGi Money</h3>
           <span>Commercials · Social Media</span>
         </div>
-        <div class="card-arrow">↗</div>
+        <div class="card-arrow">▶</div>
       </div>
-    </a>
+    </div>
+
+    <!-- ▸ GiGi Money — Site & App -->
+    <div class="project-card has-video" data-project="gigi-site" data-video="portfoliogigimoneysiteandapp.mp4" style="--card-color: var(--accent);">
+      <div class="reel-viewport">
+        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="auto"></video>
+        <div class="reel-vignette"></div>
+        <div class="reel-label">
+          <div class="reel-label-dot"></div>
+          <span class="reel-label-text">Showreel</span>
+        </div>
+        <div class="reel-play"></div>
+        <div class="card-stripe" style="background: var(--accent);"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-meta">
+          <h3>GiGi Money</h3>
+          <span>Fintech · Website · App</span>
+        </div>
+        <div class="card-arrow">▶</div>
+      </div>
+    </div>
 
     <!-- ▸ Rosing Security -->
-    <a href="https://rosingsecurity.vercel.app" target="_blank" class="project-card" data-project="rosing" style="--card-color: var(--red); --reel-duration: 12s;">
+    <div class="project-card" data-project="rosing" style="--card-color: var(--red); --reel-duration: 12s;">
       <div class="reel-viewport">
         <div class="reel-slides" data-reel="rosing"></div>
         <div class="reel-vignette"></div>
@@ -705,12 +740,12 @@ footer a:hover { color: var(--white); }
           <h3>Rosing Security</h3>
           <span>Security · Animatie · Web</span>
         </div>
-        <div class="card-arrow">↗</div>
+        <div class="card-arrow">▶</div>
       </div>
-    </a>
+    </div>
 
     <!-- ▸ Artoah -->
-    <a href="https://www.artoah.be" target="_blank" class="project-card has-video" data-project="artoah" style="--card-color: var(--amber);">
+    <div class="project-card has-video" data-project="artoah" data-video="portfolioartoah.mp4" style="--card-color: var(--amber);">
       <div class="reel-viewport">
         <video class="card-video" src="portfolioartoah.mp4" muted loop playsinline preload="auto"></video>
         <div class="reel-vignette"></div>
@@ -726,12 +761,12 @@ footer a:hover { color: var(--white); }
           <h3>Artoah</h3>
           <span>Farm · Storytelling · Video</span>
         </div>
-        <div class="card-arrow">↗</div>
+        <div class="card-arrow">▶</div>
       </div>
-    </a>
+    </div>
 
     <!-- ▸ Hans van Hest -->
-    <a href="https://hansvanhestkbc.vercel.app" target="_blank" class="project-card has-video" data-project="hvh" style="--card-color: var(--emerald);">
+    <div class="project-card has-video" data-project="hvh" data-video="portfoliohansvanhest.mp4" style="--card-color: var(--emerald);">
       <div class="reel-viewport">
         <video class="card-video" src="portfoliohansvanhest.mp4" muted loop playsinline preload="auto"></video>
         <div class="reel-vignette"></div>
@@ -747,9 +782,9 @@ footer a:hover { color: var(--white); }
           <h3>Hans van Hest — KBC</h3>
           <span>Verzekeringen · Landing page</span>
         </div>
-        <div class="card-arrow">↗</div>
+        <div class="card-arrow">▶</div>
       </div>
-    </a>
+    </div>
 
   </div>
 </section>
@@ -854,6 +889,13 @@ footer a:hover { color: var(--white); }
     <a href="#diensten">Studio</a>
   </div>
 </footer>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <button class="video-modal-close" id="videoModalClose">✕</button>
+  <video id="modalVideo" controls playsinline></video>
+  <div class="video-modal-title" id="modalTitle"></div>
+</div>
 
 <script>
 // ══════════════════════════════════════════
@@ -1095,7 +1137,7 @@ function stopReel(container, labelEl, counterEl) {
 
 // ── Loader
 window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('done'), 800);
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 640);
 });
 
 // ── Mobile menu
@@ -1137,7 +1179,7 @@ function refreshClonedVideos(clone) {
     newVid.muted = true;
     newVid.loop = true;
     newVid.playsInline = true;
-    newVid.preload = 'metadata';
+    newVid.preload = 'auto';
     newVid.setAttribute('playsinline', '');
     newVid.setAttribute('muted', '');
     oldVid.parentNode.replaceChild(newVid, oldVid);
@@ -1357,10 +1399,44 @@ document.querySelector('.portfolio').addEventListener('wheel', (e) => {
   startMomentum();
 }, { passive: false });
 
-// Prevent card link click during drag
+// Prevent card action during drag
 track.addEventListener('mousedown', () => { dragMoved = false; });
+
+// ── Video Modal
+const videoModal = document.getElementById('videoModal');
+const modalVideo = document.getElementById('modalVideo');
+const modalTitle = document.getElementById('modalTitle');
+const modalClose = document.getElementById('videoModalClose');
+
+function openVideoModal(videoSrc, title) {
+  modalVideo.src = videoSrc;
+  modalTitle.textContent = title;
+  videoModal.classList.add('active');
+  modalVideo.play();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal() {
+  videoModal.classList.remove('active');
+  modalVideo.pause();
+  modalVideo.src = '';
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', (e) => { e.stopPropagation(); closeVideoModal(); });
+videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideoModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeVideoModal(); });
+
+// Card click → open video (only if not dragging)
 track.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('click', (e) => { if (dragMoved) e.preventDefault(); });
+  card.addEventListener('click', (e) => {
+    if (dragMoved) { e.preventDefault(); return; }
+    const videoSrc = card.getAttribute('data-video');
+    if (videoSrc) {
+      const title = card.querySelector('h3')?.textContent || '';
+      openVideoModal(videoSrc, title);
+    }
+  });
 });
 
 // ── Toggle diensten accordion
