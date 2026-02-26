@@ -1186,23 +1186,35 @@ function refreshClonedVideos(clone) {
   });
 }
 
-// Clone cards for infinite loop effect
+// Clone cards for infinite loop effect (no duplicate neighbours)
 function setupInfiniteTrack() {
   const cards = Array.from(track.querySelectorAll('.project-card'));
-  cards.forEach(card => {
-    const cloneEnd = card.cloneNode(true);
+  const n = cards.length;
+
+  // Append clones shifted by 1: last original (n-1) != first append (0→1)
+  // Sequence: [1, 2, 3, ..., n-1, 0]
+  for (let i = 1; i <= n; i++) {
+    const cloneEnd = cards[i % n].cloneNode(true);
     cloneEnd.classList.add('clone');
     refreshClonedVideos(cloneEnd);
     track.appendChild(cloneEnd);
-  });
-  cards.forEach(card => {
-    const cloneStart = card.cloneNode(true);
+  }
+
+  // Prepend clones: last prepend card (reading L→R) must != first original (card 0)
+  // We want L→R: [n-2, n-3, ..., 0, n-1] → last = n-1, first orig = 0 ✓
+  // insertBefore(firstChild) reverses iteration order,
+  // so iterate: [n-1, 0, 1, 2, ..., n-2]
+  const prependIter = [n - 1];
+  for (let i = 0; i < n - 1; i++) prependIter.push(i);
+  prependIter.forEach(i => {
+    const cloneStart = cards[i].cloneNode(true);
     cloneStart.classList.add('clone');
     refreshClonedVideos(cloneStart);
     track.insertBefore(cloneStart, track.firstChild);
   });
+
   const cardWidth = cards[0].offsetWidth + 32;
-  currentOffset = -(cardWidth * cards.length);
+  currentOffset = -(cardWidth * n);
   track.style.transform = `translateX(${currentOffset}px)`;
 }
 
@@ -1388,15 +1400,6 @@ document.addEventListener('touchmove', (e) => {
   trackVelocity(e.touches[0].pageX);
   startX = e.touches[0].pageX;
   startY = e.touches[0].pageY;
-}, { passive: false });
-
-// ── Wheel (also with momentum feel)
-document.querySelector('.portfolio').addEventListener('wheel', (e) => {
-  if (Math.abs(e.deltaY) < 5) return;
-  e.preventDefault();
-  stopMomentum();
-  velocity = -e.deltaY * 1.5;
-  startMomentum();
 }, { passive: false });
 
 // Prevent card action during drag
