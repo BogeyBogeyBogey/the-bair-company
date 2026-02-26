@@ -470,73 +470,277 @@ header {
   border-color: var(--white);
 }
 
-/* ── DIENSTEN ── */
+/* ── DIENSTEN — Immersive Studio Section ── */
 .diensten {
-  padding: 8rem 2.5rem;
+  padding: 10rem 2.5rem;
   border-top: 1px solid rgba(255,255,255,0.06);
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
+  position: relative;
+  overflow: hidden;
 }
+/* Ambient glow that follows mouse */
+.diensten-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,138,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: left 0.8s var(--ease), top 0.8s var(--ease), opacity 0.5s;
+  opacity: 0;
+  z-index: 0;
+}
+.diensten:hover .diensten-glow { opacity: 1; }
+
 .diensten-grid {
-  margin-top: 4rem;
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
+
 .dienst {
-  padding: 2.5rem 2rem;
+  position: relative;
+  padding: 3rem 2.5rem 2.5rem;
+  border-radius: 1.25rem;
+  background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.06);
-  border-right: none;
-  transition: background 0.4s var(--ease);
   cursor: pointer;
+  transition: all 0.5s var(--ease);
+  overflow: hidden;
 }
-.dienst:nth-child(3n) { border-right: 1px solid rgba(255,255,255,0.06); }
-.dienst:nth-child(n+4) { border-top: none; }
-.dienst:hover { background: rgba(255,255,255,0.03); }
+.dienst::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  z-index: 0;
+}
+.dienst:hover::before { opacity: 1; }
+.dienst:hover {
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}
+
+/* Each card gets a unique glow color */
+.dienst[data-color="blue"]::before { background: radial-gradient(ellipse at 50% 100%, rgba(46,138,255,0.08) 0%, transparent 70%); }
+.dienst[data-color="pink"]::before { background: radial-gradient(ellipse at 50% 100%, rgba(236,72,153,0.08) 0%, transparent 70%); }
+.dienst[data-color="amber"]::before { background: radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.08) 0%, transparent 70%); }
+.dienst[data-color="emerald"]::before { background: radial-gradient(ellipse at 50% 100%, rgba(16,185,129,0.08) 0%, transparent 70%); }
+.dienst[data-color="red"]::before { background: radial-gradient(ellipse at 50% 100%, rgba(239,68,68,0.08) 0%, transparent 70%); }
+.dienst[data-color="violet"]::before { background: radial-gradient(ellipse at 50% 100%, rgba(139,92,246,0.06) 0%, transparent 70%); }
+
+/* Abstract CSS art per card */
+.dienst-art {
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 160px; height: 160px;
+  opacity: 0.04;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  z-index: 0;
+  pointer-events: none;
+}
+.dienst:hover .dienst-art { opacity: 0.1; transform: scale(1.1) rotate(5deg); }
+
+/* Art shape 1: Concentric circles (Branding) */
+.art-circles { position: relative; }
+.art-circles::before, .art-circles::after {
+  content: ''; position: absolute;
+  border: 2px solid var(--white); border-radius: 50%;
+}
+.art-circles::before { inset: 10px; }
+.art-circles::after { inset: 35px; }
+.art-circles-inner {
+  position: absolute; inset: 60px;
+  border: 2px solid var(--white); border-radius: 50%;
+}
+
+/* Art shape 2: Grid pattern (Web Design) */
+.art-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.art-grid span {
+  aspect-ratio: 1; border: 1.5px solid var(--white); border-radius: 4px;
+}
+
+/* Art shape 3: Diagonal lines (Webontwikkeling) */
+.art-lines { position: relative; overflow: hidden; }
+.art-lines span {
+  position: absolute; width: 200%; height: 1.5px;
+  background: var(--white); transform-origin: left center;
+}
+.art-lines span:nth-child(1) { top: 15%; transform: rotate(-35deg); }
+.art-lines span:nth-child(2) { top: 35%; transform: rotate(-35deg); }
+.art-lines span:nth-child(3) { top: 55%; transform: rotate(-35deg); }
+.art-lines span:nth-child(4) { top: 75%; transform: rotate(-35deg); }
+.art-lines span:nth-child(5) { top: 95%; transform: rotate(-35deg); }
+
+/* Art shape 4: Dots constellation (Social Media) */
+.art-dots { position: relative; }
+.art-dots span {
+  position: absolute; width: 6px; height: 6px;
+  background: var(--white); border-radius: 50%;
+}
+.art-dots span:nth-child(1) { top: 20%; left: 30%; width: 10px; height: 10px; }
+.art-dots span:nth-child(2) { top: 45%; left: 60%; width: 8px; height: 8px; }
+.art-dots span:nth-child(3) { top: 70%; left: 25%; }
+.art-dots span:nth-child(4) { top: 35%; left: 80%; width: 4px; height: 4px; }
+.art-dots span:nth-child(5) { top: 80%; left: 70%; width: 12px; height: 12px; }
+.art-dots span:nth-child(6) { top: 15%; left: 55%; width: 5px; height: 5px; }
+/* Connecting lines via SVG-like pseudo */
+.art-dots::before {
+  content: ''; position: absolute;
+  top: 25%; left: 35%; width: 45%; height: 50%;
+  border: 1.5px solid var(--white);
+  border-radius: 0;
+  transform: rotate(15deg);
+  opacity: 0.5;
+}
+
+/* Art shape 5: Bar chart (Marketing) */
+.art-bars { display: flex; align-items: flex-end; gap: 10px; padding: 20px; height: 100%; }
+.art-bars span {
+  flex: 1; background: var(--white); border-radius: 3px 3px 0 0;
+}
+.art-bars span:nth-child(1) { height: 40%; }
+.art-bars span:nth-child(2) { height: 65%; }
+.art-bars span:nth-child(3) { height: 85%; }
+.art-bars span:nth-child(4) { height: 55%; }
+.art-bars span:nth-child(5) { height: 100%; }
+
+/* Art shape 6: App screen (Apps) */
+.art-app { position: relative; }
+.art-app::before {
+  content: ''; position: absolute;
+  top: 10%; left: 15%; width: 70%; height: 80%;
+  border: 2px solid var(--white); border-radius: 12px;
+}
+.art-app::after {
+  content: ''; position: absolute;
+  top: 20%; left: 25%; width: 50%; height: 4px;
+  background: var(--white); border-radius: 2px;
+}
+.art-app-block1, .art-app-block2 {
+  position: absolute; background: var(--white); border-radius: 4px;
+}
+.art-app-block1 { top: 35%; left: 25%; width: 50%; height: 25%; opacity: 0.4; }
+.art-app-block2 { top: 68%; left: 25%; width: 30%; height: 4px; }
+
+/* Large dramatic number */
 .dienst-num {
   font-family: var(--font-display);
-  font-size: 0.7rem; letter-spacing: 0.2em;
-  color: var(--grey); margin-bottom: 1.5rem;
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
+.dienst[data-color="blue"] .dienst-num { background-image: linear-gradient(135deg, rgba(46,138,255,0.4) 0%, rgba(46,138,255,0.1) 100%); }
+.dienst[data-color="pink"] .dienst-num { background-image: linear-gradient(135deg, rgba(236,72,153,0.4) 0%, rgba(236,72,153,0.1) 100%); }
+.dienst[data-color="amber"] .dienst-num { background-image: linear-gradient(135deg, rgba(245,158,11,0.4) 0%, rgba(245,158,11,0.1) 100%); }
+.dienst[data-color="emerald"] .dienst-num { background-image: linear-gradient(135deg, rgba(16,185,129,0.4) 0%, rgba(16,185,129,0.1) 100%); }
+.dienst[data-color="red"] .dienst-num { background-image: linear-gradient(135deg, rgba(239,68,68,0.4) 0%, rgba(239,68,68,0.1) 100%); }
+.dienst[data-color="violet"] .dienst-num { background-image: linear-gradient(135deg, rgba(139,92,246,0.4) 0%, rgba(139,92,246,0.1) 100%); }
+
+.dienst:hover .dienst-num { opacity: 1; }
+
 .dienst-header {
   display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1;
 }
 .dienst h4 {
   font-family: var(--font-display);
-  font-size: 1.2rem; font-weight: 600;
+  font-size: 1.3rem; font-weight: 700;
   margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
 }
 .dienst-toggle {
-  width: 28px; height: 28px; border-radius: 50%;
+  width: 32px; height: 32px; border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.15);
   display: flex; align-items: center; justify-content: center;
   font-size: 1.1rem; color: var(--grey);
-  transition: all 0.3s var(--ease); flex-shrink: 0;
+  transition: all 0.4s var(--ease); flex-shrink: 0;
   margin-top: -0.5rem;
+}
+.dienst:hover .dienst-toggle {
+  border-color: rgba(255,255,255,0.3);
 }
 .dienst.open .dienst-toggle {
   transform: rotate(45deg);
   background: var(--white); color: var(--black);
   border-color: var(--white);
 }
-.dienst p { font-size: 0.85rem; line-height: 1.7; color: var(--grey); }
+.dienst > p {
+  font-size: 0.9rem; line-height: 1.7; color: var(--grey);
+  position: relative; z-index: 1;
+}
 .dienst-details {
   max-height: 0; overflow: hidden;
   transition: max-height 0.5s var(--ease), opacity 0.4s var(--ease), margin 0.4s var(--ease);
   opacity: 0; margin-top: 0;
+  position: relative; z-index: 1;
 }
 .dienst.open .dienst-details {
   max-height: 500px; opacity: 1; margin-top: 1.25rem;
 }
 .dienst-details p {
-  font-size: 0.85rem; line-height: 1.8; color: rgba(240,237,232,0.7);
+  font-size: 0.88rem; line-height: 1.8; color: rgba(240,237,232,0.7);
   margin-bottom: 0.75rem;
 }
+/* Accent-colored CTA per card */
 .dienst-details .dienst-cta {
-  display: inline-block; margin-top: 0.5rem;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-top: 0.75rem;
   font-size: 0.75rem; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--accent);
-  font-weight: 500; transition: opacity 0.3s;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.3s var(--ease);
+  padding: 0.6rem 1.25rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.15);
 }
-.dienst-details .dienst-cta:hover { opacity: 0.7; }
+.dienst[data-color="blue"] .dienst-cta { color: #2E8AFF; border-color: rgba(46,138,255,0.3); }
+.dienst[data-color="pink"] .dienst-cta { color: #ec4899; border-color: rgba(236,72,153,0.3); }
+.dienst[data-color="amber"] .dienst-cta { color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+.dienst[data-color="emerald"] .dienst-cta { color: #10b981; border-color: rgba(16,185,129,0.3); }
+.dienst[data-color="red"] .dienst-cta { color: #ef4444; border-color: rgba(239,68,68,0.3); }
+.dienst[data-color="violet"] .dienst-cta { color: #8b5cf6; border-color: rgba(139,92,246,0.3); }
+.dienst-details .dienst-cta:hover { background: rgba(255,255,255,0.05); transform: translateX(4px); }
+.dienst-cta-arrow { transition: transform 0.3s var(--ease); }
+.dienst-details .dienst-cta:hover .dienst-cta-arrow { transform: translateX(3px); }
+
+/* Staggered reveal per card */
+.dienst.reveal:nth-child(1) { transition-delay: 0.05s; }
+.dienst.reveal:nth-child(2) { transition-delay: 0.12s; }
+.dienst.reveal:nth-child(3) { transition-delay: 0.19s; }
+.dienst.reveal:nth-child(4) { transition-delay: 0.26s; }
+.dienst.reveal:nth-child(5) { transition-delay: 0.33s; }
+.dienst.reveal:nth-child(6) { transition-delay: 0.40s; }
+
+/* Accent line at top of card on hover */
+.dienst::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; width: 0; height: 2px;
+  transform: translateX(-50%);
+  transition: width 0.5s var(--ease);
+  z-index: 2;
+}
+.dienst:hover::after { width: 60%; }
+.dienst[data-color="blue"]::after { background: linear-gradient(90deg, transparent, #2E8AFF, transparent); }
+.dienst[data-color="pink"]::after { background: linear-gradient(90deg, transparent, #ec4899, transparent); }
+.dienst[data-color="amber"]::after { background: linear-gradient(90deg, transparent, #f59e0b, transparent); }
+.dienst[data-color="emerald"]::after { background: linear-gradient(90deg, transparent, #10b981, transparent); }
+.dienst[data-color="red"]::after { background: linear-gradient(90deg, transparent, #ef4444, transparent); }
+.dienst[data-color="violet"]::after { background: linear-gradient(90deg, transparent, #8b5cf6, transparent); }
 
 /* ── OVER ── */
 .over {
@@ -616,8 +820,6 @@ footer a:hover { color: var(--white); }
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .diensten-grid { grid-template-columns: 1fr 1fr; }
-  .dienst:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.06); }
-  .dienst:nth-child(odd):not(:first-child) { border-right: none; }
 }
 @media (max-width: 768px) {
   header { padding: 1.25rem 1.5rem; }
@@ -632,9 +834,9 @@ footer a:hover { color: var(--white); }
   .has-video .card-video { opacity: 0.8; }
   .has-video.mobile-active .card-video { opacity: 1; }
   .diensten { padding: 5rem 1.5rem; }
-  .diensten-grid { grid-template-columns: 1fr; }
-  .dienst { border-right: 1px solid rgba(255,255,255,0.06) !important; }
-  .dienst + .dienst { border-top: none; }
+  .diensten-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .dienst-num { font-size: 2.5rem; }
+  .dienst-art { width: 100px; height: 100px; }
   .over { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
   .over-stats { flex-wrap: wrap; gap: 2rem; }
   .contact-cta { padding: 6rem 1.5rem; }
@@ -804,70 +1006,84 @@ footer a:hover { color: var(--white); }
 </section>
 
 <!-- DIENSTEN -->
-<section class="diensten reveal" id="diensten">
-  <p class="portfolio-label">Wat we doen</p>
-  <h2 class="portfolio-title">Studio</h2>
+<section class="diensten" id="diensten">
+  <div class="diensten-glow" id="dienstenGlow"></div>
+  <p class="portfolio-label reveal">Wat we doen</p>
+  <h2 class="portfolio-title reveal">Studio</h2>
   <div class="diensten-grid">
-    <div class="dienst reveal" onclick="toggleDienst(this)">
+
+    <div class="dienst reveal" data-color="blue" onclick="toggleDienst(this)">
+      <div class="dienst-art art-circles"><div class="art-circles-inner"></div></div>
       <div class="dienst-num">01</div>
       <div class="dienst-header"><h4>Branding & Identiteit</h4><div class="dienst-toggle">+</div></div>
       <p>Logo, huisstijl, merkstrategie. We geven jouw merk een gezicht dat werkt op elk touchpoint.</p>
       <div class="dienst-details">
         <p>Eerste indrukken tellen. Jouw merk heeft gemiddeld 7 seconden om te overtuigen. Wij zorgen ervoor dat elke seconde raak is — van logo en kleurenpalet tot tone of voice en merkrichtlijnen.</p>
         <p>Het resultaat? Een herkenbaar merk dat vertrouwen wekt en klanten aantrekt, nog vóór je eerste verkoopgesprek.</p>
-        <a href="#contact" class="dienst-cta">Start jouw merktraject →</a>
+        <a href="#contact" class="dienst-cta">Start jouw merktraject <span class="dienst-cta-arrow">→</span></a>
       </div>
     </div>
-    <div class="dienst reveal" onclick="toggleDienst(this)">
+
+    <div class="dienst reveal" data-color="pink" onclick="toggleDienst(this)">
+      <div class="dienst-art art-grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <div class="dienst-num">02</div>
       <div class="dienst-header"><h4>Web Design</h4><div class="dienst-toggle">+</div></div>
       <p>Van wireframe tot pixel-perfect ontwerp. Interfaces die niet alleen mooi zijn maar ook intuïtief aanvoelen.</p>
       <div class="dienst-details">
         <p>94% van eerste indrukken online gaat over design. Wij ontwerpen websites die bezoekers vasthouden, door flows begeleiden en converteren. Geen template-werk, maar maatwerk dat jouw verhaal vertelt.</p>
         <p>Elke pixel heeft een doel. Elke interactie voelt vanzelfsprekend aan.</p>
-        <a href="#contact" class="dienst-cta">Laat je site ontwerpen →</a>
+        <a href="#contact" class="dienst-cta">Laat je site ontwerpen <span class="dienst-cta-arrow">→</span></a>
       </div>
     </div>
-    <div class="dienst reveal" onclick="toggleDienst(this)">
+
+    <div class="dienst reveal" data-color="amber" onclick="toggleDienst(this)">
+      <div class="dienst-art art-lines"><span></span><span></span><span></span><span></span><span></span></div>
       <div class="dienst-num">03</div>
       <div class="dienst-header"><h4>Webontwikkeling</h4><div class="dienst-toggle">+</div></div>
       <p>Snelle, responsive websites gebouwd met moderne technologieën. Performance en schoonheid gaan samen.</p>
       <div class="dienst-details">
         <p>Een trage website kost je klanten — letterlijk. Elke seconde extra laadtijd verlaagt je conversie met 7%. Wij bouwen razendsnelle sites die scoren bij Google én bij je bezoekers.</p>
         <p>Van Next.js tot headless CMS: we kiezen de technologie die past bij jouw groeiambitie, niet wat hip is deze week.</p>
-        <a href="#contact" class="dienst-cta">Bespreek je project →</a>
+        <a href="#contact" class="dienst-cta">Bespreek je project <span class="dienst-cta-arrow">→</span></a>
       </div>
     </div>
-    <div class="dienst reveal" onclick="toggleDienst(this)">
+
+    <div class="dienst reveal" data-color="emerald" onclick="toggleDienst(this)">
+      <div class="dienst-art art-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <div class="dienst-num">04</div>
       <div class="dienst-header"><h4>Social Media</h4><div class="dienst-toggle">+</div></div>
       <p>Content creatie en strategie die jouw merk zichtbaar maakt op de platformen die er toe doen.</p>
       <div class="dienst-details">
         <p>Posten zonder plan is schreeuwen in de leegte. Wij bouwen een contentstrategie die jouw doelgroep aanspreekt, engagement opbouwt en volgers omzet in klanten.</p>
         <p>Van Reels en carousels tot community management — consistent, on-brand en resultaatgericht.</p>
-        <a href="#contact" class="dienst-cta">Boost je social presence →</a>
+        <a href="#contact" class="dienst-cta">Boost je social presence <span class="dienst-cta-arrow">→</span></a>
       </div>
     </div>
-    <div class="dienst reveal" onclick="toggleDienst(this)">
+
+    <div class="dienst reveal" data-color="red" onclick="toggleDienst(this)">
+      <div class="dienst-art art-bars"><span></span><span></span><span></span><span></span><span></span></div>
       <div class="dienst-num">05</div>
       <div class="dienst-header"><h4>Marketing</h4><div class="dienst-toggle">+</div></div>
       <p>Campagnes die resultaat opleveren. Van strategie tot uitvoering, data-gedreven en creatief.</p>
       <div class="dienst-details">
         <p>Geen budget verspillen aan "zien wat het doet". Wij lanceren campagnes op basis van data, testen continu en optimaliseren tot elke euro rendeert.</p>
         <p>Google Ads, Meta campaigns, e-mail automation — alles meetbaar, alles traceerbaar, alles gericht op groei.</p>
-        <a href="#contact" class="dienst-cta">Plan je campagne →</a>
+        <a href="#contact" class="dienst-cta">Plan je campagne <span class="dienst-cta-arrow">→</span></a>
       </div>
     </div>
-    <div class="dienst reveal" onclick="toggleDienst(this)">
+
+    <div class="dienst reveal" data-color="violet" onclick="toggleDienst(this)">
+      <div class="dienst-art art-app"><div class="art-app-block1"></div><div class="art-app-block2"></div></div>
       <div class="dienst-num">06</div>
       <div class="dienst-header"><h4>Apps & Producten</h4><div class="dienst-toggle">+</div></div>
       <p>Digitale producten van concept tot lancering. UI/UX design en ontwikkeling onder één dak.</p>
       <div class="dienst-details">
         <p>Van idee tot App Store — wij begeleiden het volledige traject. Gebruikersonderzoek, prototyping, design, development en lancering. Geen eindeloze loops tussen verschillende bureaus.</p>
         <p>Eén team, één visie, één product dat je gebruikers niet meer willen missen.</p>
-        <a href="#contact" class="dienst-cta">Start je product →</a>
+        <a href="#contact" class="dienst-cta">Start je product <span class="dienst-cta-arrow">→</span></a>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1455,6 +1671,17 @@ track.querySelectorAll('.project-card').forEach(card => {
 // ── Toggle diensten accordion
 function toggleDienst(el) {
   el.classList.toggle('open');
+}
+
+// ── Mouse-tracking glow for diensten section
+const dienstenSection = document.getElementById('diensten');
+const dienstenGlow = document.getElementById('dienstenGlow');
+if (dienstenSection && dienstenGlow) {
+  dienstenSection.addEventListener('mousemove', (e) => {
+    const rect = dienstenSection.getBoundingClientRect();
+    dienstenGlow.style.left = (e.clientX - rect.left) + 'px';
+    dienstenGlow.style.top = (e.clientY - rect.top) + 'px';
+  });
 }
 
 // ── Init reels
