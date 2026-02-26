@@ -44,7 +44,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: fixed; inset: 0; z-index: 9999;
   background: var(--black);
   display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.4s var(--ease), visibility 0.4s;
+  transition: opacity 0.25s var(--ease), visibility 0.25s;
 }
 .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-word {
@@ -58,7 +58,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .loader-word span {
   display: inline-block;
   transform: translateY(120%);
-  animation: loaderUp 0.2s var(--ease) forwards;
+  animation: loaderUp 0.25s var(--ease) forwards;
 }
 @keyframes loaderUp { to { transform: translateY(0); } }
 
@@ -634,7 +634,7 @@ footer a:hover { color: var(--white); }
 <!-- LOADER -->
 <div class="loader" id="loader">
   <div class="loader-word">
-    <span style="animation-delay:0.08s">T</span><span style="animation-delay:0.1s">H</span><span style="animation-delay:0.12s">E</span><span style="animation-delay:0.152s">&nbsp;</span><span style="animation-delay:0.16s">B</span><span style="animation-delay:0.18s">A</span><span style="animation-delay:0.2s">I</span><span style="animation-delay:0.22s">R</span><span style="animation-delay:0.26s">&nbsp;</span><span style="animation-delay:0.28s">C</span><span style="animation-delay:0.3s">O</span><span style="animation-delay:0.32s">.</span>
+    <span style="animation-delay:0.1s">T</span><span style="animation-delay:0.125s">H</span><span style="animation-delay:0.15s">E</span><span style="animation-delay:0.19s">&nbsp;</span><span style="animation-delay:0.2s">B</span><span style="animation-delay:0.225s">A</span><span style="animation-delay:0.25s">I</span><span style="animation-delay:0.275s">R</span><span style="animation-delay:0.325s">&nbsp;</span><span style="animation-delay:0.35s">C</span><span style="animation-delay:0.375s">O</span><span style="animation-delay:0.4s">.</span>
   </div>
 </div>
 
@@ -1137,7 +1137,7 @@ function stopReel(container, labelEl, counterEl) {
 
 // ── Loader
 window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('done'), 640);
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 680);
 });
 
 // ── Mobile menu
