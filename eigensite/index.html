@@ -44,7 +44,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: fixed; inset: 0; z-index: 9999;
   background: var(--black);
   display: flex; align-items: center; justify-content: center;
-  transition: opacity 1s var(--ease), visibility 1s;
+  transition: opacity 0.5s var(--ease), visibility 0.5s;
 }
 .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-word {
@@ -58,7 +58,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .loader-word span {
   display: inline-block;
   transform: translateY(120%);
-  animation: loaderUp 0.5s var(--ease) forwards;
+  animation: loaderUp 0.25s var(--ease) forwards;
 }
 @keyframes loaderUp { to { transform: translateY(0); } }
 
@@ -205,13 +205,24 @@ header {
   border-radius: 1.25rem;
   overflow: hidden;
   background: #111;
-  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), filter 0.45s var(--ease);
   position: relative;
   display: block;
+  filter: brightness(0.75);
+}
+.project-card.center-card {
+  transform: scale(1.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  filter: brightness(1);
+  z-index: 2;
 }
 .project-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  filter: brightness(1);
+}
+.project-card.center-card:hover {
+  transform: translateY(-8px) scale(1.1);
 }
 
 /* ── REEL VIEWPORT — Video-style trailer ── */
@@ -230,10 +241,26 @@ header {
   object-fit: cover;
   opacity: 0.4;
   transition: opacity 0.6s var(--ease);
+  background: #1a1a1a;
 }
 .has-video:hover .card-video,
 .has-video.mobile-active .card-video {
   opacity: 1;
+}
+/* Gradient placeholder while video loads */
+.has-video .reel-viewport::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+.has-video .card-video[data-loaded="true"] ~ .reel-viewport::before,
+.has-video .reel-viewport:has(.card-video[data-loaded="true"])::before {
+  display: none;
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 /* Each slide is a full-cover image */
@@ -550,7 +577,9 @@ footer a:hover { color: var(--white); }
   .drag-track { padding: 0 1.5rem; gap: 1.25rem; }
   .project-card { width: 320px; }
   .reel-play { display: none; }
-  .card-video { opacity: 0.7; }  /* More visible on mobile since there's no hover */
+  .card-video { opacity: 0.8; }  /* More visible on mobile since there's no hover */
+  .has-video .card-video { opacity: 0.8; }
+  .has-video.mobile-active .card-video { opacity: 1; }
   .diensten { padding: 5rem 1.5rem; }
   .diensten-grid { grid-template-columns: 1fr; }
   .dienst { border-right: 1px solid rgba(255,255,255,0.06) !important; }
@@ -570,7 +599,7 @@ footer a:hover { color: var(--white); }
 <!-- LOADER -->
 <div class="loader" id="loader">
   <div class="loader-word">
-    <span style="animation-delay:0.2s">T</span><span style="animation-delay:0.25s">H</span><span style="animation-delay:0.3s">E</span><span style="animation-delay:0.38s">&nbsp;</span><span style="animation-delay:0.4s">B</span><span style="animation-delay:0.45s">A</span><span style="animation-delay:0.5s">I</span><span style="animation-delay:0.55s">R</span><span style="animation-delay:0.65s">&nbsp;</span><span style="animation-delay:0.7s">C</span><span style="animation-delay:0.75s">O</span><span style="animation-delay:0.8s">.</span>
+    <span style="animation-delay:0.1s">T</span><span style="animation-delay:0.125s">H</span><span style="animation-delay:0.15s">E</span><span style="animation-delay:0.19s">&nbsp;</span><span style="animation-delay:0.2s">B</span><span style="animation-delay:0.225s">A</span><span style="animation-delay:0.25s">I</span><span style="animation-delay:0.275s">R</span><span style="animation-delay:0.325s">&nbsp;</span><span style="animation-delay:0.35s">C</span><span style="animation-delay:0.375s">O</span><span style="animation-delay:0.4s">.</span>
   </div>
 </div>
 
@@ -618,7 +647,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ GiGi Money — Site & App -->
     <a href="https://www.gigimoney.com" target="_blank" class="project-card has-video" data-project="gigi-site" style="--card-color: var(--accent);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="metadata"></video>
+        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="auto"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -639,7 +668,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ GiGi Money — Commercials & Social -->
     <a href="https://www.gigimoney.com" target="_blank" class="project-card has-video" data-project="gigi-socials" style="--card-color: var(--pink);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliogigimoneysocials.mp4" muted loop playsinline preload="metadata"></video>
+        <video class="card-video" src="portfoliogigimoneysocials.mp4" muted loop playsinline preload="auto"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -683,7 +712,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ Artoah -->
     <a href="https://www.artoah.be" target="_blank" class="project-card has-video" data-project="artoah" style="--card-color: var(--amber);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfolioartoah.mp4" muted loop playsinline preload="metadata"></video>
+        <video class="card-video" src="portfolioartoah.mp4" muted loop playsinline preload="auto"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -704,7 +733,7 @@ footer a:hover { color: var(--white); }
     <!-- ▸ Hans van Hest -->
     <a href="https://hansvanhestkbc.vercel.app" target="_blank" class="project-card has-video" data-project="hvh" style="--card-color: var(--emerald);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliohansvanhest.mp4" muted loop playsinline preload="metadata"></video>
+        <video class="card-video" src="portfoliohansvanhest.mp4" muted loop playsinline preload="auto"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -1066,7 +1095,7 @@ function stopReel(container, labelEl, counterEl) {
 
 // ── Loader
 window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('done'), 1600);
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 800);
 });
 
 // ── Mobile menu
@@ -1159,6 +1188,33 @@ function applyOffset() {
   track.style.transition = 'none';
   track.style.transform = `translateX(${currentOffset}px)`;
   wrapOffset();
+  highlightCenterCard();
+}
+
+// ── Highlight the most central card
+function highlightCenterCard() {
+  const viewportCenter = window.innerWidth / 2;
+  const cards = track.querySelectorAll('.project-card');
+  let closestCard = null;
+  let closestDist = Infinity;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const dist = Math.abs(cardCenter - viewportCenter);
+    if (dist < closestDist) {
+      closestDist = dist;
+      closestCard = card;
+    }
+  });
+
+  cards.forEach(card => {
+    if (card === closestCard) {
+      card.classList.add('center-card');
+    } else {
+      card.classList.remove('center-card');
+    }
+  });
 }
 
 // ── Momentum animation loop (the "spinning wheel" effect)
@@ -1203,6 +1259,17 @@ function trackVelocity(currentX) {
 
 setupInfiniteTrack();
 setupReelHovers();
+highlightCenterCard();
+
+// ── Force-load all videos (especially important on mobile)
+document.querySelectorAll('.card-video').forEach(vid => {
+  // Mark video as loaded once data is available
+  vid.addEventListener('loadeddata', () => {
+    vid.setAttribute('data-loaded', 'true');
+  });
+  // Force the browser to start loading
+  vid.load();
+});
 
 // ── Mouse drag
 track.addEventListener('mousedown', (e) => {
