@@ -3,8 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Bair Company</title>
-<meta name="description" content="The Bair Company — Creatief bureau voor merken die durven opvallen.">
+<title>The Bair Company — Creatief Bureau voor Branding & Webdesign | Glabbeek</title>
+<meta name="description" content="The Bair Company — Creatief bureau uit Glabbeek voor branding, webdesign, webontwikkeling, social media en marketing. Merken die blijven hangen.">
+<meta name="keywords" content="creatief bureau, branding, webdesign, webontwikkeling, social media, marketing, Glabbeek, Vlaanderen, België, The Bair Company">
+<meta name="author" content="The Bair Company">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thebaircompany.be/">
+<meta property="og:title" content="The Bair Company — Creatief Bureau">
+<meta property="og:description" content="Wij bouwen merken die blijven hangen. Branding, webdesign, webontwikkeling en marketing vanuit Glabbeek, België.">
+<meta property="og:image" content="https://thebaircompany.be/og-image.jpg">
+<meta property="og:locale" content="nl_BE">
+<meta property="og:site_name" content="The Bair Company">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Bair Company — Creatief Bureau">
+<meta name="twitter:description" content="Wij bouwen merken die blijven hangen. Branding, webdesign, webontwikkeling en marketing vanuit Glabbeek, België.">
+<meta name="twitter:image" content="https://thebaircompany.be/og-image.jpg">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://thebaircompany.be/">
+
+<!-- Structured Data: LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "The Bair Company",
+  "description": "Creatief bureau voor branding, webdesign, webontwikkeling, social media en marketing.",
+  "url": "https://thebaircompany.be",
+  "email": "hello@thebaircompany.be",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Glabbeek",
+    "addressCountry": "BE"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Belgium"
+  },
+  "serviceType": ["Branding", "Web Design", "Webontwikkeling", "Social Media", "Marketing", "App Development"],
+  "priceRange": "$$",
+  "sameAs": [
+    "https://www.instagram.com/thebaircompany",
+    "https://www.linkedin.com/company/thebaircompany"
+  ]
+}
+</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-weight='800' font-size='18' fill='%23f0ede8'%3EB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -986,6 +1035,305 @@ header {
   letter-spacing: 0.05em;
 }
 
+/* ── OVER (updated with photo) ── */
+.over-photo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.founder-card {
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  max-height: 420px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.founder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(30%) contrast(1.05);
+  transition: filter 0.6s var(--ease);
+}
+.founder-card:hover .founder-img {
+  filter: grayscale(0%) contrast(1);
+}
+.founder-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1.5rem 1.5rem;
+  background: linear-gradient(to top, rgba(10,10,10,0.95), transparent);
+}
+.founder-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.founder-title {
+  font-size: 0.75rem;
+  color: var(--grey);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+.founder-bio {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(240,237,232,0.7);
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1rem;
+}
+
+/* ── CASE STUDIES ── */
+.case-studies {
+  padding: 8rem 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.cases-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.cases-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.case-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 6rem;
+  padding: 3rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 1.5rem;
+  transition: all 0.5s var(--ease);
+}
+.case-card:hover {
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+.case-card:last-child { margin-bottom: 0; }
+.case-card:nth-child(even) { direction: rtl; }
+.case-card:nth-child(even) > * { direction: ltr; }
+.case-visual {
+  border-radius: 1rem;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  position: relative;
+  background: var(--black);
+}
+.case-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: all 0.6s var(--ease);
+}
+.case-card:hover .case-visual img {
+  opacity: 1;
+  transform: scale(1.03);
+}
+.case-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.case-content { padding: 1rem 0; }
+.case-client {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.case-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.case-desc {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: rgba(240,237,232,0.7);
+  margin-bottom: 1.5rem;
+}
+.case-results {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+.case-result {
+  text-align: left;
+}
+.case-result-val {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.case-result-label {
+  font-size: 0.65rem;
+  color: var(--grey);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+}
+.case-link {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s var(--ease);
+}
+.case-link:hover {
+  color: var(--accent);
+  gap: 0.75rem;
+}
+
+/* ── BLOG PREVIEW ── */
+.blog-section {
+  padding: 8rem 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.blog-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.blog-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.blog-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.5s var(--ease);
+  cursor: pointer;
+}
+.blog-card:hover {
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+}
+.blog-card-img {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  position: relative;
+}
+.blog-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+  opacity: 0.8;
+}
+.blog-card:hover .blog-card-img img {
+  transform: scale(1.06);
+  opacity: 1;
+}
+.blog-card-body {
+  padding: 1.75rem 1.5rem;
+}
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.blog-card-cat {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.25rem 0.6rem;
+  background: rgba(46,138,255,0.1);
+  border-radius: 2rem;
+}
+.blog-card-date {
+  font-size: 0.7rem;
+  color: var(--grey);
+}
+.blog-card-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s;
+}
+.blog-card:hover .blog-card-body h3 { color: var(--accent); }
+.blog-card-body p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--grey);
+}
+.blog-card-read {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-top: 1.25rem;
+  transition: gap 0.3s var(--ease);
+}
+.blog-card:hover .blog-card-read { gap: 0.7rem; color: var(--accent); }
+
 /* ── CONTACT FORM ── */
 .contact-form {
   max-width: 600px;
@@ -1098,6 +1446,69 @@ header {
 }
 .contact-direct a:hover { color: var(--white); }
 
+/* ── TRUSTED BY (client logos) ── */
+.trusted-by {
+  padding: 4rem 2.5rem 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.trusted-by::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
+}
+.trusted-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 2.5rem;
+}
+.logo-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  flex-wrap: wrap;
+}
+.client-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0.35;
+  transition: opacity 0.4s var(--ease);
+  cursor: default;
+}
+.client-logo:hover { opacity: 0.7; }
+.client-logo-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--black);
+  flex-shrink: 0;
+}
+.client-logo-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.client-logo-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.08);
+}
+
 /* ── SOCIAL ICONS ── */
 .social-icons {
   display: flex;
@@ -1194,6 +1605,9 @@ footer {
   .werkproces-steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
   .werkproces-steps::before { display: none; }
   .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .case-card { grid-template-columns: 1fr; }
+  .case-card:nth-child(even) { direction: ltr; }
+  .blog-grid { grid-template-columns: 1fr 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 768px) {
@@ -1220,6 +1634,15 @@ footer {
   .stap-content { text-align: left; }
   .over { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
   .over-stats { flex-wrap: wrap; gap: 2rem; }
+  .founder-card { max-height: 320px; aspect-ratio: 4/3; }
+  .case-studies { padding: 5rem 1.5rem; }
+  .case-card { padding: 2rem; gap: 2rem; margin-bottom: 3rem; }
+  .case-results { gap: 1.5rem; }
+  .blog-section { padding: 5rem 1.5rem; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .trusted-by { padding: 3rem 1.5rem; }
+  .logo-strip { gap: 2rem; }
+  .client-logo-divider { display: none; }
   .testimonials { padding: 5rem 1.5rem; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .contact-cta { padding: 6rem 1.5rem; }
@@ -1249,6 +1672,8 @@ footer {
   <nav class="nav-pills">
     <a href="#werk" class="nav-pill">Portfolio</a>
     <a href="#diensten" class="nav-pill">Studio</a>
+    <a href="#cases" class="nav-pill">Cases</a>
+    <a href="blog.html" class="nav-pill">Blog</a>
     <a href="#over" class="nav-pill">Over</a>
     <a href="#contact" class="nav-pill">Contact</a>
     <div class="social-icons" style="margin-left:0.5rem">
@@ -1263,6 +1688,8 @@ footer {
 <div class="mobile-nav" id="mobileNav">
   <a href="#werk" onclick="closeMob()">Portfolio</a>
   <a href="#diensten" onclick="closeMob()">Studio</a>
+  <a href="#cases" onclick="closeMob()">Cases</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
   <a href="#over" onclick="closeMob()">Over</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
 </div>
@@ -1396,6 +1823,32 @@ footer {
   </div>
 </section>
 
+<!-- TRUSTED BY -->
+<section class="trusted-by reveal">
+  <p class="trusted-label">Vertrouwd door</p>
+  <div class="logo-strip">
+    <div class="client-logo">
+      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--pink),#c026d3)">G</div>
+      <span class="client-logo-name">GiGi Money</span>
+    </div>
+    <div class="client-logo-divider"></div>
+    <div class="client-logo">
+      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--red),#b91c1c)">R</div>
+      <span class="client-logo-name">Rosing Security</span>
+    </div>
+    <div class="client-logo-divider"></div>
+    <div class="client-logo">
+      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--amber),#d97706)">A</div>
+      <span class="client-logo-name">Artoah</span>
+    </div>
+    <div class="client-logo-divider"></div>
+    <div class="client-logo">
+      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--emerald),#059669)">H</div>
+      <span class="client-logo-name">Hans van Hest</span>
+    </div>
+  </div>
+</section>
+
 <!-- DIENSTEN -->
 <section class="diensten" id="diensten">
   <div class="diensten-glow" id="dienstenGlow"></div>
@@ -1525,6 +1978,16 @@ footer {
   <div class="over-left">
     <p class="section-label">Over ons</p>
     <h2 class="over-quote">Klein bureau, grote ambities — elk project krijgt onze volledige aandacht.</h2>
+    <div class="over-photo-col">
+      <div class="founder-card">
+        <img class="founder-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&q=85&auto=format&crop=faces" alt="Kristof Bogaerts — Oprichter The Bair Company" loading="lazy">
+        <div class="founder-overlay">
+          <div class="founder-name">Kristof Bogaerts</div>
+          <div class="founder-title">Oprichter & Creative Director</div>
+        </div>
+      </div>
+      <p class="founder-bio">Ik begon The Bair Company vanuit een overtuiging: elk merk verdient design dat écht werkt. Geen opgeblazen teams, geen doorschuif-cultuur. Gewoon ik, jouw project, en de obsessie om er iets moois van te maken.</p>
+    </div>
   </div>
   <div class="over-right">
     <p>The Bair Company is een creatief bureau dat gelooft in de kracht van goed design. We zijn bewust klein gebleven — geen lagen management, geen eindeloze vergaderingen.</p>
@@ -1575,6 +2038,147 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="case-studies" id="cases">
+  <p class="cases-label reveal">Uitgelichte projecten</p>
+  <h2 class="cases-title reveal">Hoe we <span class="serif">merken</span> transformeren</h2>
+
+  <div class="case-card reveal">
+    <div class="case-visual">
+      <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=800&h=500&fit=crop&q=85&auto=format" alt="Rosing Security website" loading="lazy">
+      <span class="case-tag">Website & Branding</span>
+    </div>
+    <div class="case-content">
+      <p class="case-client">Rosing Security</p>
+      <h3>Van onzichtbaar naar onmisbaar: een beveiligingsbedrijf dat vertrouwen uitstraalt</h3>
+      <p class="case-desc">Rosing Security had een verouderde website die niet overeenkwam met hun professionaliteit. Bezoekers haakten af, aanvragen bleven uit. We ontwierpen een compleet nieuwe merkidentiteit en website die direct vertrouwen wekt — van de eerste pixel tot de laatste CTA.</p>
+      <div class="case-results">
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--emerald)">+180%</div>
+          <div class="case-result-label">Meer aanvragen</div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--accent)">3.2s → 0.8s</div>
+          <div class="case-result-label">Laadtijd</div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--amber)">+62%</div>
+          <div class="case-result-label">Conversie</div>
+        </div>
+      </div>
+      <span class="case-link">Bekijk het volledige verhaal <span>→</span></span>
+    </div>
+  </div>
+
+  <div class="case-card reveal">
+    <div class="case-visual">
+      <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&h=500&fit=crop&q=85&auto=format" alt="Artoah webshop" loading="lazy">
+      <span class="case-tag">Webshop & Branding</span>
+    </div>
+    <div class="case-content">
+      <p class="case-client">Artoah</p>
+      <h3>Een hoeve-ijssalon die online net zo lekker smaakt als in het echt</h3>
+      <p class="case-desc">Artoah wilde meer dan een simpele webshop — ze wilden het gevoel van hun boerderij overbrengen naar het scherm. We creëerden een warme, authentieke online beleving met handgemaakte elementen en een bestelflow die voelt als een zondagmiddag op de hoeve.</p>
+      <div class="case-results">
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--pink)">2x</div>
+          <div class="case-result-label">Online bestellingen</div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--amber)">4.8★</div>
+          <div class="case-result-label">Klantbeoordeling</div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--emerald)">-40%</div>
+          <div class="case-result-label">Bouncepercentage</div>
+        </div>
+      </div>
+      <span class="case-link">Bekijk het volledige verhaal <span>→</span></span>
+    </div>
+  </div>
+
+  <div class="case-card reveal">
+    <div class="case-visual">
+      <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop&q=85&auto=format" alt="GiGi Money social media" loading="lazy">
+      <span class="case-tag">Social Media & Strategie</span>
+    </div>
+    <div class="case-content">
+      <p class="case-client">GiGi Money</p>
+      <h3>Van 200 naar 5.000 volgers: een financieel merk dat Gen Z bereikt</h3>
+      <p class="case-desc">GiGi Money had de kennis maar miste de visuele impact. We ontwikkelden een scrollstoppende contentstrategie met herkenbare templates, een scherpe tone of voice en een contentkalender die consistent engagement opbouwt — zonder corporate te worden.</p>
+      <div class="case-results">
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--pink)">25x</div>
+          <div class="case-result-label">Volgers groei</div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--accent)">8.3%</div>
+          <div class="case-result-label">Engagement rate</div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-val" style="color:var(--amber)">+340%</div>
+          <div class="case-result-label">Bereik</div>
+        </div>
+      </div>
+      <span class="case-link">Bekijk het volledige verhaal <span>→</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-section" id="blog">
+  <p class="blog-label reveal">Inzichten & Tips</p>
+  <h2 class="blog-title reveal">Van de <span class="serif">studio</span></h2>
+  <div class="blog-grid">
+
+    <a href="blog.html#website-verkoper" class="blog-card reveal">
+      <div class="blog-card-img">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=340&fit=crop&q=85&auto=format" alt="Waarom je website je beste verkoper is" loading="lazy">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-card-cat">Webdesign</span>
+          <span class="blog-card-date">12 feb 2026</span>
+        </div>
+        <h3>Waarom je website je beste verkoper is (en hoe je dat fixt)</h3>
+        <p>Je website werkt 24/7, mist nooit een afspraak en klaagt nooit. Maar alleen als het design en de copy kloppen. Drie fouten die je vandaag kunt oplossen.</p>
+        <span class="blog-card-read">Lees verder <span>→</span></span>
+      </div>
+    </a>
+
+    <a href="blog.html#branding-meer-dan-logo" class="blog-card reveal">
+      <div class="blog-card-img">
+        <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&h=340&fit=crop&q=85&auto=format" alt="Branding voor beginners" loading="lazy">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-card-cat">Branding</span>
+          <span class="blog-card-date">28 jan 2026</span>
+        </div>
+        <h3>Branding is meer dan een logo: 5 elementen die je merk onvergetelijk maken</h3>
+        <p>Een logo is pas het begin. Ontdek welke vijf bouwstenen samen een merk creëren dat mensen herkennen, onthouden en vertrouwen.</p>
+        <span class="blog-card-read">Lees verder <span>→</span></span>
+      </div>
+    </a>
+
+    <a href="blog.html#social-media-strategie" class="blog-card reveal">
+      <div class="blog-card-img">
+        <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&h=340&fit=crop&q=85&auto=format" alt="Social media strategie" loading="lazy">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-card-cat">Social Media</span>
+          <span class="blog-card-date">15 jan 2026</span>
+        </div>
+        <h3>Stop met posten zonder plan: een social media strategie in 4 stappen</h3>
+        <p>Elke dag iets posten zonder strategie is als flyers uitdelen in een leeg bos. Zo bouw je een aanpak die daadwerkelijk klanten oplevert.</p>
+        <span class="blog-card-read">Lees verder <span>→</span></span>
+      </div>
+    </a>
+
   </div>
 </section>
 
@@ -1639,7 +2243,8 @@ footer {
       <h5>Navigatie</h5>
       <a href="#werk">Portfolio</a>
       <a href="#diensten">Studio</a>
-      <a href="#werkproces">Werkproces</a>
+      <a href="#cases">Cases</a>
+      <a href="blog.html">Blog</a>
       <a href="#over">Over ons</a>
       <a href="#contact">Contact</a>
     </div>

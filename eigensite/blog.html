@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — The Bair Company | Inzichten over Branding, Webdesign & Marketing</title>
+<meta name="description" content="Praktische inzichten en tips over branding, webdesign en social media strategie. Van de studio van The Bair Company in Glabbeek.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thebaircompany.be/blog">
+<meta property="og:title" content="Blog — The Bair Company">
+<meta property="og:description" content="Praktische inzichten en tips over branding, webdesign en social media strategie.">
+<meta property="og:image" content="https://thebaircompany.be/og-image.jpg">
+<meta property="og:locale" content="nl_BE">
+
+<link rel="canonical" href="https://thebaircompany.be/blog">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-weight='800' font-size='18' fill='%23f0ede8'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #f0ede8;
+  --grey: #666;
+  --accent: #2E8AFF;
+  --pink: #ec4899;
+  --amber: #f59e0b;
+  --emerald: #10b981;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+::-webkit-scrollbar { width: 0; height: 0; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent); color: var(--black); }
+.serif { font-family: var(--font-serif); font-weight: 400; font-style: italic; }
+
+/* ── HEADER ── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.75rem 2.5rem;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.brand {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+}
+.nav-pills { display: flex; gap: 0.5rem; }
+.nav-pill {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  font-size: 0.8rem; letter-spacing: 0.05em;
+  transition: all 0.3s var(--ease);
+}
+.nav-pill:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+.nav-pill.active { background: var(--white); color: var(--black); border-color: var(--white); }
+.menu-btn {
+  display: none; font-size: 0.8rem; letter-spacing: 0.15em;
+  text-transform: uppercase; cursor: pointer;
+  background: none; border: none; color: var(--white); font-family: var(--font-display);
+}
+
+/* ── MOBILE NAV ── */
+.mobile-nav {
+  position: fixed; inset: 0; z-index: 99;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2rem;
+  opacity: 0; visibility: hidden;
+  transition: all 0.5s var(--ease);
+}
+.mobile-nav.open { opacity: 1; visibility: visible; }
+.mobile-nav a {
+  font-family: var(--font-display);
+  font-size: 2.5rem; font-weight: 600;
+  transition: opacity 0.3s;
+}
+.mobile-nav a:hover { opacity: 0.4; }
+
+/* ── BLOG HERO ── */
+.blog-hero {
+  padding: 10rem 2.5rem 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.blog-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; left: -20%; right: -20%; bottom: -30%;
+  background: radial-gradient(ellipse at 30% 40%, rgba(46,138,255,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 60%, rgba(236,72,153,0.04) 0%, transparent 55%);
+  pointer-events: none;
+}
+.blog-hero-label {
+  font-size: 0.7rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--grey);
+  margin-bottom: 2rem;
+  position: relative;
+}
+.blog-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800; line-height: 1;
+  letter-spacing: -0.03em;
+  max-width: 700px; margin: 0 auto 1.5rem;
+  position: relative;
+}
+.blog-hero-sub {
+  font-size: 1.05rem; line-height: 1.8;
+  color: var(--grey); max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── CATEGORY FILTER ── */
+.blog-filters {
+  display: flex; justify-content: center; gap: 0.5rem;
+  padding: 0 2.5rem 4rem;
+  flex-wrap: wrap;
+}
+.filter-pill {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 100px;
+  font-family: var(--font-display);
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  background: none; color: var(--white);
+}
+.filter-pill:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.25); }
+.filter-pill.active { background: var(--white); color: var(--black); border-color: var(--white); }
+
+/* ── FEATURED ARTICLE ── */
+.featured {
+  max-width: 1100px; margin: 0 auto 5rem;
+  padding: 0 2.5rem;
+}
+.featured-card {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 3rem; align-items: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: all 0.5s var(--ease);
+  cursor: pointer;
+}
+.featured-card:hover {
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+}
+.featured-img {
+  aspect-ratio: 16/10; overflow: hidden;
+  position: relative;
+}
+.featured-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s var(--ease);
+  opacity: 0.85;
+}
+.featured-card:hover .featured-img img { transform: scale(1.04); opacity: 1; }
+.featured-badge {
+  position: absolute; top: 1.25rem; left: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 100px;
+}
+.featured-body { padding: 2.5rem 2.5rem 2.5rem 0; }
+.featured-meta {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1rem;
+}
+.featured-cat {
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent);
+  padding: 0.25rem 0.7rem;
+  background: rgba(46,138,255,0.1);
+  border-radius: 2rem;
+}
+.featured-date { font-size: 0.75rem; color: var(--grey); }
+.featured-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.3;
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+.featured-card:hover .featured-body h2 { color: var(--accent); }
+.featured-body p {
+  font-size: 0.9rem; line-height: 1.8;
+  color: rgba(240,237,232,0.65);
+  margin-bottom: 1.5rem;
+}
+.featured-read {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: all 0.3s var(--ease);
+}
+.featured-card:hover .featured-read { color: var(--accent); gap: 0.75rem; }
+.featured-reading-time {
+  font-size: 0.7rem; color: var(--grey);
+  margin-top: 0.75rem;
+}
+
+/* ── ARTICLES GRID ── */
+.articles-section {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 2.5rem 6rem;
+}
+.articles-section-title {
+  font-family: var(--font-display);
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── ARTICLE CARD (full width, horizontal) ── */
+.article-row {
+  display: grid; grid-template-columns: 340px 1fr;
+  gap: 2.5rem; align-items: center;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: all 0.4s var(--ease);
+}
+.article-row:first-child { padding-top: 0; }
+.article-row:last-child { border-bottom: none; }
+.article-row:hover { transform: translateX(8px); }
+.article-row-img {
+  aspect-ratio: 16/10; border-radius: 1rem;
+  overflow: hidden; position: relative;
+}
+.article-row-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease);
+  opacity: 0.8;
+}
+.article-row:hover .article-row-img img { transform: scale(1.05); opacity: 1; }
+.article-row-body {}
+.article-row-meta {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.article-row-cat {
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent);
+}
+.article-row-date { font-size: 0.7rem; color: var(--grey); }
+.article-row-time {
+  font-size: 0.65rem; color: var(--grey);
+  margin-left: auto;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.article-row-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 700;
+  letter-spacing: -0.01em; line-height: 1.4;
+  margin-bottom: 0.6rem;
+  transition: color 0.3s;
+}
+.article-row:hover .article-row-body h3 { color: var(--accent); }
+.article-row-body p {
+  font-size: 0.85rem; line-height: 1.7;
+  color: var(--grey);
+}
+
+/* ── ARTICLE DETAIL (toggled via JS) ── */
+.article-full {
+  display: none;
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 10rem 2.5rem 6rem;
+}
+.article-full.active { display: block; }
+.article-full-back {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 3rem;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+}
+.article-full-back:hover { color: var(--white); gap: 0.75rem; }
+.article-full-meta {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.article-full-cat {
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent);
+  padding: 0.3rem 0.8rem;
+  background: rgba(46,138,255,0.1);
+  border-radius: 2rem;
+}
+.article-full-date { font-size: 0.75rem; color: var(--grey); }
+.article-full-time { font-size: 0.75rem; color: var(--grey); }
+.article-full h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+.article-full-hero-img {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 1.25rem; overflow: hidden;
+  margin-bottom: 3rem;
+}
+.article-full-hero-img img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.article-full-author {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.author-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.author-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem; font-weight: 600;
+}
+.author-title { font-size: 0.75rem; color: var(--grey); }
+
+/* ── ARTICLE PROSE ── */
+.article-prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem; font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 3rem 0 1.25rem;
+  line-height: 1.3;
+}
+.article-prose h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 700;
+  margin: 2.5rem 0 1rem;
+}
+.article-prose p {
+  font-size: 1rem; line-height: 1.9;
+  color: rgba(240,237,232,0.8);
+  margin-bottom: 1.5rem;
+}
+.article-prose ul, .article-prose ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  color: rgba(240,237,232,0.8);
+}
+.article-prose li {
+  font-size: 1rem; line-height: 1.9;
+  margin-bottom: 0.5rem;
+}
+.article-prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  background: rgba(46,138,255,0.04);
+  border-radius: 0 0.75rem 0.75rem 0;
+  font-style: italic;
+  color: rgba(240,237,232,0.7);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.article-prose strong { color: var(--white); font-weight: 500; }
+.article-prose .highlight-box {
+  padding: 1.5rem 2rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1rem;
+  margin: 2rem 0;
+}
+.article-prose .highlight-box h4 {
+  font-family: var(--font-display);
+  font-size: 0.9rem; font-weight: 700;
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+/* ── ARTICLE TAGS ── */
+.article-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.article-tag {
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  color: var(--grey);
+  transition: all 0.3s var(--ease);
+}
+.article-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── CTA BANNER ── */
+.blog-cta {
+  max-width: 1100px; margin: 0 auto 6rem;
+  padding: 0 2.5rem;
+}
+.blog-cta-inner {
+  padding: 4rem 3rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(46,138,255,0.08), rgba(236,72,153,0.05));
+  border: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.blog-cta-inner::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.blog-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.blog-cta p {
+  font-size: 0.95rem; color: var(--grey);
+  margin-bottom: 2rem;
+  position: relative;
+}
+.blog-cta-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: var(--white); color: var(--black);
+  border-radius: 100px;
+  font-family: var(--font-display);
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  text-decoration: none;
+}
+.blog-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(240,237,232,0.15); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 5rem 2.5rem 2.5rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  max-width: 1100px; margin: 0 auto;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.footer-desc { font-size: 0.8rem; color: var(--grey); line-height: 1.7; max-width: 280px; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  margin-bottom: 1.5rem; color: var(--grey);
+}
+.footer-col a {
+  display: block; font-size: 0.85rem;
+  margin-bottom: 0.75rem; color: rgba(240,237,232,0.6);
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--white); }
+.footer-bottom {
+  max-width: 1100px; margin: 4rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  display: flex; justify-content: space-between;
+  font-size: 0.7rem; color: var(--grey);
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── NOISE TEXTURE ── */
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 9998;
+  opacity: 0.025;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-body { padding: 2rem; }
+}
+@media (max-width: 768px) {
+  header { padding: 1.25rem 1.5rem; }
+  .nav-pills { display: none; }
+  .menu-btn { display: block; }
+  .blog-hero { padding: 8rem 1.5rem 3rem; }
+  .blog-filters { padding: 0 1.5rem 3rem; }
+  .featured { padding: 0 1.5rem; margin-bottom: 3rem; }
+  .articles-section { padding: 0 1.5rem 4rem; }
+  .article-row { grid-template-columns: 1fr; gap: 1.25rem; }
+  .article-full { padding: 8rem 1.5rem 4rem; }
+  .blog-cta { padding: 0 1.5rem; }
+  .blog-cta-inner { padding: 3rem 2rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; }
+}
+@media (max-width: 480px) {
+  .blog-hero { padding: 7rem 1.25rem 2.5rem; }
+  .filter-pill { font-size: 0.65rem; padding: 0.4rem 1rem; }
+  .featured-body h2 { font-size: 1.3rem; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" class="brand">The Bair Company</a>
+  <nav class="nav-pills">
+    <a href="index.html" class="nav-pill">Home</a>
+    <a href="index.html#werk" class="nav-pill">Werk</a>
+    <a href="index.html#diensten" class="nav-pill">Diensten</a>
+    <a href="index.html#cases" class="nav-pill">Cases</a>
+    <a href="blog.html" class="nav-pill active">Blog</a>
+    <a href="index.html#contact" class="nav-pill">Contact</a>
+  </nav>
+  <button class="menu-btn" onclick="document.querySelector('.mobile-nav').classList.toggle('open'); this.textContent = this.textContent === 'Menu' ? 'Sluit' : 'Menu';">Menu</button>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <a href="index.html" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Home</a>
+  <a href="index.html#werk" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Werk</a>
+  <a href="index.html#diensten" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Diensten</a>
+  <a href="index.html#cases" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Cases</a>
+  <a href="blog.html" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Blog</a>
+  <a href="index.html#contact" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Contact</a>
+</div>
+
+<!-- BLOG OVERVIEW (toggled via JS) -->
+<div id="blog-overview">
+
+  <!-- HERO -->
+  <section class="blog-hero">
+    <p class="blog-hero-label reveal">Van de Studio</p>
+    <h1 class="blog-hero-title reveal">Inzichten die je merk <span class="serif">sterker</span> maken</h1>
+    <p class="blog-hero-sub reveal">Praktische tips over branding, webdesign en marketing. Geen vage theorieën — alleen dingen die je morgen kunt toepassen.</p>
+  </section>
+
+  <!-- FILTERS -->
+  <div class="blog-filters reveal">
+    <button class="filter-pill active" data-filter="all">Alles</button>
+    <button class="filter-pill" data-filter="webdesign">Webdesign</button>
+    <button class="filter-pill" data-filter="branding">Branding</button>
+    <button class="filter-pill" data-filter="social-media">Social Media</button>
+  </div>
+
+  <!-- FEATURED ARTICLE -->
+  <div class="featured reveal">
+    <div class="featured-card" data-article="website-verkoper">
+      <div class="featured-img">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=560&fit=crop&q=85&auto=format" alt="Waarom je website je beste verkoper is" loading="lazy">
+        <span class="featured-badge">Uitgelicht</span>
+      </div>
+      <div class="featured-body">
+        <div class="featured-meta">
+          <span class="featured-cat">Webdesign</span>
+          <span class="featured-date">12 februari 2026</span>
+        </div>
+        <h2>Waarom je website je beste verkoper is (en hoe je dat fixt)</h2>
+        <p>Je website werkt 24/7, mist nooit een afspraak en klaagt nooit. Maar alleen als het design en de copy kloppen. Drie fouten die je vandaag kunt oplossen.</p>
+        <span class="featured-read">Lees het volledige artikel <span>→</span></span>
+        <p class="featured-reading-time">⏱ 6 minuten leestijd</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- REMAINING ARTICLES -->
+  <div class="articles-section">
+    <h3 class="articles-section-title reveal">Alle artikelen</h3>
+
+    <div class="article-row reveal" data-article="branding-meer-dan-logo" data-category="branding">
+      <div class="article-row-img">
+        <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&h=375&fit=crop&q=85&auto=format" alt="Branding is meer dan een logo" loading="lazy">
+      </div>
+      <div class="article-row-body">
+        <div class="article-row-meta">
+          <span class="article-row-cat">Branding</span>
+          <span class="article-row-date">28 januari 2026</span>
+          <span class="article-row-time">⏱ 5 min</span>
+        </div>
+        <h3>Branding is meer dan een logo: 5 elementen die je merk onvergetelijk maken</h3>
+        <p>Een logo is pas het begin. Ontdek welke vijf bouwstenen samen een merk creëren dat mensen herkennen, onthouden en vertrouwen.</p>
+      </div>
+    </div>
+
+    <div class="article-row reveal" data-article="social-media-strategie" data-category="social-media">
+      <div class="article-row-img">
+        <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&h=375&fit=crop&q=85&auto=format" alt="Social media strategie" loading="lazy">
+      </div>
+      <div class="article-row-body">
+        <div class="article-row-meta">
+          <span class="article-row-cat">Social Media</span>
+          <span class="article-row-date">15 januari 2026</span>
+          <span class="article-row-time">⏱ 7 min</span>
+        </div>
+        <h3>Stop met posten zonder plan: een social media strategie in 4 stappen</h3>
+        <p>Elke dag iets posten zonder strategie is als flyers uitdelen in een leeg bos. Zo bouw je een aanpak die daadwerkelijk klanten oplevert.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="blog-cta reveal">
+    <div class="blog-cta-inner">
+      <h2>Liever persoonlijk advies dan <span class="serif">lezen</span>?</h2>
+      <p>We kijken graag met je mee. Plan een vrijblijvend gesprek en ontdek wat er mogelijk is.</p>
+      <a href="index.html#contact" class="blog-cta-btn">Neem contact op <span>→</span></a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+     FULL ARTICLES (hidden, toggled via JS)
+     ═══════════════════════════════════════ -->
+
+<!-- ARTICLE 1: Website als verkoper -->
+<article class="article-full" id="article-website-verkoper">
+  <div class="article-full-back" onclick="showOverview()">← Terug naar overzicht</div>
+  <div class="article-full-meta">
+    <span class="article-full-cat">Webdesign</span>
+    <span class="article-full-date">12 februari 2026</span>
+    <span class="article-full-time">⏱ 6 min leestijd</span>
+  </div>
+  <h1>Waarom je website je beste verkoper is (en hoe je dat fixt)</h1>
+  <div class="article-full-hero-img">
+    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1100&h=620&fit=crop&q=85&auto=format" alt="Website als verkoper">
+  </div>
+  <div class="article-full-author">
+    <div class="author-avatar">KB</div>
+    <div>
+      <div class="author-name">Kristof Bogaerts</div>
+      <div class="author-title">Oprichter, The Bair Company</div>
+    </div>
+  </div>
+  <div class="article-prose">
+    <p>Stel je voor: je hebt een medewerker die nooit slaapt. Die 24 uur per dag, 7 dagen per week klaarstaat om potentiële klanten te woord te staan. Die nooit ziek is, nooit te laat komt, en elk gesprek perfect voert. Klinkt als een droom? Dat is precies wat je website zou moeten zijn.</p>
+
+    <p>Toch behandelen veel ondernemers hun website als een digitaal visitekaartje — iets dat je ooit laat maken en daarna vergeet. En dat is precies waar het misgaat.</p>
+
+    <h2>De drie fouten die je website ondermijnen</h2>
+
+    <h3>1. Je website praat over jezelf, niet over je klant</h3>
+    <p>De meeste bedrijfswebsites openen met variaties op "Welkom bij [bedrijfsnaam]. Wij zijn opgericht in [jaar] en bieden [diensten]." Het probleem? Niemand bezoekt je website om over jou te lezen. Ze komen omdat ze een probleem hebben dat opgelost moet worden.</p>
+
+    <p>Draai het om. Begin met het probleem van je bezoeker. Een loodgieter schrijft niet "Wij zijn gespecialiseerd in sanitaire installaties." Een loodgieter schrijft: <strong>"Lekkage? Binnen 2 uur opgelost."</strong></p>
+
+    <div class="highlight-box">
+      <h4>💡 Quick fix</h4>
+      <p>Open je website en lees de eerste drie zinnen hardop voor. Tel het woord "wij" versus "jij/je/u". Als "wij" wint, moet je herschrijven.</p>
+    </div>
+
+    <h3>2. Je call-to-action is onzichtbaar (of afwezig)</h3>
+    <p>Je bezoeker scrolt door je pagina, is onder de indruk, en dan... niets. Geen duidelijke volgende stap. Geen knop. Geen richting. Ze sluiten het tabblad en vergeten je.</p>
+
+    <p>Elke pagina op je website heeft precies één doel nodig. Eén actie die je van je bezoeker vraagt. Dat kan "Bel ons", "Vraag een offerte aan", "Plan een gesprek" of "Download onze brochure" zijn — maar het moet er zijn, en het moet opvallen.</p>
+
+    <blockquote>Een website zonder duidelijke call-to-action is als een winkel zonder kassa. Mensen komen binnen, kijken rond, en vertrekken weer.</blockquote>
+
+    <h3>3. Je website laadt te traag</h3>
+    <p>Wist je dat <strong>53% van de mobiele bezoekers</strong> afhaakt als een pagina langer dan 3 seconden laadt? Drie seconden. Dat is sneller dan je deze zin kunt lezen.</p>
+
+    <p>De meest voorkomende boosdoeners: niet-geoptimaliseerde afbeeldingen (die JPEG van 4MB die je rechtstreeks van je camera hebt geüpload), te veel plugins, en een goedkope hostingpartij die je site op een overbelaste server parkeert.</p>
+
+    <div class="highlight-box">
+      <h4>🔧 Test je eigen site</h4>
+      <p>Ga naar <strong>PageSpeed Insights</strong> van Google en vul je URL in. Score je onder de 70 op mobiel? Dan verlies je elke dag bezoekers — en dus klanten.</p>
+    </div>
+
+    <h2>Van visitekaartje naar verkoopkanaal</h2>
+
+    <p>Het goede nieuws: deze fouten zijn relatief eenvoudig op te lossen. En het verschil is dramatisch. We zien bij onze klanten gemiddeld een <strong>verdubbeling in aanvragen</strong> nadat we hun website hebben geoptimaliseerd op deze drie punten.</p>
+
+    <p>Je website is niet "slechts" een digitale aanwezigheid. Het is je hardst werkende medewerker. Behandel het ook zo.</p>
+
+    <p>Wil je weten hoe jouw website scoort? We doen gratis een snelle check — geen verplichtingen, geen verkooppraatje. Gewoon eerlijke feedback die je morgen al kunt toepassen.</p>
+
+    <div class="article-tags">
+      <span class="article-tag">Webdesign</span>
+      <span class="article-tag">Conversie</span>
+      <span class="article-tag">UX</span>
+      <span class="article-tag">Snelheid</span>
+      <span class="article-tag">Tips</span>
+    </div>
+  </div>
+</article>
+
+<!-- ARTICLE 2: Branding meer dan logo -->
+<article class="article-full" id="article-branding-meer-dan-logo">
+  <div class="article-full-back" onclick="showOverview()">← Terug naar overzicht</div>
+  <div class="article-full-meta">
+    <span class="article-full-cat">Branding</span>
+    <span class="article-full-date">28 januari 2026</span>
+    <span class="article-full-time">⏱ 5 min leestijd</span>
+  </div>
+  <h1>Branding is meer dan een logo: 5 elementen die je merk onvergetelijk maken</h1>
+  <div class="article-full-hero-img">
+    <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1100&h=620&fit=crop&q=85&auto=format" alt="Branding elementen">
+  </div>
+  <div class="article-full-author">
+    <div class="author-avatar">KB</div>
+    <div>
+      <div class="author-name">Kristof Bogaerts</div>
+      <div class="author-title">Oprichter, The Bair Company</div>
+    </div>
+  </div>
+  <div class="article-prose">
+    <p>Vraag tien ondernemers wat "branding" is en negen van hen antwoorden: "Mijn logo." En eerlijk? Dat is alsof je zegt dat een persoon samengevat kan worden door hun kapsel. Je logo is een onderdeel. Een belangrijk onderdeel. Maar het is slechts de oppervlakte.</p>
+
+    <p>Een sterk merk is een <strong>systeem van herkenning</strong>. Het is het gevoel dat iemand krijgt als ze je website bezoeken, je Instagram zien, je offerte ontvangen, of je op een netwerkevent ontmoeten. Alles klopt. Alles voelt consistent. Alles voelt <em>bewust</em>.</p>
+
+    <h2>De 5 bouwstenen van een onvergetelijk merk</h2>
+
+    <h3>1. Positionering: weet wie je bent (en wie niet)</h3>
+    <p>Positionering gaat niet over wat je doet — het gaat over <strong>voor wie</strong> je het doet en <strong>waarom jij</strong> anders bent dan de rest. Een copywriter die "teksten schrijft voor iedereen" is onzichtbaar. Een copywriter die "SaaS-bedrijven helpt hun churn te halveren met betere onboarding-emails"? Die wordt gebeld.</p>
+
+    <p>Durf specifiek te zijn. Hoe smaller je je positioneert, hoe makkelijker het wordt om op te vallen. Je hoeft niet de beste te zijn voor iedereen — je moet de beste zijn voor jouw doelgroep.</p>
+
+    <h3>2. Visuele identiteit: meer dan kleuren en fonts</h3>
+    <p>Ja, je logo hoort hierbij. Maar ook: je kleurenpalet, je typografie, je fotostijl, je iconen, je witruimte-gebruik. Het is de volledige visuele taal waarmee je communiceert.</p>
+
+    <div class="highlight-box">
+      <h4>🎨 De test</h4>
+      <p>Haal je logo weg van al je materialen. Zijn je website, social posts, en offertes nog steeds herkenbaar als "van jouw merk"? Als het antwoord nee is, heb je een logo — maar geen visuele identiteit.</p>
+    </div>
+
+    <h3>3. Tone of voice: hoe je klinkt</h3>
+    <p>Schrijf je formeel of informeel? Gebruik je humor of ben je serieus? Zeg je "u" of "je"? Je tone of voice is hoe je merk klinkt als het zou kunnen praten — en het moet overal hetzelfde klinken. Van je website tot je facturen.</p>
+
+    <p>Nike zegt "Just Do It." Niet "Wij raden u aan om fysieke activiteit te overwegen." Het verschil? Persoonlijkheid. Durf.</p>
+
+    <h3>4. Merkervaring: elk contactmoment telt</h3>
+    <p>De manier waarop je de telefoon opneemt. Hoe snel je reageert op een e-mail. De verpakking van je product. De bedankpagina na een aankoop. <strong>Elk contactmoment is een kans om je merk te bevestigen</strong> — of te ondermijnen.</p>
+
+    <p>De beste merken zijn obsessief consistent. Niet omdat ze perfectionist zijn, maar omdat ze weten dat vertrouwen opgebouwd wordt door herhaling.</p>
+
+    <h3>5. Verhaal: waarom besta je?</h3>
+    <p>Mensen kopen niet wát je maakt — ze kopen <strong>waarom</strong> je het maakt. Wat dreef je om dit bedrijf te starten? Welk probleem wilde je oplossen? Welke frustratie wilde je de wereld uit helpen?</p>
+
+    <blockquote>Een goed merkverhaal is geen marketingtruc. Het is de eerlijke reden waarom je elke ochtend je laptop openklapt.</blockquote>
+
+    <h2>Van logo naar merk: de eerste stap</h2>
+
+    <p>Je hoeft dit niet allemaal in één keer perfect te hebben. Begin met de vraag: "Als mijn merk een persoon was, hoe zou die persoon dan zijn?" Beschrijf die persoon. Geef ze een stem, een stijl, een manier van bewegen door de wereld. En bouw van daaruit verder.</p>
+
+    <p>Want een logo kun je in een middag laten ontwerpen. Maar een merk dat mensen onthouden? Dat bouw je met intentie, consistentie, en een beetje lef.</p>
+
+    <div class="article-tags">
+      <span class="article-tag">Branding</span>
+      <span class="article-tag">Merkidentiteit</span>
+      <span class="article-tag">Positionering</span>
+      <span class="article-tag">Strategie</span>
+      <span class="article-tag">Design</span>
+    </div>
+  </div>
+</article>
+
+<!-- ARTICLE 3: Social media strategie -->
+<article class="article-full" id="article-social-media-strategie">
+  <div class="article-full-back" onclick="showOverview()">← Terug naar overzicht</div>
+  <div class="article-full-meta">
+    <span class="article-full-cat">Social Media</span>
+    <span class="article-full-date">15 januari 2026</span>
+    <span class="article-full-time">⏱ 7 min leestijd</span>
+  </div>
+  <h1>Stop met posten zonder plan: een social media strategie in 4 stappen</h1>
+  <div class="article-full-hero-img">
+    <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=1100&h=620&fit=crop&q=85&auto=format" alt="Social media strategie">
+  </div>
+  <div class="article-full-author">
+    <div class="author-avatar">KB</div>
+    <div>
+      <div class="author-name">Kristof Bogaerts</div>
+      <div class="author-title">Oprichter, The Bair Company</div>
+    </div>
+  </div>
+  <div class="article-prose">
+    <p>"We moeten meer posten op social media." Het is de meest uitgesproken marketingzin van de afgelopen tien jaar. En tegelijkertijd de meest nutteloze. Want "meer posten" zonder strategie is als harder schreeuwen in een lege zaal — je wordt misschien luider, maar niemand luistert.</p>
+
+    <p>Het probleem zit niet in de frequentie. Het zit in het ontbreken van een plan. En het goede nieuws? Je hebt geen marketingteam van tien personen nodig om dat op te lossen.</p>
+
+    <h2>Stap 1: Kies je slagveld</h2>
+
+    <p>De grootste fout die ondernemers maken? Overal tegelijk willen zijn. Instagram, Facebook, LinkedIn, TikTok, X, Pinterest, YouTube... voordat je het weet ben je op zes platforms halfbakken aanwezig in plaats van op twee platforms uitstekend.</p>
+
+    <p><strong>Kies maximaal twee platforms.</strong> En kies ze op basis van waar je doelgroep werkelijk tijd doorbrengt — niet op basis van wat je concurrent doet.</p>
+
+    <div class="highlight-box">
+      <h4>📍 Welk platform past bij jou?</h4>
+      <p><strong>Instagram</strong> — Visueel sterk, ideaal voor lifestyle, food, design, retail, persoonlijke merken.<br>
+      <strong>LinkedIn</strong> — B2B, dienstverleners, consultants, professionals, thought leadership.<br>
+      <strong>TikTok</strong> — Jong publiek, entertainment, snelle groei, authentiek en rauw.<br>
+      <strong>Facebook</strong> — Lokale bedrijven, communities, 35+ doelgroep.</p>
+    </div>
+
+    <h2>Stap 2: Definieer je contentpijlers</h2>
+
+    <p>Contentpijlers zijn de 3-4 thema's waar je consequent over communiceert. Ze geven structuur aan je content en voorkomen dat je elke dag opnieuw moet bedenken wat je post.</p>
+
+    <p>Een kinesitherapeut zou bijvoorbeeld deze pijlers kunnen hanteren:</p>
+    <ul>
+      <li><strong>Educatie</strong> — Tips voor houding, stretching, blessurepreventie</li>
+      <li><strong>Achter de schermen</strong> — De praktijk, het team, een dag in het leven</li>
+      <li><strong>Succesverhalen</strong> — Patiënten die weer pijnvrij zijn (met toestemming)</li>
+      <li><strong>Persoonlijk</strong> — Eigen sportbeleving, motivatie, menselijke kant</li>
+    </ul>
+
+    <p>Met vier pijlers en twee posts per week heb je een contentkalender van twee maanden vóór je zelfs maar hoeft na te denken.</p>
+
+    <h2>Stap 3: Creëer een posting-ritme (en houd het vol)</h2>
+
+    <p>Consistentie verslaat frequentie. Elke keer. Drie posts per week waarvan je er twee mist, is slechter dan één post per week die je nóóit overslaat.</p>
+
+    <p>Kies een ritme dat je kunt volhouden — ook tijdens drukke periodes. Start bescheiden. <strong>Twee tot drie keer per week</strong> is voor de meeste kleine bedrijven de sweet spot. En plan vooruit: besteed één ochtend per maand aan het maken van content voor de komende vier weken.</p>
+
+    <blockquote>Social media is geen sprint. Het is een marathon die je wint door elke week op te komen dagen — niet door één keer viraal te gaan.</blockquote>
+
+    <h2>Stap 4: Meet, leer, pas aan</h2>
+
+    <p>Na drie maanden consequent posten heb je genoeg data om te zien wat werkt. Welke posts krijgen de meeste interactie? Welke worden opgeslagen of gedeeld? Op welk tijdstip reageert je publiek het best?</p>
+
+    <p>De cijfers die er écht toe doen:</p>
+    <ul>
+      <li><strong>Engagement rate</strong> — Hoeveel procent van je volgers reageert op je content</li>
+      <li><strong>Saves & shares</strong> — De beste indicator van waardevolle content</li>
+      <li><strong>Profielbezoeken → website clicks</strong> — Komen mensen van social media naar je site?</li>
+      <li><strong>DM's en reacties</strong> — Echte conversaties die tot klanten leiden</li>
+    </ul>
+
+    <p>Likes zijn leuk, maar ze betalen geen rekeningen. Focus op de metrics die daadwerkelijk bijdragen aan je bedrijfsdoelen.</p>
+
+    <h2>En nu: aan de slag</h2>
+
+    <p>Je hebt nu een raamwerk. Geen excuses meer. Kies je platforms, definieer je pijlers, plan je eerste maand, en ga. Perfectie is niet het doel — consistentie wel.</p>
+
+    <p>En als je merkt dat je toch liever iemand hebt die met je meedenkt? Dan weet je ons te vinden. We helpen je graag van "ik weet niet wat ik moet posten" naar "mijn DM's lopen over."</p>
+
+    <div class="article-tags">
+      <span class="article-tag">Social Media</span>
+      <span class="article-tag">Strategie</span>
+      <span class="article-tag">Instagram</span>
+      <span class="article-tag">LinkedIn</span>
+      <span class="article-tag">Content</span>
+      <span class="article-tag">Planning</span>
+    </div>
+  </div>
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">The Bair Company</div>
+      <p class="footer-desc">Creatief bureau voor merken die blijven hangen. Branding, webdesign en marketing vanuit Glabbeek.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigatie</h4>
+      <a href="index.html">Home</a>
+      <a href="index.html#werk">Werk</a>
+      <a href="index.html#diensten">Diensten</a>
+      <a href="index.html#cases">Cases</a>
+      <a href="blog.html">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@thebaircompany.be">hello@thebaircompany.be</a>
+      <a href="index.html#contact">Contactformulier</a>
+      <a href="#">Glabbeek, België</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="https://instagram.com/thebaircompany" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://linkedin.com/company/thebaircompany" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 The Bair Company — BTW BE 0XXX.XXX.XXX</span>
+    <span>Alle rechten voorbehouden</span>
+  </div>
+</footer>
+
+<script>
+// ── Scroll reveal ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── Category filter ──
+document.querySelectorAll('.filter-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.article-row').forEach(row => {
+      if (f === 'all' || row.dataset.category === f) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+    // Featured is always webdesign
+    const featured = document.querySelector('.featured');
+    if (f === 'all' || f === 'webdesign') {
+      featured.style.display = '';
+    } else {
+      featured.style.display = 'none';
+    }
+  });
+});
+
+// ── Article navigation ──
+function showArticle(slug) {
+  document.getElementById('blog-overview').style.display = 'none';
+  document.querySelectorAll('.article-full').forEach(a => a.classList.remove('active'));
+  const article = document.getElementById('article-' + slug);
+  if (article) {
+    article.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function showOverview() {
+  document.querySelectorAll('.article-full').forEach(a => a.classList.remove('active'));
+  document.getElementById('blog-overview').style.display = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Click handlers for article cards
+document.querySelector('.featured-card')?.addEventListener('click', function() {
+  showArticle(this.dataset.article);
+});
+document.querySelectorAll('.article-row').forEach(row => {
+  row.addEventListener('click', function() {
+    showArticle(this.dataset.article);
+  });
+});
+
+// ── Handle direct article links via hash ──
+function checkHash() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById('article-' + hash)) {
+    showArticle(hash);
+  }
+}
+checkHash();
+window.addEventListener('hashchange', checkHash);
+</script>
+
+</body>
+</html>
