@@ -1200,32 +1200,26 @@ function refreshClonedVideos(clone) {
   });
 }
 
-// Clone cards for infinite loop effect (no duplicate neighbours)
+// Clone cards for infinite loop effect — exact same order repeating
 function setupInfiniteTrack() {
   const cards = Array.from(track.querySelectorAll('.project-card'));
   const n = cards.length;
 
-  // Append clones shifted by 1: last original (n-1) != first append (0→1)
-  // Sequence: [1, 2, 3, ..., n-1, 0]
-  for (let i = 1; i <= n; i++) {
-    const cloneEnd = cards[i % n].cloneNode(true);
+  // Append clones in same order: [0, 1, 2, ..., n-1]
+  for (let i = 0; i < n; i++) {
+    const cloneEnd = cards[i].cloneNode(true);
     cloneEnd.classList.add('clone');
     refreshClonedVideos(cloneEnd);
     track.appendChild(cloneEnd);
   }
 
-  // Prepend clones: last prepend card (reading L→R) must != first original (card 0)
-  // We want L→R: [n-2, n-3, ..., 0, n-1] → last = n-1, first orig = 0 ✓
-  // insertBefore(firstChild) reverses iteration order,
-  // so iterate: [n-1, 0, 1, 2, ..., n-2]
-  const prependIter = [n - 1];
-  for (let i = 0; i < n - 1; i++) prependIter.push(i);
-  prependIter.forEach(i => {
+  // Prepend clones in same order (reversed insert): [0, 1, 2, ..., n-1]
+  for (let i = n - 1; i >= 0; i--) {
     const cloneStart = cards[i].cloneNode(true);
     cloneStart.classList.add('clone');
     refreshClonedVideos(cloneStart);
     track.insertBefore(cloneStart, track.firstChild);
-  });
+  }
 
   const cardWidth = cards[0].offsetWidth + 32;
   currentOffset = -(cardWidth * n);
