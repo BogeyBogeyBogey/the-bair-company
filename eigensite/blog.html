@@ -66,38 +66,28 @@ header {
   font-size: 1rem; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
 }
-.nav-pills { display: flex; gap: 0.5rem; }
+nav { display: flex; gap: 0.3rem; }
 .nav-pill {
-  padding: 0.5rem 1.5rem;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 100px;
-  font-size: 0.8rem; letter-spacing: 0.05em;
-  transition: all 0.3s var(--ease);
+  padding: 0.45rem 1rem; border-radius: 100px;
+  font-size: 0.82rem; font-weight: 400;
+  transition: background 0.3s, color 0.3s; letter-spacing: 0.01em;
 }
-.nav-pill:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
-.nav-pill.active { background: var(--white); color: var(--black); border-color: var(--white); }
-.menu-btn {
-  display: none; font-size: 0.8rem; letter-spacing: 0.15em;
-  text-transform: uppercase; cursor: pointer;
-  background: none; border: none; color: var(--white); font-family: var(--font-display);
-}
+.nav-pill:hover, .nav-pill.active { background: var(--white); color: var(--black); }
+.mob-toggle { display: none; width: 28px; height: 20px; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
+.mob-toggle span { display: block; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s var(--ease); }
+.mob-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.mob-toggle.active span:nth-child(2) { opacity: 0; }
+.mob-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
 /* ── MOBILE NAV ── */
-.mobile-nav {
-  position: fixed; inset: 0; z-index: 99;
-  background: var(--black);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 2rem;
-  opacity: 0; visibility: hidden;
-  transition: all 0.5s var(--ease);
+.mob-nav {
+  position: fixed; inset: 0; z-index: 150; background: var(--black);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+  opacity: 0; visibility: hidden; transition: 0.4s var(--ease);
 }
-.mobile-nav.open { opacity: 1; visibility: visible; }
-.mobile-nav a {
-  font-family: var(--font-display);
-  font-size: 2.5rem; font-weight: 600;
-  transition: opacity 0.3s;
-}
-.mobile-nav a:hover { opacity: 0.4; }
+.mob-nav.open { opacity: 1; visibility: visible; }
+.mob-nav a { font-family: var(--font-display); font-size: 2rem; font-weight: 700; }
+.mob-nav a:hover { opacity: 0.4; }
 
 /* ── BLOG HERO ── */
 .blog-hero {
@@ -538,6 +528,7 @@ body::after {
   pointer-events: none; z-index: 9998;
   opacity: 0.025;
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
 /* ── RESPONSIVE ── */
@@ -547,8 +538,8 @@ body::after {
 }
 @media (max-width: 768px) {
   header { padding: 1.25rem 1.5rem; }
-  .nav-pills { display: none; }
-  .menu-btn { display: block; }
+  nav { display: none; }
+  .mob-toggle { display: flex; }
   .blog-hero { padding: 8rem 1.5rem 3rem; }
   .blog-filters { padding: 0 1.5rem 3rem; }
   .featured { padding: 0 1.5rem; margin-bottom: 3rem; }
@@ -573,27 +564,27 @@ body::after {
 <!-- HEADER -->
 <header>
   <a href="index.html" class="brand">The Bair Co.</a>
-  <nav class="nav-pills">
-    <a href="index.html" class="nav-pill">Home</a>
-    <a href="index.html#werk" class="nav-pill">Werk</a>
-    <a href="index.html#diensten" class="nav-pill">Diensten</a>
+  <nav>
+    <a href="index.html#werk" class="nav-pill">Portfolio</a>
+    <a href="index.html#diensten" class="nav-pill">Studio</a>
     <a href="cases.html" class="nav-pill">Cases</a>
     <a href="blog.html" class="nav-pill active">Blog</a>
-    <a href="over.html" class="nav-pill">Over ons</a>
+    <a href="over.html" class="nav-pill">Over</a>
     <a href="index.html#contact" class="nav-pill">Contact</a>
   </nav>
-  <button class="menu-btn" onclick="document.querySelector('.mobile-nav').classList.toggle('open'); this.textContent = this.textContent === 'Menu' ? 'Sluit' : 'Menu';">Menu</button>
+  <div class="mob-toggle" id="mobToggle">
+    <span></span><span></span><span></span>
+  </div>
 </header>
 
 <!-- MOBILE NAV -->
-<div class="mobile-nav">
-  <a href="index.html" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Home</a>
-  <a href="index.html#werk" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Werk</a>
-  <a href="index.html#diensten" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Diensten</a>
-  <a href="cases.html" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Cases</a>
-  <a href="blog.html" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Blog</a>
-  <a href="over.html" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Over ons</a>
-  <a href="index.html#contact" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Contact</a>
+<div class="mob-nav" id="mobNav">
+  <a href="index.html#werk" onclick="closeMob()">Portfolio</a>
+  <a href="index.html#diensten" onclick="closeMob()">Studio</a>
+  <a href="cases.html" onclick="closeMob()">Cases</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="over.html" onclick="closeMob()">Over</a>
+  <a href="index.html#contact" onclick="closeMob()">Contact</a>
 </div>
 
 <!-- BLOG OVERVIEW (toggled via JS) -->
@@ -930,7 +921,7 @@ body::after {
       <a href="index.html#diensten">Diensten</a>
       <a href="cases.html">Cases</a>
       <a href="blog.html">Blog</a>
-      <a href="over.html">Over ons</a>
+      <a href="over.html">Over</a>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
@@ -951,6 +942,21 @@ body::after {
 </footer>
 
 <script>
+// ── Mobile menu ──
+const mobToggle = document.getElementById('mobToggle');
+const mobNav = document.getElementById('mobNav');
+let mobOpen = false;
+mobToggle.addEventListener('click', () => {
+  mobOpen = !mobOpen;
+  mobNav.classList.toggle('open', mobOpen);
+  mobToggle.classList.toggle('active', mobOpen);
+});
+function closeMob() {
+  mobOpen = false;
+  mobNav.classList.remove('open');
+  mobToggle.classList.remove('active');
+}
+
 // ── Scroll reveal ──
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
@@ -1016,6 +1022,7 @@ function checkHash() {
 }
 checkHash();
 window.addEventListener('hashchange', checkHash);
+
 </script>
 
 </body>

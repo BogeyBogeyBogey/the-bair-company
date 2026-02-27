@@ -69,6 +69,9 @@ nav { display: flex; gap: 0.3rem; }
 .nav-pill:hover, .nav-pill.active { background: var(--white); color: var(--black); }
 .mob-toggle { display: none; width: 28px; height: 20px; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
 .mob-toggle span { display: block; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s var(--ease); }
+.mob-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.mob-toggle.active span:nth-child(2) { opacity: 0; }
+.mob-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 .mob-nav {
   position: fixed; inset: 0; z-index: 150; background: var(--black);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
@@ -118,12 +121,18 @@ nav { display: flex; gap: 0.3rem; }
 .about-hero-img img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   object-position: center 15%;
-  filter: grayscale(20%) contrast(1.05);
+  filter: grayscale(100%) contrast(1.35) brightness(1.1);
+}
+.about-hero-img::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(160deg, transparent 40%, rgba(0,0,0,0.4) 100%);
+  mix-blend-mode: multiply;
 }
 .about-hero-img::after {
   content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to right, var(--black) 0%, transparent 15%);
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(to right, var(--black) 0%, transparent 18%);
 }
 
 @media (max-width: 768px) {
@@ -528,20 +537,20 @@ footer {
     <a href="index.html#diensten" class="nav-pill">Studio</a>
     <a href="cases.html" class="nav-pill">Cases</a>
     <a href="blog.html" class="nav-pill">Blog</a>
-    <a href="over.html" class="nav-pill active">Over ons</a>
+    <a href="over.html" class="nav-pill active">Over</a>
     <a href="index.html#contact" class="nav-pill">Contact</a>
   </nav>
-  <div class="mob-toggle" onclick="document.querySelector('.mob-nav').classList.toggle('open')">
+  <div class="mob-toggle" id="mobToggle">
     <span></span><span></span><span></span>
   </div>
 </header>
 
-<div class="mob-nav">
+<div class="mob-nav" id="mobNav">
   <a href="index.html#werk" onclick="closeMob()">Portfolio</a>
   <a href="index.html#diensten" onclick="closeMob()">Studio</a>
   <a href="cases.html" onclick="closeMob()">Cases</a>
   <a href="blog.html" onclick="closeMob()">Blog</a>
-  <a href="over.html" onclick="closeMob()">Over ons</a>
+  <a href="over.html" onclick="closeMob()">Over</a>
   <a href="index.html#contact" onclick="closeMob()">Contact</a>
 </div>
 
@@ -830,7 +839,7 @@ footer {
       <a href="index.html#diensten">Studio</a>
       <a href="cases.html">Cases</a>
       <a href="blog.html">Blog</a>
-      <a href="over.html">Over ons</a>
+      <a href="over.html">Over</a>
       <a href="index.html#contact">Contact</a>
     </div>
     <div class="footer-copy">&copy; 2026 The Bair Company. Alle rechten voorbehouden.</div>
@@ -838,11 +847,27 @@ footer {
 </footer>
 
 <script>
-function closeMob() { document.querySelector('.mob-nav').classList.remove('open'); }
+// ── Mobile menu ──
+const mobToggle = document.getElementById('mobToggle');
+const mobNav = document.getElementById('mobNav');
+let mobOpen = false;
+mobToggle.addEventListener('click', () => {
+  mobOpen = !mobOpen;
+  mobNav.classList.toggle('open', mobOpen);
+  mobToggle.classList.toggle('active', mobOpen);
+});
+function closeMob() {
+  mobOpen = false;
+  mobNav.classList.remove('open');
+  mobToggle.classList.remove('active');
+}
+
+// ── Scroll reveal ──
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
 </script>
 </body>
 </html>

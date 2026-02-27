@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Cinematische Zwart-Wit Bewerker</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #111; color: #eee; font-family: -apple-system, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 2rem; }
+  h1 { font-size: 1.4rem; font-weight: 300; letter-spacing: 0.1em; margin-bottom: 0.5rem; text-transform: uppercase; }
+  p.sub { color: #888; font-size: 0.85rem; margin-bottom: 2rem; text-align: center; line-height: 1.6; }
+  .upload-area {
+    border: 2px dashed #444; border-radius: 8px; padding: 3rem 2rem; text-align: center;
+    cursor: pointer; margin-bottom: 2rem; transition: border-color 0.3s; max-width: 500px; width: 100%;
+  }
+  .upload-area:hover { border-color: #888; }
+  .upload-area.has-image { display: none; }
+  .upload-area label { font-size: 0.9rem; color: #aaa; cursor: pointer; display: block; }
+  .upload-area label span { display: block; font-size: 2rem; margin-bottom: 0.5rem; }
+  input[type="file"] { display: none; }
+  .preview { display: none; gap: 2rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
+  .preview.visible { display: flex; }
+  .preview > div { text-align: center; }
+  .preview .label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #666; margin-bottom: 0.5rem; }
+  canvas, .orig-img { max-width: 420px; width: 100%; border-radius: 4px; }
+  .controls { display: none; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; }
+  .controls.visible { display: flex; }
+  .control-group { text-align: center; }
+  .control-group label { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 0.3rem; }
+  input[type="range"] { width: 140px; accent-color: #fff; }
+  .val { font-size: 0.75rem; color: #aaa; font-variant-numeric: tabular-nums; }
+  .actions { display: none; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center; }
+  .actions.visible { display: flex; }
+  button { padding: 0.8rem 2rem; border: 1px solid #444; background: transparent; color: #eee; font-size: 0.85rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.05em; }
+  button:hover { background: #eee; color: #111; }
+  button.primary { background: #eee; color: #111; font-weight: 600; }
+  button.primary:hover { background: #fff; }
+  .status { margin-top: 1rem; font-size: 0.8rem; color: #4a4; text-align: center; }
+  .reset-btn { margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>Cinematische Zwart-Wit</h1>
+<p class="sub">Kies je foto en pas de cinematische zwart-wit look aan.<br>Download het resultaat wanneer je tevreden bent.</p>
+
+<div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+  <label>
+    <span>📷</span>
+    Klik hier om je foto te kiezen<br>
+    <small style="color:#666; margin-top:0.5rem; display:inline-block;">(of sleep een afbeelding hierheen)</small>
+  </label>
+</div>
+<input type="file" id="fileInput" accept="image/*">
+
+<div class="controls" id="controls">
+  <div class="control-group">
+    <label>Contrast</label>
+    <input type="range" id="contrast" min="80" max="200" value="145">
+    <div class="val" id="contrastVal">145%</div>
+  </div>
+  <div class="control-group">
+    <label>Helderheid</label>
+    <input type="range" id="brightness" min="70" max="150" value="108">
+    <div class="val" id="brightnessVal">108%</div>
+  </div>
+  <div class="control-group">
+    <label>Vignette</label>
+    <input type="range" id="vignette" min="0" max="100" value="55">
+    <div class="val" id="vignetteVal">55%</div>
+  </div>
+  <div class="control-group">
+    <label>Grain</label>
+    <input type="range" id="grain" min="0" max="60" value="18">
+    <div class="val" id="grainVal">18</div>
+  </div>
+  <div class="control-group">
+    <label>Warmte (tint)</label>
+    <input type="range" id="warmth" min="0" max="40" value="8">
+    <div class="val" id="warmthVal">8</div>
+  </div>
+</div>
+
+<div class="preview" id="preview">
+  <div>
+    <span class="label">Origineel</span>
+    <img class="orig-img" id="origImg" alt="Origineel">
+  </div>
+  <div>
+    <span class="label">Cinematisch Zwart-Wit</span>
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+
+<div class="actions" id="actions">
+  <button class="primary" onclick="downloadImage()">Download als JPEG</button>
+  <button onclick="downloadPNG()">Download als PNG</button>
+  <button onclick="saveForSite()">Opslaan als kristofoverons-bw.jpeg</button>
+</div>
+<div class="actions visible reset-btn" id="resetArea" style="display:none;">
+  <button onclick="resetAll()">Andere foto kiezen</button>
+</div>
+<div class="status" id="status"></div>
+
+<script>
+const img = document.getElementById('origImg');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const fileInput = document.getElementById('fileInput');
+const uploadArea = document.getElementById('uploadArea');
+
+// Drag & drop support
+uploadArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadArea.style.borderColor = '#aaa';
+});
+uploadArea.addEventListener('dragleave', () => {
+  uploadArea.style.borderColor = '#444';
+});
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.style.borderColor = '#444';
+  if (e.dataTransfer.files.length > 0) {
+    loadFile(e.dataTransfer.files[0]);
+  }
+});
+
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length > 0) {
+    loadFile(e.target.files[0]);
+  }
+});
+
+function loadFile(file) {
+  if (!file.type.startsWith('image/')) {
+    alert('Kies een afbeelding (JPEG, PNG, etc.)');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+const sliders = ['contrast', 'brightness', 'vignette', 'grain', 'warmth'];
+sliders.forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    document.getElementById(id + 'Val').textContent = el.value + (id === 'grain' || id === 'warmth' ? '' : '%');
+    processImage();
+  });
+});
+
+img.onload = () => {
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+
+  // Show UI
+  uploadArea.style.display = 'none';
+  document.getElementById('controls').classList.add('visible');
+  document.getElementById('preview').classList.add('visible');
+  document.getElementById('actions').classList.add('visible');
+  document.getElementById('resetArea').style.display = 'flex';
+
+  processImage();
+};
+
+function processImage() {
+  const w = canvas.width;
+  const h = canvas.height;
+  if (w === 0 || h === 0) return;
+
+  const contrastVal = parseInt(document.getElementById('contrast').value);
+  const brightnessVal = parseInt(document.getElementById('brightness').value);
+  const vignetteVal = parseInt(document.getElementById('vignette').value) / 100;
+  const grainVal = parseInt(document.getElementById('grain').value);
+  const warmthVal = parseInt(document.getElementById('warmth').value);
+
+  // Draw original
+  ctx.drawImage(img, 0, 0, w, h);
+
+  // Get pixel data
+  const imageData = ctx.getImageData(0, 0, w, h);
+  const data = imageData.data;
+
+  // Process each pixel
+  for (let i = 0; i < data.length; i += 4) {
+    let r = data[i];
+    let g = data[i + 1];
+    let b = data[i + 2];
+
+    // Cinematic luminance (weighted for pleasing skin tones)
+    let lum = 0.35 * r + 0.50 * g + 0.15 * b;
+
+    // Apply S-curve for cinematic contrast
+    lum = lum / 255;
+    const contrast = contrastVal / 100;
+    lum = lum - 0.5;
+    lum = lum * contrast;
+    lum = lum + 0.5;
+    lum = Math.max(0, Math.min(1, lum));
+
+    // Apply brightness
+    const bright = brightnessVal / 100;
+    lum = lum * bright;
+    lum = Math.max(0, Math.min(1, lum));
+
+    // Lift shadows slightly (cinematic look - never pure black)
+    lum = 0.03 + lum * 0.94;
+
+    // Slight warmth tint for cinematic feel
+    let finalR = lum * 255 + warmthVal * 0.6;
+    let finalG = lum * 255;
+    let finalB = lum * 255 - warmthVal * 0.4;
+
+    // Film grain
+    if (grainVal > 0) {
+      const noise = (Math.random() - 0.5) * grainVal;
+      finalR += noise;
+      finalG += noise;
+      finalB += noise;
+    }
+
+    data[i]     = Math.max(0, Math.min(255, finalR));
+    data[i + 1] = Math.max(0, Math.min(255, finalG));
+    data[i + 2] = Math.max(0, Math.min(255, finalB));
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+
+  // Vignette overlay
+  if (vignetteVal > 0) {
+    const cx = w / 2;
+    const cy = h / 2;
+    const maxR = Math.sqrt(cx * cx + cy * cy);
+    const grad = ctx.createRadialGradient(cx, cy, maxR * 0.3, cx, cy, maxR);
+    grad.addColorStop(0, 'rgba(0,0,0,0)');
+    grad.addColorStop(0.7, `rgba(0,0,0,${vignetteVal * 0.3})`);
+    grad.addColorStop(1, `rgba(0,0,0,${vignetteVal * 0.7})`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+  }
+}
+
+function downloadImage() {
+  const link = document.createElement('a');
+  link.download = 'kristofoverons-bw.jpeg';
+  link.href = canvas.toDataURL('image/jpeg', 0.95);
+  link.click();
+  document.getElementById('status').textContent = 'JPEG download gestart!';
+}
+
+function downloadPNG() {
+  const link = document.createElement('a');
+  link.download = 'kristofoverons-bw.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  document.getElementById('status').textContent = 'PNG download gestart!';
+}
+
+function saveForSite() {
+  const link = document.createElement('a');
+  link.download = 'kristofoverons-bw.jpeg';
+  link.href = canvas.toDataURL('image/jpeg', 0.95);
+  link.click();
+  document.getElementById('status').textContent = 'Sla het bestand op in dezelfde map als je website-bestanden. Pas daarna in over.html de src aan naar "kristofoverons-bw.jpeg".';
+}
+
+function resetAll() {
+  uploadArea.style.display = '';
+  document.getElementById('controls').classList.remove('visible');
+  document.getElementById('preview').classList.remove('visible');
+  document.getElementById('actions').classList.remove('visible');
+  document.getElementById('resetArea').style.display = 'none';
+  document.getElementById('status').textContent = '';
+  fileInput.value = '';
+  img.src = '';
+}
+</script>
+</body>
+</html>
