@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookiebeleid — The Bair Company</title>
+<meta name="description" content="Cookiebeleid van The Bair Company. Informatie over het gebruik van cookies op onze website.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-weight='800' font-size='18' fill='%23f0ede8'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #f0ede8;
+  --grey: #666;
+  --accent: #2E8AFF;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+a { color: var(--accent); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--white); }
+::selection { background: var(--accent); color: var(--black); }
+
+.legal-header {
+  padding: 2rem 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.legal-header a {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.legal-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+.legal-container h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.legal-date {
+  color: var(--grey);
+  font-size: 0.85rem;
+  margin-bottom: 3rem;
+  display: block;
+}
+.legal-container h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.legal-container h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.legal-container p {
+  margin-bottom: 1rem;
+  color: rgba(240,237,232,0.8);
+}
+.legal-container ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+.legal-container li {
+  margin-bottom: 0.4rem;
+  color: rgba(240,237,232,0.8);
+}
+.cookie-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.85rem;
+}
+.cookie-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--grey);
+}
+.cookie-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: rgba(240,237,232,0.8);
+}
+.legal-back {
+  display: inline-block;
+  margin-top: 3rem;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  color: var(--white);
+  transition: all 0.3s;
+}
+.legal-back:hover {
+  background: var(--white);
+  color: var(--black);
+}
+.legal-footer-mini {
+  padding: 2rem 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--grey);
+}
+.legal-footer-mini a { color: var(--grey); margin: 0 0.75rem; }
+.legal-footer-mini a:hover { color: var(--white); }
+</style>
+</head>
+<body>
+
+<header class="legal-header">
+  <a href="index.html">The Bair Co.</a>
+</header>
+
+<main class="legal-container">
+  <h1>Cookiebeleid</h1>
+  <span class="legal-date">Laatst bijgewerkt: 28 februari 2026</span>
+
+  <p>Dit cookiebeleid legt uit wat cookies zijn, welke cookies wij gebruiken op de website van The Bair Company, en hoe u uw voorkeuren kunt beheren.</p>
+
+  <h2>1. Wat zijn cookies?</h2>
+  <p>Cookies zijn kleine tekstbestanden die door uw browser op uw apparaat worden opgeslagen wanneer u een website bezoekt. Ze worden breed gebruikt om websites te laten functioneren, efficiënter te maken, en informatie te verstrekken aan de eigenaren van de site.</p>
+
+  <h2>2. Welke cookies gebruiken wij?</h2>
+
+  <h3>Strikt noodzakelijke cookies</h3>
+  <p>Deze cookies zijn essentieel voor het functioneren van de website. Zonder deze cookies kan de website niet naar behoren werken. Deze cookies verzamelen geen persoonlijke informatie.</p>
+
+  <table class="cookie-table">
+    <thead>
+      <tr>
+        <th>Cookie</th>
+        <th>Doel</th>
+        <th>Bewaartermijn</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>cookie_consent</td>
+        <td>Onthoudt uw cookievoorkeuren</td>
+        <td>1 jaar</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Analytische cookies</h3>
+  <p>Deze cookies helpen ons te begrijpen hoe bezoekers onze website gebruiken, zodat wij de gebruikerservaring kunnen verbeteren. Alle gegevens worden geanonimiseerd.</p>
+
+  <table class="cookie-table">
+    <thead>
+      <tr>
+        <th>Cookie</th>
+        <th>Doel</th>
+        <th>Bewaartermijn</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>_ga / _ga_*</td>
+        <td>Google Analytics — anonieme bezoekersstatistieken</td>
+        <td>2 jaar</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Opmerking: momenteel gebruikt onze website geen analytische of marketingcookies. Mochten wij deze in de toekomst toevoegen, zullen wij dit beleid bijwerken en uw toestemming vragen.</p>
+
+  <h2>3. Cookies van derden</h2>
+  <p>Onze website kan content bevatten van externe diensten (zoals ingesloten video's of lettertypes). Deze diensten kunnen hun eigen cookies plaatsen. Wij hebben geen controle over deze cookies en verwijzen u naar het privacybeleid van de betreffende diensten:</p>
+  <ul>
+    <li>Google Fonts — voor het laden van lettertypes</li>
+    <li>YouTube/Vimeo — indien video's worden ingebed</li>
+  </ul>
+
+  <h2>4. Uw cookievoorkeuren beheren</h2>
+  <p>U kunt cookies op elk moment beheren of verwijderen via de instellingen van uw browser:</p>
+  <ul>
+    <li><strong>Chrome:</strong> Instellingen → Privacy en beveiliging → Cookies</li>
+    <li><strong>Firefox:</strong> Instellingen → Privacy & beveiliging → Cookies en sitegegevens</li>
+    <li><strong>Safari:</strong> Voorkeuren → Privacy → Cookies en websitegegevens</li>
+    <li><strong>Edge:</strong> Instellingen → Cookies en sitemachtigingen</li>
+  </ul>
+  <p>Houd er rekening mee dat het blokkeren van alle cookies de functionaliteit van sommige websites kan beïnvloeden.</p>
+
+  <h2>5. Meer informatie</h2>
+  <p>Voor meer informatie over cookies in het algemeen, kunt u terecht op <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener">www.allaboutcookies.org</a>.</p>
+  <p>Heeft u vragen over ons cookiebeleid? Neem dan contact met ons op via <a href="mailto:admin@baircompany.com">admin@baircompany.com</a>.</p>
+
+  <h2>6. Wijzigingen</h2>
+  <p>Wij behouden ons het recht voor dit cookiebeleid te wijzigen. De meest recente versie is steeds beschikbaar op deze pagina.</p>
+
+  <a href="index.html" class="legal-back">← Terug naar homepage</a>
+</main>
+
+<footer class="legal-footer-mini">
+  <p>&copy; 2026 The Bair Company. Alle rechten voorbehouden.</p>
+  <p>
+    <a href="privacy.html">Privacy</a>
+    <a href="voorwaarden.html">Voorwaarden</a>
+    <a href="cookies.html">Cookies</a>
+  </p>
+</footer>
+
+</body>
+</html>

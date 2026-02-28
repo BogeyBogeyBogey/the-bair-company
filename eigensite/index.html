@@ -1792,6 +1792,146 @@ footer {
 @media (max-width: 480px) {
   .project-card { width: 280px; }
 }
+/* ══════════════════════════════════════════
+   COMING SOON VEIL
+   Remove this entire block + .coming-soon-veil wrapper
+   in the HTML to reveal the full site.
+   ══════════════════════════════════════════ */
+.coming-soon-veil {
+  display: none !important;
+}
+.coming-soon-message {
+  padding: 6rem 2.5rem 4rem;
+  text-align: center;
+  position: relative;
+}
+.coming-soon-message::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+}
+.csm-wave {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  animation: csmFloat 3s ease-in-out infinite;
+}
+@keyframes csmFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.csm-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.csm-title .serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+.csm-sub {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--grey);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+}
+.csm-arrow {
+  display: inline-block;
+  font-size: 1.5rem;
+  color: var(--accent);
+  animation: csmBounce 2s ease-in-out infinite;
+}
+@keyframes csmBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.csm-contact {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+.csm-contact a {
+  color: var(--accent);
+  transition: color 0.3s;
+}
+.csm-contact a:hover { color: var(--white); }
+
+/* ── LEGAL FOOTER (coming soon version) ── */
+.legal-footer {
+  padding: 3rem 2.5rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.legal-footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.legal-footer-brand {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.legal-footer-desc {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--grey);
+  max-width: 280px;
+}
+.legal-footer-links {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.legal-footer-links a {
+  font-size: 0.8rem;
+  color: var(--grey);
+  transition: color 0.3s;
+}
+.legal-footer-links a:hover { color: var(--white); }
+.legal-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.25);
+  line-height: 1.6;
+}
+.legal-footer-bottom a {
+  color: rgba(255,255,255,0.25);
+  transition: color 0.3s;
+}
+.legal-footer-bottom a:hover { color: var(--grey); }
+.legal-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .legal-footer { padding: 2rem 1.5rem 1.5rem; }
+  .legal-footer-top { flex-direction: column; gap: 1.5rem; }
+  .legal-footer-bottom { flex-direction: column; text-align: center; }
+  .legal-meta { justify-content: center; }
+  .coming-soon-message { padding: 4rem 1.5rem 3rem; }
+}
+/* ══ END COMING SOON VEIL ══ */
+
 </style>
 </head>
 <body>
@@ -1807,12 +1947,13 @@ footer {
 <header>
   <a href="#" class="brand">The Bair Co.</a>
   <nav>
+    <!-- COMING SOON: alleen Portfolio + socials zichtbaar. Uncomment de rest wanneer de site live gaat. -->
     <a href="#werk" class="nav-pill">Portfolio</a>
-    <a href="#diensten" class="nav-pill">Studio</a>
-    <a href="cases.html" class="nav-pill">Cases</a>
-    <a href="blog.html" class="nav-pill">Blog</a>
-    <a href="over.html" class="nav-pill">Over</a>
-    <a href="#contact" class="nav-pill">Contact</a>
+    <!-- <a href="#diensten" class="nav-pill">Studio</a> -->
+    <!-- <a href="cases.html" class="nav-pill">Cases</a> -->
+    <!-- <a href="blog.html" class="nav-pill">Blog</a> -->
+    <!-- <a href="over.html" class="nav-pill">Over</a> -->
+    <!-- <a href="#contact" class="nav-pill">Contact</a> -->
     <div class="social-icons" style="margin-left:0.5rem">
       <a href="https://www.instagram.com/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
       <a href="https://www.linkedin.com/company/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
@@ -1826,11 +1967,12 @@ footer {
 <!-- MOBILE NAV -->
 <div class="mob-nav" id="mobNav">
   <a href="#werk" onclick="closeMob()">Portfolio</a>
-  <a href="#diensten" onclick="closeMob()">Studio</a>
-  <a href="cases.html" onclick="closeMob()">Cases</a>
-  <a href="blog.html" onclick="closeMob()">Blog</a>
-  <a href="over.html" onclick="closeMob()">Over</a>
-  <a href="#contact" onclick="closeMob()">Contact</a>
+  <!-- COMING SOON: uncomment wanneer live -->
+  <!-- <a href="#diensten" onclick="closeMob()">Studio</a> -->
+  <!-- <a href="cases.html" onclick="closeMob()">Cases</a> -->
+  <!-- <a href="blog.html" onclick="closeMob()">Blog</a> -->
+  <!-- <a href="over.html" onclick="closeMob()">Over</a> -->
+  <!-- <a href="#contact" onclick="closeMob()">Contact</a> -->
 </div>
 
 <!-- HERO -->
@@ -1964,6 +2106,26 @@ footer {
 
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════
+     COMING SOON MESSAGE
+     Verwijder dit blok wanneer de site live gaat.
+     ═══════════════════════════════════════════════ -->
+<section class="coming-soon-message reveal">
+  <span class="csm-wave">👋</span>
+  <h2 class="csm-title">Hey, daar. We werken aan iets <span class="serif">groots</span>.</h2>
+  <p class="csm-sub">In de tussentijd vind je hierboven een greep uit ons portfolio. Enjoy.</p>
+  <span class="csm-arrow">↑</span>
+  <p class="csm-contact">Vragen? Mail ons op <a href="mailto:admin@baircompany.com">admin@baircompany.com</a></p>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     COMING SOON VEIL — Start
+     Alles hieronder is verborgen tot de site live gaat.
+     Verwijder de opening <div> en sluit-</div> tags
+     om alle content weer zichtbaar te maken.
+     ═══════════════════════════════════════════════ -->
+<div class="coming-soon-veil">
 
 <!-- TRUSTED BY -->
 <section class="trusted-by reveal">
@@ -2409,6 +2571,7 @@ footer {
   </div>
 </section>
 
+<!-- Originele footer (verborgen achter de sluier) -->
 <footer>
   <div class="footer-top">
     <div>
@@ -2439,7 +2602,7 @@ footer {
     </div>
     <div class="footer-col">
       <h5>Contact</h5>
-      <a href="mailto:hello@thebaircompany.be">hello@thebaircompany.be</a>
+      <a href="mailto:admin@baircompany.com">admin@baircompany.com</a>
       <a href="#">Glabbeek, België</a>
     </div>
   </div>
@@ -2449,6 +2612,44 @@ footer {
       <a href="#">Privacybeleid</a>
       <a href="#">Algemene voorwaarden</a>
       <span>BTW: BE 0XXX.XXX.XXX</span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- ═══ END COMING SOON VEIL ═══ -->
+
+<!-- ═══════════════════════════════════════════════
+     WETTELIJKE FOOTER (coming soon versie)
+     Deze footer is altijd zichtbaar en bevat alle
+     wettelijk verplichte informatie voor België.
+     Vervang door de originele footer wanneer live.
+     ═══════════════════════════════════════════════ -->
+<footer class="legal-footer">
+  <div class="legal-footer-top">
+    <div>
+      <div class="legal-footer-brand">The Bair Co.</div>
+      <p class="legal-footer-desc">Creatief bureau uit Glabbeek, België. Binnenkort meer.</p>
+      <div class="social-icons" style="margin-top:1rem">
+        <a href="https://www.instagram.com/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://www.linkedin.com/company/thebaircompany" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      </div>
+    </div>
+    <div class="legal-footer-links">
+      <a href="privacy.html">Privacybeleid</a>
+      <a href="voorwaarden.html">Algemene voorwaarden</a>
+      <a href="cookies.html">Cookiebeleid</a>
+    </div>
+  </div>
+  <div class="legal-footer-bottom">
+    <div>
+      &copy; 2026 The Bair Company. Alle rechten voorbehouden.<br>
+      The Bair Company — Glabbeek, België · <a href="mailto:admin@baircompany.com">admin@baircompany.com</a>
+    </div>
+    <div class="legal-meta">
+      <span>BTW: BE 0XXX.XXX.XXX</span>
+      <a href="privacy.html">Privacy</a>
+      <a href="voorwaarden.html">Voorwaarden</a>
+      <a href="cookies.html">Cookies</a>
     </div>
   </div>
 </footer>
