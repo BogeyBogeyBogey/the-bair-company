@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rosing Security — LinkedIn Posts Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f0f;
+  --bg-card: #1a1a1a;
+  --bg-post: #1e1e1e;
+  --bg-hover: #242424;
+  --red: #E31E24;
+  --red-soft: rgba(227,30,36,0.08);
+  --red-border: rgba(227,30,36,0.25);
+  --red-glow: rgba(227,30,36,0.15);
+  --white: #f0f0f0;
+  --gray-200: #cccccc;
+  --gray-400: #999999;
+  --gray-600: #666666;
+  --gray-800: #333333;
+  --linkedin-blue: #0a66c2;
+  --linkedin-bg: #1b1f23;
+  --linkedin-card: #1e2328;
+  --linkedin-border: rgba(255,255,255,0.08);
+  --linkedin-text: #e8e8e8;
+  --linkedin-secondary: #ababab;
+  --font: 'Manrope', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ═══ HEADER ═══ */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,15,15,0.85);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 0 2rem;
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.header-brand {
+  display: flex; align-items: center; gap: 12px;
+}
+.header-logo {
+  width: 36px; height: 36px; background: var(--red);
+  border-radius: 6px; display: flex; align-items: center;
+  justify-content: center; font-family: var(--font-mono);
+  font-weight: 700; font-size: 14px; color: white;
+}
+.header-title {
+  font-weight: 800; font-size: 0.95rem; color: var(--white);
+}
+.header-title span { color: var(--red); }
+.header-badge {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  background: var(--red-soft); color: var(--red);
+  border: 1px solid var(--red-border);
+  padding: 4px 12px; border-radius: 100px;
+  font-weight: 600; letter-spacing: 0.1em;
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  padding: 5rem 2rem 3rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute;
+  top: -40%; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+  pointer-events: none; opacity: 0.5;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800; line-height: 1.15;
+  position: relative; max-width: 700px; margin: 0 auto 1rem;
+}
+.hero h1 span { color: var(--red); }
+.hero p {
+  font-size: 1rem; color: var(--gray-400);
+  max-width: 550px; margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+.strategy-bar {
+  display: flex; justify-content: center; gap: 0.5rem;
+  flex-wrap: wrap; margin-top: 1.5rem;
+}
+.strategy-tag {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  padding: 6px 14px; border-radius: 100px;
+  background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+  color: var(--gray-400); letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 600;
+}
+.strategy-tag.active {
+  background: var(--red-soft); border-color: var(--red-border); color: var(--red);
+}
+
+/* ═══ POSTS CONTAINER ═══ */
+.posts-section { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+
+.post-wrapper {
+  margin-bottom: 3rem;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.7s ease forwards;
+}
+.post-wrapper:nth-child(1) { animation-delay: 0.1s; }
+.post-wrapper:nth-child(2) { animation-delay: 0.2s; }
+.post-wrapper:nth-child(3) { animation-delay: 0.3s; }
+.post-wrapper:nth-child(4) { animation-delay: 0.4s; }
+.post-wrapper:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Post meta bar */
+.post-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;
+}
+.post-number {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  font-weight: 700; color: var(--red);
+  letter-spacing: 0.15em; text-transform: uppercase;
+}
+.post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.post-tag {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  padding: 3px 10px; border-radius: 3px;
+  background: rgba(255,255,255,0.04); color: var(--gray-600);
+  letter-spacing: 0.05em; font-weight: 600;
+}
+.post-tag.type { background: rgba(10,102,194,0.12); color: #5da0d8; }
+.post-tag.pillar { background: var(--red-soft); color: var(--red); }
+
+/* ═══ LINKEDIN CARD MOCKUP ═══ */
+.linkedin-card {
+  background: var(--linkedin-card);
+  border: 1px solid var(--linkedin-border);
+  border-radius: 8px; overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.linkedin-card:hover {
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  transform: translateY(-2px);
+}
+
+/* LinkedIn header */
+.li-header {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px 16px 0;
+}
+.li-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--red); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: 16px; color: white;
+}
+.li-author-info { flex: 1; }
+.li-author-name {
+  font-size: 0.88rem; font-weight: 700;
+  color: var(--linkedin-text); line-height: 1.3;
+}
+.li-author-title {
+  font-size: 0.75rem; color: var(--linkedin-secondary);
+  line-height: 1.4; margin-top: 1px;
+}
+.li-author-time {
+  font-size: 0.7rem; color: var(--gray-600);
+  margin-top: 2px; display: flex; align-items: center; gap: 4px;
+}
+.li-author-time svg { width: 12px; height: 12px; }
+.li-dots {
+  color: var(--gray-600); font-size: 1.2rem;
+  cursor: pointer; padding: 4px 8px; line-height: 1;
+}
+
+/* LinkedIn content */
+.li-content {
+  padding: 12px 16px 16px;
+  font-size: 0.88rem; color: var(--linkedin-text);
+  line-height: 1.55; white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.li-content .hook {
+  font-weight: 700; color: white;
+}
+.li-hashtags {
+  padding: 0 16px 12px;
+  font-size: 0.82rem; color: var(--linkedin-blue);
+  font-weight: 600;
+}
+
+/* LinkedIn engagement bar */
+.li-engagement {
+  padding: 8px 16px;
+  border-top: 1px solid var(--linkedin-border);
+  display: flex; justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem; color: var(--gray-600);
+}
+.li-reactions {
+  display: flex; align-items: center; gap: 6px;
+}
+.li-reaction-icons {
+  display: flex;
+}
+.li-reaction-icons span {
+  width: 18px; height: 18px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; margin-right: -4px;
+  border: 2px solid var(--linkedin-card);
+}
+.li-reaction-icons span:nth-child(1) { background: #378fe9; z-index: 3; }
+.li-reaction-icons span:nth-child(2) { background: #e7483d; z-index: 2; }
+.li-reaction-icons span:nth-child(3) { background: #f5bb5c; z-index: 1; }
+
+/* LinkedIn action bar */
+.li-actions {
+  display: flex; border-top: 1px solid var(--linkedin-border);
+}
+.li-action {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 12px 0;
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--gray-600); cursor: pointer;
+  transition: all 0.2s ease;
+}
+.li-action:hover {
+  background: rgba(255,255,255,0.04); color: var(--gray-400);
+}
+.li-action svg { width: 20px; height: 20px; }
+
+/* Post footer with photo suggestion + strategy */
+.post-footer {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  margin-top: 0.75rem;
+}
+.post-footer-card {
+  background: var(--bg-card); border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 6px; padding: 1rem;
+}
+.post-footer-label {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  color: var(--gray-600); letter-spacing: 0.12em;
+  text-transform: uppercase; font-weight: 700;
+  margin-bottom: 0.4rem; display: flex; align-items: center; gap: 6px;
+}
+.post-footer-text {
+  font-size: 0.82rem; color: var(--gray-400); line-height: 1.6;
+}
+
+/* Copy button */
+.copy-btn {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--gray-400); padding: 6px 12px;
+  border-radius: 4px; font-family: var(--font-mono);
+  font-size: 0.65rem; cursor: pointer;
+  transition: all 0.2s ease; opacity: 0;
+  letter-spacing: 0.05em; font-weight: 600;
+}
+.linkedin-card { position: relative; }
+.linkedin-card:hover .copy-btn { opacity: 1; }
+.copy-btn:hover { background: var(--red); color: white; border-color: var(--red); }
+.copy-btn.copied { background: #22c55e; color: white; border-color: #22c55e; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .post-footer { grid-template-columns: 1fr; }
+  .hero { padding: 3rem 1.5rem 2rem; }
+  .posts-section { padding: 1.5rem; }
+  .strategy-bar { gap: 0.3rem; }
+  .strategy-tag { font-size: 0.58rem; padding: 4px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">RS</div>
+      <div class="header-title">Rosing <span>Security</span></div>
+    </div>
+    <div class="header-badge">LINKEDIN CONTENT PREVIEW</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>5 LinkedIn Posts voor <span>Rosing Security</span></h1>
+  <p>Strategische contentmix gericht op merkversterking, thought leadership en klantenwerving in de beveiligingssector.</p>
+  <div class="strategy-bar">
+    <span class="strategy-tag active">Expertise</span>
+    <span class="strategy-tag active">Social Proof</span>
+    <span class="strategy-tag active">Educatief</span>
+    <span class="strategy-tag active">Opinie</span>
+    <span class="strategy-tag active">Actualiteit</span>
+  </div>
+</div>
+
+<!-- POSTS -->
+<div class="posts-section">
+
+<!-- ━━━━━ POST 1 ━━━━━ -->
+<div class="post-wrapper">
+  <div class="post-meta">
+    <span class="post-number">Post 01 / 05</span>
+    <div class="post-tags">
+      <span class="post-tag type">Cijfer-post</span>
+      <span class="post-tag pillar">Actualiteit &amp; NIS2</span>
+    </div>
+  </div>
+  <div class="linkedin-card">
+    <button class="copy-btn" onclick="copyPost(this)">Kopiëren</button>
+    <div class="li-header">
+      <div class="li-avatar">RS</div>
+      <div class="li-author-info">
+        <div class="li-author-name">Robert Rosing</div>
+        <div class="li-author-title">Zaakvoerder bij Rosing Security · Bewaking &amp; Evenementbeveiliging</div>
+        <div class="li-author-time">2u · <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </div>
+      <span class="li-dots">⋯</span>
+    </div>
+    <div class="li-content"><span class="hook">73% van de Belgische KMO's voldoet niet aan NIS2.
+En de deadline? Die is al voorbij.</span>
+
+De NIS2-richtlijn verplicht ruim 2.410 Belgische organisaties om hun beveiliging op te schalen. Niet alleen digitaal — ook fysiek.
+
+Toegangscontrole, camerabewaking, perimeterbescherming, incidentrapportage. Het zijn geen nice-to-haves meer. Het zijn wettelijke vereisten.
+
+Toch merk ik dat veel bedrijven nog steeds denken: "NIS2, dat is iets voor IT." Fout.
+
+De richtlijn vereist een integraal beveiligingsplan. En fysieke beveiliging is daarin een kernelement. Denk aan:
+
+→ Wie heeft toegang tot uw gebouwen?
+→ Wat gebeurt er bij een incident buiten kantooruren?
+→ Heeft u een meldingsprocedure die aan de normen voldoet?
+
+Bij Rosing Security helpen we organisaties met een NIS2 risk assessment en een concreet implementatieplan voor de fysieke kant. Geen vaag advies, maar een werkbaar plan.
+
+Twijfelt u of uw organisatie onder NIS2 valt? Stuur me een bericht — ik denk graag mee.</div>
+    <div class="li-hashtags">#NIS2 #fysiekbeveiliging #compliance #security #KMO</div>
+    <div class="li-engagement">
+      <div class="li-reactions">
+        <div class="li-reaction-icons">
+          <span>👍</span><span>💡</span><span>🔥</span>
+        </div>
+        <span>47 reacties</span>
+      </div>
+      <span>12 opmerkingen · 3 reposts</span>
+    </div>
+    <div class="li-actions">
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg> Vind ik leuk</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Opmerking</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg> Repost</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Verzenden</div>
+    </div>
+  </div>
+  <div class="post-footer">
+    <div class="post-footer-card">
+      <div class="post-footer-label">📷 Fotosuggestie</div>
+      <div class="post-footer-text">Foto van een industriële site met toegangscontrolepoort, of een beeld van een Rosing-agent die een beveiligingsronde maakt. Eventueel een infographic met het cijfer "73%" prominent in beeld.</div>
+    </div>
+    <div class="post-footer-card">
+      <div class="post-footer-label">💡 Strategie</div>
+      <div class="post-footer-text">Positioneert Rosing als NIS2-expert en creëert urgentie bij organisaties die nog niet compliant zijn. Verlaagt de drempel tot contact door het vrijblijvend te houden.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━ POST 2 ━━━━━ -->
+<div class="post-wrapper">
+  <div class="post-meta">
+    <span class="post-number">Post 02 / 05</span>
+    <div class="post-tags">
+      <span class="post-tag type">Verhalend</span>
+      <span class="post-tag pillar">Social Proof</span>
+    </div>
+  </div>
+  <div class="linkedin-card">
+    <button class="copy-btn" onclick="copyPost(this)">Kopiëren</button>
+    <div class="li-header">
+      <div class="li-avatar">RS</div>
+      <div class="li-author-info">
+        <div class="li-author-name">Robert Rosing</div>
+        <div class="li-author-title">Zaakvoerder bij Rosing Security · Bewaking &amp; Evenementbeveiliging</div>
+        <div class="li-author-time">5u · <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </div>
+      <span class="li-dots">⋯</span>
+    </div>
+    <div class="li-content"><span class="hook">Vorige zomer beveiligden we Graspop Metal Meeting.
+65.000 metalheads. 4 dagen. Nul incidenten.</span>
+
+Dat klinkt misschien simpel. Maar achter "nul incidenten" zit maanden voorbereiding.
+
+Eerst een volledige risk assessment van het terrein. Daarna een beveiligingsplan dat rekening houdt met crowd control, toegangspunten, nooduitgangen en communicatielijnen.
+
+Vervolgens: een team dat gebriefd is op elk scenario. Van een verdwaalde bezoeker tot een medische noodsituatie. Elke agent weet exact wat te doen.
+
+Het resultaat? Een festival waar 65.000 mensen vier dagen lang onbezorgd van muziek genieten. Zonder te weten hoeveel werk erachter zit.
+
+En dat is precies hoe het hoort. De beste beveiliging is de beveiliging die je niet opvalt.
+
+Waregem Koerse, Laundry Day, Fiesta Rociera — elk event is anders, maar de aanpak is dezelfde: grondig voorbereiden, scherp uitvoeren, en onzichtbaar blijven.
+
+Wat is het grootste event dat jullie organisatie ooit moest beveiligen?</div>
+    <div class="li-hashtags">#eventsecurity #eventmanagement #Graspop #beveiliging #RosingSecurity</div>
+    <div class="li-engagement">
+      <div class="li-reactions">
+        <div class="li-reaction-icons">
+          <span>👍</span><span>🔥</span><span>❤️</span>
+        </div>
+        <span>89 reacties</span>
+      </div>
+      <span>24 opmerkingen · 7 reposts</span>
+    </div>
+    <div class="li-actions">
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg> Vind ik leuk</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Opmerking</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg> Repost</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Verzenden</div>
+    </div>
+  </div>
+  <div class="post-footer">
+    <div class="post-footer-card">
+      <div class="post-footer-label">📷 Fotosuggestie</div>
+      <div class="post-footer-text">Foto van het Rosing-team op locatie bij een groot evenement (Graspop, Waregem Koerse). Bij voorkeur een beeld met het team in actie, zichtbaar maar discreet. De slider-afbeelding "slidereventsecurity.png" uit het dossier is ideaal.</div>
+    </div>
+    <div class="post-footer-card">
+      <div class="post-footer-label">💡 Strategie</div>
+      <div class="post-footer-text">Laat concrete resultaten zien via een herkenbaar Belgisch event. Het cijfer "65.000 bezoekers, nul incidenten" is een krachtig bewijs van competentie. De afsluitende vraag stimuleert engagement.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━ POST 3 ━━━━━ -->
+<div class="post-wrapper">
+  <div class="post-meta">
+    <span class="post-number">Post 03 / 05</span>
+    <div class="post-tags">
+      <span class="post-tag type">Hook + Lijst</span>
+      <span class="post-tag pillar">Educatief</span>
+    </div>
+  </div>
+  <div class="linkedin-card">
+    <button class="copy-btn" onclick="copyPost(this)">Kopiëren</button>
+    <div class="li-header">
+      <div class="li-avatar">RS</div>
+      <div class="li-author-info">
+        <div class="li-author-name">Robert Rosing</div>
+        <div class="li-author-title">Zaakvoerder bij Rosing Security · Bewaking &amp; Evenementbeveiliging</div>
+        <div class="li-author-time">1d · <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </div>
+      <span class="li-dots">⋯</span>
+    </div>
+    <div class="li-content"><span class="hook">5 beveiligingsfouten die ik keer op keer zie bij Belgische bedrijven.
+(En die u morgen al kunt oplossen.)</span>
+
+Na 15+ jaar in de beveiligingssector zie ik steeds dezelfde patronen terugkomen. Dit zijn de vijf die het vaakst voorkomen:
+
+→ Geen beveiligingsplan. Veel bedrijven hebben camera's en een alarm, maar geen overkoepelend plan. Wie doet wat bij een incident? Stilte.
+
+→ Toegangscontrole op basis van vertrouwen. "Iedereen kent iedereen" is geen beveiligingsstrategie. Zeker niet bij bedrijven met leveranciers, bezoekers en tijdelijk personeel.
+
+→ Alleen reageren, nooit voorkomen. Een alarm gaat af, iemand belt de politie. Maar preventieve patrouilles? Controlerondes? Dat wordt overgeslagen.
+
+→ Buiten kantooruren = niemand thuis. 's Nachts en in het weekend zijn de meeste bedrijven onbewaakt. Net dán is het risico het grootst.
+
+→ Beveiliging als kostenpost zien. Tot er iets misgaat. Dan is het ineens een prioriteit — maar te laat.
+
+Herkenbaar? Begin met één ding: stel uzelf de vraag "wat gebeurt er als er vanavond om 23u iemand ons terrein betreedt?"
+
+Als het antwoord u niet bevalt, is het tijd voor een gesprek. 🔖</div>
+    <div class="li-hashtags">#beveiliging #bedrijfsveiligheid #security #KMO #preventie</div>
+    <div class="li-engagement">
+      <div class="li-reactions">
+        <div class="li-reaction-icons">
+          <span>👍</span><span>💡</span><span>🔥</span>
+        </div>
+        <span>63 reacties</span>
+      </div>
+      <span>18 opmerkingen · 5 reposts</span>
+    </div>
+    <div class="li-actions">
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg> Vind ik leuk</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Opmerking</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg> Repost</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Verzenden</div>
+    </div>
+  </div>
+  <div class="post-footer">
+    <div class="post-footer-card">
+      <div class="post-footer-label">📷 Fotosuggestie</div>
+      <div class="post-footer-text">Foto van een industrieel terrein bij nacht, of een Rosing-agent tijdens een controle-ronde met zaklamp. Sfeerbeeld dat de ernst van "buiten kantooruren" tastbaar maakt.</div>
+    </div>
+    <div class="post-footer-card">
+      <div class="post-footer-label">💡 Strategie</div>
+      <div class="post-footer-text">Educatieve waarde die herkenning oproept bij bedrijfsleiders. De "5 fouten" structuur is goed deelbaar en de afsluitende vraag dwingt tot nadenken. Laagdrempelige CTA.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━ POST 4 ━━━━━ -->
+<div class="post-wrapper">
+  <div class="post-meta">
+    <span class="post-number">Post 04 / 05</span>
+    <div class="post-tags">
+      <span class="post-tag type">Stelling + Onderbouwing</span>
+      <span class="post-tag pillar">Opinie</span>
+    </div>
+  </div>
+  <div class="linkedin-card">
+    <button class="copy-btn" onclick="copyPost(this)">Kopiëren</button>
+    <div class="li-header">
+      <div class="li-avatar">RS</div>
+      <div class="li-author-info">
+        <div class="li-author-name">Robert Rosing</div>
+        <div class="li-author-title">Zaakvoerder bij Rosing Security · Bewaking &amp; Evenementbeveiliging</div>
+        <div class="li-author-time">3d · <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </div>
+      <span class="li-dots">⋯</span>
+    </div>
+    <div class="li-content"><span class="hook">Stop met beveiligen op basis van angst.
+Start met beveiligen op basis van data.</span>
+
+Ik zie het te vaak: een bedrijf wordt ingebroken, en de volgende dag hangt overal camera's. Of er is een incident op een event, en plots wil iedereen dubbel zoveel bewakers.
+
+Reactieve beveiliging is dure beveiliging. En vaak de verkeerde beveiliging.
+
+Wat wél werkt: begin met een risk assessment. Analyseer waar de kwetsbaarheden zitten. Niet op gevoel, maar op feiten.
+
+Welke toegangspunten zijn onbewaakt? Wat zijn de piekuren? Waar zitten de blinde vlekken van uw camerasysteem? Hoe snel kan een team ter plaatse zijn bij alarm?
+
+Als u die vragen kunt beantwoorden, bouwt u een beveiligingsplan dat proportioneel is. Niet te veel, niet te weinig. Geen overbodige bewakers die staan te wachten, geen gaten in uw dekking.
+
+Bij Rosing beginnen we altijd met die analyse. Pas daarna praten we over agenten, patrouilles en technologie.
+
+Het verschil? Onze klanten betalen voor wat ze nodig hebben. Niet voor wat hen is aangepraat.
+
+Hoe pakken jullie dit aan? Ik ben benieuwd naar andere ervaringen.</div>
+    <div class="li-hashtags">#security #riskmanagement #beveiliging #datadriven #ondernemen</div>
+    <div class="li-engagement">
+      <div class="li-reactions">
+        <div class="li-reaction-icons">
+          <span>👍</span><span>💡</span><span>❤️</span>
+        </div>
+        <span>72 reacties</span>
+      </div>
+      <span>31 opmerkingen · 9 reposts</span>
+    </div>
+    <div class="li-actions">
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg> Vind ik leuk</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Opmerking</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg> Repost</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Verzenden</div>
+    </div>
+  </div>
+  <div class="post-footer">
+    <div class="post-footer-card">
+      <div class="post-footer-label">📷 Fotosuggestie</div>
+      <div class="post-footer-text">Beeld van een professionele beveiligingsanalyse: een agent die een plattegrond bestudeert, of een dashboard met beveiligingsdata. Alternatief: de foto "robert.jpg" voor een persoonlijk touch.</div>
+    </div>
+    <div class="post-footer-card">
+      <div class="post-footer-label">💡 Strategie</div>
+      <div class="post-footer-text">Controversieel genoeg om reacties uit te lokken, maar onderbouwd met expertise. Positioneert Rosing als adviespartner, niet als leverancier. De afsluitende vraag stimuleert dialoog en vergroot bereik.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━ POST 5 ━━━━━ -->
+<div class="post-wrapper">
+  <div class="post-meta">
+    <span class="post-number">Post 05 / 05</span>
+    <div class="post-tags">
+      <span class="post-tag type">Case study mini</span>
+      <span class="post-tag pillar">Expertise</span>
+    </div>
+  </div>
+  <div class="linkedin-card">
+    <button class="copy-btn" onclick="copyPost(this)">Kopiëren</button>
+    <div class="li-header">
+      <div class="li-avatar">RS</div>
+      <div class="li-author-info">
+        <div class="li-author-name">Robert Rosing</div>
+        <div class="li-author-title">Zaakvoerder bij Rosing Security · Bewaking &amp; Evenementbeveiliging</div>
+        <div class="li-author-time">5d · <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </div>
+      <span class="li-dots">⋯</span>
+    </div>
+    <div class="li-content"><span class="hook">"Jullie hoeven niet op te vallen. Jullie moeten er gewoon zijn."
+Dat zei een klant me vorige maand. En hij had volkomen gelijk.</span>
+
+We kregen de opdracht voor de bewaking van een industriepark in Vlaams-Brabant. Drie bedrijven, gedeeld terrein, wisselende ploegen. De uitdaging: beveiliging die 24/7 werkt zonder de dagelijkse operatie te verstoren.
+
+Onze aanpak:
+→ Eerst een grondige terreinanalyse: toegangspunten, blinde vlekken, piekuren
+→ Combinatie van vaste bewaking overdag en mobiele patrouilles 's nachts
+→ Opening- en sluitrondes zodat het bedrijf 's morgens altijd een beveiligd pand binnenkomt
+→ Digitaal taggingsysteem voor real-time rapportage van elke ronde
+
+Na drie maanden was het resultaat helder: nul inbraken, nul meldingen van onbevoegde toegang, en drie tevreden bedrijven die niet meer over beveiliging hoeven na te denken.
+
+Dat laatste is het mooiste compliment dat je als beveiligingsbedrijf kunt krijgen: dat klanten vergeten dat je er bent.
+
+Benieuwd wat een beveiligingsscan voor uw terrein oplevert? DM staat open.</div>
+    <div class="li-hashtags">#bewaking #industriëlebeveiliging #mobielepatrouille #VlaamsBrabant #RosingSecurity</div>
+    <div class="li-engagement">
+      <div class="li-reactions">
+        <div class="li-reaction-icons">
+          <span>👍</span><span>💡</span><span>🔥</span>
+        </div>
+        <span>56 reacties</span>
+      </div>
+      <span>15 opmerkingen · 4 reposts</span>
+    </div>
+    <div class="li-actions">
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg> Vind ik leuk</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Opmerking</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg> Repost</div>
+      <div class="li-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Verzenden</div>
+    </div>
+  </div>
+  <div class="post-footer">
+    <div class="post-footer-card">
+      <div class="post-footer-label">📷 Fotosuggestie</div>
+      <div class="post-footer-text">Nachtfoto van een industriepark met subtiele verlichting, of een Rosing-agent tijdens een patrouille met zaklamp. De "slider-parking.png" uit het dossier kan als alternatief dienen.</div>
+    </div>
+    <div class="post-footer-card">
+      <div class="post-footer-label">💡 Strategie</div>
+      <div class="post-footer-text">Concreet klantverhaal dat de werkwijze van Rosing tastbaar maakt. Het klantcitaat als hook maakt het persoonlijk en geloofwaardig. Toont zowel industriële bewaking als mobiele patrouilles — twee kerndiensten.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /posts-section -->
+
+<script>
+function copyPost(btn) {
+  const card = btn.closest('.linkedin-card');
+  const content = card.querySelector('.li-content').innerText;
+  const hashtags = card.querySelector('.li-hashtags')?.innerText || '';
+  const fullText = content + '\n\n' + hashtags;
+
+  navigator.clipboard.writeText(fullText).then(() => {
+    btn.textContent = 'Gekopieerd ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Kopiëren';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
