@@ -1999,10 +1999,10 @@ footer {
 
   <div class="drag-track" id="dragTrack">
 
-    <!-- ▸ GiGi Money — Commercials & Social (FIRST — eye-catching) -->
-    <div class="project-card has-video" data-project="gigi-socials" data-video="portfoliogigimoneysocials.mp4" style="--card-color: var(--pink);">
+    <!-- ▸ 1. GiGi Money — Commercials & Social -->
+    <div class="project-card has-video" data-project="gigi-socials" data-video="portfoliogigimoneysocialsmuziek.mp4" style="--card-color: var(--pink);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliogigimoneysocials.mp4" muted loop playsinline preload="none"></video>
+        <video class="card-video" src="portfoliogigimoneysocialsmuziek.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -2020,10 +2020,10 @@ footer {
       </div>
     </div>
 
-    <!-- ▸ Artoah -->
-    <div class="project-card has-video" data-project="artoah" data-video="portfolioartoah.mp4" style="--card-color: var(--amber);">
+    <!-- ▸ 2. Artoah -->
+    <div class="project-card has-video" data-project="artoah" data-video="portfolioartoahmuziek.mp4" style="--card-color: var(--amber);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfolioartoah.mp4" muted loop playsinline preload="none"></video>
+        <video class="card-video" src="portfolioartoahmuziek.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -2041,31 +2041,31 @@ footer {
       </div>
     </div>
 
-    <!-- ▸ Rosing Security -->
-    <div class="project-card has-video" data-project="rosing" data-video="portfoliorosign.mp4" style="--card-color: var(--red);">
+    <!-- ▸ 3. Hans van Hest -->
+    <div class="project-card has-video" data-project="hvh" data-video="portfoliohansvanhestmuziek.mp4" style="--card-color: var(--emerald);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliorosign.mp4" muted loop playsinline preload="none"></video>
+        <video class="card-video" src="portfoliohansvanhestmuziek.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
           <span class="reel-label-text">Showreel</span>
         </div>
         <div class="reel-play"></div>
-        <div class="card-stripe" style="background: var(--red);"></div>
+        <div class="card-stripe" style="background: var(--emerald);"></div>
       </div>
       <div class="card-info">
         <div class="card-meta">
-          <h3>Rosing Security</h3>
-          <span>Security · Animatie · Web</span>
+          <h3>Hans van Hest — KBC</h3>
+          <span>Verzekeringen · Landing page</span>
         </div>
         <div class="card-arrow">▶</div>
       </div>
     </div>
 
-    <!-- ▸ GiGi Money — Site & App -->
-    <div class="project-card has-video" data-project="gigi-site" data-video="portfoliogigimoneysiteandapp.mp4" style="--card-color: var(--accent);">
+    <!-- ▸ 4. GiGi Money — Site & App -->
+    <div class="project-card has-video" data-project="gigi-site" data-video="portfoloiogigimoneysitemuziek.mp4" style="--card-color: var(--accent);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliogigimoneysiteandapp.mp4" muted loop playsinline preload="none"></video>
+        <video class="card-video" src="portfoloiogigimoneysitemuziek.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -2083,22 +2083,22 @@ footer {
       </div>
     </div>
 
-    <!-- ▸ Hans van Hest -->
-    <div class="project-card has-video" data-project="hvh" data-video="portfoliohansvanhest.mp4" style="--card-color: var(--emerald);">
+    <!-- ▸ 5. Rosing Security -->
+    <div class="project-card has-video" data-project="rosing" data-video="portfoliorosingmuziek.mp4" style="--card-color: var(--red);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliohansvanhest.mp4" muted loop playsinline preload="none"></video>
+        <video class="card-video" src="portfoliorosingmuziek.mp4" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
           <span class="reel-label-text">Showreel</span>
         </div>
         <div class="reel-play"></div>
-        <div class="card-stripe" style="background: var(--emerald);"></div>
+        <div class="card-stripe" style="background: var(--red);"></div>
       </div>
       <div class="card-info">
         <div class="card-meta">
-          <h3>Hans van Hest — KBC</h3>
-          <span>Verzekeringen · Landing page</span>
+          <h3>Rosing Security</h3>
+          <span>Security · Animatie · Web</span>
         </div>
         <div class="card-arrow">▶</div>
       </div>
@@ -3173,6 +3173,7 @@ const modalClose = document.getElementById('videoModalClose');
 
 function openVideoModal(videoSrc, title) {
   modalVideo.src = videoSrc;
+  modalVideo.muted = false;
   modalTitle.textContent = title;
   videoModal.classList.add('active');
   modalVideo.play();
