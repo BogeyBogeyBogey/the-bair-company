@@ -638,19 +638,51 @@ nav { display: flex; gap: 0.3rem; }
   transform: translate(-50%, -50%) scale(0.5);
 }
 
+/* Color tint overlay — unique per card */
+.reel-viewport::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s var(--ease);
+}
+.project-card:hover .reel-viewport::after {
+  opacity: 0.4;
+}
+[data-project="gigi-socials"] .reel-viewport::after {
+  background: linear-gradient(160deg, rgba(236,72,153,0.2) 0%, transparent 55%, rgba(236,72,153,0.1) 100%);
+}
+[data-project="artoah"] .reel-viewport::after {
+  background: linear-gradient(160deg, rgba(245,158,11,0.2) 0%, transparent 55%, rgba(245,158,11,0.1) 100%);
+}
+[data-project="hvh"] .reel-viewport::after {
+  background: linear-gradient(160deg, rgba(16,185,129,0.2) 0%, transparent 55%, rgba(16,185,129,0.1) 100%);
+}
+[data-project="gigi-site"] .reel-viewport::after {
+  background: linear-gradient(160deg, rgba(46,138,255,0.2) 0%, transparent 55%, rgba(46,138,255,0.1) 100%);
+}
+[data-project="rosing"] .reel-viewport::after {
+  background: linear-gradient(160deg, rgba(239,68,68,0.2) 0%, transparent 55%, rgba(239,68,68,0.1) 100%);
+}
+[data-project="baasoverjegeld"] .reel-viewport::after {
+  background: linear-gradient(160deg, rgba(16,185,129,0.2) 0%, transparent 55%, rgba(16,185,129,0.1) 100%);
+}
+
 /* Color stripe */
 .card-stripe {
   position: absolute; bottom: 0; left: 0; right: 0;
   height: 3px; z-index: 7;
-  transform: scaleX(0);
-  transition: transform 0.5s var(--ease);
+  transform: scaleX(0.3);
+  opacity: 0.6;
+  transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
 }
-.project-card:hover .card-stripe { transform: scaleX(1); }
+.project-card:hover .card-stripe { transform: scaleX(1); opacity: 1; }
 
 /* Card info (below the reel) */
 .card-info {
   padding: 1.25rem 1.5rem 1.5rem;
   display: flex; justify-content: space-between; align-items: flex-start;
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
 .card-meta h3 {
   font-family: var(--font-display);
@@ -2041,7 +2073,7 @@ footer {
       </div>
       <div class="card-info">
         <div class="card-meta">
-          <h3>GiGi Money</h3>
+          <h3>GiGi Money — Social</h3>
           <span>Commercials · Social Media</span>
         </div>
         <div class="card-arrow">▶</div>
@@ -2104,7 +2136,7 @@ footer {
       </div>
       <div class="card-info">
         <div class="card-meta">
-          <h3>GiGi Money</h3>
+          <h3>GiGi Money — Platform</h3>
           <span>Fintech · Website · App</span>
         </div>
         <div class="card-arrow">▶</div>
