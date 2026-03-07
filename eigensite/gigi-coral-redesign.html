@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en" data-mindset="dreams">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GiGi Money — Coral Redesign Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   GIGI MONEY — CORAL + SPACE GROTESK REDESIGN
+   ============================================ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #110c0e;
+  --bg2: #1a1214;
+  --surface: rgba(251,113,133,0.04);
+  --text: #fdf2f4;
+  --text-soft: rgba(253,242,244,0.72);
+  --text-dim: rgba(253,242,244,0.38);
+  --accent: #fb7185;
+  --accent-soft: rgba(251,113,133,0.15);
+  --accent2: #fda4af;
+  --gold: #ecb74d;
+  --emerald: #34d399;
+  --coral: #fb7185;
+  --card: rgba(251,113,133,0.05);
+  --border: rgba(251,113,133,0.12);
+  --glow: rgba(251,113,133,0.25);
+  --t: .4s cubic-bezier(.16,1,.3,1);
+  --radius: 20px;
+}
+
+/* Dreams Mode (light warm) */
+html[data-mindset="dreams"] {
+  --bg: #fef7f5;
+  --bg2: #fff0ed;
+  --surface: rgba(251,113,133,0.06);
+  --text: #2d1319;
+  --text-soft: rgba(45,19,25,0.68);
+  --text-dim: rgba(45,19,25,0.38);
+  --card: rgba(251,113,133,0.06);
+  --border: rgba(251,113,133,0.15);
+  --glow: rgba(251,113,133,0.2);
+}
+
+/* Numbers Mode (dark analytical) */
+html[data-mindset="numbers"] {
+  --bg: #0c0f12;
+  --bg2: #111518;
+  --surface: rgba(52,211,153,0.04);
+  --text: #e8f5ef;
+  --text-soft: rgba(232,245,239,0.7);
+  --text-dim: rgba(232,245,239,0.35);
+  --accent: #34d399;
+  --accent-soft: rgba(52,211,153,0.12);
+  --accent2: #6ee7b7;
+  --card: rgba(52,211,153,0.05);
+  --border: rgba(52,211,153,0.1);
+  --glow: rgba(52,211,153,0.2);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+  overflow-x: hidden;
+  transition: background var(--t), color var(--t);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography */
+.display { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -0.03em; }
+.mono { font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 0.85em; letter-spacing: -0.02em; }
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+
+a { color: var(--accent); text-decoration: none; }
+
+/* Utility */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 120px 0; position: relative; }
+.text-center { text-align: center; }
+.text-soft { color: var(--text-soft); }
+.text-dim { color: var(--text-dim); }
+.accent { color: var(--accent); }
+.gold { color: var(--gold); }
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+/* Reveal animations */
+.r {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.r.v {
+  opacity: 1;
+  transform: translateY(0);
+}
+.r.delay-1 { transition-delay: 0.1s; }
+.r.delay-2 { transition-delay: 0.2s; }
+.r.delay-3 { transition-delay: 0.3s; }
+.r.delay-4 { transition-delay: 0.4s; }
+
+/* ==================
+   NAVIGATION
+   ================== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+nav.scrolled {
+  background: rgba(17,12,14,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+html[data-mindset="dreams"] nav.scrolled {
+  background: rgba(254,247,245,0.88);
+}
+html[data-mindset="numbers"] nav.scrolled {
+  background: rgba(12,15,18,0.88);
+}
+
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.04em;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links { display: flex; gap: 8px; align-items: center; }
+.nav-links a {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: all var(--t);
+}
+.nav-links a:hover { color: var(--text); background: var(--accent-soft); }
+
+.nav-lang {
+  display: flex;
+  gap: 4px;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 3px;
+}
+.nav-lang button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  padding: 5px 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.nav-lang button.active {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 500;
+}
+
+.nav-cta {
+  background: var(--accent) !important;
+  color: var(--bg) !important;
+  font-weight: 600 !important;
+  padding: 10px 20px !important;
+  border-radius: 12px !important;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* ==================
+   HERO
+   ================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mesh gradient behind hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(ellipse at center, var(--glow) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-soft);
+  margin-bottom: 32px;
+}
+.hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  line-height: 1.05;
+  max-width: 800px;
+  margin-bottom: 24px;
+}
+
+/* Animated €42 */
+.hero-amount {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(5rem, 14vw, 9rem);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin: 16px 0 12px;
+  position: relative;
+  display: inline-block;
+}
+.hero-amount .amount-text {
+  background: linear-gradient(135deg, #fb7185, #fda4af, #fb7185);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+}
+html[data-mindset="numbers"] .hero-amount .amount-text {
+  background: linear-gradient(135deg, #34d399, #6ee7b7, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-amount .glow-ring {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+  animation: glowRing 3s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes glowRing {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 0.8; transform: scale(1.15); }
+}
+
+@keyframes countPulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.015); filter: brightness(1.1); }
+}
+.hero-amount.counted .amount-text {
+  animation: countPulse 3s ease-in-out infinite;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-soft);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--t);
+  text-decoration: none;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--glow);
+}
+
+.hero-note {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+/* ==================
+   SHOWCASE
+   ================== */
+.showcase {
+  padding: 60px 0 120px;
+  position: relative;
+}
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 768px) {
+  .showcase-grid { grid-template-columns: 1fr; max-width: 340px; }
+}
+.phone-mock {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 16px;
+  aspect-ratio: 9/16;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--t);
+  cursor: pointer;
+}
+.phone-mock:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px var(--glow);
+}
+.phone-mock .phone-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.phone-mock .phone-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+.phone-mock .phone-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.phone-mock .phone-desc {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+  padding: 0 12px;
+}
+
+/* ==================
+   MINDSET CHOICE (Dreams vs Numbers)
+   ================== */
+.choice-section {
+  padding: 100px 0;
+  text-align: center;
+}
+.choice-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 16px;
+}
+.choice-sub {
+  color: var(--text-soft);
+  font-size: 1rem;
+  margin-bottom: 48px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.choice-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 600px) {
+  .choice-cards { grid-template-columns: 1fr; max-width: 340px; }
+}
+.choice-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 32px;
+  cursor: pointer;
+  transition: all var(--t);
+  text-align: center;
+}
+.choice-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px var(--glow);
+}
+.choice-card.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.choice-card .choice-emoji { font-size: 3rem; margin-bottom: 16px; }
+.choice-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.choice-card p {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+/* ==================
+   FACE SECTIONS (Dreams / Numbers)
+   ================== */
+.face-section {
+  padding: 100px 0;
+  text-align: center;
+}
+.face-icon { font-size: 3rem; margin-bottom: 20px; }
+.face-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin-bottom: 16px;
+}
+.face-desc {
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.face-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 768px) {
+  .face-features { grid-template-columns: 1fr; }
+}
+.face-feat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 20px;
+  transition: all var(--t);
+}
+.face-feat:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.face-feat .feat-emoji { font-size: 1.6rem; margin-bottom: 10px; }
+.face-feat h4 {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.face-feat p {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+/* ==================
+   GENIES / COACHES
+   ================== */
+.genies-section {
+  padding: 100px 0;
+  text-align: center;
+}
+.genies-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 12px;
+}
+.genies-sub {
+  color: var(--text-soft);
+  font-size: 1rem;
+  max-width: 500px;
+  margin: 0 auto 48px;
+}
+.genies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 768px) {
+  .genies-grid { grid-template-columns: 1fr; max-width: 380px; }
+}
+.genie-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 24px;
+  transition: all var(--t);
+  text-align: left;
+}
+.genie-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px var(--glow);
+}
+.genie-emoji { font-size: 2.4rem; margin-bottom: 16px; }
+.genie-name {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+.genie-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+.genie-typing {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+.genie-typing .dots {
+  display: flex;
+  gap: 4px;
+}
+.genie-typing .dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  animation: typing 1.4s infinite;
+}
+.genie-typing .dots span:nth-child(2) { animation-delay: 0.2s; }
+.genie-typing .dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+.genie-typing .typed-text {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+  display: none;
+}
+.genie-typing.typed .dots { display: none; }
+.genie-typing.typed .typed-text { display: block; }
+
+/* ==================
+   COUPLES GATEWAY
+   ================== */
+.couples-gateway {
+  padding: 100px 0;
+  text-align: center;
+}
+.couples-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.couples-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 16px;
+}
+.couples-sub {
+  color: var(--text-soft);
+  font-size: 1rem;
+  max-width: 500px;
+  margin: 0 auto 40px;
+}
+.couples-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 600px) {
+  .couples-features { grid-template-columns: 1fr; }
+}
+.couple-feat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: left;
+  transition: all var(--t);
+}
+.couple-feat:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.couple-feat .cf-emoji { font-size: 1.8rem; margin-bottom: 12px; }
+.couple-feat h4 { font-size: 1rem; margin-bottom: 6px; }
+.couple-feat p {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+/* ==================
+   DAILY FREEDOM (€42 counter)
+   ================== */
+.freedom-section {
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.freedom-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 65%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+.freedom-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  position: relative;
+}
+.freedom-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(6rem, 16vw, 12rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent), var(--gold), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  margin-bottom: 16px;
+}
+html[data-mindset="numbers"] .freedom-num {
+  background: linear-gradient(135deg, #34d399, #ecb74d, #6ee7b7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.freedom-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-soft);
+  max-width: 450px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ==================
+   SOCIAL PROOF
+   ================== */
+.social-section {
+  padding: 100px 0;
+  text-align: center;
+}
+.social-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  margin-bottom: 48px;
+}
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 768px) {
+  .social-grid { grid-template-columns: 1fr; max-width: 380px; }
+}
+.social-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align: left;
+  transition: all var(--t);
+}
+.social-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.social-stars {
+  color: var(--gold);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+.social-quote {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.social-author {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.social-role {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* ==================
+   SCIENCE TEASER
+   ================== */
+.science-section {
+  padding: 100px 0;
+  text-align: center;
+}
+.science-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 60px 40px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.science-card .sci-emoji { font-size: 2.5rem; margin-bottom: 20px; }
+.science-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+.science-card p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ==================
+   PRICING
+   ================== */
+.pricing-section {
+  padding: 100px 0;
+  text-align: center;
+}
+.pricing-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 12px;
+}
+.pricing-sub {
+  color: var(--text-soft);
+  font-size: 1rem;
+  margin-bottom: 48px;
+}
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 600px) {
+  .pricing-cards { grid-template-columns: 1fr; max-width: 340px; }
+}
+.price-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 28px;
+  transition: all var(--t);
+  text-align: left;
+}
+.price-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px var(--glow);
+}
+.price-card.featured {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.price-card .price-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.price-card .price-amount {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+  letter-spacing: -0.04em;
+  margin-bottom: 4px;
+}
+.price-card .price-period {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+.price-card ul {
+  list-style: none;
+  margin-bottom: 24px;
+}
+.price-card li {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.price-card li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.price-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--t);
+}
+.price-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px var(--glow); }
+.price-btn.outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.price-btn.outline:hover { border-color: var(--accent); }
+
+/* ==================
+   FINAL CTA
+   ================== */
+.final-cta {
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(ellipse at bottom, var(--glow) 0%, transparent 65%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+.final-cta h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 16px;
+  position: relative;
+}
+.final-cta p {
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  max-width: 480px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+.final-cta .hero-cta { position: relative; }
+
+/* ==================
+   FOOTER
+   ================== */
+footer {
+  padding: 60px 24px 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.footer-brand span { color: var(--accent); }
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  transition: color var(--t);
+}
+.footer-links a:hover { color: var(--text); }
+.footer-copy {
+  width: 100%;
+  text-align: center;
+  margin-top: 32px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* ==================
+   MAGIC LAMP (Easter egg)
+   ================== */
+.magic-lamp {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 90;
+  transition: all var(--t);
+}
+.magic-lamp:hover {
+  transform: scale(1.1) rotate(-10deg);
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px var(--glow);
+}
+
+/* ==================
+   REDESIGN BADGE (floating)
+   ================== */
+.redesign-badge {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  background: var(--accent);
+  color: #110c0e;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<!-- REDESIGN BADGE -->
+<div class="redesign-badge">🔴 Coral Redesign Preview</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">GiGi<span>.</span></div>
+  <div class="nav-links">
+    <div class="nav-lang">
+      <button class="active" onclick="setLang('en')">EN</button>
+      <button onclick="setLang('nl')">NL</button>
+      <button onclick="setLang('fr')">FR</button>
+    </div>
+    <a href="#features" data-i18n="nav_features">Features</a>
+    <a href="#couples" data-i18n="nav_couples">Couples</a>
+    <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+    <a href="#download" class="nav-cta" data-i18n="nav_cta">Get GiGi</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-badge r">
+    <span class="dot"></span>
+    <span data-i18n="hero_badge">Your money genie is here</span>
+  </div>
+  <h1 class="hero-title display r delay-1" data-i18n="hero_title">Make friends with your money</h1>
+  <div class="hero-amount r delay-2">
+    <div class="glow-ring"></div>
+    <span class="amount-text" id="hero-counter">€0</span>
+  </div>
+  <p class="hero-sub r delay-3" data-i18n="hero_sub">That's all it takes per day to transform your financial life. Three coaches, one app, zero judgment.</p>
+  <a href="#download" class="hero-cta r delay-4" data-i18n="hero_cta">
+    Start your wish →
+  </a>
+  <p class="hero-note r delay-4" data-i18n="hero_note">Free for 30 days · No credit card needed</p>
+</section>
+
+<!-- SHOWCASE -->
+<section class="showcase" id="features">
+  <div class="showcase-grid">
+    <div class="phone-mock r">
+      <span class="phone-label">01</span>
+      <span class="phone-icon">🧞</span>
+      <h3 class="phone-title" data-i18n="show_1_title">3 AI Coaches</h3>
+      <p class="phone-desc" data-i18n="show_1_desc">Warm, dry, or bro — pick the voice that gets through to you</p>
+    </div>
+    <div class="phone-mock r delay-1">
+      <span class="phone-label">02</span>
+      <span class="phone-icon">💫</span>
+      <h3 class="phone-title" data-i18n="show_2_title">Dreams + Numbers</h3>
+      <p class="phone-desc" data-i18n="show_2_desc">Switch between emotional and analytical views of your finances</p>
+    </div>
+    <div class="phone-mock r delay-2">
+      <span class="phone-label">03</span>
+      <span class="phone-icon">💑</span>
+      <h3 class="phone-title" data-i18n="show_3_title">Couples Mode</h3>
+      <p class="phone-desc" data-i18n="show_3_desc">Money dates, shared goals, secret reveals — for two</p>
+    </div>
+  </div>
+</section>
+
+<!-- MINDSET CHOICE -->
+<section class="choice-section section" id="mindset">
+  <div class="container">
+    <h2 class="choice-title display r" data-i18n="choice_title">How do you see money?</h2>
+    <p class="choice-sub r delay-1" data-i18n="choice_sub">GiGi adapts to your mindset. Choose your lens.</p>
+    <div class="choice-cards">
+      <div class="choice-card active r delay-2" onclick="chooseMindset('dreams')">
+        <div class="choice-emoji">✨</div>
+        <h3 data-i18n="choice_dreams_title">Dreams</h3>
+        <p data-i18n="choice_dreams_desc">Soft, visual, and goal-focused. See your money as wishes waiting to come true.</p>
+      </div>
+      <div class="choice-card r delay-3" onclick="chooseMindset('numbers')">
+        <div class="choice-emoji">📊</div>
+        <h3 data-i18n="choice_numbers_title">Numbers</h3>
+        <p data-i18n="choice_numbers_desc">Clean, analytical, data-first. See your money as patterns and precision.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DREAMS FACE -->
+<section class="face-section section" id="dreams-face">
+  <div class="container">
+    <div class="face-icon r">✨</div>
+    <h2 class="face-title display r delay-1" data-i18n="dreams_title">The Dreams Side</h2>
+    <p class="face-desc r delay-2" data-i18n="dreams_desc">Visualize your goals, set wishes, and watch them grow. Money becomes something you look forward to managing.</p>
+    <div class="face-features">
+      <div class="face-feat r delay-1">
+        <div class="feat-emoji">🌙</div>
+        <h4 data-i18n="dreams_f1_title">Wish Jars</h4>
+        <p data-i18n="dreams_f1_desc">Name your savings goals. Watch them fill up like magic.</p>
+      </div>
+      <div class="face-feat r delay-2">
+        <div class="feat-emoji">🎯</div>
+        <h4 data-i18n="dreams_f2_title">Goal Tracking</h4>
+        <p data-i18n="dreams_f2_desc">Visual progress on every dream — from weekends away to new beginnings.</p>
+      </div>
+      <div class="face-feat r delay-3">
+        <div class="feat-emoji">💭</div>
+        <h4 data-i18n="dreams_f3_title">Daily Wishes</h4>
+        <p data-i18n="dreams_f3_desc">Micro-saves tied to moments. Coffee saved? That's €1,200/year closer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS FACE -->
+<section class="face-section section" id="numbers-face">
+  <div class="container">
+    <div class="face-icon r">📊</div>
+    <h2 class="face-title display r delay-1" data-i18n="numbers_title">The Numbers Side</h2>
+    <p class="face-desc r delay-2" data-i18n="numbers_desc">Pure data, clear insights, zero fluff. See exactly where every cent goes and how your wealth compounds.</p>
+    <div class="face-features">
+      <div class="face-feat r delay-1">
+        <div class="feat-emoji">📈</div>
+        <h4 data-i18n="numbers_f1_title">Live Analytics</h4>
+        <p data-i18n="numbers_f1_desc">Real-time spending patterns, category breakdowns, trend analysis.</p>
+      </div>
+      <div class="face-feat r delay-2">
+        <div class="feat-emoji">⚡</div>
+        <h4 data-i18n="numbers_f2_title">Smart Alerts</h4>
+        <p data-i18n="numbers_f2_desc">Get notified before you overspend. AI catches the patterns you miss.</p>
+      </div>
+      <div class="face-feat r delay-3">
+        <div class="feat-emoji">🔮</div>
+        <h4 data-i18n="numbers_f3_title">Projections</h4>
+        <p data-i18n="numbers_f3_desc">Where will you be in 6 months? A year? See the math, not the magic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GENIES (COACHES) -->
+<section class="genies-section section" id="genies">
+  <div class="container">
+    <h2 class="genies-title display r" data-i18n="genies_title">Meet your genies</h2>
+    <p class="genies-sub r delay-1" data-i18n="genies_sub">Three AI coaches. Each one speaks differently. All want you to win.</p>
+    <div class="genies-grid">
+      <div class="genie-card r delay-1">
+        <div class="genie-emoji">🧞</div>
+        <h3 class="genie-name" data-i18n="genie_warm_name">The Warm One</h3>
+        <p class="genie-role" data-i18n="genie_warm_role">Empathetic Coach</p>
+        <div class="genie-typing" id="coach-warm">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <p class="typed-text" id="warm-text"></p>
+        </div>
+      </div>
+      <div class="genie-card r delay-2">
+        <div class="genie-emoji">🧞‍♂️</div>
+        <h3 class="genie-name" data-i18n="genie_dry_name">The Dry One</h3>
+        <p class="genie-role" data-i18n="genie_dry_role">No-Nonsense Analyst</p>
+        <div class="genie-typing" id="coach-dry">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <p class="typed-text" id="dry-text"></p>
+        </div>
+      </div>
+      <div class="genie-card r delay-3">
+        <div class="genie-emoji">🧞‍♀️</div>
+        <h3 class="genie-name" data-i18n="genie_bro_name">The Bro</h3>
+        <p class="genie-role" data-i18n="genie_bro_role">Hype Machine</p>
+        <div class="genie-typing" id="coach-bro">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <p class="typed-text" id="bro-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUPLES GATEWAY -->
+<section class="couples-gateway section" id="couples">
+  <div class="container">
+    <div class="couples-badge r">💑 <span data-i18n="couples_badge">For Two</span></div>
+    <h2 class="couples-title display r delay-1" data-i18n="couples_title">Money, meet love</h2>
+    <p class="couples-sub r delay-2" data-i18n="couples_sub">Finally talk about money without fighting. GiGi makes it fun, safe, and surprisingly romantic.</p>
+    <div class="couples-features">
+      <div class="couple-feat r delay-1">
+        <div class="cf-emoji">🕯️</div>
+        <h4 data-i18n="couple_f1_title">Money Dates</h4>
+        <p data-i18n="couple_f1_desc">Weekly guided sessions to talk finances together. Wine optional, honesty required.</p>
+      </div>
+      <div class="couple-feat r delay-2">
+        <div class="cf-emoji">🎯</div>
+        <h4 data-i18n="couple_f2_title">Shared Goals</h4>
+        <p data-i18n="couple_f2_desc">Dream together. Save together. See both contributions grow in real time.</p>
+      </div>
+      <div class="couple-feat r delay-3">
+        <div class="cf-emoji">🔐</div>
+        <h4 data-i18n="couple_f3_title">Privacy First</h4>
+        <p data-i18n="couple_f3_desc">Choose what to share. Personal spending stays personal unless you decide otherwise.</p>
+      </div>
+      <div class="couple-feat r delay-4">
+        <div class="cf-emoji">🎁</div>
+        <h4 data-i18n="couple_f4_title">Secret Reveals</h4>
+        <p data-i18n="couple_f4_desc">Surprise savings for gifts, trips, or that thing they've been eyeing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY FREEDOM -->
+<section class="freedom-section section" id="freedom">
+  <div class="container">
+    <p class="freedom-label r" data-i18n="freedom_label">Daily cost of financial freedom</p>
+    <div class="freedom-num r delay-1" id="freedom-counter">€0</div>
+    <p class="freedom-sub r delay-2" data-i18n="freedom_sub">Less than a coffee. More than a financial advisor. Three genies included.</p>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-section section" id="social">
+  <div class="container">
+    <h2 class="social-title display r" data-i18n="social_title">Real wishes, real results</h2>
+    <div class="social-grid">
+      <div class="social-card r delay-1">
+        <div class="social-stars">★★★★★</div>
+        <p class="social-quote" data-i18n="social_q1">"I actually look forward to checking my finances now. The Warm Genie makes me feel like I'm doing great even on tough months."</p>
+        <p class="social-author">Emma V.</p>
+        <p class="social-role" data-i18n="social_r1">Freelance designer, Brussels</p>
+      </div>
+      <div class="social-card r delay-2">
+        <div class="social-stars">★★★★★</div>
+        <p class="social-quote" data-i18n="social_q2">"My partner and I did our first money date. We actually laughed. About money. That's never happened before."</p>
+        <p class="social-author">Thomas & Lisa</p>
+        <p class="social-role" data-i18n="social_r2">Together 4 years, Antwerp</p>
+      </div>
+      <div class="social-card r delay-3">
+        <div class="social-stars">★★★★★</div>
+        <p class="social-quote" data-i18n="social_q3">"The Bro genie told me my savings rate was 'absolutely legendary.' I've never been this motivated to save."</p>
+        <p class="social-author">Youssef K.</p>
+        <p class="social-role" data-i18n="social_r3">Software developer, Ghent</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE TEASER -->
+<section class="science-section section">
+  <div class="container">
+    <div class="science-card r">
+      <div class="sci-emoji">🧪</div>
+      <h3 class="display" data-i18n="science_title">Built on behavioural science</h3>
+      <p data-i18n="science_desc">GiGi uses proven nudge techniques, loss aversion framing, and habit stacking to rewire how you feel about money. Not just spreadsheets — science.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section section" id="pricing">
+  <div class="container">
+    <h2 class="pricing-title display r" data-i18n="pricing_title">Simple, honest pricing</h2>
+    <p class="pricing-sub r delay-1" data-i18n="pricing_sub">No hidden fees. No surprises. Just like we teach.</p>
+    <div class="pricing-cards">
+      <div class="price-card r delay-2">
+        <p class="price-label" data-i18n="price_free_label">Solo</p>
+        <p class="price-amount">€0</p>
+        <p class="price-period" data-i18n="price_free_period">Free forever</p>
+        <ul>
+          <li data-i18n="price_free_f1">1 AI coach of choice</li>
+          <li data-i18n="price_free_f2">Basic spending insights</li>
+          <li data-i18n="price_free_f3">3 wish jars</li>
+          <li data-i18n="price_free_f4">Monthly reports</li>
+        </ul>
+        <button class="price-btn outline" data-i18n="price_free_cta">Start free</button>
+      </div>
+      <div class="price-card featured r delay-3">
+        <p class="price-label" data-i18n="price_pro_label">GiGi Pro</p>
+        <p class="price-amount">€3,49</p>
+        <p class="price-period" data-i18n="price_pro_period">/month · billed yearly</p>
+        <ul>
+          <li data-i18n="price_pro_f1">All 3 genies unlocked</li>
+          <li data-i18n="price_pro_f2">Couples mode</li>
+          <li data-i18n="price_pro_f3">Unlimited wish jars</li>
+          <li data-i18n="price_pro_f4">AI projections & alerts</li>
+          <li data-i18n="price_pro_f5">Priority support</li>
+        </ul>
+        <button class="price-btn" data-i18n="price_pro_cta">Start 30-day trial</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta section" id="download">
+  <div class="container">
+    <h2 class="display r" data-i18n="final_title">Your money deserves a genie</h2>
+    <p class="r delay-1" data-i18n="final_sub">Join thousands who made friends with their finances. It starts with one wish.</p>
+    <a href="#" class="hero-cta r delay-2" data-i18n="final_cta">Download GiGi →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">GiGi<span>.</span></div>
+    <div class="footer-links">
+      <a href="#" data-i18n="foot_privacy">Privacy</a>
+      <a href="#" data-i18n="foot_terms">Terms</a>
+      <a href="#" data-i18n="foot_contact">Contact</a>
+      <a href="#" data-i18n="foot_press">Press</a>
+    </div>
+    <p class="footer-copy">© 2026 GiGi Money. Made with ✨ in Belgium.</p>
+  </div>
+</footer>
+
+<!-- MAGIC LAMP -->
+<div class="magic-lamp" onclick="rubLamp()" title="Rub me ✨">🪔</div>
+
+<script>
+// ============================================
+// LANGUAGE SYSTEM
+// ============================================
+let currentLang = 'en';
+const translations = {
+  en: {
+    hero_badge: "Your money genie is here",
+    hero_title: "Make friends with your money",
+    hero_sub: "That's all it takes per day to transform your financial life. Three coaches, one app, zero judgment.",
+    hero_cta: "Start your wish →",
+    hero_note: "Free for 30 days · No credit card needed",
+    nav_features: "Features",
+    nav_couples: "Couples",
+    nav_pricing: "Pricing",
+    nav_cta: "Get GiGi",
+    show_1_title: "3 AI Coaches",
+    show_1_desc: "Warm, dry, or bro — pick the voice that gets through to you",
+    show_2_title: "Dreams + Numbers",
+    show_2_desc: "Switch between emotional and analytical views of your finances",
+    show_3_title: "Couples Mode",
+    show_3_desc: "Money dates, shared goals, secret reveals — for two",
+    choice_title: "How do you see money?",
+    choice_sub: "GiGi adapts to your mindset. Choose your lens.",
+    choice_dreams_title: "Dreams",
+    choice_dreams_desc: "Soft, visual, and goal-focused. See your money as wishes waiting to come true.",
+    choice_numbers_title: "Numbers",
+    choice_numbers_desc: "Clean, analytical, data-first. See your money as patterns and precision.",
+    dreams_title: "The Dreams Side",
+    dreams_desc: "Visualize your goals, set wishes, and watch them grow. Money becomes something you look forward to managing.",
+    dreams_f1_title: "Wish Jars", dreams_f1_desc: "Name your savings goals. Watch them fill up like magic.",
+    dreams_f2_title: "Goal Tracking", dreams_f2_desc: "Visual progress on every dream — from weekends away to new beginnings.",
+    dreams_f3_title: "Daily Wishes", dreams_f3_desc: "Micro-saves tied to moments. Coffee saved? That's €1,200/year closer.",
+    numbers_title: "The Numbers Side",
+    numbers_desc: "Pure data, clear insights, zero fluff. See exactly where every cent goes and how your wealth compounds.",
+    numbers_f1_title: "Live Analytics", numbers_f1_desc: "Real-time spending patterns, category breakdowns, trend analysis.",
+    numbers_f2_title: "Smart Alerts", numbers_f2_desc: "Get notified before you overspend. AI catches the patterns you miss.",
+    numbers_f3_title: "Projections", numbers_f3_desc: "Where will you be in 6 months? A year? See the math, not the magic.",
+    genies_title: "Meet your genies",
+    genies_sub: "Three AI coaches. Each one speaks differently. All want you to win.",
+    genie_warm_name: "The Warm One", genie_warm_role: "Empathetic Coach",
+    genie_dry_name: "The Dry One", genie_dry_role: "No-Nonsense Analyst",
+    genie_bro_name: "The Bro", genie_bro_role: "Hype Machine",
+    couples_badge: "For Two",
+    couples_title: "Money, meet love",
+    couples_sub: "Finally talk about money without fighting. GiGi makes it fun, safe, and surprisingly romantic.",
+    couple_f1_title: "Money Dates", couple_f1_desc: "Weekly guided sessions to talk finances together. Wine optional, honesty required.",
+    couple_f2_title: "Shared Goals", couple_f2_desc: "Dream together. Save together. See both contributions grow in real time.",
+    couple_f3_title: "Privacy First", couple_f3_desc: "Choose what to share. Personal spending stays personal unless you decide otherwise.",
+    couple_f4_title: "Secret Reveals", couple_f4_desc: "Surprise savings for gifts, trips, or that thing they've been eyeing.",
+    freedom_label: "Daily cost of financial freedom",
+    freedom_sub: "Less than a coffee. More than a financial advisor. Three genies included.",
+    social_title: "Real wishes, real results",
+    social_q1: "\"I actually look forward to checking my finances now. The Warm Genie makes me feel like I'm doing great even on tough months.\"",
+    social_r1: "Freelance designer, Brussels",
+    social_q2: "\"My partner and I did our first money date. We actually laughed. About money. That's never happened before.\"",
+    social_r2: "Together 4 years, Antwerp",
+    social_q3: "\"The Bro genie told me my savings rate was 'absolutely legendary.' I've never been this motivated to save.\"",
+    social_r3: "Software developer, Ghent",
+    science_title: "Built on behavioural science",
+    science_desc: "GiGi uses proven nudge techniques, loss aversion framing, and habit stacking to rewire how you feel about money. Not just spreadsheets — science.",
+    pricing_title: "Simple, honest pricing",
+    pricing_sub: "No hidden fees. No surprises. Just like we teach.",
+    price_free_label: "Solo", price_free_period: "Free forever",
+    price_free_f1: "1 AI coach of choice", price_free_f2: "Basic spending insights", price_free_f3: "3 wish jars", price_free_f4: "Monthly reports",
+    price_free_cta: "Start free",
+    price_pro_label: "GiGi Pro", price_pro_period: "/month · billed yearly",
+    price_pro_f1: "All 3 genies unlocked", price_pro_f2: "Couples mode", price_pro_f3: "Unlimited wish jars", price_pro_f4: "AI projections & alerts", price_pro_f5: "Priority support",
+    price_pro_cta: "Start 30-day trial",
+    final_title: "Your money deserves a genie",
+    final_sub: "Join thousands who made friends with their finances. It starts with one wish.",
+    final_cta: "Download GiGi →",
+    foot_privacy: "Privacy", foot_terms: "Terms", foot_contact: "Contact", foot_press: "Press"
+  },
+  nl: {
+    hero_badge: "Je geldgeest is er",
+    hero_title: "Maak vrienden met je geld",
+    hero_sub: "Meer heb je niet nodig per dag om je financiële leven te transformeren. Drie coaches, één app, nul oordeel.",
+    hero_cta: "Begin je wens →",
+    hero_note: "30 dagen gratis · Geen creditcard nodig",
+    nav_features: "Features",
+    nav_couples: "Koppels",
+    nav_pricing: "Prijzen",
+    nav_cta: "Download GiGi",
+    show_1_title: "3 AI Coaches",
+    show_1_desc: "Warm, droog of bro — kies de stem die bij jou past",
+    show_2_title: "Dromen + Cijfers",
+    show_2_desc: "Wissel tussen emotioneel en analytisch zicht op je financiën",
+    show_3_title: "Koppelmodus",
+    show_3_desc: "Gelddates, gedeelde doelen, geheime onthullingen — voor twee",
+    choice_title: "Hoe kijk jij naar geld?",
+    choice_sub: "GiGi past zich aan jouw mindset aan. Kies je lens.",
+    choice_dreams_title: "Dromen",
+    choice_dreams_desc: "Zacht, visueel en doelgericht. Zie je geld als wensen die uitkomen.",
+    choice_numbers_title: "Cijfers",
+    choice_numbers_desc: "Clean, analytisch, data-first. Zie je geld als patronen en precisie.",
+    dreams_title: "De Dromenkant",
+    dreams_desc: "Visualiseer je doelen, stel wensen in en kijk ze groeien. Geld wordt iets waar je naar uitkijkt.",
+    dreams_f1_title: "Wenspotten", dreams_f1_desc: "Geef je spaardoelen een naam. Kijk hoe ze als vanzelf vollopen.",
+    dreams_f2_title: "Doel Tracking", dreams_f2_desc: "Visuele voortgang op elke droom — van weekendjes weg tot nieuwe starts.",
+    dreams_f3_title: "Dagwensen", dreams_f3_desc: "Micro-besparingen gekoppeld aan momenten. Koffie bespaard? Dat is €1.200/jaar dichterbij.",
+    numbers_title: "De Cijferkant",
+    numbers_desc: "Pure data, heldere inzichten, nul opsmuk. Zie precies waar elke cent naartoe gaat.",
+    numbers_f1_title: "Live Analytics", numbers_f1_desc: "Realtime bestedingspatronen, categorie-indelingen, trendanalyse.",
+    numbers_f2_title: "Slimme Alerts", numbers_f2_desc: "Word gewaarschuwd vóór je te veel uitgeeft. AI vangt patronen die jij mist.",
+    numbers_f3_title: "Projecties", numbers_f3_desc: "Waar sta je over 6 maanden? Een jaar? Zie de wiskunde, niet de magie.",
+    genies_title: "Ontmoet je geesten",
+    genies_sub: "Drie AI-coaches. Elk spreekt anders. Allemaal willen ze dat jij wint.",
+    genie_warm_name: "De Warme", genie_warm_role: "Empathische Coach",
+    genie_dry_name: "De Droge", genie_dry_role: "No-Nonsense Analist",
+    genie_bro_name: "De Bro", genie_bro_role: "Hype Machine",
+    couples_badge: "Voor Twee",
+    couples_title: "Geld, ontmoet liefde",
+    couples_sub: "Eindelijk over geld praten zonder ruzie. GiGi maakt het leuk, veilig en verrassend romantisch.",
+    couple_f1_title: "Gelddates", couple_f1_desc: "Wekelijkse begeleide sessies om samen over financiën te praten. Wijn optioneel, eerlijkheid verplicht.",
+    couple_f2_title: "Gedeelde Doelen", couple_f2_desc: "Droom samen. Spaar samen. Zie beide bijdragen groeien in real time.",
+    couple_f3_title: "Privacy Eerst", couple_f3_desc: "Kies wat je deelt. Persoonlijke uitgaven blijven persoonlijk tenzij jij anders beslist.",
+    couple_f4_title: "Geheime Onthullingen", couple_f4_desc: "Verrassingsbesparingen voor cadeaus, reizen of dat ding waar ze al lang naar kijken.",
+    freedom_label: "Dagelijkse kost van financiële vrijheid",
+    freedom_sub: "Minder dan een koffie. Meer dan een financieel adviseur. Drie geesten inbegrepen.",
+    social_title: "Echte wensen, echte resultaten",
+    social_q1: "\"Ik kijk er nu echt naar uit om mijn financiën te checken. De Warme Geest geeft me het gevoel dat ik het goed doe, zelfs in moeilijke maanden.\"",
+    social_r1: "Freelance designer, Brussel",
+    social_q2: "\"Mijn partner en ik deden onze eerste gelddate. We hebben echt gelachen. Over geld. Dat is nog nooit gebeurd.\"",
+    social_r2: "4 jaar samen, Antwerpen",
+    social_q3: "\"De Bro-geest vertelde me dat mijn spaarquote 'absoluut legendarisch' was. Ik ben nog nooit zo gemotiveerd geweest om te sparen.\"",
+    social_r3: "Software developer, Gent",
+    science_title: "Gebouwd op gedragswetenschap",
+    science_desc: "GiGi gebruikt bewezen nudge-technieken, verliesaversie en habit stacking om je relatie met geld te veranderen. Niet zomaar spreadsheets — wetenschap.",
+    pricing_title: "Eenvoudige, eerlijke prijzen",
+    pricing_sub: "Geen verborgen kosten. Geen verrassingen. Net zoals wij het leren.",
+    price_free_label: "Solo", price_free_period: "Altijd gratis",
+    price_free_f1: "1 AI-coach naar keuze", price_free_f2: "Basis bestedingsinzichten", price_free_f3: "3 wenspotten", price_free_f4: "Maandelijkse rapporten",
+    price_free_cta: "Start gratis",
+    price_pro_label: "GiGi Pro", price_pro_period: "/maand · jaarlijks gefactureerd",
+    price_pro_f1: "Alle 3 geesten ontgrendeld", price_pro_f2: "Koppelmodus", price_pro_f3: "Onbeperkte wenspotten", price_pro_f4: "AI-projecties & alerts", price_pro_f5: "Prioritaire support",
+    price_pro_cta: "Start 30 dagen proef",
+    final_title: "Je geld verdient een geest",
+    final_sub: "Sluit je aan bij duizenden die vrienden maakten met hun financiën. Het begint met één wens.",
+    final_cta: "Download GiGi →",
+    foot_privacy: "Privacy", foot_terms: "Voorwaarden", foot_contact: "Contact", foot_press: "Pers"
+  },
+  fr: {
+    hero_badge: "Votre génie de l'argent est là",
+    hero_title: "Faites ami avec votre argent",
+    hero_sub: "C'est tout ce qu'il faut par jour pour transformer votre vie financière. Trois coachs, une app, zéro jugement.",
+    hero_cta: "Commencez votre vœu →",
+    hero_note: "Gratuit 30 jours · Pas de carte bancaire",
+    nav_features: "Fonctions",
+    nav_couples: "Couples",
+    nav_pricing: "Tarifs",
+    nav_cta: "Obtenir GiGi",
+    show_1_title: "3 Coachs IA",
+    show_1_desc: "Chaleureux, sec ou bro — choisissez la voix qui vous parle",
+    show_2_title: "Rêves + Chiffres",
+    show_2_desc: "Basculez entre vues émotionnelle et analytique de vos finances",
+    show_3_title: "Mode Couple",
+    show_3_desc: "Rendez-vous argent, objectifs partagés, révélations secrètes — pour deux",
+    choice_title: "Comment voyez-vous l'argent ?",
+    choice_sub: "GiGi s'adapte à votre état d'esprit. Choisissez votre angle.",
+    choice_dreams_title: "Rêves",
+    choice_dreams_desc: "Doux, visuel et axé sur les objectifs. Voyez votre argent comme des vœux en devenir.",
+    choice_numbers_title: "Chiffres",
+    choice_numbers_desc: "Net, analytique, data-first. Voyez votre argent comme des motifs et de la précision.",
+    dreams_title: "Le Côté Rêves",
+    dreams_desc: "Visualisez vos objectifs, définissez des vœux et regardez-les grandir.",
+    dreams_f1_title: "Pots à Vœux", dreams_f1_desc: "Nommez vos objectifs d'épargne. Regardez-les se remplir comme par magie.",
+    dreams_f2_title: "Suivi d'Objectifs", dreams_f2_desc: "Progression visuelle sur chaque rêve — des week-ends aux nouveaux départs.",
+    dreams_f3_title: "Vœux Quotidiens", dreams_f3_desc: "Micro-épargnes liées aux moments. Café économisé? C'est €1.200/an plus proche.",
+    numbers_title: "Le Côté Chiffres",
+    numbers_desc: "Données pures, insights clairs, zéro superflu. Voyez exactement où va chaque centime.",
+    numbers_f1_title: "Analytics Live", numbers_f1_desc: "Patterns de dépenses en temps réel, ventilations par catégorie, analyse de tendances.",
+    numbers_f2_title: "Alertes Intelligentes", numbers_f2_desc: "Soyez prévenu avant de trop dépenser. L'IA détecte les patterns que vous manquez.",
+    numbers_f3_title: "Projections", numbers_f3_desc: "Où serez-vous dans 6 mois? Un an? Voyez les maths, pas la magie.",
+    genies_title: "Rencontrez vos génies",
+    genies_sub: "Trois coachs IA. Chacun parle différemment. Tous veulent que vous gagniez.",
+    genie_warm_name: "Le Chaleureux", genie_warm_role: "Coach Empathique",
+    genie_dry_name: "Le Sec", genie_dry_role: "Analyste Direct",
+    genie_bro_name: "Le Bro", genie_bro_role: "Machine à Hype",
+    couples_badge: "Pour Deux",
+    couples_title: "L'argent rencontre l'amour",
+    couples_sub: "Parlez enfin d'argent sans vous disputer. GiGi rend ça fun, sûr et romantique.",
+    couple_f1_title: "Rendez-vous Argent", couple_f1_desc: "Sessions hebdomadaires guidées pour parler finances ensemble. Vin optionnel, honnêteté obligatoire.",
+    couple_f2_title: "Objectifs Partagés", couple_f2_desc: "Rêvez ensemble. Épargnez ensemble. Voyez les deux contributions grandir en temps réel.",
+    couple_f3_title: "Vie Privée", couple_f3_desc: "Choisissez ce que vous partagez. Les dépenses personnelles restent personnelles.",
+    couple_f4_title: "Révélations Secrètes", couple_f4_desc: "Épargne surprise pour cadeaux, voyages ou ce truc qu'ils/elles lorgnent.",
+    freedom_label: "Coût quotidien de la liberté financière",
+    freedom_sub: "Moins qu'un café. Plus qu'un conseiller financier. Trois génies inclus.",
+    social_title: "Vrais vœux, vrais résultats",
+    social_q1: "\"J'ai vraiment hâte de vérifier mes finances maintenant. Le Génie Chaleureux me fait sentir que je m'en sors bien même les mois difficiles.\"",
+    social_r1: "Designer freelance, Bruxelles",
+    social_q2: "\"Mon partenaire et moi avons fait notre premier rendez-vous argent. On a vraiment ri. À propos d'argent. C'est jamais arrivé.\"",
+    social_r2: "Ensemble depuis 4 ans, Anvers",
+    social_q3: "\"Le Génie Bro m'a dit que mon taux d'épargne était 'absolument légendaire.' Je n'ai jamais été aussi motivé pour épargner.\"",
+    social_r3: "Développeur, Gand",
+    science_title: "Basé sur la science comportementale",
+    science_desc: "GiGi utilise des techniques de nudge, l'aversion aux pertes et l'empilement d'habitudes pour transformer votre relation à l'argent. Pas juste des tableurs — de la science.",
+    pricing_title: "Tarifs simples et honnêtes",
+    pricing_sub: "Pas de frais cachés. Pas de surprises. Comme on l'enseigne.",
+    price_free_label: "Solo", price_free_period: "Gratuit pour toujours",
+    price_free_f1: "1 coach IA au choix", price_free_f2: "Insights de base", price_free_f3: "3 pots à vœux", price_free_f4: "Rapports mensuels",
+    price_free_cta: "Commencer gratuitement",
+    price_pro_label: "GiGi Pro", price_pro_period: "/mois · facturé annuellement",
+    price_pro_f1: "Les 3 génies débloqués", price_pro_f2: "Mode couple", price_pro_f3: "Pots à vœux illimités", price_pro_f4: "Projections IA & alertes", price_pro_f5: "Support prioritaire",
+    price_pro_cta: "Essai 30 jours",
+    final_title: "Votre argent mérite un génie",
+    final_sub: "Rejoignez des milliers de personnes qui se sont liées d'amitié avec leurs finances. Tout commence par un vœu.",
+    final_cta: "Télécharger GiGi →",
+    foot_privacy: "Confidentialité", foot_terms: "Conditions", foot_contact: "Contact", foot_press: "Presse"
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.nav-lang button').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+  // Re-type coaches
+  resetCoaches();
+}
+
+// ============================================
+// NAV SCROLL
+// ============================================
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ============================================
+// REVEAL ANIMATIONS
+// ============================================
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.r').forEach(el => revealObs.observe(el));
+
+// ============================================
+// MINDSET CHOICE
+// ============================================
+function chooseMindset(mode) {
+  document.documentElement.setAttribute('data-mindset', mode);
+  document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// ============================================
+// HERO COUNTER (€0 → €42)
+// ============================================
+let heroCounted = false;
+const heroObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !heroCounted) {
+      heroCounted = true;
+      const el = document.getElementById('hero-counter');
+      let n = 0;
+      const target = 42;
+      const dur = 1500;
+      const step = dur / target;
+      function tick() {
+        if (n <= target) {
+          el.textContent = '€' + n;
+          n++;
+          setTimeout(tick, step);
+        } else {
+          el.closest('.hero-amount').classList.add('counted');
+        }
+      }
+      tick();
+    }
+  });
+}, { threshold: 0.3 });
+heroObs.observe(document.getElementById('hero-counter'));
+
+// ============================================
+// FREEDOM COUNTER (€0 → €42)
+// ============================================
+let freedomCounted = false;
+const freedomObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !freedomCounted) {
+      freedomCounted = true;
+      const el = document.getElementById('freedom-counter');
+      let n = 0;
+      const target = 42;
+      const dur = 1800;
+      const step = dur / target;
+      function tick() {
+        if (n <= target) {
+          el.textContent = '€' + n;
+          n++;
+          setTimeout(tick, step);
+        }
+      }
+      tick();
+    }
+  });
+}, { threshold: 0.3 });
+freedomObs.observe(document.getElementById('freedom-counter'));
+
+// ============================================
+// COACH TYPING
+// ============================================
+const coachTexts = {
+  warm: {
+    en: "I see this month was a bit busier than usual. That's okay — life happens! Let's look at where we can gently adjust...",
+    nl: "Ik zie dat deze maand wat drukker was dan normaal. Dat is oké — het leven gaat door! Laten we kijken waar we zachtjes kunnen bijsturen...",
+    fr: "Je vois que ce mois était un peu plus chargé que d'habitude. C'est normal — la vie continue ! Voyons où on peut doucement ajuster..."
+  },
+  dry: {
+    en: "Spending 12% over budget in dining out. Groceries stable. Subscriptions: 3 unused detected. Recommend cancellation for €34/month savings.",
+    nl: "Uitgaven 12% boven budget voor restaurants. Boodschappen stabiel. Abonnementen: 3 ongebruikte gedetecteerd. Annulatie aanbevolen: €34/maand besparing.",
+    fr: "Dépenses restaurants 12% au-dessus du budget. Courses stables. Abonnements: 3 inutilisés détectés. Annulation recommandée: €34/mois d'économie."
+  },
+  bro: {
+    en: "Bro, 23% savings rate this month?! That's absolutely LEGENDARY. You're basically a financial athlete at this point. Keep going! 🔥",
+    nl: "Bro, 23% spaarquote deze maand?! Dat is absoluut LEGENDARISCH. Je bent ondertussen een financiële atleet. Blijf doorgaan! 🔥",
+    fr: "Bro, 23% de taux d'épargne ce mois?! C'est absolument LÉGENDAIRE. T'es carrément un athlète financier là. Continue comme ça! 🔥"
+  }
+};
+
+function typeText(elementId, text, speed = 25) {
+  const el = document.getElementById(elementId);
+  const container = el.closest('.genie-typing');
+  el.textContent = '';
+  container.classList.add('typed');
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
+function resetCoaches() {
+  ['coach-warm', 'coach-dry', 'coach-bro'].forEach(id => {
+    const container = document.getElementById(id);
+    if (container) {
+      container.classList.remove('typed');
+      const textEl = container.querySelector('.typed-text');
+      if (textEl) textEl.textContent = '';
+    }
+  });
+  coachTyped = false;
+}
+
+let coachTyped = false;
+const coachObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !coachTyped) {
+      coachTyped = true;
+      setTimeout(() => typeText('warm-text', coachTexts.warm[currentLang], 20), 500);
+      setTimeout(() => typeText('dry-text', coachTexts.dry[currentLang], 15), 1200);
+      setTimeout(() => typeText('bro-text', coachTexts.bro[currentLang], 18), 2000);
+    }
+  });
+}, { threshold: 0.3 });
+const geniesEl = document.getElementById('genies');
+if (geniesEl) coachObs.observe(geniesEl);
+
+// ============================================
+// MAGIC LAMP
+// ============================================
+let rubCount = 0;
+function rubLamp() {
+  rubCount++;
+  const lamp = document.querySelector('.magic-lamp');
+  lamp.style.transform = 'scale(1.2) rotate(20deg)';
+  setTimeout(() => lamp.style.transform = '', 300);
+
+  if (rubCount >= 3) {
+    rubCount = 0;
+    document.body.style.transition = 'filter 0.5s';
+    document.body.style.filter = 'hue-rotate(180deg)';
+    setTimeout(() => { document.body.style.filter = ''; }, 2000);
+  }
+}
+</script>
+</body>
+</html>
