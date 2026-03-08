@@ -36,7 +36,7 @@
   "name": "The Bair Company",
   "description": "Creatief bureau voor branding, webdesign, webontwikkeling, social media en marketing.",
   "url": "https://thebaircompany.be",
-  "email": "hello@thebaircompany.be",
+  "email": "admin@baircompany.be",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Glabbeek",
@@ -2189,31 +2189,7 @@ footer {
      ═══════════════════════════════════════════════ -->
 <!-- Alle secties nu zichtbaar -->
 
-<!-- TRUSTED BY -->
-<section class="trusted-by reveal">
-  <p class="trusted-label">Vertrouwd door</p>
-  <div class="logo-strip">
-    <div class="client-logo">
-      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--pink),#c026d3)">G</div>
-      <span class="client-logo-name">GiGi Money</span>
-    </div>
-    <div class="client-logo-divider"></div>
-    <div class="client-logo">
-      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--red),#b91c1c)">R</div>
-      <span class="client-logo-name">Rosing Security</span>
-    </div>
-    <div class="client-logo-divider"></div>
-    <div class="client-logo">
-      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--amber),#d97706)">A</div>
-      <span class="client-logo-name">Artoah</span>
-    </div>
-    <div class="client-logo-divider"></div>
-    <div class="client-logo">
-      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--emerald),#059669)">F</div>
-      <span class="client-logo-name">Freddy Van Tricht</span>
-    </div>
-  </div>
-</section>
+<!-- TRUSTED BY — verwijderd op verzoek -->
 
 <!-- DIENSTEN -->
 <section class="diensten" id="diensten">
@@ -2398,8 +2374,8 @@ footer {
     <p>Ik weet hoe je content uitspeelt die mensen laat klikken, lezen en betalen. Conversiefunnels, audience targeting, A/B-testing, recirculatie, nieuwsbrieven, paywalltunnels — ik heb het gebouwd, gemeten en geoptimaliseerd voor miljoenen gebruikers. Met GiGi Money bewees ik dat ik ook from scratch een app en merk kan ontwerpen — beschikbaar in 28 landen en 22 talen. Die kennis zit nu in jouw project.</p>
     <div class="over-stats">
       <div><div class="stat-val">20+</div><div class="stat-label">Jaar media-ervaring</div></div>
-      <div><div class="stat-val">6</div><div class="stat-label">Hoofdredacties</div></div>
       <div><div class="stat-val">1</div><div class="stat-label">Vast contactpersoon</div></div>
+      <div><div class="stat-val">∞</div><div class="stat-label">Mogelijkheden</div></div>
     </div>
   </div>
 </section>
@@ -2629,7 +2605,7 @@ footer {
   </div>
 
   <div class="contact-direct">
-    Of mail rechtstreeks naar <a href="mailto:hello@thebaircompany.be">hello@thebaircompany.be</a>
+    Of mail rechtstreeks naar <a href="mailto:admin@baircompany.be">admin@baircompany.be</a>
   </div>
 </section>
 
@@ -3312,13 +3288,13 @@ if (contactForm) {
         const fd = new FormData(contactForm);
         const subject = encodeURIComponent('Nieuw project — ' + (fd.get('dienst') || 'Algemeen'));
         const body = encodeURIComponent('Naam: ' + fd.get('naam') + '\nE-mail: ' + fd.get('email') + '\n\n' + fd.get('bericht'));
-        window.location.href = 'mailto:hello@thebaircompany.be?subject=' + subject + '&body=' + body;
+        window.location.href = 'mailto:admin@baircompany.be?subject=' + subject + '&body=' + body;
       }
     } catch {
       const fd = new FormData(contactForm);
       const subject = encodeURIComponent('Nieuw project — ' + (fd.get('dienst') || 'Algemeen'));
       const body = encodeURIComponent('Naam: ' + fd.get('naam') + '\nE-mail: ' + fd.get('email') + '\n\n' + fd.get('bericht'));
-      window.location.href = 'mailto:hello@thebaircompany.be?subject=' + subject + '&body=' + body;
+      window.location.href = 'mailto:admin@baircompany.be?subject=' + subject + '&body=' + body;
     } finally {
       submitBtn.innerHTML = origText;
       submitBtn.disabled = false;
