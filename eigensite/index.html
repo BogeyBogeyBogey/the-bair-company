@@ -655,7 +655,7 @@ nav { display: flex; gap: 0.3rem; }
 [data-project="artoah"] .reel-viewport::after {
   background: linear-gradient(160deg, rgba(245,158,11,0.2) 0%, transparent 55%, rgba(245,158,11,0.1) 100%);
 }
-[data-project="hvh"] .reel-viewport::after {
+[data-project="vantricht"] .reel-viewport::after {
   background: linear-gradient(160deg, rgba(16,185,129,0.2) 0%, transparent 55%, rgba(16,185,129,0.1) 100%);
 }
 [data-project="gigi-site"] .reel-viewport::after {
@@ -1847,13 +1847,8 @@ footer {
   .project-card { width: 280px; }
 }
 /* ══════════════════════════════════════════
-   COMING SOON VEIL
-   Remove this entire block + .coming-soon-veil wrapper
-   in the HTML to reveal the full site.
+   COMING SOON VEIL — REMOVED (site is live)
    ══════════════════════════════════════════ */
-.coming-soon-veil {
-  display: none !important;
-}
 .coming-soon-message {
   padding: 6rem 2.5rem 4rem;
   text-align: center;
@@ -2122,10 +2117,10 @@ footer {
       </div>
     </div>
 
-    <!-- ▸ 4. Hans van Hest -->
-    <div class="project-card has-video" data-project="hvh" data-video="portfoliohansvanhestmuziek.mp4" style="--card-color: var(--emerald);">
+    <!-- ▸ 4. Freddy Van Tricht — KBC Verzekeringen -->
+    <div class="project-card has-video" data-project="vantricht" data-video="portfoliovantrichtkbc.mp4" style="--card-color: var(--emerald);">
       <div class="reel-viewport">
-        <video class="card-video" src="portfoliohansvanhestmuziek.mp4" poster="poster-hansvanhest.jpg" muted loop playsinline preload="none"></video>
+        <video class="card-video" src="portfoliovantrichtkbc.mp4" poster="poster-vantricht.jpg" muted loop playsinline preload="none"></video>
         <div class="reel-vignette"></div>
         <div class="reel-label">
           <div class="reel-label-dot"></div>
@@ -2136,8 +2131,8 @@ footer {
       </div>
       <div class="card-info">
         <div class="card-meta">
-          <h3>Hans van Hest — KBC</h3>
-          <span>Verzekeringen · Landing page</span>
+          <h3>Freddy Van Tricht — KBC Verzekeringen</h3>
+          <span>Verzekeringen · Video · Branding</span>
         </div>
         <div class="card-arrow">▶</div>
       </div>
@@ -2192,21 +2187,7 @@ footer {
      COMING SOON MESSAGE
      Verwijder dit blok wanneer de site live gaat.
      ═══════════════════════════════════════════════ -->
-<section class="coming-soon-message reveal">
-  <span class="csm-wave">👋</span>
-  <h2 class="csm-title">Hey, daar. We werken aan iets <span class="serif">groots</span>.</h2>
-  <p class="csm-sub">In de tussentijd vind je hierboven een greep uit ons portfolio. Enjoy.</p>
-  <span class="csm-arrow">↑</span>
-  <p class="csm-contact">Vragen? Mail ons op <a href="mailto:admin@baircompany.be">admin@baircompany.be</a></p>
-</section>
-
-<!-- ═══════════════════════════════════════════════
-     COMING SOON VEIL — Start
-     Alles hieronder is verborgen tot de site live gaat.
-     Verwijder de opening <div> en sluit-</div> tags
-     om alle content weer zichtbaar te maken.
-     ═══════════════════════════════════════════════ -->
-<div class="coming-soon-veil">
+<!-- Alle secties nu zichtbaar -->
 
 <!-- TRUSTED BY -->
 <section class="trusted-by reveal">
@@ -2228,8 +2209,8 @@ footer {
     </div>
     <div class="client-logo-divider"></div>
     <div class="client-logo">
-      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--emerald),#059669)">H</div>
-      <span class="client-logo-name">Hans van Hest</span>
+      <div class="client-logo-icon" style="background:linear-gradient(135deg,var(--emerald),#059669)">F</div>
+      <span class="client-logo-name">Freddy Van Tricht</span>
     </div>
   </div>
 </section>
@@ -2697,7 +2678,7 @@ footer {
   </div>
 </footer>
 
-</div><!-- ═══ END COMING SOON VEIL ═══ -->
+<!-- Einde secties -->
 
 <!-- ═══════════════════════════════════════════════
      WETTELIJKE FOOTER (coming soon versie)
@@ -2805,11 +2786,11 @@ const reelData = {
     ],
     interval: 2500
   },
-  hvh: {
+  vantricht: {
     slides: [
       {
         image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=1000&fit=crop&q=85&auto=format',
-        label: 'Homepage'
+        label: 'Branding'
       },
       {
         image: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=1000&fit=crop&q=85&auto=format',
@@ -2817,7 +2798,7 @@ const reelData = {
       },
       {
         image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=1000&fit=crop&q=85&auto=format',
-        label: 'Services'
+        label: 'Video'
       },
       {
         image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=1000&fit=crop&q=85&auto=format',
@@ -2825,7 +2806,7 @@ const reelData = {
       },
       {
         image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=1000&fit=crop&q=85&auto=format',
-        label: 'Over KBC'
+        label: 'KBC Kantoor'
       }
     ],
     interval: 2400
