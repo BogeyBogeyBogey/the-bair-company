@@ -3033,9 +3033,14 @@ function stopReel(container, labelEl, counterEl) {
   }
 }
 
-// ── Loader — use DOMContentLoaded instead of 'load' so we don't wait for videos
+// ── Loader — skip when navigating from internal pages
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('done'), 2300);
+  const fromInternal = document.referrer && new URL(document.referrer).hostname === location.hostname;
+  if (fromInternal) {
+    document.getElementById('loader').classList.add('done');
+  } else {
+    setTimeout(() => document.getElementById('loader').classList.add('done'), 2300);
+  }
 });
 
 // ── Mobile menu
