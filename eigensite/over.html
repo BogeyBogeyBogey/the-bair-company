@@ -226,9 +226,84 @@ nav { display: flex; gap: 0.3rem; }
 .value-icon {
   width: 48px; height: 48px;
   border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem; margin-bottom: 1.5rem;
+  position: relative;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
 }
+
+/* Value art: 1 — Checkmark (Geen halve oplossingen) */
+.val-art-complete { position: relative; width: 100%; height: 100%; }
+.val-art-complete::before {
+  content: ''; position: absolute;
+  top: 22%; left: 28%; width: 22px; height: 12px;
+  border-bottom: 2.5px solid var(--accent); border-left: 2.5px solid var(--accent);
+  transform: rotate(-45deg);
+}
+.val-art-complete span { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.25; }
+.val-art-complete span:nth-child(1) { top: 10px; right: 10px; }
+.val-art-complete span:nth-child(2) { bottom: 10px; left: 10px; }
+
+/* Value art: 2 — Direct arrow (Directe lijnen) */
+.val-art-direct { position: relative; width: 100%; height: 100%; }
+.val-art-direct::before {
+  content: ''; position: absolute;
+  top: 50%; left: 20%; width: 48%; height: 2px;
+  background: var(--emerald); transform: translateY(-50%);
+}
+.val-art-direct::after {
+  content: ''; position: absolute;
+  top: 50%; right: 20%; width: 9px; height: 9px;
+  border-top: 2px solid var(--emerald); border-right: 2px solid var(--emerald);
+  transform: translateY(-50%) rotate(45deg);
+}
+.val-art-direct span { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--emerald); }
+.val-art-direct span:nth-child(1) { top: 50%; left: 16%; transform: translateY(-50%); }
+
+/* Value art: 3 — Diamond (Design met intentie) */
+.val-art-intent { position: relative; width: 100%; height: 100%; }
+.val-art-intent::before {
+  content: ''; position: absolute;
+  top: 50%; left: 50%; width: 18px; height: 18px;
+  border: 2px solid var(--pink);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.val-art-intent::after {
+  content: ''; position: absolute;
+  top: 50%; left: 50%; width: 8px; height: 8px;
+  background: var(--pink); opacity: 0.35;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Value art: 4 — Magnifying lens (Obsessie voor detail) */
+.val-art-detail { position: relative; width: 100%; height: 100%; }
+.val-art-detail::before {
+  content: ''; position: absolute;
+  top: 26%; left: 24%; width: 16px; height: 16px;
+  border: 2px solid var(--amber); border-radius: 50%;
+}
+.val-art-detail::after {
+  content: ''; position: absolute;
+  bottom: 20%; right: 22%; width: 10px; height: 2px;
+  background: var(--amber); transform: rotate(45deg);
+}
+
+/* Value art: 5 — Speech lines (Eerlijke communicatie) */
+.val-art-comm { position: relative; width: 100%; height: 100%; }
+.val-art-comm span { position: absolute; height: 2px; background: var(--red); border-radius: 1px; }
+.val-art-comm span:nth-child(1) { top: 28%; left: 22%; width: 56%; }
+.val-art-comm span:nth-child(2) { top: 44%; left: 22%; width: 38%; opacity: 0.7; }
+.val-art-comm span:nth-child(3) { top: 60%; left: 22%; width: 46%; opacity: 0.45; }
+
+/* Value art: 6 — Growing stem (Langetermijndenken) */
+.val-art-grow { position: relative; width: 100%; height: 100%; }
+.val-art-grow::before {
+  content: ''; position: absolute;
+  bottom: 20%; left: 50%; width: 2px; height: 42%;
+  background: var(--accent); transform: translateX(-50%);
+}
+.val-art-grow span { position: absolute; border: 2px solid var(--accent); border-radius: 50%; background: transparent; }
+.val-art-grow span:nth-child(1) { width: 10px; height: 10px; top: 16%; left: 50%; transform: translateX(-50%); }
+.val-art-grow span:nth-child(2) { width: 6px; height: 6px; top: 36%; right: 28%; opacity: 0.5; }
 .value-card h3 {
   font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
   margin-bottom: 1rem;
@@ -609,38 +684,37 @@ footer {
   <div class="values-grid">
 
     <div class="value-card reveal">
-      <div class="value-icon" style="background:rgba(46,138,255,0.1); color:var(--accent);">⚡</div>
+      <div class="value-icon" style="background:rgba(46,138,255,0.1);"><div class="val-art-complete"><span></span><span></span></div></div>
       <h3>Geen halve oplossingen</h3>
       <p>We leveren geen mockups met "dit kun je later aanpassen." Elk project verlaat onze studio als een afgewerkt, productie-klaar geheel. Van de eerste pixel tot de laatste interactie — alles werkt.</p>
-      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);opacity:0;transition:opacity 0.4s;" class="value-bar"></div>
     </div>
 
     <div class="value-card reveal">
-      <div class="value-icon" style="background:rgba(16,185,129,0.1); color:var(--emerald);">🎯</div>
+      <div class="value-icon" style="background:rgba(16,185,129,0.1);"><div class="val-art-direct"><span></span></div></div>
       <h3>Directe lijnen</h3>
       <p>Jij praat met dezelfde persoon die jouw ontwerp maakt, je website bouwt en je feedback verwerkt. Geen tussenlagen, geen verloren context. Dat betekent: snellere feedback, scherpere resultaten.</p>
     </div>
 
     <div class="value-card reveal">
-      <div class="value-icon" style="background:rgba(236,72,153,0.1); color:var(--pink);">✦</div>
+      <div class="value-icon" style="background:rgba(236,72,153,0.1);"><div class="val-art-intent"></div></div>
       <h3>Design met intentie</h3>
       <p>Elk visueel element heeft een reden. We kiezen geen kleuren omdat ze mooi zijn, maar omdat ze het juiste gevoel oproepen. Geen decoratie — strategie die eruitziet als design.</p>
     </div>
 
     <div class="value-card reveal">
-      <div class="value-icon" style="background:rgba(245,158,11,0.1); color:var(--amber);">🔬</div>
+      <div class="value-icon" style="background:rgba(245,158,11,0.1);"><div class="val-art-detail"></div></div>
       <h3>Obsessie voor detail</h3>
       <p>De afstand tussen goed en uitstekend zit in de details die niemand bewust opmerkt, maar die iedereen onbewust voelt. De juiste witruimte, de perfecte animatietiming, het lettertype dat vertrouwen wekt.</p>
     </div>
 
     <div class="value-card reveal">
-      <div class="value-icon" style="background:rgba(239,68,68,0.1); color:var(--red);">💬</div>
+      <div class="value-icon" style="background:rgba(239,68,68,0.1);"><div class="val-art-comm"><span></span><span></span><span></span></div></div>
       <h3>Eerlijke communicatie</h3>
       <p>Als iets niet werkt, zeggen we het. Als een idee beter kan, stellen we het voor. We zijn geen ja-knikkers maar sparringpartners. Dat levert betere resultaten op dan beleefdheid.</p>
     </div>
 
     <div class="value-card reveal">
-      <div class="value-icon" style="background:rgba(46,138,255,0.1); color:var(--accent);">🌱</div>
+      <div class="value-icon" style="background:rgba(46,138,255,0.1);"><div class="val-art-grow"><span></span><span></span></div></div>
       <h3>Langetermijndenken</h3>
       <p>We bouwen geen wegwerp-websites. Elk project wordt opgezet met groei in het achterhoofd. Schaalbare systemen, onderhoudbare code en merkrichtlijnen die je jaren meegaan.</p>
     </div>
