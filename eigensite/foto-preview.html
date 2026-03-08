@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foto Preview — Over Ons</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #f5f0e8; font-family: system-ui, sans-serif; }
+  h1 { text-align: center; padding: 2rem; font-size: 1.5rem; font-weight: 400; opacity: 0.6; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 1rem 2rem 3rem; max-width: 1400px; margin: 0 auto; }
+  .card { position: relative; border-radius: 12px; overflow: hidden; background: #111; }
+  .card-label { text-align: center; padding: 1rem; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.05em; }
+  .card-label span { opacity: 0.4; font-weight: 400; }
+  .photo-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+  .photo-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    object-position: center 15%;
+    filter: grayscale(100%) contrast(1.35) brightness(1.1);
+  }
+  .photo-wrap::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(135deg, rgba(46,138,255,0.15) 0%, rgba(255,170,50,0.08) 100%);
+    mix-blend-mode: multiply;
+  }
+  .selected { outline: 3px solid #2e8aff; outline-offset: -3px; }
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; max-width: 400px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Kies je favoriete foto voor de Over Ons pagina</h1>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Foto 2 <span>— Kristofoverons2.png</span></div>
+    <div class="photo-wrap">
+      <img src="Kristofoverons2.png" alt="Optie 2">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Foto 3 <span>— Kristofoverons3.png</span></div>
+    <div class="photo-wrap">
+      <img src="Kristofoverons3.png" alt="Optie 3">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Foto 4 <span>— Kristofoverons4.png</span></div>
+    <div class="photo-wrap">
+      <img src="Kristofoverons4.png" alt="Optie 4">
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
