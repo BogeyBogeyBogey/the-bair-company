@@ -12,6 +12,23 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet"></noscript>
 <style>:root{--black:#0a0a0a;--white:#f0ede8;--grey:#888;--accent:#2E8AFF;--font-display:'Syne',system-ui,sans-serif;--font-body:'DM Sans',-apple-system,sans-serif;--font-serif:'Instrument Serif',Georgia,serif}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.8}body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.5;mix-blend-mode:overlay}a{color:var(--accent);text-decoration:none;transition:color 0.3s}a:hover{color:var(--white)}::selection{background:var(--accent);color:var(--black)}.legal-header{padding:2rem 2.5rem;border-bottom:1px solid rgba(255,255,255,0.06)}.legal-header a{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--white);letter-spacing:-0.02em;display:flex;align-items:center;gap:0.6rem}.brand-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}.legal-container{max-width:720px;margin:0 auto;padding:4rem 2.5rem 6rem}.legal-container h1{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:0.5rem;line-height:1.2}.legal-date{color:var(--grey);font-size:0.85rem;margin-bottom:3rem;display:block}.legal-container h2{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-top:2.5rem;margin-bottom:0.75rem;letter-spacing:-0.01em}.legal-container p{margin-bottom:1rem;color:rgba(240,237,232,0.8)}.legal-container ul{margin-bottom:1rem;padding-left:1.5rem}.legal-container li{margin-bottom:0.4rem;color:rgba(240,237,232,0.8)}.legal-back{display:inline-block;margin-top:3rem;padding:0.7rem 1.5rem;border:1px solid rgba(255,255,255,0.15);border-radius:100px;font-size:0.85rem;color:var(--white);transition:all 0.3s}.legal-back:hover{background:var(--white);color:var(--black)}.legal-footer-mini{padding:2rem 2.5rem;border-top:1px solid rgba(255,255,255,0.06);text-align:center;font-size:0.8rem;color:var(--grey)}.legal-footer-mini a{color:var(--grey);margin:0 0.75rem}.legal-footer-mini a:hover{color:var(--white)}</style>
+<!-- Google Analytics 4 — wordt pas geladen na cookietoestemming -->
+<script>
+window.GA_ID = 'G-TEPNG02Z0J';
+function loadGA() {
+  if (document.querySelector('script[src*="googletagmanager"]')) return;
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', window.GA_ID, { anonymize_ip: true });
+}
+if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
+</script>
 </head>
 <body>
 
@@ -77,5 +94,34 @@
   </p>
 </footer>
 
+<script>
+(function(){
+  if (document.cookie.indexOf('cookie_consent=') !== -1) return;
+  var b = document.createElement('div');
+  b.id = 'cookieBanner';
+  b.innerHTML = '<div class="cb-inner">' +
+    '<p class="cb-text">Wij gebruiken cookies om onze website te verbeteren en bezoekersstatistieken bij te houden. ' +
+    '<a href="cookies.html">Meer info</a></p>' +
+    '<div class="cb-buttons">' +
+    '<button id="cbAccept" class="cb-btn cb-accept">Accepteren</button>' +
+    '<button id="cbDecline" class="cb-btn cb-decline">Alleen noodzakelijke</button>' +
+    '</div></div>';
+  document.body.appendChild(b);
+  var s = document.createElement('style');
+  s.textContent = '#cookieBanner{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:rgba(10,10,10,0.97);border-top:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1.2rem 2rem;transform:translateY(100%);animation:cbSlide .5s .5s forwards}@keyframes cbSlide{to{transform:translateY(0)}}.cb-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}.cb-text{font-family:var(--font-body,DM Sans,sans-serif);font-size:.88rem;color:rgba(240,237,232,.75);line-height:1.6;flex:1;min-width:280px}.cb-text a{color:#2E8AFF;text-decoration:none}.cb-text a:hover{text-decoration:underline}.cb-buttons{display:flex;gap:.6rem;flex-shrink:0}.cb-btn{font-family:var(--font-body,DM Sans,sans-serif);font-size:.82rem;padding:.55rem 1.2rem;border:none;border-radius:100px;cursor:pointer;transition:all .25s;font-weight:500}.cb-accept{background:#2E8AFF;color:#fff}.cb-accept:hover{background:#4a9dff}.cb-decline{background:transparent;color:rgba(240,237,232,.6);border:1px solid rgba(255,255,255,.12)}.cb-decline:hover{color:#f0ede8;border-color:rgba(255,255,255,.3)}@media(max-width:600px){.cb-inner{flex-direction:column;text-align:center}.cb-buttons{width:100%;justify-content:center}}';
+  document.head.appendChild(s);
+  document.getElementById('cbAccept').addEventListener('click', function(){
+    document.cookie = 'cookie_consent=accepted;path=/;max-age=31536000;SameSite=Lax';
+    b.style.animation = 'none'; b.style.transform = 'translateY(100%)'; b.style.transition = 'transform .4s ease';
+    setTimeout(function(){ b.remove(); }, 500);
+    if (typeof loadGA === 'function') loadGA();
+  });
+  document.getElementById('cbDecline').addEventListener('click', function(){
+    document.cookie = 'cookie_consent=declined;path=/;max-age=31536000;SameSite=Lax';
+    b.style.animation = 'none'; b.style.transform = 'translateY(100%)'; b.style.transition = 'transform .4s ease';
+    setTimeout(function(){ b.remove(); }, 500);
+  });
+})();
+</script>
 </body>
 </html>

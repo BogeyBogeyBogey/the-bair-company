@@ -25,6 +25,24 @@
 <meta name="twitter:description" content="Brands. AI. Results.">
 <meta name="twitter:image" content="https://www.baircompany.be/og-image.jpg">
 
+<!-- Google Analytics 4 — wordt pas geladen na cookietoestemming -->
+<script>
+window.GA_ID = 'G-TEPNG02Z0J'; // ← Vervang dit door je eigen GA4 meet-ID
+function loadGA() {
+  if (document.querySelector('script[src*="googletagmanager"]')) return;
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', window.GA_ID, { anonymize_ip: true });
+}
+if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
+</script>
+
 <!-- Hreflang -->
 <link rel="alternate" hreflang="nl-BE" href="https://www.baircompany.be/">
 
@@ -1441,6 +1459,53 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// ── Cookie Consent Banner
+(function(){
+  if (document.cookie.indexOf('cookie_consent=') !== -1) return;
+  var b = document.createElement('div');
+  b.id = 'cookieBanner';
+  b.innerHTML = '<div class="cb-inner">' +
+    '<p class="cb-text">Wij gebruiken cookies om onze website te verbeteren en bezoekersstatistieken bij te houden. ' +
+    '<a href="cookies.html">Meer info</a></p>' +
+    '<div class="cb-buttons">' +
+    '<button id="cbAccept" class="cb-btn cb-accept">Accepteren</button>' +
+    '<button id="cbDecline" class="cb-btn cb-decline">Alleen noodzakelijke</button>' +
+    '</div></div>';
+  document.body.appendChild(b);
+
+  // Inject styles
+  var s = document.createElement('style');
+  s.textContent = '#cookieBanner{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:rgba(10,10,10,0.97);' +
+    'border-top:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);' +
+    'padding:1.2rem 2rem;transform:translateY(100%);animation:cbSlide .5s .5s forwards}' +
+    '@keyframes cbSlide{to{transform:translateY(0)}}' +
+    '.cb-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}' +
+    '.cb-text{font-family:var(--font-body,"DM Sans",sans-serif);font-size:.88rem;color:rgba(240,237,232,.75);line-height:1.6;flex:1;min-width:280px}' +
+    '.cb-text a{color:#2E8AFF;text-decoration:none}.cb-text a:hover{text-decoration:underline}' +
+    '.cb-buttons{display:flex;gap:.6rem;flex-shrink:0}' +
+    '.cb-btn{font-family:var(--font-body,"DM Sans",sans-serif);font-size:.82rem;padding:.55rem 1.2rem;border:none;border-radius:100px;cursor:pointer;transition:all .25s;font-weight:500}' +
+    '.cb-accept{background:#2E8AFF;color:#fff}.cb-accept:hover{background:#4a9dff}' +
+    '.cb-decline{background:transparent;color:rgba(240,237,232,.6);border:1px solid rgba(255,255,255,.12)}.cb-decline:hover{color:#f0ede8;border-color:rgba(255,255,255,.3)}' +
+    '@media(max-width:600px){.cb-inner{flex-direction:column;text-align:center}.cb-buttons{width:100%;justify-content:center}}';
+  document.head.appendChild(s);
+
+  document.getElementById('cbAccept').addEventListener('click', function(){
+    document.cookie = 'cookie_consent=accepted;path=/;max-age=31536000;SameSite=Lax';
+    b.style.animation = 'none';
+    b.style.transform = 'translateY(100%)';
+    b.style.transition = 'transform .4s ease';
+    setTimeout(function(){ b.remove(); }, 500);
+    if (typeof loadGA === 'function') loadGA();
+  });
+  document.getElementById('cbDecline').addEventListener('click', function(){
+    document.cookie = 'cookie_consent=declined;path=/;max-age=31536000;SameSite=Lax';
+    b.style.animation = 'none';
+    b.style.transform = 'translateY(100%)';
+    b.style.transition = 'transform .4s ease';
+    setTimeout(function(){ b.remove(); }, 500);
+  });
+})();
 
 </script>
 </body>
