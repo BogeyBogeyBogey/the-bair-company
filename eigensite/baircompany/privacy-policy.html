@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — The Bair Company</title>
+  <meta name="description" content="Privacy- en cookiebeleid van The Bair Company. Lees hoe wij omgaan met jouw persoonsgegevens conform de AVG/GDPR.">
+  <meta property="og:title" content="Privacy Policy — The Bair Company">
+  <meta property="og:description" content="Lees ons privacy- en cookiebeleid. Transparant en duidelijk.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&h=630&fit=crop&auto=format&q=80">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.baircompany.be/privacy-policy">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================
+       CSS CUSTOM PROPERTIES
+    ============================ */
+    :root {
+      --color-primary: #2E8AFF;
+      --color-primary-rgb: 46, 138, 255;
+      --color-secondary: #EC4899;
+      --color-secondary-rgb: 236, 72, 153;
+      --color-accent: #F59E0B;
+      --color-accent-rgb: 245, 158, 11;
+      --color-dark: #0A0A0A;
+      --color-dark-rgb: 10, 10, 10;
+      --color-light: #F0EDE8;
+      --color-light-rgb: 240, 237, 232;
+      --color-white: #FFFFFF;
+      --color-success: #10B981;
+      --color-error: #EF4444;
+
+      --font-heading: 'Darker Grotesque', sans-serif;
+      --font-body: 'IBM Plex Mono', monospace;
+      --font-accent: 'Instrument Serif', serif;
+
+      --text-hero: clamp(3.5rem, 9vw, 8rem);
+      --text-h1: clamp(2.5rem, 5vw, 4.5rem);
+      --text-h2: clamp(1.8rem, 3.5vw, 2.8rem);
+      --text-h3: clamp(1.3rem, 2.5vw, 1.75rem);
+      --text-body: clamp(0.9rem, 1.1vw, 1rem);
+      --text-small: 0.8rem;
+      --text-mega: clamp(4rem, 12vw, 10rem);
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --duration-fast: 0.3s;
+      --duration-normal: 0.6s;
+      --duration-slow: 1s;
+
+      --section-padding: clamp(4rem, 8vw, 8rem);
+      --container-max: 1200px;
+
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.16);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      color: var(--color-light);
+      background: var(--color-dark);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--color-primary); text-decoration: none; transition: color var(--duration-fast); }
+    a:hover { color: var(--color-secondary); }
+    img { max-width: 100%; height: auto; }
+    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+    /* ============================
+       SCROLL PROGRESS
+    ============================ */
+    .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); z-index: 10001; transition: width 0.1s linear; }
+
+    /* ============================
+       NOISE OVERLAY
+    ============================ */
+    body::after {
+      content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    /* ============================
+       NAVIGATION
+    ============================ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1rem 0;
+      background: rgba(var(--color-dark-rgb), 0.95);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(var(--color-light-rgb), 0.08);
+      transition: all var(--duration-fast);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: var(--container-max); margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+    .nav-logo img { height: 24px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--color-light); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; opacity: 0.7; transition: opacity var(--duration-fast), color var(--duration-fast); }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--color-primary); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; padding: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--color-light); transition: all var(--duration-fast); }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(var(--color-dark-rgb), 0.98);
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem; z-index: 999;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--color-light); font-family: var(--font-heading); font-size: 2rem; font-weight: 800; text-transform: uppercase; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ============================
+       ANIMATIONS
+    ============================ */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s var(--ease-out-expo); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .stagger > *:nth-child(1) { transition-delay: 0s; }
+    .stagger > *:nth-child(2) { transition-delay: 0.08s; }
+    .stagger > *:nth-child(3) { transition-delay: 0.16s; }
+    .stagger > *:nth-child(4) { transition-delay: 0.24s; }
+
+    /* ============================
+       PAGE HERO (compact)
+    ============================ */
+    .page-hero {
+      padding: calc(var(--section-padding) + 5rem) 0 var(--section-padding);
+      position: relative; overflow: hidden;
+      background: var(--color-dark);
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 20%, rgba(var(--color-primary-rgb), 0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 80%, rgba(var(--color-secondary-rgb), 0.05) 0%, transparent 50%);
+    }
+    .page-hero .container { position: relative; z-index: 1; }
+    .page-hero-label {
+      font-family: var(--font-body); font-size: var(--text-small);
+      text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--color-primary); margin-bottom: 1rem;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading); font-size: var(--text-h1);
+      font-weight: 900; line-height: 1.05; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .page-hero p {
+      max-width: 600px; opacity: 0.7; line-height: 1.8;
+    }
+
+    /* ============================
+       POLICY CONTENT
+    ============================ */
+    .policy-section {
+      padding: var(--section-padding) 0;
+    }
+    .policy-content {
+      max-width: 800px;
+    }
+    .policy-content h2 {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(var(--color-light-rgb), 0.1);
+      color: var(--color-light);
+    }
+    .policy-content h2:first-child {
+      margin-top: 0;
+    }
+    .policy-content h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-primary);
+    }
+    .policy-content p {
+      margin-bottom: 1rem;
+      opacity: 0.8;
+      line-height: 1.9;
+    }
+    .policy-content ul {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      padding-left: 0;
+    }
+    .policy-content ul li {
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      position: relative;
+      opacity: 0.8;
+    }
+    .policy-content ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.85rem;
+      width: 6px;
+      height: 6px;
+      background: var(--color-primary);
+      border-radius: 50%;
+    }
+    .policy-content strong {
+      color: var(--color-light);
+      font-weight: 600;
+    }
+    .policy-content a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .policy-toc {
+      background: rgba(var(--color-light-rgb), 0.03);
+      border: 1px solid rgba(var(--color-light-rgb), 0.08);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .policy-toc h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      margin-top: 0;
+      color: var(--color-light);
+    }
+    .policy-toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+    }
+    .policy-toc ol li {
+      counter-increment: toc;
+      padding: 0.3rem 0;
+    }
+    .policy-toc ol li a {
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity var(--duration-fast), color var(--duration-fast);
+      font-size: var(--text-small);
+    }
+    .policy-toc ol li a::before {
+      content: counter(toc, decimal-leading-zero) " — ";
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+    .policy-toc ol li a:hover {
+      opacity: 1;
+      color: var(--color-primary);
+    }
+
+    .policy-date {
+      font-size: var(--text-small);
+      opacity: 0.5;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(var(--color-light-rgb), 0.08);
+    }
+
+    /* ============================
+       STATEMENT BAND
+    ============================ */
+    .statement-band {
+      padding: clamp(3rem, 6vw, 5rem) 0;
+      background: rgba(var(--color-primary-rgb), 0.06);
+      border-top: 1px solid rgba(var(--color-primary-rgb), 0.15);
+      border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.15);
+      text-align: center;
+    }
+    .statement-band h2 {
+      font-family: var(--font-heading);
+      font-size: var(--text-h2);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .statement-band h2 em {
+      font-family: var(--font-accent);
+      font-style: italic;
+      text-transform: none;
+      color: var(--color-primary);
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    .footer {
+      padding: var(--section-padding) 0 2rem;
+      border-top: 1px solid rgba(var(--color-light-rgb), 0.08);
+    }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand p { font-size: var(--text-small); opacity: 0.5; margin-top: 0.5rem; max-width: 280px; }
+    .footer-col h4 { font-family: var(--font-heading); font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { color: var(--color-light); opacity: 0.5; font-size: var(--text-small); transition: opacity var(--duration-fast); }
+    .footer-col ul li a:hover { opacity: 1; color: var(--color-primary); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(var(--color-light-rgb), 0.06); font-size: var(--text-small); opacity: 0.4; }
+    .footer-social { display: flex; gap: 1.5rem; }
+    .footer-social a { color: var(--color-light); opacity: 0.6; transition: opacity var(--duration-fast); }
+    .footer-social a:hover { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    /* ============================
+       COOKIE BANNER
+    ============================ */
+    .cookie-banner {
+      position: fixed; bottom: -100%; left: 50%; transform: translateX(-50%);
+      background: rgba(var(--color-dark-rgb), 0.95); backdrop-filter: blur(20px);
+      border: 1px solid rgba(var(--color-light-rgb), 0.1); border-radius: var(--radius-md);
+      padding: 1.25rem 2rem; display: flex; align-items: center; gap: 1.5rem;
+      z-index: 10000; max-width: 600px; width: calc(100% - 2rem);
+      transition: bottom 0.5s var(--ease-out-expo);
+      font-size: var(--text-small);
+    }
+    .cookie-banner.show { bottom: 1.5rem; }
+    .cookie-banner p { flex: 1; opacity: 0.7; }
+    .cookie-banner a { color: var(--color-primary); text-decoration: underline; }
+    .cookie-buttons { display: flex; gap: 0.75rem; flex-shrink: 0; }
+    .cookie-accept {
+      background: var(--color-primary); color: var(--color-dark);
+      border: none; padding: 0.5rem 1.25rem; border-radius: var(--radius-full);
+      font-family: var(--font-body); font-size: var(--text-small); font-weight: 600; cursor: pointer;
+      transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+    }
+    .cookie-accept:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3); }
+    .cookie-decline {
+      background: transparent; color: var(--color-light);
+      border: 1px solid rgba(var(--color-light-rgb), 0.2); padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-full); font-family: var(--font-body); font-size: var(--text-small); cursor: pointer;
+      transition: border-color var(--duration-fast);
+    }
+    .cookie-decline:hover { border-color: var(--color-light); }
+
+    @media (max-width: 480px) {
+      .cookie-banner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ===============================
+       NAVIGATION
+  ================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="https://www.baircompany.be/logo-white.png" alt="The Bair Company">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#werk">Werk</a></li>
+        <li><a href="diensten.html">Diensten</a></li>
+        <li><a href="over.html">Over</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#werk">Werk</a>
+    <a href="diensten.html">Diensten</a>
+    <a href="over.html">Over</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ===============================
+       PAGE HERO
+  ================================ -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-label reveal">Juridisch</div>
+      <h1 class="reveal">Privacy<br>Policy</h1>
+      <p class="reveal">Transparantie over hoe wij omgaan met jouw gegevens. Geen kleine lettertjes, gewoon duidelijke taal.</p>
+    </div>
+  </section>
+
+  <!-- ===============================
+       PRIVACY POLICY CONTENT
+  ================================ -->
+  <section class="policy-section">
+    <div class="container">
+      <div class="policy-content reveal">
+
+        <!-- Table of Contents -->
+        <div class="policy-toc">
+          <h3>Inhoud</h3>
+          <ol>
+            <li><a href="#wie">Wie zijn wij?</a></li>
+            <li><a href="#welke">Welke gegevens verzamelen we?</a></li>
+            <li><a href="#waarom">Waarom verzamelen we die gegevens?</a></li>
+            <li><a href="#grondslag">Rechtsgrondslag</a></li>
+            <li><a href="#delen">Met wie delen we gegevens?</a></li>
+            <li><a href="#bewaring">Hoe lang bewaren we gegevens?</a></li>
+            <li><a href="#rechten">Jouw rechten</a></li>
+            <li><a href="#cookies">Cookies</a></li>
+            <li><a href="#beveiliging">Beveiliging</a></li>
+            <li><a href="#wijzigingen">Wijzigingen</a></li>
+            <li><a href="#contact-privacy">Contact</a></li>
+          </ol>
+        </div>
+
+        <!-- 1. Wie zijn wij -->
+        <h2 id="wie">1. Wie zijn wij?</h2>
+        <p>The Bair Company is een creatief bureau gevestigd in Glabbeek, België, gespecialiseerd in branding, webdesign, marketing en AI. Wij zijn verantwoordelijk voor de verwerking van jouw persoonsgegevens zoals beschreven in dit privacybeleid.</p>
+        <ul>
+          <li><strong>Bedrijfsnaam:</strong> The Bair Company</li>
+          <li><strong>Vestiging:</strong> Glabbeek, België</li>
+          <li><strong>E-mail:</strong> <a href="mailto:admin@baircompany.be">admin@baircompany.be</a></li>
+          <li><strong>Website:</strong> <a href="https://www.baircompany.be">www.baircompany.be</a></li>
+        </ul>
+
+        <!-- 2. Welke gegevens -->
+        <h2 id="welke">2. Welke gegevens verzamelen we?</h2>
+        <p>Wij verzamelen enkel gegevens die noodzakelijk zijn voor onze dienstverlening:</p>
+
+        <h3>Gegevens die je zelf verstrekt</h3>
+        <ul>
+          <li>Naam en voornaam</li>
+          <li>E-mailadres</li>
+          <li>Telefoonnummer (optioneel)</li>
+          <li>Bedrijfsnaam (optioneel)</li>
+          <li>Inhoud van berichten via het contactformulier</li>
+        </ul>
+
+        <h3>Gegevens die automatisch worden verzameld</h3>
+        <ul>
+          <li>IP-adres (geanonimiseerd)</li>
+          <li>Browsertype en -versie</li>
+          <li>Bezochte pagina's en surfgedrag op onze site</li>
+          <li>Datum en tijdstip van bezoek</li>
+          <li>Verwijzende website</li>
+        </ul>
+
+        <!-- 3. Waarom -->
+        <h2 id="waarom">3. Waarom verzamelen we die gegevens?</h2>
+        <ul>
+          <li><strong>Contactverzoeken beantwoorden:</strong> Om te reageren op vragen via het contactformulier of e-mail</li>
+          <li><strong>Offertes opstellen:</strong> Om een gepaste offerte te kunnen maken voor onze diensten</li>
+          <li><strong>Dienstverlening:</strong> Om onze diensten uit te voeren en projecten te beheren</li>
+          <li><strong>Website verbeteren:</strong> Om de gebruikerservaring van onze website te optimaliseren</li>
+          <li><strong>Wettelijke verplichtingen:</strong> Om te voldoen aan boekhoudkundige en fiscale verplichtingen</li>
+        </ul>
+
+        <!-- 4. Rechtsgrondslag -->
+        <h2 id="grondslag">4. Rechtsgrondslag</h2>
+        <p>Wij verwerken jouw gegevens op basis van:</p>
+        <ul>
+          <li><strong>Toestemming:</strong> Wanneer je zelf je gegevens invult via het contactformulier</li>
+          <li><strong>Uitvoering van een overeenkomst:</strong> Wanneer de verwerking noodzakelijk is voor de uitvoering van een project of opdracht</li>
+          <li><strong>Gerechtvaardigd belang:</strong> Voor websiteanalyse en verbetering van onze dienstverlening</li>
+          <li><strong>Wettelijke verplichting:</strong> Voor boekhoudkundige en fiscale doeleinden</li>
+        </ul>
+
+        <!-- 5. Delen -->
+        <h2 id="delen">5. Met wie delen we gegevens?</h2>
+        <p>Wij verkopen jouw gegevens nooit aan derden. In sommige gevallen maken wij gebruik van externe dienstverleners:</p>
+        <ul>
+          <li><strong>Formspree:</strong> Voor de verwerking van contactformulieren (servers in de VS, Privacy Shield gecertificeerd)</li>
+          <li><strong>Google Analytics:</strong> Voor websitestatistieken (geanonimiseerde gegevens)</li>
+          <li><strong>Vercel:</strong> Voor hosting van onze website (servers in de EU en VS)</li>
+          <li><strong>Google Fonts:</strong> Voor het laden van lettertypes</li>
+        </ul>
+        <p>Met al deze partijen hebben wij afspraken gemaakt over de bescherming van jouw gegevens, conform de AVG/GDPR.</p>
+
+        <!-- 6. Bewaring -->
+        <h2 id="bewaring">6. Hoe lang bewaren we gegevens?</h2>
+        <ul>
+          <li><strong>Contactformulier-gegevens:</strong> Maximaal 12 maanden na het laatste contact</li>
+          <li><strong>Projectgegevens:</strong> Gedurende de looptijd van het project + 7 jaar (wettelijke bewaartermijn)</li>
+          <li><strong>Analytische gegevens:</strong> Maximaal 26 maanden</li>
+          <li><strong>Facturatiegegevens:</strong> 7 jaar (wettelijke verplichting)</li>
+        </ul>
+
+        <!-- 7. Rechten -->
+        <h2 id="rechten">7. Jouw rechten</h2>
+        <p>Conform de AVG/GDPR heb je de volgende rechten:</p>
+        <ul>
+          <li><strong>Recht op inzage:</strong> Je mag opvragen welke gegevens wij van jou bewaren</li>
+          <li><strong>Recht op rectificatie:</strong> Je mag onjuiste gegevens laten corrigeren</li>
+          <li><strong>Recht op verwijdering:</strong> Je mag vragen om jouw gegevens te verwijderen</li>
+          <li><strong>Recht op beperking:</strong> Je mag de verwerking van jouw gegevens laten beperken</li>
+          <li><strong>Recht op overdraagbaarheid:</strong> Je mag jouw gegevens opvragen in een leesbaar formaat</li>
+          <li><strong>Recht op bezwaar:</strong> Je mag bezwaar maken tegen de verwerking van jouw gegevens</li>
+          <li><strong>Recht om toestemming in te trekken:</strong> Je mag eerder gegeven toestemming op elk moment intrekken</li>
+        </ul>
+        <p>Om gebruik te maken van deze rechten, neem contact op via <a href="mailto:admin@baircompany.be">admin@baircompany.be</a>. We reageren binnen 30 dagen.</p>
+        <p>Je hebt ook het recht om een klacht in te dienen bij de <strong>Gegevensbeschermingsautoriteit</strong> (GBA): <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener">www.gegevensbeschermingsautoriteit.be</a></p>
+
+        <!-- 8. Cookies -->
+        <h2 id="cookies">8. Cookies</h2>
+        <p>Onze website maakt gebruik van cookies. Een cookie is een klein tekstbestand dat op je apparaat wordt opgeslagen wanneer je onze website bezoekt.</p>
+
+        <h3>Noodzakelijke cookies</h3>
+        <p>Deze zijn essentieel voor het functioneren van de website en kunnen niet worden uitgeschakeld.</p>
+        <ul>
+          <li><strong>cookieConsent:</strong> Onthoudt jouw cookie-voorkeur (12 maanden)</li>
+        </ul>
+
+        <h3>Analytische cookies</h3>
+        <p>Deze helpen ons begrijpen hoe bezoekers de website gebruiken. De gegevens zijn geanonimiseerd.</p>
+        <ul>
+          <li><strong>Google Analytics (_ga, _gid):</strong> Websitestatistieken en bezoekersgedrag (2 jaar / 24 uur)</li>
+        </ul>
+
+        <h3>Cookies beheren</h3>
+        <p>Bij je eerste bezoek kun je via de cookiebanner aangeven welke cookies je accepteert. Je kunt je voorkeuren altijd wijzigen door je browsercookies te verwijderen en de website opnieuw te bezoeken. Je kunt cookies ook blokkeren of verwijderen via je browserinstellingen.</p>
+
+        <!-- 9. Beveiliging -->
+        <h2 id="beveiliging">9. Beveiliging</h2>
+        <p>Wij nemen passende technische en organisatorische maatregelen om jouw persoonsgegevens te beschermen tegen ongeoorloofde toegang, verlies of vernietiging. Hieronder vallen onder meer:</p>
+        <ul>
+          <li>SSL-encryptie (HTTPS) op de gehele website</li>
+          <li>Veilige hosting via gerenommeerde providers</li>
+          <li>Beperkte toegang tot persoonsgegevens (enkel de eigenaar)</li>
+          <li>Regelmatige beveiligingsupdates</li>
+        </ul>
+
+        <!-- 10. Wijzigingen -->
+        <h2 id="wijzigingen">10. Wijzigingen aan dit beleid</h2>
+        <p>Wij kunnen dit privacybeleid van tijd tot tijd aanpassen. Wijzigingen worden op deze pagina gepubliceerd met een bijgewerkte datum. Bij belangrijke wijzigingen informeren wij je via de website.</p>
+
+        <!-- 11. Contact -->
+        <h2 id="contact-privacy">11. Contact</h2>
+        <p>Heb je vragen over dit privacybeleid of over de verwerking van jouw gegevens? Neem dan contact op:</p>
+        <ul>
+          <li><strong>E-mail:</strong> <a href="mailto:admin@baircompany.be">admin@baircompany.be</a></li>
+          <li><strong>Adres:</strong> The Bair Company, Glabbeek, België</li>
+        </ul>
+
+        <div class="policy-date">
+          <p>Laatst bijgewerkt: maart 2026</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       STATEMENT BAND
+  ================================ -->
+  <section class="statement-band">
+    <div class="container">
+      <h2 class="reveal">Jouw privacy.<br><em>Onze prioriteit.</em></h2>
+    </div>
+  </section>
+
+  <!-- ===============================
+       FOOTER
+  ================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid stagger">
+        <div class="footer-brand reveal">
+          <img src="https://www.baircompany.be/logo-white.png" alt="The Bair Company" style="height:28px; margin-bottom:0.5rem;">
+          <p>Creatief bureau voor merken die durven. Branding, webdesign, marketing en AI vanuit Glabbeek, België.</p>
+        </div>
+        <div class="footer-col reveal">
+          <h4>Diensten</h4>
+          <ul>
+            <li><a href="diensten.html">Branding & Identiteit</a></li>
+            <li><a href="diensten.html">Web Design</a></li>
+            <li><a href="diensten.html">Marketing</a></li>
+            <li><a href="diensten.html">Apps & AI</a></li>
+          </ul>
+        </div>
+        <div class="footer-col reveal">
+          <h4>Bedrijf</h4>
+          <ul>
+            <li><a href="over.html">Over ons</a></li>
+            <li><a href="index.html#werk">Portfolio</a></li>
+            <li><a href="index.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col reveal">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:admin@baircompany.be">admin@baircompany.be</a></li>
+            <li><a href="#">Glabbeek, België</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 The Bair Company. Alle rechten voorbehouden.</span>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/thebaircompany" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+          <a href="https://www.linkedin.com/company/the-bair-company" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===============================
+       COOKIE BANNER
+  ================================ -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p>We gebruiken cookies om je ervaring te verbeteren. <a href="privacy-policy.html">Meer info</a></p>
+    <div class="cookie-buttons">
+      <button class="cookie-decline" onclick="declineCookies()">Weigeren</button>
+      <button class="cookie-accept" onclick="acceptCookies()">Accepteren</button>
+    </div>
+  </div>
+
+  <!-- ===============================
+       JAVASCRIPT
+  ================================ -->
+  <script>
+    // Navigation
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+    }, { passive: true });
+
+    // Scroll Reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Cookie Banner
+    function acceptCookies() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      document.getElementById('cookieBanner').classList.remove('show');
+    }
+    function declineCookies() {
+      localStorage.setItem('cookieConsent', 'declined');
+      document.getElementById('cookieBanner').classList.remove('show');
+    }
+    if (!localStorage.getItem('cookieConsent')) {
+      setTimeout(() => {
+        document.getElementById('cookieBanner').classList.add('show');
+      }, 2000);
+    }
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.policy-toc a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

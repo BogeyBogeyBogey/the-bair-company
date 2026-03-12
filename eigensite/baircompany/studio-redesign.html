@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Sectie — The Bair Company (Redesign)</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════
+       RESET & BASE — Matcht de originele site
+       ═══════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-dark: #0A0A0A;
+      --color-light: #F0EDE8;
+      --color-light-rgb: 240, 237, 232;
+      --color-primary: #2E8AFF;
+      --color-primary-rgb: 46, 138, 255;
+      --color-secondary: #EC4899;
+      --color-secondary-rgb: 236, 72, 153;
+      --color-accent: #F59E0B;
+      --color-accent-rgb: 245, 158, 11;
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-accent: 'Instrument Serif', serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+
+    body {
+      background: var(--color-dark);
+      color: var(--color-light);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════
+       INFO BANNER — Instructie voor de user
+       ═══════════════════════════════════════ */
+    .info-banner {
+      background: rgba(var(--color-accent-rgb), 0.1);
+      border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.2);
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--color-accent);
+      font-family: var(--font-body);
+    }
+    .info-banner strong { font-weight: 700; }
+
+    /* ═══════════════════════════════════════
+       STUDIO SECTION
+       ═══════════════════════════════════════ */
+    .studio {
+      padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 2rem);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .studio-header {
+      margin-bottom: 4rem;
+      max-width: 700px;
+    }
+
+    .studio-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(var(--color-light-rgb), 0.4);
+      margin-bottom: 1rem;
+    }
+
+    .studio-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+
+    .studio-subtitle {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      color: rgba(var(--color-light-rgb), 0.5);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       SERVICE GRID
+       ═══════════════════════════════════════ */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(var(--color-light-rgb), 0.06);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════
+       SERVICE CARD
+       ═══════════════════════════════════════ */
+    .service-card {
+      position: relative;
+      min-height: 380px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--color-dark);
+    }
+
+    /* Photo background */
+    .service-card__photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.2;
+      transform: scale(1.05);
+      transition: opacity 0.8s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+      filter: grayscale(30%);
+      font-size: 0;
+      color: transparent;
+    }
+
+    .service-card:hover .service-card__photo {
+      opacity: 0.45;
+      transform: scale(1);
+      filter: grayscale(0%);
+    }
+
+    /* Gradient overlay */
+    .service-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.3) 0%,
+        rgba(10, 10, 10, 0.85) 70%,
+        rgba(10, 10, 10, 0.95) 100%
+      );
+      transition: background 0.6s var(--ease-out-expo);
+    }
+
+    .service-card:hover .service-card__overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.1) 0%,
+        rgba(10, 10, 10, 0.7) 60%,
+        rgba(10, 10, 10, 0.9) 100%
+      );
+    }
+
+    /* Content */
+    .service-card__content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 2rem;
+    }
+
+    /* Number */
+    .service-card__number {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(var(--color-light-rgb), 0.06);
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+      transition: color 0.6s var(--ease-out-expo);
+    }
+
+    .service-card:hover .service-card__number {
+      color: rgba(var(--color-light-rgb), 0.12);
+    }
+
+    /* Title */
+    .service-card__title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+
+    .service-card:hover .service-card__title {
+      transform: translateY(-4px);
+    }
+
+    /* Description */
+    .service-card__desc {
+      font-size: 0.85rem;
+      color: rgba(var(--color-light-rgb), 0.5);
+      line-height: 1.5;
+      transition: color 0.5s var(--ease-out-expo);
+      margin-bottom: 0;
+    }
+
+    .service-card:hover .service-card__desc {
+      color: rgba(var(--color-light-rgb), 0.7);
+    }
+
+    /* Expand indicator */
+    .service-card__expand {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--color-light-rgb), 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s var(--ease-out-expo);
+      z-index: 3;
+    }
+
+    .service-card__expand svg {
+      width: 14px;
+      height: 14px;
+      stroke: rgba(var(--color-light-rgb), 0.4);
+      transition: stroke 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    }
+
+    .service-card:hover .service-card__expand {
+      border-color: rgba(var(--color-light-rgb), 0.25);
+    }
+
+    .service-card:hover .service-card__expand svg {
+      stroke: rgba(var(--color-light-rgb), 0.7);
+    }
+
+    .service-card.expanded .service-card__expand svg {
+      transform: rotate(45deg);
+    }
+
+    /* Expanded state */
+    .service-card__detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s var(--ease-out-expo), opacity 0.4s ease;
+      opacity: 0;
+    }
+
+    .service-card.expanded .service-card__detail {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .service-card__detail-text {
+      padding-top: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(var(--color-light-rgb), 0.6);
+    }
+
+    .service-card__cta {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-light);
+      text-decoration: none;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid rgba(var(--color-light-rgb), 0.2);
+      border-radius: 999px;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .service-card__cta:hover {
+      background: var(--color-light);
+      color: var(--color-dark);
+      border-color: var(--color-light);
+    }
+
+    /* Accent line at bottom of hovered card */
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.6s var(--ease-out-expo);
+    }
+
+    .service-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Different accent colors per row */
+    .service-card:nth-child(4)::after,
+    .service-card:nth-child(5)::after,
+    .service-card:nth-child(6)::after {
+      background: var(--color-secondary);
+    }
+
+    .service-card:nth-child(7)::after,
+    .service-card:nth-child(8)::after,
+    .service-card:nth-child(9)::after {
+      background: var(--color-primary);
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .service-card { min-height: 340px; }
+    }
+
+    @media (max-width: 640px) {
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+      .service-card { min-height: 280px; }
+      .service-card__photo { opacity: 0.25; }
+    }
+
+    /* ═══════════════════════════════════════
+       REDUCED MOTION
+       ═══════════════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       SCROLL REVEAL
+       ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+    }
+    .stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+    .stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
+    .stagger.visible > *:nth-child(3) { transition-delay: 0.16s; }
+    .stagger.visible > *:nth-child(4) { transition-delay: 0.24s; }
+    .stagger.visible > *:nth-child(5) { transition-delay: 0.32s; }
+    .stagger.visible > *:nth-child(6) { transition-delay: 0.4s; }
+    .stagger.visible > *:nth-child(7) { transition-delay: 0.48s; }
+    .stagger.visible > *:nth-child(8) { transition-delay: 0.56s; }
+    .stagger.visible > *:nth-child(9) { transition-delay: 0.64s; }
+    .stagger.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Info banner for context -->
+  <div class="info-banner">
+    <strong>Redesign preview</strong> — Dit is de verbeterde studio-sectie. Kopieer de HTML/CSS naar je bestaande site.
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       STUDIO SECTION — Drop-in replacement
+       ═══════════════════════════════════════ -->
+  <section class="studio" id="diensten">
+    <div class="studio-header reveal">
+      <p class="studio-label">Wat we doen</p>
+      <h2 class="studio-title">Alles onder één dak, van strategie tot lancering.</h2>
+      <p class="studio-subtitle">Geen eindeloze loops tussen bureaus. Eén team, één visie, één resultaat.</p>
+    </div>
+
+    <div class="service-grid stagger">
+
+      <!-- 01 — Branding & Identiteit -->
+      <div class="service-card" data-service="branding">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1558365916-848463c5d803?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Brand identity materialen en logo mockups" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">01</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Branding & Identiteit</h3>
+          <p class="service-card__desc">Logo, huisstijl, merkstrategie. We geven jouw merk een gezicht dat werkt op elk touchpoint.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">Van naamgeving tot complete visuele identiteit. We bouwen merken die niet alleen mooi zijn, maar strategisch doordacht. Kleurenpalet, typografie, tone of voice, brand guidelines — alles consistent, alles met intentie.</p>
+            <a href="contact.html" class="service-card__cta">Start je merk →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 — Web Design -->
+      <div class="service-card" data-service="webdesign">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Web design proces met wireframes en schetsen" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">02</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Web Design</h3>
+          <p class="service-card__desc">Van wireframe tot pixel-perfect ontwerp. Interfaces die niet alleen mooi zijn maar ook intuïtief aanvoelen.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">Responsive design dat werkt op elk device. UX-research, wireframing, prototyping en visueel design in Figma. Geen templates — alles op maat ontworpen voor jouw doelgroep en doelstellingen.</p>
+            <a href="contact.html" class="service-card__cta">Bekijk onze aanpak →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 — Webontwikkeling -->
+      <div class="service-card" data-service="development">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Code op scherm, webontwikkeling" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">03</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Webontwikkeling</h3>
+          <p class="service-card__desc">Snelle, responsive websites gebouwd met moderne technologieën. Performance en schoonheid gaan samen.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">React, Next.js, Tailwind CSS — we bouwen met de tools die topbureaus gebruiken. Custom code, geen page builders. Razendsnel, SEO-geoptimaliseerd, en klaar voor de toekomst.</p>
+            <a href="contact.html" class="service-card__cta">Bespreek je project →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 — Social Media -->
+      <div class="service-card" data-service="social">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Social media apps op smartphone" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">04</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Social Media</h3>
+          <p class="service-card__desc">Content creatie en strategie die jouw merk zichtbaar maakt op de platformen die er toe doen.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">Contentplanning, visuele templates, captions die converteren en community management. We bouwen een aanwezigheid die groeit — geen losse posts, maar een doordachte strategie.</p>
+            <a href="contact.html" class="service-card__cta">Plan je strategie →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 — Marketing -->
+      <div class="service-card" data-service="marketing">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Marketing dashboard met analytics data" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">05</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Marketing</h3>
+          <p class="service-card__desc">Campagnes die resultaat opleveren. Van strategie tot uitvoering, data-gedreven en creatief.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">SEO, Google Ads, funnels, e-mailmarketing en conversie-optimalisatie. We meten alles, testen continu en schalen wat werkt. Geen aannames — alleen data en resultaat.</p>
+            <a href="contact.html" class="service-card__cta">Groei je bereik →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 — Apps & Producten -->
+      <div class="service-card" data-service="apps">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Mobile app op smartphone" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">06</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Apps & Producten</h3>
+          <p class="service-card__desc">Digitale producten van concept tot lancering. UI/UX design en ontwikkeling onder één dak.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">Van idee tot App Store — wij begeleiden het volledige traject. Gebruikersonderzoek, prototyping, design, development en lancering. Geen eindeloze loops tussen verschillende bureaus.</p>
+            <a href="contact.html" class="service-card__cta">Start je product →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07 — Copywriting & Content -->
+      <div class="service-card" data-service="copy">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Schrijven en content creatie" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">07</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Copywriting & Content</h3>
+          <p class="service-card__desc">Webteksten, blogs, nieuwsbrieven en SEO-copy die lezen als een gesprek en scoren bij Google.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">20 jaar media-ervaring in één pen. Van P-magazine tot Het Laatste Nieuws — we schrijven teksten die boeien, overtuigen en converteren. Jouw toon, jouw verhaal, professioneel verteld.</p>
+            <a href="contact.html" class="service-card__cta">Vertel je verhaal →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08 — AI & Automatisering -->
+      <div class="service-card" data-service="ai">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="AI technologie en automatisering" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">08</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">AI & Automatisering</h3>
+          <p class="service-card__desc">Slimme workflows, AI-tools en automatisering die je team uren per week besparen.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">ChatGPT integraties, geautomatiseerde content pipelines, slimme chatbots en workflow-automatisering met Make en Zapier. We maken AI praktisch en toegankelijk voor jouw bedrijf.</p>
+            <a href="contact.html" class="service-card__cta">Automatiseer slim →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 09 — Training & Workshops -->
+      <div class="service-card" data-service="training">
+        <img class="service-card__photo"
+             src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop&auto=format&q=80"
+             alt="Workshop en training sessie" loading="lazy">
+        <div class="service-card__overlay"></div>
+        <span class="service-card__number">09</span>
+        <div class="service-card__expand">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="service-card__content">
+          <h3 class="service-card__title">Training & Workshops</h3>
+          <p class="service-card__desc">Hands-on sessies die jouw team slimmer maken. Van social media tot AI, van branding tot contentcreatie.</p>
+          <div class="service-card__detail">
+            <p class="service-card__detail-text">Op maat gemaakte workshops, één-op-één coaching en teamtrainingen. Praktisch, geen theorie. Je leert werken met de tools en technieken die wij dagelijks gebruiken.</p>
+            <a href="contact.html" class="service-card__cta">Boek een sessie →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT
+       ═══════════════════════════════════════ -->
+  <script>
+    // Expand/collapse cards
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Don't toggle if clicking CTA link
+        if (e.target.closest('.service-card__cta')) return;
+
+        const wasExpanded = card.classList.contains('expanded');
+
+        // Close all other cards
+        document.querySelectorAll('.service-card.expanded').forEach(c => {
+          if (c !== card) c.classList.remove('expanded');
+        });
+
+        // Toggle clicked card
+        card.classList.toggle('expanded', !wasExpanded);
+      });
+    });
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => {
+      revealObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>

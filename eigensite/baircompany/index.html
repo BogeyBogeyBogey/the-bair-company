@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bair Company — Creatief Bureau voor Branding & Webdesign</title>
+  <meta name="description" content="The Bair Company is een creatief bureau in Glabbeek gespecialiseerd in branding, webdesign, marketing en AI. 20+ jaar media-ervaring. Van strategie tot oplevering.">
+  <meta name="keywords" content="branding, webdesign, creatief bureau, Glabbeek, België, marketing, AI, logo ontwerp">
+  <meta property="og:title" content="The Bair Company — Creatief Bureau voor Branding & Webdesign">
+  <meta property="og:description" content="Creatief bureau gespecialiseerd in branding, webdesign, marketing en AI. 20+ jaar media-ervaring.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&h=630&fit=crop&auto=format&q=80">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.baircompany.be">
+  <link rel="canonical" href="https://www.baircompany.be">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "The Bair Company",
+    "description": "Creatief bureau voor branding, webdesign, marketing en AI",
+    "url": "https://www.baircompany.be",
+    "email": "admin@baircompany.be",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Glabbeek",
+      "addressCountry": "BE"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Kristof Bogaerts"
+    },
+    "sameAs": [
+      "https://www.instagram.com/thebaircompany",
+      "https://www.linkedin.com/company/the-bair-company"
+    ]
+  }
+  </script>
+
+  <style>
+    /* ============================
+       CSS CUSTOM PROPERTIES
+    ============================ */
+    :root {
+      --color-primary: #2E8AFF;
+      --color-primary-rgb: 46, 138, 255;
+      --color-secondary: #EC4899;
+      --color-secondary-rgb: 236, 72, 153;
+      --color-accent: #F59E0B;
+      --color-accent-rgb: 245, 158, 11;
+      --color-dark: #0A0A0A;
+      --color-dark-rgb: 10, 10, 10;
+      --color-light: #F0EDE8;
+      --color-light-rgb: 240, 237, 232;
+      --color-white: #FFFFFF;
+      --color-success: #10B981;
+      --color-error: #EF4444;
+
+      --font-heading: 'Darker Grotesque', sans-serif;
+      --font-body: 'IBM Plex Mono', monospace;
+      --font-accent: 'Instrument Serif', serif;
+
+      --text-hero: clamp(3.5rem, 9vw, 8rem);
+      --text-h1: clamp(2.5rem, 5vw, 4.5rem);
+      --text-h2: clamp(1.8rem, 3.5vw, 2.8rem);
+      --text-h3: clamp(1.3rem, 2.5vw, 1.75rem);
+      --text-body: clamp(0.9rem, 1.1vw, 1rem);
+      --text-small: 0.8rem;
+      --text-mega: clamp(4rem, 12vw, 10rem);
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --duration-fast: 0.3s;
+      --duration-normal: 0.6s;
+      --duration-slow: 1s;
+
+      --section-padding: clamp(4rem, 8vw, 8rem);
+      --container-max: 1200px;
+
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.16);
+      --shadow-xl: 0 24px 64px rgba(0,0,0,0.2);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+    }
+
+    /* ============================
+       REDUCED MOTION
+    ============================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .video-bg { display: none; }
+      .marquee-track { animation: none !important; }
+    }
+
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      line-height: 1.7;
+      color: var(--color-light);
+      background: var(--color-dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .container { width: min(var(--container-max), 90vw); margin: 0 auto; }
+
+    /* ============================
+       SCROLL PROGRESS
+    ============================ */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+      background: var(--color-primary);
+      transform: scaleX(var(--progress, 0));
+      transform-origin: left; z-index: 9999;
+    }
+
+    /* ============================
+       NOISE OVERLAY (global)
+    ============================ */
+    body::after {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9998; opacity: 0.5;
+    }
+
+    /* ============================
+       NAVIGATION
+    ============================ */
+    .nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      padding: 1.5rem 0;
+      transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+    }
+    .nav.scrolled {
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: min(var(--container-max), 90vw); margin: 0 auto;
+    }
+    .nav-logo img { height: 32px; width: auto; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      position: relative; padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+      background: var(--color-primary);
+      transition: width 0.4s var(--ease-out-expo);
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--color-primary); color: var(--color-white);
+      padding: 0.6rem 1.5rem; border-radius: var(--radius-full);
+      font-weight: 600; font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
+    }
+
+    /* Mobile hamburger */
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; z-index: 1001; }
+    .hamburger span {
+      display: block; width: 28px; height: 2px; background: var(--color-light);
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; inset: 0;
+      background: rgba(10,10,10,0.97); backdrop-filter: blur(30px);
+      z-index: 999; flex-direction: column; align-items: center;
+      justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-heading); font-size: 2rem; font-weight: 700;
+      opacity: 0; transform: translateY(30px);
+      transition: all 0.4s var(--ease-out-expo);
+    }
+    .mobile-menu.open a {
+      opacity: 1; transform: translateY(0);
+    }
+    .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu a:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-menu a:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-menu a:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-menu a:nth-child(5) { transition-delay: 0.3s; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ============================
+       ANIMATIONS BASE
+    ============================ */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s var(--ease-out-expo); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-left { opacity: 0; transform: translateX(-60px); transition: all 0.8s var(--ease-out-expo); }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-right { opacity: 0; transform: translateX(60px); transition: all 0.8s var(--ease-out-expo); }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-scale { opacity: 0; transform: scale(0.85); transition: all 0.6s var(--ease-out-back); }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    .image-reveal { clip-path: inset(0 100% 0 0); transition: clip-path 1.2s var(--ease-out-expo); }
+    .image-reveal.visible { clip-path: inset(0 0 0 0); }
+
+    @keyframes revealChar {
+      from { opacity: 0; transform: translateY(100%) rotateX(-80deg); }
+      to { opacity: 1; transform: translateY(0) rotateX(0); }
+    }
+    .text-reveal span {
+      display: inline-block; opacity: 0;
+      animation: revealChar 0.6s var(--ease-out-expo) forwards;
+    }
+
+    /* Stagger delays */
+    .stagger > *:nth-child(1) { transition-delay: 0s; }
+    .stagger > *:nth-child(2) { transition-delay: 0.08s; }
+    .stagger > *:nth-child(3) { transition-delay: 0.16s; }
+    .stagger > *:nth-child(4) { transition-delay: 0.24s; }
+    .stagger > *:nth-child(5) { transition-delay: 0.32s; }
+    .stagger > *:nth-child(6) { transition-delay: 0.4s; }
+    .stagger > *:nth-child(7) { transition-delay: 0.48s; }
+    .stagger > *:nth-child(8) { transition-delay: 0.56s; }
+    .stagger > *:nth-child(9) { transition-delay: 0.64s; }
+
+    /* ============================
+       1. VIDEO HERO
+    ============================ */
+    .hero {
+      position: relative; min-height: 100vh; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero .video-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
+    .hero .video-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(160deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.4) 50%, rgba(10,10,10,0.7) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center;
+      max-width: 900px; padding: 0 2rem;
+    }
+    .hero-label {
+      font-family: var(--font-body); font-size: var(--text-small);
+      text-transform: uppercase; letter-spacing: 0.25em;
+      color: var(--color-primary); margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .hero-title {
+      font-size: var(--text-hero); color: var(--color-light);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .accent {
+      font-family: var(--font-accent); font-style: italic;
+      color: var(--color-primary); font-weight: 400;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.3vw, 1.15rem); color: rgba(240,237,232,0.7);
+      max-width: 600px; margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 768px) {
+      .hero .video-bg { display: none; }
+      .hero {
+        background: linear-gradient(160deg, rgba(10,10,10,0.9), rgba(10,10,10,0.5)),
+                    url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1600&auto=format&q=80') center/cover no-repeat;
+      }
+    }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .hero-scroll span {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+      color: rgba(240,237,232,0.4);
+    }
+    .scroll-line {
+      width: 1px; height: 40px; background: rgba(240,237,232,0.2);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+      background: var(--color-primary);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+    @keyframes scrollDown { 0% { top: -100%; } 100% { top: 100%; } }
+
+    /* ============================
+       BUTTONS
+    ============================ */
+    .btn-primary {
+      display: inline-block; position: relative; overflow: hidden;
+      background: var(--color-primary); color: var(--color-white);
+      padding: 1rem 2.5rem; border-radius: var(--radius-full);
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border: none; cursor: pointer;
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(var(--color-primary-rgb), 0.4);
+    }
+
+    .btn-outline {
+      display: inline-block; position: relative; overflow: hidden;
+      background: transparent; color: var(--color-light);
+      padding: 1rem 2.5rem; border-radius: var(--radius-full);
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border: 1.5px solid rgba(240,237,232,0.3); cursor: pointer;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+    .btn-outline::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--color-light); transform: translateX(-101%);
+      transition: transform 0.4s var(--ease-out-expo); z-index: -1;
+      border-radius: var(--radius-full);
+    }
+    .btn-outline:hover { color: var(--color-dark); border-color: var(--color-light); }
+    .btn-outline:hover::before { transform: translateX(0); }
+
+    .magnetic-btn { transition: transform 0.15s ease-out; }
+
+    /* ============================
+       2. MARQUEE BAND
+    ============================ */
+    .marquee-section {
+      padding: 1.2rem 0; overflow: hidden;
+      background: var(--color-primary);
+      position: relative;
+    }
+    .marquee-track {
+      display: inline-flex; gap: 3rem; white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--color-dark); display: flex; align-items: center; gap: 3rem;
+    }
+    .marquee-track span::after {
+      content: '\2022'; font-size: 0.5rem;
+    }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ============================
+       3. DIENSTEN — ANIMATED TABS
+    ============================ */
+    .services-section {
+      padding: var(--section-padding) 0;
+      background: var(--color-dark);
+    }
+    .section-label {
+      font-family: var(--font-body); font-size: var(--text-small);
+      text-transform: uppercase; letter-spacing: 0.25em;
+      color: var(--color-primary); margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .section-title {
+      font-size: var(--text-h1); margin-bottom: 3rem;
+    }
+    .section-title .accent {
+      font-family: var(--font-accent); font-style: italic;
+      color: var(--color-secondary); font-weight: 400;
+    }
+
+    .tabs-container { margin-top: 2rem; }
+    .tab-nav {
+      display: flex; gap: 0; border-bottom: 1px solid rgba(240,237,232,0.1);
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0; padding: 1rem 1.5rem; background: none; border: none;
+      color: rgba(240,237,232,0.4); font-family: var(--font-body);
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; cursor: pointer;
+      position: relative; transition: color 0.3s;
+    }
+    .tab-btn::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px;
+      background: var(--color-primary); transform: scaleX(0);
+      transition: transform 0.4s var(--ease-out-expo);
+    }
+    .tab-btn.active { color: var(--color-light); }
+    .tab-btn.active::after { transform: scaleX(1); }
+    .tab-btn:hover { color: var(--color-light); }
+
+    .tab-panel {
+      display: none; opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+    }
+    .tab-panel.active { opacity: 1; transform: translateY(0); }
+    .tab-content {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      padding: 3rem 0; align-items: center;
+    }
+    .tab-image {
+      border-radius: var(--radius-lg); overflow: hidden;
+      aspect-ratio: 4/3; position: relative;
+    }
+    .tab-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s var(--ease-out-expo);
+    }
+    .tab-image:hover img { transform: scale(1.04); }
+    .tab-text h3 {
+      font-size: var(--text-h2); margin-bottom: 1rem;
+    }
+    .tab-text p {
+      color: rgba(240,237,232,0.6); line-height: 1.8; margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .tab-content { grid-template-columns: 1fr; }
+    }
+
+    /* ============================
+       4. PORTFOLIO — HORIZONTAL SCROLL + 3D TILT
+    ============================ */
+    .portfolio-section {
+      padding: var(--section-padding) 0;
+      background: #060606;
+      position: relative;
+    }
+    .portfolio-track {
+      display: flex; gap: 2rem; overflow-x: auto;
+      padding: 2rem 5vw 3rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .portfolio-track::-webkit-scrollbar { display: none; }
+    .portfolio-card {
+      flex-shrink: 0; width: 400px; max-width: 80vw;
+      border-radius: var(--radius-lg); overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      scroll-snap-align: center;
+      transition: transform 0.5s var(--ease-out-expo), box-shadow 0.3s;
+    }
+    .portfolio-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .portfolio-card-image {
+      aspect-ratio: 16/10; overflow: hidden;
+    }
+    .portfolio-card-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s var(--ease-out-expo);
+    }
+    .portfolio-card:hover .portfolio-card-image img { transform: scale(1.06); }
+    .portfolio-card-body { padding: 1.5rem; }
+    .portfolio-card-body h3 {
+      font-size: var(--text-h3); margin-bottom: 0.5rem;
+    }
+    .portfolio-card-body p {
+      color: rgba(240,237,232,0.5); font-size: var(--text-small);
+    }
+    .portfolio-stat {
+      display: inline-block; margin-top: 0.75rem;
+      color: var(--color-accent); font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* ============================
+       5. STATS — GLASSMORPHISM ON PARALLAX
+    ============================ */
+    .stats-section {
+      position: relative; padding: var(--section-padding) 0;
+      min-height: 60vh; display: flex; align-items: center;
+      background: linear-gradient(160deg, rgba(10,10,10,0.6), rgba(10,10,10,0.3)),
+                  url('https://images.unsplash.com/photo-1510519138101-570d1dca3d66?w=1600&auto=format&q=80') center/cover no-repeat fixed;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg); padding: 2.5rem 2rem;
+      text-align: center;
+      transition: transform 0.3s var(--ease-out-expo), border-color 0.3s;
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(var(--color-primary-rgb), 0.3);
+    }
+    .stat-number {
+      font-family: var(--font-heading); font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 900; color: var(--color-primary);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: var(--text-small); color: rgba(240,237,232,0.6);
+      margin-top: 0.5rem; text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-section { background-attachment: scroll; }
+    }
+
+    /* ============================
+       6. VIDEO STATEMENT BAND
+    ============================ */
+    .statement-section {
+      position: relative; padding: 6rem 0; overflow: hidden;
+      min-height: 50vh; display: flex; align-items: center;
+      justify-content: center; text-align: center;
+    }
+    .statement-section .video-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
+    .statement-section .video-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, rgba(10,10,10,0.8), rgba(10,10,10,0.6), rgba(10,10,10,0.8));
+    }
+    .statement-content {
+      position: relative; z-index: 2;
+    }
+    .statement-text {
+      font-family: var(--font-heading); font-size: var(--text-mega);
+      font-weight: 900; line-height: 0.95;
+      color: var(--color-light);
+    }
+    .statement-text .outline {
+      -webkit-text-stroke: 2px var(--color-primary);
+      color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      .statement-section .video-bg { display: none; }
+      .statement-section {
+        background: linear-gradient(135deg, rgba(10,10,10,0.85), rgba(10,10,10,0.6)),
+                    url('https://images.unsplash.com/photo-1419640303358-44f0d27f48e7?w=1600&auto=format&q=80') center/cover no-repeat;
+      }
+    }
+
+    /* ============================
+       7. OVER / ABOUT — ZIGZAG
+    ============================ */
+    .about-section {
+      padding: var(--section-padding) 0;
+      background: #0D0D0D;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    .about-image {
+      border-radius: var(--radius-lg); overflow: hidden;
+      position: relative;
+    }
+    .about-image img {
+      width: 100%; height: auto; display: block;
+      filter: grayscale(20%);
+      transition: filter 0.6s;
+    }
+    .about-image:hover img { filter: grayscale(0%); }
+    .about-image-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem; background: linear-gradient(transparent, rgba(10,10,10,0.9));
+    }
+    .about-image-overlay span {
+      font-family: var(--font-accent); font-style: italic;
+      color: var(--color-primary); font-size: 1rem;
+    }
+    .about-text h2 { font-size: var(--text-h1); margin-bottom: 1.5rem; }
+    .about-text p {
+      color: rgba(240,237,232,0.6); margin-bottom: 1.2rem; line-height: 1.9;
+    }
+    .about-text .highlight-bar {
+      display: inline-block; padding: 0.3rem 0.8rem;
+      background: rgba(var(--color-primary-rgb), 0.15);
+      border-left: 3px solid var(--color-primary);
+      color: var(--color-light); font-weight: 500;
+      margin: 1rem 0;
+    }
+    .experience-list {
+      list-style: none; display: flex; flex-wrap: wrap; gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .experience-list li {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.4rem 1rem; border-radius: var(--radius-full);
+      font-size: var(--text-small); color: rgba(240,237,232,0.6);
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================
+       8. TESTIMONIAL
+    ============================ */
+    .testimonial-section {
+      position: relative; padding: var(--section-padding) 0;
+      min-height: 50vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, rgba(10,10,10,0.75), rgba(10,10,10,0.5)),
+                  url('https://images.unsplash.com/photo-1562813733-b31f71025d54?w=1600&auto=format&q=80') center/cover no-repeat fixed;
+    }
+    .testimonial-inner { text-align: center; max-width: 800px; margin: 0 auto; }
+    .testimonial-quote {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--color-light); line-height: 1.5;
+      margin-bottom: 2rem; position: relative;
+    }
+    .testimonial-quote::before {
+      content: '\201C'; font-size: 6rem;
+      color: var(--color-primary); opacity: 0.3;
+      position: absolute; top: -3rem; left: -1rem;
+      font-family: var(--font-accent);
+    }
+    .testimonial-author {
+      font-family: var(--font-body); font-size: var(--text-small);
+      text-transform: uppercase; letter-spacing: 0.15em;
+      color: rgba(240,237,232,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .testimonial-section { background-attachment: scroll; }
+    }
+
+    /* ============================
+       9. CTA — DARK MEGA TYPOGRAPHY
+    ============================ */
+    .cta-section {
+      padding: var(--section-padding) 0;
+      background: var(--color-dark); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(var(--color-primary-rgb),0.08) 0%, transparent 70%);
+    }
+    .cta-content { position: relative; z-index: 2; }
+    .cta-title {
+      font-size: var(--text-mega); font-weight: 900;
+      line-height: 0.95; margin-bottom: 2rem;
+    }
+    .cta-title .accent {
+      font-family: var(--font-accent); font-style: italic;
+      color: var(--color-primary); font-weight: 400;
+    }
+    .cta-sub {
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+      color: rgba(240,237,232,0.5); max-width: 500px;
+      margin: 0 auto 2.5rem; line-height: 1.8;
+    }
+
+    /* ============================
+       10. FOOTER
+    ============================ */
+    .footer {
+      padding: 4rem 0 2rem;
+      background: #050505;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand p {
+      color: rgba(240,237,232,0.4); margin-top: 1rem;
+      max-width: 300px; line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-family: var(--font-heading); font-size: 1rem; font-weight: 700;
+      margin-bottom: 1.2rem; color: var(--color-light);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.7rem; }
+    .footer-col a {
+      color: rgba(240,237,232,0.4); font-size: var(--text-small);
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--color-primary); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05);
+      color: rgba(240,237,232,0.3); font-size: 0.7rem;
+    }
+    .footer-social { display: flex; gap: 1.5rem; }
+    .footer-social a {
+      color: rgba(240,237,232,0.3);
+      transition: color 0.3s;
+    }
+    .footer-social a:hover { color: var(--color-primary); }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================
+       WERKWIJZE SECTIE
+    ============================ */
+    .process-section {
+      padding: var(--section-padding) 0;
+      background: var(--color-dark);
+    }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .process-step {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-md); padding: 2rem 1.5rem;
+      text-align: center; position: relative;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+    .process-step:hover {
+      background: rgba(var(--color-primary-rgb), 0.06);
+      border-color: rgba(var(--color-primary-rgb), 0.2);
+      transform: translateY(-4px);
+    }
+    .process-number {
+      font-family: var(--font-heading); font-size: 3rem;
+      font-weight: 900; color: rgba(var(--color-primary-rgb), 0.2);
+      line-height: 1; margin-bottom: 1rem;
+    }
+    .process-step h3 {
+      font-size: 1.1rem; margin-bottom: 0.5rem;
+    }
+    .process-step p {
+      font-size: var(--text-small); color: rgba(240,237,232,0.4);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .process-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .process-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================
+       COOKIE BANNER
+    ============================ */
+    .cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(20,20,20,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.2rem 2rem; z-index: 9990;
+      display: none; align-items: center;
+      justify-content: space-between; gap: 1.5rem;
+    }
+    .cookie-banner.show { display: flex; }
+    .cookie-banner p {
+      font-size: 0.75rem; color: rgba(240,237,232,0.6);
+      max-width: 600px;
+    }
+    .cookie-banner a { color: var(--color-primary); text-decoration: underline; }
+    .cookie-buttons { display: flex; gap: 0.8rem; flex-shrink: 0; }
+    .cookie-accept {
+      background: var(--color-primary); color: white;
+      border: none; padding: 0.6rem 1.5rem; border-radius: var(--radius-full);
+      font-size: 0.75rem; font-weight: 600; cursor: pointer;
+      font-family: var(--font-body);
+    }
+    .cookie-decline {
+      background: transparent; color: rgba(240,237,232,0.5);
+      border: 1px solid rgba(240,237,232,0.15); padding: 0.6rem 1.5rem;
+      border-radius: var(--radius-full); font-size: 0.75rem; cursor: pointer;
+      font-family: var(--font-body);
+    }
+
+    @media (max-width: 768px) {
+      .cookie-banner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="https://www.baircompany.be/logo-white.png" alt="The Bair Company">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#diensten">Diensten</a></li>
+        <li><a href="#werk">Werk</a></li>
+        <li><a href="#over">Over</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" aria-label="Menu openen">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#diensten" onclick="closeMenu()">Diensten</a>
+    <a href="#werk" onclick="closeMenu()">Werk</a>
+    <a href="#over" onclick="closeMenu()">Over</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- ===============================
+       1. VIDEO HERO
+  ================================ -->
+  <section class="hero" id="home">
+    <video autoplay muted loop playsinline class="video-bg"
+           poster="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1600&auto=format&q=80">
+      <source src="https://videos.pexels.com/video-files/29247789/12568654_2560_1440_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label reveal" data-delay="200">Creatief Bureau — Glabbeek, BE</p>
+      <h1 class="hero-title text-reveal" id="heroTitle">
+        Merken die<br><span class="accent">durven</span> winnen
+      </h1>
+      <p class="hero-sub reveal" data-delay="600">
+        Branding, webdesign en marketing met 20 jaar media-ervaring. Van strategie tot oplevering. Eén vast contactpersoon.
+      </p>
+      <div class="hero-buttons reveal" data-delay="800">
+        <a href="#contact" class="btn-primary magnetic-btn">Start je project</a>
+        <a href="#werk" class="btn-outline">Bekijk ons werk</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       2. MARQUEE BAND
+  ================================ -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span>Branding</span><span>Web Design</span><span>Development</span>
+      <span>Social Media</span><span>Marketing</span><span>Apps</span>
+      <span>Copywriting</span><span>AI & Automatisering</span><span>Training</span>
+      <span>Branding</span><span>Web Design</span><span>Development</span>
+      <span>Social Media</span><span>Marketing</span><span>Apps</span>
+      <span>Copywriting</span><span>AI & Automatisering</span><span>Training</span>
+    </div>
+  </div>
+
+  <!-- ===============================
+       3. DIENSTEN — ANIMATED TABS
+  ================================ -->
+  <section class="services-section" id="diensten">
+    <div class="container">
+      <p class="section-label reveal">Wat we doen</p>
+      <h2 class="section-title reveal">
+        Geen halve<br><span class="accent">oplossingen</span>
+      </h2>
+      <div class="tabs-container reveal" data-delay="200">
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="tab-branding">Branding</button>
+          <button class="tab-btn" data-tab="tab-webdesign">Web Design</button>
+          <button class="tab-btn" data-tab="tab-marketing">Marketing</button>
+          <button class="tab-btn" data-tab="tab-apps">Apps & AI</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-branding" style="display:block;">
+          <div class="tab-content">
+            <div class="tab-image image-reveal">
+              <img src="https://images.unsplash.com/photo-1558365916-848463c5d803?w=800&auto=format&q=80" alt="Branding materialen en merkidentiteit" loading="lazy">
+            </div>
+            <div class="tab-text">
+              <h3>Branding & Identiteit</h3>
+              <p>Een sterk merk begint bij een duidelijke identiteit. We ontwerpen logo's, visuele systemen en merkstrategieën die blijven hangen. Geen trendy templates, maar fundamenten die jaren meegaan.</p>
+              <a href="#contact" class="btn-outline magnetic-btn">Meer over branding</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-webdesign">
+          <div class="tab-content">
+            <div class="tab-image image-reveal">
+              <img src="https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=800&auto=format&q=80" alt="Webdesign en UX/UI" loading="lazy">
+            </div>
+            <div class="tab-text">
+              <h3>Web Design & Development</h3>
+              <p>Websites die niet alleen mooi zijn, maar ook converteren. UX/UI design, responsive development, custom CMS. Alles op maat gebouwd met de nieuwste technologieën. Geen WordPress templates.</p>
+              <a href="#contact" class="btn-outline magnetic-btn">Meer over webdesign</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-marketing">
+          <div class="tab-content">
+            <div class="tab-image image-reveal">
+              <img src="https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=800&auto=format&q=80" alt="Digitale marketing" loading="lazy">
+            </div>
+            <div class="tab-text">
+              <h3>Marketing & Social Media</h3>
+              <p>Data-gedreven marketing die meetbaar resultaat oplevert. SEO, advertising, social media strategie, contentplanning en funnels. Geen vanity metrics, maar echte conversies.</p>
+              <a href="#contact" class="btn-outline magnetic-btn">Meer over marketing</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-apps">
+          <div class="tab-content">
+            <div class="tab-image image-reveal">
+              <img src="https://images.unsplash.com/photo-1523380262778-076eb862d38f?w=800&auto=format&q=80" alt="Apps en AI" loading="lazy">
+            </div>
+            <div class="tab-text">
+              <h3>Apps, AI & Automatisering</h3>
+              <p>Mobile apps, SaaS-producten en slimme automatisering. We bouwen digitale producten die schalen. Van GiGi Money (28 landen, 22 talen) tot workflow-automatisering met AI.</p>
+              <a href="#contact" class="btn-outline magnetic-btn">Meer over apps & AI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       4. PORTFOLIO — HORIZONTAL SCROLL + 3D TILT
+  ================================ -->
+  <section class="portfolio-section" id="werk">
+    <div class="container">
+      <p class="section-label reveal">Geselecteerd werk</p>
+      <h2 class="section-title reveal">
+        Cases die <span class="accent">spreken</span>
+      </h2>
+    </div>
+    <div class="portfolio-track">
+      <div class="portfolio-card tilt-card reveal" data-delay="0">
+        <div class="portfolio-card-image">
+          <img src="https://www.baircompany.be/images/gigi.jpg" alt="GiGi Money app" loading="lazy">
+        </div>
+        <div class="portfolio-card-body">
+          <h3>GiGi Money</h3>
+          <p>Personal finance app — Full branding, UX/UI, development</p>
+          <span class="portfolio-stat">28 landen — 22 talen</span>
+        </div>
+      </div>
+      <div class="portfolio-card tilt-card reveal" data-delay="100">
+        <div class="portfolio-card-image">
+          <img src="https://www.baircompany.be/images/rosing.jpg" alt="Rosing Security" loading="lazy">
+        </div>
+        <div class="portfolio-card-body">
+          <h3>Rosing Security</h3>
+          <p>Branding, website en digitale marketing</p>
+          <span class="portfolio-stat">+45% aanvragen — +730% websitebezoek</span>
+        </div>
+      </div>
+      <div class="portfolio-card tilt-card reveal" data-delay="200">
+        <div class="portfolio-card-image">
+          <img src="https://www.baircompany.be/images/artoah.jpg" alt="Artoah" loading="lazy">
+        </div>
+        <div class="portfolio-card-body">
+          <h3>Artoah</h3>
+          <p>E-commerce branding en webshop-optimalisatie</p>
+          <span class="portfolio-stat">3x meer online bestellingen</span>
+        </div>
+      </div>
+      <div class="portfolio-card tilt-card reveal" data-delay="300">
+        <div class="portfolio-card-image">
+          <img src="https://images.unsplash.com/photo-1603201667230-bd139210db18?w=800&auto=format&q=80" alt="Freddy Van Tricht KBC" loading="lazy">
+        </div>
+        <div class="portfolio-card-body">
+          <h3>Freddy Van Tricht — KBC</h3>
+          <p>Personal branding voor financieel adviseur</p>
+          <span class="portfolio-stat">Volledig merktraject</span>
+        </div>
+      </div>
+      <div class="portfolio-card tilt-card reveal" data-delay="400">
+        <div class="portfolio-card-image">
+          <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?w=800&auto=format&q=80" alt="Baas Over Je Geld" loading="lazy">
+        </div>
+        <div class="portfolio-card-body">
+          <h3>Baas Over Je Geld</h3>
+          <p>Platform vanuit de Vrolijke Vrekken podcast</p>
+          <span class="portfolio-stat">Community platform</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       5. STATS — GLASSMORPHISM ON PARALLAX
+  ================================ -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid stagger">
+        <div class="stat-card reveal-scale">
+          <div class="stat-number" data-counter="20" data-suffix="+">0</div>
+          <div class="stat-label">Jaar ervaring</div>
+        </div>
+        <div class="stat-card reveal-scale">
+          <div class="stat-number" data-counter="28">0</div>
+          <div class="stat-label">Landen bereikt</div>
+        </div>
+        <div class="stat-card reveal-scale">
+          <div class="stat-number" data-counter="730" data-suffix="%" data-prefix="+">0</div>
+          <div class="stat-label">Websitebezoek groei</div>
+        </div>
+        <div class="stat-card reveal-scale">
+          <div class="stat-number" data-counter="2" data-suffix="M+">0</div>
+          <div class="stat-label">Lezers bereikt</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       6. VIDEO STATEMENT BAND
+  ================================ -->
+  <section class="statement-section">
+    <video autoplay muted loop playsinline class="video-bg"
+           poster="https://images.unsplash.com/photo-1419640303358-44f0d27f48e7?w=1600&auto=format&q=80">
+      <source src="https://videos.pexels.com/video-files/3129576/3129576-uhd_2560_1440_25fps.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="statement-content">
+      <p class="statement-text text-reveal" id="statementText">
+        Geen halve<br><span class="outline">oplossingen</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===============================
+       7. OVER / ABOUT — ZIGZAG
+  ================================ -->
+  <section class="about-section" id="over">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image image-reveal">
+          <img src="https://www.baircompany.be/images/kristof.jpg" alt="Kristof Bogaerts — oprichter The Bair Company">
+          <div class="about-image-overlay">
+            <span>Kristof Bogaerts — Oprichter</span>
+          </div>
+        </div>
+        <div class="about-text">
+          <p class="section-label reveal">Over The Bair Company</p>
+          <h2 class="reveal">20 jaar media.<br>Nu voor <span class="accent">jouw</span> merk.</h2>
+          <p class="reveal" data-delay="100">
+            Van eindredacteur bij P-magazine tot nationaal eindredacteur bij Het Laatste Nieuws met meer dan 2 miljoen dagelijkse lezers. Van online publisher bij Nieuwsblad.be tot creator van de GiGi Money app in 28 landen.
+          </p>
+          <div class="highlight-bar reveal" data-delay="200">
+            De combinatie van creatief denken en data-gedreven werken is zeldzaam.
+          </div>
+          <p class="reveal" data-delay="300">
+            Bij The Bair Company krijg je niet alleen mooi design — je krijgt meetbaar resultaat. Eén vast contactpersoon van strategie tot oplevering. Direct, eerlijk en obsessief gedetailleerd.
+          </p>
+          <ul class="experience-list stagger reveal" data-delay="400">
+            <li>P-magazine</li>
+            <li>Het Laatste Nieuws</li>
+            <li>Nieuwsblad.be</li>
+            <li>GiGi Money App</li>
+            <li>Vrolijke Vrekken</li>
+            <li>PlayStation Magazine</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       WERKWIJZE
+  ================================ -->
+  <section class="process-section">
+    <div class="container">
+      <p class="section-label reveal">Hoe we werken</p>
+      <h2 class="section-title reveal">5 stappen naar <span class="accent">resultaat</span></h2>
+      <div class="process-grid stagger">
+        <div class="process-step reveal">
+          <div class="process-number">01</div>
+          <h3>Kennismaking</h3>
+          <p>Gratis en vrijblijvend. We leren je bedrijf kennen en bespreken je doelen.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-number">02</div>
+          <h3>Voorstel</h3>
+          <p>Transparante offerte met duidelijke scope, timeline en prijzen.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-number">03</div>
+          <h3>Concept</h3>
+          <p>Designconcepten met 2 revisierondes. Je ziet alles voor we bouwen.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-number">04</div>
+          <h3>Realisatie</h3>
+          <p>Development met live preview. Je volgt elke stap van het proces.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-number">05</div>
+          <h3>Lancering</h3>
+          <p>Go-live met 30 dagen nazorg. We laten je niet los na oplevering.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       8. TESTIMONIAL
+  ================================ -->
+  <section class="testimonial-section">
+    <div class="container">
+      <div class="testimonial-inner reveal">
+        <div class="testimonial-quote">
+          Kristof begrijpt branding. Niet oppervlakkig, maar tot in de kern. De combinatie van creatief denken en data-gedreven werken is zeldzaam. Eindelijk iemand die niet alleen mooi maakt, maar ook meetbaar resultaat levert.
+        </div>
+        <div class="testimonial-author">Klantrecensie — The Bair Company</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       9. CTA — DARK MEGA TYPOGRAPHY
+  ================================ -->
+  <section class="cta-section" id="contact">
+    <div class="container cta-content">
+      <p class="section-label reveal">Klaar om te starten?</p>
+      <h2 class="cta-title text-reveal" id="ctaTitle">
+        Laat je merk<br><span class="accent">winnen</span>
+      </h2>
+      <p class="cta-sub reveal" data-delay="300">
+        Gratis kennismakingsgesprek. Geen verplichtingen. Gewoon een eerlijk gesprek over jouw ambities.
+      </p>
+      <div class="reveal" data-delay="500">
+        <a href="mailto:admin@baircompany.be" class="btn-primary magnetic-btn" style="font-size:0.9rem; padding: 1.2rem 3rem;">
+          admin@baircompany.be
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       10. FOOTER
+  ================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid stagger">
+        <div class="footer-brand reveal">
+          <img src="https://www.baircompany.be/logo-white.png" alt="The Bair Company" style="height:28px; margin-bottom:0.5rem;">
+          <p>Creatief bureau voor merken die durven. Branding, webdesign, marketing en AI vanuit Glabbeek, België.</p>
+        </div>
+        <div class="footer-col reveal">
+          <h4>Diensten</h4>
+          <ul>
+            <li><a href="#diensten">Branding & Identiteit</a></li>
+            <li><a href="#diensten">Web Design</a></li>
+            <li><a href="#diensten">Marketing</a></li>
+            <li><a href="#diensten">Apps & AI</a></li>
+          </ul>
+        </div>
+        <div class="footer-col reveal">
+          <h4>Bedrijf</h4>
+          <ul>
+            <li><a href="#over">Over ons</a></li>
+            <li><a href="#werk">Portfolio</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col reveal">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:admin@baircompany.be">admin@baircompany.be</a></li>
+            <li><a href="#">Glabbeek, België</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 The Bair Company. Alle rechten voorbehouden.</span>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/thebaircompany" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+          <a href="https://www.linkedin.com/company/the-bair-company" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===============================
+       COOKIE BANNER
+  ================================ -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p>We gebruiken cookies om je ervaring te verbeteren. <a href="privacy-policy.html">Meer info</a></p>
+    <div class="cookie-buttons">
+      <button class="cookie-decline" onclick="declineCookies()">Weigeren</button>
+      <button class="cookie-accept" onclick="acceptCookies()">Accepteren</button>
+    </div>
+  </div>
+
+  <!-- ===============================
+       JAVASCRIPT
+  ================================ -->
+  <script>
+    // ==============================
+    // NAVIGATION
+    // ==============================
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ==============================
+    // SCROLL PROGRESS
+    // ==============================
+    window.addEventListener('scroll', () => {
+      const progress = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      document.querySelector('.scroll-progress').style.setProperty('--progress', progress);
+    }, { passive: true });
+
+    // ==============================
+    // TEXT REVEAL
+    // ==============================
+    function splitText(selector) {
+      document.querySelectorAll(selector).forEach(el => {
+        const words = el.innerHTML.split(/(<[^>]+>|\s+)/);
+        let charIndex = 0;
+        el.innerHTML = '';
+        words.forEach(word => {
+          if (word.match(/^<[^>]+>$/)) {
+            el.innerHTML += word;
+          } else if (word.match(/^\s+$/)) {
+            el.innerHTML += ' ';
+          } else {
+            word.split('').forEach(char => {
+              const span = document.createElement('span');
+              span.textContent = char;
+              span.style.animationDelay = `${charIndex * 0.035}s`;
+              el.appendChild(span);
+              charIndex++;
+            });
+          }
+        });
+      });
+    }
+
+    // Apply text reveal to hero (simpler approach)
+    window.addEventListener('DOMContentLoaded', () => {
+      const heroTitle = document.getElementById('heroTitle');
+      if (heroTitle) {
+        const html = heroTitle.innerHTML;
+        let i = 0;
+        const newHtml = html.replace(/([^<>])/g, (match) => {
+          if (match === ' ') return ' ';
+          return `<span style="animation-delay:${i++ * 0.035}s">${match}</span>`;
+        });
+        heroTitle.innerHTML = newHtml;
+      }
+    });
+
+    // ==============================
+    // SCROLL REVEAL (IntersectionObserver)
+    // ==============================
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = parseInt(el.dataset.delay) || 0;
+          setTimeout(() => {
+            el.classList.add('visible');
+            // Counter animation
+            if (el.querySelector('[data-counter]')) {
+              el.querySelectorAll('[data-counter]').forEach(c => animateCounter(c));
+            }
+            if (el.dataset.counter) animateCounter(el);
+          }, delay);
+          revealObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .image-reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // ==============================
+    // COUNTER ANIMATION
+    // ==============================
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.counter);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      let current = 0;
+      const duration = 2000;
+      const step = target / (duration / 16);
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = prefix + Math.floor(current).toLocaleString('nl-BE') + suffix;
+      }, 16);
+    }
+
+    // ==============================
+    // ANIMATED TABS
+    // ==============================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active from all buttons
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Switch panels
+        document.querySelectorAll('.tab-panel').forEach(panel => {
+          if (panel.id === btn.dataset.tab) {
+            panel.style.display = 'block';
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => panel.classList.add('active'));
+            });
+            // Trigger image reveal
+            const img = panel.querySelector('.image-reveal');
+            if (img) {
+              img.classList.remove('visible');
+              setTimeout(() => img.classList.add('visible'), 100);
+            }
+          } else {
+            panel.classList.remove('active');
+            setTimeout(() => { if (!panel.classList.contains('active')) panel.style.display = 'none'; }, 500);
+          }
+        });
+      });
+    });
+
+    // ==============================
+    // 3D TILT CARDS
+    // ==============================
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        card.style.transform = `perspective(800px) rotateX(${(0.5 - y) * 10}deg) rotateY(${(x - 0.5) * 10}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+        card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      });
+      card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+    });
+
+    // ==============================
+    // MAGNETIC BUTTONS
+    // ==============================
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0,0)';
+        btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      });
+      btn.addEventListener('mouseenter', () => { btn.style.transition = 'none'; });
+    });
+
+    // ==============================
+    // COOKIE BANNER
+    // ==============================
+    if (!localStorage.getItem('cookieConsent')) {
+      setTimeout(() => {
+        document.getElementById('cookieBanner').classList.add('show');
+      }, 2000);
+    }
+    function acceptCookies() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      document.getElementById('cookieBanner').classList.remove('show');
+    }
+    function declineCookies() {
+      localStorage.setItem('cookieConsent', 'declined');
+      document.getElementById('cookieBanner').classList.remove('show');
+    }
+
+    // ==============================
+    // SMOOTH SCROLL
+    // ==============================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

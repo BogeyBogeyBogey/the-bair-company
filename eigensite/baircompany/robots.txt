@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.baircompany.be/sitemap.xml
+
+# The Bair Company — Creatief Bureau voor Branding & Webdesign
+# www.baircompany.be
