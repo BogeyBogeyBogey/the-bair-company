@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Bair Company — Creatief Bureau voor Branding & Webdesign | Glabbeek</title>
-<meta name="description" content="The Bair Company — Creatief bureau uit Glabbeek voor branding, webdesign, webontwikkeling, social media en marketing. Merken die blijven hangen.">
-<meta name="keywords" content="creatief bureau, branding, webdesign, webontwikkeling, social media, marketing, Glabbeek, Vlaanderen, België, The Bair Company">
-<meta name="author" content="The Bair Company">
+<title>The Bair Co. — Creatief Bureau voor Branding & Webdesign | Glabbeek</title>
+<meta name="description" content="The Bair Co. — Creatief bureau uit Glabbeek voor branding, webdesign, webontwikkeling, social media en marketing. Merken die blijven hangen.">
+<meta name="keywords" content="creatief bureau, branding, webdesign, webontwikkeling, social media, marketing, Glabbeek, Vlaanderen, België, The Bair Co.">
+<meta name="author" content="The Bair Co.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0a0a0a">
 
@@ -17,7 +17,7 @@
 <meta property="og:description" content="Brands. AI. Results.">
 <meta property="og:image" content="https://www.baircompany.be/og-image.jpg">
 <meta property="og:locale" content="nl_BE">
-<meta property="og:site_name" content="The Bair Company">
+<meta property="og:site_name" content="The Bair Co.">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
@@ -54,7 +54,7 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "The Bair Company",
+  "name": "The Bair Co.",
   "description": "Creatief bureau voor branding, webdesign, webontwikkeling, social media en marketing.",
   "url": "https://www.baircompany.be",
   "email": "admin@baircompany.be",
@@ -99,7 +99,7 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
 
 <!-- HEADER -->
 <header>
-  <a href="#" class="brand"><img src="logo-white.png" alt="The Bair Company logo" class="brand-logo">The Bair Co.</a>
+  <a href="#" class="brand"><img src="logo-white.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
   <nav>
     <a href="#werk" class="nav-pill">Portfolio</a>
     <a href="#diensten" class="nav-pill">Studio</a>
@@ -467,7 +467,7 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
 
 <!-- WAAROM WIJ -->
 <section class="waarom" id="waarom">
-  <p class="section-label reveal">Waarom The Bair Company</p>
+  <p class="section-label reveal">Waarom The Bair Co.</p>
   <h2 class="waarom-title reveal">Wat ons <span class="serif">anders</span> maakt</h2>
   <div class="waarom-grid">
     <div class="waarom-card reveal">
@@ -510,7 +510,7 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
     <h2 class="over-quote">20 jaar media-ervaring. Eén missie: jouw merk laten converteren.</h2>
     <div class="over-photo-col">
       <div class="founder-card">
-        <img class="founder-img" src="kristofoverons.jpeg" alt="Kristof Bogaerts — Oprichter The Bair Company" loading="lazy" style="filter: grayscale(100%) contrast(1.3) brightness(1.08); object-fit: cover;">
+        <img class="founder-img" src="kristofoverons.jpeg" alt="Kristof Bogaerts — Oprichter The Bair Co." loading="lazy" style="filter: grayscale(100%) contrast(1.3) brightness(1.08); object-fit: cover;">
         <div class="founder-overlay">
           <div class="founder-name">Kristof Bogaerts</div>
           <div class="founder-title">Oprichter — 20 jaar media & digital</div>
@@ -520,7 +520,7 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
     </div>
   </div>
   <div class="over-right">
-    <p>Geen junior die jouw project doet. Geen account manager die vertaalt wat je zegt. Achter The Bair Company zit twintig jaar frontlinie-ervaring in Belgische topmedia — van print tot digital, van redactie tot conversie-optimalisatie.</p>
+    <p>Geen junior die jouw project doet. Geen account manager die vertaalt wat je zegt. Achter The Bair Co. zit twintig jaar frontlinie-ervaring in Belgische topmedia — van print tot digital, van redactie tot conversie-optimalisatie.</p>
     <p>Ik weet hoe je content uitspeelt die mensen laat klikken, lezen en betalen. Conversiefunnels, audience targeting, A/B-testing, recirculatie, nieuwsbrieven, paywalltunnels — ik heb het gebouwd, gemeten en geoptimaliseerd voor miljoenen gebruikers. Met GiGi Money bewees ik dat ik ook from scratch een app en merk kan ontwerpen — beschikbaar in 28 landen en 22 talen. Die kennis zit nu in jouw project.</p>
     <div class="over-stats">
       <div><div class="stat-val">20+</div><div class="stat-label">Jaar media-ervaring</div></div>
@@ -802,7 +802,7 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
     </div>
   </div>
   <div class="footer-bottom">
-    <span>&copy; 2026 The Bair Company. Alle rechten voorbehouden.</span>
+    <span>&copy; 2026 The Bair Co.. Alle rechten voorbehouden.</span>
     <div class="footer-legal">
       <a href="privacy.html">Privacybeleid</a>
       <a href="voorwaarden.html">Algemene voorwaarden</a>

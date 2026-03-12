@@ -1,7 +1,7 @@
-# Site Research: The Bair Company
+# Site Research: The Bair Co.
 
 ## Bedrijfsgegevens
-- **Naam**: The Bair Company
+- **Naam**: The Bair Co.
 - **Ondertitel**: Creatief Bureau voor Branding & Webdesign
 - **Adres**: Glabbeek, België
 - **Telefoon**: (niet vermeld op site)
@@ -101,7 +101,7 @@
 
 ## Online aanwezigheid
 - Instagram: @thebaircompany
-- LinkedIn: The Bair Company
+- LinkedIn: The Bair Co.
 - Blog met content marketing
 
 ---
