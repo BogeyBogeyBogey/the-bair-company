@@ -146,6 +146,16 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
   .service-card__photo { opacity: 0.6; }
 }
 
+
+/* Compact waarom strip */
+.waarom-strip { display: flex; flex-direction: column; gap: 0; max-width: 900px; margin: 0 auto; }
+.waarom-item { display: flex; align-items: flex-start; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.waarom-item:last-child { border-bottom: none; }
+.waarom-num { font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: var(--accent); opacity: 0.5; line-height: 1; min-width: 2.5rem; padding-top: 0.15rem; }
+.waarom-item h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+.waarom-item p { font-size: 0.85rem; line-height: 1.6; color: var(--grey); margin: 0; }
+.waarom-item:hover .waarom-num { opacity: 1; transition: opacity 0.3s; }
+@media(min-width:768px) { .waarom-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; } .waarom-item { padding: 1.8rem 0; } .waarom-item:nth-last-child(-n+2) { border-bottom: none; } }
 /* Founder card fixes */
 .founder-overlay { background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.85) 30%, transparent 70%) !important; padding: 2.5rem 1.5rem 1.5rem !important; }
 .founder-name { font-size: 1.15rem !important; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
@@ -601,83 +611,56 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
 </section>
 
 <!-- WAAROM WIJ -->
-<section class="waarom" id="waarom">
+<section class="waarom waarom-compact" id="waarom">
   <p class="section-label reveal">Waarom The Bair Company</p>
   <h2 class="waarom-title reveal">Wat ons <span class="serif">anders</span> maakt</h2>
-  <div class="waarom-grid">
-    <div class="waarom-card reveal">
-      <div class="waarom-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-      <h3>100% Maatwerk</h3>
-      <p>Geen templates, geen standaard-oplossingen. Elk project wordt helemaal opgebouwd vanuit jouw merk, doelgroep en doelen. Punt.</p>
+  <div class="waarom-strip">
+    <div class="waarom-item reveal">
+      <span class="waarom-num">01</span>
+      <div>
+        <h3>100% Maatwerk</h3>
+        <p>Geen templates. Elk project opgebouwd vanuit jouw merk en doelen.</p>
+      </div>
     </div>
-    <div class="waarom-card reveal">
-      <div class="waarom-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-      <h3>Razendsnelle Oplevering</h3>
-      <p>Geen maanden wachten op een concept. Wij leveren kwaliteit in weken — niet in kwartalen. Omdat jij geen tijd te verliezen hebt.</p>
+    <div class="waarom-item reveal">
+      <span class="waarom-num">02</span>
+      <div>
+        <h3>Razendsnelle Oplevering</h3>
+        <p>Kwaliteit in weken, niet in kwartalen.</p>
+      </div>
     </div>
-    <div class="waarom-card reveal">
-      <div class="waarom-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <h3>Directe Lijnen</h3>
-      <p>Geen accountmanagers, geen doorschuif-cultuur. Je praat direct met de maker. Korte lijnen, snelle beslissingen, nul bureaucratie.</p>
+    <div class="waarom-item reveal">
+      <span class="waarom-num">03</span>
+      <div>
+        <h3>Directe Lijnen</h3>
+        <p>Je praat direct met de maker. Nul bureaucratie.</p>
+      </div>
     </div>
-    <div class="waarom-card reveal">
-      <div class="waarom-icon"><svg viewBox="0 0 24 24"><path d="M6 9l6-6 6 6"/><path d="M12 3v14"/><path d="M5 21h14"/></svg></div>
-      <h3>20 Jaar Bewezen Ervaring</h3>
-      <p>Van P-magazine tot Het Laatste Nieuws, van nieuwsblad.be tot eigen mediaproducten. Geen theorie — echte resultaten in de zwaarste mediasectoren van België.</p>
+    <div class="waarom-item reveal">
+      <span class="waarom-num">04</span>
+      <div>
+        <h3>20 Jaar Ervaring</h3>
+        <p>Van P-magazine tot eigen mediaproducten. Echte resultaten.</p>
+      </div>
     </div>
-    <div class="waarom-card reveal">
-      <div class="waarom-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
-      <h3>Data-Gedreven tot in de Kern</h3>
-      <p>Conversiefunnels, A/B-testing, audience targeting, recirculatie-optimalisatie — ik meet alles en optimaliseer tot elke euro rendeert. Geen buikgevoel, maar bewezen cijfers.</p>
+    <div class="waarom-item reveal">
+      <span class="waarom-num">05</span>
+      <div>
+        <h3>Data-Gedreven</h3>
+        <p>A/B-testing, conversiefunnels, audience targeting. Geen buikgevoel.</p>
+      </div>
     </div>
-    <div class="waarom-card reveal">
-      <div class="waarom-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <h3>Volledige Transparantie</h3>
-      <p>Geen verborgen kosten, geen kleine lettertjes. Je weet altijd wat je betaalt, waar je aan toe bent, en wat de volgende stap is.</p>
+    <div class="waarom-item reveal">
+      <span class="waarom-num">06</span>
+      <div>
+        <h3>Volledige Transparantie</h3>
+        <p>Geen verborgen kosten. Je weet altijd waar je aan toe bent.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <p class="testimonials-label reveal">Wat klanten zeggen</p>
-  <h2 class="testimonials-title reveal">Tevreden <span class="serif">samenwerkingen</span></h2>
-  <div class="testimonials-grid">
-    <div class="testimonial reveal">
-      <div class="testimonial-quote">"</div>
-      <p>Ze denken echt mee met je merk. Geen standaard template, maar iets dat volledig bij ons past. De samenwerking voelde moeiteloos.</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">GS</div>
-        <div>
-          <div class="testimonial-name">GiGi Social Money</div>
-          <div class="testimonial-role">Social Media & Webdesign</div>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial reveal">
-      <div class="testimonial-quote">"</div>
-      <p>Snelle communicatie, creatieve oplossingen en een eindresultaat waar we direct trots op waren. Aanrader voor elke ondernemer.</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--emerald),var(--amber))">RS</div>
-        <div>
-          <div class="testimonial-name">Rosing Security</div>
-          <div class="testimonial-role">Website & Branding</div>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial reveal">
-      <div class="testimonial-quote">"</div>
-      <p>Van concept tot lancering: alles werd helder uitgelegd, ook voor iemand zonder technische achtergrond. Top service.</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--amber),var(--red))">AO</div>
-        <div>
-          <div class="testimonial-name">Artoah</div>
-          <div class="testimonial-role">Webshop & Branding</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- CASE STUDIES -->
 <section class="case-studies" id="cases">
@@ -867,6 +850,47 @@ if (document.cookie.indexOf('cookie_consent=accepted') !== -1) { loadGA(); }
 
   <div class="contact-direct">
     Of mail rechtstreeks naar <a href="mailto:kristof@baircompany.be">kristof@baircompany.be</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS — social proof after CTA -->
+<section class="testimonials" id="testimonials">
+  <p class="testimonials-label reveal">Wat klanten zeggen</p>
+  <h2 class="testimonials-title reveal">Tevreden <span class="serif">samenwerkingen</span></h2>
+  <div class="testimonials-grid">
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">"</div>
+      <p>Ze denken echt mee met je merk. Geen standaard template, maar iets dat volledig bij ons past. De samenwerking voelde moeiteloos.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">GS</div>
+        <div>
+          <div class="testimonial-name">GiGi Social Money</div>
+          <div class="testimonial-role">Social Media & Webdesign</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">"</div>
+      <p>Snelle communicatie, creatieve oplossingen en een eindresultaat waar we direct trots op waren. Aanrader voor elke ondernemer.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--emerald),var(--amber))">RS</div>
+        <div>
+          <div class="testimonial-name">Rosing Security</div>
+          <div class="testimonial-role">Website & Branding</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">"</div>
+      <p>Van concept tot lancering: alles werd helder uitgelegd, ook voor iemand zonder technische achtergrond. Top service.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--amber),var(--red))">AO</div>
+        <div>
+          <div class="testimonial-name">Artoah</div>
+          <div class="testimonial-role">Webshop & Branding</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
