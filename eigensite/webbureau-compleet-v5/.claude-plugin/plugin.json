@@ -1,0 +1,9 @@
+{
+  "name": "webbureau-compleet",
+  "version": "2.0.0",
+  "description": "Compleet webbureau in een plugin — foto-gedreven, unieke websites met Unsplash-fotografie en Envato-niveau design. Van URL tot productie-klare site in één workflow.",
+  "author": {
+    "name": "Kristof Bogaerts"
+  },
+  "keywords": ["webdesign", "website", "seo", "gdpr", "branding", "unsplash", "envato", "fotografie", "premium"]
+}
