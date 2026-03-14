@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training & Workshops — The Bair Co. | Marketing & AI Workshops</title>
+    <meta name="description" content="Workshops en trainingen door The Bair Co. Social media, branding, AI en contentcreatie. Hands-on sessies voor teams en ondernemers.">
+    <meta name="keywords" content="marketing training, social media workshop, branding workshop, AI workshop, bedrijfstraining, team workshop">
+    <meta name="author" content="The Bair Co.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Dutch">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Training & Workshops — The Bair Co.">
+    <meta property="og:description" content="Workshops en trainingen door The Bair Co. Social media, branding, AI en contentcreatie. Hands-on sessies voor teams.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.baircompany.be/diensten/training.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=630&fit=crop&auto=format&q=80">
+    <meta property="og:site_name" content="The Bair Co.">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Training & Workshops — The Bair Co.">
+    <meta name="twitter:description" content="Workshops en trainingen door The Bair Co. Social media, branding, AI en contentcreatie.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=630&fit=crop&auto=format&q=80">
+
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href="https://www.baircompany.be/diensten/training.html">
+    <link rel="alternate" hreflang="nl" href="https://www.baircompany.be/diensten/training.html">
+    <link rel="alternate" hreflang="x-default" href="https://www.baircompany.be/diensten/training.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #f0ede8;
+            --grey: #888;
+            --accent: #ec4899;
+            --pink: #ec4899;
+            --amber: #f59e0b;
+            --emerald: #10b981;
+            --red: #ef4444;
+            --blue: #2E8AFF;
+            --ease: cubic-bezier(0.16,1,0.3,1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 2px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-pill {
+            font-family: 'DM Sans', sans-serif;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--grey);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s var(--ease);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-pill:hover {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-pill.active {
+            color: var(--white);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                gap: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav.mobile-open {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.5) 100%),
+                        url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1400&h=700&fit=crop&auto=format&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: slideUp 0.8s var(--ease);
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .hero .subtitle {
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(14px, 2vw, 18px);
+            color: var(--grey);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        section.intro {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, transparent 100%);
+        }
+
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 16px;
+            text-align: center;
+            color: var(--grey);
+            line-height: 1.8;
+        }
+
+        .intro-text strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Grid sections */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s var(--ease);
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease) forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .card p {
+            color: var(--grey);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Process section */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease) forwards;
+        }
+
+        .process-step:nth-child(1) { animation-delay: 0.1s; }
+        .process-step:nth-child(2) { animation-delay: 0.2s; }
+        .process-step:nth-child(3) { animation-delay: 0.3s; }
+        .process-step:nth-child(4) { animation-delay: 0.4s; }
+
+        .step-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .process-step h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: var(--grey);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Deliverables */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .deliverable-item {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, transparent 100%);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease) forwards;
+        }
+
+        .deliverable-item:nth-child(1) { animation-delay: 0.1s; }
+        .deliverable-item:nth-child(2) { animation-delay: 0.2s; }
+        .deliverable-item:nth-child(3) { animation-delay: 0.3s; }
+        .deliverable-item:nth-child(4) { animation-delay: 0.4s; }
+        .deliverable-item:nth-child(5) { animation-delay: 0.5s; }
+        .deliverable-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            color: var(--white);
+        }
+
+        .deliverable-item p {
+            font-size: 14px;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .faq-question {
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--accent);
+            transition: all 0.3s var(--ease);
+        }
+
+        .faq-question:hover {
+            color: var(--white);
+        }
+
+        .faq-toggle {
+            font-size: 20px;
+            transition: transform 0.3s var(--ease);
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s var(--ease);
+            color: var(--grey);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        /* CTA Section */
+        section.cta {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        section.cta h2 {
+            margin-bottom: 30px;
+        }
+
+        section.cta p {
+            font-size: 16px;
+            color: var(--grey);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'DM Sans', sans-serif;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s var(--ease);
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 0;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--grey);
+        }
+
+        .footer-section a {
+            display: block;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 13px;
+            margin-bottom: 10px;
+            transition: color 0.3s var(--ease);
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: var(--grey);
+            font-size: 12px;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            z-index: 50;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s var(--ease);
+        }
+
+        .cookie-banner.show {
+            max-height: 200px;
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cookie-text {
+            font-size: 13px;
+            color: var(--grey);
+            flex: 1;
+        }
+
+        .cookie-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s var(--ease);
+        }
+
+        .cookie-btn-accept {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .cookie-btn-accept:hover {
+            transform: translateY(-2px);
+        }
+
+        .cookie-btn-decline {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 50px 0;
+            }
+
+            section h2 {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-banner.show {
+                max-height: 300px;
+            }
+        }
+
+        /* Scroll reveal helper */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">The Bair Co.</a>
+            <nav>
+                <a href="/" class="nav-pill">Home</a>
+                <a href="/portfolio" class="nav-pill">Portfolio</a>
+                <a href="/diensten" class="nav-pill active">Onze diensten</a>
+                <a href="/studio" class="nav-pill">Studio</a>
+                <a href="/blog" class="nav-pill">Blog</a>
+                <a href="/over" class="nav-pill">Over</a>
+                <a href="/contact" class="nav-pill">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Training & Workshops</h1>
+            <p class="subtitle">Hands-on sessies die je team en bedrijf transformeren. Praktisch, interactief, meteen toepasbaar.</p>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="intro">
+        <div class="container">
+            <h2>Leren door te doen</h2>
+            <p class="intro-text">
+                Bij The Bair Co. geloven we niet in theoretische trainingen. We bieden <strong>hands-on workshops</strong> waar je team meteen leert en toepast. Van social media strategie tot AI-tools—alles wordt met jouw praktische use cases geoefend.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section>
+        <div class="container">
+            <h2>Onze workshop aanbod</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Social Media Strategie</h3>
+                    <p>Hoe bouw je een effectieve social media strategie? Content planning, posting frequency, community management en analytics—stap voor stap.</p>
+                </div>
+                <div class="card">
+                    <h3>Content Creatie</h3>
+                    <p>Schrijven, filmen, designen—we leren je team hoe je originele, engaging content maakt die resoneert met je doelgroep.</p>
+                </div>
+                <div class="card">
+                    <h3>Personal Branding</h3>
+                    <p>Hoe positioneer je jezelf als expert? Storytelling, LinkedIn, je online identiteit—alles wat je nodig hebt om op te vallen.</p>
+                </div>
+                <div class="card">
+                    <h3>AI Tools Workshop</h3>
+                    <p>ChatGPT, Claude, Canva AI—leren hoe je AI-tools gebruikt voor sneller en beter werk. Praktische oefeningen met je eigen projects.</p>
+                </div>
+                <div class="card">
+                    <h3>Copywriting & Persuasion</h3>
+                    <p>Hoe schrijf je copy die converteert? Headlines, value propositions, call-to-actions—tools voor betere communicatie.</p>
+                </div>
+                <div class="card">
+                    <h3>1-op-1 Coaching</h3>
+                    <p>Individuele sessies voor je ondernemers, managers of specialisten. Gericht coaching voor jouw specifieke uitdagingen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section>
+        <div class="container">
+            <h2>Hoe onze workshops werken</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Voorbereiding</h3>
+                    <p>We spreken je team en bespreken concrete doelen. Wat willen ze leren? Wat zijn de uitdagingen?</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Design</h3>
+                    <p>We ontwerpen een workshop op maat—100% gericht op jouw team en situatie. Geen standaard modules.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Uitvoering</h3>
+                    <p>Interactieve sessies, oefeningen met echte cases, veel ruimte voor vragen. We werken met jouw materiaal.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Begeleiding</h3>
+                    <p>Na de workshop blijven we beschikbaar voor vragen en ondersteuning. Je team is niet alleen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deliverables Section -->
+    <section>
+        <div class="container">
+            <h2>Wat je krijgt</h2>
+            <div class="deliverables-grid">
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Op maat gemaakte workshop</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Training materiaal & templates</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Hands-on oefeningen</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Post-workshop ondersteuning</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Kennisdocumentatie</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Toegang tot resources</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section>
+        <div class="container">
+            <h2>Veelgestelde vragen</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Welke workshops bieden jullie aan?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        We bieden trainingen in social media, content creatie, branding, copywriting, AI-tools, marketing strategie en meer. Alle workshops kunnen ook op maat ontworpen worden voor jouw team.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hoeveel deelnemers per sessie?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        We werken het best met teams van 5-20 personen. Kleinere groepen (1-4) kunnen als 1-op-1 coaching. Grotere groepen kunnen, maar we splitsen dan in breakout sessies voor interactiviteit.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Komen jullie op onze locatie?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absoluut. We bieden workshops in-person bij jou op kantoor (België) en ook online. Online workshops zijn volledig interactief met breakout rooms, whiteboards en veel deelname.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Wat kost een workshop?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Afhankelijk van duur en type. Een 4-uurs workshop start rond €2500-4000. Meerdaagse trainingen en customization kunnen hoger liggen. We geven altijd een transparante offerte na een intake-gesprek.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Zijn er online opties?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Ja! Online workshops zijn volledig interactief. We gebruiken video conferencing, shared documents, whiteboards en breakout sessions. Net zo effectief als in-person, flexibeler voor jouw team.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Klaar om je team naar het volgende level te brengen?</h2>
+            <p>Laten we een workshop ontwerpen die precies aansluit bij jouw behoeften. Gratis intake gesprek, geen verplichtingen.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="btn btn-primary">Boek een gesprek</a>
+                <a href="/portfolio" class="btn btn-secondary">Bekijk eerdere workshops</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Bair Co.</h3>
+                    <a href="/portfolio">Portfolio</a>
+                    <a href="/studio">Studio</a>
+                    <a href="/blog">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Bedrijf</h3>
+                    <a href="/over">Over ons</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/impressum">Impressum</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Diensten</h3>
+                    <a href="/diensten/copywriting">Copywriting</a>
+                    <a href="/diensten/ai-automatisering">AI & Automatisering</a>
+                    <a href="/diensten/training">Training</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Locatie</h3>
+                    <p style="font-size: 13px; color: var(--grey);">Glabbeek, België</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 The Bair Co. Alle rechten voorbehouden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                We gebruiken cookies voor analytics en betere user experience. <a href="/privacy">Privacybeleid</a>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Weigeren</button>
+                <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accepteren</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Training & Workshops",
+        "description": "Workshops en trainingen in social media, branding, AI, content creatie en marketing",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "The Bair Co.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Glabbeek",
+                "addressCountry": "BE"
+            }
+        },
+        "url": "https://www.baircompany.be/diensten/training.html",
+        "areaServed": "BE"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Welke workshops bieden jullie aan?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We bieden trainingen in social media, content creatie, branding, copywriting, AI-tools en marketing strategie. Alle workshops kunnen op maat ontworpen worden."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoeveel deelnemers per sessie?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We werken best met teams van 5-20 personen. 1-op-1 coaching ook mogelijk, grotere groepen splitsen we in breakout sessies."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Komen jullie op onze locatie?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absoluut. We bieden workshops in-person bij jou op kantoor en ook online. Online workshops zijn volledig interactief."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Wat kost een workshop?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Een 4-uurs workshop start rond €2500-4000. Meerdaagse trainingen kunnen hoger liggen. We geven altijd transparante offerte na intake-gesprek."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Zijn er online opties?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ja! Online workshops zijn volledig interactief met video, shared documents, whiteboards en breakout sessions. Net zo effectief als in-person."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.querySelector('nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('mobile-open');
+        });
+
+        // Cookie banner
+        const cookieBanner = document.getElementById('cookieBanner');
+        const cookieAccept = document.getElementById('cookieAccept');
+        const cookieDecline = document.getElementById('cookieDecline');
+
+        // Show banner if consent not given
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('show');
+            }, 1000);
+        }
+
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.remove('show');
+            // Load Google Analytics
+            loadGoogleAnalytics();
+        });
+
+        cookieDecline.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.remove('show');
+        });
+
+        function loadGoogleAnalytics() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TEPNG02Z0J');
+        }
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.card, .process-step, .deliverable-item');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // FAQ toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

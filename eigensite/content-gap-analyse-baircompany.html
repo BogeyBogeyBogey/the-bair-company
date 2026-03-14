@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Gap Analyse — The Bair Co.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    line-height: 1.7;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+
+  .header {
+    text-align: center;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid #222;
+    margin-bottom: 48px;
+  }
+
+  .header .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #f59e0b;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .header .subtitle {
+    font-size: 18px;
+    color: #888;
+    font-weight: 300;
+  }
+
+  .header .date {
+    font-size: 13px;
+    color: #555;
+    margin-top: 16px;
+  }
+
+  .summary-box {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+
+  .summary-box h2 {
+    font-size: 20px;
+    color: #f59e0b;
+    margin-bottom: 16px;
+  }
+
+  .summary-box p {
+    color: #bbb;
+    font-size: 15px;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .score-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .score-card .score {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .score-card .score.red { color: #ef4444; }
+  .score-card .score.orange { color: #f59e0b; }
+  .score-card .score.green { color: #22c55e; }
+
+  .score-card .label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  section {
+    margin-bottom: 48px;
+  }
+
+  section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #222;
+  }
+
+  section h2 .num {
+    color: #f59e0b;
+    margin-right: 8px;
+  }
+
+  section h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #ddd;
+    margin: 24px 0 8px;
+  }
+
+  section p, section li {
+    font-size: 15px;
+    color: #bbb;
+  }
+
+  section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  section ul li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+  }
+
+  section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f59e0b;
+  }
+
+  .gap-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .gap-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: #1a1a1a;
+    color: #f59e0b;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #333;
+  }
+
+  .gap-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #1a1a1a;
+    color: #bbb;
+    vertical-align: top;
+  }
+
+  .gap-table tr:hover td {
+    background: rgba(245, 158, 11, 0.04);
+  }
+
+  .priority-high {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    text-transform: uppercase;
+  }
+
+  .priority-medium {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    text-transform: uppercase;
+  }
+
+  .priority-low {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    text-transform: uppercase;
+  }
+
+  .status-exists {
+    color: #22c55e;
+  }
+
+  .status-missing {
+    color: #ef4444;
+  }
+
+  .status-partial {
+    color: #f59e0b;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, #1a0f00, #2a1a00);
+    border: 1px solid #f59e0b33;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  .cta-box h2 {
+    border: none;
+    font-size: 22px;
+    color: #f59e0b;
+  }
+
+  .cta-box p {
+    color: #999;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .insight {
+    background: rgba(245, 158, 11, 0.06);
+    border-left: 3px solid #f59e0b;
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .insight p {
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .header h1 { font-size: 26px; }
+    .score-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="label">SEO Content Audit</div>
+  <h1>Content Gap Analyse</h1>
+  <div class="subtitle">www.baircompany.be — The Bair Co.</div>
+  <div class="date">Rapport gegenereerd op 14 maart 2026</div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="summary-box">
+  <h2>Samenvatting</h2>
+  <p>
+    The Bair Co. heeft een visueel sterke website met een overtuigende homepage, maar mist cruciale pagina's en content die nodig zijn om gevonden te worden in Google en om leads te converteren. De site bestaat uit slechts <strong>5 geïndexeerde pagina's</strong>, heeft <strong>geen enkele pagina in Google's index</strong> (0 resultaten op site:baircompany.be), en mist individuele dienstenpagina's, een uitgebreide blog, case study pagina's, een FAQ, en lokale SEO-content. Hieronder de volledige analyse met prioriteiten.
+  </p>
+
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score red">5</div>
+      <div class="label">Pagina's in sitemap</div>
+    </div>
+    <div class="score-card">
+      <div class="score red">0</div>
+      <div class="label">Google-indexatie</div>
+    </div>
+    <div class="score-card">
+      <div class="score orange">3</div>
+      <div class="label">Blogartikelen</div>
+    </div>
+    <div class="score-card">
+      <div class="score red">0</div>
+      <div class="label">Losse dienstpagina's</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1. HUIDIGE INVENTARIS -->
+<section>
+  <h2><span class="num">01</span> Huidige Content Inventaris</h2>
+  <p>Dit is wat de site nu bevat:</p>
+
+  <table class="gap-table">
+    <tr>
+      <th>Pagina</th>
+      <th>URL</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>Homepage</td>
+      <td>/</td>
+      <td><span class="status-exists">✓ Aanwezig</span></td>
+    </tr>
+    <tr>
+      <td>Over ons</td>
+      <td>/over.html</td>
+      <td><span class="status-exists">✓ Aanwezig</span></td>
+    </tr>
+    <tr>
+      <td>Blog (overzicht)</td>
+      <td>/blog.html</td>
+      <td><span class="status-partial">⚠ 3 artikelen</span></td>
+    </tr>
+    <tr>
+      <td>Privacy</td>
+      <td>/privacy.html</td>
+      <td><span class="status-exists">✓ Aanwezig</span></td>
+    </tr>
+    <tr>
+      <td>Voorwaarden</td>
+      <td>/voorwaarden.html</td>
+      <td><span class="status-exists">✓ Aanwezig</span></td>
+    </tr>
+  </table>
+
+  <div class="insight">
+    <p><strong>Belangrijkste bevinding:</strong> Met slechts 5 pagina's heeft de site veel te weinig content om te ranken voor relevante zoektermen. Vergelijkbare bureaus zoals BOEM Agency en Easybranding hebben 30-100+ pagina's.</p>
+  </div>
+</section>
+
+<!-- 2. ONTBREKENDE PAGINA'S -->
+<section>
+  <h2><span class="num">02</span> Ontbrekende Pagina's (Structurele Gaps)</h2>
+  <p>De volgende pagina's zijn essentieel voor een creatief bureau maar ontbreken volledig:</p>
+
+  <table class="gap-table">
+    <tr>
+      <th>Ontbrekende pagina</th>
+      <th>Waarom nodig?</th>
+      <th>Prioriteit</th>
+    </tr>
+    <tr>
+      <td><strong>Individuele dienstenpagina's</strong><br>(9 diensten = 9 pagina's)</td>
+      <td>Elke dienst (Branding, Webdesign, Webontwikkeling, Social Media, Marketing, Apps, Copywriting, AI, Training) heeft een eigen URL nodig om te ranken voor specifieke zoektermen</td>
+      <td><span class="priority-high">Hoog</span></td>
+    </tr>
+    <tr>
+      <td><strong>Individuele case study pagina's</strong></td>
+      <td>Cases staan nu alleen op de homepage. Aparte pagina's voor Rosing, Artoah, GiGi Money etc. geven meer SEO-waarde en overtuigingskracht</td>
+      <td><span class="priority-high">Hoog</span></td>
+    </tr>
+    <tr>
+      <td><strong>Contact pagina</strong></td>
+      <td>Er is alleen een formulier op de homepage. Een aparte /contact pagina is standaard en belangrijk voor lokale SEO</td>
+      <td><span class="priority-high">Hoog</span></td>
+    </tr>
+    <tr>
+      <td><strong>FAQ / Veelgestelde vragen</strong></td>
+      <td>Beantwoordt veelgestelde vragen, verlaagt drempel voor contact, en levert FAQ-schema op voor rich snippets in Google</td>
+      <td><span class="priority-medium">Medium</span></td>
+    </tr>
+    <tr>
+      <td><strong>Werkwijze / Proces pagina</strong></td>
+      <td>Het 4-stappen proces staat op de homepage maar verdient een uitgebreide eigen pagina met meer detail per fase</td>
+      <td><span class="priority-medium">Medium</span></td>
+    </tr>
+    <tr>
+      <td><strong>Prijzen / Pakketten pagina</strong></td>
+      <td>Transparantie over pricing verlaagt de drempel en filtert leads. "Wat kost een website" is een veelgezocht zoekwoord</td>
+      <td><span class="priority-medium">Medium</span></td>
+    </tr>
+    <tr>
+      <td><strong>Portfolio overzichtspagina</strong></td>
+      <td>Een filterbare overzichtspagina van al het werk, los van de homepage</td>
+      <td><span class="priority-medium">Medium</span></td>
+    </tr>
+    <tr>
+      <td><strong>Team pagina</strong></td>
+      <td>Bouwt vertrouwen. Nu staat alleen Kristof op de over-pagina. Toevoegen van expertise en persoonlijke touch</td>
+      <td><span class="priority-low">Laag</span></td>
+    </tr>
+  </table>
+</section>
+
+<!-- 3. DIENSTENPAGINA'S DETAIL -->
+<section>
+  <h2><span class="num">03</span> Ontbrekende Dienstenpagina's — Detail</h2>
+  <p>De site noemt 9 diensten maar geen enkele heeft een eigen pagina. Dit is de grootste gemiste kans. Hier zijn de pagina's die aangemaakt moeten worden, elk met hun doelzoekwoorden:</p>
+
+  <table class="gap-table">
+    <tr>
+      <th>Dienstpagina</th>
+      <th>Doelzoekwoorden</th>
+      <th>Content die nodig is</th>
+    </tr>
+    <tr>
+      <td><strong>/diensten/branding</strong></td>
+      <td>branding bureau België, merkidentiteit laten maken, brand design, logo ontwerp</td>
+      <td>Uitleg dienst, proces, voorbeelden, prijsindicatie, CTA</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/webdesign</strong></td>
+      <td>webdesign bureau, website laten maken Vlaams-Brabant, professioneel webdesign</td>
+      <td>Technologieën, voorbeelden, USP's, proces, testimonials</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/webontwikkeling</strong></td>
+      <td>webontwikkeling op maat, website developer België, Next.js developer</td>
+      <td>Tech stack, complexe projecten, integraties, performance</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/social-media</strong></td>
+      <td>social media beheer, social media bureau, Instagram marketing België</td>
+      <td>Platformen, content creatie, advertenties, rapportage</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/marketing</strong></td>
+      <td>online marketing bureau, digitale marketing Vlaanderen, marketing strategie</td>
+      <td>Strategie, kanalen, SEO, SEA, email, analytics</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/apps</strong></td>
+      <td>app laten maken, app ontwikkeling België, product design</td>
+      <td>Cases (GiGi Money!), proces, platformen, onderhoud</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/copywriting</strong></td>
+      <td>copywriting bureau, webteksten laten schrijven, SEO copywriting</td>
+      <td>Tone of voice, SEO-content, types content, voorbeelden</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/ai-automatisering</strong></td>
+      <td>AI voor bedrijven, AI automatisering KMO, AI implementatie</td>
+      <td>Toepassingen, tools, ROI, use cases, workshops</td>
+    </tr>
+    <tr>
+      <td><strong>/diensten/training</strong></td>
+      <td>marketing training, social media workshop, branding workshop</td>
+      <td>Aanbod, doelgroepen, programma, locatie, prijs</td>
+    </tr>
+  </table>
+
+  <div class="insight">
+    <p><strong>Impact:</strong> Door 9 dienstenpagina's toe te voegen groeit de site van 5 naar 14 pagina's — bijna een verdrievoudiging. Elke pagina is een extra ingang via Google.</p>
+  </div>
+</section>
+
+<!-- 4. BLOG GAPS -->
+<section>
+  <h2><span class="num">04</span> Blog & Content Gaps</h2>
+  <p>De blog heeft momenteel slechts 3 artikelen. Voor een bureau dat 9 diensten aanbiedt is dit veel te weinig om autoriteit op te bouwen.</p>
+
+  <h3>Huidige blogartikelen</h3>
+  <table class="gap-table">
+    <tr>
+      <th>Artikel</th>
+      <th>Categorie</th>
+      <th>Datum</th>
+    </tr>
+    <tr>
+      <td>Waarom je website je beste verkoper is</td>
+      <td>Webdesign</td>
+      <td>12 feb 2026</td>
+    </tr>
+    <tr>
+      <td>Branding is meer dan een logo: 5 elementen</td>
+      <td>Branding</td>
+      <td>28 jan 2026</td>
+    </tr>
+    <tr>
+      <td>Stop met posten zonder plan: social media in 4 stappen</td>
+      <td>Social Media</td>
+      <td>15 jan 2026</td>
+    </tr>
+  </table>
+
+  <h3>Ontbrekende content clusters</h3>
+  <p>Er ontbreken artikelen voor 6 van de 9 diensten. Hier zijn de content clusters die nodig zijn:</p>
+
+  <table class="gap-table">
+    <tr>
+      <th>Cluster</th>
+      <th>Voorbeeldartikelen</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td><strong>Webdesign</strong></td>
+      <td>Wat kost een website? / Webdesign trends 2026 / WordPress vs. op maat</td>
+      <td><span class="status-partial">1 artikel</span></td>
+    </tr>
+    <tr>
+      <td><strong>Branding</strong></td>
+      <td>Rebranding checklist / Huisstijl handleiding / Brand guidelines maken</td>
+      <td><span class="status-partial">1 artikel</span></td>
+    </tr>
+    <tr>
+      <td><strong>Social Media</strong></td>
+      <td>Instagram algoritme 2026 / LinkedIn voor B2B / Social media planning tools</td>
+      <td><span class="status-partial">1 artikel</span></td>
+    </tr>
+    <tr>
+      <td><strong>Marketing</strong></td>
+      <td>SEO voor KMO's / Google Ads vs. organisch / Email marketing starten</td>
+      <td><span class="status-missing">Geen artikelen</span></td>
+    </tr>
+    <tr>
+      <td><strong>Copywriting</strong></td>
+      <td>Webteksten die converteren / SEO-teksten schrijven / Tone of voice bepalen</td>
+      <td><span class="status-missing">Geen artikelen</span></td>
+    </tr>
+    <tr>
+      <td><strong>AI & Automatisering</strong></td>
+      <td>AI tools voor KMO's / ChatGPT voor marketing / Automatisering met AI</td>
+      <td><span class="status-missing">Geen artikelen</span></td>
+    </tr>
+    <tr>
+      <td><strong>Apps & Producten</strong></td>
+      <td>App laten maken: het proces / MVP bouwen / UX design basics</td>
+      <td><span class="status-missing">Geen artikelen</span></td>
+    </tr>
+    <tr>
+      <td><strong>Ondernemen & KMO</strong></td>
+      <td>Digitale aanwezigheid voor starters / Waarom investeren in branding</td>
+      <td><span class="status-missing">Geen artikelen</span></td>
+    </tr>
+    <tr>
+      <td><strong>Cases & Resultaten</strong></td>
+      <td>Hoe we X% meer leads genereerden voor Rosing / GiGi Money: van idee tot 28 landen</td>
+      <td><span class="status-missing">Geen artikelen</span></td>
+    </tr>
+  </table>
+
+  <div class="insight">
+    <p><strong>Aanbeveling:</strong> Publiceer minstens 2 artikelen per maand. Focus eerst op "money keywords" zoals "wat kost een website", "branding bureau België", en "AI tools voor bedrijven". Dat zijn zoektermen waar potentiële klanten actief naar zoeken.</p>
+  </div>
+</section>
+
+<!-- 5. TECHNISCHE SEO GAPS -->
+<section>
+  <h2><span class="num">05</span> Technische SEO & Indexatie Gaps</h2>
+
+  <table class="gap-table">
+    <tr>
+      <th>Item</th>
+      <th>Status</th>
+      <th>Actie nodig</th>
+    </tr>
+    <tr>
+      <td><strong>Google-indexatie</strong></td>
+      <td><span class="status-missing">0 resultaten in Google</span></td>
+      <td>Site aanmelden in Google Search Console, sitemap indienen, indexatie aanvragen</td>
+    </tr>
+    <tr>
+      <td><strong>Sitemap.xml</strong></td>
+      <td><span class="status-partial">⚠ Slechts 5 URL's</span></td>
+      <td>Uitbreiden met alle nieuwe pagina's zodra ze live zijn</td>
+    </tr>
+    <tr>
+      <td><strong>Robots.txt</strong></td>
+      <td><span class="status-exists">✓ OK</span></td>
+      <td>Geen blokkades gevonden</td>
+    </tr>
+    <tr>
+      <td><strong>Blog artikel URL's</strong></td>
+      <td><span class="status-missing">Niet in sitemap</span></td>
+      <td>Individuele blog-URL's toevoegen aan sitemap</td>
+    </tr>
+    <tr>
+      <td><strong>Structured Data</strong></td>
+      <td><span class="status-partial">⚠ Alleen ProfessionalService</span></td>
+      <td>Toevoegen: Article, FAQPage, BreadcrumbList, Service schema's</td>
+    </tr>
+    <tr>
+      <td><strong>Hreflang (meertalig)</strong></td>
+      <td><span class="status-partial">⚠ Niet gevonden</span></td>
+      <td>Overweeg Frans en/of Engels voor breder bereik in België</td>
+    </tr>
+    <tr>
+      <td><strong>Google Business Profile</strong></td>
+      <td><span class="status-missing">Niet geverifieerd</span></td>
+      <td>Aanmaken en optimaliseren voor "creatief bureau Glabbeek"</td>
+    </tr>
+    <tr>
+      <td><strong>Sortlist / directories</strong></td>
+      <td><span class="status-missing">Niet aanwezig</span></td>
+      <td>Profiel aanmaken op Sortlist.be, Clutch.co, en vergelijkbare platforms</td>
+    </tr>
+  </table>
+
+  <div class="insight">
+    <p><strong>Kritiek:</strong> Het feit dat de site 0 resultaten toont in Google is het grootste probleem. Zonder indexatie bestaat de site niet voor zoekmachines. Dit moet als eerste opgelost worden via Google Search Console.</p>
+  </div>
+</section>
+
+<!-- 6. CONCURRENTIE VERGELIJKING -->
+<section>
+  <h2><span class="num">06</span> Concurrentie Benchmark</h2>
+  <p>Zo verhoudt The Bair Co. zich tot vergelijkbare bureaus in België:</p>
+
+  <table class="gap-table">
+    <tr>
+      <th>Feature</th>
+      <th>The Bair Co.</th>
+      <th>Gemiddeld bureau</th>
+    </tr>
+    <tr>
+      <td>Totaal pagina's in sitemap</td>
+      <td><strong>5</strong></td>
+      <td>30-100+</td>
+    </tr>
+    <tr>
+      <td>Individuele dienstenpagina's</td>
+      <td><span class="status-missing">Geen</span></td>
+      <td>5-15 pagina's</td>
+    </tr>
+    <tr>
+      <td>Case study pagina's</td>
+      <td><span class="status-missing">Geen (alleen op homepage)</span></td>
+      <td>5-20 pagina's</td>
+    </tr>
+    <tr>
+      <td>Blogartikelen</td>
+      <td>3</td>
+      <td>20-50+</td>
+    </tr>
+    <tr>
+      <td>FAQ pagina</td>
+      <td><span class="status-missing">Geen</span></td>
+      <td>Aanwezig</td>
+    </tr>
+    <tr>
+      <td>Prijsindicatie</td>
+      <td><span class="status-missing">Geen</span></td>
+      <td>Vaak aanwezig</td>
+    </tr>
+    <tr>
+      <td>Team pagina</td>
+      <td><span class="status-missing">Geen (alleen Over)</span></td>
+      <td>Aanwezig met profielen</td>
+    </tr>
+    <tr>
+      <td>Google-indexatie</td>
+      <td><span class="status-missing">Niet geïndexeerd</span></td>
+      <td>Volledig geïndexeerd</td>
+    </tr>
+    <tr>
+      <td>Directory vermeldingen</td>
+      <td><span class="status-missing">Geen</span></td>
+      <td>Sortlist, Clutch, etc.</td>
+    </tr>
+  </table>
+</section>
+
+<!-- 7. ACTIEPLAN -->
+<section>
+  <h2><span class="num">07</span> Actieplan — Prioriteiten</h2>
+
+  <h3>🔴 Fase 1 — Direct (week 1-2)</h3>
+  <table class="gap-table">
+    <tr><th>Actie</th><th>Impact</th></tr>
+    <tr><td>Google Search Console instellen en sitemap indienen</td><td>Zonder dit bestaat de site niet in Google</td></tr>
+    <tr><td>Google Business Profile aanmaken voor Glabbeek</td><td>Lokale vindbaarheid in Google Maps</td></tr>
+    <tr><td>Blog artikel-URL's toevoegen aan sitemap.xml</td><td>Meer content geïndexeerd</td></tr>
+  </table>
+
+  <h3>🟠 Fase 2 — Korte termijn (week 3-6)</h3>
+  <table class="gap-table">
+    <tr><th>Actie</th><th>Impact</th></tr>
+    <tr><td>9 individuele dienstenpagina's aanmaken</td><td>+9 indexeerbare pagina's, specifieke zoekwoorden</td></tr>
+    <tr><td>Aparte contactpagina aanmaken</td><td>Lokale SEO, conversie</td></tr>
+    <tr><td>3-5 case study pagina's uitwerken</td><td>Social proof, long-tail keywords</td></tr>
+    <tr><td>FAQ pagina met FAQ-schema</td><td>Rich snippets in Google</td></tr>
+  </table>
+
+  <h3>🟢 Fase 3 — Middellange termijn (maand 2-4)</h3>
+  <table class="gap-table">
+    <tr><th>Actie</th><th>Impact</th></tr>
+    <tr><td>Blog uitbreiden: 2 artikelen per maand, focus op ontbrekende clusters</td><td>Organisch verkeer opbouwen</td></tr>
+    <tr><td>Profielen aanmaken op Sortlist, Clutch, en andere directories</td><td>Backlinks en directe leads</td></tr>
+    <tr><td>Structured data uitbreiden (Article, FAQ, Service, Breadcrumb)</td><td>Betere weergave in zoekresultaten</td></tr>
+    <tr><td>Werkwijze/Proces pagina uitwerken</td><td>Vertrouwen, drempelverlaging</td></tr>
+    <tr><td>Overweeg meertalige content (FR/EN) voor breder Belgisch bereik</td><td>Groter potentieel publiek</td></tr>
+  </table>
+</section>
+
+<!-- 8. VERWACHTE IMPACT -->
+<section>
+  <h2><span class="num">08</span> Verwachte Impact</h2>
+
+  <div class="two-col">
+    <div class="score-card">
+      <div class="score orange">5</div>
+      <div class="label">Pagina's nu</div>
+    </div>
+    <div class="score-card">
+      <div class="score green">30+</div>
+      <div class="label">Pagina's na fase 1-3</div>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px;">Door het volledige actieplan uit te voeren groeit de site van 5 naar 30+ unieke, geïndexeerde pagina's. Elke pagina is een extra kans om gevonden te worden in Google. Gecombineerd met Google Search Console setup en lokale SEO zal de site voor het eerst zichtbaar worden voor potentiële klanten die zoeken op termen als "creatief bureau Vlaams-Brabant", "website laten maken", of "branding bureau België".</p>
+</section>
+
+<div class="cta-box">
+  <h2>Klaar om deze gaps te dichten?</h2>
+  <p>Dit rapport is gegenereerd op basis van een analyse van www.baircompany.be op 14 maart 2026.<br>
+  Alle aanbevelingen zijn prioriteit-geordend en direct uitvoerbaar.</p>
+</div>
+
+</div>
+</body>
+</html>

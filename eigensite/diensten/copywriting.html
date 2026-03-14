@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copywriting & Content — The Bair Co. | Teksten Die Converteren</title>
+    <meta name="description" content="Professionele copywriting door The Bair Co. Webteksten, blogs, SEO-copy en nieuwsbrieven. 20 jaar media-ervaring in één pen. Bureau uit Glabbeek.">
+    <meta name="keywords" content="copywriting bureau, webteksten laten schrijven, SEO copywriting, content creatie, professionele teksten">
+    <meta name="author" content="The Bair Co.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Dutch">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Copywriting & Content — The Bair Co.">
+    <meta property="og:description" content="Professionele copywriting door The Bair Co. Webteksten, blogs, SEO-copy en nieuwsbrieven. 20 jaar media-ervaring in één pen.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.baircompany.be/diensten/copywriting.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&h=630&fit=crop&auto=format&q=80">
+    <meta property="og:site_name" content="The Bair Co.">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Copywriting & Content — The Bair Co.">
+    <meta name="twitter:description" content="Professionele copywriting door The Bair Co. Webteksten, blogs, SEO-copy en nieuwsbrieven.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&h=630&fit=crop&auto=format&q=80">
+
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href="https://www.baircompany.be/diensten/copywriting.html">
+    <link rel="alternate" hreflang="nl" href="https://www.baircompany.be/diensten/copywriting.html">
+    <link rel="alternate" hreflang="x-default" href="https://www.baircompany.be/diensten/copywriting.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #f0ede8;
+            --grey: #888;
+            --accent: #f59e0b;
+            --pink: #ec4899;
+            --emerald: #10b981;
+            --red: #ef4444;
+            --blue: #2E8AFF;
+            --ease: cubic-bezier(0.16,1,0.3,1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 2px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-pill {
+            font-family: 'DM Sans', sans-serif;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--grey);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s var(--ease);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-pill:hover {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-pill.active {
+            color: var(--white);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                gap: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav.mobile-open {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.5) 100%),
+                        url('https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1400&h=700&fit=crop&auto=format&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: slideUp 0.8s var(--ease);
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .hero .subtitle {
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(14px, 2vw, 18px);
+            color: var(--grey);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        section.intro {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%);
+        }
+
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 16px;
+            text-align: center;
+            color: var(--grey);
+            line-height: 1.8;
+        }
+
+        .intro-text strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Grid sections */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s var(--ease);
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease) forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .card p {
+            color: var(--grey);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Process section */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease) forwards;
+        }
+
+        .process-step:nth-child(1) { animation-delay: 0.1s; }
+        .process-step:nth-child(2) { animation-delay: 0.2s; }
+        .process-step:nth-child(3) { animation-delay: 0.3s; }
+        .process-step:nth-child(4) { animation-delay: 0.4s; }
+
+        .step-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .process-step h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: var(--grey);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Deliverables */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .deliverable-item {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, transparent 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease) forwards;
+        }
+
+        .deliverable-item:nth-child(1) { animation-delay: 0.1s; }
+        .deliverable-item:nth-child(2) { animation-delay: 0.2s; }
+        .deliverable-item:nth-child(3) { animation-delay: 0.3s; }
+        .deliverable-item:nth-child(4) { animation-delay: 0.4s; }
+        .deliverable-item:nth-child(5) { animation-delay: 0.5s; }
+        .deliverable-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .deliverable-item p {
+            font-size: 14px;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .faq-question {
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--accent);
+            transition: all 0.3s var(--ease);
+        }
+
+        .faq-question:hover {
+            color: var(--white);
+        }
+
+        .faq-toggle {
+            font-size: 20px;
+            transition: transform 0.3s var(--ease);
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s var(--ease);
+            color: var(--grey);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        /* CTA Section */
+        section.cta {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        section.cta h2 {
+            margin-bottom: 30px;
+        }
+
+        section.cta p {
+            font-size: 16px;
+            color: var(--grey);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'DM Sans', sans-serif;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s var(--ease);
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 0;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--grey);
+        }
+
+        .footer-section a {
+            display: block;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 13px;
+            margin-bottom: 10px;
+            transition: color 0.3s var(--ease);
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: var(--grey);
+            font-size: 12px;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            z-index: 50;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s var(--ease);
+        }
+
+        .cookie-banner.show {
+            max-height: 200px;
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cookie-text {
+            font-size: 13px;
+            color: var(--grey);
+            flex: 1;
+        }
+
+        .cookie-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s var(--ease);
+        }
+
+        .cookie-btn-accept {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .cookie-btn-accept:hover {
+            transform: translateY(-2px);
+        }
+
+        .cookie-btn-decline {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cookie-btn-decline:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 50px 0;
+            }
+
+            section h2 {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-banner.show {
+                max-height: 300px;
+            }
+        }
+
+        /* Scroll reveal helper */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">The Bair Co.</a>
+            <nav>
+                <a href="/" class="nav-pill">Home</a>
+                <a href="/portfolio" class="nav-pill">Portfolio</a>
+                <a href="/diensten" class="nav-pill active">Onze diensten</a>
+                <a href="/studio" class="nav-pill">Studio</a>
+                <a href="/blog" class="nav-pill">Blog</a>
+                <a href="/over" class="nav-pill">Over</a>
+                <a href="/contact" class="nav-pill">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Copywriting & Content</h1>
+            <p class="subtitle">Teksten die converteren. Met 20 jaar media-ervaring en een oog voor storytelling.</p>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="intro">
+        <div class="container">
+            <h2>Sterke teksten, sterker resultaat</h2>
+            <p class="intro-text">
+                Bij The Bair Co. geloven we dat goed geschreven content meer is dan alleen woorden. Het is <strong>strategie, emotie en conversie</strong> in één. Met 20 jaar ervaring in media (P-magazine, Het Laatste Nieuws, Nieuwsblad.be) weten we precies hoe je verhaal moet luiden om bij jouw doelgroep aan te landen.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section>
+        <div class="container">
+            <h2>Wat kan copywriting voor jou doen</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Webteksten</h3>
+                    <p>Overtuigende homepage-teksten, over-pagina's, service descriptions en landing pages die bezoekers in klanten veranderen.</p>
+                </div>
+                <div class="card">
+                    <h3>Blog & Artikelen</h3>
+                    <p>SEO-geoptimaliseerde blogartikelen die traffic genereren en je positioneren als expert in jouw vakgebied.</p>
+                </div>
+                <div class="card">
+                    <h3>SEO Copywriting</h3>
+                    <p>Content die voor zoekmachines geoptimaliseerd is, zonder concessies aan leesbaarheid en conversie.</p>
+                </div>
+                <div class="card">
+                    <h3>Nieuwsbrieven</h3>
+                    <p>Email-copy die geopend en geklikt wordt. We schrijven nieuwsbrieven die relatie bouwen en verkopen sluiten.</p>
+                </div>
+                <div class="card">
+                    <h3>Tone of Voice</h3>
+                    <p>We definiëren en documenteren jouw merkidentiteit in woorden. Consistente, herkenbare communicatie overal.</p>
+                </div>
+                <div class="card">
+                    <h3>Storytelling</h3>
+                    <p>We vertellen het verhaal van jouw bedrijf op een manier die resoneert, inspireert en converteert.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section>
+        <div class="container">
+            <h2>Onze werkwijze</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Ontdekking</h3>
+                    <p>We duiken diep in jouw bedrijf, doelgroep en concurrentie. Wat is jouw verhaal? Wat maakt jou uniek?</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Strategie</h3>
+                    <p>We bepalen de tone of voice, kernboodschappen en content-aanpak die voor jou werken.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Schrijven</h3>
+                    <p>We schrijven content die aanslaat. Geen sjablonen, geen generieke koppelingen—maatwerk dat werkt.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Optimalisatie</h3>
+                    <p>We testen, meten en optimaliseren. Jouw content wordt voortdurend beter en resultaatgerichter.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deliverables Section -->
+    <section>
+        <div class="container">
+            <h2>Wat je krijgt</h2>
+            <div class="deliverables-grid">
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Originele, unieke teksten</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>SEO-optimalisatie</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Tone of Voice document</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Conversie-geoptimaliseerde copy</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Revisions & feedback loops</p>
+                </div>
+                <div class="deliverable-item">
+                    <div class="checkmark">✓</div>
+                    <p>Strategisch advies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section>
+        <div class="container">
+            <h2>Veelgestelde vragen</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Wat kost copywriting?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        De prijs hangt af van de omvang en complexiteit van het project. We werken met verschillende modellen: per woord, per project, of maandelijkse packages. We geven altijd een transparante offerte na een eerste gesprek. Ons startpunt voor tekstwerk is rond €1500 per project.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Schrijven jullie ook blogs?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Ja! We schrijven regelmatige blogartikelen die traffic genereren en je als expert positioneren. Veel van onze klanten hebben maandelijkse blogschema's waarbij we 2-4 artikelen per maand leveren, elk geoptimaliseerd voor zoekmachines.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hoe bepalen jullie tone of voice?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        We voeren diepte-interviews met jou en je team, analyseren je bestaande communicatie en concurrentie, en definiëren vervolgens jouw merkpersoonlijkheid. We documenteren dit in een Tone of Voice guide die je team kan gebruiken.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hoeveel tekst heeft mijn website nodig?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Dat varieert per website. Een kleine homepage kan volstaan met 500-1000 woorden, maar een service-site kan gemakkelijk 5000+ woorden nodig hebben. We geven advies op basis van jouw doelgroep en SEO-doelstellingen.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Schrijven jullie SEO-teksten?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absoluut. Al onze teksten zijn SEO-geoptimaliseerd, maar zonder keyword-stuffing. We zoeken naar het juiste evenwicht tussen zoekmachine-optimalisatie en menselijke taal die converteert.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Klaar voor beter geschreven content?</h2>
+            <p>Laten we je verhaal op de juiste manier vertellen. Neem contact met ons op voor een gratis intake gesprek.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="btn btn-primary">Neem contact op</a>
+                <a href="/portfolio" class="btn btn-secondary">Bekijk ons werk</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Bair Co.</h3>
+                    <a href="/portfolio">Portfolio</a>
+                    <a href="/studio">Studio</a>
+                    <a href="/blog">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Bedrijf</h3>
+                    <a href="/over">Over ons</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/impressum">Impressum</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Diensten</h3>
+                    <a href="/diensten/copywriting">Copywriting</a>
+                    <a href="/diensten/ai-automatisering">AI & Automatisering</a>
+                    <a href="/diensten/training">Training</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Locatie</h3>
+                    <p style="font-size: 13px; color: var(--grey);">Glabbeek, België</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 The Bair Co. Alle rechten voorbehouden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                We gebruiken cookies voor analytics en betere user experience. <a href="/privacy">Privacybeleid</a>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Weigeren</button>
+                <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accepteren</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Copywriting & Content",
+        "description": "Professionele copywriting services inclusief webteksten, blogs, SEO-copy en nieuwsbrieven",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "The Bair Co.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Glabbeek",
+                "addressCountry": "BE"
+            }
+        },
+        "url": "https://www.baircompany.be/diensten/copywriting.html",
+        "telephone": "",
+        "areaServed": "BE"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Wat kost copywriting?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "De prijs hangt af van de omvang en complexiteit. We werken met verschillende modellen: per woord, per project, of maandelijkse packages. Ons startpunt voor tekstwerk is rond €1500 per project."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Schrijven jullie ook blogs?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ja! We schrijven regelmatige blogartikelen die traffic genereren. Veel klanten hebben maandelijkse blogschema's waarbij we 2-4 artikelen per maand leveren."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoe bepalen jullie tone of voice?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We voeren diepte-interviews met jou en je team, analyseren je bestaande communicatie, en definiëren jouw merkpersoonlijkheid in een Tone of Voice guide."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoeveel tekst heeft mijn website nodig?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Dat varieert per website. Een kleine homepage kan volstaan met 500-1000 woorden, maar een service-site kan 5000+ woorden nodig hebben."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Schrijven jullie SEO-teksten?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absoluut. Al onze teksten zijn SEO-geoptimaliseerd, zonder keyword-stuffing. We zoeken het juiste evenwicht tussen zoekmachine-optimalisatie en menselijke taal."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.querySelector('nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('mobile-open');
+        });
+
+        // Cookie banner
+        const cookieBanner = document.getElementById('cookieBanner');
+        const cookieAccept = document.getElementById('cookieAccept');
+        const cookieDecline = document.getElementById('cookieDecline');
+
+        // Show banner if consent not given
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('show');
+            }, 1000);
+        }
+
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.remove('show');
+            // Load Google Analytics
+            loadGoogleAnalytics();
+        });
+
+        cookieDecline.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.remove('show');
+        });
+
+        function loadGoogleAnalytics() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TEPNG02Z0J');
+        }
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.card, .process-step, .deliverable-item');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // FAQ toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

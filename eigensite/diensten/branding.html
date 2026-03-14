@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professionele branding en merkidentiteit door The Bair Co. Logo, huisstijl, brand guidelines en merkstrategie. Creatief bureau uit Glabbeek.">
+    <meta name="keywords" content="branding bureau België, merkidentiteit laten maken, logo ontwerp, huisstijl, brand design">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="The Bair Co.">
+    <meta name="canonical" href="https://www.baircompany.be/diensten/branding.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Branding & Identiteit — The Bair Co. | Creatief Bureau Glabbeek">
+    <meta property="og:description" content="Professionele branding en merkidentiteit door The Bair Co. Logo, huisstijl, brand guidelines en merkstrategie.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.baircompany.be/diensten/branding.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1558365916-848463c5d803?w=1400&h=700&fit=crop&auto=format&q=80">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Branding & Identiteit — The Bair Co.">
+    <meta name="twitter:description" content="Professionele branding en merkidentiteit. Logo, huisstijl, brand guidelines en merkstrategie.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1558365916-848463c5d803?w=1400&h=700&fit=crop&auto=format&q=80">
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="nl-BE" href="https://www.baircompany.be/diensten/branding.html">
+
+    <title>Branding & Identiteit — The Bair Co. | Creatief Bureau Glabbeek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #f0ede8;
+            --grey: #888;
+            --accent: #2E8AFF;
+            --pink: #ec4899;
+            --amber: #f59e0b;
+            --emerald: #10b981;
+            --red: #ef4444;
+            --ease: cubic-bezier(0.16,1,0.3,1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='2'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            transition: all 0.3s var(--ease);
+            font-weight: 400;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.95);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 2rem 1.5rem;
+                gap: 1rem;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            animation: slideUp 0.8s var(--ease);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s var(--ease) 0.1s both;
+            font-weight: 300;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Service Items Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s var(--ease);
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease) forwards;
+        }
+
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-color);
+            transform: translateY(-10px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-item h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .service-item p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        /* Process Section */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            counter-increment: step-counter;
+            position: relative;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            color: var(--black);
+            font-size: 1.2rem;
+        }
+
+        .step h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Deliverables */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .deliverable {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s var(--ease);
+        }
+
+        .deliverable:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-color);
+        }
+
+        .deliverable-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .deliverable h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .deliverable p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 0;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+        }
+
+        .faq-item:hover .faq-question {
+            color: var(--accent-color);
+        }
+
+        .faq-question {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s var(--ease);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s var(--ease);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s var(--ease);
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            margin-top: 1.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 4rem 2rem;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent-color);
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s var(--ease);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 6rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s var(--ease);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            z-index: 99;
+            transform: translateY(100%);
+            transition: transform 0.3s var(--ease);
+        }
+
+        .cookie-banner.active {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s var(--ease);
+        }
+
+        .cookie-accept {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .cookie-accept:hover {
+            transform: translateY(-2px);
+        }
+
+        .cookie-decline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cookie-decline:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero {
+                height: 60vh;
+                margin-top: 70px;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-section {
+                margin: 3rem 1.5rem;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+            }
+
+            .cookie-btn {
+                flex: 1;
+            }
+        }
+
+        /* Accent Color Styling */
+        :root {
+            --accent-color: var(--amber);
+        }
+
+        /* Scroll Reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">The Bair Co.</a>
+            <nav id="nav-menu">
+                <a href="/">Home</a>
+                <a href="/diensten/branding.html" class="active">Diensten</a>
+                <a href="/#portfolio">Portfolio</a>
+                <a href="/over.html">Over</a>
+                <a href="/#contact">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1558365916-848463c5d803?w=1400&h=700&fit=crop&auto=format&q=80')">
+            <div class="hero-content">
+                <h1>Branding & Identiteit</h1>
+                <p class="subtitle">Bouw een sterk en onderscheidend merk met professionele branding</p>
+            </div>
+        </section>
+
+        <section class="intro scroll-reveal">
+            <h2>Wat is Branding?</h2>
+            <p>Branding is veel meer dan alleen een logo. Het gaat om het creëren van een complete merkidentiteit die aansluit bij jouw bedrijfsdoelen en aanspreekt op jouw target audience. We helpen je om een merk op te bouwen dat onthouden wordt, vertrouwen opwekt en zich onderscheidt van de concurrentie.</p>
+            <p>Als creatief bureau met 20+ jaar ervaring weten we hoe we merkstrategie en visueel design moeten combineren voor maximaal effect. Van naamgeving tot tone of voice, van logo tot volledige huisstijl – we decken alles af.</p>
+        </section>
+
+        <section>
+            <h2>Wat we voor je doen</h2>
+            <div class="services-grid">
+                <div class="service-item scroll-reveal">
+                    <h3>Logo Ontwerp</h3>
+                    <p>Een sterk logo dat je merk vertegenwoordigt. We ontwerpen tijdloos en veelzijdig; geschikt voor digitaal en print, groot en klein formaat.</p>
+                </div>
+                <div class="service-item scroll-reveal">
+                    <h3>Visuele Identiteit</h3>
+                    <p>Kleurpalette, typografie, iconen, patronen en alle visuele elementen die samen je merkwereld vormen. Consistent en herkenbaar.</p>
+                </div>
+                <div class="service-item scroll-reveal">
+                    <h3>Huisstijl & Brand Guidelines</h3>
+                    <p>Een uitgebreide handleiding die vastlegt hoe je merk moet worden gebruikt. Voor consistent design op alle communicatiekanalen.</p>
+                </div>
+                <div class="service-item scroll-reveal">
+                    <h3>Merkstrategie</h3>
+                    <p>We analyseren je markt, concurrentie en doelgroep. Zo creëren we een sterke fundatie voor al je branding-keuzes.</p>
+                </div>
+                <div class="service-item scroll-reveal">
+                    <h3>Tone of Voice</h3>
+                    <p>De manier waarop je merk spreekt. Hilarisch, serieus, professioneel of vriendelijk? We definiëren je stem en taalstijl.</p>
+                </div>
+                <div class="service-item scroll-reveal">
+                    <h3>Merknaamgeving</h3>
+                    <p>Hulp bij het vinden van de perfecte naam voor je bedrijf, product of service. Beschikbaar, merkbaar en authentiek.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <counter-reset: step-counter 0;>
+            <h2>Ons Brandingproces</h2>
+            <div class="process-steps">
+                <div class="step scroll-reveal">
+                    <h3>Discovery & Strategie</h3>
+                    <p>We duiken in je bedrijf, visie en doelgroep. Wat maakt jou uniek? Hoe willen we je merk positioneren?</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <h3>Concept & Ideation</h3>
+                    <p>Brainstorm en schetswerk. We genereren diverse designconcepten gebaseerd op onze strategische inzichten.</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <h3>Design & Refinement</h3>
+                    <p>We werken de beste concepten uit in gedetailleerd design. Meerdere iteraties tot perfectie bereikt.</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <h3>Guidelines & Rollout</h3>
+                    <p>Complete brand guidelines documentatie en advies voor implementatie op al je communicatiekanalen.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Wat je krijgt</h2>
+            <div class="deliverables-grid">
+                <div class="deliverable scroll-reveal">
+                    <div class="deliverable-icon">📁</div>
+                    <h3>Logo Files</h3>
+                    <p>Volledige logoset in alle benodigde formaten: vector, PNG, favicon, etc.</p>
+                </div>
+                <div class="deliverable scroll-reveal">
+                    <div class="deliverable-icon">🎨</div>
+                    <h3>Brand Guidelines</h3>
+                    <p>Uitgebreide PDF met alle regels voor logo, kleuren, typografie en meer.</p>
+                </div>
+                <div class="deliverable scroll-reveal">
+                    <div class="deliverable-icon">🖼️</div>
+                    <h3>Kleurpalette & Typografie</h3>
+                    <p>Geselecteerde fonts en kleurschema's, inclusief hex-codes en specifications.</p>
+                </div>
+                <div class="deliverable scroll-reveal">
+                    <div class="deliverable-icon">✍️</div>
+                    <h3>Tone of Voice Document</h3>
+                    <p>Gids voor je taalgebruik, tone en boodschapping als merk.</p>
+                </div>
+                <div class="deliverable scroll-reveal">
+                    <div class="deliverable-icon">📱</div>
+                    <h3>Brand Mockups</h3>
+                    <p>Voorbeelden van hoe je merk er uitziet op verschillende toepassingen.</p>
+                </div>
+                <div class="deliverable scroll-reveal">
+                    <div class="deliverable-icon">🎯</div>
+                    <h3>Merkstrategie Document</h3>
+                    <p>Volledig inzicht in je merkpositie, waarden en onderscheidende factoren.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-container">
+            <h2>Veel Gestelde Vragen</h2>
+
+            <div class="faq-item scroll-reveal">
+                <div class="faq-question">
+                    <span>Wat kost een brandingtraject?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>De kosten voor branding variëren sterk afhankelijk van scope en complexiteit. Een compleet brandingtraject (logo + visuele identiteit + guidelines) begint vanaf €3.000 tot €10.000+. We maken graag een custom offerte op basis van jouw specifieke wensen en budget. Neem contact op voor een offertegesprek.</p>
+                </div>
+            </div>
+
+            <div class="faq-item scroll-reveal">
+                <div class="faq-question">
+                    <span>Hoe lang duurt een brandingtraject?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Een compleet brandingtraject duurt gemiddeld 6-8 weken. Dit omvat discovery, strategiefase, conceptontwikkeling, design en finalisering. Snellere trajecten zijn mogelijk, maar geven minder tijd voor verfijning. We werken in fasen, wat jou helpt om tussentijds te feedback te geven.</p>
+                </div>
+            </div>
+
+            <div class="faq-item scroll-reveal">
+                <div class="faq-question">
+                    <span>Wat zit er allemaal in een huisstijl/brand guidelines?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Onze brand guidelines omvatten: logogebruik en variaties, kleurpalette met codes, typografie en lettertypes, iconen en grafische elementen, fotostijl, tone of voice, merkwaarden, doelgroepbeschrijving, en voorbeelden van toepassingen. Het is een volledig naslagwerk voor consistent branding.</p>
+                </div>
+            </div>
+
+            <div class="faq-item scroll-reveal">
+                <div class="faq-question">
+                    <span>Wat is het verschil tussen branding en logo design?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Een logo is slechts één element van branding. Branding is het totaalpakket: logo, kleuren, typografie, tone of voice, strategie en ervaring. Logo design is onderdeel daarvan. Goed branding zorgt ervoor dat je merk consistent en herkenbaar is op alle platforms.</p>
+                </div>
+            </div>
+
+            <div class="faq-item scroll-reveal">
+                <div class="faq-question">
+                    <span>Wanneer is rebranding nodig?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Rebranding kan nodig zijn als je merk verouderd is, je bedrijf zich herpositioneert, je fusieert of overneemt, of je doelgroep verandert. Ook als je merk niet aansluit bij je huidige waarden kan rebranding helpen. We beoordelen graag of rebranding voor jou zinvol is.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section scroll-reveal">
+            <h2>Klaar om je merk sterker te maken?</h2>
+            <p>Laten we samen een merkidentiteit creëren die blijft hangen. We starten met een vrijblijvend gesprek om te kijken of we goed bij elkaar passen.</p>
+            <a href="/#contact" class="cta-button">Start je Brandingtraject</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/diensten/branding.html">Branding</a>
+                <a href="/diensten/webdesign.html">Web Design</a>
+                <a href="/diensten/webontwikkeling.html">Webontwikkeling</a>
+                <a href="/over.html">Over</a>
+                <a href="/#contact">Contact</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Bair Co. | Kristof Bogaerts | Glabbeek, Belgium</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cookie-banner" id="cookie-banner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                We gebruiken cookies voor analytics en betere ervaring. <a href="/#cookies">Lees meer</a>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-decline" id="cookie-decline">Weigeren</button>
+                <button class="cookie-btn cookie-accept" id="cookie-accept">Accepteren</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Cookie Banner
+        function initCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            const declineBtn = document.getElementById('cookie-decline');
+
+            if (!localStorage.getItem('cookie-consent')) {
+                banner.classList.add('active');
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookie-consent', 'accepted');
+                banner.classList.remove('active');
+                loadGoogleAnalytics();
+            });
+
+            declineBtn.addEventListener('click', () => {
+                localStorage.setItem('cookie-consent', 'declined');
+                banner.classList.remove('active');
+            });
+        }
+
+        function loadGoogleAnalytics() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TEPNG02Z0J');
+        }
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initCookieBanner);
+
+        // Structured Data - Schema.org Service
+        const schemaData = {
+            "@context": "https://schema.org/",
+            "@type": "Service",
+            "name": "Branding & Identiteit",
+            "description": "Professionele branding en merkidentiteit door The Bair Co. Logo, huisstijl, brand guidelines en merkstrategie.",
+            "provider": {
+                "@type": "Organization",
+                "name": "The Bair Co.",
+                "url": "https://www.baircompany.be",
+                "sameAs": ["https://www.instagram.com/thebairco", "https://www.linkedin.com/company/thebairco"],
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Glabbeek",
+                    "addressCountry": "BE"
+                }
+            },
+            "areaServed": "BE",
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Branding Services",
+                "itemListElement": [
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Logo Ontwerp"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Visuele Identiteit"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Brand Guidelines"
+                        }
+                    }
+                ]
+            }
+        };
+
+        const faqSchema = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Wat kost een brandingtraject?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "De kosten voor branding variëren sterk afhankelijk van scope en complexiteit. Een compleet brandingtraject begint vanaf €3.000 tot €10.000+."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Hoe lang duurt een brandingtraject?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Een compleet brandingtraject duurt gemiddeld 6-8 weken."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Wat zit er allemaal in een huisstijl?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Onze brand guidelines omvatten: logogebruik, kleurpalette, typografie, iconen, fotostijl, tone of voice en voorbeelden van toepassingen."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Wat is het verschil tussen branding en logo design?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Een logo is slechts één element van branding. Branding is het totaalpakket: logo, kleuren, typografie, tone of voice, strategie en ervaring."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Wanneer is rebranding nodig?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Rebranding kan nodig zijn als je merk verouderd is, je bedrijf zich herpositioneert, je fusieert of overneemt, of je doelgroep verandert."
+                    }
+                }
+            ]
+        };
+
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(schemaData);
+        document.head.appendChild(schemaScript);
+
+        const faqScript = document.createElement('script');
+        faqScript.type = 'application/ld+json';
+        faqScript.textContent = JSON.stringify(faqSchema);
+        document.head.appendChild(faqScript);
+    </script>
+</body>
+</html>
