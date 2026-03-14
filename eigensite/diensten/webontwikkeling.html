@@ -463,18 +463,36 @@
     }
 
     .shape-triangle {
-      width: 0;
-      height: 0;
-      border-left: 50px solid transparent;
-      border-right: 50px solid transparent;
-      border-bottom: 86px solid var(--accent);
+      width: 100px;
+      height: 100px;
+      background: var(--accent);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 20px;
+    }
+
+    .shape-triangle span {
+      font-size: 1.5rem;
+      color: var(--white);
+      font-weight: 800;
     }
 
     .shape-diamond {
       width: 100px;
       height: 100px;
       background: var(--accent);
-      transform: rotate(45deg);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shape-diamond span {
+      font-size: 1.5rem;
+      color: var(--white);
+      font-weight: 800;
     }
 
     .proces-step h3 {
@@ -619,10 +637,6 @@
       box-shadow: 0 20px 40px rgba(46, 138, 255, 0.3);
     }
 
-    .cta-button::after {
-      content: '→';
-    }
-
     @media (max-width: 768px) {
       .dienst-cta {
         padding: 3rem 1.5rem;
@@ -653,7 +667,11 @@
     .footer-brand {
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: 1.25rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      display: flex;
+      align-items: center;
     }
 
     .footer-links {
@@ -785,12 +803,12 @@
 </head>
 <body>
   <header>
-    <a href="../index.html" class="brand"><img src="../logo-white.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
+    <a href="../index.html" class="brand"><img src="../logo.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
     <nav>
       <a href="../index.html#werk" class="nav-pill">Portfolio</a>
       <a href="../index.html#diensten" class="nav-pill active">Onze diensten</a>
       <a href="../index.html#cases" class="nav-pill">Uitgelicht</a>
-      <a href="../../over.html" class="nav-pill">Over</a>
+      <a href="../over.html" class="nav-pill">Over</a>
       <a href="../index.html#contact" class="nav-pill">Contact</a>
       <a href="../blog.html" class="nav-pill">Blog</a>
     </nav>
@@ -800,7 +818,7 @@
     <a href="../index.html#werk" onclick="closeMob()">Portfolio</a>
     <a href="../index.html#diensten" onclick="closeMob()">Onze diensten</a>
     <a href="../index.html#cases" onclick="closeMob()">Uitgelicht</a>
-    <a href="../../over.html" onclick="closeMob()">Over</a>
+    <a href="../over.html" onclick="closeMob()">Over</a>
     <a href="../index.html#contact" onclick="closeMob()">Contact</a>
     <a href="../blog.html" onclick="closeMob()">Blog</a>
   </div>
@@ -879,14 +897,14 @@
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
-            <div class="shape-triangle"></div>
+            <div class="shape-triangle"><span>3</span></div>
           </div>
           <h3>Testen</h3>
           <p>Unit tests, integration tests, end-to-end tests. De site moet werken, onder alle omstandigheden.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
-            <div class="shape-diamond"></div>
+            <div class="shape-diamond"><span>4</span></div>
           </div>
           <h3>Lanceren</h3>
           <p>Deployment naar Vercel, monitoring, logging. We gaan niet naar bed voor alles live staat.</p>
@@ -947,20 +965,20 @@
   <section class="dienst-cta">
     <h2 class="cta-heading">Klaar voor een site die <span class="serif">vliegensvlug</span> is?</h2>
     <p class="cta-subtitle">Laten we het samen doen. Technologie met doel, design met impact.</p>
-    <a href="../index.html#contact" class="cta-button"></a>
+    <a href="../index.html#contact" class="cta-button">Neem contact op</a>
   </section>
 
   <footer>
     <div class="footer-inner">
-      <div class="footer-brand">The Bair Co.</div>
+      <div class="footer-brand"><img src="../logo-white.png" alt="The Bair Co." style="width:24px;height:24px;margin-right:0.5rem;vertical-align:middle;">THE BAIR CO.</div>
       <div class="footer-links">
         <a href="../index.html#werk">Portfolio</a>
         <a href="../index.html#diensten">Studio</a>
         <a href="../blog.html">Blog</a>
-        <a href="../../over.html">Over</a>
+        <a href="../over.html">Over</a>
         <a href="../index.html#contact">Contact</a>
       </div>
-      <div class="footer-copy">&copy; 2026 The Bair Co.. Alle rechten voorbehouden.</div>
+      <div class="footer-copy">&copy; 2026 The Bair Co. Alle rechten voorbehouden.</div>
     </div>
   </footer>
 

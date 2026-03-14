@@ -395,7 +395,14 @@
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             background: var(--pink);
-            opacity: 0.1;
+            opacity: 0.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white);
         }
 
         .process-step:nth-child(2) .step-shape {
@@ -415,6 +422,13 @@
             font-size: 1rem;
             font-weight: 700;
             line-height: 1.4;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: rgba(240, 237, 232, 0.5);
+            line-height: 1.6;
+            margin-top: 0.5rem;
         }
 
         @media (max-width: 1024px) {
@@ -583,6 +597,10 @@
             font-family: var(--font-display);
             font-weight: 700;
             font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
         }
 
         .footer-links {
@@ -771,20 +789,24 @@
             <h3 class="process-title">Zo pakken we het aan</h3>
             <div class="process-grid">
                 <div class="process-step">
-                    <div class="step-shape"></div>
+                    <div class="step-shape">1</div>
                     <div class="step-label">Luisteren</div>
+                    <p class="step-desc">We duiken in jouw wereld. Doelen, doelgroep, concurrentie — alles onder de loep.</p>
                 </div>
                 <div class="process-step">
-                    <div class="step-shape"></div>
+                    <div class="step-shape">2</div>
                     <div class="step-label">Plannen</div>
+                    <p class="step-desc">Een strategie op maat. Kanalen, content, timing — niets is toeval.</p>
                 </div>
                 <div class="process-step">
-                    <div class="step-shape"></div>
+                    <div class="step-shape">3</div>
                     <div class="step-label">Creëren</div>
+                    <p class="step-desc">Content die raakt. Design, copy, video — alles in-house.</p>
                 </div>
                 <div class="process-step">
-                    <div class="step-shape"></div>
+                    <div class="step-shape">4</div>
                     <div class="step-label">Analyseren</div>
+                    <p class="step-desc">Data spreekt. We meten, analyseren en sturen bij.</p>
                 </div>
             </div>
         </section>
@@ -847,13 +869,13 @@
         <section class="cta-section">
             <h2 class="cta-main">Klaar om <span class="serif">op te vallen</span>?</h2>
             <p class="cta-subtitle">Laten we je merk op de kaart zetten — daar waar het telt.</p>
-            <a href="../index.html#contact" class="cta-btn">Begin nu → </a>
+            <a href="../index.html#contact" class="cta-btn">Neem contact op</a>
         </section>
     </main>
 
     <footer>
         <div class="footer-inner">
-            <div class="footer-brand">The Bair Co.</div>
+            <div class="footer-brand"><img src="../logo-white.png" alt="The Bair Co." style="width:24px;height:24px;margin-right:0.5rem;vertical-align:middle;">THE BAIR CO.</div>
             <div class="footer-links">
                 <a href="../index.html#werk">Portfolio</a>
                 <a href="../index.html#diensten">Studio</a>
@@ -861,7 +883,7 @@
                 <a href="../over.html">Over</a>
                 <a href="../index.html#contact">Contact</a>
             </div>
-            <div class="footer-copy">&copy; 2026 The Bair Co.. Alle rechten voorbehouden.</div>
+            <div class="footer-copy">&copy; 2026 The Bair Co. Alle rechten voorbehouden.</div>
         </div>
     </footer>
 
