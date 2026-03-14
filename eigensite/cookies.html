@@ -207,17 +207,6 @@
 
 <!-- GA4 Event Tracking & Consent Update -->
 <script>
-// Consent update — aangeroepen door cookie banner
-function updateAnalyticsConsent(granted) {
-  if (typeof gtag !== 'undefined') {
-    if (granted) {
-      gtag('consent', 'update', {
-        'analytics_storage': 'granted'
-      });
-    }
-  }
-}
-
 // Track formulier-submits
 document.querySelectorAll('form').forEach(function(form) {
   form.addEventListener('submit', function() {
@@ -281,5 +270,155 @@ document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
 
 <!-- Vercel Speed Insights -->
 <script defer src="https://va.vercel-scripts.com/v1/speed-insights/script.js"></script>
+
+<!-- Cookie Consent Manager -->
+<div id="cookie-consent" class="cookie-consent" role="dialog" aria-label="Cookie-instellingen" aria-modal="true">
+  <div class="cookie-consent__inner">
+    <div class="cookie-consent__text">
+      <h3>Cookie-instellingen</h3>
+      <p>Wij gebruiken cookies om je ervaring te verbeteren. Je kunt kiezen welke cookies je toestaat.</p>
+    </div>
+    <div class="cookie-consent__categories">
+      <label class="cookie-category">
+        <input type="checkbox" checked disabled> <strong>Noodzakelijk</strong>
+        <span class="cookie-desc">Vereist voor de werking van de website</span>
+      </label>
+      <label class="cookie-category">
+        <input type="checkbox" id="cookie-analytics"> <strong>Analytisch</strong>
+        <span class="cookie-desc">Helpt ons begrijpen hoe bezoekers de site gebruiken</span>
+      </label>
+      <label class="cookie-category">
+        <input type="checkbox" id="cookie-marketing"> <strong>Marketing</strong>
+        <span class="cookie-desc">Wordt gebruikt voor gepersonaliseerde advertenties</span>
+      </label>
+    </div>
+    <div class="cookie-consent__buttons">
+      <button class="cookie-btn cookie-btn--settings" onclick="saveCookiePreferences()">Opslaan</button>
+      <button class="cookie-btn cookie-btn--accept" onclick="acceptAllCookies()">Alles accepteren</button>
+    </div>
+    <a href="/cookies.html" class="cookie-consent__link">Cookiebeleid</a>
+  </div>
+</div>
+<button class="cookie-settings-trigger" onclick="openCookieSettings()" aria-label="Cookie-instellingen wijzigen">Cookie-instellingen</button>
+<style>/* Cookie Consent Manager */
+.cookie-consent{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:rgba(10,10,10,0.97);border-top:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1.5rem 2rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+.cookie-consent.visible{transform:translateY(0)}
+.cookie-consent__inner{max-width:900px;margin:0 auto}
+.cookie-consent__text h3{margin:0 0 .5rem 0;font-family:var(--font-heading,'Syne',sans-serif);font-size:1.1rem;color:#f0ede8;font-weight:700}
+.cookie-consent__text p{margin:0 0 1rem 0;font-family:var(--font-body,'DM Sans',sans-serif);color:rgba(240,237,232,.7);font-size:.88rem;line-height:1.6}
+.cookie-consent__categories{display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.5rem}
+.cookie-category{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;font-family:var(--font-body,'DM Sans',sans-serif);font-size:.88rem;color:rgba(240,237,232,.9);cursor:pointer}
+.cookie-category input[type="checkbox"]{width:18px;height:18px;accent-color:#2E8AFF;cursor:pointer}
+.cookie-category strong{color:#f0ede8}
+.cookie-desc{display:block;width:100%;font-size:.75rem;color:rgba(240,237,232,.45);margin-left:1.8rem;margin-top:-.2rem}
+.cookie-consent__buttons{display:flex;gap:.8rem;flex-wrap:wrap}
+.cookie-btn{font-family:var(--font-body,'DM Sans',sans-serif);font-size:.85rem;padding:.6rem 1.6rem;border:none;border-radius:100px;font-weight:600;cursor:pointer;transition:all .25s}
+.cookie-btn--accept{background:#2E8AFF;color:#fff}.cookie-btn--accept:hover{background:#4a9dff}
+.cookie-btn--settings{background:transparent;color:rgba(240,237,232,.7);border:1px solid rgba(255,255,255,.12)}.cookie-btn--settings:hover{color:#f0ede8;border-color:rgba(255,255,255,.3)}
+.cookie-consent__link{display:inline-block;margin-top:1rem;color:rgba(240,237,232,.4);font-family:var(--font-body,'DM Sans',sans-serif);font-size:.78rem;text-decoration:underline}
+.cookie-consent__link:hover{color:rgba(240,237,232,.7)}
+.cookie-settings-trigger{position:fixed;bottom:1rem;left:1rem;z-index:9998;background:rgba(10,10,10,.9);color:rgba(240,237,232,.6);border:1px solid rgba(255,255,255,.08);padding:.45rem 1rem;border-radius:100px;font-family:var(--font-body,'DM Sans',sans-serif);font-size:.72rem;cursor:pointer;opacity:.7;transition:all .25s;backdrop-filter:blur(10px)}
+.cookie-settings-trigger:hover{opacity:1;color:#f0ede8;border-color:rgba(255,255,255,.2)}
+.cookie-settings-trigger.hidden{display:none}
+@media(max-width:600px){.cookie-consent__categories{flex-direction:column}.cookie-consent__buttons{flex-direction:column}.cookie-btn{width:100%;text-align:center}}</style>
+<script>/* Cookie Consent Manager — Professional */
+(function() {
+  var COOKIE_KEY = 'cookie_preferences';
+
+  function getConsent() {
+    try {
+      var stored = localStorage.getItem(COOKIE_KEY);
+      return stored ? JSON.parse(stored) : null;
+    } catch(e) { return null; }
+  }
+
+  function setConsent(prefs) {
+    try {
+      prefs.timestamp = new Date().toISOString();
+      localStorage.setItem(COOKIE_KEY, JSON.stringify(prefs));
+      // Also set simple cookie for server-side detection
+      document.cookie = 'cookie_consent=' + (prefs.analytics ? 'accepted' : 'declined') + ';path=/;max-age=31536000;SameSite=Lax';
+    } catch(e) {}
+  }
+
+  function isConsentExpired(prefs) {
+    if (!prefs || !prefs.timestamp) return true;
+    var consentDate = new Date(prefs.timestamp);
+    var yearAgo = new Date();
+    yearAgo.setMonth(yearAgo.getMonth() - 12);
+    return consentDate < yearAgo;
+  }
+
+  function applyConsent(prefs) {
+    if (typeof gtag === 'function') {
+      if (prefs.analytics) {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+      if (prefs.marketing) {
+        gtag('consent', 'update', {
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted'
+        });
+      }
+    }
+    window.dispatchEvent(new CustomEvent('cookieConsentUpdated', { detail: prefs }));
+  }
+
+  var banner = document.getElementById('cookie-consent');
+  var trigger = document.querySelector('.cookie-settings-trigger');
+
+  function showBanner() {
+    if (banner) { banner.classList.add('visible'); }
+    if (trigger) { trigger.classList.add('hidden'); }
+  }
+
+  function hideBanner() {
+    if (banner) { banner.classList.remove('visible'); }
+    if (trigger) { trigger.classList.remove('hidden'); }
+  }
+
+  window.acceptAllCookies = function() {
+    var prefs = { necessary: true, analytics: true, marketing: true };
+    setConsent(prefs);
+    applyConsent(prefs);
+    hideBanner();
+  };
+
+  window.saveCookiePreferences = function() {
+    var prefs = {
+      necessary: true,
+      analytics: document.getElementById('cookie-analytics').checked,
+      marketing: document.getElementById('cookie-marketing').checked
+    };
+    setConsent(prefs);
+    applyConsent(prefs);
+    hideBanner();
+  };
+
+  window.openCookieSettings = function() {
+    var existing = getConsent();
+    if (existing) {
+      document.getElementById('cookie-analytics').checked = existing.analytics || false;
+      document.getElementById('cookie-marketing').checked = existing.marketing || false;
+    }
+    showBanner();
+  };
+
+  // Also expose for backwards compatibility with GA4 event tracking
+  window.updateAnalyticsConsent = function(granted) {
+    if (typeof gtag === 'function' && granted) {
+      gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    }
+  };
+
+  // Init
+  var existing = getConsent();
+  if (existing && !isConsentExpired(existing)) {
+    applyConsent(existing);
+  } else {
+    setTimeout(showBanner, 800);
+  }
+})();</script>
 </body>
 </html>
