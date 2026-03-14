@@ -108,7 +108,6 @@
       position: relative;
       z-index: 100;
       background: var(--white);
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
     }
 
     .brand {
@@ -147,8 +146,7 @@
       color: var(--black);
     }
 
-    .nav-pill:hover,
-    .nav-pill.active {
+    .nav-pill:hover {
       background: var(--black);
       color: var(--white);
     }
@@ -205,7 +203,6 @@
       left: 0;
       right: 0;
       background: var(--white);
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
       flex-direction: column;
       padding: 1rem;
       gap: 0.5rem;
@@ -442,8 +439,8 @@
       content: '';
       position: absolute;
       top: 60px;
-      left: 100%;
-      width: calc(100% - 40px);
+      left: 50%;
+      width: 100%;
       height: 2px;
       background: var(--accent);
     }
@@ -905,7 +902,7 @@
     <a href="../index.html" class="brand"><img src="../logo.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
     <nav>
       <a href="../index.html#werk" class="nav-pill">Portfolio</a>
-      <a href="../index.html#diensten" class="nav-pill active">Onze diensten</a>
+      <a href="../index.html#diensten" class="nav-pill">Onze diensten</a>
       <a href="../index.html#cases" class="nav-pill">Uitgelicht</a>
       <a href="../over.html" class="nav-pill">Over</a>
       <a href="../index.html#contact" class="nav-pill">Contact</a>

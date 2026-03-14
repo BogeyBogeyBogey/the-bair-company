@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web Design — The Bair Co. | Webdesign Bureau Vlaams-Brabant</title>
-  <meta name="description" content="Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design in Figma. Geen templates — alles op maat. Glabbeek, België.">
+  <title>Web Design — The Bair Co. | Creatief Bureau Glabbeek</title>
+  <meta name="description" content="Van concept tot conversie. Websites die niet alleen mooi zijn, maar werken. The Bair Co., creatief bureau in Glabbeek.">
   <meta property="og:title" content="Web Design — The Bair Co.">
-  <meta property="og:description" content="Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design. Geen templates — alles op maat.">
+  <meta property="og:description" content="Websites die niet alleen mooi zijn, maar werken. Van concept tot conversie.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.baircompany.be/diensten/webdesign.html">
   <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,6 @@
       --accent: #ec4899;
       --pink: #ec4899;
       --blue: #2E8AFF;
-      --amber: #f59e0b;
       --emerald: #10b981;
       --red: #ef4444;
       --font-display: 'Syne', system-ui, sans-serif;
@@ -109,7 +108,6 @@
       position: relative;
       z-index: 100;
       background: var(--white);
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
     }
 
     .brand {
@@ -146,10 +144,10 @@
       transition: background 0.3s, color 0.3s;
       letter-spacing: 0.01em;
       color: var(--black);
+      text-decoration: none;
     }
 
-    .nav-pill:hover,
-    .nav-pill.active {
+    .nav-pill:hover {
       background: var(--black);
       color: var(--white);
     }
@@ -206,7 +204,6 @@
       left: 0;
       right: 0;
       background: var(--white);
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
       flex-direction: column;
       padding: 1rem;
       gap: 0.5rem;
@@ -242,7 +239,7 @@
     .dienst-hero {
       width: 100%;
       height: 600px;
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=1400&h=700&fit=crop&auto=format&q=80');
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1571101628768-a7c59d9cf486?w=1400&h=700&fit=crop&auto=format&q=80');
       background-size: cover;
       background-position: center;
       display: flex;
@@ -263,7 +260,7 @@
       margin-bottom: 1.5rem;
       padding: 0.5rem 1rem;
       background: var(--accent);
-      color: var(--white);
+      color: var(--black);
       border-radius: 99px;
     }
 
@@ -443,8 +440,8 @@
       content: '';
       position: absolute;
       top: 60px;
-      left: 100%;
-      width: calc(100% - 40px);
+      left: 50%;
+      width: 100%;
       height: 2px;
       background: var(--accent);
     }
@@ -472,7 +469,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -485,7 +482,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -502,7 +499,7 @@
 
     .shape-triangle span {
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -518,7 +515,7 @@
 
     .shape-diamond span {
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -649,7 +646,7 @@
       gap: 0.75rem;
       padding: 1rem 2rem;
       background: var(--accent);
-      color: var(--white);
+      color: var(--black);
       text-decoration: none;
       border-radius: 8px;
       font-weight: 600;
@@ -705,40 +702,6 @@
       max-width: 300px;
     }
 
-    .social-icons {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .social-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s var(--ease);
-    }
-
-    .social-icon:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.06);
-      transform: translateY(-2px);
-    }
-
-    .social-icon svg {
-      width: 16px;
-      height: 16px;
-      fill: var(--grey);
-      transition: fill 0.3s;
-    }
-
-    .social-icon:hover svg {
-      fill: var(--white);
-    }
-
     .footer-col h4 {
       font-family: var(--font-display);
       font-size: 0.7rem;
@@ -755,6 +718,7 @@
       color: var(--grey);
       margin-bottom: 0.75rem;
       transition: color 0.3s;
+      text-decoration: none;
     }
 
     .footer-col a:hover {
@@ -779,6 +743,7 @@
     .footer-bottom a {
       color: rgba(255, 255, 255, 0.25);
       transition: color 0.3s;
+      text-decoration: none;
     }
 
     .footer-bottom a:hover {
@@ -873,7 +838,7 @@
 
     .cookie-btn.accept {
       background: var(--accent);
-      color: var(--white);
+      color: var(--black);
     }
 
     .cookie-btn.decline {
@@ -906,7 +871,7 @@
     <a href="../index.html" class="brand"><img src="../logo.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
     <nav>
       <a href="../index.html#werk" class="nav-pill">Portfolio</a>
-      <a href="../index.html#diensten" class="nav-pill active">Onze diensten</a>
+      <a href="../index.html#diensten" class="nav-pill">Onze diensten</a>
       <a href="../index.html#cases" class="nav-pill">Uitgelicht</a>
       <a href="../over.html" class="nav-pill">Over</a>
       <a href="../index.html#contact" class="nav-pill">Contact</a>
@@ -930,18 +895,18 @@
   <section class="dienst-hero">
     <div class="hero-content">
       <div class="hero-label">Web Design</div>
-      <h1>Mooi is niet <span class="serif">genoeg</span>.</h1>
-      <p class="hero-subtitle">Geen standaardoplossingen, geen compromissen. Elke pixel heeft een reden.</p>
+      <h1>Geen template. Een <span class="serif">ervaring</span>.</h1>
+      <p class="hero-subtitle">Websites die niet alleen mooi zijn, maar converteren. Van eerste schets tot laatste pixel.</p>
     </div>
   </section>
 
   <section class="dienst-intro">
     <div class="intro-left">
-      <h2>Design met intentie</h2>
+      <h2>Design met een doel</h2>
     </div>
     <div class="intro-right">
-      <p>We starten niet met templates. We starten met jou, je doelgroep, en wat je wilt bereiken. Elk design-keuze is strategisch — van typografie tot microinteracties.</p>
-      <p>We werken in Figma, research-gedreven en mobile-first. Het resultaat: websites die niet alleen mooi zijn, maar ook converteren. Responsive op elke schermgrootte, snel, en gebouwd om waarde te creëren.</p>
+      <p>Een website is geen digitaal visitekaartje — het is je hardste werker. Wij ontwerpen sites die er niet alleen uitzien als iets bijzonders, maar ook presteren als een machine. Elk element heeft een reden, elke keuze een doel.</p>
+      <p>Of het nu gaat om een volledig nieuwe site of een redesign: we beginnen bij jouw gebruiker. Want mooi is leuk, maar mooi én effectief is beter.</p>
     </div>
   </section>
 
@@ -949,34 +914,34 @@
     <h2 class="dienst-section-title">Wat we doen</h2>
     <div class="dienst-grid">
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>UX Research</h3>
-        <p>We begrijpen wie je bezoekers zijn en wat ze nodig hebben. Onderzoek vormt de basis van elk goed design.</p>
-      </div>
-      <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-        <h3>Wireframing</h3>
-        <p>Voor we gaan designen schetsen we de structuur. Logica eerst, visueel daarna — in die volgorde.</p>
-      </div>
-      <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="#fff"/><circle cx="8" cy="12" r="1.5" fill="#fff"/><circle cx="16" cy="12" r="1.5" fill="#fff"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
-        <h3>Visueel design</h3>
-        <p>In Figma creëren we pixel-perfect ontwerpen die jouw merk uitstralen. Elke detail telt.</p>
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <h3>UI/UX Design</h3>
+        <p>Interfaces die intuïtief voelen. We ontwerpen voor mensen, niet voor awards — al winnen we die soms ook.</p>
       </div>
       <div class="dienst-card reveal">
         <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <h3>Responsive design</h3>
-        <p>Mobile-first. Desktop, tablet, mobiel — alles ziet er goed uit. Dat is niet optioneel, dat is standaard.</p>
-      </div>
-      <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3a1 1 0 0 0 0-2 1 1 0 0 1 0-2h2v5h5V3h2a1 1 0 0 1 0 2 1 1 0 0 0 0 2h3v5h-5a1 1 0 0 0 0 2 1 1 0 0 1 0 2H9v-5H4V7z"/></svg></div>
-        <h3>Prototyping</h3>
-        <p>We maken het levendig. Interacties, animaties, microflows — alles wordt getest voor je het gaat gebruiken.</p>
+        <p>Pixel-perfect op elk scherm. Telefoon, tablet, desktop — overal dezelfde kwaliteit.</p>
       </div>
       <div class="dienst-card reveal">
         <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
-        <h3>Design systemen</h3>
-        <p>Voor grotere projecten bouwen we design systems. Consistentie, schaalbaarheid, efficiëntie.</p>
+        <h3>Prototyping</h3>
+        <p>Van wireframe tot klikbaar prototype. Zo zie je je site al leven voordat er één regel code is geschreven.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <h3>Redesign</h3>
+        <p>Bestaande site die niet meer werkt? We houden wat goed is en vernieuwen de rest — strategisch en visueel.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Conversie-optimalisatie</h3>
+        <p>Design dat aanzet tot actie. CTA's, flows en layouts die bezoekers omzetten in klanten.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <h3>Meertalig design</h3>
+        <p>Sites die werken in elke taal. Layout, typografie en content — overal consistent.</p>
       </div>
     </div>
   </div>
@@ -989,29 +954,29 @@
           <div class="proces-shape">
             <div class="shape-circle">1</div>
           </div>
-          <h3>Begrijpen</h3>
-          <p>We duiken diep in jouw wereld. Doelen, doelgroep, concurrentie — alles onder de loep.</p>
+          <h3>Ontdekken</h3>
+          <p>Doelen, doelgroep en concurrentie. We beginnen met begrijpen voordat we ontwerpen.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-square">2</div>
           </div>
-          <h3>Schetsen</h3>
-          <p>Wireframes en flows. We tonen de structuur, niet het glitter. Feedback nu, aanpassingen daarna.</p>
+          <h3>Structureren</h3>
+          <p>Sitemap, wireframes, user flows. De architectuur staat voordat het design begint.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-triangle"><span>3</span></div>
           </div>
           <h3>Ontwerpen</h3>
-          <p>De visuele kant. In Figma, met prototypes, ready voor développement.</p>
+          <p>Visueel concept, UI-design, interactie. Meerdere richtingen, samen kiezen.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-diamond"><span>4</span></div>
           </div>
-          <h3>Testen</h3>
-          <p>Gebruikerstesten, feedback, refinement. Tot het precies goed voelt.</p>
+          <h3>Opleveren</h3>
+          <p>Design-to-dev handoff met specs, assets en documentatie. Klaar voor bouw.</p>
         </div>
       </div>
     </div>
@@ -1021,55 +986,55 @@
     <h2 class="dienst-section-title">Veelgestelde vragen</h2>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Wat kost webdesign?</span>
+        <span>Wat kost een website laten ontwerpen?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Afhankelijk van de complexiteit en het aantal pagina's. We maken altijd een offerte op maat na een intake — zo weet je vooraf precies wat je krijgt.
+        Dat hangt volledig af van de scope. Een landingspagina is anders dan een platform met 50 pagina's. We bespreken altijd eerst je wensen en budget.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Hoe lang duurt het designproces?</span>
+        <span>Hoe lang duurt een webdesign traject?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Hangt af van het aantal pagina's en hoe snel jij feedback geeft. We plannen het samen in het intakegesprek.
+        Gemiddeld 4 tot 8 weken, afhankelijk van de complexiteit. We plannen realistisch en communiceren helder over deadlines.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Werken jullie met templates?</span>
+        <span>Bouwen jullie de site ook?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        We werken met bewezen frameworks als startpunt, maar elk ontwerp wordt volledig aangepast aan jouw merk, doelgroep en doelen. Geen copy-paste — wel een slimme basis die we omvormen tot iets unieks.
+        Ja, we bieden ook webontwikkeling aan. Maar als je een eigen developer hebt, leveren we een volledig design-pakket af met alle specs.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Wat is het verschil tussen webdesign en webontwikkeling?</span>
+        <span>Wat als ik al een site heb?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Design is hoe het eruitziet en aanvoelt. Development is hoe het gebouwd wordt. Wij doen beide, onder één dak.
+        Dan bekijken we samen wat werkt en wat niet. Soms is een redesign beter dan opnieuw beginnen — soms niet. We adviseren eerlijk.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Kan ik mijn bestaande site laten herontwerpen?</span>
+        <span>Werken jullie met WordPress?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Absoluut. We analyseren wat werkt, wat niet, en ontwerpen een upgrade die wel converteert.
+        We werken platformonafhankelijk. WordPress, headless CMS, custom — we kiezen de technologie die past bij jouw project en budget.
       </div>
     </div>
   </section>
 
   <section class="dienst-cta">
-    <h2 class="cta-heading">Klaar voor een site die <span class="serif">indruk</span> maakt?</h2>
-    <p class="cta-subtitle">Laten we het samen doen. Met strategie en design als fundament.</p>
-    <a href="../index.html#contact" class="cta-button">Plan een gesprek</a>
+    <h2 class="cta-heading">Klaar voor een site die <span class="serif">werkt</span>?</h2>
+    <p class="cta-subtitle">Geen template. Geen compromis. Een website die doet wat jij nodig hebt.</p>
+    <a href="../index.html#contact" class="cta-button">Neem contact op</a>
   </section>
 
   <footer>
@@ -1181,7 +1146,7 @@
     "@context": "https://schema.org/",
     "@type": "Service",
     "name": "Web Design",
-    "description": "Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design in Figma.",
+    "description": "Van concept tot conversie. Websites die niet alleen mooi zijn, maar werken.",
     "provider": {
       "@type": "Organization",
       "name": "The Bair Co.",
@@ -1189,7 +1154,7 @@
       "logo": "https://www.baircompany.be/logo-white.png"
     },
     "areaServed": "BE",
-    "serviceType": "Web Design, UX Design, UI Design"
+    "serviceType": "Web Design, UI/UX Design, Responsive Design"
   }
   </script>
 
@@ -1200,42 +1165,42 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Wat kost webdesign?",
+        "name": "Wat kost een website laten ontwerpen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Afhankelijk van de complexiteit en het aantal pagina's. We maken altijd een offerte op maat na een intake — zo weet je vooraf precies wat je krijgt."
+          "text": "Dat hangt volledig af van de scope. Een landingspagina is anders dan een platform met 50 pagina's. We bespreken altijd eerst je wensen en budget."
         }
       },
       {
         "@type": "Question",
-        "name": "Hoe lang duurt het designproces?",
+        "name": "Hoe lang duurt een webdesign traject?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Hangt af van het aantal pagina's en hoe snel jij feedback geeft. We plannen het samen in het intakegesprek."
+          "text": "Gemiddeld 4 tot 8 weken, afhankelijk van de complexiteit. We plannen realistisch en communiceren helder over deadlines."
         }
       },
       {
         "@type": "Question",
-        "name": "Werken jullie met templates?",
+        "name": "Bouwen jullie de site ook?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We werken met bewezen frameworks als startpunt, maar elk ontwerp wordt volledig aangepast aan jouw merk, doelgroep en doelen. Geen copy-paste — wel een slimme basis die we omvormen tot iets unieks."
+          "text": "Ja, we bieden ook webontwikkeling aan. Maar als je een eigen developer hebt, leveren we een volledig design-pakket af met alle specs."
         }
       },
       {
         "@type": "Question",
-        "name": "Wat is het verschil tussen webdesign en webontwikkeling?",
+        "name": "Wat als ik al een site heb?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Design is hoe het eruitziet en aanvoelt. Development is hoe het gebouwd wordt. Wij doen beide, onder één dak."
+          "text": "Dan bekijken we samen wat werkt en wat niet. Soms is een redesign beter dan opnieuw beginnen — soms niet. We adviseren eerlijk."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan ik mijn bestaande site laten herontwerpen?",
+        "name": "Werken jullie met WordPress?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absoluut. We analyseren wat werkt, wat niet, en ontwerpen een upgrade die wel converteert."
+          "text": "We werken platformonafhankelijk. WordPress, headless CMS, custom — we kiezen de technologie die past bij jouw project en budget."
         }
       }
     ]

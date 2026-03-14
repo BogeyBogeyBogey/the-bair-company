@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webontwikkeling — The Bair Co. | Custom Development België</title>
-  <meta name="description" content="Razendsnelle websites met React, Next.js en Tailwind CSS. Custom code, geen page builders. SEO-geoptimaliseerd en klaar voor de toekomst.">
+  <title>Webontwikkeling — The Bair Co. | Creatief Bureau Glabbeek</title>
+  <meta name="description" content="Snelle, schaalbare websites gebouwd met moderne technologie. Van statisch tot headless CMS — altijd op maat. The Bair Co., Glabbeek.">
   <meta property="og:title" content="Webontwikkeling — The Bair Co.">
-  <meta property="og:description" content="Razendsnelle websites met React, Next.js en Tailwind CSS. Custom code, geen page builders.">
+  <meta property="og:description" content="Snelle, schaalbare websites gebouwd met moderne technologie. Altijd op maat.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.baircompany.be/diensten/webontwikkeling.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Webontwikkeling — The Bair Co.">
   <link rel="canonical" href="https://www.baircompany.be/diensten/webontwikkeling.html">
-  <link rel="alternate" hreflang="en" href="https://www.baircompany.be/en/services/development.html">
+  <link rel="alternate" hreflang="en" href="https://www.baircompany.be/en/services/webontwikkeling.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,6 @@
       --accent: #2E8AFF;
       --pink: #ec4899;
       --blue: #2E8AFF;
-      --amber: #f59e0b;
       --emerald: #10b981;
       --red: #ef4444;
       --font-display: 'Syne', system-ui, sans-serif;
@@ -109,7 +108,6 @@
       position: relative;
       z-index: 100;
       background: var(--white);
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
     }
 
     .brand {
@@ -146,10 +144,10 @@
       transition: background 0.3s, color 0.3s;
       letter-spacing: 0.01em;
       color: var(--black);
+      text-decoration: none;
     }
 
-    .nav-pill:hover,
-    .nav-pill.active {
+    .nav-pill:hover {
       background: var(--black);
       color: var(--white);
     }
@@ -206,7 +204,6 @@
       left: 0;
       right: 0;
       background: var(--white);
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
       flex-direction: column;
       padding: 1rem;
       gap: 0.5rem;
@@ -242,7 +239,7 @@
     .dienst-hero {
       width: 100%;
       height: 600px;
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1400&h=700&fit=crop&auto=format&q=80');
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1400&h=700&fit=crop&auto=format&q=80');
       background-size: cover;
       background-position: center;
       display: flex;
@@ -263,7 +260,7 @@
       margin-bottom: 1.5rem;
       padding: 0.5rem 1rem;
       background: var(--accent);
-      color: var(--white);
+      color: var(--black);
       border-radius: 99px;
     }
 
@@ -443,8 +440,8 @@
       content: '';
       position: absolute;
       top: 60px;
-      left: 100%;
-      width: calc(100% - 40px);
+      left: 50%;
+      width: 100%;
       height: 2px;
       background: var(--accent);
     }
@@ -472,7 +469,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -485,7 +482,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -502,7 +499,7 @@
 
     .shape-triangle span {
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -518,7 +515,7 @@
 
     .shape-diamond span {
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--black);
       font-weight: 800;
     }
 
@@ -649,7 +646,7 @@
       gap: 0.75rem;
       padding: 1rem 2rem;
       background: var(--accent);
-      color: var(--white);
+      color: var(--black);
       text-decoration: none;
       border-radius: 8px;
       font-weight: 600;
@@ -705,40 +702,6 @@
       max-width: 300px;
     }
 
-    .social-icons {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .social-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s var(--ease);
-    }
-
-    .social-icon:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.06);
-      transform: translateY(-2px);
-    }
-
-    .social-icon svg {
-      width: 16px;
-      height: 16px;
-      fill: var(--grey);
-      transition: fill 0.3s;
-    }
-
-    .social-icon:hover svg {
-      fill: var(--white);
-    }
-
     .footer-col h4 {
       font-family: var(--font-display);
       font-size: 0.7rem;
@@ -755,6 +718,7 @@
       color: var(--grey);
       margin-bottom: 0.75rem;
       transition: color 0.3s;
+      text-decoration: none;
     }
 
     .footer-col a:hover {
@@ -779,6 +743,7 @@
     .footer-bottom a {
       color: rgba(255, 255, 255, 0.25);
       transition: color 0.3s;
+      text-decoration: none;
     }
 
     .footer-bottom a:hover {
@@ -873,7 +838,7 @@
 
     .cookie-btn.accept {
       background: var(--accent);
-      color: var(--white);
+      color: var(--black);
     }
 
     .cookie-btn.decline {
@@ -906,7 +871,7 @@
     <a href="../index.html" class="brand"><img src="../logo.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
     <nav>
       <a href="../index.html#werk" class="nav-pill">Portfolio</a>
-      <a href="../index.html#diensten" class="nav-pill active">Onze diensten</a>
+      <a href="../index.html#diensten" class="nav-pill">Onze diensten</a>
       <a href="../index.html#cases" class="nav-pill">Uitgelicht</a>
       <a href="../over.html" class="nav-pill">Over</a>
       <a href="../index.html#contact" class="nav-pill">Contact</a>
@@ -930,18 +895,18 @@
   <section class="dienst-hero">
     <div class="hero-content">
       <div class="hero-label">Webontwikkeling</div>
-      <h1>Snel. Schoon. <span class="serif">Schaalbaar</span>.</h1>
-      <p class="hero-subtitle">React, Next.js, Tailwind CSS — de tools die topbureaus gebruiken. Geen page builders.</p>
+      <h1>Geen code. Een <span class="serif">systeem</span>.</h1>
+      <p class="hero-subtitle">Snelle, schaalbare websites gebouwd met moderne technologie — op maat van jouw ambities.</p>
     </div>
   </section>
 
   <section class="dienst-intro">
     <div class="intro-left">
-      <h2>Technologie als fundament</h2>
+      <h2>Technologie die dient</h2>
     </div>
     <div class="intro-right">
-      <p>De beste design helpt niet als de technologie niet meewerkt. We kiezen voor modern, snel en schaalbaar. React voor complexe interfaces, Next.js voor performance, Tailwind CSS voor design systemen die groeien.</p>
-      <p>We zijn obsessed met snelheid — Core Web Vitals, Lighthouse scores, SEO. We hebben sites gebouwd in 22 talen, voor miljoenen users. De technologie moet werken, punt.</p>
+      <p>We bouwen geen sites om te bouwen. We bouwen om problemen op te lossen. Onze code is schoon, onze architectuur doordacht en onze sites razendsnel. Technologie is een middel — jouw resultaat is het doel.</p>
+      <p>Van een simpele landingspagina tot een complex platform: we kiezen altijd de juiste stack. Next.js, headless CMS, of pure HTML — wat werkt voor jou.</p>
     </div>
   </section>
 
@@ -950,33 +915,33 @@
     <div class="dienst-grid">
       <div class="dienst-card reveal">
         <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <h3>React & Next.js</h3>
-        <p>Component-based, server-side rendering, static generation — we kiezen wat het werk vergt. De juiste tool voor de juiste job.</p>
+        <h3>Frontend development</h3>
+        <p>HTML, CSS, JavaScript — geoptimaliseerd tot op de pixel. Snel, toegankelijk en SEO-proof.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-        <h3>Tailwind CSS</h3>
-        <p>Utility-first CSS die scaalt. Consistent design, snelle development, makkelijk te onderhouden.</p>
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+        <h3>Backend & API's</h3>
+        <p>Databases, authenticatie, integraties — de onzichtbare kracht achter elke goede website.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
-        <h3>Custom backend</h3>
-        <p>Databases, APIs, server logic — alles op maat. Node.js, PostgreSQL, wat je nodig hebt.</p>
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3>Headless CMS</h3>
+        <p>Content beheren zonder beperkingen. We koppelen de beste CMS'en aan een razendsnelle frontend.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
         <h3>Performance</h3>
-        <p>Onder de 2 seconden laden. We optimaliseren voor Core Web Vitals — dat is ook wat Google beloont.</p>
+        <p>Core Web Vitals, lazy loading, caching — we bouwen sites die Google (en je bezoekers) blij maken.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-        <h3>SEO-optimalisatie</h3>
-        <p>Structured data, meta tags, sitemap, robots.txt — alles is ingebakken. Geen apart traject.</p>
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <h3>Responsive bouw</h3>
+        <p>Mobile-first development. Elke site werkt foutloos op telefoon, tablet en desktop.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-        <h3>Hosting & deployment</h3>
-        <p>Via Vercel — dezelfde infrastructuur als Netflix en TikTok. Snel, betrouwbaar, wereldwijd.</p>
+        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+        <h3>Deployment & hosting</h3>
+        <p>Vercel, Netlify of eigen server — we zorgen dat je site live staat en blijft draaien.</p>
       </div>
     </div>
   </div>
@@ -989,29 +954,29 @@
           <div class="proces-shape">
             <div class="shape-circle">1</div>
           </div>
-          <h3>Architectuur</h3>
-          <p>We ontwerpen de technische structuur. Database, APIs, frontend stack — alles moet samenpassen.</p>
+          <h3>Analyseren</h3>
+          <p>Requirements, user stories, technische scope — alles helder voordat we beginnen.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-square">2</div>
           </div>
-          <h3>Bouwen</h3>
-          <p>Clean code, documented, tested. We volgen best practices. Code reviews, pair programming waar nodig.</p>
+          <h3>Architectuur</h3>
+          <p>Stack kiezen, structuur opzetten, CMS configureren. Het fundament moet kloppen.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-triangle"><span>3</span></div>
           </div>
-          <h3>Testen</h3>
-          <p>Unit tests, integration tests, end-to-end tests. De site moet werken, onder alle omstandigheden.</p>
+          <h3>Bouwen</h3>
+          <p>Sprint-gebaseerd development. Regelmatige demos, snelle feedback loops.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-diamond"><span>4</span></div>
           </div>
           <h3>Lanceren</h3>
-          <p>Deployment naar Vercel, monitoring, logging. We gaan niet naar bed voor alles live staat.</p>
+          <p>Testing, optimalisatie, deployment. We laten pas los als alles perfect is.</p>
         </div>
       </div>
     </div>
@@ -1021,20 +986,20 @@
     <h2 class="dienst-section-title">Veelgestelde vragen</h2>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Waarom geen WordPress?</span>
+        <span>Welke technologieën gebruiken jullie?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        WordPress is prima voor blogs. Maar voor performance, veiligheid en schaalbaarheid kiezen we voor React en Next.js. Sneller, veiliger, toekomstbestendig.
+        We werken met Next.js, React, Tailwind CSS, en headless CMS-systemen zoals TinaCMS. Maar we kiezen altijd de beste tool voor het project.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Hoe snel laden jullie sites?</span>
+        <span>Hoe snel is mijn website?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Onder de 2 seconden. We optimaliseren voor Core Web Vitals — dat is ook wat Google beloont.
+        We mikken altijd op 90+ Lighthouse scores. Performance is geen afterthought maar een kernonderdeel van ons development proces.
       </div>
     </div>
     <div class="faq-item">
@@ -1043,32 +1008,32 @@
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Ja. We bouwen een CMS in waar je zonder technische kennis teksten en afbeeldingen kunt wijzigen.
+        Absoluut. We bouwen een CMS-integratie zodat je zelf teksten, afbeeldingen en pagina's kunt beheren — zonder technische kennis.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Hosten jullie ook?</span>
+        <span>Wat met onderhoud na lancering?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        We deployen via Vercel — dezelfde infrastructuur als Netflix en TikTok. Snel, betrouwbaar, wereldwijd.
+        We bieden onderhoudsplannen aan voor updates, beveiliging en optimalisatie. Zo blijft je site altijd up-to-date.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Wat als ik al een site heb?</span>
+        <span>Hoeveel kost webontwikkeling?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        We kunnen je bestaande site migreren naar moderne technologie, of specifieke onderdelen vernieuwen.
+        Van een eenvoudige site tot een complex platform — de prijs hangt af van de scope. We bespreken altijd transparant wat realistisch is.
       </div>
     </div>
   </section>
 
   <section class="dienst-cta">
-    <h2 class="cta-heading">Klaar voor een site die <span class="serif">vliegensvlug</span> is?</h2>
-    <p class="cta-subtitle">Laten we het samen doen. Technologie met doel, design met impact.</p>
+    <h2 class="cta-heading">Klaar om te <span class="serif">bouwen</span>?</h2>
+    <p class="cta-subtitle">Schone code, snelle sites, slimme architectuur. Laten we aan de slag gaan.</p>
     <a href="../index.html#contact" class="cta-button">Neem contact op</a>
   </section>
 
@@ -1181,7 +1146,7 @@
     "@context": "https://schema.org/",
     "@type": "Service",
     "name": "Webontwikkeling",
-    "description": "Razendsnelle websites met React, Next.js en Tailwind CSS. Custom code, geen page builders.",
+    "description": "Snelle, schaalbare websites gebouwd met moderne technologie. Van statisch tot headless CMS — altijd op maat.",
     "provider": {
       "@type": "Organization",
       "name": "The Bair Co.",
@@ -1189,7 +1154,7 @@
       "logo": "https://www.baircompany.be/logo-white.png"
     },
     "areaServed": "BE",
-    "serviceType": "Web Development, React Development, Next.js Development"
+    "serviceType": "Web Development, Frontend Development, Headless CMS"
   }
   </script>
 
@@ -1200,18 +1165,18 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Waarom geen WordPress?",
+        "name": "Welke technologieën gebruiken jullie?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "WordPress is prima voor blogs. Maar voor performance, veiligheid en schaalbaarheid kiezen we voor React en Next.js. Sneller, veiliger, toekomstbestendig."
+          "text": "We werken met Next.js, React, Tailwind CSS, en headless CMS-systemen zoals TinaCMS. Maar we kiezen altijd de beste tool voor het project."
         }
       },
       {
         "@type": "Question",
-        "name": "Hoe snel laden jullie sites?",
+        "name": "Hoe snel is mijn website?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Onder de 2 seconden. We optimaliseren voor Core Web Vitals — dat is ook wat Google beloont."
+          "text": "We mikken altijd op 90+ Lighthouse scores. Performance is geen afterthought maar een kernonderdeel van ons development proces."
         }
       },
       {
@@ -1219,23 +1184,23 @@
         "name": "Kan ik zelf content aanpassen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. We bouwen een CMS in waar je zonder technische kennis teksten en afbeeldingen kunt wijzigen."
+          "text": "Absoluut. We bouwen een CMS-integratie zodat je zelf teksten, afbeeldingen en pagina's kunt beheren — zonder technische kennis."
         }
       },
       {
         "@type": "Question",
-        "name": "Hosten jullie ook?",
+        "name": "Wat met onderhoud na lancering?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We deployen via Vercel — dezelfde infrastructuur als Netflix en TikTok. Snel, betrouwbaar, wereldwijd."
+          "text": "We bieden onderhoudsplannen aan voor updates, beveiliging en optimalisatie. Zo blijft je site altijd up-to-date."
         }
       },
       {
         "@type": "Question",
-        "name": "Wat als ik al een site heb?",
+        "name": "Hoeveel kost webontwikkeling?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We kunnen je bestaande site migreren naar moderne technologie, of specifieke onderdelen vernieuwen."
+          "text": "Van een eenvoudige site tot een complex platform — de prijs hangt af van de scope. We bespreken altijd transparant wat realistisch is."
         }
       }
     ]
