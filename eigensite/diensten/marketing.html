@@ -132,7 +132,7 @@
 
     .mob-nav {
       display: none; position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--white); flex-direction: column; padding: 1rem; gap: 0.5rem; z-index: 99;
+      background: var(--white); flex-direction: column; padding: 1rem; gap: 0.5rem; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
     .mob-nav a { padding: 0.75rem 1rem; text-decoration: none; color: var(--black); border-radius: 8px; transition: all 0.3s var(--ease); }
     .mob-nav a:hover { background: rgba(10, 10, 10, 0.08); }
@@ -416,8 +416,7 @@
       </div>
     </nav>
     <div class="mob-toggle" id="mobToggle"><span></span><span></span><span></span></div>
-  </header>
-  <div class="mob-nav" id="mobNav">
+    <div class="mob-nav" id="mobNav">
     <a href="../index.html#werk" onclick="closeMob()">Portfolio</a>
     <a href="../index.html#diensten" onclick="closeMob()">Onze diensten</a>
     <a href="../index.html#cases" onclick="closeMob()">Uitgelicht</a>
@@ -425,6 +424,7 @@
     <a href="../index.html#contact" onclick="closeMob()">Contact</a>
     <a href="../blog.html" onclick="closeMob()">Blog</a>
   </div>
+  </header>
 
   <section class="dienst-hero">
     <div class="hero-content">
