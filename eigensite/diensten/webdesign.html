@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web Design — The Bair Co. | Creatief Bureau Glabbeek</title>
-  <meta name="description" content="Van concept tot conversie. Websites die niet alleen mooi zijn, maar werken. The Bair Co., creatief bureau in Glabbeek.">
+  <title>Web Design — The Bair Co. | Webdesign Bureau Vlaams-Brabant</title>
+  <meta name="description" content="Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design in Figma. Geen templates — alles op maat. Glabbeek, België.">
   <meta property="og:title" content="Web Design — The Bair Co.">
-  <meta property="og:description" content="Websites die niet alleen mooi zijn, maar werken. Van concept tot conversie.">
+  <meta property="og:description" content="Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design. Geen templates — alles op maat.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.baircompany.be/diensten/webdesign.html">
   <meta name="twitter:card" content="summary_large_image">
@@ -34,15 +34,8 @@
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--white);
@@ -57,42 +50,17 @@
     body::after {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.015' /%3E%3C/svg%3E");
       z-index: -1;
     }
 
-    h1, h2, h3 {
-      font-family: var(--font-display);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 0.5em;
-    }
-
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      letter-spacing: -0.02em;
-    }
-
-    h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      letter-spacing: -0.01em;
-    }
-
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    p {
-      margin-bottom: 1em;
-      font-size: 1rem;
-      font-weight: 400;
-    }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; margin-bottom: 0.5em; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; font-weight: 700; }
+    p { margin-bottom: 1em; font-size: 1rem; font-weight: 400; }
 
     .serif {
       font-family: var(--font-serif);
@@ -104,765 +72,267 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 2rem;
+      padding: 2rem;
       position: relative;
       z-index: 100;
       background: var(--white);
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-      color: var(--black);
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; color: var(--black);
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
     }
+    .brand-logo { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
 
-    .brand-logo {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-
-    nav {
-      display: flex;
-      gap: 0.3rem;
-      align-items: center;
-    }
+    nav { display: flex; gap: 0.3rem; align-items: center; }
 
     .nav-pill {
-      padding: 0.45rem 1rem;
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 400;
+      padding: 0.45rem 1rem; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 400;
       transition: background 0.3s, color 0.3s;
-      letter-spacing: 0.01em;
-      color: var(--black);
-      text-decoration: none;
+      letter-spacing: 0.01em; color: var(--black); text-decoration: none;
     }
+    .nav-pill:hover { background: var(--black); color: var(--white); }
 
-    .nav-pill:hover {
-      background: var(--black);
-      color: var(--white);
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      margin-left: 0.5rem;
-    }
-
+    .social-icons { display: flex; gap: 0.5rem; align-items: center; margin-left: 0.5rem; }
     .social-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+      width: 32px; height: 32px; border-radius: 50%;
       border: 1px solid rgba(10, 10, 10, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       transition: all 0.3s var(--ease);
     }
+    .social-icon:hover { border-color: rgba(10, 10, 10, 0.4); background: rgba(10, 10, 10, 0.06); transform: translateY(-2px); }
+    .social-icon svg { width: 14px; height: 14px; fill: var(--black); transition: fill 0.3s; }
 
-    .social-icon:hover {
-      border-color: rgba(10, 10, 10, 0.4);
-      background: rgba(10, 10, 10, 0.06);
-      transform: translateY(-2px);
-    }
-
-    .social-icon svg {
-      width: 14px;
-      height: 14px;
-      fill: var(--black);
-      transition: fill 0.3s;
-    }
-
-    .mob-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .mob-toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--black);
-      transition: all 0.3s var(--ease);
-    }
+    .mob-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .mob-toggle span { width: 24px; height: 2px; background: var(--black); transition: all 0.3s var(--ease); }
 
     .mob-nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--white);
-      flex-direction: column;
-      padding: 1rem;
-      gap: 0.5rem;
-      z-index: 99;
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--white); flex-direction: column; padding: 1rem; gap: 0.5rem; z-index: 99;
     }
-
-    .mob-nav a {
-      padding: 0.75rem 1rem;
-      text-decoration: none;
-      color: var(--black);
-      border-radius: 8px;
-      transition: all 0.3s var(--ease);
-    }
-
-    .mob-nav a:hover {
-      background: rgba(10, 10, 10, 0.08);
-    }
+    .mob-nav a { padding: 0.75rem 1rem; text-decoration: none; color: var(--black); border-radius: 8px; transition: all 0.3s var(--ease); }
+    .mob-nav a:hover { background: rgba(10, 10, 10, 0.08); }
 
     @media (max-width: 768px) {
-      .mob-toggle {
-        display: flex;
-      }
-
-      nav {
-        display: none;
-      }
-
-      .mob-nav.active {
-        display: flex;
-      }
+      .mob-toggle { display: flex; }
+      nav { display: none; }
+      .mob-nav.active { display: flex; }
     }
 
     .dienst-hero {
-      width: 100%;
-      height: 600px;
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1571101628768-a7c59d9cf486?w=1400&h=700&fit=crop&auto=format&q=80');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: var(--white);
-      position: relative;
+      width: 100%; height: 600px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=1400&h=700&fit=crop&auto=format&q=80');
+      background-size: cover; background-position: center;
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: flex-start; padding: 0 4rem;
+      color: var(--white); position: relative;
     }
 
     .hero-label {
-      display: inline-block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--accent);
-      color: var(--black);
-      border-radius: 99px;
+      display: inline-block; font-size: 0.85rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem; background: var(--accent); color: var(--black); border-radius: 99px;
     }
-
-    .hero-content h1 {
-      color: var(--white);
-      margin-bottom: 1rem;
-      max-width: 900px;
-    }
-
-    .hero-subtitle {
-      font-size: 1.15rem;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 600px;
-      margin: 0 auto;
-      font-weight: 300;
-    }
+    .hero-content h1 { color: var(--white); margin-bottom: 1rem; max-width: 900px; }
+    .hero-subtitle { font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); max-width: 600px; font-weight: 300; }
 
     @media (max-width: 768px) {
-      .dienst-hero {
-        height: 450px;
-      }
-
-      .hero-content h1 {
-        font-size: 2rem;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem;
-      }
+      .dienst-hero { height: 450px; padding: 0 1.5rem; }
+      .hero-content h1 { font-size: 2rem; }
+      .hero-subtitle { font-size: 1rem; }
     }
 
     .dienst-intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      align-items: start;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; align-items: start;
     }
-
-    .intro-left h2 {
-      color: var(--black);
-      margin-bottom: 2rem;
-    }
-
-    .intro-left h2::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      margin-top: 1rem;
-    }
-
-    .intro-right p {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: var(--grey);
-    }
-
-    .intro-right p:first-of-type {
-      font-weight: 500;
-      color: var(--black);
-    }
+    .intro-left h2 { color: var(--black); margin-bottom: 2rem; }
+    .intro-left h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin-top: 1rem; }
+    .intro-right p { font-size: 1rem; line-height: 1.8; color: var(--grey); }
+    .intro-right p:first-of-type { font-weight: 500; color: var(--black); }
 
     @media (max-width: 768px) {
-      .dienst-intro {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 3rem 1.5rem;
-      }
-
-      .intro-left h2 {
-        margin-bottom: 1.5rem;
-      }
+      .dienst-intro { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+      .intro-left h2 { margin-bottom: 1.5rem; }
     }
 
     .dienst-section-title {
-      font-size: 2rem;
-      font-family: var(--font-display);
-      font-weight: 800;
-      margin: 4rem 0 3rem;
-      text-align: center;
-      color: var(--black);
+      font-size: 2rem; font-family: var(--font-display); font-weight: 800;
+      margin: 4rem 0 3rem; text-align: center; color: var(--black);
     }
 
     .dienst-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      padding: 0 2rem;
-      max-width: 1200px;
-      margin: 0 auto 6rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      padding: 0 2rem; max-width: 1200px; margin: 0 auto 6rem;
     }
-
     .dienst-card {
-      padding: 2rem;
-      border-radius: 12px;
+      padding: 2rem; border-radius: 12px;
       background: rgba(236, 72, 153, 0.08);
       border: 1px solid rgba(236, 72, 153, 0.2);
-      transition: all 0.3s var(--ease);
-      position: relative;
+      transition: all 0.3s var(--ease); position: relative;
     }
-
     .dienst-card:hover {
       transform: translateY(-8px);
       background: rgba(236, 72, 153, 0.12);
       border-color: rgba(236, 72, 153, 0.4);
     }
-
     .dienst-card-icon {
-      width: 60px;
-      height: 60px;
-      background: var(--accent);
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
+      width: 60px; height: 60px; background: var(--accent); border-radius: 8px;
+      margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center;
     }
+    .dienst-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--black); }
+    .dienst-card p { font-size: 0.95rem; color: var(--grey); line-height: 1.6; }
 
-    .dienst-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: var(--black);
-    }
-
-    .dienst-card p {
-      font-size: 0.95rem;
-      color: var(--grey);
-      line-height: 1.6;
-    }
-
-    @media (max-width: 1024px) {
-      .dienst-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
+    @media (max-width: 1024px) { .dienst-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 768px) {
-      .dienst-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0 1.5rem;
-      }
-
-      .dienst-section-title {
-        font-size: 1.5rem;
-      }
+      .dienst-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 1.5rem; }
+      .dienst-section-title { font-size: 1.5rem; }
     }
 
-    .dienst-proces {
-      background: rgba(236, 72, 153, 0.04);
-      padding: 6rem 2rem;
-      margin-bottom: 6rem;
-    }
+    .dienst-proces { background: rgba(236, 72, 153, 0.04); padding: 6rem 2rem; margin-bottom: 6rem; }
+    .proces-container { max-width: 1200px; margin: 0 auto; }
+    .proces-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
 
-    .proces-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .proces-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-
-    .proces-step {
-      text-align: center;
-      position: relative;
-    }
-
+    .proces-step { text-align: center; position: relative; }
     .proces-step::after {
-      content: '';
-      position: absolute;
-      top: 60px;
-      left: 50%;
-      width: 100%;
-      height: 2px;
+      content: ''; position: absolute; top: 130px; left: 50%; width: 100%; height: 2px;
       background: var(--accent);
     }
-
-    .proces-step:last-child::after {
-      display: none;
-    }
+    .proces-step:last-child::after { display: none; }
 
     .proces-shape {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      width: 120px; height: 120px; margin: 0 auto 1.5rem;
+      display: flex; align-items: center; justify-content: center; position: relative;
     }
-
     .shape-circle {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
+      width: 100px; height: 100px; border-radius: 50%; background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--black); font-weight: 800;
     }
-
     .shape-square {
-      width: 100px;
-      height: 100px;
-      border-radius: 12px;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
+      width: 100px; height: 100px; border-radius: 12px; background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--black); font-weight: 800;
     }
-
     .shape-triangle {
-      width: 100px;
-      height: 100px;
-      background: var(--accent);
+      width: 100px; height: 100px; background: var(--accent);
       clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 20px;
+      display: flex; align-items: center; justify-content: center; padding-top: 20px;
     }
-
-    .shape-triangle span {
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
-    }
-
+    .shape-triangle span { font-size: 1.5rem; color: var(--black); font-weight: 800; }
     .shape-diamond {
-      width: 100px;
-      height: 100px;
-      background: var(--accent);
+      width: 100px; height: 100px; background: var(--accent);
       clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
+    .shape-diamond span { font-size: 1.5rem; color: var(--black); font-weight: 800; }
 
-    .shape-diamond span {
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
-    }
-
-    .proces-step h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      color: var(--black);
-    }
-
-    .proces-step p {
-      font-size: 0.9rem;
-      color: var(--grey);
-    }
+    .proces-step h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--black); }
+    .proces-step p { font-size: 0.9rem; color: var(--grey); }
 
     @media (max-width: 1024px) {
-      .proces-steps {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
-      }
-
-      .proces-step::after {
-        display: none;
-      }
+      .proces-steps { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+      .proces-step::after { display: none; }
     }
-
     @media (max-width: 768px) {
-      .proces-steps {
-        grid-template-columns: 1fr;
-      }
-
-      .dienst-proces {
-        padding: 3rem 1.5rem;
-        margin-bottom: 3rem;
-      }
+      .proces-steps { grid-template-columns: 1fr; }
+      .dienst-proces { padding: 3rem 1.5rem; margin-bottom: 3rem; }
     }
 
-    .dienst-faq {
-      max-width: 800px;
-      margin: 0 auto 6rem;
-      padding: 0 2rem;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid rgba(10, 10, 10, 0.1);
-      padding: 1.5rem 0;
-    }
-
+    .dienst-faq { max-width: 800px; margin: 0 auto 6rem; padding: 0 2rem; }
+    .faq-item { border-bottom: 1px solid rgba(10, 10, 10, 0.1); padding: 1.5rem 0; }
     .faq-question {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--black);
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; user-select: none; font-size: 1rem; font-weight: 600; color: var(--black);
     }
-
     .faq-toggle {
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--accent);
-      transition: transform 0.3s var(--ease);
-      flex-shrink: 0;
+      width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--accent); transition: transform 0.3s var(--ease); flex-shrink: 0;
     }
-
-    .faq-item.active .faq-toggle {
-      transform: rotate(45deg);
-    }
-
+    .faq-item.active .faq-toggle { transform: rotate(45deg); }
     .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s var(--ease);
-      padding-right: 2rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--grey);
+      max-height: 0; overflow: hidden; transition: max-height 0.3s var(--ease);
+      padding-right: 2rem; font-size: 0.95rem; line-height: 1.6; color: var(--grey);
     }
-
-    .faq-item.active .faq-answer {
-      max-height: 500px;
-      padding-top: 1rem;
-    }
+    .faq-item.active .faq-answer { max-height: 500px; padding-top: 1rem; }
 
     @media (max-width: 768px) {
-      .dienst-faq {
-        padding: 0 1.5rem;
-      }
-
-      .faq-answer {
-        padding-right: 1rem;
-      }
+      .dienst-faq { padding: 0 1.5rem; }
+      .faq-answer { padding-right: 1rem; }
     }
 
     .dienst-cta {
-      background: var(--black);
-      color: var(--white);
-      padding: 6rem 2rem;
-      text-align: center;
-      margin-bottom: 0;
+      background: var(--black); color: var(--white);
+      padding: 6rem 2rem; text-align: center; margin-bottom: 0;
     }
-
-    .cta-heading {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      font-family: var(--font-display);
-      font-weight: 800;
-    }
-
+    .cta-heading { font-size: 2.5rem; margin-bottom: 1.5rem; font-family: var(--font-display); font-weight: 800; }
     .cta-subtitle {
-      font-size: 1.05rem;
-      margin-bottom: 2rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 300;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: 1.05rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.8);
+      font-weight: 300; max-width: 600px; margin-left: auto; margin-right: auto;
     }
-
     .cta-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 2rem;
-      background: var(--accent);
-      color: var(--black);
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s var(--ease);
-      border: none;
-      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem;
+      background: var(--accent); color: var(--black); text-decoration: none;
+      border-radius: 8px; font-weight: 600; font-size: 1rem;
+      transition: all 0.3s var(--ease); border: none; cursor: pointer;
     }
-
-    .cta-button:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
-    }
+    .cta-button:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3); }
 
     @media (max-width: 768px) {
-      .dienst-cta {
-        padding: 3rem 1.5rem;
-      }
-
-      .cta-heading {
-        font-size: 1.8rem;
-      }
+      .dienst-cta { padding: 3rem 1.5rem; }
+      .cta-heading { font-size: 1.8rem; }
     }
 
     footer {
-      background: var(--black);
-      color: var(--white);
-      padding: 4rem 2.5rem 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--black); color: var(--white);
+      padding: 4rem 2.5rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
-
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .footer-desc {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: var(--grey);
-      margin-bottom: 1.5rem;
-      max-width: 300px;
-    }
-
-    .footer-col h4 {
-      font-family: var(--font-display);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 1.25rem;
-    }
-
-    .footer-col a {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--grey);
-      margin-bottom: 0.75rem;
-      transition: color 0.3s;
-      text-decoration: none;
-    }
-
-    .footer-col a:hover {
-      color: var(--white);
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.25);
-    }
-
-    .footer-legal {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .footer-bottom a {
-      color: rgba(255, 255, 255, 0.25);
-      transition: color 0.3s;
-      text-decoration: none;
-    }
-
-    .footer-bottom a:hover {
-      color: var(--grey);
-    }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-desc { font-size: 0.85rem; line-height: 1.7; color: var(--grey); margin-bottom: 1.5rem; max-width: 300px; }
+    .footer-col h4 { font-family: var(--font-display); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); margin-bottom: 1.25rem; }
+    .footer-col a { display: block; font-size: 0.85rem; color: var(--grey); margin-bottom: 0.75rem; transition: color 0.3s; text-decoration: none; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 0.7rem; color: rgba(255, 255, 255, 0.25); }
+    .footer-legal { display: flex; gap: 2rem; }
+    .footer-bottom a { color: rgba(255, 255, 255, 0.25); transition: color 0.3s; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--grey); }
 
     @media (max-width: 768px) {
-      .footer-top {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      footer {
-        padding: 3rem 1.5rem 1.5rem;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-      }
-
-      .footer-legal {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 3rem 1.5rem 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; }
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .reveal.visible {
-      animation: revealIn 0.7s var(--ease) forwards;
-    }
-
+    .reveal { opacity: 0; transform: translateY(30px); }
+    .reveal.visible { animation: revealIn 0.7s var(--ease) forwards; }
     @keyframes revealIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--black);
-      color: var(--white);
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
-      z-index: 999;
-      opacity: 0;
-      transform: translateY(100%);
-      transition: all 0.3s var(--ease);
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--black); color: var(--white); padding: 1.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 2rem;
+      z-index: 999; opacity: 0; transform: translateY(100%); transition: all 0.3s var(--ease);
     }
-
-    .cookie-banner.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .cookie-text {
-      flex: 1;
-      font-size: 0.9rem;
-    }
-
-    .cookie-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-shrink: 0;
-    }
-
-    .cookie-btn {
-      padding: 0.5rem 1.5rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s var(--ease);
-    }
-
-    .cookie-btn.accept {
-      background: var(--accent);
-      color: var(--black);
-    }
-
-    .cookie-btn.decline {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--white);
-    }
-
-    .cookie-btn:hover {
-      transform: translateY(-2px);
-    }
+    .cookie-banner.show { opacity: 1; transform: translateY(0); }
+    .cookie-text { flex: 1; font-size: 0.9rem; }
+    .cookie-buttons { display: flex; gap: 1rem; flex-shrink: 0; }
+    .cookie-btn { padding: 0.5rem 1.5rem; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s var(--ease); }
+    .cookie-btn.accept { background: var(--accent); color: var(--black); }
+    .cookie-btn.decline { background: rgba(255, 255, 255, 0.1); color: var(--white); }
+    .cookie-btn:hover { transform: translateY(-2px); }
 
     @media (max-width: 768px) {
-      .cookie-banner {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .cookie-buttons {
-        width: 100%;
-      }
-
-      .cookie-btn {
-        flex: 1;
-      }
+      .cookie-banner { flex-direction: column; gap: 1rem; }
+      .cookie-buttons { width: 100%; }
+      .cookie-btn { flex: 1; }
     }
   </style>
 </head>
@@ -895,18 +365,18 @@
   <section class="dienst-hero">
     <div class="hero-content">
       <div class="hero-label">Web Design</div>
-      <h1>Geen template. Een <span class="serif">ervaring</span>.</h1>
-      <p class="hero-subtitle">Websites die niet alleen mooi zijn, maar converteren. Van eerste schets tot laatste pixel.</p>
+      <h1>Mooi is niet <span class="serif">genoeg</span>.</h1>
+      <p class="hero-subtitle">Geen standaardoplossingen, geen compromissen. Elke pixel heeft een reden.</p>
     </div>
   </section>
 
   <section class="dienst-intro">
     <div class="intro-left">
-      <h2>Design met een doel</h2>
+      <h2>Design met intentie</h2>
     </div>
     <div class="intro-right">
-      <p>Een website is geen digitaal visitekaartje — het is je hardste werker. Wij ontwerpen sites die er niet alleen uitzien als iets bijzonders, maar ook presteren als een machine. Elk element heeft een reden, elke keuze een doel.</p>
-      <p>Of het nu gaat om een volledig nieuwe site of een redesign: we beginnen bij jouw gebruiker. Want mooi is leuk, maar mooi én effectief is beter.</p>
+      <p>We starten niet met templates. We starten met jou, je doelgroep, en wat je wilt bereiken. Elk design-keuze is strategisch — van typografie tot microinteracties.</p>
+      <p>We werken in Figma, research-gedreven en mobile-first. Het resultaat: websites die niet alleen mooi zijn, maar ook converteren. Responsive op elke schermgrootte, snel, en gebouwd om waarde te creëren.</p>
     </div>
   </section>
 
@@ -914,34 +384,34 @@
     <h2 class="dienst-section-title">Wat we doen</h2>
     <div class="dienst-grid">
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
-        <h3>UI/UX Design</h3>
-        <p>Interfaces die intuïtief voelen. We ontwerpen voor mensen, niet voor awards — al winnen we die soms ook.</p>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+        <h3>UX Research</h3>
+        <p>We begrijpen wie je bezoekers zijn en wat ze nodig hebben. Onderzoek vormt de basis van elk goed design.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></div>
+        <h3>Wireframing</h3>
+        <p>Voor we gaan designen schetsen we de structuur. Logica eerst, visueel daarna — in die volgorde.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="8" fill="#fff" r="1.5"></circle><circle cx="8" cy="12" fill="#fff" r="1.5"></circle><circle cx="16" cy="12" fill="#fff" r="1.5"></circle><circle cx="12" cy="16" fill="#fff" r="1.5"></circle></svg></div>
+        <h3>Visueel design</h3>
+        <p>In Figma creëren we pixel-perfect ontwerpen die jouw merk uitstralen. Elke detail telt.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg></div>
         <h3>Responsive design</h3>
-        <p>Pixel-perfect op elk scherm. Telefoon, tablet, desktop — overal dezelfde kwaliteit.</p>
+        <p>Mobile-first. Desktop, tablet, mobiel — alles ziet er goed uit. Dat is niet optioneel, dat is standaard.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M4 7h3a1 1 0 0 0 0-2 1 1 0 0 1 0-2h2v5h5V3h2a1 1 0 0 1 0 2 1 1 0 0 0 0 2h3v5h-5a1 1 0 0 0 0 2 1 1 0 0 1 0 2H9v-5H4V7z"></path></svg></div>
         <h3>Prototyping</h3>
-        <p>Van wireframe tot klikbaar prototype. Zo zie je je site al leven voordat er één regel code is geschreven.</p>
+        <p>We maken het levendig. Interacties, animaties, microflows — alles wordt getest voor je het gaat gebruiken.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-        <h3>Redesign</h3>
-        <p>Bestaande site die niet meer werkt? We houden wat goed is en vernieuwen de rest — strategisch en visueel.</p>
-      </div>
-      <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>Conversie-optimalisatie</h3>
-        <p>Design dat aanzet tot actie. CTA's, flows en layouts die bezoekers omzetten in klanten.</p>
-      </div>
-      <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-        <h3>Meertalig design</h3>
-        <p>Sites die werken in elke taal. Layout, typografie en content — overal consistent.</p>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
+        <h3>Design systemen</h3>
+        <p>Voor grotere projecten bouwen we design systems. Consistentie, schaalbaarheid, efficiëntie.</p>
       </div>
     </div>
   </div>
@@ -954,29 +424,29 @@
           <div class="proces-shape">
             <div class="shape-circle">1</div>
           </div>
-          <h3>Ontdekken</h3>
-          <p>Doelen, doelgroep en concurrentie. We beginnen met begrijpen voordat we ontwerpen.</p>
+          <h3>Begrijpen</h3>
+          <p>We duiken diep in jouw wereld. Doelen, doelgroep, concurrentie — alles onder de loep.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-square">2</div>
           </div>
-          <h3>Structureren</h3>
-          <p>Sitemap, wireframes, user flows. De architectuur staat voordat het design begint.</p>
+          <h3>Schetsen</h3>
+          <p>Wireframes en flows. We tonen de structuur, niet het glitter. Feedback nu, aanpassingen daarna.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-triangle"><span>3</span></div>
           </div>
           <h3>Ontwerpen</h3>
-          <p>Visueel concept, UI-design, interactie. Meerdere richtingen, samen kiezen.</p>
+          <p>De visuele kant. In Figma, met prototypes, ready voor développement.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-diamond"><span>4</span></div>
           </div>
-          <h3>Opleveren</h3>
-          <p>Design-to-dev handoff met specs, assets en documentatie. Klaar voor bouw.</p>
+          <h3>Testen</h3>
+          <p>Gebruikerstesten, feedback, refinement. Tot het precies goed voelt.</p>
         </div>
       </div>
     </div>
@@ -986,54 +456,54 @@
     <h2 class="dienst-section-title">Veelgestelde vragen</h2>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Wat kost een website laten ontwerpen?</span>
+        <span>Wat kost webdesign?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Dat hangt volledig af van de scope. Een landingspagina is anders dan een platform met 50 pagina's. We bespreken altijd eerst je wensen en budget.
+        Afhankelijk van de complexiteit en het aantal pagina's. We maken altijd een offerte op maat na een intake — zo weet je vooraf precies wat je krijgt.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Hoe lang duurt een webdesign traject?</span>
+        <span>Hoe lang duurt het designproces?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Gemiddeld 4 tot 8 weken, afhankelijk van de complexiteit. We plannen realistisch en communiceren helder over deadlines.
+        Hangt af van het aantal pagina's en hoe snel jij feedback geeft. We plannen het samen in het intakegesprek.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Bouwen jullie de site ook?</span>
+        <span>Werken jullie met templates?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Ja, we bieden ook webontwikkeling aan. Maar als je een eigen developer hebt, leveren we een volledig design-pakket af met alle specs.
+        We werken met bewezen frameworks als startpunt, maar elk ontwerp wordt volledig aangepast aan jouw merk, doelgroep en doelen. Geen copy-paste — wel een slimme basis die we omvormen tot iets unieks.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Wat als ik al een site heb?</span>
+        <span>Wat is het verschil tussen webdesign en webontwikkeling?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Dan bekijken we samen wat werkt en wat niet. Soms is een redesign beter dan opnieuw beginnen — soms niet. We adviseren eerlijk.
+        Design is hoe het eruitziet en aanvoelt. Development is hoe het gebouwd wordt. Wij doen beide, onder één dak.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Werken jullie met WordPress?</span>
+        <span>Kan ik mijn bestaande site laten herontwerpen?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        We werken platformonafhankelijk. WordPress, headless CMS, custom — we kiezen de technologie die past bij jouw project en budget.
+        Absoluut. We analyseren wat werkt, wat niet, en ontwerpen een upgrade die wel converteert.
       </div>
     </div>
   </section>
 
   <section class="dienst-cta">
-    <h2 class="cta-heading">Klaar voor een site die <span class="serif">werkt</span>?</h2>
-    <p class="cta-subtitle">Geen template. Geen compromis. Een website die doet wat jij nodig hebt.</p>
+    <h2 class="cta-heading">Klaar voor een site die <span class="serif">indruk</span> maakt?</h2>
+    <p class="cta-subtitle">Laten we het samen doen. Met strategie en design als fundament.</p>
     <a href="../index.html#contact" class="cta-button">Neem contact op</a>
   </section>
 
@@ -1084,9 +554,7 @@
   </footer>
 
   <div class="cookie-banner" id="cookieBanner">
-    <div class="cookie-text">
-      We gebruiken cookies om je ervaring te verbeteren. Alleen essentiële cookies voor functionaliteit.
-    </div>
+    <div class="cookie-text">We gebruiken cookies om je ervaring te verbeteren. Alleen essentiële cookies voor functionaliteit.</div>
     <div class="cookie-buttons">
       <button class="cookie-btn decline" onclick="declineCookies()">Nee</button>
       <button class="cookie-btn accept" onclick="acceptCookies()">Akkoord</button>
@@ -1096,49 +564,21 @@
   <script>
     const mobToggle = document.getElementById('mobToggle');
     const mobNav = document.getElementById('mobNav');
-
-    mobToggle.addEventListener('click', () => {
-      mobNav.classList.toggle('active');
-    });
-
-    function closeMob() {
-      mobNav.classList.remove('active');
-    }
-
-    function toggleFaq(element) {
-      const item = element.parentElement;
-      item.classList.toggle('active');
-    }
+    mobToggle.addEventListener('click', () => { mobNav.classList.toggle('active'); });
+    function closeMob() { mobNav.classList.remove('active'); }
+    function toggleFaq(element) { element.parentElement.classList.toggle('active'); }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
       });
     }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.reveal').forEach(el => { observer.observe(el); });
 
     const cookieBanner = document.getElementById('cookieBanner');
-
-    if (!localStorage.getItem('cookies-accepted')) {
-      setTimeout(() => {
-        cookieBanner.classList.add('show');
-      }, 1000);
-    }
-
-    function acceptCookies() {
-      localStorage.setItem('cookies-accepted', 'true');
-      cookieBanner.classList.remove('show');
-    }
-
-    function declineCookies() {
-      cookieBanner.classList.remove('show');
-    }
+    if (!localStorage.getItem('cookies-accepted')) { setTimeout(() => { cookieBanner.classList.add('show'); }, 1000); }
+    function acceptCookies() { localStorage.setItem('cookies-accepted', 'true'); cookieBanner.classList.remove('show'); }
+    function declineCookies() { cookieBanner.classList.remove('show'); }
   </script>
 
   <script type="application/ld+json">
@@ -1146,15 +586,14 @@
     "@context": "https://schema.org/",
     "@type": "Service",
     "name": "Web Design",
-    "description": "Van concept tot conversie. Websites die niet alleen mooi zijn, maar werken.",
+    "description": "Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design in Figma. Geen templates — alles op maat. Glabbeek, België.",
     "provider": {
       "@type": "Organization",
       "name": "The Bair Co.",
       "url": "https://www.baircompany.be",
       "logo": "https://www.baircompany.be/logo-white.png"
     },
-    "areaServed": "BE",
-    "serviceType": "Web Design, UI/UX Design, Responsive Design"
+    "areaServed": "BE"
   }
   </script>
 
@@ -1165,42 +604,42 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Wat kost een website laten ontwerpen?",
+        "name": "Wat kost webdesign?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Dat hangt volledig af van de scope. Een landingspagina is anders dan een platform met 50 pagina's. We bespreken altijd eerst je wensen en budget."
+          "text": "Afhankelijk van de complexiteit en het aantal pagina's. We maken altijd een offerte op maat na een intake — zo weet je vooraf precies wat je krijgt."
         }
       },
       {
         "@type": "Question",
-        "name": "Hoe lang duurt een webdesign traject?",
+        "name": "Hoe lang duurt het designproces?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Gemiddeld 4 tot 8 weken, afhankelijk van de complexiteit. We plannen realistisch en communiceren helder over deadlines."
+          "text": "Hangt af van het aantal pagina's en hoe snel jij feedback geeft. We plannen het samen in het intakegesprek."
         }
       },
       {
         "@type": "Question",
-        "name": "Bouwen jullie de site ook?",
+        "name": "Werken jullie met templates?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, we bieden ook webontwikkeling aan. Maar als je een eigen developer hebt, leveren we een volledig design-pakket af met alle specs."
+          "text": "We werken met bewezen frameworks als startpunt, maar elk ontwerp wordt volledig aangepast aan jouw merk, doelgroep en doelen. Geen copy-paste — wel een slimme basis die we omvormen tot iets unieks."
         }
       },
       {
         "@type": "Question",
-        "name": "Wat als ik al een site heb?",
+        "name": "Wat is het verschil tussen webdesign en webontwikkeling?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Dan bekijken we samen wat werkt en wat niet. Soms is een redesign beter dan opnieuw beginnen — soms niet. We adviseren eerlijk."
+          "text": "Design is hoe het eruitziet en aanvoelt. Development is hoe het gebouwd wordt. Wij doen beide, onder één dak."
         }
       },
       {
         "@type": "Question",
-        "name": "Werken jullie met WordPress?",
+        "name": "Kan ik mijn bestaande site laten herontwerpen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We werken platformonafhankelijk. WordPress, headless CMS, custom — we kiezen de technologie die past bij jouw project en budget."
+          "text": "Absoluut. We analyseren wat werkt, wat niet, en ontwerpen een upgrade die wel converteert."
         }
       }
     ]

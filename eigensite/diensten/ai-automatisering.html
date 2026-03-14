@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI & Automatisering — The Bair Co. | Creatief Bureau Glabbeek</title>
-  <meta name="description" content="AI-integraties en automatisering die je workflow transformeren. Van ChatGPT tot custom oplossingen. The Bair Co., Glabbeek.">
+  <title>AI & Automatisering — The Bair Co. | AI voor Bedrijven België</title>
+  <meta name="description" content="Slimme workflows, ChatGPT-integraties en automatisering met Make en Zapier. AI praktisch en toegankelijk voor jouw bedrijf.">
   <meta property="og:title" content="AI & Automatisering — The Bair Co.">
-  <meta property="og:description" content="AI-integraties en automatisering die je workflow transformeren.">
+  <meta property="og:description" content="Slimme workflows, ChatGPT-integraties en automatisering met Make en Zapier. AI praktisch en toegankelijk voor jouw bedrijf.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.baircompany.be/diensten/ai-automatisering.html">
   <meta name="twitter:card" content="summary_large_image">
@@ -34,15 +34,8 @@
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--white);
@@ -57,42 +50,17 @@
     body::after {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.015' /%3E%3C/svg%3E");
       z-index: -1;
     }
 
-    h1, h2, h3 {
-      font-family: var(--font-display);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 0.5em;
-    }
-
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      letter-spacing: -0.02em;
-    }
-
-    h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      letter-spacing: -0.01em;
-    }
-
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    p {
-      margin-bottom: 1em;
-      font-size: 1rem;
-      font-weight: 400;
-    }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; margin-bottom: 0.5em; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; font-weight: 700; }
+    p { margin-bottom: 1em; font-size: 1rem; font-weight: 400; }
 
     .serif {
       font-family: var(--font-serif);
@@ -104,765 +72,267 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 2rem;
+      padding: 2rem;
       position: relative;
       z-index: 100;
       background: var(--white);
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-      color: var(--black);
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; color: var(--black);
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
     }
+    .brand-logo { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
 
-    .brand-logo {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-
-    nav {
-      display: flex;
-      gap: 0.3rem;
-      align-items: center;
-    }
+    nav { display: flex; gap: 0.3rem; align-items: center; }
 
     .nav-pill {
-      padding: 0.45rem 1rem;
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 400;
+      padding: 0.45rem 1rem; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 400;
       transition: background 0.3s, color 0.3s;
-      letter-spacing: 0.01em;
-      color: var(--black);
-      text-decoration: none;
+      letter-spacing: 0.01em; color: var(--black); text-decoration: none;
     }
+    .nav-pill:hover { background: var(--black); color: var(--white); }
 
-    .nav-pill:hover {
-      background: var(--black);
-      color: var(--white);
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      margin-left: 0.5rem;
-    }
-
+    .social-icons { display: flex; gap: 0.5rem; align-items: center; margin-left: 0.5rem; }
     .social-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+      width: 32px; height: 32px; border-radius: 50%;
       border: 1px solid rgba(10, 10, 10, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       transition: all 0.3s var(--ease);
     }
+    .social-icon:hover { border-color: rgba(10, 10, 10, 0.4); background: rgba(10, 10, 10, 0.06); transform: translateY(-2px); }
+    .social-icon svg { width: 14px; height: 14px; fill: var(--black); transition: fill 0.3s; }
 
-    .social-icon:hover {
-      border-color: rgba(10, 10, 10, 0.4);
-      background: rgba(10, 10, 10, 0.06);
-      transform: translateY(-2px);
-    }
-
-    .social-icon svg {
-      width: 14px;
-      height: 14px;
-      fill: var(--black);
-      transition: fill 0.3s;
-    }
-
-    .mob-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .mob-toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--black);
-      transition: all 0.3s var(--ease);
-    }
+    .mob-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .mob-toggle span { width: 24px; height: 2px; background: var(--black); transition: all 0.3s var(--ease); }
 
     .mob-nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--white);
-      flex-direction: column;
-      padding: 1rem;
-      gap: 0.5rem;
-      z-index: 99;
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--white); flex-direction: column; padding: 1rem; gap: 0.5rem; z-index: 99;
     }
-
-    .mob-nav a {
-      padding: 0.75rem 1rem;
-      text-decoration: none;
-      color: var(--black);
-      border-radius: 8px;
-      transition: all 0.3s var(--ease);
-    }
-
-    .mob-nav a:hover {
-      background: rgba(10, 10, 10, 0.08);
-    }
+    .mob-nav a { padding: 0.75rem 1rem; text-decoration: none; color: var(--black); border-radius: 8px; transition: all 0.3s var(--ease); }
+    .mob-nav a:hover { background: rgba(10, 10, 10, 0.08); }
 
     @media (max-width: 768px) {
-      .mob-toggle {
-        display: flex;
-      }
-
-      nav {
-        display: none;
-      }
-
-      .mob-nav.active {
-        display: flex;
-      }
+      .mob-toggle { display: flex; }
+      nav { display: none; }
+      .mob-nav.active { display: flex; }
     }
 
     .dienst-hero {
-      width: 100%;
-      height: 600px;
+      width: 100%; height: 600px;
       background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1400&h=700&fit=crop&auto=format&q=80');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: var(--white);
-      position: relative;
+      background-size: cover; background-position: center;
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: flex-start; padding: 0 4rem;
+      color: var(--white); position: relative;
     }
 
     .hero-label {
-      display: inline-block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--accent);
-      color: var(--black);
-      border-radius: 99px;
+      display: inline-block; font-size: 0.85rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem; background: var(--accent); color: var(--black); border-radius: 99px;
     }
-
-    .hero-content h1 {
-      color: var(--white);
-      margin-bottom: 1rem;
-      max-width: 900px;
-    }
-
-    .hero-subtitle {
-      font-size: 1.15rem;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 600px;
-      margin: 0 auto;
-      font-weight: 300;
-    }
+    .hero-content h1 { color: var(--white); margin-bottom: 1rem; max-width: 900px; }
+    .hero-subtitle { font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); max-width: 600px; font-weight: 300; }
 
     @media (max-width: 768px) {
-      .dienst-hero {
-        height: 450px;
-      }
-
-      .hero-content h1 {
-        font-size: 2rem;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem;
-      }
+      .dienst-hero { height: 450px; padding: 0 1.5rem; }
+      .hero-content h1 { font-size: 2rem; }
+      .hero-subtitle { font-size: 1rem; }
     }
 
     .dienst-intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      align-items: start;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; align-items: start;
     }
-
-    .intro-left h2 {
-      color: var(--black);
-      margin-bottom: 2rem;
-    }
-
-    .intro-left h2::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      margin-top: 1rem;
-    }
-
-    .intro-right p {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: var(--grey);
-    }
-
-    .intro-right p:first-of-type {
-      font-weight: 500;
-      color: var(--black);
-    }
+    .intro-left h2 { color: var(--black); margin-bottom: 2rem; }
+    .intro-left h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin-top: 1rem; }
+    .intro-right p { font-size: 1rem; line-height: 1.8; color: var(--grey); }
+    .intro-right p:first-of-type { font-weight: 500; color: var(--black); }
 
     @media (max-width: 768px) {
-      .dienst-intro {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 3rem 1.5rem;
-      }
-
-      .intro-left h2 {
-        margin-bottom: 1.5rem;
-      }
+      .dienst-intro { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+      .intro-left h2 { margin-bottom: 1.5rem; }
     }
 
     .dienst-section-title {
-      font-size: 2rem;
-      font-family: var(--font-display);
-      font-weight: 800;
-      margin: 4rem 0 3rem;
-      text-align: center;
-      color: var(--black);
+      font-size: 2rem; font-family: var(--font-display); font-weight: 800;
+      margin: 4rem 0 3rem; text-align: center; color: var(--black);
     }
 
     .dienst-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      padding: 0 2rem;
-      max-width: 1200px;
-      margin: 0 auto 6rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      padding: 0 2rem; max-width: 1200px; margin: 0 auto 6rem;
     }
-
     .dienst-card {
-      padding: 2rem;
-      border-radius: 12px;
+      padding: 2rem; border-radius: 12px;
       background: rgba(46, 138, 255, 0.08);
       border: 1px solid rgba(46, 138, 255, 0.2);
-      transition: all 0.3s var(--ease);
-      position: relative;
+      transition: all 0.3s var(--ease); position: relative;
     }
-
     .dienst-card:hover {
       transform: translateY(-8px);
       background: rgba(46, 138, 255, 0.12);
       border-color: rgba(46, 138, 255, 0.4);
     }
-
     .dienst-card-icon {
-      width: 60px;
-      height: 60px;
-      background: var(--accent);
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
+      width: 60px; height: 60px; background: var(--accent); border-radius: 8px;
+      margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center;
     }
+    .dienst-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--black); }
+    .dienst-card p { font-size: 0.95rem; color: var(--grey); line-height: 1.6; }
 
-    .dienst-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: var(--black);
-    }
-
-    .dienst-card p {
-      font-size: 0.95rem;
-      color: var(--grey);
-      line-height: 1.6;
-    }
-
-    @media (max-width: 1024px) {
-      .dienst-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
+    @media (max-width: 1024px) { .dienst-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 768px) {
-      .dienst-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0 1.5rem;
-      }
-
-      .dienst-section-title {
-        font-size: 1.5rem;
-      }
+      .dienst-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 1.5rem; }
+      .dienst-section-title { font-size: 1.5rem; }
     }
 
-    .dienst-proces {
-      background: rgba(46, 138, 255, 0.04);
-      padding: 6rem 2rem;
-      margin-bottom: 6rem;
-    }
+    .dienst-proces { background: rgba(46, 138, 255, 0.04); padding: 6rem 2rem; margin-bottom: 6rem; }
+    .proces-container { max-width: 1200px; margin: 0 auto; }
+    .proces-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
 
-    .proces-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .proces-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-
-    .proces-step {
-      text-align: center;
-      position: relative;
-    }
-
+    .proces-step { text-align: center; position: relative; }
     .proces-step::after {
-      content: '';
-      position: absolute;
-      top: 60px;
-      left: 50%;
-      width: 100%;
-      height: 2px;
+      content: ''; position: absolute; top: 130px; left: 50%; width: 100%; height: 2px;
       background: var(--accent);
     }
-
-    .proces-step:last-child::after {
-      display: none;
-    }
+    .proces-step:last-child::after { display: none; }
 
     .proces-shape {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      width: 120px; height: 120px; margin: 0 auto 1.5rem;
+      display: flex; align-items: center; justify-content: center; position: relative;
     }
-
     .shape-circle {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
+      width: 100px; height: 100px; border-radius: 50%; background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--black); font-weight: 800;
     }
-
     .shape-square {
-      width: 100px;
-      height: 100px;
-      border-radius: 12px;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
+      width: 100px; height: 100px; border-radius: 12px; background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--black); font-weight: 800;
     }
-
     .shape-triangle {
-      width: 100px;
-      height: 100px;
-      background: var(--accent);
+      width: 100px; height: 100px; background: var(--accent);
       clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 20px;
+      display: flex; align-items: center; justify-content: center; padding-top: 20px;
     }
-
-    .shape-triangle span {
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
-    }
-
+    .shape-triangle span { font-size: 1.5rem; color: var(--black); font-weight: 800; }
     .shape-diamond {
-      width: 100px;
-      height: 100px;
-      background: var(--accent);
+      width: 100px; height: 100px; background: var(--accent);
       clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
+    .shape-diamond span { font-size: 1.5rem; color: var(--black); font-weight: 800; }
 
-    .shape-diamond span {
-      font-size: 1.5rem;
-      color: var(--black);
-      font-weight: 800;
-    }
-
-    .proces-step h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      color: var(--black);
-    }
-
-    .proces-step p {
-      font-size: 0.9rem;
-      color: var(--grey);
-    }
+    .proces-step h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--black); }
+    .proces-step p { font-size: 0.9rem; color: var(--grey); }
 
     @media (max-width: 1024px) {
-      .proces-steps {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
-      }
-
-      .proces-step::after {
-        display: none;
-      }
+      .proces-steps { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+      .proces-step::after { display: none; }
     }
-
     @media (max-width: 768px) {
-      .proces-steps {
-        grid-template-columns: 1fr;
-      }
-
-      .dienst-proces {
-        padding: 3rem 1.5rem;
-        margin-bottom: 3rem;
-      }
+      .proces-steps { grid-template-columns: 1fr; }
+      .dienst-proces { padding: 3rem 1.5rem; margin-bottom: 3rem; }
     }
 
-    .dienst-faq {
-      max-width: 800px;
-      margin: 0 auto 6rem;
-      padding: 0 2rem;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid rgba(10, 10, 10, 0.1);
-      padding: 1.5rem 0;
-    }
-
+    .dienst-faq { max-width: 800px; margin: 0 auto 6rem; padding: 0 2rem; }
+    .faq-item { border-bottom: 1px solid rgba(10, 10, 10, 0.1); padding: 1.5rem 0; }
     .faq-question {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--black);
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; user-select: none; font-size: 1rem; font-weight: 600; color: var(--black);
     }
-
     .faq-toggle {
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--accent);
-      transition: transform 0.3s var(--ease);
-      flex-shrink: 0;
+      width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--accent); transition: transform 0.3s var(--ease); flex-shrink: 0;
     }
-
-    .faq-item.active .faq-toggle {
-      transform: rotate(45deg);
-    }
-
+    .faq-item.active .faq-toggle { transform: rotate(45deg); }
     .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s var(--ease);
-      padding-right: 2rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--grey);
+      max-height: 0; overflow: hidden; transition: max-height 0.3s var(--ease);
+      padding-right: 2rem; font-size: 0.95rem; line-height: 1.6; color: var(--grey);
     }
-
-    .faq-item.active .faq-answer {
-      max-height: 500px;
-      padding-top: 1rem;
-    }
+    .faq-item.active .faq-answer { max-height: 500px; padding-top: 1rem; }
 
     @media (max-width: 768px) {
-      .dienst-faq {
-        padding: 0 1.5rem;
-      }
-
-      .faq-answer {
-        padding-right: 1rem;
-      }
+      .dienst-faq { padding: 0 1.5rem; }
+      .faq-answer { padding-right: 1rem; }
     }
 
     .dienst-cta {
-      background: var(--black);
-      color: var(--white);
-      padding: 6rem 2rem;
-      text-align: center;
-      margin-bottom: 0;
+      background: var(--black); color: var(--white);
+      padding: 6rem 2rem; text-align: center; margin-bottom: 0;
     }
-
-    .cta-heading {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      font-family: var(--font-display);
-      font-weight: 800;
-    }
-
+    .cta-heading { font-size: 2.5rem; margin-bottom: 1.5rem; font-family: var(--font-display); font-weight: 800; }
     .cta-subtitle {
-      font-size: 1.05rem;
-      margin-bottom: 2rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 300;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: 1.05rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.8);
+      font-weight: 300; max-width: 600px; margin-left: auto; margin-right: auto;
     }
-
     .cta-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 2rem;
-      background: var(--accent);
-      color: var(--black);
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s var(--ease);
-      border: none;
-      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem;
+      background: var(--accent); color: var(--black); text-decoration: none;
+      border-radius: 8px; font-weight: 600; font-size: 1rem;
+      transition: all 0.3s var(--ease); border: none; cursor: pointer;
     }
-
-    .cta-button:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(46, 138, 255, 0.3);
-    }
+    .cta-button:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(46, 138, 255, 0.3); }
 
     @media (max-width: 768px) {
-      .dienst-cta {
-        padding: 3rem 1.5rem;
-      }
-
-      .cta-heading {
-        font-size: 1.8rem;
-      }
+      .dienst-cta { padding: 3rem 1.5rem; }
+      .cta-heading { font-size: 1.8rem; }
     }
 
     footer {
-      background: var(--black);
-      color: var(--white);
-      padding: 4rem 2.5rem 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--black); color: var(--white);
+      padding: 4rem 2.5rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
-
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .footer-desc {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: var(--grey);
-      margin-bottom: 1.5rem;
-      max-width: 300px;
-    }
-
-    .footer-col h4 {
-      font-family: var(--font-display);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 1.25rem;
-    }
-
-    .footer-col a {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--grey);
-      margin-bottom: 0.75rem;
-      transition: color 0.3s;
-      text-decoration: none;
-    }
-
-    .footer-col a:hover {
-      color: var(--white);
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.25);
-    }
-
-    .footer-legal {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .footer-bottom a {
-      color: rgba(255, 255, 255, 0.25);
-      transition: color 0.3s;
-      text-decoration: none;
-    }
-
-    .footer-bottom a:hover {
-      color: var(--grey);
-    }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-desc { font-size: 0.85rem; line-height: 1.7; color: var(--grey); margin-bottom: 1.5rem; max-width: 300px; }
+    .footer-col h4 { font-family: var(--font-display); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); margin-bottom: 1.25rem; }
+    .footer-col a { display: block; font-size: 0.85rem; color: var(--grey); margin-bottom: 0.75rem; transition: color 0.3s; text-decoration: none; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 0.7rem; color: rgba(255, 255, 255, 0.25); }
+    .footer-legal { display: flex; gap: 2rem; }
+    .footer-bottom a { color: rgba(255, 255, 255, 0.25); transition: color 0.3s; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--grey); }
 
     @media (max-width: 768px) {
-      .footer-top {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      footer {
-        padding: 3rem 1.5rem 1.5rem;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-      }
-
-      .footer-legal {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 3rem 1.5rem 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; }
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .reveal.visible {
-      animation: revealIn 0.7s var(--ease) forwards;
-    }
-
+    .reveal { opacity: 0; transform: translateY(30px); }
+    .reveal.visible { animation: revealIn 0.7s var(--ease) forwards; }
     @keyframes revealIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--black);
-      color: var(--white);
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
-      z-index: 999;
-      opacity: 0;
-      transform: translateY(100%);
-      transition: all 0.3s var(--ease);
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--black); color: var(--white); padding: 1.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 2rem;
+      z-index: 999; opacity: 0; transform: translateY(100%); transition: all 0.3s var(--ease);
     }
-
-    .cookie-banner.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .cookie-text {
-      flex: 1;
-      font-size: 0.9rem;
-    }
-
-    .cookie-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-shrink: 0;
-    }
-
-    .cookie-btn {
-      padding: 0.5rem 1.5rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s var(--ease);
-    }
-
-    .cookie-btn.accept {
-      background: var(--accent);
-      color: var(--black);
-    }
-
-    .cookie-btn.decline {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--white);
-    }
-
-    .cookie-btn:hover {
-      transform: translateY(-2px);
-    }
+    .cookie-banner.show { opacity: 1; transform: translateY(0); }
+    .cookie-text { flex: 1; font-size: 0.9rem; }
+    .cookie-buttons { display: flex; gap: 1rem; flex-shrink: 0; }
+    .cookie-btn { padding: 0.5rem 1.5rem; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s var(--ease); }
+    .cookie-btn.accept { background: var(--accent); color: var(--black); }
+    .cookie-btn.decline { background: rgba(255, 255, 255, 0.1); color: var(--white); }
+    .cookie-btn:hover { transform: translateY(-2px); }
 
     @media (max-width: 768px) {
-      .cookie-banner {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .cookie-buttons {
-        width: 100%;
-      }
-
-      .cookie-btn {
-        flex: 1;
-      }
+      .cookie-banner { flex-direction: column; gap: 1rem; }
+      .cookie-buttons { width: 100%; }
+      .cookie-btn { flex: 1; }
     }
   </style>
 </head>
@@ -895,18 +365,18 @@
   <section class="dienst-hero">
     <div class="hero-content">
       <div class="hero-label">AI & Automatisering</div>
-      <h1>Geen hype. Een <span class="serif">voorsprong</span>.</h1>
-      <p class="hero-subtitle">AI-integraties en automatisering die je workflow transformeren — praktisch, meetbaar en op maat.</p>
+      <h1>Slimmer werken, niet <span class="serif">harder</span></h1>
+      <p class="hero-subtitle"></p>
     </div>
   </section>
 
   <section class="dienst-intro">
     <div class="intro-left">
-      <h2>AI die voor je werkt</h2>
+      <h2>AI die echt werkt</h2>
     </div>
     <div class="intro-right">
-      <p>AI is geen toekomst meer — het is nu. Maar de meeste bedrijven weten niet waar te beginnen. Wij wel. We helpen je de juiste AI-tools te kiezen, te integreren en te gebruiken zodat ze écht waarde toevoegen.</p>
-      <p>Van ChatGPT-integraties tot volledige workflow-automatisering: we bouwen oplossingen die tijd besparen, fouten verminderen en je team slimmer laten werken.</p>
+      <p>De meeste bedrijven weten dat AI bestaat. Maar ze weten niet waar te beginnen. ChatGPT voelt als magie tot het moment dat je ermee moet werken. Wij maken het praktisch.</p>
+      <p>ChatGPT-integraties, geautomatiseerde pipelines, slimme chatbots die eigenlijk antwoorden geven. We hebben GiGi Money van nul af aan gebouwd met AI-gestuurde content in 22 talen, live in 28 landen. Dat is niet theorie. Dat is ervaring.</p>
     </div>
   </section>
 
@@ -914,34 +384,34 @@
     <h2 class="dienst-section-title">Wat we doen</h2>
     <div class="dienst-grid">
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#2E8AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
         <h3>AI-strategie</h3>
-        <p>Waar kan AI jou het meeste opleveren? We analyseren je processen en identificeren de beste kansen.</p>
+        <p>Welke taken kosten jou het meeste tijd? Waar kan AI het meeste impact hebben? We auditen en plannen.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#2E8AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><rect height="10" rx="2" width="18" x="3" y="11"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" x2="8" y1="16" y2="16"></line><line x1="16" x2="16" y1="16" y2="16"></line></svg></div>
         <h3>ChatGPT-integraties</h3>
-        <p>Custom GPT's, API-koppelingen en AI-assistenten die passen bij jouw werkprocessen.</p>
+        <p>OpenAI API, Claude, rechtstreeks in je systeem. Automatische content, intelligente antwoorden, minder handwerk.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 9 8 12 2 12"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#2E8AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
         <h3>Workflow-automatisering</h3>
-        <p>Repetitief werk elimineren. Zapier, Make, n8n — we automatiseren wat geautomatiseerd kan worden.</p>
+        <p>Make en Zapier om repetitieve taken uit te bannen. Data flow, notificaties, integraties. Snel en gebruiksvriendelijk.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#2E8AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
         <h3>AI-chatbots</h3>
-        <p>Slimme chatbots die je klanten helpen, 24/7. Getraind op jouw data en tone of voice.</p>
+        <p>24/7 klantenservice. Emails beantwoorden, vragen afleiden, leads kwalificeren. Met of zonder menselijke escalatie.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#2E8AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
         <h3>Content-pipelines</h3>
-        <p>AI-gestuurde contentproductie. Van research tot publicatie — sneller en consistenter.</p>
+        <p>AI die jouw blog vult, social media posts schrijft, mailings genereert. Consistent, op brand, schaalbaar.</p>
       </div>
       <div class="dienst-card reveal">
-        <div class="dienst-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="dienst-card-icon"><svg fill="none" height="24" stroke="#2E8AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
         <h3>Team training</h3>
-        <p>Je team leren werken met AI-tools. Workshops op maat, van beginner tot gevorderd.</p>
+        <p>Je team laat weten hoe ze zelf met AI kunnen werken. Het moet geen black box zijn.</p>
       </div>
     </div>
   </div>
@@ -955,28 +425,28 @@
             <div class="shape-circle">1</div>
           </div>
           <h3>Audit</h3>
-          <p>Je huidige processen analyseren en AI-kansen identificeren.</p>
+          <p>We mappen je huidige workflows. Waar kosten minuten, waar kosten uren? Wat kan AI besparen?</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-square">2</div>
           </div>
           <h3>Plan</h3>
-          <p>Prioriteiten stellen, tools kiezen en een implementatieplan maken.</p>
+          <p>Prioriteiten bepalen. Quick wins eerst. Dan de complexere automatisering. Roadmap opstellen.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-triangle"><span>3</span></div>
           </div>
           <h3>Bouwen</h3>
-          <p>Integraties opzetten, workflows automatiseren, tools configureren.</p>
+          <p>We configureren de tools. API's, webhooks, prompts. Alles klaar voor live. Geen fancy, wel werkend.</p>
         </div>
         <div class="proces-step reveal">
           <div class="proces-shape">
             <div class="shape-diamond"><span>4</span></div>
           </div>
           <h3>Trainen</h3>
-          <p>Je team opleiden en zorgen dat alles duurzaam werkt.</p>
+          <p>Je team laat zien hoe het werkt. Ze voelen zich eigenaar. Ze kunnen zelf aanpassingen doen later.</p>
         </div>
       </div>
     </div>
@@ -986,54 +456,54 @@
     <h2 class="dienst-section-title">Veelgestelde vragen</h2>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Moet ik technisch zijn om AI te gebruiken?</span>
+        <span>Wat kan AI voor mijn bedrijf doen?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Nee. We maken het toegankelijk. Onze oplossingen zijn gebruiksvriendelijk en we trainen je team grondig.
+        Repetitieve taken automatiseren, content genereren, klantvragen beantwoorden, data analyseren. We zoeken de taken waar AI het meeste tijd bespaart.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Welke AI-tools gebruiken jullie?</span>
+        <span>Is AI niet te complex voor een KMO?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        OpenAI, Claude, Midjourney, Make, Zapier, n8n — we kiezen altijd de tool die het beste past bij jouw situatie.
+        Nee. De tools die we inzetten zijn gebruiksvriendelijk. We trainen je team zodat iedereen ermee kan werken.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Is mijn data veilig?</span>
+        <span>Wat kost AI-implementatie?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Absoluut. We werken met privacy-first principes en kiezen oplossingen die GDPR-compliant zijn.
+        Van een compacte workshop tot een volledige implementatie — altijd op maat. We starten met een AI-audit zodat je vooraf weet wat de investering oplevert.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Wat kost een AI-project?</span>
+        <span>Welke tools gebruiken jullie?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        Van een workshop van een halve dag tot een volledig automatiseringstraject — we hebben opties voor elk budget.
+        ChatGPT, Claude, Make, Zapier, en custom oplossingen. We kiezen de tool die past bij jouw situatie.
       </div>
     </div>
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        <span>Hoe snel merk ik verschil?</span>
+        <span>Hoe snel levert AI resultaat?</span>
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-answer">
-        De meeste teams zien binnen een week al tijdsbesparing. Complexere integraties tonen ROI binnen een maand.
+        Quick wins zijn snel zichtbaar. Complexere integraties plannen we in fases. Het mooie van AI: de ROI is vaak direct merkbaar.
       </div>
     </div>
   </section>
 
   <section class="dienst-cta">
-    <h2 class="cta-heading">Klaar om AI voor je te laten <span class="serif">werken</span>?</h2>
-    <p class="cta-subtitle">Geen buzzwords. Praktische AI die je dag verandert.</p>
+    <h2 class="cta-heading">Klaar om te <span class="serif">starten</span>?</h2>
+    <p class="cta-subtitle">Laten we een gesprek beginnen over wat AI voor jouw bedrijf kan doen. Geen verplichting.</p>
     <a href="../index.html#contact" class="cta-button">Neem contact op</a>
   </section>
 
@@ -1084,9 +554,7 @@
   </footer>
 
   <div class="cookie-banner" id="cookieBanner">
-    <div class="cookie-text">
-      We gebruiken cookies om je ervaring te verbeteren. Alleen essentiële cookies voor functionaliteit.
-    </div>
+    <div class="cookie-text">We gebruiken cookies om je ervaring te verbeteren. Alleen essentiële cookies voor functionaliteit.</div>
     <div class="cookie-buttons">
       <button class="cookie-btn decline" onclick="declineCookies()">Nee</button>
       <button class="cookie-btn accept" onclick="acceptCookies()">Akkoord</button>
@@ -1096,49 +564,21 @@
   <script>
     const mobToggle = document.getElementById('mobToggle');
     const mobNav = document.getElementById('mobNav');
-
-    mobToggle.addEventListener('click', () => {
-      mobNav.classList.toggle('active');
-    });
-
-    function closeMob() {
-      mobNav.classList.remove('active');
-    }
-
-    function toggleFaq(element) {
-      const item = element.parentElement;
-      item.classList.toggle('active');
-    }
+    mobToggle.addEventListener('click', () => { mobNav.classList.toggle('active'); });
+    function closeMob() { mobNav.classList.remove('active'); }
+    function toggleFaq(element) { element.parentElement.classList.toggle('active'); }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
       });
     }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.reveal').forEach(el => { observer.observe(el); });
 
     const cookieBanner = document.getElementById('cookieBanner');
-
-    if (!localStorage.getItem('cookies-accepted')) {
-      setTimeout(() => {
-        cookieBanner.classList.add('show');
-      }, 1000);
-    }
-
-    function acceptCookies() {
-      localStorage.setItem('cookies-accepted', 'true');
-      cookieBanner.classList.remove('show');
-    }
-
-    function declineCookies() {
-      cookieBanner.classList.remove('show');
-    }
+    if (!localStorage.getItem('cookies-accepted')) { setTimeout(() => { cookieBanner.classList.add('show'); }, 1000); }
+    function acceptCookies() { localStorage.setItem('cookies-accepted', 'true'); cookieBanner.classList.remove('show'); }
+    function declineCookies() { cookieBanner.classList.remove('show'); }
   </script>
 
   <script type="application/ld+json">
@@ -1146,15 +586,14 @@
     "@context": "https://schema.org/",
     "@type": "Service",
     "name": "AI & Automatisering",
-    "description": "AI-integraties en automatisering die je workflow transformeren. Van ChatGPT tot custom oplossingen.",
+    "description": "Slimme workflows, ChatGPT-integraties en automatisering met Make en Zapier. AI praktisch en toegankelijk voor jouw bedrijf.",
     "provider": {
       "@type": "Organization",
       "name": "The Bair Co.",
       "url": "https://www.baircompany.be",
       "logo": "https://www.baircompany.be/logo-white.png"
     },
-    "areaServed": "BE",
-    "serviceType": "AI Integration, Workflow Automation, ChatGPT"
+    "areaServed": "BE"
   }
   </script>
 
@@ -1165,42 +604,42 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Moet ik technisch zijn om AI te gebruiken?",
+        "name": "Wat kan AI voor mijn bedrijf doen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nee. We maken het toegankelijk. Onze oplossingen zijn gebruiksvriendelijk en we trainen je team grondig."
+          "text": "Repetitieve taken automatiseren, content genereren, klantvragen beantwoorden, data analyseren. We zoeken de taken waar AI het meeste tijd bespaart."
         }
       },
       {
         "@type": "Question",
-        "name": "Welke AI-tools gebruiken jullie?",
+        "name": "Is AI niet te complex voor een KMO?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "OpenAI, Claude, Midjourney, Make, Zapier, n8n — we kiezen altijd de tool die het beste past bij jouw situatie."
+          "text": "Nee. De tools die we inzetten zijn gebruiksvriendelijk. We trainen je team zodat iedereen ermee kan werken."
         }
       },
       {
         "@type": "Question",
-        "name": "Is mijn data veilig?",
+        "name": "Wat kost AI-implementatie?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absoluut. We werken met privacy-first principes en kiezen oplossingen die GDPR-compliant zijn."
+          "text": "Van een compacte workshop tot een volledige implementatie — altijd op maat. We starten met een AI-audit zodat je vooraf weet wat de investering oplevert."
         }
       },
       {
         "@type": "Question",
-        "name": "Wat kost een AI-project?",
+        "name": "Welke tools gebruiken jullie?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Van een workshop van een halve dag tot een volledig automatiseringstraject — we hebben opties voor elk budget."
+          "text": "ChatGPT, Claude, Make, Zapier, en custom oplossingen. We kiezen de tool die past bij jouw situatie."
         }
       },
       {
         "@type": "Question",
-        "name": "Hoe snel merk ik verschil?",
+        "name": "Hoe snel levert AI resultaat?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "De meeste teams zien binnen een week al tijdsbesparing. Complexere integraties tonen ROI binnen een maand."
+          "text": "Quick wins zijn snel zichtbaar. Complexere integraties plannen we in fases. Het mooie van AI: de ROI is vaak direct merkbaar."
         }
       }
     ]
