@@ -79,8 +79,10 @@
             gap: 0.75rem;
             text-decoration: none;
             color: var(--white);
-            font-size: 1.1rem;
-            letter-spacing: -0.5px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
         }
 
         .brand-logo {
@@ -325,6 +327,9 @@
             background: var(--accent);
             margin-bottom: 1.5rem;
             opacity: 0.7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card h3 {
@@ -442,6 +447,7 @@
 
         .faq-container {
             max-width: 800px;
+            margin: 0 auto;
         }
 
         .faq-item {
@@ -730,32 +736,32 @@
 
         <section class="cards-grid">
             <div class="card">
-                <div class="card-icon"></div>
+                <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <h3>SEO</h3>
                 <p>Organische groei van nul naar zichtbaar. Keywords, content, technische optimalisatie. Langzaam maar blijvend.</p>
             </div>
             <div class="card">
-                <div class="card-icon"></div>
+                <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
                 <h3>Google Ads</h3>
                 <p>Betaalde zoekresultaten die converteren. Strategie, bidding, landing pages — alles op elkaar afgestemd.</p>
             </div>
             <div class="card">
-                <div class="card-icon"></div>
+                <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
                 <h3>E-mailmarketing</h3>
                 <p>Kampagnes die geopend worden, niet genegeerd. Segmentatie, automaties, kopij die verkoopt.</p>
             </div>
             <div class="card">
-                <div class="card-icon"></div>
+                <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
                 <h3>Conversie-optimalisatie</h3>
                 <p>Je website werkt niet hard genoeg. A/B tests, UX-verbeteringen, psychologie. Meer klanten uit dezelfde bezoeken.</p>
             </div>
             <div class="card">
-                <div class="card-icon"></div>
+                <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
                 <h3>Analytics & rapportage</h3>
                 <p>GA4 setup, tracking, dashboards. Je begrijpt je nummers. Geen vragen meer over wat er echt gebeurt.</p>
             </div>
             <div class="card">
-                <div class="card-icon"></div>
+                <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
                 <h3>Funnels & landingspagina's</h3>
                 <p>We ontwerpen pagina's die verkopen. Kopij, design, CTA's — elk element is strategisch.</p>
             </div>
@@ -802,7 +808,7 @@
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        3-6 maanden voor zichtbare groei. SEO is een marathon, geen sprint. Maar de resultaten zijn blijvend.
+                        SEO is een marathon, geen sprint. De eerste resultaten zijn snel merkbaar, maar echte groei vraagt geduld. Het mooie: de resultaten zijn blijvend.
                     </div>
                 </div>
 
@@ -812,7 +818,7 @@
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Vanaf €500 per maand voor SEO. Google Ads beheer vanaf €400 plus advertentiebudget. Altijd op maat.
+                        Hangt af van je doelen en kanalen. We stellen altijd een plan op maat samen — met een helder overzicht van investering en verwacht rendement.
                     </div>
                 </div>
 
@@ -822,7 +828,7 @@
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Minimaal €500 per maand aan advertentiebudget, maar het hangt af van je branche en concurrentie. We adviseren op basis van je doelen.
+                        Dat hangt af van je branche, concurrentie en doelstellingen. We adviseren op basis van data — en zorgen dat elke euro rendeert.
                     </div>
                 </div>
 
@@ -969,7 +975,7 @@
                 "name": "Hoelang duurt het voor SEO-resultaat?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "3-6 maanden voor zichtbare groei. SEO is een marathon, geen sprint. Maar de resultaten zijn blijvend."
+                    "text": "SEO is een marathon, geen sprint. De eerste resultaten zijn snel merkbaar, maar echte groei vraagt geduld. Het mooie: de resultaten zijn blijvend."
                 }
             },
             {
@@ -977,7 +983,7 @@
                 "name": "Wat kost online marketing?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Vanaf €500 per maand voor SEO. Google Ads beheer vanaf €400 plus advertentiebudget. Altijd op maat."
+                    "text": "Hangt af van je doelen en kanalen. We stellen altijd een plan op maat samen — met een helder overzicht van investering en verwacht rendement."
                 }
             },
             {
@@ -985,7 +991,7 @@
                 "name": "Welk budget voor Google Ads?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Minimaal €500 per maand aan advertentiebudget, maar het hangt af van je branche en concurrentie. We adviseren op basis van je doelen."
+                    "text": "Dat hangt af van je branche, concurrentie en doelstellingen. We adviseren op basis van data — en zorgen dat elke euro rendeert."
                 }
             },
             {
