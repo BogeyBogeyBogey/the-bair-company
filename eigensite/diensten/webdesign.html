@@ -1,1058 +1,1090 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professioneel webdesign door The Bair Co. Maatwerk websites die converteren. UX design, wireframing en pixel-perfect ontwerp. Bureau uit Glabbeek.">
-    <meta name="keywords" content="webdesign bureau, website laten maken, professioneel webdesign, UX design, website ontwerp">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="The Bair Co.">
-    <meta name="canonical" href="https://www.baircompany.be/diensten/webdesign.html">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Web Design — The Bair Co. | Website Laten Ontwerpen">
-    <meta property="og:description" content="Professioneel webdesign door The Bair Co. Maatwerk websites die converteren. UX design, wireframing en pixel-perfect ontwerp.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.baircompany.be/diensten/webdesign.html">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=1400&h=700&fit=crop&auto=format&q=80">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Web Design — The Bair Co.">
-    <meta name="twitter:description" content="Professioneel webdesign. Maatwerk websites die converteren. UX design, wireframing en pixel-perfect ontwerp.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=1400&h=700&fit=crop&auto=format&q=80">
-
-    <!-- hreflang -->
-    <link rel="alternate" hreflang="nl-BE" href="https://www.baircompany.be/diensten/webdesign.html">
-
-    <title>Web Design — The Bair Co. | Website Laten Ontwerpen</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --black: #0a0a0a;
-            --white: #f0ede8;
-            --grey: #888;
-            --accent: #2E8AFF;
-            --pink: #ec4899;
-            --amber: #f59e0b;
-            --emerald: #10b981;
-            --red: #ef4444;
-            --ease: cubic-bezier(0.16,1,0.3,1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--black);
-            color: var(--white);
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 300;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='2'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            background: rgba(10, 10, 10, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--white);
-            letter-spacing: -0.02em;
-        }
-
-        nav {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        nav a {
-            font-size: 0.95rem;
-            text-decoration: none;
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            transition: all 0.3s var(--ease);
-            font-weight: 400;
-        }
-
-        nav a:hover,
-        nav a.active {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: rgba(10, 10, 10, 0.95);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 2rem 1.5rem;
-                gap: 1rem;
-            }
-
-            nav.active {
-                display: flex;
-            }
-
-            nav a {
-                padding: 0.75rem 1rem;
-            }
-        }
-
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero {
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-top: 70px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 10, 0.4);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            padding: 2rem;
-        }
-
-        h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            animation: slideUp 0.8s var(--ease);
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
-            animation: slideUp 0.8s var(--ease) 0.1s both;
-            font-weight: 300;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Sections */
-        section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 6rem 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        section h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-            letter-spacing: -0.02em;
-        }
-
-        .intro {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .intro p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Service Items Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .service-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2.5rem;
-            border-radius: 0.75rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s var(--ease);
-            opacity: 0;
-            animation: fadeInUp 0.6s var(--ease) forwards;
-        }
-
-        .service-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent-color);
-            transform: translateY(-10px);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .service-item h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-
-        .service-item p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        /* Process Section */
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .step {
-            counter-increment: step-counter;
-            position: relative;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 0.5rem;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .step::before {
-            content: counter(step-counter);
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            color: var(--black);
-            font-size: 1.2rem;
-        }
-
-        .step h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            margin-top: 0.5rem;
-        }
-
-        .step p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        /* Deliverables */
-        .deliverables-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .deliverable {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 0.75rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s var(--ease);
-        }
-
-        .deliverable:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent-color);
-        }
-
-        .deliverable-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-
-        .deliverable h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .deliverable p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* FAQ */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem 0;
-            cursor: pointer;
-            transition: all 0.3s var(--ease);
-        }
-
-        .faq-item:hover .faq-question {
-            color: var(--accent-color);
-        }
-
-        .faq-question {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s var(--ease);
-        }
-
-        .faq-toggle {
-            font-size: 1.5rem;
-            transition: transform 0.3s var(--ease);
-        }
-
-        .faq-item.active .faq-toggle {
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s var(--ease);
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-            margin-top: 1.5rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 4rem 2rem;
-        }
-
-        .cta-section h2 {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-section p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--accent-color);
-            color: var(--black);
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-family: 'Syne', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s var(--ease);
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(255, 255, 255, 0.02);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 4rem 2rem;
-            text-align: center;
-            margin-top: 6rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s var(--ease);
-        }
-
-        .footer-links a:hover {
-            color: var(--white);
-        }
-
-        .footer-bottom {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 2rem;
-        }
-
-        /* Cookie Banner */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            z-index: 99;
-            transform: translateY(100%);
-            transition: transform 0.3s var(--ease);
-        }
-
-        .cookie-banner.active {
-            transform: translateY(0);
-        }
-
-        .cookie-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .cookie-text {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .cookie-text a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .cookie-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .cookie-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s var(--ease);
-        }
-
-        .cookie-accept {
-            background: var(--accent);
-            color: var(--black);
-        }
-
-        .cookie-accept:hover {
-            transform: translateY(-2px);
-        }
-
-        .cookie-decline {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .cookie-decline:hover {
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            h1 {
-                font-size: 3rem;
-            }
-
-            section h2 {
-                font-size: 2rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            section h2 {
-                font-size: 1.8rem;
-            }
-
-            section {
-                padding: 4rem 1.5rem;
-            }
-
-            .hero {
-                height: 60vh;
-                margin-top: 70px;
-            }
-
-            .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .cta-section {
-                margin: 3rem 1.5rem;
-            }
-
-            .cookie-content {
-                flex-direction: column;
-            }
-
-            .cookie-buttons {
-                width: 100%;
-            }
-
-            .cookie-btn {
-                flex: 1;
-            }
-        }
-
-        /* Accent Color Styling */
-        :root {
-            --accent-color: var(--accent);
-        }
-
-        /* Scroll Reveal */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .scroll-reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Design — The Bair Co. | Webdesign Bureau Vlaams-Brabant</title>
+  <meta name="description" content="Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design in Figma. Geen templates — alles op maat. Glabbeek, België.">
+  <meta property="og:title" content="Web Design — The Bair Co.">
+  <meta property="og:description" content="Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design. Geen templates — alles op maat.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.baircompany.be/diensten/webdesign.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Web Design — The Bair Co.">
+  <link rel="canonical" href="https://www.baircompany.be/diensten/webdesign.html">
+  <link rel="alternate" hreflang="en" href="https://www.baircompany.be/en/services/webdesign.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f0ede8;
+      --grey: #888;
+      --accent: #ec4899;
+      --pink: #ec4899;
+      --blue: #2E8AFF;
+      --amber: #f59e0b;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --font-display: 'Syne', system-ui, sans-serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      font-size: 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.015' /%3E%3C/svg%3E");
+      z-index: -1;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 0.5em;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin-bottom: 1em;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .serif {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 2rem;
+      position: relative;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--black);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .nav-pill {
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      color: var(--black);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 99px;
+      transition: all 0.3s var(--ease);
+      white-space: nowrap;
+    }
+
+    .nav-pill:hover {
+      background: rgba(10, 10, 10, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .nav-pill.active {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .mob-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .mob-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: all 0.3s var(--ease);
+    }
+
+    .mob-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+      flex-direction: column;
+      padding: 1rem;
+      gap: 0.5rem;
+      z-index: 99;
+    }
+
+    .mob-nav a {
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: var(--black);
+      border-radius: 8px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .mob-nav a:hover {
+      background: rgba(10, 10, 10, 0.08);
+    }
+
+    @media (max-width: 768px) {
+      .mob-toggle {
+        display: flex;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .mob-nav.active {
+        display: flex;
+      }
+    }
+
+    .dienst-hero {
+      width: 100%;
+      height: 600px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=1400&h=700&fit=crop&auto=format&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: var(--white);
+      border-radius: 99px;
+    }
+
+    .hero-content h1 {
+      color: var(--white);
+      margin-bottom: 1rem;
+      max-width: 900px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    @media (max-width: 768px) {
+      .dienst-hero {
+        height: 450px;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    .dienst-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .intro-left h2 {
+      color: var(--black);
+      margin-bottom: 2rem;
+    }
+
+    .intro-left h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin-top: 1rem;
+    }
+
+    .intro-right p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--grey);
+    }
+
+    .intro-right p:first-of-type {
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    @media (max-width: 768px) {
+      .dienst-intro {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 3rem 1.5rem;
+      }
+
+      .intro-left h2 {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    .dienst-section-title {
+      font-size: 2rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      margin: 4rem 0 3rem;
+      text-align: center;
+      color: var(--black);
+    }
+
+    .dienst-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 0 2rem;
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+    }
+
+    .dienst-card {
+      padding: 2rem;
+      border-radius: 12px;
+      background: rgba(236, 72, 153, 0.08);
+      border: 1px solid rgba(236, 72, 153, 0.2);
+      transition: all 0.3s var(--ease);
+      position: relative;
+    }
+
+    .dienst-card:hover {
+      transform: translateY(-8px);
+      background: rgba(236, 72, 153, 0.12);
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+
+    .dienst-card-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--accent);
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .dienst-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--black);
+    }
+
+    .dienst-card p {
+      font-size: 0.95rem;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1024px) {
+      .dienst-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dienst-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1.5rem;
+      }
+
+      .dienst-section-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    .dienst-proces {
+      background: rgba(236, 72, 153, 0.04);
+      padding: 6rem 2rem;
+      margin-bottom: 6rem;
+    }
+
+    .proces-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .proces-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .proces-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .proces-step::after {
+      content: '';
+      position: absolute;
+      top: 60px;
+      left: 100%;
+      width: calc(100% - 40px);
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .proces-step:last-child::after {
+      display: none;
+    }
+
+    .proces-shape {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .shape-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--white);
+      font-weight: 800;
+    }
+
+    .shape-square {
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--white);
+      font-weight: 800;
+    }
+
+    .shape-triangle {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 86px solid var(--accent);
+    }
+
+    .shape-diamond {
+      width: 100px;
+      height: 100px;
+      background: var(--accent);
+      transform: rotate(45deg);
+    }
+
+    .proces-step h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      color: var(--black);
+    }
+
+    .proces-step p {
+      font-size: 0.9rem;
+      color: var(--grey);
+    }
+
+    @media (max-width: 1024px) {
+      .proces-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+      }
+
+      .proces-step::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .proces-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .dienst-proces {
+        padding: 3rem 1.5rem;
+        margin-bottom: 3rem;
+      }
+    }
+
+    .dienst-faq {
+      max-width: 800px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+      padding: 1.5rem 0;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .faq-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--accent);
+      transition: transform 0.3s var(--ease);
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s var(--ease);
+      padding-right: 2rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--grey);
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .dienst-faq {
+        padding: 0 1.5rem;
+      }
+
+      .faq-answer {
+        padding-right: 1rem;
+      }
+    }
+
+    .dienst-cta {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 2rem;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    .cta-heading {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+    }
+
+    .cta-subtitle {
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s var(--ease);
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
+    }
+
+    .cta-button::after {
+      content: '→';
+    }
+
+    @media (max-width: 768px) {
+      .dienst-cta {
+        padding: 3rem 1.5rem;
+      }
+
+      .cta-heading {
+        font-size: 1.8rem;
+      }
+    }
+
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 3rem 2rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s var(--ease);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .reveal.visible {
+      animation: revealIn 0.7s var(--ease) forwards;
+    }
+
+    @keyframes revealIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--black);
+      color: var(--white);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: all 0.3s var(--ease);
+    }
+
+    .cookie-banner.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cookie-text {
+      flex: 1;
+      font-size: 0.9rem;
+    }
+
+    .cookie-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .cookie-btn {
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s var(--ease);
+    }
+
+    .cookie-btn.accept {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .cookie-btn.decline {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+    }
+
+    .cookie-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .cookie-banner {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .cookie-buttons {
+        width: 100%;
+      }
+
+      .cookie-btn {
+        flex: 1;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <a href="/" class="logo">The Bair Co.</a>
-            <nav id="nav-menu">
-                <a href="/">Home</a>
-                <a href="/diensten/branding.html">Diensten</a>
-                <a href="/#portfolio">Portfolio</a>
-                <a href="/over.html">Over</a>
-                <a href="/#contact">Contact</a>
-            </nav>
-            <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
-        </div>
-    </header>
+  <header>
+    <a href="../index.html" class="brand"><img src="../logo-white.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
+    <nav>
+      <a href="../index.html#werk" class="nav-pill">Portfolio</a>
+      <a href="../index.html#diensten" class="nav-pill active">Onze diensten</a>
+      <a href="../index.html#cases" class="nav-pill">Uitgelicht</a>
+      <a href="../../over.html" class="nav-pill">Over</a>
+      <a href="../index.html#contact" class="nav-pill">Contact</a>
+      <a href="../blog.html" class="nav-pill">Blog</a>
+    </nav>
+    <div class="mob-toggle" id="mobToggle"><span></span><span></span><span></span></div>
+  </header>
+  <div class="mob-nav" id="mobNav">
+    <a href="../index.html#werk" onclick="closeMob()">Portfolio</a>
+    <a href="../index.html#diensten" onclick="closeMob()">Onze diensten</a>
+    <a href="../index.html#cases" onclick="closeMob()">Uitgelicht</a>
+    <a href="../../over.html" onclick="closeMob()">Over</a>
+    <a href="../index.html#contact" onclick="closeMob()">Contact</a>
+    <a href="../blog.html" onclick="closeMob()">Blog</a>
+  </div>
 
-    <main>
-        <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1571101628768-6bae026844b6?w=1400&h=700&fit=crop&auto=format&q=80')">
-            <div class="hero-content">
-                <h1>Web Design</h1>
-                <p class="subtitle">Maatwerk websites die converteren en gebruikers inspireren</p>
-            </div>
-        </section>
-
-        <section class="intro scroll-reveal">
-            <h2>Wat is professioneel webdesign?</h2>
-            <p>Web design is veel meer dan mooie afbeeldingen op het scherm. Het gaat om het creëren van een digitale ervaring die jouw doelgroep aantrekt, hen geleidt en uiteindelijk converteer naar actie. Wij focussen op UX (user experience), visueel design en strategie in perfecte harmonie.</p>
-            <p>Als creatief bureau hebben we jarenlange ervaring met het ontwerpen van websites die niet alleen mooi ogen, maar ook echt functie naar hun doel. Geen sjablonen, geen templates – elk design is uniek en afgestemd op jouw bedrijf.</p>
-        </section>
-
-        <section>
-            <h2>Wat we voor je doen</h2>
-            <div class="services-grid">
-                <div class="service-item scroll-reveal">
-                    <h3>UX Research</h3>
-                    <p>We onderzoeken je doelgroep, hun behoeften en gedrag. Hierop baseren we alle designkeuzes voor maximum engagement.</p>
-                </div>
-                <div class="service-item scroll-reveal">
-                    <h3>Wireframing</h3>
-                    <p>Schetswerk van de paginastructuur en informatieontwerp. We definiëren waar alles staat en hoe gebruikers navigeren.</p>
-                </div>
-                <div class="service-item scroll-reveal">
-                    <h3>Visueel Design in Figma</h3>
-                    <p>Pixel-perfect ontwerp met je brandkleuren, typografie en visuele stijl. Volledig responsief van desktop tot mobiel.</p>
-                </div>
-                <div class="service-item scroll-reveal">
-                    <h3>Responsive Design</h3>
-                    <p>Alles werkt perfect op desktop, tablet en mobiel. Gebruikers hebben dezelfde geweldige ervaring op elk apparaat.</p>
-                </div>
-                <div class="service-item scroll-reveal">
-                    <h3>Interactieve Prototypes</h3>
-                    <p>Clickable prototypes zodat jij en je team de website al kunnen testen voordat we gaan bouwen.</p>
-                </div>
-                <div class="service-item scroll-reveal">
-                    <h3>Design System</h3>
-                    <p>We creëren een duidelijke set aan designcomponenten voor consistent en scalable design.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <counter-reset: step-counter 0;>
-            <h2>Ons Designproces</h2>
-            <div class="process-steps">
-                <div class="step scroll-reveal">
-                    <h3>Discovery & Strategie</h3>
-                    <p>We stellen veel vragen. Wat zijn je doelen? Wie is je doelgroep? Welke problemen lossen we op?</p>
-                </div>
-                <div class="step scroll-reveal">
-                    <h3>UX Research & Wireframes</h3>
-                    <p>Userflows, sitemaps en wireframes. We bepalen de structuur voordat we gaan ontwerpen.</p>
-                </div>
-                <div class="step scroll-reveal">
-                    <h3>Visual Design</h3>
-                    <p>Het visuele gedeelte. Kleuren, typografie, afbeeldingen, animaties – alles komt samen.</p>
-                </div>
-                <div class="step scroll-reveal">
-                    <h3>Iteratie & Refinement</h3>
-                    <p>Je feedback is essentieel. We itereren tot jij 100% tevreden bent met het design.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Wat je krijgt</h2>
-            <div class="deliverables-grid">
-                <div class="deliverable scroll-reveal">
-                    <div class="deliverable-icon">📋</div>
-                    <h3>UX Research Document</h3>
-                    <p>Inzichten in je doelgroep, hun pijnpunten en wat hen motiveert.</p>
-                </div>
-                <div class="deliverable scroll-reveal">
-                    <div class="deliverable-icon">🗺️</div>
-                    <h3>Sitemap & Userflows</h3>
-                    <p>Duidelijk overzicht van pagestructuur en hoe gebruikers je site navigeren.</p>
-                </div>
-                <div class="deliverable scroll-reveal">
-                    <div class="deliverable-icon">🎨</div>
-                    <h3>Volledig Design in Figma</h3>
-                    <p>Pixel-perfect ontwerp voor alle pagina's en schermformaten.</p>
-                </div>
-                <div class="deliverable scroll-reveal">
-                    <div class="deliverable-icon">✨</div>
-                    <h3>Interactive Prototype</h3>
-                    <p>Clickable prototype waarmee je de user experience al kan testen.</p>
-                </div>
-                <div class="deliverable scroll-reveal">
-                    <div class="deliverable-icon">📱</div>
-                    <h3>Responsive Designs</h3>
-                    <p>Desktop, tablet en mobiele versies – alles is ontworpen.</p>
-                </div>
-                <div class="deliverable scroll-reveal">
-                    <div class="deliverable-icon">🎯</div>
-                    <h3>Design System & Guidelines</h3>
-                    <p>Alle componenten, stijlen en richtlijnen voor toekomstige development.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="faq-container">
-            <h2>Veel Gestelde Vragen</h2>
-
-            <div class="faq-item scroll-reveal">
-                <div class="faq-question">
-                    <span>Wat kost webdesign?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>De kosten voor webdesign variëren afhankelijk van complexiteit en aantal pagina's. Een website met 5-10 pagina's begint gemiddeld bij €3.000 tot €8.000. We maken graag een custom offerte op basis van jouw specifieke project.</p>
-                </div>
-            </div>
-
-            <div class="faq-item scroll-reveal">
-                <div class="faq-question">
-                    <span>Hoe lang duurt het designproces?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Webdesign duurt gemiddeld 4-8 weken afhankelijk van projectgrootte en feedback cycles. We werken in fasen zodat jij onderweg kan meekijken en feedback kan geven. Sneller is mogelijk maar gaat ten koste van kwaliteit.</p>
-                </div>
-            </div>
-
-            <div class="faq-item scroll-reveal">
-                <div class="faq-question">
-                    <span>Template of maatwerk design?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Wij doen alleen maatwerk design. Templates zijn generiek en je concurrenten hebben dezelfde site. Maatwerk betekent uniek, afgestemd op jouw bedrijf en doelgroep, en geoptimaliseerd voor conversie.</p>
-                </div>
-            </div>
-
-            <div class="faq-item scroll-reveal">
-                <div class="faq-question">
-                    <span>Wat is UX design eigenlijk?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>UX (User Experience) design focust op hoe je site voelt en functioneert. Hoe gemakkelijk kunnen gebruikers navigeren? Kunnen ze vinden wat ze zoeken? Begrijpen ze jouw boodschap? UX is de basis voor goed design.</p>
-                </div>
-            </div>
-
-            <div class="faq-item scroll-reveal">
-                <div class="faq-question">
-                    <span>Hoe verloopt het designproces?</span>
-                    <span class="faq-answer">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>We starten met discovery: je doelen, doelgroep, concurrentie. Dan onderzoek (UX research), wireframes, visual design, iteratie en refinement. Jij bent betrokken in elke fase met feedback moments. Eindresultaat is een volledige design in Figma plus prototype.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="cta-section scroll-reveal">
-            <h2>Klaar voor een website die werkt?</h2>
-            <p>Een goed design is de fundatie van een succesvolle website. Laten we samen een ontwerp creëren dat jouw doelgroep aantrekt en converteert.</p>
-            <a href="/#contact" class="cta-button">Start je Webdesign Project</a>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="/">Home</a>
-                <a href="/diensten/branding.html">Branding</a>
-                <a href="/diensten/webdesign.html">Web Design</a>
-                <a href="/diensten/webontwikkeling.html">Webontwikkeling</a>
-                <a href="/over.html">Over</a>
-                <a href="/#contact">Contact</a>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 The Bair Co. | Kristof Bogaerts | Glabbeek, Belgium</p>
-            </div>
-        </div>
-    </footer>
-
-    <div class="cookie-banner" id="cookie-banner">
-        <div class="cookie-content">
-            <div class="cookie-text">
-                We gebruiken cookies voor analytics en betere ervaring. <a href="/#cookies">Lees meer</a>
-            </div>
-            <div class="cookie-buttons">
-                <button class="cookie-btn cookie-decline" id="cookie-decline">Weigeren</button>
-                <button class="cookie-btn cookie-accept" id="cookie-accept">Accepteren</button>
-            </div>
-        </div>
+  <section class="dienst-hero">
+    <div class="hero-content">
+      <div class="hero-label">Web Design</div>
+      <h1>Mooi is niet <span class="serif">genoeg</span>.</h1>
+      <p class="hero-subtitle">Geen templates, geen compromissen. Elke pixel heeft een reden.</p>
     </div>
+  </section>
 
-    <script>
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const navMenu = document.getElementById('nav-menu');
+  <section class="dienst-intro">
+    <div class="intro-left">
+      <h2>Design met intentie</h2>
+    </div>
+    <div class="intro-right">
+      <p>We starten niet met templates. We starten met jou, je doelgroep, en wat je wilt bereiken. Elk design-keuze is strategisch — van typografie tot microinteracties.</p>
+      <p>We werken in Figma, research-gedreven en mobile-first. Het resultaat: websites die niet alleen mooi zijn, maar ook converteren. Responsive op elke schermgrootte, snel, en gebouwd om waarde te creëren.</p>
+    </div>
+  </section>
 
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+  <div class="proces-container">
+    <h2 class="dienst-section-title">Wat we doen</h2>
+    <div class="dienst-grid">
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><span class="icon-dot"></span></div>
+        <h3>UX Research</h3>
+        <p>We begrijpen wie je bezoekers zijn en wat ze nodig hebben. Onderzoek vormt de basis van elk goed design.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><span class="icon-dot"></span></div>
+        <h3>Wireframing</h3>
+        <p>Voor we gaan designen schetsen we de structuur. Logica eerst, visueel daarna — in die volgorde.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><span class="icon-dot"></span></div>
+        <h3>Visueel design</h3>
+        <p>In Figma creëren we pixel-perfect ontwerpen die jouw merk uitstralen. Elke detail telt.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><span class="icon-dot"></span></div>
+        <h3>Responsive design</h3>
+        <p>Mobile-first. Desktop, tablet, mobiel — alles ziet er goed uit. Dat is niet optioneel, dat is standaard.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><span class="icon-dot"></span></div>
+        <h3>Prototyping</h3>
+        <p>We maken het levendig. Interacties, animaties, microflows — alles wordt getest voor je het gaat gebruiken.</p>
+      </div>
+      <div class="dienst-card reveal">
+        <div class="dienst-card-icon"><span class="icon-dot"></span></div>
+        <h3>Design systemen</h3>
+        <p>Voor grotere projecten bouwen we design systems. Consistentie, schaalbaarheid, efficiëntie.</p>
+      </div>
+    </div>
+  </div>
 
-        // Close menu when clicking a link
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
+  <section class="dienst-proces">
+    <div class="proces-container">
+      <h2 class="dienst-section-title" style="margin-top: 0;">Zo pakken we het aan</h2>
+      <div class="proces-steps">
+        <div class="proces-step reveal">
+          <div class="proces-shape">
+            <div class="shape-circle">1</div>
+          </div>
+          <h3>Begrijpen</h3>
+          <p>We duiken diep in jouw wereld. Doelen, doelgroep, concurrentie — alles onder de loep.</p>
+        </div>
+        <div class="proces-step reveal">
+          <div class="proces-shape">
+            <div class="shape-square">2</div>
+          </div>
+          <h3>Schetsen</h3>
+          <p>Wireframes en flows. We tonen de structuur, niet het glitter. Feedback nu, aanpassingen daarna.</p>
+        </div>
+        <div class="proces-step reveal">
+          <div class="proces-shape">
+            <div class="shape-triangle"></div>
+          </div>
+          <h3>Ontwerpen</h3>
+          <p>De visuele kant. In Figma, met prototypes, ready voor développement.</p>
+        </div>
+        <div class="proces-step reveal">
+          <div class="proces-shape">
+            <div class="shape-diamond"></div>
+          </div>
+          <h3>Testen</h3>
+          <p>Gebruikerstesten, feedback, refinement. Tot het precies goed voelt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // FAQ Toggle
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
-                item.classList.toggle('active');
-            });
-        });
+  <section class="dienst-faq">
+    <h2 class="dienst-section-title">Veelgestelde vragen</h2>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Wat kost webdesign?</span>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">
+        Afhankelijk van de complexiteit. Een one-pager start rond €1.500, een volledige bedrijfssite met meerdere pagina's vanaf €3.500. Altijd een offerte op maat.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Hoe lang duurt het designproces?</span>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">
+        2-4 weken voor het design, afhankelijk van het aantal pagina's en feedback-rondes.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Werken jullie met templates?</span>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">
+        Nee. Nooit. Elk ontwerp is maatwerk — specifiek voor jouw merk, doelgroep en doelen.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Wat is het verschil tussen webdesign en webontwikkeling?</span>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">
+        Design is hoe het eruitziet en aanvoelt. Development is hoe het gebouwd wordt. Wij doen beide, onder één dak.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Kan ik mijn bestaande site laten herontwerpen?</span>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">
+        Absoluut. We analyseren wat werkt, wat niet, en ontwerpen een upgrade die wel converteert.
+      </div>
+    </div>
+  </section>
 
-        // Cookie Banner
-        function initCookieBanner() {
-            const banner = document.getElementById('cookie-banner');
-            const acceptBtn = document.getElementById('cookie-accept');
-            const declineBtn = document.getElementById('cookie-decline');
+  <section class="dienst-cta">
+    <h2 class="cta-heading">Klaar voor een site die <span class="serif">indruk</span> maakt?</h2>
+    <p class="cta-subtitle">Laten we het samen doen. Met strategie en design als fundament.</p>
+    <a href="../index.html#contact" class="cta-button"></a>
+  </section>
 
-            if (!localStorage.getItem('cookie-consent')) {
-                banner.classList.add('active');
-            }
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">The Bair Co.</div>
+      <div class="footer-links">
+        <a href="../index.html#werk">Portfolio</a>
+        <a href="../index.html#diensten">Studio</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../../over.html">Over</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <div class="footer-copy">&copy; 2026 The Bair Co.. Alle rechten voorbehouden.</div>
+    </div>
+  </footer>
 
-            acceptBtn.addEventListener('click', () => {
-                localStorage.setItem('cookie-consent', 'accepted');
-                banner.classList.remove('active');
-                loadGoogleAnalytics();
-            });
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-text">
+      We gebruiken cookies om je ervaring te verbeteren. Alleen essentiële cookies voor functionaliteit.
+    </div>
+    <div class="cookie-buttons">
+      <button class="cookie-btn decline" onclick="declineCookies()">Nee</button>
+      <button class="cookie-btn accept" onclick="acceptCookies()">Akkoord</button>
+    </div>
+  </div>
 
-            declineBtn.addEventListener('click', () => {
-                localStorage.setItem('cookie-consent', 'declined');
-                banner.classList.remove('active');
-            });
+  <script>
+    const mobToggle = document.getElementById('mobToggle');
+    const mobNav = document.getElementById('mobNav');
+
+    mobToggle.addEventListener('click', () => {
+      mobNav.classList.toggle('active');
+    });
+
+    function closeMob() {
+      mobNav.classList.remove('active');
+    }
+
+    function toggleFaq(element) {
+      const item = element.parentElement;
+      item.classList.toggle('active');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.1 });
 
-        function loadGoogleAnalytics() {
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
-            document.head.appendChild(script);
+    document.querySelectorAll('.reveal').forEach(el => {
+      observer.observe(el);
+    });
 
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-TEPNG02Z0J');
+    const cookieBanner = document.getElementById('cookieBanner');
+
+    if (!localStorage.getItem('cookies-accepted')) {
+      setTimeout(() => {
+        cookieBanner.classList.add('show');
+      }, 1000);
+    }
+
+    function acceptCookies() {
+      localStorage.setItem('cookies-accepted', 'true');
+      cookieBanner.classList.remove('show');
+    }
+
+    function declineCookies() {
+      cookieBanner.classList.remove('show');
+    }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Service",
+    "name": "Web Design",
+    "description": "Maatwerk webdesign dat converteert. UX-research, wireframing en visueel design in Figma.",
+    "provider": {
+      "@type": "Organization",
+      "name": "The Bair Co.",
+      "url": "https://www.baircompany.be",
+      "logo": "https://www.baircompany.be/logo-white.png"
+    },
+    "areaServed": "BE",
+    "serviceType": "Web Design, UX Design, UI Design"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Wat kost webdesign?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Afhankelijk van de complexiteit. Een one-pager start rond €1.500, een volledige bedrijfssite met meerdere pagina's vanaf €3.500. Altijd een offerte op maat."
         }
-
-        // Scroll Reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', initCookieBanner);
-
-        // Structured Data - Schema.org Service
-        const schemaData = {
-            "@context": "https://schema.org/",
-            "@type": "Service",
-            "name": "Web Design",
-            "description": "Professioneel webdesign door The Bair Co. Maatwerk websites die converteren. UX design, wireframing en pixel-perfect ontwerp.",
-            "provider": {
-                "@type": "Organization",
-                "name": "The Bair Co.",
-                "url": "https://www.baircompany.be",
-                "sameAs": ["https://www.instagram.com/thebairco", "https://www.linkedin.com/company/thebairco"],
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "Glabbeek",
-                    "addressCountry": "BE"
-                }
-            },
-            "areaServed": "BE",
-            "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": "Web Design Services",
-                "itemListElement": [
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Service",
-                            "name": "UX Research"
-                        }
-                    },
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Service",
-                            "name": "Wireframing"
-                        }
-                    },
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Service",
-                            "name": "Visual Design"
-                        }
-                    }
-                ]
-            }
-        };
-
-        const faqSchema = {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "Wat kost webdesign?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "De kosten voor webdesign variëren afhankelijk van complexiteit. Een website met 5-10 pagina's begint gemiddeld bij €3.000 tot €8.000."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hoe lang duurt het designproces?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Webdesign duurt gemiddeld 4-8 weken afhankelijk van projectgrootte en feedback cycles."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Template of maatwerk design?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Wij doen alleen maatwerk design. Templates zijn generiek en je concurrenten hebben dezelfde site."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Wat is UX design eigenlijk?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "UX (User Experience) design focust op hoe je site voelt en functioneert. Hoe gemakkelijk kunnen gebruikers navigeren?"
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hoe verloopt het designproces?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "We starten met discovery, dan UX research, wireframes, visual design, iteratie en refinement. Jij bent betrokken in elke fase."
-                    }
-                }
-            ]
-        };
-
-        const schemaScript = document.createElement('script');
-        schemaScript.type = 'application/ld+json';
-        schemaScript.textContent = JSON.stringify(schemaData);
-        document.head.appendChild(schemaScript);
-
-        const faqScript = document.createElement('script');
-        faqScript.type = 'application/ld+json';
-        faqScript.textContent = JSON.stringify(faqSchema);
-        document.head.appendChild(faqScript);
-    </script>
+      },
+      {
+        "@type": "Question",
+        "name": "Hoe lang duurt het designproces?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "2-4 weken voor het design, afhankelijk van het aantal pagina's en feedback-rondes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Werken jullie met templates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nee. Nooit. Elk ontwerp is maatwerk — specifiek voor jouw merk, doelgroep en doelen."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wat is het verschil tussen webdesign en webontwikkeling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Design is hoe het eruitziet en aanvoelt. Development is hoe het gebouwd wordt. Wij doen beide, onder één dak."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kan ik mijn bestaande site laten herontwerpen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absoluut. We analyseren wat werkt, wat niet, en ontwerpen een upgrade die wel converteert."
+        }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>

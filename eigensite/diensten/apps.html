@@ -1,1295 +1,1003 @@
 <!DOCTYPE html>
-<html lang="nl" dir="ltr">
+<html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <title>App Ontwikkeling — The Bair Co. | App Laten Maken België</title>
-  <meta name="description" content="App ontwikkeling door The Bair Co. Van concept tot App Store. UI/UX design en development onder één dak. Makers van GiGi Money (28 landen, 22 talen).">
-  <meta name="keywords" content="app laten maken, app ontwikkeling België, product design, mobile app development">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="author" content="The Bair Co.">
-
-  <link rel="canonical" href="https://www.baircompany.be/diensten/apps/">
-  <link rel="alternate" hreflang="nl-BE" href="https://www.baircompany.be/diensten/apps/">
-  <link rel="alternate" hreflang="x-default" href="https://www.baircompany.be/diensten/apps/">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="App Ontwikkeling — The Bair Co. | App Laten Maken België">
-  <meta property="og:description" content="App ontwikkeling door The Bair Co. Van concept tot App Store. UI/UX design en development onder één dak. Makers van GiGi Money (28 landen, 22 talen).">
-  <meta property="og:url" content="https://www.baircompany.be/diensten/apps/">
-  <meta property="og:site_name" content="The Bair Co.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&h=700&fit=crop&auto=format&q=80">
-  <meta property="og:image:width" content="1400">
-  <meta property="og:image:height" content="700">
-  <meta property="og:locale" content="nl_BE">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="App Ontwikkeling — The Bair Co. | App Laten Maken België">
-  <meta name="twitter:description" content="App ontwikkeling door The Bair Co. Van concept tot App Store. UI/UX design en development.">
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&h=700&fit=crop&auto=format&q=80">
-
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="preload" as="style">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --black: #0a0a0a;
-      --white: #f0ede8;
-      --grey: #888;
-      --accent: #2E8AFF;
-      --pink: #ec4899;
-      --amber: #f59e0b;
-      --emerald: #10b981;
-      --red: #ef4444;
-      --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      line-height: 1.6;
-      font-weight: 300;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='1' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    a {
-      color: var(--white);
-      text-decoration: none;
-      transition: all 0.3s var(--ease);
-    }
-
-    a:hover {
-      color: var(--emerald);
-    }
-
-    button {
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* HEADER */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 20px 0;
-      backdrop-filter: blur(10px);
-      background: rgba(10, 10, 10, 0.8);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -1px;
-      transition: color 0.3s var(--ease);
-    }
-
-    .logo:hover {
-      color: var(--emerald);
-    }
-
-    nav {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 500;
-      position: relative;
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: rgba(240, 237, 232, 0.05);
-      transition: all 0.3s var(--ease);
-    }
-
-    .nav-link:hover {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--emerald);
-    }
-
-    .nav-link.active {
-      background: var(--emerald);
-      color: var(--black);
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    .menu-toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--white);
-      transition: all 0.3s var(--ease);
-      display: block;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(10px, 10px);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(8px, -8px);
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
-        background: rgba(10, 10, 10, 0.95);
-        padding: 24px;
-        border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-      }
-
-      nav.active {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .nav-link {
-        width: 100%;
-        padding: 12px 16px;
-        border-radius: 8px;
-        background: rgba(240, 237, 232, 0.05);
-      }
-    }
-
-    /* HERO SECTION */
-    .hero {
-      margin-top: 80px;
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(10, 10, 10, 0.9) 100%);
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -200px;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.3;
-      z-index: 0;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-      animation: fadeInUp 0.8s var(--ease) 0.2s backwards;
-    }
-
-    .hero-content h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(48px, 8vw, 72px);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -2px;
-      color: var(--white);
-    }
-
-    .hero-content .subtitle {
-      font-size: 18px;
-      color: var(--grey);
-      margin-bottom: 32px;
-      line-height: 1.8;
-      font-weight: 300;
-    }
-
-    .cta-button {
-      display: inline-block;
-      padding: 14px 32px;
-      background: var(--emerald);
-      color: var(--black);
-      font-weight: 500;
-      border-radius: 8px;
-      transition: all 0.3s var(--ease);
-      font-size: 16px;
-    }
-
-    .cta-button:hover {
-      background: var(--white);
-      transform: translateY(-2px);
-      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        padding: 60px 0;
-        margin-top: 70px;
-        min-height: 450px;
-      }
-
-      .hero::before {
-        width: 400px;
-        height: 400px;
-        right: -100px;
-      }
-
-      .hero-content h1 {
-        font-size: 42px;
-      }
-    }
-
-    /* INTRO SECTION */
-    .intro {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .intro-content h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      line-height: 1.2;
-      letter-spacing: -1px;
-    }
-
-    .intro-content p {
-      font-size: 16px;
-      color: var(--grey);
-      margin-bottom: 20px;
-      line-height: 1.8;
-    }
-
-    .intro-list {
-      list-style: none;
-      margin-top: 32px;
-    }
-
-    .intro-list li {
-      padding: 12px 0;
-      font-size: 16px;
-      display: flex;
-      gap: 12px;
-      color: var(--grey);
-    }
-
-    .intro-list li::before {
-      content: '✓';
-      color: var(--emerald);
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .intro-image {
-      width: 100%;
-      height: 400px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
-      border-radius: 12px;
-      object-fit: cover;
-      opacity: 0.8;
-    }
-
-    @media (max-width: 768px) {
-      .intro-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .intro-content h2 {
-        font-size: 32px;
-      }
-
-      .intro {
-        padding: 80px 0;
-      }
-    }
-
-    /* SERVICES GRID */
-    .services-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .services-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-    }
-
-    .service-card {
-      padding: 40px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.02) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: 12px;
-      transition: all 0.3s var(--ease);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: -100%;
-      right: -100%;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
-      transition: all 0.3s var(--ease);
-    }
-
-    .service-card:hover {
-      border-color: var(--emerald);
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
-    }
-
-    .service-card:hover::before {
-      top: -50%;
-      right: -50%;
-    }
-
-    .service-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .service-card p {
-      font-size: 16px;
-      color: var(--grey);
-      position: relative;
-      z-index: 2;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 768px) {
-      .services-section h2 {
-        font-size: 36px;
-        margin-bottom: 60px;
-      }
-
-      .service-card {
-        padding: 32px;
-      }
-    }
-
-    /* PROCESS SECTION */
-    .process-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .process-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-    }
-
-    .process-step {
-      position: relative;
-      padding: 40px;
-      background: rgba(240, 237, 232, 0.03);
-      border: 1px solid rgba(240, 237, 232, 0.1);
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .step-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--emerald);
-      margin-bottom: 16px;
-      line-height: 1;
-    }
-
-    .process-step h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .process-step p {
-      font-size: 14px;
-      color: var(--grey);
-      line-height: 1.7;
-    }
-
-    @media (max-width: 768px) {
-      .process-section h2 {
-        font-size: 36px;
-      }
-
-      .process-steps {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* DELIVERABLES */
-    .deliverables-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .deliverables-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .deliverables-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
-    }
-
-    .deliverable-item {
-      padding: 32px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, transparent 100%);
-      border-left: 3px solid var(--emerald);
-      border-radius: 8px;
-    }
-
-    .deliverable-item h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .deliverable-item p {
-      font-size: 14px;
-      color: var(--grey);
-      line-height: 1.6;
-    }
-
-    /* FAQ SECTION */
-    .faq-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .faq-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .faq-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      margin-bottom: 20px;
-      border: 1px solid rgba(240, 237, 232, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      background: rgba(240, 237, 232, 0.02);
-    }
-
-    .faq-question {
-      padding: 24px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s var(--ease);
-      font-weight: 500;
-      font-size: 16px;
-    }
-
-    .faq-item:hover .faq-question {
-      background: rgba(16, 185, 129, 0.1);
-    }
-
-    .faq-question::after {
-      content: '+';
-      font-size: 24px;
-      color: var(--emerald);
-      transition: transform 0.3s var(--ease);
-      flex-shrink: 0;
-      margin-left: 20px;
-    }
-
-    .faq-item.active .faq-question::after {
-      transform: rotate(45deg);
-    }
-
-    .faq-answer {
-      display: none;
-      padding: 0 24px 24px;
-      color: var(--grey);
-      font-size: 16px;
-      line-height: 1.8;
-      background: rgba(16, 185, 129, 0.05);
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .faq-item.active .faq-answer {
-      display: block;
-    }
-
-    /* CTA SECTION */
-    .cta-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-      text-align: center;
-    }
-
-    .cta-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-    }
-
-    .cta-section p {
-      font-size: 18px;
-      color: var(--grey);
-      margin-bottom: 40px;
-      line-height: 1.8;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-button-secondary {
-      display: inline-block;
-      padding: 14px 32px;
-      border: 2px solid var(--emerald);
-      color: var(--emerald);
-      font-weight: 500;
-      border-radius: 8px;
-      transition: all 0.3s var(--ease);
-      font-size: 16px;
-      background: transparent;
-    }
-
-    .cta-button-secondary:hover {
-      background: var(--emerald);
-      color: var(--black);
-    }
-
-    @media (max-width: 768px) {
-      .cta-section {
-        padding: 80px 0;
-      }
-
-      .cta-section h2 {
-        font-size: 36px;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .cta-button,
-      .cta-button-secondary {
-        width: 100%;
-      }
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 60px 0 40px;
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-      background: rgba(10, 10, 10, 0.5);
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-
-    .footer-section h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
-    }
-
-    .footer-section ul {
-      list-style: none;
-    }
-
-    .footer-section a {
-      font-size: 14px;
-      color: var(--grey);
-      display: block;
-      padding: 8px 0;
-      transition: color 0.3s var(--ease);
-    }
-
-    .footer-section a:hover {
-      color: var(--white);
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-      padding-top: 24px;
-      text-align: center;
-      font-size: 14px;
-      color: var(--grey);
-    }
-
-    /* COOKIE BANNER */
-    .cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 24px;
-      background: rgba(10, 10, 10, 0.95);
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-      backdrop-filter: blur(10px);
-      z-index: 999;
-      display: none;
-    }
-
-    .cookie-banner.show {
-      display: block;
-      animation: slideUp 0.3s var(--ease);
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(100%);
-      }
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    .cookie-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      padding: 0 24px;
-    }
-
-    .cookie-text {
-      font-size: 14px;
-      color: var(--grey);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .cookie-text a {
-      color: var(--emerald);
-      text-decoration: underline;
-    }
-
-    .cookie-buttons {
-      display: flex;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .cookie-button {
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.3s var(--ease);
-      white-space: nowrap;
-    }
-
-    .cookie-button.accept {
-      background: var(--emerald);
-      color: var(--black);
-      border: none;
-    }
-
-    .cookie-button.accept:hover {
-      background: var(--white);
-    }
-
-    .cookie-button.decline {
-      border: 1px solid rgba(240, 237, 232, 0.3);
-      color: var(--grey);
-      background: transparent;
-    }
-
-    .cookie-button.decline:hover {
-      border-color: var(--white);
-      color: var(--white);
-    }
-
-    @media (max-width: 768px) {
-      .cookie-content {
-        flex-direction: column;
-        padding: 0;
-      }
-
-      .cookie-buttons {
-        width: 100%;
-        flex-direction: column;
-      }
-
-      .cookie-button {
-        width: 100%;
-        padding: 12px 20px;
-      }
-    }
-
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Ontwikkeling — The Bair Co. | App Laten Maken België</title>
+    <meta name="description" content="Van idee tot App Store. UI/UX design en development onder één dak. Makers van GiGi Money — actief in 28 landen, 22 talen.">
+    <link rel="canonical" href="https://www.baircompany.be/diensten/apps.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #f0ede8;
+            --grey: #888;
+            --accent: #2E8AFF;
+            --pink: #ec4899;
+            --amber: #f59e0b;
+            --emerald: #10b981;
+            --red: #ef4444;
+            --font-display: 'Syne', system-ui, sans-serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='1' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(240, 237, 232, 0.08);
+            z-index: 1000;
+            font-family: var(--font-display);
+            font-weight: 700;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-pill {
+            padding: 0.6rem 1.2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.95rem;
+            font-family: var(--font-body);
+            font-weight: 400;
+            transition: background 0.3s var(--ease);
+            border: 1px solid rgba(240, 237, 232, 0.08);
+        }
+
+        .nav-pill:hover {
+            background: rgba(240, 237, 232, 0.08);
+        }
+
+        .nav-pill.active {
+            background: var(--emerald);
+            border-color: var(--emerald);
+            color: var(--black);
+        }
+
+        .mob-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mob-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s var(--ease);
+        }
+
+        .mob-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(240, 237, 232, 0.08);
+            z-index: 999;
+        }
+
+        .mob-nav.active {
+            display: flex;
+        }
+
+        .mob-nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(240, 237, 232, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .mob-toggle {
+                display: flex;
+            }
+
+            header {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+            padding-top: 80px;
+        }
+
+        section {
+            position: relative;
+        }
+
+        .hero {
+            height: 80vh;
+            min-height: 500px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.6)), url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&h=700&fit=crop&auto=format&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 3rem;
+            overflow: hidden;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: var(--emerald);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            font-family: var(--font-display);
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .serif {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--emerald);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 600px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: rgba(240, 237, 232, 0.9);
+        }
+
+        .intro-section {
+            padding: 6rem 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .intro-left h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .intro-right p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(240, 237, 232, 0.85);
+        }
+
+        @media (max-width: 1024px) {
+            .intro-section {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .intro-left h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .section-label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--emerald);
+            margin-bottom: 2rem;
+            font-family: var(--font-display);
+            font-weight: 600;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 4rem 3rem;
+        }
+
+        .card {
+            padding: 2rem;
+            border: 1px solid rgba(240, 237, 232, 0.08);
+            border-radius: 12px;
+            background: rgba(240, 237, 232, 0.02);
+            transition: all 0.3s var(--ease);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.reveal {
+            animation: revealUp 0.8s var(--ease) forwards;
+        }
+
+        @keyframes revealUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            border-color: rgba(240, 237, 232, 0.15);
+            background: rgba(240, 237, 232, 0.04);
+            transform: translateY(-8px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: var(--emerald);
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: rgba(240, 237, 232, 0.75);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 3rem 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                padding: 2rem 1.5rem;
+                gap: 1.5rem;
+            }
+        }
+
+        .process-section {
+            padding: 6rem 3rem;
+            background: rgba(240, 237, 232, 0.02);
+        }
+
+        .process-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .process-step.reveal {
+            animation: revealUp 0.8s var(--ease) forwards;
+        }
+
+        .step-shape {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: var(--emerald);
+            opacity: 0.1;
+        }
+
+        .process-step:nth-child(2) .step-shape {
+            border-radius: 12px;
+        }
+
+        .process-step:nth-child(3) .step-shape {
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+
+        .process-step:nth-child(4) .step-shape {
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .step-label {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 1024px) {
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        .faq-section {
+            padding: 6rem 3rem;
+        }
+
+        .faq-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(240, 237, 232, 0.08);
+            padding: 2rem 0;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .faq-item.reveal {
+            animation: revealUp 0.8s var(--ease) forwards;
+        }
+
+        .faq-item:hover .faq-question {
+            color: var(--emerald);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.3s var(--ease);
+            gap: 1rem;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--emerald);
+            flex-shrink: 0;
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 1.5rem;
+            color: rgba(240, 237, 232, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .faq-answer.open {
+            display: block;
+            animation: slideDown 0.3s var(--ease);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .faq-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .faq-item {
+                padding: 1.5rem 0;
+            }
+        }
+
+        .cta-section {
+            padding: 6rem 3rem;
+            text-align: center;
+            background: rgba(240, 237, 232, 0.02);
+        }
+
+        .cta-main {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 1rem;
+            color: rgba(240, 237, 232, 0.8);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: var(--emerald);
+            color: var(--black);
+            border: none;
+            border-radius: 999px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: var(--white);
+            transform: translateX(4px);
+        }
+
+        footer {
+            border-top: 1px solid rgba(240, 237, 232, 0.08);
+            padding: 3rem;
+            background: rgba(240, 237, 232, 0.01);
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .footer-brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(240, 237, 232, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s var(--ease);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-copy {
+            color: rgba(240, 237, 232, 0.6);
+            font-size: 0.85rem;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: left;
+            }
+
+            .footer-copy {
+                text-align: left;
+            }
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(240, 237, 232, 0.08);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            z-index: 999;
+        }
+
+        .cookie-banner.hidden {
+            display: none;
+        }
+
+        .cookie-text {
+            flex: 1;
+            font-size: 0.9rem;
+            color: rgba(240, 237, 232, 0.8);
+        }
+
+        .cookie-btns {
+            display: flex;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(240, 237, 232, 0.2);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s var(--ease);
+            font-family: var(--font-body);
+        }
+
+        .cookie-btn.accept {
+            background: var(--emerald);
+            border-color: var(--emerald);
+            color: var(--black);
+        }
+
+        .cookie-btn:hover {
+            border-color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+            }
+
+            .cookie-btns {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .cookie-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="header-content">
-      <a href="/" class="logo">The Bair Co.</a>
-      <button class="menu-toggle" id="menuToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav id="mainNav">
-        <a href="/" class="nav-link">Studio</a>
-        <a href="/portfolio/" class="nav-link">Portfolio</a>
-        <a href="/diensten/" class="nav-link active">Onze diensten</a>
-        <a href="/blog/" class="nav-link">Blog</a>
-        <a href="/over/" class="nav-link">Over</a>
-        <a href="/contact/" class="nav-link">Contact</a>
-      </nav>
+    <header>
+        <a href="../index.html" class="brand">
+            <img src="../logo-white.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.
+        </a>
+        <nav>
+            <a href="../index.html#werk" class="nav-pill">Portfolio</a>
+            <a href="../index.html#diensten" class="nav-pill active">Onze diensten</a>
+            <a href="../index.html#cases" class="nav-pill">Uitgelicht</a>
+            <a href="../over.html" class="nav-pill">Over</a>
+            <a href="../index.html#contact" class="nav-pill">Contact</a>
+            <a href="../blog.html" class="nav-pill">Blog</a>
+        </nav>
+        <div class="mob-toggle" id="mobToggle"><span></span><span></span><span></span></div>
+    </header>
+    <div class="mob-nav" id="mobNav">
+        <a href="../index.html#werk" onclick="closeMob()">Portfolio</a>
+        <a href="../index.html#diensten" onclick="closeMob()">Onze diensten</a>
+        <a href="../index.html#cases" onclick="closeMob()">Uitgelicht</a>
+        <a href="../over.html" onclick="closeMob()">Over</a>
+        <a href="../index.html#contact" onclick="closeMob()">Contact</a>
+        <a href="../blog.html" onclick="closeMob()">Blog</a>
     </div>
-  </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&h=700&fit=crop&auto=format&q=80" alt="App development" class="hero-image">
-    <div class="container">
-      <div class="hero-content">
-        <h1>Apps & Producten</h1>
-        <p class="subtitle">Van idee tot App Store. UI/UX design en development onder één dak. We hebben GiGi Money gemaakt — actief in 28 landen met 22 taalversies.</p>
-        <a href="#contact" class="cta-button">Laten we starten</a>
-      </div>
+    <main>
+        <section class="hero">
+            <span class="hero-label">Apps & Producten</span>
+            <h1>Van idee tot <span class="serif">App Store</span></h1>
+            <p class="hero-subtitle">We hebben GiGi Money gebouwd — actief in 28 landen, 22 talen. Dat is geen pitch, dat is bewijs.</p>
+        </section>
+
+        <section class="intro-section">
+            <div class="intro-left">
+                <h2>Gebouwd om te schalen</h2>
+            </div>
+            <div class="intro-right">
+                <p>Ideeën zijn niet moeilijk. Schaalbare apps bouwen? Dat is moeilijk. Wij hebben het gedaan. GiGi Money was een concept, nu is het een product in de App Store van 28 landen. Een miljoen gebruikers. In 22 talen. Alles onder één dak gebouwd — design, development, backend, infrastructure. Geen loslopende bureaus die elkaar schrijven. Geen vragen die onbeantwoord blijven. Geen maanden wachten op feedback. Je idee wordt werkelijkheid, snel en solide.</p>
+                <p>We testen, we itereren, we bouwen voor groei. De apps die we maken zijn niet klaar bij launch — ze evolueren. We denken in mogelijkheden. Vandaag een MVP. Morgen iOS-exclusives. Volgende week backend-optimalisatie. Over een maand een nieuwe markt. Dat heet groeien. Dat is wat wij doen.</p>
+            </div>
+        </section>
+
+        <section class="cards-grid">
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Concept & strategie</h3>
+                <p>Idee gaat niet meteen in code. We valideren eerst. Marktonderzoek, concurrentieland, business model — alles uitgeschreven.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>UX research</h3>
+                <p>Wie zijn jouw gebruikers? Wat willen zij? Hoe denken zij? We graven diep voordat we ontwerpen.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>UI/UX design</h3>
+                <p>Schermontwerpen die voelen goed. Prototypes die je testen kunt. Alles lang voor de eerste regel code.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Development</h3>
+                <p>React Native voor cross-platform. iOS en Android tegelijk. Clean code. Testing. Klaar voor production.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Backend & infra</h3>
+                <p>APIs, databases, cloud infrastructure — allemaal schaalbaar. Geen gedoe als je groeien. Altijd online.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Lancering & support</h3>
+                <p>App Store-optimalisatie, first-day promotion, marketing. Dan support: bugfixes, updates, nieuwe features.</p>
+            </div>
+        </section>
+
+        <section class="process-section">
+            <h3 class="process-title">Zo pakken we het aan</h3>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Valideren</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Ontwerpen</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Bouwen</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Lanceren</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h3 class="faq-title">Vragen</h3>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Wat kost een app?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Vanaf €10.000 voor een MVP. Volledige apps met backend en meerdere platformen starten rond €25.000. We beginnen altijd met een scopegesprek.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hoe lang duurt development?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Een MVP in 8-12 weken. Een volledige app met alle features: 3-6 maanden. Het hangt af van complexiteit.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>iOS of Android eerst?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We bouwen cross-platform met React Native — dus je krijgt beide tegelijk. Eén codebase, twee platforms.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Wat is een MVP?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Minimum Viable Product — de kleinste versie van je app die echt waarde levert. Snel bouwen, snel leren, dan uitbreiden.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hoe zit het met onderhoud?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We bieden maandelijkse support-pakketten voor updates, bugfixes en nieuwe features. Je app blijft in goede handen.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2 class="cta-main">Klaar om je idee <span class="serif">werkelijkheid</span> te maken?</h2>
+            <p class="cta-subtitle">Laten we eraan beginnen — van concept tot App Store, samen.</p>
+            <a href="../index.html#contact" class="cta-btn">Begin nu → </a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">The Bair Co.</div>
+            <div class="footer-links">
+                <a href="../index.html#werk">Portfolio</a>
+                <a href="../index.html#diensten">Studio</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../over.html">Over</a>
+                <a href="../index.html#contact">Contact</a>
+            </div>
+            <div class="footer-copy">&copy; 2026 The Bair Co.. Alle rechten voorbehouden.</div>
+        </div>
+    </footer>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-text">
+            We gebruiken cookies voor analyse en verbeterde ervaring. Je kunt dit instellingen aanpassen.
+        </div>
+        <div class="cookie-btns">
+            <button class="cookie-btn" onclick="rejectCookies()">Afwijzen</button>
+            <button class="cookie-btn accept" onclick="acceptCookies()">Accepteren</button>
+        </div>
     </div>
-  </section>
 
-  <!-- INTRO SECTION -->
-  <section class="intro">
-    <div class="container">
-      <div class="intro-grid reveal">
-        <div class="intro-content">
-          <h2>App Ontwikkeling</h2>
-          <p>Een succesvolle app start niet met development. Het start met onderzoek, strategie en design. Wij nemen je mee door het hele proces: van concept tot lancering en verdere onderhoud.</p>
-          <p>Met 20+ jaar media experience en proven track record (GiGi Money) weten we wat het kost om een app succesvol te maken.</p>
-          <ul class="intro-list">
-            <li>UX Research & User Testing</li>
-            <li>UI/UX Design (iOS & Android)</li>
-            <li>Native & Cross-platform Development</li>
-            <li>Backend Development</li>
-            <li>App Store Optimization</li>
-            <li>Post-launch Support & Updates</li>
-          </ul>
-        </div>
-        <div class="intro-image reveal" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%); border-radius: 12px;"></div>
-      </div>
-    </div>
-  </section>
+    <script>
+        const mobToggle = document.getElementById('mobToggle');
+        const mobNav = document.getElementById('mobNav');
 
-  <!-- SERVICES SECTION -->
-  <section class="services-section">
-    <div class="container">
-      <h2 class="reveal">Ons Proces</h2>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <h3>App Concept & Strategy</h3>
-          <p>We beginnen met jouw idee. Market research, competitor analysis, en een duidelijk product roadmap. Wat gaat je app doen en wie zijn jouw users?</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>UX Research</h3>
-          <p>User interviews, persona development, user flow mapping. Voordat we een pixel ontwerpen weten we precies wat je users nodig hebben.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>UI/UX Design</h3>
-          <p>Mooi, intuïtief en gebruiksvriendelijk design. Wireframes, prototypes, en high-fidelity mockups. Klaar voor development.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>Development</h3>
-          <p>Native iOS/Android development of cross-platform (Flutter, React Native). Production-ready code, testable en maintainable.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>Backend & Infrastructure</h3>
-          <p>Servers, databases, APIs en authentication. Alles wat jouw app nodig heeft om te draaien is inbegrepen.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>Launch & Onderhoud</h3>
-          <p>App Store submission, post-launch monitoring, bugfixes en feature updates. We blijven erbij.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        mobToggle.addEventListener('click', () => {
+            mobNav.classList.toggle('active');
+        });
 
-  <!-- PROCESS SECTION -->
-  <section class="process-section">
-    <div class="container">
-      <h2 class="reveal">Project Timeline</h2>
-      <div class="process-steps">
-        <div class="process-step reveal">
-          <div class="step-number">1</div>
-          <h3>Planning</h3>
-          <p>Strategie, roadmap en project scope. Kosten en timeline bepalen. 2-4 weken.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">2</div>
-          <h3>Design</h3>
-          <p>UX research, wireframes, prototypes en high-fidelity designs. Iteratief met feedback. 4-8 weken.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">3</div>
-          <h3>Development</h3>
-          <p>Frontend, backend, database en integratie. Code reviews, testing en optimalisatie. 8-16 weken.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">4</div>
-          <h3>Launch</h3>
-          <p>App Store submission, setup van analytics, monitoring. Beta testing waar nodig. 2-4 weken.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">5</div>
-          <h3>Support</h3>
-          <p>Bugfixes, updates, feature requests. Ongoing support planning. Maandelijks/jaarlijks.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DELIVERABLES SECTION -->
-  <section class="deliverables-section">
-    <div class="container">
-      <h2 class="reveal">Je ontvangt</h2>
-      <div class="deliverables-grid">
-        <div class="deliverable-item reveal">
-          <h3>Product Strategy Document</h3>
-          <p>Roadmap, features, timeline, budget. Alles wat nodig is voor succes.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>UI/UX Design Files</h3>
-          <p>Figma files met alle designs, components en design system. Jouw eigendom.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>Source Code</h3>
-          <p>Production-ready code in Git repository. Jouw eigendom, volledig gedocumenteerd.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>App Store Listings</h3>
-          <p>App Store en Play Store optimalisatie, screenshots, description, metadata.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>Analytics & Monitoring</h3>
-          <p>Setup van crash reporting, analytics, user behavior tracking. Dashboard ingesteld.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>Documentation</h3>
-          <p>Technical documentation, API docs, deployment guides. Alles wat een developer nodig heeft.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ SECTION -->
-  <section class="faq-section">
-    <div class="container">
-      <h2 class="reveal">Veel gestelde vragen</h2>
-      <div class="faq-container">
-        <div class="faq-item reveal">
-          <div class="faq-question">Wat kost een app?</div>
-          <div class="faq-answer">Dit hangt sterk af van complexity. Een simpele app (MVP) kost €20.000-50.000. Een mid-range app €50.000-150.000. Complexe apps (GiGi Money level) kunnen €300.000+ zijn. We maken custom quotes op basis van requirements.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">Hoe lang duurt app ontwikkeling?</div>
-          <div class="faq-answer">Planning: 2-4 weken. Design: 4-8 weken. Development: 8-16 weken. Launch: 2-4 weken. Totaal: minimaal 4-6 maanden voor een MVP. Complexere apps duurt 12+ maanden.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">iOS of Android eerst?</div>
-          <div class="faq-answer">Dit hangt af van jouw doelgroep. Voor B2C meestal iOS eerste (hogere conversion rates). Voor B2B kan Android voorkomen. Ideaal is parallel development voor snellere launch op beide platforms.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">Wat is een MVP?</div>
-          <div class="faq-answer">Minimum Viable Product. De basis versie met core features. Genoeg om users waarde te leveren en feedback te verzamelen. Alles wat niet kritisch is voor versie 1.0 kan later. MVP-focus helpt snel lanceren en learnings te testen.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">Hoe onderhouden jullie apps?</div>
-          <div class="faq-answer">Post-launch support packages: bugfixes, OS updates, minor feature requests (€1.000-2.000/maand). Nieuwe major features: custom quotes. We monitoren crashes, performance, user reviews. Altijd beschikbaar voor critical issues.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA SECTION -->
-  <section class="cta-section" id="contact">
-    <div class="container">
-      <h2 class="reveal">Klaar voor jouw app?</h2>
-      <p class="reveal">Laten we samen jouw product idee uitwerken. Van concept tot App Store.</p>
-      <div class="cta-buttons reveal">
-        <a href="https://www.baircompany.be/contact/" class="cta-button">Neem contact op</a>
-        <a href="https://www.baircompany.be/portfolio/" class="cta-button-secondary">Bekijk ons werk</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Studio</h3>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/portfolio/">Portfolio</a></li>
-          <li><a href="/diensten/">Diensten</a></li>
-          <li><a href="/blog/">Blog</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Company</h3>
-        <ul>
-          <li><a href="/over/">Over</a></li>
-          <li><a href="/contact/">Contact</a></li>
-          <li><a href="/privacy/">Privacy</a></li>
-          <li><a href="/terms/">Terms</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Kristof Bogaerts</h3>
-        <ul>
-          <li>Glabbeek, Belgium</li>
-          <li>+32 (0) 486 123 456</li>
-          <li><a href="mailto:hello@baircompany.be">hello@baircompany.be</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 The Bair Co. All rights reserved. | Designed & built by The Bair Co.</p>
-    </div>
-  </footer>
-
-  <!-- COOKIE BANNER -->
-  <div class="cookie-banner" id="cookieBanner">
-    <div class="cookie-content">
-      <p class="cookie-text">We gebruiken cookies voor analytics en betere user experience. <a href="/privacy/">Lees meer</a></p>
-      <div class="cookie-buttons">
-        <button class="cookie-button decline" id="declineCookie">Weigeren</button>
-        <button class="cookie-button accept" id="acceptCookie">Accepteren</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Mobile menu toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
-
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      mainNav.classList.toggle('active');
-    });
-
-    // Close menu when link clicked
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        mainNav.classList.remove('active');
-      });
-    });
-
-    // FAQ Toggle
-    document.querySelectorAll('.faq-question').forEach(question => {
-      question.addEventListener('click', () => {
-        const item = question.parentElement;
-        item.classList.toggle('active');
-      });
-    });
-
-    // Scroll Reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+        function closeMob() {
+            mobNav.classList.remove('active');
         }
-      });
-    }, {
-      threshold: 0.1
-    });
 
-    reveals.forEach(reveal => observer.observe(reveal));
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
 
-    // Cookie Banner
-    const cookieBanner = document.getElementById('cookieBanner');
-    const acceptCookie = document.getElementById('acceptCookie');
-    const declineCookie = document.getElementById('declineCookie');
+            question.addEventListener('click', () => {
+                answer.classList.toggle('open');
+            });
+        });
 
-    // Show cookie banner if not dismissed
-    if (!localStorage.getItem('cookieConsent')) {
-      cookieBanner.classList.add('show');
+        const revealElements = document.querySelectorAll('.card, .process-step, .faq-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        const cookieBanner = document.getElementById('cookieBanner');
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.add('hidden');
+            loadGA4();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('cookiesAccepted', 'false');
+            cookieBanner.classList.add('hidden');
+        }
+
+        if (localStorage.getItem('cookiesAccepted') === 'true') {
+            cookieBanner.classList.add('hidden');
+            loadGA4();
+        } else if (localStorage.getItem('cookiesAccepted') !== null) {
+            cookieBanner.classList.add('hidden');
+        }
+
+        function loadGA4() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+        }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "App Development",
+        "description": "Van idee tot App Store. UI/UX design en development onder één dak. Makers van GiGi Money — actief in 28 landen, 22 talen.",
+        "provider": {
+            "@type": "Organization",
+            "name": "The Bair Co.",
+            "url": "https://www.baircompany.be"
+        },
+        "areaServed": "BE"
     }
+    </script>
 
-    acceptCookie.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'accepted');
-      cookieBanner.classList.remove('show');
-
-      // Load Google Analytics
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
-      document.head.appendChild(script);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TEPNG02Z0J');
-    });
-
-    declineCookie.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'declined');
-      cookieBanner.classList.remove('show');
-    });
-
-    // Load Analytics if already accepted
-    if (localStorage.getItem('cookieConsent') === 'accepted') {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
-      document.head.appendChild(script);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TEPNG02Z0J');
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Wat kost een app?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Vanaf €10.000 voor een MVP. Volledige apps met backend en meerdere platformen starten rond €25.000. We beginnen altijd met een scopegesprek."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoe lang duurt development?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Een MVP in 8-12 weken. Een volledige app met alle features: 3-6 maanden. Het hangt af van complexiteit."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "iOS of Android eerst?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We bouwen cross-platform met React Native — dus je krijgt beide tegelijk. Eén codebase, twee platforms."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Wat is een MVP?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Minimum Viable Product — de kleinste versie van je app die echt waarde levert. Snel bouwen, snel leren, dan uitbreiden."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoe zit het met onderhoud?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We bieden maandelijkse support-pakketten voor updates, bugfixes en nieuwe features. Je app blijft in goede handen."
+                }
+            }
+        ]
     }
-  </script>
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "App Development",
-    "provider": {
-      "@type": "Organization",
-      "name": "The Bair Co.",
-      "url": "https://www.baircompany.be",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Glabbeek",
-        "addressCountry": "BE"
-      }
-    },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Belgium"
-    },
-    "serviceType": "Mobile App Development",
-    "description": "Van concept tot App Store. UI/UX design en development. Makers van GiGi Money (28 landen, 22 talen)."
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Wat kost een app?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Een MVP kost €20.000-50.000. Mid-range app €50.000-150.000. Complexe apps kunnen €300.000+ zijn. Custom quotes op basis van requirements."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Hoe lang duurt app ontwikkeling?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Minimaal 4-6 maanden voor MVP. Planning 2-4 weken, design 4-8 weken, development 8-16 weken, launch 2-4 weken."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "iOS of Android eerst?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Dit hangt af van jouw doelgroep. B2C meestal iOS eerst. B2B kan Android voorkomen. Ideaal is parallel development."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wat is een MVP?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Minimum Viable Product. De basis versie met core features. Genoeg om users waarde te leveren en feedback te verzamelen."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Hoe onderhouden jullie apps?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Post-launch support packages: bugfixes, OS updates, minor features (€1.000-2.000/maand). Nieuwe major features: custom quotes."
-        }
-      }
-    ]
-  }
-  </script>
+    </script>
 </body>
 </html>

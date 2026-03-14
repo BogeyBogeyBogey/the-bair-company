@@ -1,1295 +1,1003 @@
 <!DOCTYPE html>
-<html lang="nl" dir="ltr">
+<html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <title>Online Marketing — The Bair Co. | Digitale Marketing Bureau</title>
-  <meta name="description" content="Online marketing door The Bair Co. SEO, Google Ads, e-mailmarketing en conversie-optimalisatie. Data-gedreven campagnes die resultaat opleveren.">
-  <meta name="keywords" content="online marketing bureau, digitale marketing Vlaanderen, SEO bureau, Google Ads, marketing strategie">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="author" content="The Bair Co.">
-
-  <link rel="canonical" href="https://www.baircompany.be/diensten/marketing/">
-  <link rel="alternate" hreflang="nl-BE" href="https://www.baircompany.be/diensten/marketing/">
-  <link rel="alternate" hreflang="x-default" href="https://www.baircompany.be/diensten/marketing/">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Online Marketing — The Bair Co. | Digitale Marketing Bureau">
-  <meta property="og:description" content="Online marketing door The Bair Co. SEO, Google Ads, e-mailmarketing en conversie-optimalisatie. Data-gedreven campagnes die resultaat opleveren.">
-  <meta property="og:url" content="https://www.baircompany.be/diensten/marketing/">
-  <meta property="og:site_name" content="The Bair Co.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=700&fit=crop&auto=format&q=80">
-  <meta property="og:image:width" content="1400">
-  <meta property="og:image:height" content="700">
-  <meta property="og:locale" content="nl_BE">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Online Marketing — The Bair Co. | Digitale Marketing Bureau">
-  <meta name="twitter:description" content="Online marketing door The Bair Co. SEO, Google Ads, e-mailmarketing en conversie-optimalisatie.">
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=700&fit=crop&auto=format&q=80">
-
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="preload" as="style">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --black: #0a0a0a;
-      --white: #f0ede8;
-      --grey: #888;
-      --accent: #2E8AFF;
-      --pink: #ec4899;
-      --amber: #f59e0b;
-      --emerald: #10b981;
-      --red: #ef4444;
-      --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      line-height: 1.6;
-      font-weight: 300;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='1' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    a {
-      color: var(--white);
-      text-decoration: none;
-      transition: all 0.3s var(--ease);
-    }
-
-    a:hover {
-      color: var(--accent);
-    }
-
-    button {
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* HEADER */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 20px 0;
-      backdrop-filter: blur(10px);
-      background: rgba(10, 10, 10, 0.8);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -1px;
-      transition: color 0.3s var(--ease);
-    }
-
-    .logo:hover {
-      color: var(--accent);
-    }
-
-    nav {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 500;
-      position: relative;
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: rgba(240, 237, 232, 0.05);
-      transition: all 0.3s var(--ease);
-    }
-
-    .nav-link:hover {
-      background: rgba(46, 138, 255, 0.2);
-      color: var(--accent);
-    }
-
-    .nav-link.active {
-      background: var(--accent);
-      color: var(--black);
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    .menu-toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--white);
-      transition: all 0.3s var(--ease);
-      display: block;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(10px, 10px);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(8px, -8px);
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
-        background: rgba(10, 10, 10, 0.95);
-        padding: 24px;
-        border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-      }
-
-      nav.active {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .nav-link {
-        width: 100%;
-        padding: 12px 16px;
-        border-radius: 8px;
-        background: rgba(240, 237, 232, 0.05);
-      }
-    }
-
-    /* HERO SECTION */
-    .hero {
-      margin-top: 80px;
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, rgba(46, 138, 255, 0.1) 0%, rgba(10, 10, 10, 0.9) 100%);
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -200px;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(46, 138, 255, 0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.3;
-      z-index: 0;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-      animation: fadeInUp 0.8s var(--ease) 0.2s backwards;
-    }
-
-    .hero-content h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(48px, 8vw, 72px);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -2px;
-      color: var(--white);
-    }
-
-    .hero-content .subtitle {
-      font-size: 18px;
-      color: var(--grey);
-      margin-bottom: 32px;
-      line-height: 1.8;
-      font-weight: 300;
-    }
-
-    .cta-button {
-      display: inline-block;
-      padding: 14px 32px;
-      background: var(--accent);
-      color: var(--black);
-      font-weight: 500;
-      border-radius: 8px;
-      transition: all 0.3s var(--ease);
-      font-size: 16px;
-    }
-
-    .cta-button:hover {
-      background: var(--white);
-      transform: translateY(-2px);
-      box-shadow: 0 20px 40px rgba(46, 138, 255, 0.3);
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        padding: 60px 0;
-        margin-top: 70px;
-        min-height: 450px;
-      }
-
-      .hero::before {
-        width: 400px;
-        height: 400px;
-        right: -100px;
-      }
-
-      .hero-content h1 {
-        font-size: 42px;
-      }
-    }
-
-    /* INTRO SECTION */
-    .intro {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .intro-content h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      line-height: 1.2;
-      letter-spacing: -1px;
-    }
-
-    .intro-content p {
-      font-size: 16px;
-      color: var(--grey);
-      margin-bottom: 20px;
-      line-height: 1.8;
-    }
-
-    .intro-list {
-      list-style: none;
-      margin-top: 32px;
-    }
-
-    .intro-list li {
-      padding: 12px 0;
-      font-size: 16px;
-      display: flex;
-      gap: 12px;
-      color: var(--grey);
-    }
-
-    .intro-list li::before {
-      content: '✓';
-      color: var(--accent);
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .intro-image {
-      width: 100%;
-      height: 400px;
-      background: linear-gradient(135deg, rgba(46, 138, 255, 0.15) 0%, rgba(46, 138, 255, 0.05) 100%);
-      border-radius: 12px;
-      object-fit: cover;
-      opacity: 0.8;
-    }
-
-    @media (max-width: 768px) {
-      .intro-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .intro-content h2 {
-        font-size: 32px;
-      }
-
-      .intro {
-        padding: 80px 0;
-      }
-    }
-
-    /* SERVICES GRID */
-    .services-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .services-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-    }
-
-    .service-card {
-      padding: 40px;
-      background: linear-gradient(135deg, rgba(46, 138, 255, 0.1) 0%, rgba(46, 138, 255, 0.02) 100%);
-      border: 1px solid rgba(46, 138, 255, 0.2);
-      border-radius: 12px;
-      transition: all 0.3s var(--ease);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: -100%;
-      right: -100%;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(46, 138, 255, 0.3) 0%, transparent 70%);
-      transition: all 0.3s var(--ease);
-    }
-
-    .service-card:hover {
-      border-color: var(--accent);
-      background: linear-gradient(135deg, rgba(46, 138, 255, 0.15) 0%, rgba(46, 138, 255, 0.05) 100%);
-    }
-
-    .service-card:hover::before {
-      top: -50%;
-      right: -50%;
-    }
-
-    .service-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .service-card p {
-      font-size: 16px;
-      color: var(--grey);
-      position: relative;
-      z-index: 2;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 768px) {
-      .services-section h2 {
-        font-size: 36px;
-        margin-bottom: 60px;
-      }
-
-      .service-card {
-        padding: 32px;
-      }
-    }
-
-    /* PROCESS SECTION */
-    .process-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .process-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-    }
-
-    .process-step {
-      position: relative;
-      padding: 40px;
-      background: rgba(240, 237, 232, 0.03);
-      border: 1px solid rgba(240, 237, 232, 0.1);
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .step-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 16px;
-      line-height: 1;
-    }
-
-    .process-step h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .process-step p {
-      font-size: 14px;
-      color: var(--grey);
-      line-height: 1.7;
-    }
-
-    @media (max-width: 768px) {
-      .process-section h2 {
-        font-size: 36px;
-      }
-
-      .process-steps {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* DELIVERABLES */
-    .deliverables-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .deliverables-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .deliverables-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
-    }
-
-    .deliverable-item {
-      padding: 32px;
-      background: linear-gradient(135deg, rgba(46, 138, 255, 0.08) 0%, transparent 100%);
-      border-left: 3px solid var(--accent);
-      border-radius: 8px;
-    }
-
-    .deliverable-item h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .deliverable-item p {
-      font-size: 14px;
-      color: var(--grey);
-      line-height: 1.6;
-    }
-
-    /* FAQ SECTION */
-    .faq-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .faq-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 80px;
-      text-align: center;
-      letter-spacing: -1px;
-    }
-
-    .faq-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      margin-bottom: 20px;
-      border: 1px solid rgba(240, 237, 232, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      background: rgba(240, 237, 232, 0.02);
-    }
-
-    .faq-question {
-      padding: 24px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s var(--ease);
-      font-weight: 500;
-      font-size: 16px;
-    }
-
-    .faq-item:hover .faq-question {
-      background: rgba(46, 138, 255, 0.1);
-    }
-
-    .faq-question::after {
-      content: '+';
-      font-size: 24px;
-      color: var(--accent);
-      transition: transform 0.3s var(--ease);
-      flex-shrink: 0;
-      margin-left: 20px;
-    }
-
-    .faq-item.active .faq-question::after {
-      transform: rotate(45deg);
-    }
-
-    .faq-answer {
-      display: none;
-      padding: 0 24px 24px;
-      color: var(--grey);
-      font-size: 16px;
-      line-height: 1.8;
-      background: rgba(46, 138, 255, 0.05);
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-    }
-
-    .faq-item.active .faq-answer {
-      display: block;
-    }
-
-    /* CTA SECTION */
-    .cta-section {
-      padding: 120px 0;
-      border-bottom: 1px solid rgba(240, 237, 232, 0.1);
-      text-align: center;
-    }
-
-    .cta-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-    }
-
-    .cta-section p {
-      font-size: 18px;
-      color: var(--grey);
-      margin-bottom: 40px;
-      line-height: 1.8;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-button-secondary {
-      display: inline-block;
-      padding: 14px 32px;
-      border: 2px solid var(--accent);
-      color: var(--accent);
-      font-weight: 500;
-      border-radius: 8px;
-      transition: all 0.3s var(--ease);
-      font-size: 16px;
-      background: transparent;
-    }
-
-    .cta-button-secondary:hover {
-      background: var(--accent);
-      color: var(--black);
-    }
-
-    @media (max-width: 768px) {
-      .cta-section {
-        padding: 80px 0;
-      }
-
-      .cta-section h2 {
-        font-size: 36px;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .cta-button,
-      .cta-button-secondary {
-        width: 100%;
-      }
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 60px 0 40px;
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-      background: rgba(10, 10, 10, 0.5);
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-
-    .footer-section h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
-    }
-
-    .footer-section ul {
-      list-style: none;
-    }
-
-    .footer-section a {
-      font-size: 14px;
-      color: var(--grey);
-      display: block;
-      padding: 8px 0;
-      transition: color 0.3s var(--ease);
-    }
-
-    .footer-section a:hover {
-      color: var(--white);
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-      padding-top: 24px;
-      text-align: center;
-      font-size: 14px;
-      color: var(--grey);
-    }
-
-    /* COOKIE BANNER */
-    .cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 24px;
-      background: rgba(10, 10, 10, 0.95);
-      border-top: 1px solid rgba(240, 237, 232, 0.1);
-      backdrop-filter: blur(10px);
-      z-index: 999;
-      display: none;
-    }
-
-    .cookie-banner.show {
-      display: block;
-      animation: slideUp 0.3s var(--ease);
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(100%);
-      }
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    .cookie-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      padding: 0 24px;
-    }
-
-    .cookie-text {
-      font-size: 14px;
-      color: var(--grey);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .cookie-text a {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-
-    .cookie-buttons {
-      display: flex;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .cookie-button {
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.3s var(--ease);
-      white-space: nowrap;
-    }
-
-    .cookie-button.accept {
-      background: var(--accent);
-      color: var(--black);
-      border: none;
-    }
-
-    .cookie-button.accept:hover {
-      background: var(--white);
-    }
-
-    .cookie-button.decline {
-      border: 1px solid rgba(240, 237, 232, 0.3);
-      color: var(--grey);
-      background: transparent;
-    }
-
-    .cookie-button.decline:hover {
-      border-color: var(--white);
-      color: var(--white);
-    }
-
-    @media (max-width: 768px) {
-      .cookie-content {
-        flex-direction: column;
-        padding: 0;
-      }
-
-      .cookie-buttons {
-        width: 100%;
-        flex-direction: column;
-      }
-
-      .cookie-button {
-        width: 100%;
-        padding: 12px 20px;
-      }
-    }
-
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Marketing — The Bair Co. | Digitale Marketing Bureau</title>
+    <meta name="description" content="SEO, Google Ads, e-mailmarketing en conversie-optimalisatie. Data-gedreven campagnes die resultaat opleveren. Glabbeek, België.">
+    <link rel="canonical" href="https://www.baircompany.be/diensten/marketing.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #f0ede8;
+            --grey: #888;
+            --accent: #2E8AFF;
+            --pink: #ec4899;
+            --amber: #f59e0b;
+            --emerald: #10b981;
+            --red: #ef4444;
+            --font-display: 'Syne', system-ui, sans-serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='1' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(240, 237, 232, 0.08);
+            z-index: 1000;
+            font-family: var(--font-display);
+            font-weight: 700;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-pill {
+            padding: 0.6rem 1.2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.95rem;
+            font-family: var(--font-body);
+            font-weight: 400;
+            transition: background 0.3s var(--ease);
+            border: 1px solid rgba(240, 237, 232, 0.08);
+        }
+
+        .nav-pill:hover {
+            background: rgba(240, 237, 232, 0.08);
+        }
+
+        .nav-pill.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--black);
+        }
+
+        .mob-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mob-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s var(--ease);
+        }
+
+        .mob-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(240, 237, 232, 0.08);
+            z-index: 999;
+        }
+
+        .mob-nav.active {
+            display: flex;
+        }
+
+        .mob-nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(240, 237, 232, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .mob-toggle {
+                display: flex;
+            }
+
+            header {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+            padding-top: 80px;
+        }
+
+        section {
+            position: relative;
+        }
+
+        .hero {
+            height: 80vh;
+            min-height: 500px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.6)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=700&fit=crop&auto=format&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 3rem;
+            overflow: hidden;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            font-family: var(--font-display);
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .serif {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 600px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: rgba(240, 237, 232, 0.9);
+        }
+
+        .intro-section {
+            padding: 6rem 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .intro-left h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .intro-right p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(240, 237, 232, 0.85);
+        }
+
+        @media (max-width: 1024px) {
+            .intro-section {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .intro-left h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .section-label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            font-family: var(--font-display);
+            font-weight: 600;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 4rem 3rem;
+        }
+
+        .card {
+            padding: 2rem;
+            border: 1px solid rgba(240, 237, 232, 0.08);
+            border-radius: 12px;
+            background: rgba(240, 237, 232, 0.02);
+            transition: all 0.3s var(--ease);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.reveal {
+            animation: revealUp 0.8s var(--ease) forwards;
+        }
+
+        @keyframes revealUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            border-color: rgba(240, 237, 232, 0.15);
+            background: rgba(240, 237, 232, 0.04);
+            transform: translateY(-8px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: var(--accent);
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: rgba(240, 237, 232, 0.75);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 3rem 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                padding: 2rem 1.5rem;
+                gap: 1.5rem;
+            }
+        }
+
+        .process-section {
+            padding: 6rem 3rem;
+            background: rgba(240, 237, 232, 0.02);
+        }
+
+        .process-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .process-step.reveal {
+            animation: revealUp 0.8s var(--ease) forwards;
+        }
+
+        .step-shape {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.1;
+        }
+
+        .process-step:nth-child(2) .step-shape {
+            border-radius: 12px;
+        }
+
+        .process-step:nth-child(3) .step-shape {
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+
+        .process-step:nth-child(4) .step-shape {
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .step-label {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 1024px) {
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        .faq-section {
+            padding: 6rem 3rem;
+        }
+
+        .faq-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(240, 237, 232, 0.08);
+            padding: 2rem 0;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .faq-item.reveal {
+            animation: revealUp 0.8s var(--ease) forwards;
+        }
+
+        .faq-item:hover .faq-question {
+            color: var(--accent);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.3s var(--ease);
+            gap: 1rem;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 1.5rem;
+            color: rgba(240, 237, 232, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .faq-answer.open {
+            display: block;
+            animation: slideDown 0.3s var(--ease);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .faq-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .faq-item {
+                padding: 1.5rem 0;
+            }
+        }
+
+        .cta-section {
+            padding: 6rem 3rem;
+            text-align: center;
+            background: rgba(240, 237, 232, 0.02);
+        }
+
+        .cta-main {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 1rem;
+            color: rgba(240, 237, 232, 0.8);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: var(--black);
+            border: none;
+            border-radius: 999px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: var(--white);
+            transform: translateX(4px);
+        }
+
+        footer {
+            border-top: 1px solid rgba(240, 237, 232, 0.08);
+            padding: 3rem;
+            background: rgba(240, 237, 232, 0.01);
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .footer-brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(240, 237, 232, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s var(--ease);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-copy {
+            color: rgba(240, 237, 232, 0.6);
+            font-size: 0.85rem;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: left;
+            }
+
+            .footer-copy {
+                text-align: left;
+            }
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(240, 237, 232, 0.08);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            z-index: 999;
+        }
+
+        .cookie-banner.hidden {
+            display: none;
+        }
+
+        .cookie-text {
+            flex: 1;
+            font-size: 0.9rem;
+            color: rgba(240, 237, 232, 0.8);
+        }
+
+        .cookie-btns {
+            display: flex;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(240, 237, 232, 0.2);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s var(--ease);
+            font-family: var(--font-body);
+        }
+
+        .cookie-btn.accept {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--black);
+        }
+
+        .cookie-btn:hover {
+            border-color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+            }
+
+            .cookie-btns {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .cookie-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="header-content">
-      <a href="/" class="logo">The Bair Co.</a>
-      <button class="menu-toggle" id="menuToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav id="mainNav">
-        <a href="/" class="nav-link">Studio</a>
-        <a href="/portfolio/" class="nav-link">Portfolio</a>
-        <a href="/diensten/" class="nav-link active">Onze diensten</a>
-        <a href="/blog/" class="nav-link">Blog</a>
-        <a href="/over/" class="nav-link">Over</a>
-        <a href="/contact/" class="nav-link">Contact</a>
-      </nav>
+    <header>
+        <a href="../index.html" class="brand">
+            <img src="../logo-white.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.
+        </a>
+        <nav>
+            <a href="../index.html#werk" class="nav-pill">Portfolio</a>
+            <a href="../index.html#diensten" class="nav-pill active">Onze diensten</a>
+            <a href="../index.html#cases" class="nav-pill">Uitgelicht</a>
+            <a href="../over.html" class="nav-pill">Over</a>
+            <a href="../index.html#contact" class="nav-pill">Contact</a>
+            <a href="../blog.html" class="nav-pill">Blog</a>
+        </nav>
+        <div class="mob-toggle" id="mobToggle"><span></span><span></span><span></span></div>
+    </header>
+    <div class="mob-nav" id="mobNav">
+        <a href="../index.html#werk" onclick="closeMob()">Portfolio</a>
+        <a href="../index.html#diensten" onclick="closeMob()">Onze diensten</a>
+        <a href="../index.html#cases" onclick="closeMob()">Uitgelicht</a>
+        <a href="../over.html" onclick="closeMob()">Over</a>
+        <a href="../index.html#contact" onclick="closeMob()">Contact</a>
+        <a href="../blog.html" onclick="closeMob()">Blog</a>
     </div>
-  </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=700&fit=crop&auto=format&q=80" alt="Online marketing" class="hero-image">
-    <div class="container">
-      <div class="hero-content">
-        <h1>Online Marketing</h1>
-        <p class="subtitle">Data-gedreven campagnes die zichtbaarheid, leads en conversies opleveren. Van SEO tot Google Ads en e-mailmarketing.</p>
-        <a href="#contact" class="cta-button">Laten we starten</a>
-      </div>
+    <main>
+        <section class="hero">
+            <span class="hero-label">Online Marketing</span>
+            <h1>Geen aannames. <span class="serif">Data</span>.</h1>
+            <p class="hero-subtitle">Geen aannames, alleen data. SEO, ads en funnels die bewezen resultaat opleveren.</p>
+        </section>
+
+        <section class="intro-section">
+            <div class="intro-left">
+                <h2>Data in, resultaat uit</h2>
+            </div>
+            <div class="intro-right">
+                <p>Marketing zonder data is gokken. Je weet niet wat werkt, je weet niet wat je moet verbeteren, je verspilt budget op gevoelwerk. Wij denken data-first. Alles testen. Alles meten. Niets aannemen. We hebben dit jarenlang gedaan voor grote media — conversies schalen, gebruikers van nul naar miljoen, elk kanaal optimaliseren. Nu doen we hetzelfde voor je merk. SEO die echt zichtbaarheid brengt. Google Ads die ROI opleveren. E-mailmarketing die voelt als persoonlijk, niet spam. Funnels waar klanten doorheen vallen, niet weglopen.</p>
+                <p>We rapporteren maandelijks. Je ziet exact wat werkt, wat niet werkt, waar we volgende maand inzetten. Geen verborgen formules, geen bullshit — alleen transparante nummers en actionable inzichten.</p>
+            </div>
+        </section>
+
+        <section class="cards-grid">
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>SEO</h3>
+                <p>Organische groei van nul naar zichtbaar. Keywords, content, technische optimalisatie. Langzaam maar blijvend.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Google Ads</h3>
+                <p>Betaalde zoekresultaten die converteren. Strategie, bidding, landing pages — alles op elkaar afgestemd.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>E-mailmarketing</h3>
+                <p>Kampagnes die geopend worden, niet genegeerd. Segmentatie, automaties, kopij die verkoopt.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Conversie-optimalisatie</h3>
+                <p>Je website werkt niet hard genoeg. A/B tests, UX-verbeteringen, psychologie. Meer klanten uit dezelfde bezoeken.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Analytics & rapportage</h3>
+                <p>GA4 setup, tracking, dashboards. Je begrijpt je nummers. Geen vragen meer over wat er echt gebeurt.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"></div>
+                <h3>Funnels & landingspagina's</h3>
+                <p>We ontwerpen pagina's die verkopen. Kopij, design, CTA's — elk element is strategisch.</p>
+            </div>
+        </section>
+
+        <section class="process-section">
+            <h3 class="process-title">Zo pakken we het aan</h3>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Analyseren</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Strategiseren</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Uitvoeren</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-shape"></div>
+                    <div class="step-label">Optimaliseren</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h3 class="faq-title">Vragen</h3>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Wat is het verschil tussen SEO en SEA?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        SEO is organisch — langzaam maar duurzaam. SEA is betaald — snel maar kost per klik. De beste strategie combineert beide.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hoelang duurt het voor SEO-resultaat?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        3-6 maanden voor zichtbare groei. SEO is een marathon, geen sprint. Maar de resultaten zijn blijvend.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Wat kost online marketing?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Vanaf €500 per maand voor SEO. Google Ads beheer vanaf €400 plus advertentiebudget. Altijd op maat.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Welk budget voor Google Ads?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Minimaal €500 per maand aan advertentiebudget, maar het hangt af van je branche en concurrentie. We adviseren op basis van je doelen.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hoe rapporteren jullie?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Maandelijks overzicht met rankings, verkeer, conversies en ROI. Duidelijk, visueel, zonder jargon.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2 class="cta-main">Klaar om <span class="serif">zichtbaar</span> te worden?</h2>
+            <p class="cta-subtitle">Laten we je online potentie ontsluiten — data-driven, stap voor stap.</p>
+            <a href="../index.html#contact" class="cta-btn">Begin nu → </a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">The Bair Co.</div>
+            <div class="footer-links">
+                <a href="../index.html#werk">Portfolio</a>
+                <a href="../index.html#diensten">Studio</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../over.html">Over</a>
+                <a href="../index.html#contact">Contact</a>
+            </div>
+            <div class="footer-copy">&copy; 2026 The Bair Co.. Alle rechten voorbehouden.</div>
+        </div>
+    </footer>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-text">
+            We gebruiken cookies voor analyse en verbeterde ervaring. Je kunt dit instellingen aanpassen.
+        </div>
+        <div class="cookie-btns">
+            <button class="cookie-btn" onclick="rejectCookies()">Afwijzen</button>
+            <button class="cookie-btn accept" onclick="acceptCookies()">Accepteren</button>
+        </div>
     </div>
-  </section>
 
-  <!-- INTRO SECTION -->
-  <section class="intro">
-    <div class="container">
-      <div class="intro-grid reveal">
-        <div class="intro-content">
-          <h2>Waarom online marketing?</h2>
-          <p>Online marketing is de meest meetbare en effectieve manier om je target audience te bereiken. Met de juiste strategie en tools bereik je de juiste mensen op het juiste moment.</p>
-          <p>Wij combineren SEO, paid advertising, email marketing en conversie-optimalisatie in één geïntegreerde aanpak.</p>
-          <ul class="intro-list">
-            <li>SEO strategie & optimalisatie</li>
-            <li>Google Ads & SEA campagnes</li>
-            <li>E-mailmarketing & automation</li>
-            <li>Conversie-optimalisatie</li>
-            <li>Analytics & data insights</li>
-            <li>Landing page design</li>
-          </ul>
-        </div>
-        <div class="intro-image reveal" style="background: linear-gradient(135deg, rgba(46, 138, 255, 0.15) 0%, rgba(46, 138, 255, 0.05) 100%); border-radius: 12px;"></div>
-      </div>
-    </div>
-  </section>
+    <script>
+        const mobToggle = document.getElementById('mobToggle');
+        const mobNav = document.getElementById('mobNav');
 
-  <!-- SERVICES SECTION -->
-  <section class="services-section">
-    <div class="container">
-      <h2 class="reveal">Onze specialiteiten</h2>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <h3>SEO — Organic Growth</h3>
-          <p>Zichtbaarheid in Google via keyword research, content optimalisatie, technische SEO en linkbuilding. Langetermijn resultaten.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>Google Ads — Paid Search</h3>
-          <p>Doelgericht adverteren op Google Search en Display network. We optimaliseren voor conversies, niet alleen kliks.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>E-mailmarketing</h3>
-          <p>Geautomatiseerde campaigns, newsletter strategy en drip sequences. Direct contact met jouw audience.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>Conversie-optimalisatie</h3>
-          <p>A/B testing, UX improvements en funnel optimalisatie. We zorgen dat je traffic omgezet wordt in klanten.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>Analytics & Reporting</h3>
-          <p>GA4 setup, tracking, dashboards en maandelijkse rapportages. Data-driven insights voor betere beslissingen.</p>
-        </div>
-        <div class="service-card reveal">
-          <h3>Landing Pages</h3>
-          <p>High-converting landing pages voor campagnes. Design, copy en tracking geoptimaliseerd voor conversies.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        mobToggle.addEventListener('click', () => {
+            mobNav.classList.toggle('active');
+        });
 
-  <!-- PROCESS SECTION -->
-  <section class="process-section">
-    <div class="container">
-      <h2 class="reveal">Onze werkwijze</h2>
-      <div class="process-steps">
-        <div class="process-step reveal">
-          <div class="step-number">1</div>
-          <h3>Analyse</h3>
-          <p>We analyseren je huidige online presence, concurrentie, doelgroep en business goals.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">2</div>
-          <h3>Strategie</h3>
-          <p>Op basis van data creëren we een geïntegreerde marketing strategie met duidelijke KPIs.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">3</div>
-          <h3>Implementatie</h3>
-          <p>Setup van tracking, création van content, launch van campaigns. Alles professioneel en stap-voor-stap.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">4</div>
-          <h3>Optimalisatie</h3>
-          <p>Voortdurende monitoring, A/B testing en optimalisatie op basis van real-time data.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">5</div>
-          <h3>Rapportage</h3>
-          <p>Maandelijkse rapportages en strategische reviews. Volledig transparant en actionable.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DELIVERABLES SECTION -->
-  <section class="deliverables-section">
-    <div class="container">
-      <h2 class="reveal">Je ontvangt</h2>
-      <div class="deliverables-grid">
-        <div class="deliverable-item reveal">
-          <h3>Keyword research</h3>
-          <p>Uitgebreid onderzoek naar zoektermen die jouw target audience gebruikt. Basis voor SEO en ads.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>Content strategie</h3>
-          <p>Roadmap voor blog posts, landing pages en content marketing. Aligned met jouw SEO goals.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>Google Ads campaigns</h3>
-          <p>Setup, copywriting, landing pages en voortdurende optimalisatie. ROI-focused.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>Email sequences</h3>
-          <p>Geautomatiseerde workflows voor onboarding, follow-up en re-engagement van klanten.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>GA4 dashboard</h3>
-          <p>Custom dashboard met KPIs die voor jouw business matteren. Realtime visibility.</p>
-        </div>
-        <div class="deliverable-item reveal">
-          <h3>Maandelijks rapport</h3>
-          <p>Gedetailleerde analysis van performance, trends, inzichten en aanbevelingen.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ SECTION -->
-  <section class="faq-section">
-    <div class="container">
-      <h2 class="reveal">Veel gestelde vragen</h2>
-      <div class="faq-container">
-        <div class="faq-item reveal">
-          <div class="faq-question">Wat is het verschil tussen SEO en SEA?</div>
-          <div class="faq-answer">SEO (Search Engine Optimization) zijn gratis organische resultaten — het kost maanden maar levert langetermijn resultaten. SEA (Search Engine Advertising) zijn betaalde advertenties in Google — instant visibility maar je betaalt per klik. Het ideaal is beide combineren.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">Hoelang duurt het voor ik SEO resultaten zie?</div>
-          <div class="faq-answer">SEO is langetermijn. In 3 maanden zien we meestal eerste verbeteringen. Significante groei zie je meestal na 6-9 maanden. Dat gezegd, Google Ads levert instant traffic — hiermee zie je resultaten meteen.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">Wat kost online marketing?</div>
-          <div class="faq-answer">Dit hangt sterk af van scope. SEO consulten starten rond €800-1500/maand. Google Ads budgets variëren van €500-5000+/maand advertising spend. Email marketing kan starten bij €300/maand. We werken naar jouw budget.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">Welk budget voor Google Ads?</div>
-          <div class="faq-answer">Dit hangt af van je industrie en concurrentie. Een startup kan beginnen met €500-1000/maand. Meer is altijd beter, maar we helpen je ROI maximaliseren ongeacht budget. We kunnen profitabel draaien of agressief groeien — jouw keuze.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-question">Hoe rapporteren jullie resultaten?</div>
-          <div class="faq-answer">Maandelijkse rapportages met KPIs die voor jouw business matteren. Transparante data, trends, inzichten en aanbevelingen. We gebruiken Google Analytics, Google Ads en custom dashboards. Alles is real-time inzichtelijk.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA SECTION -->
-  <section class="cta-section" id="contact">
-    <div class="container">
-      <h2 class="reveal">Klaar voor groei?</h2>
-      <p class="reveal">Laten we samenwerken aan een online marketing strategie die resulteert in leads, klanten en omzet.</p>
-      <div class="cta-buttons reveal">
-        <a href="https://www.baircompany.be/contact/" class="cta-button">Neem contact op</a>
-        <a href="https://www.baircompany.be/portfolio/" class="cta-button-secondary">Bekijk ons werk</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Studio</h3>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/portfolio/">Portfolio</a></li>
-          <li><a href="/diensten/">Diensten</a></li>
-          <li><a href="/blog/">Blog</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Company</h3>
-        <ul>
-          <li><a href="/over/">Over</a></li>
-          <li><a href="/contact/">Contact</a></li>
-          <li><a href="/privacy/">Privacy</a></li>
-          <li><a href="/terms/">Terms</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Kristof Bogaerts</h3>
-        <ul>
-          <li>Glabbeek, Belgium</li>
-          <li>+32 (0) 486 123 456</li>
-          <li><a href="mailto:hello@baircompany.be">hello@baircompany.be</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 The Bair Co. All rights reserved. | Designed & built by The Bair Co.</p>
-    </div>
-  </footer>
-
-  <!-- COOKIE BANNER -->
-  <div class="cookie-banner" id="cookieBanner">
-    <div class="cookie-content">
-      <p class="cookie-text">We gebruiken cookies voor analytics en betere user experience. <a href="/privacy/">Lees meer</a></p>
-      <div class="cookie-buttons">
-        <button class="cookie-button decline" id="declineCookie">Weigeren</button>
-        <button class="cookie-button accept" id="acceptCookie">Accepteren</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Mobile menu toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
-
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      mainNav.classList.toggle('active');
-    });
-
-    // Close menu when link clicked
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        mainNav.classList.remove('active');
-      });
-    });
-
-    // FAQ Toggle
-    document.querySelectorAll('.faq-question').forEach(question => {
-      question.addEventListener('click', () => {
-        const item = question.parentElement;
-        item.classList.toggle('active');
-      });
-    });
-
-    // Scroll Reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+        function closeMob() {
+            mobNav.classList.remove('active');
         }
-      });
-    }, {
-      threshold: 0.1
-    });
 
-    reveals.forEach(reveal => observer.observe(reveal));
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
 
-    // Cookie Banner
-    const cookieBanner = document.getElementById('cookieBanner');
-    const acceptCookie = document.getElementById('acceptCookie');
-    const declineCookie = document.getElementById('declineCookie');
+            question.addEventListener('click', () => {
+                answer.classList.toggle('open');
+            });
+        });
 
-    // Show cookie banner if not dismissed
-    if (!localStorage.getItem('cookieConsent')) {
-      cookieBanner.classList.add('show');
+        const revealElements = document.querySelectorAll('.card, .process-step, .faq-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        const cookieBanner = document.getElementById('cookieBanner');
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.add('hidden');
+            loadGA4();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('cookiesAccepted', 'false');
+            cookieBanner.classList.add('hidden');
+        }
+
+        if (localStorage.getItem('cookiesAccepted') === 'true') {
+            cookieBanner.classList.add('hidden');
+            loadGA4();
+        } else if (localStorage.getItem('cookiesAccepted') !== null) {
+            cookieBanner.classList.add('hidden');
+        }
+
+        function loadGA4() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+        }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Online Marketing",
+        "description": "SEO, Google Ads, e-mailmarketing en conversie-optimalisatie. Data-gedreven campagnes die resultaat opleveren.",
+        "provider": {
+            "@type": "Organization",
+            "name": "The Bair Co.",
+            "url": "https://www.baircompany.be"
+        },
+        "areaServed": "BE"
     }
+    </script>
 
-    acceptCookie.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'accepted');
-      cookieBanner.classList.remove('show');
-
-      // Load Google Analytics
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
-      document.head.appendChild(script);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TEPNG02Z0J');
-    });
-
-    declineCookie.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'declined');
-      cookieBanner.classList.remove('show');
-    });
-
-    // Load Analytics if already accepted
-    if (localStorage.getItem('cookieConsent') === 'accepted') {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
-      document.head.appendChild(script);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TEPNG02Z0J');
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Wat is het verschil tussen SEO en SEA?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SEO is organisch — langzaam maar duurzaam. SEA is betaald — snel maar kost per klik. De beste strategie combineert beide."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoelang duurt het voor SEO-resultaat?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "3-6 maanden voor zichtbare groei. SEO is een marathon, geen sprint. Maar de resultaten zijn blijvend."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Wat kost online marketing?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Vanaf €500 per maand voor SEO. Google Ads beheer vanaf €400 plus advertentiebudget. Altijd op maat."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Welk budget voor Google Ads?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Minimaal €500 per maand aan advertentiebudget, maar het hangt af van je branche en concurrentie. We adviseren op basis van je doelen."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoe rapporteren jullie?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Maandelijks overzicht met rankings, verkeer, conversies en ROI. Duidelijk, visueel, zonder jargon."
+                }
+            }
+        ]
     }
-  </script>
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Online Marketing",
-    "provider": {
-      "@type": "Organization",
-      "name": "The Bair Co.",
-      "url": "https://www.baircompany.be",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Glabbeek",
-        "addressCountry": "BE"
-      }
-    },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Belgium"
-    },
-    "serviceType": "Digital Marketing",
-    "description": "SEO, Google Ads, e-mailmarketing en conversie-optimalisatie. Data-gedreven campagnes voor groei."
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Wat is het verschil tussen SEO en SEA?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SEO zijn gratis organische resultaten in Google met langetermijn resultaten. SEA zijn betaalde advertenties met instant visibility. Ideaal is beide combineren."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Hoelang duurt het voor ik SEO resultaten zie?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Eerste verbeteringen in 3 maanden. Significante groei na 6-9 maanden. Google Ads levert instant traffic."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wat kost online marketing?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SEO consulten starten rond €800-1500/maand. Google Ads budgets variëren van €500-5000+/maand. We hebben pakketten voor elke budget."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Welk budget voor Google Ads?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Startups kunnen met €500-1000/maand beginnen. We maximaliseren ROI ongeacht budget."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Hoe rapporteren jullie resultaten?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Maandelijkse rapportages met relevante KPIs. Transparante data, trends, inzichten en aanbevelingen."
-        }
-      }
-    ]
-  }
-  </script>
+    </script>
 </body>
 </html>
