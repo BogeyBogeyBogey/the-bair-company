@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Direction Review — Bakkerij Van Damme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-brown: #8B4513;
+            --brand-cream: #FFF8DC;
+            --brand-dark: #2C1810;
+            --brand-gold: #D4A574;
+            --color-good: #27AE60;
+            --color-warning: #F39C12;
+            --color-critical: #E74C3C;
+            --color-neutral: #95A5A6;
+            --spacing-base: 8px;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, var(--brand-cream) 0%, #FAFAF5 100%);
+            color: var(--brand-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--brand-brown);
+        }
+
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            color: var(--brand-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .review-meta {
+            font-size: 0.95rem;
+            color: var(--brand-brown);
+            font-style: italic;
+        }
+
+        .review-date {
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        /* Totaalscore */
+        .total-score {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            font-family: 'Fraunces', serif;
+        }
+
+        .score-circle.good {
+            background: linear-gradient(135deg, var(--color-good) 0%, #229954 100%);
+        }
+
+        .score-circle.warning {
+            background: linear-gradient(135deg, var(--color-warning) 0%, #E67E22 100%);
+        }
+
+        .score-circle.critical {
+            background: linear-gradient(135deg, var(--color-critical) 0%, #C0392B 100%);
+        }
+
+        .score-label {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            color: var(--brand-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-description {
+            color: var(--color-neutral);
+            font-size: 0.9rem;
+        }
+
+        /* Summary */
+        .summary {
+            background: var(--brand-cream);
+            border-left: 4px solid var(--brand-brown);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        .summary h2 {
+            font-family: 'Fraunces', serif;
+            color: var(--brand-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .summary p {
+            color: var(--brand-dark);
+            line-height: 1.7;
+        }
+
+        /* Category Scores */
+        .categories {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-top: 4px solid var(--brand-brown);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            color: var(--brand-dark);
+        }
+
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: white;
+            font-family: 'Fraunces', serif;
+        }
+
+        .score-badge.excellent {
+            background: var(--color-good);
+        }
+
+        .score-badge.good {
+            background: #52BE80;
+        }
+
+        .score-badge.adequate {
+            background: var(--color-warning);
+        }
+
+        .score-badge.poor {
+            background: var(--color-critical);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ECF0F1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--brand-brown) 0%, var(--brand-gold) 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .findings {
+            margin-top: 1rem;
+        }
+
+        .finding {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: #F8F9FA;
+            border-radius: 4px;
+            border-left: 3px solid;
+        }
+
+        .finding.good {
+            border-left-color: var(--color-good);
+        }
+
+        .finding.warning {
+            border-left-color: var(--color-warning);
+        }
+
+        .finding.critical {
+            border-left-color: var(--color-critical);
+        }
+
+        .finding-icon {
+            font-size: 1.2rem;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .finding-content {
+            flex: 1;
+        }
+
+        .finding-title {
+            font-weight: 600;
+            color: var(--brand-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .finding-detail {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .finding-action {
+            font-size: 0.85rem;
+            color: var(--brand-brown);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .priority-p1 {
+            background: #FADBD8;
+            color: #922B21;
+        }
+
+        .priority-p2 {
+            background: #FCF3CF;
+            color: #9A6324;
+        }
+
+        .priority-p3 {
+            background: #D5F4E6;
+            color: #0B5345;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+            border-top: 4px solid var(--brand-gold);
+        }
+
+        .recommendations h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            color: var(--brand-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .recommendation-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .recommendation-item:last-child {
+            border-bottom: none;
+        }
+
+        .recommendation-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            color: var(--brand-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-desc {
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-action {
+            font-weight: 600;
+            color: var(--brand-brown);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 2px solid var(--brand-brown);
+            color: var(--color-neutral);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .score-circle {
+                width: 100px;
+                height: 100px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Creative Direction Review</h1>
+            <div class="review-meta">
+                Bakkerij Van Damme — UI Consistency Check
+                <span class="review-date">15 maart 2026</span>
+            </div>
+        </header>
+
+        <div class="total-score">
+            <div class="score-circle warning">6.4</div>
+            <div class="score-label">Voldoende</div>
+            <div class="score-description">Professioneel ontwerp, maar inconsistenties verminderen de visuele cohesie. Direct aanpakken voor lancering.</div>
+        </div>
+
+        <div class="summary">
+            <h2>Samenvatting</h2>
+            <p>De website voor Bakkerij Van Damme heeft een solide visuele basis met goed doordachte merkkleuren en typografie. Echter, er zijn vijf significante consistentiefouten gevonden die de waargenomen professionaliteit ondermijnen: verschillende kleurwaarden, inconsistente button-styling, variabele heading-formaten, ongelijk timing van interacties en onregelmatige spacing op mobiel. Deze bevindingen zijn niet fundamenteel — ze zijn oplosbaar — maar moeten voor lancering worden aangepakt.</p>
+        </div>
+
+        <div class="categories">
+            <!-- Kleurconsistentie -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-title">Kleurconsistentie</div>
+                    <div class="score-badge adequate">5</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+
+                <div class="findings">
+                    <div class="finding critical">
+                        <div class="finding-icon">✗</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Kleurafwijking op Producten-pagina</div>
+                            <div class="finding-detail">De bruine kleur op de producten-pagina is #8B4A13, terwijl de merknorm #8B4513 is. Dit scheelt slechts 1 hexadecimale waarde maar veroorzaakt een visuele kleurverschuiving die opvalt wanneer pagina's naast elkaar worden gezien.</div>
+                            <div class="finding-action">Corrigeer alle bruine elementen op de Producten-pagina naar #8B4513 (warm brown uit de brand-identity).</div>
+                            <div class="priority-badge priority-p1">Must Fix</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Primaire merkkleuren correct gebruikt</div>
+                            <div class="finding-detail">Op Home, Over Ons en Contact pagina's wordt het primaire kleurenpalet (warm brown, cream, dark, gold) consistent toegepast.</div>
+                            <div class="finding-action">Handhaaf deze standaard op alle pagina's.</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Voldoende contrast voor WCAG AA</div>
+                            <div class="finding-detail">De gekozen kleurcombinaties voldoen aan de minimale contrast-vereisten voor leesbare en toegankelijke tekst.</div>
+                            <div class="finding-action">Behoud huidige contrastwaarden; geen actie nodig.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typografie -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-title">Typografische Consistentie</div>
+                    <div class="score-badge adequate">5</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+
+                <div class="findings">
+                    <div class="finding critical">
+                        <div class="finding-icon">✗</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Inconsistente heading-formaten</div>
+                            <div class="finding-detail">De hoofd-heading op de "Over Ons" pagina is 32px, terwijl alle andere pagina's (Home, Producten, Contact) 42px gebruiken. Dit breekt de visuele hiërarchie en maakt het lijken alsof pagina's door verschillende ontwerpers zijn gemaakt.</div>
+                            <div class="finding-action">Unificeer alle h1-elementen naar 42px. Definieer dit in CSS als een consistente standaard.</div>
+                            <div class="priority-badge priority-p1">Must Fix</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Fonts correct gekozen</div>
+                            <div class="finding-detail">Fraunces voor headings en Crimson Pro voor body-tekst volgen de brand-identity perfectie. Maximaal 2 fontfamilies = consistentie.</div>
+                            <div class="finding-action">Handhaav dit paar; introduceer geen extra fonts.</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Line-height comfortabel</div>
+                            <div class="finding-detail">Body-tekst heeft een line-height die aangenaam leesbaar is; headings hebben eveneens goede leesbaarheid.</div>
+                            <div class="finding-action">Geen wijzigingen nodig.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacing-systeem -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-title">Spacing-systeem</div>
+                    <div class="score-badge adequate">6</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%;"></div>
+                </div>
+
+                <div class="findings">
+                    <div class="finding warning">
+                        <div class="finding-icon">⚠</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Inconsistente verticale spacing op mobiel</div>
+                            <div class="finding-detail">Op mobiele schermen varieert de spacing tussen secties tussen 40px en 60px. Dit zijn geen catastrophale verschillen, maar het suggereert geen systematische benadering. De ene sectie voelt "te dicht" tegen de volgende aan, andere voelen "te ver" uit elkaar.</div>
+                            <div class="finding-action">Definieer een consistent 8px of 4px grid-systeem. Alle mobile spacing dient een veelvoud van dit getal te zijn (bv. 40px = 5 grid units van 8px, en standaardiseer op 48px = 6 units).</div>
+                            <div class="priority-badge priority-p2">Should Fix</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Desktop-spacing consistent</div>
+                            <div class="finding-detail">Op grotere schermen is de spacing goed geregeld en volgt een duidelijk ritme.</div>
+                            <div class="finding-action">Pas dezelfde logica toe op mobiele breakpoints.</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Padding in componenten consistent</div>
+                            <div class="finding-detail">Buttons, cards en formuliervelden hebben uniform padding binnen de component-klasse.</div>
+                            <div class="finding-action">Geen wijzigingen nodig.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component-consistentie -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-title">Component-Consistentie</div>
+                    <div class="score-badge adequate">5</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+
+                <div class="findings">
+                    <div class="finding critical">
+                        <div class="finding-icon">✗</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Button border-radius inconsistent</div>
+                            <div class="finding-detail">Buttons op de contact-pagina hebben een border-radius van 4px, terwijl alle andere pagina's 8px gebruiken. Dit is een kleine but merkbare visuele afwijking. Buttons zijn primaire interactie-elementen — inconsistentie hier heeft onevenredige impact op waargenomen professionaliteit.</div>
+                            <div class="finding-action">Zet alle button-elementen naar border-radius: 8px. Definieer dit in een centrale .btn-klasse in CSS.</div>
+                            <div class="priority-badge priority-p1">Must Fix</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Cards consistent gestyled</div>
+                            <div class="finding-detail">Alle product-cards en content-cards hebben uniforme schaduw, padding en hover-effecten. Ze voelen als onderdeel van hetzelfde systeem.</div>
+                            <div class="finding-action">Geen wijzigingen nodig.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactie-patronen -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-title">Interactie-Patronen</div>
+                    <div class="score-badge adequate">5</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+
+                <div class="findings">
+                    <div class="finding critical">
+                        <div class="finding-icon">✗</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Hover-transitions variabel</div>
+                            <div class="finding-detail">Navigatie-links hebben een transition van 0.2s op hover, terwijl product-cards 0.4s gebruiken. Deze timing-verschil voelt willekeurig en maakt de site voelen als geen gecoheseerde systeem. Gebruikers krijgen geen consistent feedback-ritme.</div>
+                            <div class="finding-action">Standardiseer alle hover- en focus-transitions naar 0.3s ease (een compromis tussen snelheid en merkbaarheid). Definieer dit in een centrale CSS-variabele: --transition-timing: 0.3s ease.</div>
+                            <div class="priority-badge priority-p1">Must Fix</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Visueel feedback aanwezig</div>
+                            <div class="finding-detail">Interactieve elementen geven duidelijk visueel feedback op hover en klik. Dit verhoogt usability.</div>
+                            <div class="finding-action">Geen wijzigingen nodig.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Responsive gedrag -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-title">Responsive Gedrag</div>
+                    <div class="score-badge good">7</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 70%;"></div>
+                </div>
+
+                <div class="findings">
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Mobile layout logisch</div>
+                            <div class="finding-detail">Componenten stapelen goed op kleine schermen. Geen ongelukkige breuken of misaligned elementen. Afbeeldingen schalen mee.</div>
+                            <div class="finding-action">Geen wijzigingen nodig.</div>
+                        </div>
+                    </div>
+
+                    <div class="finding good">
+                        <div class="finding-icon">✓</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Geen horizontale overflow</div>
+                            <div class="finding-detail">De site is responsive zonder dat er ongewenste horizontale scrollbars verschijnen.</div>
+                            <div class="finding-action">Geen wijzigingen nodig.</div>
+                        </div>
+                    </div>
+
+                    <div class="finding warning">
+                        <div class="finding-icon">⚠</div>
+                        <div class="finding-content">
+                            <div class="finding-title">Spacing-inconsistentie op mobiel (zie ook Spacing-systeem)</div>
+                            <div class="finding-detail">Zoals eerder opgemerkt, de verticale spacing variabeleert. Dit raakt responsive gedrag.</div>
+                            <div class="finding-action">Zie Spacing-systeem aanbeveling.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendations">
+            <h2>Aanbevelingen & Actieplan</h2>
+
+            <div class="recommendation-item">
+                <div class="recommendation-title">🔴 P1 — Button Border-Radius unificeren</div>
+                <div class="recommendation-desc">Dit is laaghangende vrucht. Alle buttons moeten dezelfde afronding hebben.</div>
+                <div class="recommendation-action">
+                    Actie: Open de CSS van de contact-pagina. Zoek alle button-elementen met border-radius: 4px en wijzig naar border-radius: 8px. Controleer daarna alle pagina's.
+                </div>
+            </div>
+
+            <div class="recommendation-item">
+                <div class="recommendation-title">🔴 P1 — Kleurwaarde "Producten" pagina corrigeren</div>
+                <div class="recommendation-desc">De bruine tint verschilt subtiel maar merkbaar. Dit geeft een "nep" gevoel.</div>
+                <div class="recommendation-action">
+                    Actie: In de CSS of design-token file, zoek elke instantie van #8B4A13 op de Producten-pagina en vervang door #8B4513. Test door Home en Producten naast elkaar te bekijken.
+                </div>
+            </div>
+
+            <div class="recommendation-item">
+                <div class="recommendation-title">🔴 P1 — Heading-grootte "Over Ons" pagina unifieren</div>
+                <div class="recommendation-desc">32px vs 42px is niet subtiel. Dit ziet er amateuristisch uit.</div>
+                <div class="recommendation-action">
+                    Actie: Wijzig h1 op Over Ons naar 42px. Controleer dat dit ook geldt voor alle subheadings (h2, h3, etc.) zodat de hiërarchie consistent is.
+                </div>
+            </div>
+
+            <div class="recommendation-item">
+                <div class="recommendation-title">🔴 P1 — Transition-timing standaardiseren</div>
+                <div class="recommendation-desc">0.2s en 0.4s voelen random. Een uniforme 0.3s geeft zwevende, professioneel gevoel.</div>
+                <div class="recommendation-action">
+                    Actie: Definieer een CSS-variabele: --transition-timing: 0.3s ease; Pas deze toe op alle hover/focus/active states. Test door langzaam over links en cards te bewegen — alles moet even "zweven".
+                </div>
+            </div>
+
+            <div class="recommendation-item">
+                <div class="recommendation-title">🟡 P2 — Mobile spacing systematiseren</div>
+                <div class="recommendation-desc">Dit is subtiel maar voelbaar. Gebruikers op mobiel ervaren ritmische inconsistentie.</div>
+                <div class="recommendation-action">
+                    Actie: Definieer een 8px spacing grid. Creëer CSS-variabelen voor mobile secties: --spacing-mobile: 48px (6 × 8px). Pas dit toe op alle @media (max-width: 768px) margin-bottom waarden.
+                </div>
+            </div>
+
+            <div class="recommendation-item">
+                <div class="recommendation-title">✅ Goed — Behouden</div>
+                <div class="recommendation-desc">Het kleurenpalet, fontpaar, card-styling en responsive layout zijn solide.</div>
+                <div class="recommendation-action">
+                    Geen actie nodig — handhaaf deze standaarden in toekomstige iteraties.
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Creative Direction Review — UI Consistency Check | Bakkerij Van Damme</p>
+            <p>Gegenereerd: 15 maart 2026 | Dit rapport is bedoeld als interne designgids en kan met vertrouwen aan de klant worden getoond.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Font Mockup — Optie C: Cabinet Grotesk + Satoshi</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<!-- Huidige fonts voor vergelijking -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f0ede8;
+    --white-rgb: 240, 237, 232;
+    --grey: #888;
+    --accent: #2E8AFF;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Satoshi', -apple-system, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── Sticky toggle bar ── */
+  .toggle-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .toggle-btn {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.6rem 1.6rem;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(240,237,232,0.6);
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+  }
+  .toggle-btn.active {
+    background: var(--accent);
+    color: var(--black);
+    border-color: var(--accent);
+    font-weight: 700;
+  }
+  .toggle-btn:hover:not(.active) {
+    border-color: rgba(255,255,255,0.3);
+    color: var(--white);
+  }
+
+  /* ── Layout ── */
+  .mockup-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .section {
+    margin-bottom: 6rem;
+  }
+
+  .section-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(var(--white-rgb), 0.3);
+    margin-bottom: 2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    text-align: center;
+    padding: 4rem 0 6rem;
+  }
+  .hero-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(var(--white-rgb), 0.4);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+  }
+  .hero-subtitle {
+    font-style: italic;
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    color: rgba(var(--white-rgb), 0.5);
+    line-height: 1.5;
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+  }
+  .hero-cta {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--accent);
+    padding: 1rem 2.5rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.4s var(--ease);
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(46, 138, 255, 0.3);
+  }
+
+  /* ── Services grid ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    position: relative;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    overflow: hidden;
+    transition: all 0.5s var(--ease);
+  }
+  .service-card:hover {
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.05);
+  }
+  .service-card__number {
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(var(--white-rgb), 0.08);
+    margin-bottom: 1.5rem;
+  }
+  .service-card__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .service-card__desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(var(--white-rgb), 0.5);
+    font-weight: 400;
+  }
+  .service-card__cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.6rem 1.5rem;
+    border: 1px solid rgba(var(--white-rgb), 0.15);
+    border-radius: 999px;
+    transition: all 0.3s var(--ease);
+  }
+  .service-card__cta:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--black);
+  }
+
+  /* ── Waarom section ── */
+  .waarom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .waarom-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .waarom-num {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.5;
+    line-height: 1;
+    min-width: 2.5rem;
+  }
+  .waarom-item h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .waarom-item p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(var(--white-rgb), 0.5);
+  }
+
+  /* ── Body text demo ── */
+  .body-demo {
+    max-width: 680px;
+  }
+  .body-demo h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .body-demo .serif-intro {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(var(--white-rgb), 0.6);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .body-demo p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(var(--white-rgb), 0.6);
+    margin-bottom: 1rem;
+  }
+  .body-demo p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── Type specimen ── */
+  .specimen {
+    padding: 3rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+  }
+  .specimen-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .specimen-row:last-child { border-bottom: none; }
+  .specimen-text { flex: 1; }
+  .specimen-meta {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(var(--white-rgb), 0.25);
+    text-align: right;
+    min-width: 180px;
+  }
+  .spec-display-xl { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+  .spec-display-lg { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  .spec-display-md { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; }
+  .spec-serif { font-style: italic; font-size: 1.3rem; color: rgba(var(--white-rgb), 0.6); }
+  .spec-body { font-size: 0.95rem; line-height: 1.7; color: rgba(var(--white-rgb), 0.6); }
+  .spec-body-sm { font-size: 0.85rem; color: rgba(var(--white-rgb), 0.4); }
+  .spec-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(var(--white-rgb), 0.35); }
+
+  /* ── Comparison badge ── */
+  .font-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: rgba(46, 138, 255, 0.1);
+    border: 1px solid rgba(46, 138, 255, 0.2);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+  .font-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ── Font class switching ── */
+  .font-new .hero-title,
+  .font-new .service-card__number,
+  .font-new .service-card__title,
+  .font-new .waarom-num,
+  .font-new .waarom-item h3,
+  .font-new .body-demo h2,
+  .font-new .spec-display-xl,
+  .font-new .spec-display-lg,
+  .font-new .spec-display-md {
+    font-family: 'Cabinet Grotesk', system-ui, sans-serif;
+  }
+  .font-new .hero-label,
+  .font-new .hero-cta,
+  .font-new .service-card__desc,
+  .font-new .service-card__cta,
+  .font-new .waarom-item p,
+  .font-new .body-demo p,
+  .font-new .spec-body,
+  .font-new .spec-body-sm,
+  .font-new .spec-label,
+  .font-new .section-label {
+    font-family: 'Satoshi', -apple-system, sans-serif;
+  }
+  .font-new .hero-subtitle,
+  .font-new .body-demo .serif-intro,
+  .font-new .spec-serif {
+    font-family: 'Instrument Serif', Georgia, serif;
+  }
+
+  .font-current .hero-title,
+  .font-current .service-card__number,
+  .font-current .service-card__title,
+  .font-current .waarom-num,
+  .font-current .waarom-item h3,
+  .font-current .body-demo h2,
+  .font-current .spec-display-xl,
+  .font-current .spec-display-lg,
+  .font-current .spec-display-md {
+    font-family: 'Syne', system-ui, sans-serif;
+  }
+  .font-current .hero-label,
+  .font-current .hero-cta,
+  .font-current .service-card__desc,
+  .font-current .service-card__cta,
+  .font-current .waarom-item p,
+  .font-current .body-demo p,
+  .font-current .spec-body,
+  .font-current .spec-body-sm,
+  .font-current .spec-label,
+  .font-current .section-label {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+  }
+  .font-current .hero-subtitle,
+  .font-current .body-demo .serif-intro,
+  .font-current .spec-serif {
+    font-family: 'Instrument Serif', Georgia, serif;
+  }
+
+  /* ── Grain overlay ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.2;
+    mix-blend-mode: overlay;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    margin: 4rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .mockup-container { padding: 5rem 1.2rem 3rem; }
+    .specimen { padding: 1.5rem; }
+    .specimen-row { flex-direction: column; gap: 0.3rem; }
+    .specimen-meta { text-align: left; }
+    .toggle-bar { gap: 0.3rem; padding: 0.8rem; }
+    .toggle-btn { font-size: 0.75rem; padding: 0.5rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Toggle bar -->
+<div class="toggle-bar">
+  <button class="toggle-btn active" onclick="switchFont('new')">Optie C — Cabinet Grotesk + Satoshi</button>
+  <button class="toggle-btn" onclick="switchFont('current')">Huidig — Syne + DM Sans</button>
+</div>
+
+<div class="mockup-container font-new" id="mockup">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="section">
+    <div class="section-label">Hero Section</div>
+    <div class="font-badge" id="badge">Cabinet Grotesk 800 + Satoshi 400 + Instrument Serif Italic</div>
+    <div class="hero">
+      <p class="hero-label">Creative Studio — Antwerpen</p>
+      <h1 class="hero-title">Merken die<br>blijven hangen</h1>
+      <p class="hero-subtitle">Wij bouwen digitale ervaringen die voelen als een gesprek, niet als een verkooppraatje</p>
+      <a href="#" class="hero-cta">Bekijk ons werk</a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ SERVICES ═══ -->
+  <section class="section">
+    <div class="section-label">Services Grid</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card__number">01</div>
+        <h3 class="service-card__title">Webdesign & Development</h3>
+        <p class="service-card__desc">Foto-gedreven websites die jouw merk écht laten zien. Geen templates, geen compromissen. Elk pixel met aandacht geplaatst.</p>
+        <a href="#" class="service-card__cta">Meer info</a>
+      </div>
+      <div class="service-card">
+        <div class="service-card__number">02</div>
+        <h3 class="service-card__title">Branding & Identiteit</h3>
+        <p class="service-card__desc">Van logo tot complete merkidentiteit. Wij creëren visuele systemen die consistent werken over elk touchpoint.</p>
+        <a href="#" class="service-card__cta">Meer info</a>
+      </div>
+      <div class="service-card">
+        <div class="service-card__number">03</div>
+        <h3 class="service-card__title">Content & Strategie</h3>
+        <p class="service-card__desc">Teksten die converteren, beelden die raken. SEO-gedreven content met een menselijke touch. Geen AI-brij, wel echt vakwerk.</p>
+        <a href="#" class="service-card__cta">Meer info</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ WAAROM ═══ -->
+  <section class="section">
+    <div class="section-label">Waarom Section</div>
+    <div class="waarom-grid">
+      <div class="waarom-item">
+        <span class="waarom-num">01</span>
+        <div>
+          <h3>Persoonlijke aanpak</h3>
+          <p>Geen account managers of tussenpersonen. Je werkt rechtstreeks met de mensen die jouw project bouwen.</p>
+        </div>
+      </div>
+      <div class="waarom-item">
+        <span class="waarom-num">02</span>
+        <div>
+          <h3>Resultaat-gedreven</h3>
+          <p>Een mooie website is leuk, maar een mooie website die converteert is beter. Wij optimaliseren voor beide.</p>
+        </div>
+      </div>
+      <div class="waarom-item">
+        <span class="waarom-num">03</span>
+        <div>
+          <h3>Transparante prijzen</h3>
+          <p>Geen verborgen kosten, geen verrassingen achteraf. Je weet vooraf precies wat je krijgt en wat het kost.</p>
+        </div>
+      </div>
+      <div class="waarom-item">
+        <span class="waarom-num">04</span>
+        <div>
+          <h3>Snelle oplevering</h3>
+          <p>De meeste projecten zijn binnen 2-4 weken live. Wij geloven in momentum, niet in eindeloze feedbackrondes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ BODY TEXT ═══ -->
+  <section class="section">
+    <div class="section-label">Body Text / Artikel</div>
+    <div class="body-demo">
+      <h2>Waarom wij geen templates gebruiken</h2>
+      <p class="serif-intro">Elk project verdient een eigen verhaal, een eigen visuele taal</p>
+      <p>Templates zijn handig als je snel iets nodig hebt. Maar ze zijn niet ontworpen voor <strong>jouw merk</strong>, jouw doelgroep, jouw verhaal. Ze zijn ontworpen om overal te passen — en daardoor passen ze nergens echt.</p>
+      <p>Wij beginnen elk project met een <strong>diepgaande analyse</strong> van je huidige merk, je concurrenten, en je doelgroep. Pas daarna gaan we ontwerpen. Het resultaat? Een website die voelt alsof hij speciaal voor jou gemaakt is — want dat is hij ook.</p>
+      <p>Nederlandse tekens werken perfect: crème brûlée, naïef, coöperatie, über. Geen enkel probleem met diacrieten.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══ TYPE SPECIMEN ═══ -->
+  <section class="section">
+    <div class="section-label">Type Specimen</div>
+    <div class="specimen">
+      <div class="specimen-row">
+        <div class="specimen-text spec-display-xl">Eigen. Sterk. Uniek.</div>
+        <div class="specimen-meta">Display XL — 800</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text spec-display-lg">Digitale ervaringen die blijven hangen</div>
+        <div class="specimen-meta">Display LG — 700</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text spec-display-md">Webdesign met aandacht voor elk detail</div>
+        <div class="specimen-meta">Display MD — 700</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text spec-serif">Wij geloven in de kracht van goed design</div>
+        <div class="specimen-meta">Instrument Serif — Italic</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text spec-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elk project begint met een gesprek, niet met een offerte.</div>
+        <div class="specimen-meta">Body — 400</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text spec-body-sm">Prijzen exclusief BTW · Levertijd 2-4 weken · Gratis intake gesprek</div>
+        <div class="specimen-meta">Body SM — 400</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text spec-label">Creative Studio — Antwerpen</div>
+        <div class="specimen-meta">Label — 500 / uppercase</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+function switchFont(mode) {
+  const mockup = document.getElementById('mockup');
+  const badge = document.getElementById('badge');
+  const btns = document.querySelectorAll('.toggle-btn');
+
+  if (mode === 'new') {
+    mockup.className = 'mockup-container font-new';
+    badge.textContent = 'Cabinet Grotesk 800 + Satoshi 400 + Instrument Serif Italic';
+    btns[0].classList.add('active');
+    btns[1].classList.remove('active');
+  } else {
+    mockup.className = 'mockup-container font-current';
+    badge.textContent = 'Syne 800 + DM Sans 300 + Instrument Serif Italic';
+    btns[1].classList.add('active');
+    btns[0].classList.remove('active');
+  }
+}
+</script>
+
+</body>
+</html>

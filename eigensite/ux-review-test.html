@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Direction Review — Loodgietersbedrijf Gent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066cc;
+            --secondary: #00a3ff;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --border: #ddd;
+            --text: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: #fafafa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header .meta {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            margin-top: 0.5rem;
+        }
+
+        header .mode-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Score Section */
+        .score-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .total-score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-right: 2rem;
+        }
+
+        .score-circle.excellent {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+        }
+
+        .score-circle.good {
+            background: linear-gradient(135deg, var(--success), #f39c12);
+        }
+
+        .score-circle.sufficient {
+            background: linear-gradient(135deg, var(--warning), #e67e22);
+        }
+
+        .score-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-info .label {
+            display: inline-block;
+            background: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .summary {
+            background: var(--light);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+            margin-top: 1.5rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        /* Category Scores */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary);
+        }
+
+        .category-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .category-score {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .category-score .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .category-score .number.excellent {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+        }
+
+        .category-score .number.good {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+
+        .category-score .number.sufficient {
+            background: rgba(230, 126, 34, 0.1);
+            color: #e67e22;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 0.8rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), #27ae60);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-fill.warning {
+            background: linear-gradient(90deg, var(--warning), #e67e22);
+        }
+
+        .progress-fill.danger {
+            background: linear-gradient(90deg, var(--danger), #c0392b);
+        }
+
+        /* Findings Section */
+        .findings-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .findings-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .category-findings {
+            margin-bottom: 2rem;
+        }
+
+        .category-findings h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .finding-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-left: 4px solid var(--border);
+            background: var(--light);
+            border-radius: 4px;
+        }
+
+        .finding-item.positive {
+            border-left-color: var(--success);
+            background: rgba(46, 204, 113, 0.05);
+        }
+
+        .finding-item.warning {
+            border-left-color: var(--warning);
+            background: rgba(243, 156, 18, 0.05);
+        }
+
+        .finding-item.problem {
+            border-left-color: var(--danger);
+            background: rgba(231, 76, 60, 0.05);
+        }
+
+        .finding-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+        }
+
+        .finding-label.positive {
+            background: var(--success);
+            color: white;
+        }
+
+        .finding-label.warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .finding-label.problem {
+            background: var(--danger);
+            color: white;
+        }
+
+        .finding-text {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        .recommendation {
+            background: white;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Recommendations Section */
+        .recommendations-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .recommendations-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .rec-item {
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            border-left: 4px solid var(--primary);
+            background: var(--light);
+            border-radius: 4px;
+        }
+
+        .rec-priority {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 3px;
+            background: white;
+            border: 1px solid currentColor;
+        }
+
+        .rec-priority.p1 {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .rec-priority.p2 {
+            color: var(--warning);
+            border-color: var(--warning);
+        }
+
+        .rec-priority.p3 {
+            color: #3498db;
+            border-color: #3498db;
+        }
+
+        .rec-title {
+            font-weight: 700;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .rec-text {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        /* Status Indicators */
+        .status-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .status-icon.good {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-icon.warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .status-icon.problem {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 2rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .total-score {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .score-circle {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .finding-item {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Creative Direction Review</h1>
+        <div class="meta">Loodgietersbedrijf Gent</div>
+        <div class="mode-badge">UX Review Mode</div>
+        <div class="meta" style="margin-top: 1rem; font-size: 0.9rem;">Datum: 15 maart 2026 • Na wireframing, vóór development</div>
+    </header>
+
+    <div class="container">
+        <!-- Total Score -->
+        <div class="score-section">
+            <div class="total-score">
+                <div class="score-circle excellent">7.6</div>
+                <div class="score-info">
+                    <h2>Goed</h2>
+                    <span class="label">Professioneel, kleine verbeterpunten</span>
+                </div>
+            </div>
+            <div class="summary">
+                <strong>Samenvatting:</strong> Dit is een sterke wireframe met heldere conversie-architectuur en goed doordachte user flows. De huiseigenaren in Gent kunnen snel begrijpen wat de loodgieter doet en waar ze moeten klikken. De informatiehiërarchie is logisch. Twee aandachtspunten: de reviews-sectie op de homepage kan beter gestructureerd (momenteel onderdeel van "3 klantreviews" wat beperkt voelt), en de 5 diensten op één pagina kunnen door het volume overweldigend worden op mobiel. Met deze kleine aanpassingen gaat dit naar een 8.5+.
+            </div>
+        </div>
+
+        <!-- Category Scores -->
+        <div class="categories-grid">
+            <div class="category-card">
+                <h3>Conversie-architectuur</h3>
+                <div class="category-score">
+                    <div class="number excellent">8</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">Helder conversiepad</p>
+            </div>
+
+            <div class="category-card">
+                <h3>User Flow</h3>
+                <div class="category-score">
+                    <div class="number good">7.5</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill warning" style="width: 75%;"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">Goed, kleine optimisaties</p>
+            </div>
+
+            <div class="category-card">
+                <h3>Informatie-hiërarchie</h3>
+                <div class="category-score">
+                    <div class="number excellent">8</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">Scanbaar en logisch</p>
+            </div>
+
+            <div class="category-card">
+                <h3>Doelgroep-fit</h3>
+                <div class="category-score">
+                    <div class="number excellent">8</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">Gericht op huiseigenaren</p>
+            </div>
+
+            <div class="category-card">
+                <h3>Mobiel-eerst denken</h3>
+                <div class="category-score">
+                    <div class="number good">7</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill warning" style="width: 70%;"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">Aandacht nodig voor mobiel</p>
+            </div>
+
+            <div class="category-card">
+                <h3>Totaalscore UX</h3>
+                <div class="category-score">
+                    <div class="number excellent">7.6</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 76%;"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">Gewogen gemiddelde</p>
+            </div>
+        </div>
+
+        <!-- Detailed Findings -->
+        <div class="findings-section">
+            <h2>Gedetailleerde bevindingen</h2>
+
+            <!-- Conversie-architectuur -->
+            <div class="category-findings">
+                <h3><span class="status-icon good">✓</span>Conversie-architectuur (Score: 8/10)</h3>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Duidelijk primair conversiedoel:</strong> "Vraag een offerte aan" staat zowel op de homepage als op diensten- en contactpagina. Dit is consequent en sterkt het doel.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Logisch conversiepad op homepage:</strong> Hero → interesse (3 diensten) → vertrouwen (reviews) → actie (CTA). Dit volgt de klassieke AIDA-funnel (Awareness, Interest, Desire, Action).</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>CTA boven de fold:</strong> De hero bevat de loodgieter aan het werk + "Vraag een offerte aan" CTA. Dit is zichtbaar zonder scrollen op desktop.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>Te veel CTA's op homepage niet expliciet gespecificeerd:</strong> De huiswerk zegt dat de homepage geen secundaire CTA's (bv. "Lees meer over diensten", "Bekijk ons werk") bevat. Dit is goed — er is maar één primaire actie.</div>
+                    <div class="recommendation">Zorg dat op alle pagina's maximum 1 primaire CTA per "screenful" staat. Secundaire acties (zoals navigatielinks) zijn oké, maar zet geen concurrerende conversie-targets.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Per-pagina doelen zijn duidelijk:</strong> Homepage = offerte aanvragen, Diensten = betrouwbaarheid & diepteinfo, Contact = formulier invullen, Privacy = vertrouwen.</div>
+                </div>
+            </div>
+
+            <!-- User Flow -->
+            <div class="category-findings">
+                <h3><span class="status-icon good">✓</span>User Flow (Score: 7.5/10)</h3>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Navigatie is voorspelbaar:</strong> Home, Diensten, Contact — standaard structuur die elke huiseigenaar herkent. Geen verrassingen.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Maximaal 3 kliks naar conversie:</strong> Homepage → "Vraag offerte" CTA of → Contactpagina → Formulier. Dit voldoet aan de vuistregel.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>Diensten pagina kan doodlopend voelen:</strong> Als iemand naar Diensten gaat en alle 5 diensten ziet, is het logische vervolgstap niet duidelijk. Moet er een CTA staan ("Interesse in deze dienst? Vraag een offerte aan") of is verwacht dat ze teruggaan naar Contact?</div>
+                    <div class="recommendation">Voeg op de Diensten pagina na elke dienst (of na elke 2 diensten) een kleine CTA in: "Klinkt goed? Neem contact op" of "Wil je hier meer over weten? Vraag een offerte aan".</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Terugweg is duidelijk:</strong> Alle pagina's hebben een navigatiemenu bovenaan. Geen verloren bezoekers.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>Privacy Policy voelt niet verplicht:</strong> Waarschijnlijk verplicht in de voettekst, maar geeft niet de indruk van "we nemen je data serieus". Kan beter ingekaderd als vertrouwenssignaal.</div>
+                    <div class="recommendation">Plaats Privacy Policy-link (en evt. GDPR-badge) duidelijker in of onder het contactformulier om vertrouwen op te bouwen.</div>
+                </div>
+            </div>
+
+            <!-- Informatie-hiërarchie -->
+            <div class="category-findings">
+                <h3><span class="status-icon good">✓</span>Informatie-hiërarchie (Score: 8/10)</h3>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Homepage informatiestroom is logisch:</strong> Hero (wat/wie) → Diensten (hoe/wat bieden we) → Reviews (bewijs) → CTA (actie).</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Diensten pagina is scanbaar:</strong> Alle 5 diensten op één pagina met iconen en korte beschrijvingen. Houdt focus scherp.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Reviews sectie is vertrouwensseinen:</strong> 3 klantreviews op homepage zorgen voor "social proof" — cruciaal voor service-bedrijven. Goed geplaatst voor conversie.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>Reviews beperkt tot 3:</strong> 3 reviews voelt klein. Voor een loodgieter waar vertrouwen kritiek is, kunnen 5-8 reviews beter het verhaal vertellen. Dit is echter meer een "nice to have" dan een "must".</div>
+                    <div class="recommendation">Overweeg om meer ruimte voor reviews in te plannen, of voeg een "Bekijk alle reviews" link toe die naar een aparte pagina verwijst (toekomstige uitbreiding).</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Contact formulier is prominent:</strong> Contactpagina bevat zowel formulier als Google Maps kaart. Biedt opties (formulier of directe interactie).</div>
+                </div>
+            </div>
+
+            <!-- Doelgroep-fit -->
+            <div class="category-findings">
+                <h3><span class="status-icon good">✓</span>Doelgroep-fit (Score: 8/10)</h3>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Gericht op haast & vertrouwen:</strong> Huiseigenaren met een lekkage of kapot verwarmingssysteem willen snel een betrouwbare loodgieter. Dit design spreekt dat uit: hero met "Vraag offerte aan" = urgentie + duidelijkheid.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Diensten pagina adresseert veelgestelde pijnen:</strong> Sanitaire installaties, verwarming, rioolontstopping, badkamerrenovatie, noodherstellingen — dit zijn precies de problemen die huiseigenaren hebben.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Hero fotografie creëert vertrouwen:</strong> Full-bleed foto van loodgieter aan het werk → dit toont professionaliteit en ervaring. Juiste keuze voor deze doelgroep.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>Tone of voice niet expliciet benoemd:</strong> De wireframe bevat geen tekstvoorbeelden. Dit is wireframing-scope, maar let op: huiseigenaren verwachten zakelijk maar warm (niet te statisch). Dit moet in copywriting-fase afgestemd worden.</div>
+                    <div class="recommendation">Zorg dat de teksten (wanneer geschreven) zakelijk maar menselijk zijn. Bv. "Bent u overweldigd door een lekkage? Wij helpen binnen 24 uur." in plaats van "Loodgietersservices beschikbaar".</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Reviews zijn vertrouwensseinen:</strong> Voor deze doelgroep is "wat zeggen andere huiseigenaren?" cruciaal. Het plaatsen van 3 reviews op de homepage toont dit begrip.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Noodherstellingen in diensten-lijst:</strong> Huiseigenaren in nood zoeken juist dit. Dat je dit prominent maakt, toont empathie voor de doelgroep.</div>
+                </div>
+            </div>
+
+            <!-- Mobiel-eerst denken -->
+            <div class="category-findings">
+                <h3><span class="status-icon warning">⚠</span>Mobiel-eerst denken (Score: 7/10)</h3>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>Hero full-bleed foto op mobiel:</strong> Full-bleed afbeelding werkt op desktop, maar op mobiel (375px breed) kan de foto "loos" voelen of te veel hoogte innemen. Dit kan de scrolllast vergroten.</div>
+                    <div class="recommendation">Zorg dat de hero-foto op mobiel smartcrop wordt (focus op gezicht/relevant detail van loodgieter). Houd de CTA button zichtbaar zonder excessive scrolling.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>3 diensten kaarten op mobiel:</strong> "3 diensten als kaarten met iconen" — op desktop prima (3 kolommen), maar op mobiel (1 kolom) kunnen deze uitrekken. Zorg dat cards niet te veel hoogte hebben.</div>
+                    <div class="recommendation">Op mobiel: zet diensten-kaarten in een 1-koloms of 2-koloms layout (2 op een rij). Hold pas 3-koloms voor desktop 768px+. Cards max 200px hoogte, anders voelt het veel scrollwerk.</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Reviews-sectie is resizable:</strong> "3 klantreviews" kunnen op mobiel gewoon onder elkaar gestapeld worden. Dit werkt goed.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>Diensten pagina (5 diensten) op mobiel:</strong> 5 items op een pagina is veel. Op mobiel kan dit een "Wall of Content" effect creëren. Bezoekers kunnen overweldigd raken.</div>
+                    <div class="recommendation">Overweeg: (1) Diensten in een accordion/tabblad-systeem op mobiel, of (2) Zorg dat service-cards compacter zijn op mobiel (geen excessive padding). Of (3) Voeg een inhoudsopgave toe ("Jump to: Sanitaire installaties, Verwarming,...").</div>
+                </div>
+
+                <div class="finding-item positive">
+                    <div class="finding-label positive">✓ GOED</div>
+                    <div class="finding-text"><strong>Contactpagina (formulier + Google Maps) is mobiel-vriendelijk:</strong> Formulier kan onder Maps staan op mobiel. Dit werkt.</div>
+                </div>
+
+                <div class="finding-item warning">
+                    <div class="finding-label warning">⚠ AANDACHTSPUNT</div>
+                    <div class="finding-text"><strong>CTA buttons touch-target-maat:</strong> De wireframe noemt geen knop-afmetingen. Zorg dat "Vraag een offerte aan" buttons minimaal 44×44px zijn (WCAG richtlijn). Op mobiel moeten CTA buttons groot en makkelijk tappable zijn.</div>
+                    <div class="recommendation">Bij development: alle buttons minimaal 44px hoogte, 16px padding horizontaal. Dit zorgt dat gebruikers op mobiel niet missen.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="recommendations-section">
+            <h2>Aanbevelingen & vervolgstappen</h2>
+
+            <div class="rec-item">
+                <div class="rec-priority p2">Should Fix</div>
+                <div class="rec-title">Diensten pagina: CTA's na groepen diensten</div>
+                <div class="rec-text">
+                    Het weergeven van 5 diensten zonder expliciete "volgende stap" vragen kan tot vervalsing leiden. Voeg na elke 2-3 diensten een subtiele CTA in: "Geïnteresseerd? Vraag een gratis offerte aan" of "Wil je hier meer over weten? Neem contact op."
+                </div>
+                <div class="rec-text"><strong>Waarom:</strong> Dit helpt gebruikers keuzes maken en reduceert scroll-bounce.</div>
+            </div>
+
+            <div class="rec-item">
+                <div class="rec-priority p3">Nice to Have</div>
+                <div class="rec-title">Diensten pagina op mobiel: accordion of tabs</div>
+                <div class="rec-text">
+                    Overweeg om diensten op mobiel in een accordion in te pakken (expand/collapse per dienst). Dit verkleint de initiële wall-of-content en maakt scanning makkelijker.
+                </div>
+                <div class="rec-text"><strong>Alternatief:</strong> Houd het eenvoudig — zorg dat diensten-kaarten compact zijn (max 150px hoogte) en goed gescande kunnen worden.</div>
+            </div>
+
+            <div class="rec-item">
+                <div class="rec-priority p2">Should Fix</div>
+                <div class="rec-title">Hero foto: responsief crop</div>
+                <div class="rec-text">
+                    Full-bleed hero-foto's hebben slim cropping nodig op mobiel. Zorg dat het gezicht van de loodgieter centraal blijft, niet uit beeld gaat op smalle schermen.
+                </div>
+                <div class="rec-text"><strong>Implementatie:</strong> Gebruik CSS object-fit: cover en object-position: center top (of object-position: 50% 30% afhankelijk van compositie).</div>
+            </div>
+
+            <div class="rec-item">
+                <div class="rec-priority p3">Nice to Have</div>
+                <div class="rec-title">Expand reviews-secties</div>
+                <div class="rec-text">
+                    3 reviews is een start, maar voor een dienstenbedrijf zijn 5-8 reviews sterker. Overweeg om meer ruimte voor reviews in te plannen in een latere iteratie, of voeg een "Bekijk alle reviews" link toe.
+                </div>
+                <div class="rec-text"><strong>Waarom:</strong> Social proof is cruciaal voor loodgieters. Meer reviews = meer vertrouwen = betere conversiesnelheid.</div>
+            </div>
+
+            <div class="rec-item">
+                <div class="rec-priority p2">Should Fix</div>
+                <div class="rec-title">Touch-target maat CTA buttons</div>
+                <div class="rec-text">
+                    Bij development: zorg dat "Vraag een offerte aan" buttons minimaal 44×44px zijn. Dit volgt WCAG-richtlijnen en helpt mobiele gebruikers.
+                </div>
+                <div class="rec-text"><strong>Details:</strong> 44px hoogte, 16-24px padding horizontaal, clear focus-state.</div>
+            </div>
+
+            <div class="rec-item">
+                <div class="rec-priority p1">Must Fix</div>
+                <div class="rec-title">Copy-strategie: zakelijk vs. warm</div>
+                <div class="rec-text">
+                    De wireframe is goed, maar als de copy (teksten) te formeel of te verkoopachtig wordt, verliest de site vertrouwen. Zorg dat copywriting de doelgroep empathisch aanspreekt.
+                </div>
+                <div class="rec-text"><strong>Richtlijn:</strong> "Bent u met een waterschade in paniek? Wij helpen withinnen 2 uur" voelt beter dan "Watersdamageservices beschikbaar 24/7".</div>
+            </div>
+
+            <div class="rec-item">
+                <div class="rec-priority p3">Nice to Have</div>
+                <div class="rec-title">Privacy Policy integratie</div>
+                <div class="rec-text">
+                    Privacy Policy voelt momenteel als "verplicht kwaad". Integreer het slimmer in het contact-formulier (klein badge "Je gegevens zijn veilig" met GDPR-info) en plaats de link duidelijker.
+                </div>
+                <div class="rec-text"><strong>Waarom:</strong> Dit versterkt vertrouwen zonder afleiding.</div>
+            </div>
+
+            <div class="rec-item">
+                <div class="rec-priority p3">Nice to Have</div>
+                <div class="rec-title">Aanvullende vertrouwenssignalen</div>
+                <div class="rec-text">
+                    Overweeg: (1) Certificaten / licenties (bv. "VOKA-erkend", "Verzekerd"), (2) "Snelle responstijd" badge, (3) "Lokaal bedrijf sinds [jaar]" in de hero of footer.
+                </div>
+                <div class="rec-text"><strong>Waarom:</strong> Dit versterkt de boodschap "betrouwbare lokale loodgieter" verder.</div>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-left: 4px solid var(--primary);">
+            <h2 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--dark);">Vervolgstappen</h2>
+            <ol style="margin-left: 1.5rem; line-height: 1.8;">
+                <li><strong>Development starten</strong> met deze UX-wireframe als basis. De structuur is solide.</li>
+                <li><strong>Copywriting-sessie</strong> zodat teksten warm en empathisch zijn (niet standaard corporate-speak).</li>
+                <li><strong>Visual design stap</strong> (merk-kleuren, typografie, fotografie-stijl).</li>
+                <li><strong>Responsive build</strong> met aandacht voor mobiel (hero-crop, diensten-layout, touch-targets).</li>
+                <li><strong>UI Consistency check</strong> zodra HTML/CSS klaar is (volgende creative-direction fase).</li>
+                <li><strong>Content gathering</strong> (echte reviews, echte foto's van loodgieter, Google Maps API setup).</li>
+                <li><strong>Creatieve eindreview</strong> vóór lancering (totaalplaatje, merkbeleving, emotionele impact).</li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Creative Direction Review v1.0</strong></p>
+        <p>Dit rapport is gegenereerd op 15 maart 2026 als onderdeel van de UX Review fase, na wireframing en vóór development.</p>
+        <p>De bevindingen zijn gebaseerd op de gegeven sitemap en wireframe-beschrijving, met inachtneming van UX best practices en doelgroep-analyse.</p>
+        <p>Vragen? Gebruik dit rapport om constructieve feedback aan het design-team te geven.</p>
+    </footer>
+</body>
+</html>

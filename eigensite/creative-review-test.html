@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creatieve Eindreview — Verstraeten & Partners</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Serif 4', serif;
+            color: #1B2A4A;
+            background: linear-gradient(135deg, #FAF8F5 0%, #F5F1ED 100%);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 4px solid #C9A96E;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #1B2A4A;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 5px 0;
+        }
+
+        .header .meta {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #EEE;
+            display: flex;
+            gap: 30px;
+            font-size: 13px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .meta-label {
+            text-transform: uppercase;
+            color: #999;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            color: #1B2A4A;
+            font-weight: 600;
+        }
+
+        /* Samenvatting */
+        .summary {
+            background: #1B2A4A;
+            color: #FAF8F5;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 2px;
+            border-left: 6px solid #C9A96E;
+        }
+
+        .summary h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .summary p {
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Score circkel */
+        .score-section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #C9A96E 0%, #B8945F 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3);
+        }
+
+        .score-circle .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            color: white;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .score-circle .max {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+        }
+
+        .score-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #1B2A4A;
+            margin-bottom: 10px;
+        }
+
+        .score-label {
+            font-size: 16px;
+            color: #C9A96E;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Categorie scores */
+        .categories {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .category-score {
+            display: grid;
+            grid-template-columns: 1fr 80px;
+            gap: 20px;
+            align-items: center;
+            padding: 15px;
+            background: #FAF8F5;
+            border-radius: 2px;
+        }
+
+        .category-score-left {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-score-name {
+            font-weight: 600;
+            color: #1B2A4A;
+        }
+
+        .category-score-bar {
+            height: 6px;
+            background: #E5DDD4;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .category-score-fill {
+            height: 100%;
+            background: #C9A96E;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .category-score-value {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .score-excellent { color: #27AE60; }
+        .score-good { color: #2980B9; }
+        .score-adequate { color: #F39C12; }
+        .score-poor { color: #E74C3C; }
+
+        /* Bevindingen */
+        .findings-section {
+            margin-bottom: 40px;
+        }
+
+        .finding-category {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+            border-left: 5px solid #C9A96E;
+        }
+
+        .finding-category h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #1B2A4A;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .finding-list {
+            list-style: none;
+        }
+
+        .finding-item {
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #FAF8F5;
+            border-radius: 2px;
+            border-left: 4px solid #DDD;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .finding-item.good {
+            border-left-color: #27AE60;
+            background: #F0FDF4;
+        }
+
+        .finding-item.warning {
+            border-left-color: #F39C12;
+            background: #FFFAF0;
+        }
+
+        .finding-item.issue {
+            border-left-color: #E74C3C;
+            background: #FDF5F4;
+        }
+
+        .finding-icon {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .finding-item.good .finding-icon { color: #27AE60; }
+        .finding-item.warning .finding-icon { color: #F39C12; }
+        .finding-item.issue .finding-icon { color: #E74C3C; }
+
+        .finding-item-content {
+            margin-top: 5px;
+        }
+
+        .finding-item-title {
+            font-weight: 600;
+            color: #1B2A4A;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .finding-item-description {
+            color: #555;
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        .finding-item-action {
+            color: #C9A96E;
+            font-weight: 600;
+            font-size: 12px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        /* Prioriteit badge */
+        .priority-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 2px;
+            margin-left: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-p1 {
+            background: #E74C3C;
+            color: white;
+        }
+
+        .priority-p2 {
+            background: #F39C12;
+            color: white;
+        }
+
+        .priority-p3 {
+            background: #95A5A6;
+            color: white;
+        }
+
+        /* Aanbevelingen */
+        .recommendations-section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+        }
+
+        .recommendations-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #1B2A4A;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #C9A96E;
+            padding-bottom: 15px;
+        }
+
+        .recommendation {
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #FAF8F5;
+            border-radius: 2px;
+            border-left: 4px solid #2980B9;
+        }
+
+        .recommendation.critical {
+            border-left-color: #E74C3C;
+            background: #FDF5F4;
+        }
+
+        .recommendation h4 {
+            color: #1B2A4A;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .recommendation p {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1B2A4A;
+            color: #FAF8F5;
+            padding: 30px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 12px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .header {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .header .meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .score-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .score-circle .number {
+                font-size: 56px;
+            }
+
+            .finding-category h3,
+            .recommendations-section h2 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Creatieve Eindreview</h1>
+            <p>Advocatenkantoor Verstraeten & Partners — Antwerpen</p>
+            <div class="meta">
+                <div class="meta-item">
+                    <span class="meta-label">Modus</span>
+                    <span class="meta-value">Creatieve Eindreview (Pre-Launch)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Datum</span>
+                    <span class="meta-value">15 maart 2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Status</span>
+                    <span class="meta-value">Gereed voor lancering (met aandachtspunten)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Samenvatting -->
+        <div class="summary">
+            <h2>Samenvatting</h2>
+            <p>De website van Verstraeten & Partners presenteert zich als een professionele, gedegen uitvoering met sterke visuele waarden. De typografie is elegant, de spacing is doordacht, en het palet van navy, goud en warmwit straalt vertrouwen uit. Echter, enkele subtiele inconsistenties in fotografie en een gemis aan onderscheidend creatief karakter voorkomen dat de site volledig "wow-moment" biedt die moderne advocatenkantoren nodig hebben om uit de massa te steken. Voor lancering zijn er drie aandachtspunten die aantrekkracht kunnen vergroten.</p>
+        </div>
+
+        <!-- Totaal Score -->
+        <div class="score-section">
+            <div class="score-circle">
+                <span class="number">7</span>
+                <span class="max">/ 10</span>
+            </div>
+            <h2>Totaalscore</h2>
+            <p class="score-label">Goed — Professioneel, kleine verbeterpunten</p>
+            <div class="categories">
+                <div class="category-score">
+                    <div class="category-score-left">
+                        <span class="category-score-name">Merkbeleving</span>
+                        <div class="category-score-bar">
+                            <div class="category-score-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <span class="category-score-value score-good">7.5</span>
+                </div>
+                <div class="category-score">
+                    <div class="category-score-left">
+                        <span class="category-score-name">Visuele Compositie</span>
+                        <div class="category-score-bar">
+                            <div class="category-score-fill" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    <span class="category-score-value score-good">7.0</span>
+                </div>
+                <div class="category-score">
+                    <div class="category-score-left">
+                        <span class="category-score-name">Fotografie-Consistentie</span>
+                        <div class="category-score-bar">
+                            <div class="category-score-fill" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <span class="category-score-value score-adequate">6.0</span>
+                </div>
+                <div class="category-score">
+                    <div class="category-score-left">
+                        <span class="category-score-name">Eerste Indruk</span>
+                        <div class="category-score-bar">
+                            <div class="category-score-fill" style="width: 72%;"></div>
+                        </div>
+                    </div>
+                    <span class="category-score-value score-good">7.2</span>
+                </div>
+                <div class="category-score">
+                    <div class="category-score-left">
+                        <span class="category-score-name">Concurrentie-Benchmark</span>
+                        <div class="category-score-bar">
+                            <div class="category-score-fill" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                    <span class="category-score-value score-adequate">6.5</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bevindingen per categorie -->
+        <div class="findings-section">
+            <div class="finding-category">
+                <h3><span>●</span> Merkbeleving (7.5 / 10)</h3>
+                <ul class="finding-list">
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Heldere identiteit in 3 seconden</span>
+                            <span class="finding-item-description">De hero-sectie maakt onmiddellijk duidelijk dat dit een serieus, vertrouwenwekkend advocatenkantoor is. De combinatie van professioneel kantoorfoto, elegante typografie en goudaccenten spreekt de doelgroep (zakenwereld) direct aan.</span>
+                        </span>
+                    </li>
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Afgewerkte, volgroeide site</span>
+                            <span class="finding-item-description">Geen placeholder-teksten, geen lorem ipsum, alle secties voelen compleet en redactioneel verzorgd. Dit straalt professionaliteit uit.</span>
+                        </span>
+                    </li>
+                    <li class="finding-item warning">
+                        <span class="finding-icon">⚠</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Mist differentiatie van concurrenten</span>
+                            <span class="finding-item-description">De visuele aanpak (navy + goud, traditionele typografie, kantoorsfoto) is standaard voor het segment. Andere kantoren gebruiken dezelfde receptuur. Er is geen karakteristieke "Verstraeten & Partners" DNA.</span>
+                            <span class="finding-item-action">AANBEVELING: Voeg een subtiel differentiërend element toe, zoals een unieke fotostijl, een icoonset op maat, of een herkenbare grafische accent.</span>
+                        </span>
+                        <span class="priority-badge priority-p3">P3 Nice to Have</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="finding-category">
+                <h3><span>●</span> Visuele Compositie (7.0 / 10)</h3>
+                <ul class="finding-list">
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Ritme en afwisseling</span>
+                            <span class="finding-item-description">De pagina-opbouw (hero, tekstsectie, team-grid, publicaties, CTA) volgt een natuurlijk ritme. Zware visuele secties wisselen af met lichte tekstblokken.</span>
+                        </span>
+                    </li>
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Witruimte als designkeuze</span>
+                            <span class="finding-item-description">De ruime spacing rond tekst en componenten voelt intentioneel en luxe, niet loos. Dit sluit aan bij de premium positioning van het kantoor.</span>
+                        </span>
+                    </li>
+                    <li class="finding-item warning">
+                        <span class="finding-icon">⚠</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Publicaties-sectie voelt onderontwikkeld</span>
+                            <span class="finding-item-description">Vergeleken met de volledige home, expertises en team-pagina's, voelt de publicaties-pagina schaal. Mogelijk wordt hier nog niet veel content getoond, of de layout maakt het minder impactvol.</span>
+                            <span class="finding-item-action">AANBEVELING: Overweeg een richer grid-layout (featured article bovenaan, thumbnail-grid eronder), filters op categorie/datum, of een "most read" sectie om meer gebruikerservaring toe te voegen.</span>
+                        </span>
+                        <span class="priority-badge priority-p2">P2 Should Fix</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="finding-category">
+                <h3><span>●</span> Fotografie-Consistentie (6.0 / 10)</h3>
+                <ul class="finding-list">
+                    <li class="finding-item warning">
+                        <span class="finding-icon">⚠</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Team-foto's hebben inconsistente kleurtemperatuur</span>
+                            <span class="finding-item-description">De team-galerie toont portretfoto's waarvan enkele warm-getinte (goudachtig licht) en andere klinisch koud zijn. Dit breekt de visuele eenheid. Sommige foto's zien er uit alsof ze in een modern studiootje zijn gemaakt, anderen voelen corporate en gefotografeerdheid.</span>
+                            <span class="finding-item-action">AANBEVELING: Alle team-foto's opnieuw laten fotograferen door dezelfde fotograaf in dezelfde omgeving/verlichting, óf post-productie kleurcorrectie toepassen voor consistentie.</span>
+                        </span>
+                        <span class="priority-badge priority-p1">P1 Must Fix</span>
+                    </li>
+                    <li class="finding-item warning">
+                        <span class="finding-icon">⚠</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Gemengde beeldstijl (foto + minimale illustratie)</span>
+                            <span class="finding-item-description">Hero is fotografie, team is fotografie, maar er zijn enkele grafische elementen (pijlen, decoratieve lijnen) die niet perfect aansluiten op de fotografische aesthetiek. Dit voelt eclectisch.</span>
+                            <span class="finding-item-action">AANBEVELING: Kies één visuele taal: óf puur fotografie met minimale grafische accenten, óf integreer illustratie concreet als merkwaarde.</span>
+                        </span>
+                        <span class="priority-badge priority-p2">P2 Should Fix</span>
+                    </li>
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Hero-afbeelding is professioneel</span>
+                            <span class="finding-item-description">De full-bleed kantoorsfoto in de hero is van hoge kwaliteit, goed gefraamd, en ondersteunt de merkboodschap perfect.</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="finding-category">
+                <h3><span>●</span> Eerste Indruk (7.2 / 10)</h3>
+                <ul class="finding-list">
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Hero communiceert direct</span>
+                            <span class="finding-item-description">Binnen 1 seconde: duidelijk wie dit is (advocatenkantoor), waar (Antwerpen), wat het belooft (expertise, betrouwbaarheid).</span>
+                        </span>
+                    </li>
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Vertrouwenwekkend uiterlijk</span>
+                            <span class="finding-item-description">De kleurenkeuze, typografie en fotografie geven een "we zijn solide en professioneel"-gevoel. Bezoeker voelt zich direct in veilige handen.</span>
+                        </span>
+                    </li>
+                    <li class="finding-item warning">
+                        <span class="finding-icon">⚠</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Mobile hero-tekst wordt afgekapt</span>
+                            <span class="finding-item-description">Op mobiele schermen (< 480px) is de tekst-overlay in de hero onleesbaar of gedeeltelijk afgekapt. Dit is cruciaal omdat de eerste indruk juist op mobiel beschadigd is.</span>
+                            <span class="finding-item-action">AANBEVELING: Maak de tekst-overlay responsive: op klein scherm 1-2 kernwoorden in grote letters, op desktop de volledige tagline. Of kies voor een gesloten mobile-hero zonder overlay.</span>
+                        </span>
+                        <span class="priority-badge priority-p1">P1 Must Fix</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="finding-category">
+                <h3><span>●</span> Concurrentie-Benchmark (6.5 / 10)</h3>
+                <ul class="finding-list">
+                    <li class="finding-item good">
+                        <span class="finding-icon">✓</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Betere typografie dan gemiddelde</span>
+                            <span class="finding-item-description">Playfair Display + Source Serif 4 is een conscieuze keuze. Veel concurrenten gebruiken generieke sans-serifs. Dit onderscheidt Verstraeten & Partners subtiel.</span>
+                        </span>
+                    </li>
+                    <li class="finding-item warning">
+                        <span class="finding-icon">⚠</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Template-achtige structuur</span>
+                            <span class="finding-item-description">De pagina-layout (hero, 3-kolom services, team-grid, cta-blok) is standaard voor het segment. Dit maakt de site niet uniek. Vergelijkbare kantoren gebruiken dezelfde blueprint.</span>
+                            <span class="finding-item-action">AANBEVELING: Voeg 1-2 unieke secties toe die Verstraeten & Partners onderscheiden: bijvoorbeeld een timeline van merkafstanden, een client stories-sectie met getuigenissen, of een interactieve expertise-matcher.</span>
+                        </span>
+                        <span class="priority-badge priority-p3">P3 Nice to Have</span>
+                    </li>
+                    <li class="finding-item warning">
+                        <span class="finding-icon">⚠</span>
+                        <span class="finding-item-content">
+                            <span class="finding-item-title">Geen "wow moment"</span>
+                            <span class="finding-item-description">De site is professioneel en compleet, maar biedt geen onverwacht creatief moment dat bezoeker doet zeggen "Ah, dit kantoor is anders." Dit is belangrijk in een overwogen market.</span>
+                            <span class="finding-item-action">AANBEVELING: Overweeg een goed geplaatste interactieve element (hover-effect op expertises, animatie op team-foto's) of een verrassende visual narrative (bijv. animated scroll-story van casework).</span>
+                        </span>
+                        <span class="priority-badge priority-p3">P3 Nice to Have</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Aanbevelingen -->
+        <div class="recommendations-section">
+            <h2>Aanbevelingen voor Lancering</h2>
+
+            <div class="recommendation critical">
+                <h4>🔴 P1: Mobile Hero Text Responsive Maken</h4>
+                <p><strong>Impact:</strong> De eerste indruk op mobiel is beschadigd. Bezoeker ziet afgekapte of onleesbare tekst.<br><br><strong>Oplossing:</strong> Implementeer responsive typografie: grote tekstgrootte op desktop (h1: 48px), kleinere op tablet (36px), en kernwoord-only op mobile (28px). Of gebruik CSS media queries om de text-overlay op smal scherm geheel verborgen te maken en via een alternatieve layout (tekstblok onder hero) te tonen.<br><br><strong>Prioriteit:</strong> Kritiek — moet voor lancering opgelost zijn.</p>
+            </div>
+
+            <div class="recommendation critical">
+                <h4>🔴 P1: Team-Fotografie Kleurcorrectie</h4>
+                <p><strong>Impact:</strong> De team-galerie voelt visueel inconsistent. Bezoeker ervaart dit subconscious als "niet professioneel gebouwd".<br><br><strong>Oplossing:</strong> Ideaal: alle team-foto's opnieuw fotograferen met dezelfde fotograaf, verlichting en achtergrond. Alternatief (sneller, goedkoper): alle team-foto's door een kleurcorrectieprocedure halen in post-productie. Dit kan extern worden geoutsourced (bijv. 2-3 uur werk voor professionele kleurist).<br><br><strong>Prioriteit:</strong> Kritiek — dit bepaalt het kwaliteitsgevoel van de hele site.</p>
+            </div>
+
+            <div class="recommendation">
+                <h4>🟠 P2: Publicaties-Pagina Verrijken</h4>
+                <p><strong>Impact:</strong> De publicaties-pagina voelt onderontwikkeld vergeleken met de rest. Dit minimaliseert de zichtbaarheid van het kennisleiderschap van het kantoor.<br><br><strong>Oplossing:</strong> Upgrade de layout naar een featured artikel bovenaan (groot, met afbeelding en samenvatting) + een grid hieronder van recente publicaties. Voeg categoriefilters toe (bygebied van praktijk: bedrijfsrecht, arbeidsrecht, etc.) en een zoekfunctie. Dit maakt de pagina meer bevind- en naslagbaar.<br><br><strong>Prioriteit:</strong> Hoog — moet voor lancering opgelost zijn, maar kan extern gescoped worden.</p>
+            </div>
+
+            <div class="recommendation">
+                <h4>🟠 P2: Visuele Taalconsistentie (Foto vs. Grafiek)</h4>
+                <p><strong>Impact:</strong> De mengeling van fotografische en grafische elementen voelt onscharp.<br><br><strong>Oplossing:</strong> Kies: óf ga volledig op fotografie (verwijder decoratieve grafische lijnen, houdt het minimaal) óf integreer illustratie/grafiek als bewust merkwaarde. Een consistent systeem is visueel krachtiger dan eclectische mixing.<br><br><strong>Prioriteit:</strong> Gemiddeld — kan na lancering worden verfijnd, maar beter om nu te doen.</p>
+            </div>
+
+            <div class="recommendation">
+                <h4>🟡 P3: Creatieve Differentiatie Toevoegen</h4>
+                <p><strong>Impact:</strong> De site is goed, maar niet onderscheidend in een markt vol dezelfde-kleurige, dezelfde-structuurde sites.<br><br><strong>Oplossing:</strong> Voeg één uniek creatief element toe dat "Verstraeten & Partners" merk versterkt. Voorbeelden: een interactieve expertise-matcher ("Welk probleem heb je? → Naar relevante expert"), een timeline van zaaksuccessen of een subtiele pero-herkenbare icoonset op maat. Dit hoeft niet duur te zijn, maar geeft de site een herkenbar "face".<br><br><strong>Prioriteit:</strong> Verfijning — kan post-launch, maar sterkt het merk aanzienlijk.</p>
+            </div>
+
+            <div class="recommendation">
+                <h4>🟡 P3: "Wow Moment" Overwegen</h4>
+                <p><strong>Impact:</strong> Bezoeker vergeet de site snel, omdat er geen visueel/interactief moment is dat blijft hangen.<br><br><strong>Oplossing:</strong> Klein, maar effectief: overweeg een subtiele animatie (bijv. de goudaccent-lijn die scroltrijd volgt, team-foto's die fade-in bij scroll, expertise-kaarten die roteerbaar zijn). Dit kost gering effort maar geeft moderne geloofwaardigheid.<br><br><strong>Prioriteit:</strong> Leuk — kan na lancering via A/B testing geëvalueerd worden.</p>
+            </div>
+        </div>
+
+        <!-- Checklist voor lancering -->
+        <div class="recommendations-section" style="background: #F5FAFB; border-left: 4px solid #2980B9;">
+            <h2 style="border-bottom-color: #2980B9;">Checklist voor Go-Live</h2>
+            <ul class="finding-list">
+                <li class="finding-item good" style="margin-bottom: 10px;">
+                    <span class="finding-icon">✓</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Typografie: Playfair Display + Source Serif 4 consistent geimplementeerd</span>
+                    </span>
+                </li>
+                <li class="finding-item good" style="margin-bottom: 10px;">
+                    <span class="finding-icon">✓</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Kleurenpalet: Navy (#1B2A4A), Goud (#C9A96E), Warmwit (#FAF8F5) consistent gebruikt</span>
+                    </span>
+                </li>
+                <li class="finding-item warning" style="margin-bottom: 10px;">
+                    <span class="finding-icon">⚠</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Mobile responsiveness hero: Tekst-overlay moet schermgrootte aangepast zijn</span>
+                    </span>
+                </li>
+                <li class="finding-item warning" style="margin-bottom: 10px;">
+                    <span class="finding-icon">⚠</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Team-foto's: Kleurcorrectie afgerond en preview goedgekeurd</span>
+                    </span>
+                </li>
+                <li class="finding-item good" style="margin-bottom: 10px;">
+                    <span class="finding-icon">✓</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Alle pagina's (Home, Expertises, Team, Publicaties, Contact) voelen compleet</span>
+                    </span>
+                </li>
+                <li class="finding-item good" style="margin-bottom: 10px;">
+                    <span class="finding-icon">✓</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Spacing en padding consistent doorgevoerd</span>
+                    </span>
+                </li>
+                <li class="finding-item warning" style="margin-bottom: 10px;">
+                    <span class="finding-icon">⚠</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Publicaties-pagina: Layout uitgebreid zodat het minder lege voelt</span>
+                    </span>
+                </li>
+                <li class="finding-item good">
+                    <span class="finding-icon">✓</span>
+                    <span class="finding-item-content">
+                        <span class="finding-item-title">Geen placeholder-teksten, geen lorem ipsum, alles redactioneel afgerond</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Finale samenvatting -->
+        <div class="summary" style="background: #FAF8F5; color: #1B2A4A; border-left-color: #C9A96E;">
+            <h2 style="color: #1B2A4A;">Conclusie</h2>
+            <p><strong>Status: Gereed voor lancering, met 2 kritieke vervolgstappen.</strong></p>
+            <p style="margin-top: 10px;">Verstraeten & Partners heeft een gedegen, professioneel werkende website neergezet. De visuele waarden zijn sterker dan gemiddelde kantoor-sites, en de gebruikerservaring is ongecompliceerd. De website voelt "af" en klant-klaar.</p>
+            <p style="margin-top: 10px;">Om de kwaliteit te waarborgen en te voorkomen dat bezoeker subtiele inconsistenties opmerkt, moeten de twee P1-punten (mobile hero + team-fotografie) voor lancering opgelost zijn. Dit zijn kleine maar impactvolle beveiligingen die het professionele gevoel vergroten.</p>
+            <p style="margin-top: 10px;">De P3-aanbevelingen (differentiatie, wow-moment) zijn niet nodig voor lancering, maar maken de site toekomstig sterker. Deze kunnen post-launch in fases worden toegevoegd, gebaseerd op analytics en user feedback.</p>
+            <p style="margin-top: 15px;"><strong>Groen licht voor lancering, met volgende stappen afgesproken.</strong></p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Creative Direction Review</strong> — Verstraeten & Partners, Antwerpen</p>
+            <p>Gegenereerd door Creative Direction Skill | 15 maart 2026</p>
+            <p>Dit rapport is een professioneel creatief advies en onderbouwing van designkeuzes. Het is bedoeld voor intern gebruik en klantencommunicatie.</p>
+        </div>
+    </div>
+</body>
+</html>
