@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Direction Review v2 — The Bair Co. | baircompany.be</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f0ede8;
+    --grey: #888;
+    --accent: #2E8AFF;
+    --pink: #ec4899;
+    --amber: #f59e0b;
+    --emerald: #10b981;
+    --red: #ef4444;
+    --bg: #111113;
+    --card: rgba(240,237,232,0.03);
+    --border: rgba(240,237,232,0.08);
+    --green: #22c55e;
+    --orange: #f97316;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', -apple-system, system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  .report-header {
+    padding: 4rem 3rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(46,138,255,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(236,72,153,0.04) 0%, transparent 50%);
+  }
+  .report-header * { position: relative; }
+  .report-label {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .report-title {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .report-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--grey);
+  }
+  .report-meta strong { color: var(--white); font-weight: 500; }
+
+  /* Score Section */
+  .score-hero {
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .score-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .score-circle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 4px solid var(--border);
+  }
+  .score-circle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    transform: rotate(-25deg);
+  }
+  .score-num {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .score-label {
+    font-size: 0.75rem;
+    color: var(--grey);
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .score-summary h2 {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .score-summary p {
+    color: rgba(240,237,232,0.7);
+    font-size: 0.95rem;
+    max-width: 650px;
+  }
+
+  /* Score Bars */
+  .scores-grid {
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .score-card {
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .score-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .score-card-title {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .score-card-val {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+  .score-bar {
+    height: 6px;
+    background: rgba(240,237,232,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s ease;
+  }
+  .green { color: var(--green); }
+  .green .score-bar-fill { background: var(--green); }
+  .orange { color: var(--orange); }
+  .orange .score-bar-fill { background: var(--orange); }
+  .red { color: var(--red); }
+  .red .score-bar-fill { background: var(--red); }
+  .blue { color: var(--accent); }
+  .blue .score-bar-fill { background: var(--accent); }
+
+  /* Sections */
+  .review-section {
+    padding: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+
+  /* Findings */
+  .finding {
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 1rem;
+    align-items: start;
+  }
+  .finding-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .finding-icon.good { background: rgba(34,197,94,0.12); }
+  .finding-icon.warn { background: rgba(249,115,22,0.12); }
+  .finding-icon.bad { background: rgba(239,68,68,0.12); }
+  .finding-title {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .finding-desc {
+    font-size: 0.88rem;
+    color: rgba(240,237,232,0.65);
+    line-height: 1.7;
+  }
+  .finding-rec {
+    margin-top: 0.6rem;
+    padding: 0.6rem 1rem;
+    background: rgba(46,138,255,0.06);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.82rem;
+    color: rgba(240,237,232,0.8);
+  }
+  .priority-tag {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    height: fit-content;
+  }
+  .p1 { background: rgba(239,68,68,0.15); color: var(--red); }
+  .p2 { background: rgba(249,115,22,0.15); color: var(--orange); }
+  .p3 { background: rgba(34,197,94,0.15); color: var(--green); }
+
+  /* Mode Tabs */
+  .mode-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mode-tab {
+    flex: 1;
+    padding: 1.25rem 2rem;
+    text-align: center;
+    cursor: default;
+    position: relative;
+    border-right: 1px solid var(--border);
+  }
+  .mode-tab:last-child { border-right: none; }
+  .mode-tab-label {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 0.3rem;
+  }
+  .mode-tab-score {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+  .mode-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+  .mode-tab.ux::after { background: var(--accent); }
+  .mode-tab.ui::after { background: var(--emerald); }
+  .mode-tab.creative::after { background: var(--pink); }
+
+  /* Footer */
+  .report-footer {
+    padding: 2rem 3rem;
+    font-size: 0.75rem;
+    color: var(--grey);
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .score-hero { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+    .scores-grid { grid-template-columns: 1fr; }
+    .finding { grid-template-columns: 32px 1fr; }
+    .priority-tag { grid-column: 2; justify-self: start; }
+    .mode-tabs { flex-direction: column; }
+    .report-header, .score-hero, .scores-grid, .review-section { padding: 2rem 1.5rem; }
+  }
+
+  /* Page Overview */
+  .page-overview {
+    padding: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .pages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .page-card {
+    padding: 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .page-card-name {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .page-card-url {
+    font-size: 0.7rem;
+    color: var(--grey);
+    margin-bottom: 0.6rem;
+    word-break: break-all;
+  }
+  .page-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .page-tag {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(240,237,232,0.05);
+    color: var(--grey);
+    letter-spacing: 0.05em;
+  }
+  .page-tag.dark { border: 1px solid rgba(240,237,232,0.1); }
+  .page-tag.light { border: 1px solid rgba(249,115,22,0.3); color: var(--orange); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="report-label">Creative Direction Review — v2</div>
+  <h1 class="report-title">The Bair Co. — baircompany.be<br>UX · UI · Creatieve Eindreview</h1>
+  <div class="report-meta">
+    <span><strong>Datum:</strong> 15 maart 2026</span>
+    <span><strong>Modus:</strong> Gecombineerd (UX + UI + Creatief)</span>
+    <span><strong>Pagina's:</strong> 15+ geanalyseerd</span>
+    <span><strong>Vorige score:</strong> 7.4/10</span>
+  </div>
+</div>
+
+<!-- TOTAL SCORE -->
+<div class="score-hero">
+  <div class="score-circle">
+    <div class="score-num">7.6</div>
+    <div class="score-label">Totaal</div>
+  </div>
+  <div class="score-summary">
+    <h2>Professionele site met sterk creatief fundament, maar technische inconsistenties</h2>
+    <p>The Bair Co. heeft een visueel indrukwekkende website die duidelijk communiceert wat het bureau doet. De hero-sectie, de fotografie en het typografisch systeem zijn van hoog niveau. Echter, er zijn belangrijke technische en UX-problemen: onzichtbare secties door falende reveal-animaties, een inconsistente thema-wissel tussen dark (hoofdpagina's) en light (dienstenpagina's), en gedupliseerde CSS over alle bestanden. Na de vorige P1-fixes (viewBox, timeline) is de score licht verbeterd, maar er zijn nieuwe bevindingen.</p>
+  </div>
+</div>
+
+<!-- MODE SCORES -->
+<div class="mode-tabs">
+  <div class="mode-tab ux">
+    <div class="mode-tab-label">UX Review</div>
+    <div class="mode-tab-score" style="color:var(--accent)">7.4</div>
+  </div>
+  <div class="mode-tab ui">
+    <div class="mode-tab-label">UI Consistency</div>
+    <div class="mode-tab-score" style="color:var(--emerald)">7.2</div>
+  </div>
+  <div class="mode-tab creative">
+    <div class="mode-tab-label">Creatieve Eindreview</div>
+    <div class="mode-tab-score" style="color:var(--pink)">8.2</div>
+  </div>
+</div>
+
+<!-- CATEGORY SCORES -->
+<div class="scores-grid">
+  <!-- UX -->
+  <div class="score-card green">
+    <div class="score-card-header">
+      <div class="score-card-title">Conversie-architectuur</div>
+      <div class="score-card-val">8.0</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:80%"></div></div>
+  </div>
+  <div class="score-card green">
+    <div class="score-card-header">
+      <div class="score-card-title">User Flow</div>
+      <div class="score-card-val">7.5</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:75%"></div></div>
+  </div>
+  <div class="score-card orange">
+    <div class="score-card-header">
+      <div class="score-card-title">Informatie-hiërarchie</div>
+      <div class="score-card-val">6.5</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:65%"></div></div>
+  </div>
+  <div class="score-card green">
+    <div class="score-card-header">
+      <div class="score-card-title">Doelgroep-fit</div>
+      <div class="score-card-val">8.5</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:85%"></div></div>
+  </div>
+  <div class="score-card orange">
+    <div class="score-card-header">
+      <div class="score-card-title">Kleurconsistentie</div>
+      <div class="score-card-val">6.5</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:65%"></div></div>
+  </div>
+  <div class="score-card green">
+    <div class="score-card-header">
+      <div class="score-card-title">Typografie</div>
+      <div class="score-card-val">8.5</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:85%"></div></div>
+  </div>
+  <div class="score-card orange">
+    <div class="score-card-header">
+      <div class="score-card-title">Component-consistentie</div>
+      <div class="score-card-val">6.0</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:60%"></div></div>
+  </div>
+  <div class="score-card green">
+    <div class="score-card-header">
+      <div class="score-card-title">Merkbeleving</div>
+      <div class="score-card-val">8.5</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:85%"></div></div>
+  </div>
+  <div class="score-card green">
+    <div class="score-card-header">
+      <div class="score-card-title">Eerste indruk</div>
+      <div class="score-card-val">9.0</div>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" style="width:90%"></div></div>
+  </div>
+</div>
+
+<!-- PAGE OVERVIEW -->
+<div class="page-overview">
+  <div class="section-label" style="color:var(--accent)">Site-architectuur</div>
+  <div class="section-title">Pagina-overzicht (15 pagina's geanalyseerd)</div>
+  <div class="pages-grid">
+    <div class="page-card">
+      <div class="page-card-name">Homepage</div>
+      <div class="page-card-url">/index.html</div>
+      <div class="page-card-tags">
+        <span class="page-tag dark">Dark theme</span>
+        <span class="page-tag">GA4</span>
+        <span class="page-tag">Reveal anim</span>
+        <span class="page-tag">Cookie simple</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-card-name">Over ons</div>
+      <div class="page-card-url">/over.html</div>
+      <div class="page-card-tags">
+        <span class="page-tag dark">Dark theme</span>
+        <span class="page-tag">GA4</span>
+        <span class="page-tag">Schema.org</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-card-name">Cases</div>
+      <div class="page-card-url">/cases.html</div>
+      <div class="page-card-tags">
+        <span class="page-tag dark">Dark theme</span>
+        <span class="page-tag">GA4</span>
+        <span class="page-tag">3 cases</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-card-name">Blog</div>
+      <div class="page-card-url">/blog.html</div>
+      <div class="page-card-tags">
+        <span class="page-tag dark">Dark theme</span>
+        <span class="page-tag">GA4</span>
+        <span class="page-tag">Filters</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-card-name">Branding</div>
+      <div class="page-card-url">/diensten/branding.html</div>
+      <div class="page-card-tags">
+        <span class="page-tag light">Light theme</span>
+        <span class="page-tag">Amber accent</span>
+        <span class="page-tag">Cookie pro</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-card-name">Webdesign</div>
+      <div class="page-card-url">/diensten/webdesign.html</div>
+      <div class="page-card-tags">
+        <span class="page-tag light">Light theme</span>
+        <span class="page-tag">Cookie pro</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-card-name">AI Automatisering</div>
+      <div class="page-card-url">/diensten/ai-automatisering.html</div>
+      <div class="page-card-tags">
+        <span class="page-tag light">Light theme</span>
+        <span class="page-tag">Blue accent</span>
+        <span class="page-tag">Cookie pro</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-card-name">+ 8 meer</div>
+      <div class="page-card-url">copywriting, training, marketing, social-media, apps, webontwikkeling, privacy, cookies, voorwaarden, 404</div>
+      <div class="page-card-tags">
+        <span class="page-tag">Mix dark/light</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- UX REVIEW -->
+<!-- ============================================ -->
+<div class="review-section">
+  <div class="section-label" style="color:var(--accent)">Modus 1 — UX Review</div>
+  <div class="section-title">Conversie, User Flow & Informatie-architectuur</div>
+
+  <!-- P1: Reveal animations -->
+  <div class="finding">
+    <div class="finding-icon bad">✗</div>
+    <div>
+      <div class="finding-title">Onzichtbare secties door reveal-animaties</div>
+      <div class="finding-desc">
+        Meerdere secties op de homepage (testimonials, blog-preview, contact-formulier, en delen van case studies) hebben de CSS class <code>.reveal</code> die standaard <code>opacity: 0; transform: translateY(30px)</code> instelt. De IntersectionObserver die de <code>.visible</code> class moet toevoegen werkt niet consistent — bij snel scrollen of als JavaScript laat laadt, blijven secties volledig onzichtbaar. Dit betekent dat bezoekers grote delen van de homepage nooit zien.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Voeg een fallback toe: na 3 seconden automatisch alle .reveal elementen zichtbaar maken. Of gebruik een <code>noscript</code> style die opacity op 1 zet. Een veiligere aanpak is <code>.reveal { opacity: 0; animation: fadeIn 0.8s ease forwards; animation-delay: 0.2s; }</code> als pure CSS fallback.</div>
+    </div>
+    <span class="priority-tag p1">P1 MUST FIX</span>
+  </div>
+
+  <!-- P2: Geen dedicated contact page -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Geen dedicated contactpagina</div>
+      <div class="finding-desc">
+        Het contactformulier zit alleen ingebed in de homepage (sectie #contact). Er is geen aparte /contact.html pagina. De navigatie-link "Contact" scrollt naar de homepage-sectie, maar als een bezoeker op een diensten-detailpagina zit, navigeert deze link naar <code>index.html#contact</code> — waardoor de bezoeker de hele homepage opnieuw moet laden en naar beneden moet scrollen. Dit is een conversie-barrière.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Maak een aparte contact.html pagina met formulier, locatie/kaart, en directe contactgegevens. Elke pagina moet in maximaal 1 klik naar het contactformulier kunnen komen.</div>
+    </div>
+    <span class="priority-tag p2">P2 SHOULD FIX</span>
+  </div>
+
+  <!-- Good: hero -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Sterke hero-sectie met directe value proposition</div>
+      <div class="finding-desc">
+        "Merken die blijven hangen" communiceert in 2 seconden wat The Bair Co. doet. De subline "BRANDS · AI · RESULTS" versterkt dit. De typografie (Syne + Instrument Serif mix) is opvallend en onderscheidend. De scroll-indicator en subtiele gradiënt-achtergrond creëren een premium gevoel.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+
+  <!-- Good: diensten pages -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Uitstekende diensten-detailpagina's</div>
+      <div class="finding-desc">
+        De 9 dienstenpagina's zijn professioneel opgebouwd met: hero met relevante foto, duidelijke H1, werkwijze-stappen (timeline), gerelateerde diensten-cards, FAQ-sectie, en CTA. Elke pagina heeft een eigen accentkleur die past bij de dienst (amber voor branding, blue voor AI, etc.). De structured data (Service, FAQPage, BreadcrumbList) is goed geïmplementeerd.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+
+  <!-- P2: Homepage length -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Homepage is extreem lang</div>
+      <div class="finding-desc">
+        De homepage bevat: hero, portfolio drag-track, video-sectie, 9 diensten-cards, CTA, werkwijze (4 stappen), over ons met foto, 3 case studies, testimonials, blog-preview, contactformulier, en footer. Dit resulteert in 15+ schermhoogtes aan content. Veel daarvan is ook onzichtbaar door de reveal-bug. Bezoekers raken verloren in de scroll-journey.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Overweeg om de homepage in te korten tot de 5-6 sterkste secties. Verplaats case studies volledig naar /cases.html en blog naar /blog.html. Houd op de homepage: hero → portfolio → diensten → werkwijze → CTA/contact.</div>
+    </div>
+    <span class="priority-tag p2">P2 SHOULD FIX</span>
+  </div>
+
+  <!-- P3: Nav items -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Navigatie-items verwijzen soms naar anchors op homepage</div>
+      <div class="finding-desc">
+        "Portfolio" linkt naar <code>index.html#werk</code> en "Onze diensten" naar <code>index.html#diensten</code>. Vanuit subpagina's veroorzaakt dit een volledige pagina-herlaad. Bovendien zijn "Uitgelicht" en "Cases" verwarrend — beide gaan over klantwerk maar worden apart gepresenteerd. De navigatie-structuur is niet volledig helder.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Overweeg "Portfolio" en "Cases" samen te voegen. Geef "Onze diensten" een eigen overzichtspagina (/diensten.html) in plaats van een anchor.</div>
+    </div>
+    <span class="priority-tag p3">P3 NICE TO HAVE</span>
+  </div>
+
+  <!-- Good: werkwijze -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Werkwijze-sectie bouwt vertrouwen</div>
+      <div class="finding-desc">
+        De 4-stappen werkwijze (Kennismaking → Concept & Design → Realisatie → Lancering & Support) met geometrische vormen (cirkel, vierkant, ruit, driehoek) is visueel sterk en geeft bezoekers duidelijk inzicht in het proces. De hover-animaties zijn subtiel en professioneel.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- UI CONSISTENCY -->
+<!-- ============================================ -->
+<div class="review-section">
+  <div class="section-label" style="color:var(--emerald)">Modus 2 — UI Consistency</div>
+  <div class="section-title">Visueel Systeem, Componenten & Technische Consistentie</div>
+
+  <!-- P1: Dark/Light theme inconsistency -->
+  <div class="finding">
+    <div class="finding-icon bad">✗</div>
+    <div>
+      <div class="finding-title">Onvoorbereide thema-wissel: dark (hoofdpagina's) vs light (diensten)</div>
+      <div class="finding-desc">
+        De homepage, over, cases, blog en privacy-pagina's gebruiken een dark theme (background: #0a0a0a, text: #f0ede8). De 9 dienstenpagina's gebruiken een compleet ander light theme (background: #f0ede8, text: #0a0a0a). Deze wissel is onverwacht en niet gemedieerd — er is geen visuele transitie of indicatie. Een bezoeker die op een dienst klikt, ervaart een "flash" van wit. De header op diensten-pagina's is ook visueel anders (donkere tekst op licht).
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Kies één richting: óf alles dark (consistent met het premium merk-gevoel), óf bereid de transitie voor met een subtiel gradient-overgang. Als je light voor diensten wilt behouden, zorg dan voor een consistente header die de overgang vloeiend maakt.</div>
+    </div>
+    <span class="priority-tag p1">P1 MUST FIX</span>
+  </div>
+
+  <!-- P1: CSS duplication -->
+  <div class="finding">
+    <div class="finding-icon bad">✗</div>
+    <div>
+      <div class="finding-title">CSS gedupliseerd in elk HTML-bestand (geen shared stylesheet)</div>
+      <div class="finding-desc">
+        Elke HTML-pagina bevat een complete &lt;style&gt; block met alle CSS inline. De homepage heeft ~1500 regels geminimaliseerde CSS op één regel. De dienstenpagina's hebben elk ~600-800 regels expanded CSS. Header- en footer-styles worden 15+ keer herhaald. Dit maakt onderhoud bijna onmogelijk en leidt tot inconsistenties: de footer op blog.html heeft een 4-kolom grid layout, terwijl andere pagina's een simpele 3-part footer hebben.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Extraheer gedeelde CSS naar een styles.css bestand met: reset, variables, header, footer, utility classes. Pagina-specifieke CSS kan in aparte bestanden of in beperkte inline &lt;style&gt; blocks. Dit maakt de codebase 70% kleiner en consistenter.</div>
+    </div>
+    <span class="priority-tag p1">P1 MUST FIX</span>
+  </div>
+
+  <!-- P2: Cookie consent inconsistency -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Twee verschillende cookie consent systemen</div>
+      <div class="finding-desc">
+        De homepage heeft een simpele cookie-banner ("Cookie-instellingen" knop linksonder). De dienstenpagina's hebben een professionele cookie consent manager met categorieën (noodzakelijk, analytisch, marketing) en localStorage key <code>cookie_preferences</code>. Dit zijn twee totaal verschillende implementaties. Een bezoeker die op de homepage cookies accepteert, krijgt op een dienstenpagina opnieuw een cookie-melding.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Gebruik overal dezelfde professionele cookie consent manager (de versie van de diensten-pagina's is beter). Zorg dat alle pagina's dezelfde localStorage key checken.</div>
+    </div>
+    <span class="priority-tag p2">P2 SHOULD FIX</span>
+  </div>
+
+  <!-- Good: Typography -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Consistent en sterk typografisch systeem</div>
+      <div class="finding-desc">
+        Het 3-font systeem werkt uitstekend: Syne voor display/headings (bold, impactful), DM Sans voor body text (licht, leesbaar), en Instrument Serif voor accenten/italic (elegantie). Dit wordt consequent toegepast over alle pagina's. De font-loading strategie (preload + swap) is correct geïmplementeerd.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+
+  <!-- Good: CSS Variables -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Design tokens via CSS custom properties</div>
+      <div class="finding-desc">
+        Alle pagina's gebruiken dezelfde :root variabelen voor kleuren (--black, --white, --grey, --accent, --pink, --amber, --emerald) en fonts. De diensten-pagina's overriden slim de --accent variabele per dienst. De --ease cubic-bezier voor animaties is consistent.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+
+  <!-- P2: Noise texture inconsistency -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Noise texture overlay verschilt per pagina</div>
+      <div class="finding-desc">
+        De <code>body::after</code> noise overlay (fractalNoise SVG) heeft verschillende instellingen per pagina: index.html niet direct zichtbaar in minified CSS, over.html gebruikt <code>opacity: 0.25</code>, cases.html gebruikt <code>opacity: 0.5; mix-blend-mode: overlay</code>, blog.html gebruikt <code>opacity: 0.025</code>. Dit creëert subtiele maar merkbare visuele verschillen in de achtergrond-texture.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Standaardiseer de noise overlay op één instelling (aanbevolen: opacity: 0.03-0.05 met mix-blend-mode: overlay) in het gedeelde stylesheet.</div>
+    </div>
+    <span class="priority-tag p2">P2 SHOULD FIX</span>
+  </div>
+
+  <!-- P2: Footer inconsistency -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Footer-structuur verschilt per pagina</div>
+      <div class="finding-desc">
+        De homepage, over, en cases-pagina's hebben een simpele footer met: brand links | legal links | copyright. De blog-pagina heeft een 4-kolom grid footer met: brand+beschrijving | Studio links | Diensten links | Overig links. De dienstenpagina's hebben weer een eigen footer-variant. De privacy-pagina heeft een minimale footer. Er is geen uniforme footer over de site.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Kies de blog-footer als standaard (deze is het meest compleet) en implementeer deze uniform over alle pagina's via het gedeelde stylesheet.</div>
+    </div>
+    <span class="priority-tag p2">P2 SHOULD FIX</span>
+  </div>
+
+  <!-- P3: Scrollbar hidden -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Scrollbar verborgen op sommige pagina's</div>
+      <div class="finding-desc">
+        De homepage en over-pagina verbergen de scrollbar (<code>scrollbar-width: none; ::-webkit-scrollbar { width:0 }</code>). De blog en cases-pagina's doen dit ook. Maar de diensten-pagina's tonen de standaard browser-scrollbar. Dit is een kleine maar merkbare inconsistentie. Bovendien kan het verbergen van de scrollbar de UX verslechteren — bezoekers verliezen hun scroll-positie-indicatie.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Overweeg een custom styled scrollbar (dun, in merkkleuren) in plaats van de scrollbar volledig te verbergen. Pas dit uniform toe.</div>
+    </div>
+    <span class="priority-tag p3">P3 NICE TO HAVE</span>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- CREATIVE REVIEW -->
+<!-- ============================================ -->
+<div class="review-section">
+  <div class="section-label" style="color:var(--pink)">Modus 3 — Creatieve Eindreview</div>
+  <div class="section-title">Merkbeleving, Visuele Compositie & Eerste Indruk</div>
+
+  <!-- Excellent: First impression -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Eerste indruk: 9/10 — Instant professioneel en onderscheidend</div>
+      <div class="finding-desc">
+        De homepage-hero is van designbureau-niveau. De combinatie van de oversized typografie ("Merken die blijven hangen"), de subtiele gradiënt-achtergrond (blauw-roze), en het clean logo plaatst The Bair Co. meteen in de premium categorie. De bezoeker weet binnen 3 seconden: dit is een creatief bureau dat kwaliteit levert. De "BRANDS · AI · RESULTS" tagline is slim en memorabel.
+      </div>
+    </div>
+    <span class="priority-tag p3">EXCELLENT</span>
+  </div>
+
+  <!-- Good: Over page -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Over-pagina: sterk persoonlijk verhaal met visuele impact</div>
+      <div class="finding-desc">
+        De split-layout met links het verhaal en rechts de zwart-wit portretfoto is effectief. "20 jaar media. Eén obsessie." is een krachtige headline. De grijs-filter op de foto past bij het premium merkgevoel. Het track record met clienten-thumbnails voegt geloofwaardigheid toe. De waarden-sectie met subtiele CSS-art iconen is een mooie touch.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+
+  <!-- Good: Branding page -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Diensten-pagina's: premium presentatie met unieke sfeer per dienst</div>
+      <div class="finding-desc">
+        De branding-pagina met floating stationery op amber achtergrond is visueel verbluffend. Elke dienst heeft een eigen Unsplash-foto en accentkleur die de sfeer van die dienst ademt. De "Geen logo. Een merk." headline is copywriting van hoog niveau. Het contrast met de dark homepage geeft de diensten-pagina's een eigen identiteit.
+      </div>
+    </div>
+    <span class="priority-tag p3">EXCELLENT</span>
+  </div>
+
+  <!-- P2: Portfolio visual -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Portfolio drag-track: visueel sterk maar interactie onduidelijk</div>
+      <div class="finding-desc">
+        De horizontale drag-track met portfolio-cards is visueel aantrekkelijk. Maar er is geen duidelijke affordance dat dit element draggable is. De play-buttons op de video-items zijn klein. Er is geen indicatie hoeveel items er zijn of hoe ver je kunt scrollen. Op desktop mis je makkelijk items die rechts buiten het scherm vallen.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Voeg een subtiele "drag" hint toe (tekst of icoon), of kleine navigatie-dots/pijlen. Overweeg een indicator voor het aantal projecten.</div>
+    </div>
+    <span class="priority-tag p2">P2 SHOULD FIX</span>
+  </div>
+
+  <!-- P3: Video section -->
+  <div class="finding">
+    <div class="finding-icon warn">⚠</div>
+    <div>
+      <div class="finding-title">Video-embed sectie: groot donker blok als content niet laadt</div>
+      <div class="finding-desc">
+        Onder de portfolio staat een embedded video/iframe-sectie. Als deze content langzaam laadt of niet beschikbaar is, verschijnt een groot leeg donker blok van ~600px hoog. Dit verstoort het visuele ritme van de pagina en kan de bezoeker het gevoel geven dat er iets kapot is.
+      </div>
+      <div class="finding-rec"><strong>Aanbeveling:</strong> Voeg een loading-state toe (skeleton placeholder of blur-up thumbnail) en stel een fallback-afbeelding in voor als de video niet laadt.</div>
+    </div>
+    <span class="priority-tag p3">P3 NICE TO HAVE</span>
+  </div>
+
+  <!-- Good: Case studies -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Case studies: professioneel en overtuigend</div>
+      <div class="finding-desc">
+        De cases-pagina met tabs (Rosing, Artoah, GiGi) en uitgebreide verhalen is sterk. De resultaat-statistieken (3X online bestellingen, +120% websitebezoekers, 4.9★) zijn overtuigende social proof. De kleur-codering per case (red, amber, pink) is een mooie visuele differentiatie. De foto-strips en quotes voegen diepte toe.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+
+  <!-- Good: Blog -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Blog: professionele publicatie-ervaring</div>
+      <div class="finding-desc">
+        De blog-pagina heeft een featured article met groot beeld, filterbare categorieën, en een clean article-lijst. De individuele artikelen hebben een goede leesbuurt met juiste line-height (1.9), blockquotes, en highlight-boxes. De reading-time indicator is een mooie touch. De footer van de blog is het meest compleet op de site.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+
+  <!-- P3: Competitive -->
+  <div class="finding">
+    <div class="finding-icon good">✓</div>
+    <div>
+      <div class="finding-title">Concurrentie-benchmark: boven gemiddeld voor Vlaams bureau</div>
+      <div class="finding-desc">
+        Vergeleken met vergelijkbare kleine creatieve bureaus in Vlaams-Brabant scoort baircompany.be significant beter op: visuele kwaliteit, content-diepte, technische SEO (structured data, meta tags, GA4), en merkpersoonlijkheid. De site voelt als het werk van een groter bureau. De case studies en blog-content geven substantie die veel concurrenten missen.
+      </div>
+    </div>
+    <span class="priority-tag p3">GOED</span>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- ACTION PLAN -->
+<!-- ============================================ -->
+<div class="review-section">
+  <div class="section-label" style="color:var(--red)">Actieplan</div>
+  <div class="section-title">Prioriteiten-overzicht</div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem;">
+    <div style="padding:1.5rem;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:12px;">
+      <div style="font-family:'Syne',system-ui;font-size:0.7rem;font-weight:700;color:var(--red);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;">P1 — Must Fix (3)</div>
+      <div style="font-size:0.85rem;color:rgba(240,237,232,0.8);line-height:1.8;">
+        1. Fix reveal-animaties fallback<br>
+        2. Kies dark óf light thema-strategie<br>
+        3. Extraheer shared CSS stylesheet
+      </div>
+    </div>
+    <div style="padding:1.5rem;background:rgba(249,115,22,0.05);border:1px solid rgba(249,115,22,0.15);border-radius:12px;">
+      <div style="font-family:'Syne',system-ui;font-size:0.7rem;font-weight:700;color:var(--orange);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;">P2 — Should Fix (5)</div>
+      <div style="font-size:0.85rem;color:rgba(240,237,232,0.8);line-height:1.8;">
+        1. Maak dedicated contactpagina<br>
+        2. Kort homepage in<br>
+        3. Uniformeer cookie consent<br>
+        4. Standaardiseer noise texture<br>
+        5. Unificeer footer-structuur
+      </div>
+    </div>
+    <div style="padding:1.5rem;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.15);border-radius:12px;">
+      <div style="font-family:'Syne',system-ui;font-size:0.7rem;font-weight:700;color:var(--green);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;">P3 — Nice to Have (4)</div>
+      <div style="font-size:0.85rem;color:rgba(240,237,232,0.8);line-height:1.8;">
+        1. Merge Portfolio/Cases in nav<br>
+        2. Portfolio drag-hint toevoegen<br>
+        3. Video fallback/loading state<br>
+        4. Custom scrollbar uniform
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE EVOLUTION -->
+<div class="review-section">
+  <div class="section-label" style="color:var(--accent)">Score-evolutie</div>
+  <div class="section-title">Vorige review → Deze review</div>
+  <div style="display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;align-items:center;max-width:600px;">
+    <div style="text-align:center;padding:2rem;background:var(--card);border:1px solid var(--border);border-radius:12px;">
+      <div style="font-family:'Syne',system-ui;font-size:2.5rem;font-weight:800;color:var(--grey);">7.4</div>
+      <div style="font-size:0.75rem;color:var(--grey);margin-top:0.3rem;">v1 — 14 maart</div>
+    </div>
+    <div style="text-align:center;font-size:1.5rem;color:var(--accent);">→</div>
+    <div style="text-align:center;padding:2rem;background:var(--card);border:1px solid rgba(46,138,255,0.2);border-radius:12px;">
+      <div style="font-family:'Syne',system-ui;font-size:2.5rem;font-weight:800;color:var(--accent);">7.6</div>
+      <div style="font-size:0.75rem;color:var(--grey);margin-top:0.3rem;">v2 — 15 maart</div>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;font-size:0.9rem;color:rgba(240,237,232,0.6);max-width:600px;">
+    De P1-fixes van de vorige review (SVG viewBox, timeline line-width, hover readability) zijn succesvol doorgevoerd. De score stijgt licht (+0.2) doordat de diensten-detailpagina's nu correct functioneren. De nieuw geïdentificeerde problemen (reveal-animaties, theme-consistentie, CSS-duplicatie) waren al aanwezig maar worden nu explicieter benoemd.
+  </p>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  Creative Direction Review — The Bair Co. — Gegenereerd op 15 maart 2026<br>
+  <span style="opacity:0.5">Gecombineerde analyse: UX Review + UI Consistency + Creatieve Eindreview</span>
+</div>
+
+</body>
+</html>
