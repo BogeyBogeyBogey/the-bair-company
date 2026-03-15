@@ -838,6 +838,14 @@
       animation: revealIn 0.7s var(--ease) forwards;
     }
 
+    .reveal:not(.visible) {
+      animation: revealFallback 0.8s var(--ease) 2s forwards;
+    }
+
+    @keyframes revealFallback {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes revealIn {
       from {
         opacity: 0;
@@ -849,78 +857,8 @@
       }
     }
 
-    .cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--black);
-      color: var(--white);
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
-      z-index: 999;
-      opacity: 0;
-      transform: translateY(100%);
-      transition: all 0.3s var(--ease);
-    }
+    /* cookie consent styles in cookie-consent block below */
 
-    .cookie-banner.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .cookie-text {
-      flex: 1;
-      font-size: 0.9rem;
-    }
-
-    .cookie-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-shrink: 0;
-    }
-
-    .cookie-btn {
-      padding: 0.5rem 1.5rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s var(--ease);
-    }
-
-    .cookie-btn.accept {
-      background: var(--accent);
-      color: var(--black);
-    }
-
-    .cookie-btn.decline {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--white);
-    }
-
-    .cookie-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 768px) {
-      .cookie-banner {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .cookie-buttons {
-        width: 100%;
-      }
-
-      .cookie-btn {
-        flex: 1;
-      }
-    }
   </style>
 
 <script type="application/ld+json">
