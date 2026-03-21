@@ -72,12 +72,14 @@
 </script>
 </head>
 <body>
+<a href="#main" class="skip-link">Spring naar inhoud</a>
+
 
 <header class="legal-header">
   <a href="index.html"><img src="logo-white.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
 </header>
 
-<main class="legal-container">
+<main id="main" class="legal-container">
   <h1>Privacybeleid</h1>
   <span class="legal-date">Laatst bijgewerkt: 28 februari 2026</span>
 
@@ -278,7 +280,27 @@ document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
 .cookie-settings-trigger{position:fixed;bottom:1rem;left:1rem;z-index:9998;background:rgba(10,10,10,.9);color:rgba(240,237,232,.6);border:1px solid rgba(255,255,255,.08);padding:.45rem 1rem;border-radius:100px;font-family:var(--font-body,'DM Sans',sans-serif);font-size:.72rem;cursor:pointer;opacity:.7;transition:all .25s;backdrop-filter:blur(10px)}
 .cookie-settings-trigger:hover{opacity:1;color:#f0ede8;border-color:rgba(255,255,255,.2)}
 .cookie-settings-trigger.hidden{display:none}
-@media(max-width:600px){.cookie-consent__categories{flex-direction:column}.cookie-consent__buttons{flex-direction:column}.cookie-btn{width:100%;text-align:center}}</style>
+@media(max-width:600px){.cookie-consent__categories{flex-direction:column}.cookie-consent__buttons{flex-direction:column}.cookie-btn{width:100%;text-align:center}}
+/* Skip-link for keyboard navigation (WCAG 2.1 AA) */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100000;
+  padding: 0.75rem 1.5rem;
+  background: var(--white, #f0ede8);
+  color: var(--black, #0a0a0a);
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+</style>
 <script>/* Cookie Consent Manager — Professional */
 (function() {
   var COOKIE_KEY = 'cookie_preferences';

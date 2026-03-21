@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Audit — The Bair Co. (baircompany.be)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface-2: #1c1c1c;
+    --border: #2a2a2a;
+    --text: #e8e4df;
+    --text-muted: #8a8580;
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.08);
+    --yellow: #eab308;
+    --yellow-bg: rgba(234,179,8,0.08);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.08);
+    --blue: #2E8AFF;
+    --blue-bg: rgba(46,138,255,0.08);
+    --radius: 16px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  /* ── Header ── */
+  .audit-header {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .audit-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    background: var(--blue-bg);
+    color: var(--blue);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .audit-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .audit-header .subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+  .audit-date {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  /* ── Overall Score ── */
+  .overall-score {
+    text-align: center;
+    padding: 3rem;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .score-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    position: relative;
+  }
+  .score-circle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 4px solid var(--border);
+  }
+  .score-circle.good::before { border-color: var(--green); }
+  .score-circle.medium::before { border-color: var(--yellow); }
+  .score-circle.bad::before { border-color: var(--red); }
+  .score-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .score-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+
+  /* ── Score Cards Grid ── */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+  .score-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 0.75rem;
+    text-align: center;
+  }
+  .score-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .score-card-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.15rem;
+  }
+  .score-card-value.green { color: var(--green); }
+  .score-card-value.yellow { color: var(--yellow); }
+  .score-card-value.red { color: var(--red); }
+  .score-card-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  /* ── Progress Bar ── */
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    margin: 0.5rem 0;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s var(--ease);
+  }
+  .progress-fill.green { background: var(--green); }
+  .progress-fill.yellow { background: var(--yellow); }
+  .progress-fill.red { background: var(--red); }
+
+  /* ── Sections ── */
+  .section {
+    margin-bottom: 3rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon { font-size: 1.3rem; }
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .section-score {
+    margin-left: auto;
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+
+  /* ── Check Items ── */
+  .check-list { list-style: none; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-status {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .check-status.pass { background: var(--green-bg); color: var(--green); }
+  .check-status.warn { background: var(--yellow-bg); color: var(--yellow); }
+  .check-status.fail { background: var(--red-bg); color: var(--red); }
+  .check-content { flex: 1; }
+  .check-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
+  }
+  .check-detail {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .check-value {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.25rem;
+  }
+
+  /* ── Recommendations ── */
+  .rec-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .rec-card.critical { border-left: 3px solid var(--red); }
+  .rec-card.important { border-left: 3px solid var(--yellow); }
+  .rec-card.nice { border-left: 3px solid var(--green); }
+  .rec-priority {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-top: 2px;
+  }
+  .rec-priority.critical { background: var(--red-bg); color: var(--red); }
+  .rec-priority.important { background: var(--yellow-bg); color: var(--yellow); }
+  .rec-priority.nice { background: var(--green-bg); color: var(--green); }
+  .rec-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
+  .rec-detail { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ── Page Table ── */
+  .page-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    margin: 1rem 0;
+  }
+  .page-table th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.65rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+  }
+  .page-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+  .dot.g { background: var(--green); }
+  .dot.y { background: var(--yellow); }
+  .dot.r { background: var(--red); }
+
+  /* ── Conclusion ── */
+  .conclusion {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .conclusion h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .conclusion p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .container { padding: 2rem 1.25rem 4rem; }
+    .score-grid { grid-template-columns: repeat(3, 1fr); }
+    .audit-header h1 { font-size: 1.6rem; }
+    .rec-card { flex-direction: column; gap: 0.5rem; }
+    .page-table { font-size: 0.7rem; }
+    .page-table th, .page-table td { padding: 0.4rem; }
+  }
+  @media (max-width: 480px) {
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="audit-header">
+    <div class="audit-badge">Website Audit Rapport</div>
+    <h1>The Bair Co.</h1>
+    <div class="subtitle">baircompany.be — Uitgebreide gezondheidscheck</div>
+    <div class="audit-date">Uitgevoerd op 21 maart 2026 door Claude</div>
+  </div>
+
+  <!-- ═══ OVERALL SCORE ═══ -->
+  <div class="overall-score">
+    <div class="score-circle medium">
+      <span class="score-number" style="color: var(--yellow)">73</span>
+    </div>
+    <div class="score-label">Overall Score</div>
+    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+      De site heeft een sterke basis qua design, code en SEO-fundament. De grootste verbeterpunten zitten bij performance (zware afbeeldingen en video's) en het ontbreken van Google-indexering.
+    </p>
+  </div>
+
+  <!-- ═══ SCORE CARDS ═══ -->
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score-card-icon">⚡</div>
+      <div class="score-card-value red">45</div>
+      <div class="progress-bar"><div class="progress-fill red" style="width:45%"></div></div>
+      <div class="score-card-label">Performance</div>
+    </div>
+    <div class="score-card">
+      <div class="score-card-icon">🔍</div>
+      <div class="score-card-value yellow">75</div>
+      <div class="progress-bar"><div class="progress-fill yellow" style="width:75%"></div></div>
+      <div class="score-card-label">SEO</div>
+    </div>
+    <div class="score-card">
+      <div class="score-card-icon">🎨</div>
+      <div class="score-card-value green">86</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:86%"></div></div>
+      <div class="score-card-label">Design & UX</div>
+    </div>
+    <div class="score-card">
+      <div class="score-card-icon">♿</div>
+      <div class="score-card-value green">82</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:82%"></div></div>
+      <div class="score-card-label">Toegankelijkheid</div>
+    </div>
+    <div class="score-card">
+      <div class="score-card-icon">🔒</div>
+      <div class="score-card-value green">88</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:88%"></div></div>
+      <div class="score-card-label">Security</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION 1: PERFORMANCE
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">⚡</span>
+      <span class="section-title">Performance</span>
+      <span class="section-score" style="color: var(--red)">45 / 100</span>
+    </div>
+
+    <ul class="check-list">
+      <li class="check-item">
+        <span class="check-status fail">✗</span>
+        <div class="check-content">
+          <div class="check-title">Totale paginagrootte: ~47 MB</div>
+          <div class="check-detail">PageSpeed meet 47.288 KiB totaal. Dat komt vooral door 7 portfoliovideo's + een enorme afbeelding. Aanbevolen: onder 5 MB voor de initiële lading.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status fail">✗</span>
+        <div class="check-content">
+          <div class="check-title">Afbeelding pexels-shvets-production-9052806.jpg is 4.4 MB</div>
+          <div class="check-detail">Dit is een JPEG van 6000×4000 pixels. Wordt weergegeven op maximaal 800×600 op de diensten-pagina. Conversie naar WebP en verkleining naar 1600×1067 kan dit terugbrengen naar ~150 KB — een besparing van 97%.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status fail">✗</span>
+        <div class="check-content">
+          <div class="check-title">Video's worden 3x geladen per stuk</div>
+          <div class="check-detail">PageSpeed toont dat portfoliobaasoverjegeldmuziek.mp4, portfoliorosingmuziek.mp4 en portfoliogigimoneysocialsmuziek.mp4 elk 3x worden opgehaald. Dit verdrievoudigt het dataverkeer. Waarschijnlijk een preload/autoplay-interactie. De video's zelf moeten blijven — maar het laden kan slimmer.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Ongebruikte JavaScript: ~61 KiB besparing mogelijk</div>
+          <div class="check-detail">Google Tag Manager laadt 150 KiB waarvan ~61 KiB ongebruikt. Overweeg om GTM asynchroon te laden of pas na interactie.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">index.html is 190 KB (3.477 regels)</div>
+          <div class="check-detail">Alle CSS, HTML en JS zitten in één bestand. Goed voor initial load (geen extra requests), maar groot voor caching. De quiz-overlay voegt ~40 KB toe aan elke pagina waar het is gekopieerd.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Lazy loading op afbeeldingen</div>
+          <div class="check-detail">16 van 18 afbeeldingen op de homepage gebruiken loading="lazy". Videoposter-afbeeldingen zijn WebP-geoptimaliseerd.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Google Fonts met preload-strategie</div>
+          <div class="check-detail">Fonts worden geladen via preload + onload fallback — blokkeren het renderen niet.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Minimale externe dependencies</div>
+          <div class="check-detail">Alleen Google Analytics, Google Fonts en Vercel Speed Insights als externe scripts. Geen jQuery, geen zware frameworks.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION 2: SEO
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🔍</span>
+      <span class="section-title">SEO</span>
+      <span class="section-score" style="color: var(--yellow)">75 / 100</span>
+    </div>
+
+    <ul class="check-list">
+      <li class="check-item">
+        <span class="check-status fail">✗</span>
+        <div class="check-content">
+          <div class="check-title">Site is NIET geïndexeerd door Google</div>
+          <div class="check-detail">Een zoekopdracht "site:baircompany.be" levert 0 resultaten. Dit betekent dat Google de site nog niet kent, of dat er een indexeringsprobleem is. Dit is het grootste SEO-probleem — zonder indexering heb je nul organisch verkeer. Controleer Google Search Console.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Sitemap mist 3 belangrijke pagina's</div>
+          <div class="check-detail">De sitemap.xml bevat 14 pagina's maar mist: contact.html, cases.html en cookies.html. Deze pagina's worden dus niet actief aangeboden aan Google.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Open Graph tags te generiek op homepage</div>
+          <div class="check-detail">og:title is "www.baircompany.be" (zou de echte titel moeten zijn) en og:description is "Brands. AI. Results." (te kort). Wanneer iemand je homepage deelt op social media, ziet dat er niet optimaal uit.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">og:image ontbreekt op contact.html en cases.html</div>
+          <div class="check-detail">Als iemand deze pagina's deelt op LinkedIn of Facebook, wordt geen voorbeeldafbeelding getoond.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Title tags: alle pagina's uniek en goed</div>
+          <div class="check-detail">
+            Elke pagina heeft een unieke, beschrijvende title tag van 17-101 tekens. De 9 dienstenpagina's zijn bijzonder goed geoptimaliseerd (57-70 tekens).
+          </div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Meta descriptions: alle pagina's aanwezig</div>
+          <div class="check-detail">Unieke meta descriptions op elke pagina. Lengtes variëren van 92-140 tekens — prima binnen de aanbevolen 120-160.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Precies 1 H1 per pagina</div>
+          <div class="check-detail">Alle 15+ pagina's hebben exact één H1 element. Correct voor SEO.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Structured data (JSON-LD) op alle pagina's</div>
+          <div class="check-detail">Homepage: ProfessionalService + WebPage schema. Diensten: WebPage + BreadcrumbList. Over: Person schema met geo-coördinaten. Blog: WebPage + BreadcrumbList. Uitstekend.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Canonical tags correct ingesteld</div>
+          <div class="check-detail">Alle pagina's hebben een canonical tag die naar zichzelf verwijst.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Robots.txt en sitemap.xml aanwezig</div>
+          <div class="check-detail">Robots.txt laat crawling toe (Allow: /) en verwijst naar de sitemap. Sitemap bevat 14 van de 17 pagina's met juiste lastmod-datums.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">100% alt-teksten op alle afbeeldingen</div>
+          <div class="check-detail">Elke img-tag op de site heeft een beschrijvend alt-attribuut. Nul gemiste afbeeldingen.</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Page comparison table -->
+    <h3 style="font-size: 0.85rem; margin: 2rem 0 1rem; color: var(--text-muted); font-weight: 600;">SEO per pagina</h3>
+    <div style="overflow-x: auto;">
+    <table class="page-table">
+      <thead>
+        <tr>
+          <th>Pagina</th>
+          <th>Title</th>
+          <th>Meta desc</th>
+          <th>H1</th>
+          <th>OG tags</th>
+          <th>Schema</th>
+          <th>Sitemap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Homepage</td><td><span class="dot g"></span>67 tekens</td><td><span class="dot g"></span>140</td><td><span class="dot g"></span>1</td><td><span class="dot y"></span>Generiek</td><td><span class="dot g"></span>4 blokken</td><td><span class="dot g"></span>Ja</td></tr>
+        <tr><td>Contact</td><td><span class="dot g"></span>69 tekens</td><td><span class="dot g"></span>106</td><td><span class="dot g"></span>1</td><td><span class="dot r"></span>Geen image</td><td><span class="dot g"></span>Ja</td><td><span class="dot r"></span>Nee</td></tr>
+        <tr><td>Blog</td><td><span class="dot g"></span>101 tekens</td><td><span class="dot g"></span>115</td><td><span class="dot g"></span>1</td><td><span class="dot g"></span>Compleet</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>Ja</td></tr>
+        <tr><td>Over</td><td><span class="dot g"></span>28 tekens</td><td><span class="dot g"></span>108</td><td><span class="dot g"></span>1</td><td><span class="dot g"></span>Compleet</td><td><span class="dot g"></span>Person</td><td><span class="dot g"></span>Ja</td></tr>
+        <tr><td>Cases</td><td><span class="dot g"></span>17 tekens</td><td><span class="dot g"></span>92</td><td><span class="dot g"></span>1</td><td><span class="dot r"></span>Geen image</td><td><span class="dot g"></span>Ja</td><td><span class="dot r"></span>Nee</td></tr>
+        <tr><td>9× Diensten</td><td><span class="dot g"></span>57-70 tekens</td><td><span class="dot g"></span>100-128</td><td><span class="dot g"></span>1</td><td><span class="dot g"></span>Compleet</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>Ja</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION 3: DESIGN & UX
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🎨</span>
+      <span class="section-title">Design & UX</span>
+      <span class="section-score" style="color: var(--green)">86 / 100</span>
+    </div>
+
+    <ul class="check-list">
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Eerste indruk: sterk en professioneel</div>
+          <div class="check-detail">De donkere, cinematische esthetiek met Ken Burns-animaties en videoportfolio maakt direct duidelijk dat dit een creatief bureau is. Het doel is in seconden helder.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Moderne designtaal (2024+ trends)</div>
+          <div class="check-detail">Glassmorphism accenten, subtiele grain-textuur, grote typography, donker thema, scroll-animaties. Geen gedateerde patronen. Concurrerend met internationale bureausites.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Uitstekende typografie</div>
+          <div class="check-detail">Syne (display/headlines), DM Sans (body), Instrument Serif (cursieve accenten). Professionele combinatie met karakter. Goede leesbaarheid door responsive clamp()-sizing.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Duidelijke CTA-strategie</div>
+          <div class="check-detail">Drie triggers voor het onboarding-tool (hero, diensten-sectie, floating button) plus directe contactlinks. Bezoekers weten wat ze moeten doen.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Responsive op mobiel</div>
+          <div class="check-detail">Viewport correct ingesteld. Geen horizontale scroll. Floating button verborgen tot na de hero. Goede aanpassingen voor kleine schermen.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Footer-structuur inconsistent tussen pagina's</div>
+          <div class="check-detail">contact.html gebruikt .footer-top, andere pagina's .footer-inner/.footer-grid. Visueel vergelijkbaar maar code-onderhoud is lastiger. Standaardiseer naar één patroon.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Quiz-overlay gekopieerd in meerdere bestanden</div>
+          <div class="check-detail">De quiz CSS + HTML + JS is volledig gekopieerd in index.html en contact.html (~40 KB per pagina). Wijzigingen moeten op meerdere plekken tegelijk. Overweeg een extern bestand.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION 4: ACCESSIBILITY
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">♿</span>
+      <span class="section-title">Toegankelijkheid</span>
+      <span class="section-score" style="color: var(--green)">82 / 100</span>
+    </div>
+
+    <ul class="check-list">
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Alt-teksten: 100% dekking</div>
+          <div class="check-detail">Alle afbeeldingen op alle pagina's hebben beschrijvende alt-attributen. Decoratieve afbeeldingen hebben correct alt="" (leeg).</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Formulierlabels correct</div>
+          <div class="check-detail">Alle input-velden op de contactpagina hebben bijbehorende label-elementen met for-attributen. Cookie-checkboxen zijn ook gelabeld.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">ARIA-landmarks aanwezig</div>
+          <div class="check-detail">Alle pagina's gebruiken semantische HTML5-elementen: header, nav, main, footer. Cookie-modals hebben role="dialog" en aria-label.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Taalattribuut ingesteld</div>
+          <div class="check-detail">Alle pagina's hebben lang="nl" op het html-element.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Heading-hiërarchie: kleine sprongen</div>
+          <div class="check-detail">Op de homepage springen de processtappen van H2 direct naar H4 (H3 overgeslagen). Footer-secties gebruiken H4 terwijl H3 logischer zou zijn. Geen grote impact maar niet ideaal voor screenreaders.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status fail">✗</span>
+        <div class="check-content">
+          <div class="check-title">Geen skip-link aanwezig</div>
+          <div class="check-detail">Er is geen "spring naar inhoud"-link voor toetsenbordgebruikers. Dit is een WCAG 2.1 AA-vereiste (criterium 2.4.1). Eenvoudig toe te voegen: een verborgen link bovenaan die bij focus zichtbaar wordt en naar main springt.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Kleurcontrast: donker thema, meestal goed</div>
+          <div class="check-detail">Hoofdtekst (#f0ede8 op #0a0a0a) heeft uitstekend contrast (15.7:1). Gedempte tekst (#8a8580 op #0a0a0a) scoort net voldoende (4.7:1). Sommige subtitels kunnen iets lichter voor betere leesbaarheid.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION 5: SECURITY
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🔒</span>
+      <span class="section-title">Security</span>
+      <span class="section-score" style="color: var(--green)">88 / 100</span>
+    </div>
+
+    <ul class="check-list">
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">HTTPS actief met HSTS preload</div>
+          <div class="check-detail">Strict-Transport-Security: max-age=63072000 (2 jaar) met includeSubDomains en preload. Uitstekende configuratie.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Geen mixed content</div>
+          <div class="check-detail">Alle externe bronnen (afbeeldingen, scripts, fonts) laden via HTTPS. Nul http://-referenties gevonden.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Security headers grotendeels ingesteld</div>
+          <div class="check-detail">X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Referrer-Policy, Permissions-Policy (camera/mic/geo uitgeschakeld), X-XSS-Protection. Allemaal correct.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status pass">✓</span>
+        <div class="check-content">
+          <div class="check-title">Minimale externe scripts</div>
+          <div class="check-detail">Alleen Google Analytics (googletagmanager.com) en Vercel Speed Insights (vercel-scripts.com). Geen verdachte of onnodige third-party scripts.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">CSP staat in Report-Only modus</div>
+          <div class="check-detail">Content-Security-Policy-Report-Only blokkeert niets — het rapporteert alleen. Om echt beschermd te zijn, moet dit naar Content-Security-Policy (zonder Report-Only). Test eerst of alles blijft werken.</div>
+        </div>
+      </li>
+      <li class="check-item">
+        <span class="check-status warn">!</span>
+        <div class="check-content">
+          <div class="check-title">Geen Cache-Control headers</div>
+          <div class="check-detail">Het _headers-bestand bevat geen Cache-Control regels. Afbeeldingen, fonts en CSS worden niet optimaal gecached door browsers. Voeg toe: Cache-Control: public, max-age=31536000 voor statische assets.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION 6: AANBEVELINGEN
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      <span class="section-title">Geprioriteerde aanbevelingen</span>
+    </div>
+
+    <!-- CRITICAL -->
+    <div class="rec-card critical">
+      <span class="rec-priority critical">Kritiek</span>
+      <div>
+        <div class="rec-title">1. Google-indexering controleren en activeren</div>
+        <div class="rec-detail">De site verschijnt niet in Google. Ga naar Google Search Console (search.google.com/search-console), verifieer je domein, dien de sitemap in en vraag indexering aan. Zonder dit heb je nul organisch verkeer. Dit is prioriteit nr. 1.</div>
+      </div>
+    </div>
+
+    <div class="rec-card critical">
+      <span class="rec-priority critical">Kritiek</span>
+      <div>
+        <div class="rec-title">2. Pexels-afbeelding optimaliseren (4.4 MB → ~150 KB)</div>
+        <div class="rec-detail">pexels-shvets-production-9052806.jpg is 6000×4000 JPEG. Converteer naar WebP, schaal naar 1600×1067 en comprimeer naar kwaliteit 80. Dit bespaart 4.3 MB per paginabezoek. De visuele kwaliteit blijft identiek.</div>
+      </div>
+    </div>
+
+    <div class="rec-card critical">
+      <span class="rec-priority critical">Kritiek</span>
+      <div>
+        <div class="rec-title">3. Video dubbel-laden oplossen</div>
+        <div class="rec-detail">Drie portfolio-video's worden elk 3x opgehaald (14 MB extra verkeer). Waarschijnlijk veroorzaakt door een combinatie van preload="auto" en JavaScript-interactie. De video's blijven — maar het laden moet gefixt worden zodat elk bestand maar 1x wordt opgehaald.</div>
+      </div>
+    </div>
+
+    <!-- IMPORTANT -->
+    <div class="rec-card important">
+      <span class="rec-priority important">Belangrijk</span>
+      <div>
+        <div class="rec-title">4. Sitemap aanvullen met ontbrekende pagina's</div>
+        <div class="rec-detail">Voeg contact.html, cases.html en cookies.html toe aan sitemap.xml. Zo weet Google dat deze pagina's bestaan.</div>
+      </div>
+    </div>
+
+    <div class="rec-card important">
+      <span class="rec-priority important">Belangrijk</span>
+      <div>
+        <div class="rec-title">5. Open Graph tags verbeteren</div>
+        <div class="rec-detail">Homepage: og:title moet de echte paginatitel zijn (niet "www.baircompany.be"). Contact en Cases: voeg og:image toe zodat social shares er professioneel uitzien.</div>
+      </div>
+    </div>
+
+    <div class="rec-card important">
+      <span class="rec-priority important">Belangrijk</span>
+      <div>
+        <div class="rec-title">6. Skip-link toevoegen voor toetsenbordnavigatie</div>
+        <div class="rec-detail">WCAG 2.1 AA vereist een "spring naar inhoud"-link. Één regel HTML bovenaan de body + 5 regels CSS. Simpel maar belangrijk voor toegankelijkheid.</div>
+      </div>
+    </div>
+
+    <div class="rec-card important">
+      <span class="rec-priority important">Belangrijk</span>
+      <div>
+        <div class="rec-title">7. CSP van Report-Only naar actief zetten</div>
+        <div class="rec-detail">De Content-Security-Policy staat in test-modus (Report-Only). Na verificatie dat alles werkt, schakel over naar actieve handhaving. Dit beschermt tegen cross-site scripting aanvallen.</div>
+      </div>
+    </div>
+
+    <!-- NICE TO HAVE -->
+    <div class="rec-card nice">
+      <span class="rec-priority nice">Nice-to-have</span>
+      <div>
+        <div class="rec-title">8. Heading-hiërarchie corrigeren</div>
+        <div class="rec-detail">Processtappen op homepage: H4 → H3. Footer-secties: H4 → H3. Kleine aanpassingen die de semantische structuur verbeteren voor screenreaders.</div>
+      </div>
+    </div>
+
+    <div class="rec-card nice">
+      <span class="rec-priority nice">Nice-to-have</span>
+      <div>
+        <div class="rec-title">9. Cache-Control headers instellen</div>
+        <div class="rec-detail">Voeg in _headers regels toe voor statische assets: afbeeldingen, fonts en CSS kunnen 1 jaar gecached worden (max-age=31536000). Versnelt herhaalde bezoeken aanzienlijk.</div>
+      </div>
+    </div>
+
+    <div class="rec-card nice">
+      <span class="rec-priority nice">Nice-to-have</span>
+      <div>
+        <div class="rec-title">10. Footer-structuur standaardiseren</div>
+        <div class="rec-detail">Alle pagina's dezelfde footer CSS-klassen laten gebruiken (.footer-inner). Maakt onderhoud makkelijker en voorkomt visuele inconsistenties.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SECTION 7: SITE-OVERZICHT
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📂</span>
+      <span class="section-title">Site-overzicht</span>
+    </div>
+
+    <div style="overflow-x: auto;">
+    <table class="page-table">
+      <thead>
+        <tr>
+          <th>Pagina</th>
+          <th>Bestandsgrootte</th>
+          <th>Regels code</th>
+          <th>In sitemap</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>index.html</td><td>190 KB</td><td>3.477</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>OK</td></tr>
+        <tr><td>contact.html</td><td>78 KB</td><td>1.920</td><td><span class="dot r"></span>Nee</td><td><span class="dot y"></span>Sitemap</td></tr>
+        <tr><td>blog.html</td><td>51 KB</td><td>778</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>OK</td></tr>
+        <tr><td>over.html</td><td>42 KB</td><td>609</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>OK</td></tr>
+        <tr><td>cases.html</td><td>53 KB</td><td>780</td><td><span class="dot r"></span>Nee</td><td><span class="dot y"></span>Sitemap</td></tr>
+        <tr><td>9× diensten/</td><td>~35 KB elk</td><td>~500 elk</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>OK</td></tr>
+        <tr><td>privacy.html</td><td>19 KB</td><td>—</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>OK</td></tr>
+        <tr><td>voorwaarden.html</td><td>19 KB</td><td>—</td><td><span class="dot g"></span>Ja</td><td><span class="dot g"></span>OK</td></tr>
+        <tr><td>cookies.html</td><td>21 KB</td><td>—</td><td><span class="dot r"></span>Nee</td><td><span class="dot y"></span>Sitemap</td></tr>
+        <tr><td>404.html</td><td>16 KB</td><td>—</td><td>n.v.t.</td><td><span class="dot g"></span>OK</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 style="font-size: 0.85rem; margin: 2rem 0 1rem; color: var(--text-muted); font-weight: 600;">Zware media-bestanden</h3>
+    <div style="overflow-x: auto;">
+    <table class="page-table">
+      <thead>
+        <tr>
+          <th>Bestand</th>
+          <th>Grootte</th>
+          <th>Type</th>
+          <th>Actie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>portfoliovantrichtkbc.mp4</td><td>32 MB</td><td>Video</td><td><span class="dot y"></span>Behouden (portfolio)</td></tr>
+        <tr><td>portfoliobaasoverjegeldmuziek.mp4</td><td>4.6 MB</td><td>Video</td><td><span class="dot y"></span>Behouden (portfolio)</td></tr>
+        <tr><td>pexels-shvets-production-9052806.jpg</td><td>4.4 MB</td><td>Afbeelding</td><td><span class="dot r"></span>Optimaliseren naar WebP</td></tr>
+        <tr><td>portfoliorosingmuziek.mp4</td><td>3.4 MB</td><td>Video</td><td><span class="dot y"></span>Behouden (portfolio)</td></tr>
+        <tr><td>portfoliogigimoneysocialsmuziek.mp4</td><td>2.3 MB</td><td>Video</td><td><span class="dot y"></span>Behouden (portfolio)</td></tr>
+        <tr><td>portfoliohansvanhestmuziek.mp4</td><td>2.1 MB</td><td>Video</td><td><span class="dot y"></span>Behouden (portfolio)</td></tr>
+        <tr><td>GiGiMoneycase.png</td><td>1.5 MB</td><td>Afbeelding</td><td><span class="dot y"></span>Optimaliseren</td></tr>
+        <tr><td>Kristofoverons3.png</td><td>1.2 MB</td><td>Afbeelding</td><td><span class="dot y"></span>Optimaliseren</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CONCLUSION
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="conclusion">
+    <h2>Conclusie</h2>
+    <p>
+      De website van The Bair Co. scoort uitstekend op design (86), security (88) en toegankelijkheid (82). De SEO-basis is stevig maar de site is niet geïndexeerd door Google — dat moet als eerste gefixt worden. Het grootste verbeterpunt is performance: één niet-geoptimaliseerde afbeelding van 4.4 MB en video's die meerdere keren worden geladen. Met 3 gerichte fixes (Google-indexering, afbeelding optimaliseren, video-laden fixen) kan de score naar 85+ stijgen.
+    </p>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+      Geen redesign nodig — gerichte optimalisaties volstaan.
+    </p>
+  </div>
+
+  <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+    <p style="font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;">
+      Gegenereerd door Claude — 21 maart 2026
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>

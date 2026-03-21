@@ -26,6 +26,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cases — The Bair Co.</title>
 <meta name="description" content="Bekijk hoe The Bair Co. merken transformeert. Uitgebreide klantverhalen van Rosing Security, Artoah en GiGi Money.">
+<meta property="og:title" content="Cases — The Bair Co.">
+<meta property="og:description" content="Bekijk hoe The Bair Co. merken transformeert. Klantverhalen van Rosing Security, Artoah en GiGi Money.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.baircompany.be/cases.html">
+<meta property="og:image" content="https://www.baircompany.be/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cases — The Bair Co.">
+<meta name="twitter:image" content="https://www.baircompany.be/og-image.jpg">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,6 +81,8 @@
 <style>.reveal:not(.visible){animation:revealFallback 0.8s cubic-bezier(0.16,1,0.3,1) 2s forwards}@keyframes revealFallback{to{opacity:1;transform:translateY(0)}}body::after{opacity:0.03 !important;mix-blend-mode:normal !important}</style>
 </head>
 <body>
+<a href="#main" class="skip-link">Spring naar inhoud</a>
+
 
 <!-- HEADER -->
 <header>
@@ -100,7 +110,7 @@
 </div>
 
 <!-- HERO -->
-<main>
+<main id="main">
 <section class="cases-hero">
   <p class="cases-hero-label reveal">Klantverhalen</p>
   <h1 class="reveal">Elk project vertelt een <span class="serif">verhaal</span></h1>
@@ -676,7 +686,27 @@ document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
 .cookie-settings-trigger{position:fixed;bottom:1rem;left:1rem;z-index:9998;background:rgba(10,10,10,.9);color:rgba(240,237,232,.6);border:1px solid rgba(255,255,255,.08);padding:.45rem 1rem;border-radius:100px;font-family:var(--font-body,'DM Sans',sans-serif);font-size:.72rem;cursor:pointer;opacity:.7;transition:all .25s;backdrop-filter:blur(10px)}
 .cookie-settings-trigger:hover{opacity:1;color:#f0ede8;border-color:rgba(255,255,255,.2)}
 .cookie-settings-trigger.hidden{display:none}
-@media(max-width:600px){.cookie-consent__categories{flex-direction:column}.cookie-consent__buttons{flex-direction:column}.cookie-btn{width:100%;text-align:center}}</style>
+@media(max-width:600px){.cookie-consent__categories{flex-direction:column}.cookie-consent__buttons{flex-direction:column}.cookie-btn{width:100%;text-align:center}}
+/* Skip-link for keyboard navigation (WCAG 2.1 AA) */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100000;
+  padding: 0.75rem 1.5rem;
+  background: var(--white, #f0ede8);
+  color: var(--black, #0a0a0a);
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+</style>
 <script>/* Cookie Consent Manager — Professional */
 (function() {
   var COOKIE_KEY = 'cookie_preferences';
