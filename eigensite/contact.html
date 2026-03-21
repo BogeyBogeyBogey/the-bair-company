@@ -267,6 +267,694 @@
         order: -1;
       }
     }
+
+    /* ═════════════════════════════════════════════════════════════════
+       QUIZ OVERLAY STYLES (Copied from index.html)
+       ═════════════════════════════════════════════════════════════════ */
+
+    .quiz-trigger {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.6rem;
+      background: var(--black);
+      color: var(--white);
+      border: 1px solid rgba(240,237,232,0.15);
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transition: all 0.4s var(--ease);
+      animation: trigger-pulse 3s ease-in-out infinite;
+    }
+    .quiz-trigger:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 44px rgba(0,0,0,0.6);
+      border-color: rgba(240,237,232,0.35);
+    }
+    .quiz-trigger svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    @keyframes trigger-pulse {
+      0%, 100% { box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
+      50% { box-shadow: 0 8px 44px rgba(0,0,0,0.55); }
+    }
+
+    @media (max-width: 600px) {
+      .quiz-trigger {
+        bottom: 1.2rem;
+        right: 1.2rem;
+        padding: 0.75rem 1.3rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    .quiz-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--black);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s var(--ease-smooth), visibility 0.6s;
+      overflow: hidden;
+    }
+    .quiz-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .quiz-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .quiz-bg-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.2s var(--ease-smooth);
+      will-change: opacity;
+      filter: grayscale(0.2) contrast(1.05) brightness(0.95);
+    }
+    .quiz-bg-img.active { opacity: 1; }
+    .quiz-bg-img:nth-child(odd) { animation: kenBurns1 25s ease-in-out infinite; }
+    .quiz-bg-img:nth-child(even) { animation: kenBurns2 30s ease-in-out infinite; }
+    .quiz-bg-img:nth-child(3n) { animation: kenBurns3 28s ease-in-out infinite; }
+    .quiz-bg-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.65) 50%, rgba(10,10,10,0.82) 100%);
+    }
+
+    .quiz-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    .quiz-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2.5rem;
+      flex-shrink: 0;
+    }
+    .quiz-logo {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+    .quiz-close {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(240,237,232,0.12);
+      border-radius: 50%;
+      background: rgba(240,237,232,0.04);
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s var(--ease);
+      backdrop-filter: blur(8px);
+    }
+    .quiz-close:hover {
+      border-color: var(--white);
+      color: var(--white);
+      transform: rotate(90deg);
+      background: rgba(240,237,232,0.08);
+    }
+    .quiz-close svg { width: 16px; height: 16px; }
+
+    .quiz-progress {
+      padding: 0 2.5rem;
+      flex-shrink: 0;
+      transition: opacity 0.5s;
+    }
+    .quiz-progress-bar {
+      height: 1px;
+      background: rgba(240,237,232,0.08);
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--white);
+      transition: width 0.8s var(--ease);
+      width: 0%;
+      box-shadow: 0 0 8px rgba(240,237,232,0.2);
+    }
+    .quiz-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: rgba(240,237,232,0.3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .quiz-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 2.5rem;
+      overflow-y: auto;
+    }
+
+    .quiz-intro {
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+      display: none;
+    }
+    .quiz-intro.active {
+      display: block;
+      animation: cineFadeIn 1s var(--ease) both;
+    }
+
+    @keyframes cineFadeIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .intro-overline {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: cineFadeIn 0.6s var(--ease) 0.2s both;
+    }
+
+    .intro-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: cineFadeIn 0.8s var(--ease) 0.3s both;
+    }
+    .intro-title .serif {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .intro-desc {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--grey-light);
+      line-height: 1.65;
+      margin-bottom: 0.6rem;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      animation: cineFadeIn 0.8s var(--ease) 0.45s both;
+    }
+
+    .intro-meta {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: rgba(240,237,232,0.25);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      animation: cineFadeIn 0.6s var(--ease) 0.55s both;
+    }
+
+    .intro-start {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 2.8rem;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: cineFadeIn 0.6s var(--ease) 0.65s both;
+    }
+    .intro-start:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(240,237,232,0.15);
+    }
+    .intro-start svg { transition: transform 0.3s var(--ease); }
+    .intro-start:hover svg { transform: translateX(4px); }
+
+    .intro-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(240,237,232,0.3);
+      margin: 0 auto 1.5rem;
+      opacity: 0;
+      animation: lineGrow 0.8s var(--ease) 0.15s both;
+    }
+    @keyframes lineGrow {
+      from { opacity: 0; width: 0; }
+      to { opacity: 1; width: 40px; }
+    }
+
+    @keyframes kenBurns1 {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.08) translate(-1%, 1%); }
+      100% { transform: scale(1) translate(0, 0); }
+    }
+    @keyframes kenBurns2 {
+      0% { transform: scale(1.05) translate(1%, 0); }
+      50% { transform: scale(1) translate(-0.5%, -1%); }
+      100% { transform: scale(1.05) translate(1%, 0); }
+    }
+    @keyframes kenBurns3 {
+      0% { transform: scale(1) translate(0, -0.5%); }
+      50% { transform: scale(1.06) translate(0.5%, 0.5%); }
+      100% { transform: scale(1) translate(0, -0.5%); }
+    }
+
+    .quiz-slide {
+      max-width: 900px;
+      width: 100%;
+      display: none;
+    }
+    .quiz-slide.active {
+      display: block;
+      animation: slideIn 0.7s var(--ease) both;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .quiz-question-num {
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--accent-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-question {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+    .quiz-question .serif {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .quiz-option {
+      position: relative;
+      cursor: pointer;
+      border-radius: 1rem;
+      overflow: hidden;
+      aspect-ratio: 1 / 1.2;
+      border: 2px solid transparent;
+      transition: all 0.4s var(--ease);
+      group: 'option';
+    }
+    .quiz-option:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .quiz-option.selected {
+      border-color: var(--white);
+      box-shadow: 0 0 20px rgba(240,237,232,0.2);
+    }
+
+    .quiz-option-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.4s var(--ease);
+    }
+    .quiz-option:hover .quiz-option-img {
+      transform: scale(1.05);
+    }
+
+    .quiz-option-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.4) 100%);
+    }
+
+    .quiz-option-check {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 10, 10, 0.5);
+      opacity: 0;
+      transition: all 0.3s var(--ease);
+      backdrop-filter: blur(8px);
+    }
+    .quiz-option.selected .quiz-option-check {
+      opacity: 1;
+      border-color: var(--white);
+      background: rgba(10, 10, 10, 0.8);
+    }
+    .quiz-option-check svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 3;
+    }
+
+    .quiz-option-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      color: var(--white);
+    }
+
+    .quiz-option-label {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+
+    .quiz-option-desc {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.4;
+    }
+
+    .quiz-result {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      display: none;
+      animation: cineFadeIn 1s var(--ease) both;
+    }
+    .quiz-result.active {
+      display: block;
+    }
+
+    .result-header {
+      margin-bottom: 3rem;
+    }
+
+    .result-label {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .result-title .serif {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .result-subtitle {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--grey-light);
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .result-services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .result-service {
+      padding: 1.5rem;
+      background: rgba(240,237,232,0.04);
+      border: 1px solid rgba(240,237,232,0.1);
+      border-radius: 0.75rem;
+      text-align: left;
+      transition: all 0.3s var(--ease);
+    }
+    .result-service:hover {
+      background: rgba(240,237,232,0.08);
+      border-color: rgba(240,237,232,0.25);
+      transform: translateY(-2px);
+    }
+
+    .result-service-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: rgba(240,237,232,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-service-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .result-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .result-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 2.8rem;
+      background: var(--white);
+      color: var(--black);
+      text-decoration: none;
+      border: none;
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+      letter-spacing: 0.02em;
+    }
+    .result-cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(240,237,232,0.15);
+    }
+    .result-cta-primary svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s var(--ease);
+    }
+    .result-cta-primary:hover svg {
+      transform: translateX(4px);
+    }
+
+    .result-cta-secondary {
+      padding: 1.1rem 2.8rem;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(240,237,232,0.3);
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+      letter-spacing: 0.02em;
+    }
+    .result-cta-secondary:hover {
+      border-color: var(--white);
+      background: rgba(240,237,232,0.04);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .quiz-header {
+        padding: 1rem 1.5rem;
+      }
+
+      .quiz-progress {
+        padding: 0 1.5rem;
+      }
+
+      .quiz-body {
+        padding: 1.5rem;
+      }
+
+      .slide-header {
+        margin-bottom: 1.5rem;
+      }
+
+      .quiz-question {
+        font-size: clamp(1.4rem, 3vw, 2rem);
+      }
+
+      .quiz-options {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .result-ctas {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .result-cta-primary, .result-cta-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* ── Recirculation ── */
+    .recirculation {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem 6rem;
+      text-align: center;
+    }
+    .recirculation h3 {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--grey);
+      margin-bottom: 2rem;
+    }
+    .recirc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .recirc-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1.8rem 1rem;
+      background: rgba(240,237,232,0.03);
+      border: 1px solid rgba(240,237,232,0.06);
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.3s var(--ease);
+      cursor: pointer;
+    }
+    .recirc-card:hover {
+      border-color: rgba(240,237,232,0.15);
+      background: rgba(240,237,232,0.05);
+      transform: translateY(-3px);
+    }
+    .recirc-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      opacity: 0.5;
+    }
+    .recirc-icon svg { width: 22px; height: 22px; }
+    .recirc-title {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .recirc-desc {
+      font-size: 0.72rem;
+      color: var(--grey);
+    }
+    @media (max-width: 768px) {
+      .recirc-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .recirc-grid { grid-template-columns: 1fr; }
+      .recirculation { padding: 3rem 1.5rem 4rem; }
+    }
   </style>
 
 <script type="application/ld+json">
@@ -414,6 +1102,371 @@
       </div>
     </div>
   </section>
+
+  <!-- Recirculatie -->
+  <section class="recirculation">
+    <h3>Misschien ook interessant</h3>
+    <div class="recirc-grid">
+      <a href="javascript:void(0)" onclick="openQuiz()" class="recirc-card">
+        <span class="recirc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+        <span class="recirc-title">Ontdek wat je nodig hebt</span>
+        <span class="recirc-desc">Persoonlijk advies in 2 minuten</span>
+      </a>
+      <a href="index.html#werk" class="recirc-card">
+        <span class="recirc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+        <span class="recirc-title">Portfolio</span>
+        <span class="recirc-desc">Bekijk ons werk</span>
+      </a>
+      <a href="index.html#diensten" class="recirc-card">
+        <span class="recirc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+        <span class="recirc-title">Onze diensten</span>
+        <span class="recirc-desc">Van branding tot AI</span>
+      </a>
+      <a href="blog.html" class="recirc-card">
+        <span class="recirc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+        <span class="recirc-title">Blog</span>
+        <span class="recirc-desc">Inzichten en tips</span>
+      </a>
+    </div>
+  </section>
+
+<!-- ═══ FLOATING QUIZ BUTTON ═══ -->
+<button class="quiz-trigger" onclick="openQuiz()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="17" x2="12.01" y2="17"/>
+  </svg>
+  Ontdek wat je nodig hebt
+</button>
+
+<!-- ═══ QUIZ OVERLAY ═══ -->
+<div class="quiz-overlay" id="quizOverlay">
+
+  <!-- Background photos -->
+  <div class="quiz-bg">
+    <div class="quiz-bg-img active" id="bg-intro" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img" id="bg-0" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img" id="bg-1" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img" id="bg-2" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img" id="bg-3" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img" id="bg-4" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img" id="bg-5" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img" id="bg-result" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format')"></div>
+  </div>
+
+  <div class="quiz-content">
+
+    <!-- Header -->
+    <div class="quiz-header">
+      <div class="quiz-logo">The Bair Co.</div>
+      <button class="quiz-close" onclick="closeQuiz()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Progress -->
+    <div class="quiz-progress" id="quizProgress" style="opacity:0">
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quizProgressFill"></div>
+      </div>
+      <div class="quiz-progress-meta">
+        <span id="quizProgressCurrent">0</span>
+        <span id="quizProgressTotal">0</span>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="quiz-body">
+
+      <!-- ── INTRO ── -->
+      <div class="quiz-intro active" id="quizIntro">
+        <div class="intro-line"></div>
+        <div class="intro-overline">Ontdek wat je nodig hebt</div>
+        <h1 class="intro-title">Klaar voor iets <span class="serif">moois</span>?</h1>
+        <p class="intro-desc">In 7 vragen ontdekken we samen wat jouw bedrijf echt nodig heeft. Geen gedoe, gewoon eerlijke adviezen.</p>
+        <p class="intro-meta">Gemiddeld 4 minuten</p>
+        <button class="intro-start" onclick="startQuiz()">Laten we gaan <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+
+      <!-- ── SLIDES ── -->
+      <div id="slide-0" class="quiz-slide">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 1 van 7</div>
+          <h2 class="quiz-question">Wat is jouw huidige <span class="serif">online</span> status?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(0,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Volledig present</div>
+              <div class="quiz-option-desc">Website, socials, al het nodige staat online</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(0,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Deels aanwezig</div>
+              <div class="quiz-option-desc">Wat basis instellingen, maar niet compleet</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(0,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Totaal nieuw</div>
+              <div class="quiz-option-desc">We starten volstrekt van nul</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slide-1" class="quiz-slide">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 2 van 7</div>
+          <h2 class="quiz-question">Wat is jouw <span class="serif">budget</span> ballpark?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(1,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Tot €5k</div>
+              <div class="quiz-option-desc">Klein budget, groot resultaat</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(1,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">€5k — €15k</div>
+              <div class="quiz-option-desc">Voelbare investering met solide return</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(1,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1562408590-e32931084e23?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">>€15k</div>
+              <div class="quiz-option-desc">We bouwen iets bijzonders</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slide-2" class="quiz-slide">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 3 van 7</div>
+          <h2 class="quiz-question">Wat staat momenteel <span class="serif">voorop</span>?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(2,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Zichtbaarheid</div>
+              <div class="quiz-option-desc">Mensen moeten ons kennen</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(2,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1557821552-17105176677c?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Verkoopkracht</div>
+              <div class="quiz-option-desc">Conversie en resultaat</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(2,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Identiteit</div>
+              <div class="quiz-option-desc">Een sterk, uniek merkidentiteit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slide-3" class="quiz-slide">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 4 van 7</div>
+          <h2 class="quiz-question">Wat is jouw <span class="serif">huidige</span> situatie?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(3,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1542744094-24638eff58bb?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Weinig tot niets</div>
+              <div class="quiz-option-desc">Geen website, of alleen een vergeten Facebook-pagina</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(3,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Basis aanwezig</div>
+              <div class="quiz-option-desc">We hebben wat, maar het voelt verouderd</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(3,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Behoorlijk solide</div>
+              <div class="quiz-option-desc">We hebben een goede basis, wilt nu upgraden</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slide-4" class="quiz-slide">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 5 van 7</div>
+          <h2 class="quiz-question">Wie is je <span class="serif">doelgroep</span>?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(4,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">B2C (Consument)</div>
+              <div class="quiz-option-desc">Rechtstreeks naar eindgebruikers</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(4,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">B2B (Bedrijven)</div>
+              <div class="quiz-option-desc">We richten ons op andere bedrijven</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(4,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Mix (B2B & B2C)</div>
+              <div class="quiz-option-desc">Beide, we spreken meerdere groepen aan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slide-5" class="quiz-slide">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 6 van 7</div>
+          <h2 class="quiz-question">Hoe ziet je team er <span class="serif">uit</span>?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(5,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Solo</div>
+              <div class="quiz-option-desc">Het is alleen jij</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(5,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1517457373614-b7152f800fd1?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Klein team (2-5)</div>
+              <div class="quiz-option-desc">Kleine crew, groot hart</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(5,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Groter team (5+)</div>
+              <div class="quiz-option-desc">Flinke organisatie</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slide-6" class="quiz-slide">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 7 van 7</div>
+          <h2 class="quiz-question">Je <span class="serif">drijfveer</span>?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(6,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Growth & Schaal</div>
+              <div class="quiz-option-desc">We willen groeien, sneller</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(6,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Soliditeit & Professionalisme</div>
+              <div class="quiz-option-desc">We willen betrouwbaar en serieus overkomen</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(6,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Innovation & Creativiteit</div>
+              <div class="quiz-option-desc">We willen out-of-the-box denken</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── RESULT ── -->
+      <div class="quiz-result" id="quizResult">
+        <div class="result-header">
+          <div class="result-label">Jouw persoonlijk advies</div>
+          <h2 class="result-title">Dit is wat wij voor je<br>kunnen <span class="serif">betekenen</span></h2>
+          <p class="result-subtitle" id="resultSubtitle"></p>
+        </div>
+        <div class="result-services" id="resultServices"></div>
+        <div class="result-ctas">
+          <a href="contact.html" class="result-cta-primary">
+            Neem contact op
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--black)" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <button class="result-cta-secondary" onclick="resetQuiz()">
+            Opnieuw starten
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
   <footer>
     <div class="footer-top">
@@ -666,6 +1719,196 @@
         submitBtn.innerHTML = origText;
         submitBtn.disabled = false;
       });
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       QUIZ OVERLAY JAVASCRIPT (Copied from index.html)
+       ════════════════════════════════════════════════════════════════ */
+
+    // Quiz state
+    let currentSlide = -1;
+    const answers = [null, null, null, null, null, null, null];
+
+    // Quiz data: services recommended based on answer patterns
+    const quizServices = {
+      branding: { name: 'Branding', href: 'diensten/branding.html' },
+      webdesign: { name: 'Web Design', href: 'diensten/webdesign.html' },
+      webontwikkeling: { name: 'Webontwikkeling', href: 'diensten/webontwikkeling.html' },
+      socialmedia: { name: 'Social Media', href: 'diensten/social-media.html' },
+      marketing: { name: 'Marketing', href: 'diensten/marketing.html' },
+      apps: { name: 'Apps', href: 'diensten/apps.html' },
+      copywriting: { name: 'Copywriting', href: 'diensten/copywriting.html' },
+      ai: { name: 'AI & Automatisering', href: 'diensten/ai-automatisering.html' },
+      training: { name: 'Training', href: 'diensten/training.html' }
+    };
+
+    function openQuiz() {
+      const overlay = document.getElementById('quizOverlay');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (currentSlide === -1) {
+        setBackground('bg-intro');
+      }
+    }
+
+    function closeQuiz() {
+      document.getElementById('quizOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        if (!document.getElementById('quizOverlay').classList.contains('active')) {
+          resetQuiz();
+        }
+      }, 700);
+    }
+
+    function startQuiz() {
+      document.getElementById('quizIntro').classList.remove('active');
+      document.getElementById('quizIntro').style.display = 'none';
+      const result = document.getElementById('quizResult');
+      result.classList.remove('active');
+      result.style.display = 'none';
+      document.getElementById('quizProgress').style.opacity = '1';
+      currentSlide = 0;
+      showSlide(0);
+    }
+
+    function showSlide(index) {
+      document.querySelectorAll('.quiz-slide').forEach(s => {
+        s.classList.remove('active');
+        s.style.display = 'none';
+      });
+
+      const slide = document.getElementById(`slide-${index}`);
+      slide.style.display = 'block';
+      void slide.offsetWidth;
+      slide.classList.add('active');
+
+      setBackground(`bg-${index}`);
+
+      if (answers[index] !== null) {
+        slide.querySelectorAll('.quiz-option').forEach((opt, i) => {
+          if (i === answers[index]) {
+            opt.classList.add('selected');
+          } else {
+            opt.classList.remove('selected');
+          }
+        });
+      }
+
+      updateProgressBar();
+    }
+
+    function selectOption(slideIndex, optionIndex) {
+      answers[slideIndex] = optionIndex;
+      document.querySelectorAll(`#slide-${slideIndex} .quiz-option`).forEach((opt, i) => {
+        opt.classList.toggle('selected', i === optionIndex);
+      });
+
+      if (slideIndex < 6) {
+        setTimeout(() => {
+          currentSlide = slideIndex + 1;
+          showSlide(slideIndex + 1);
+        }, 300);
+      } else {
+        setTimeout(() => {
+          showResult();
+        }, 300);
+      }
+    }
+
+    function updateProgressBar() {
+      const totalSlides = 7;
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      document.getElementById('quizProgressFill').style.width = progress + '%';
+      document.getElementById('quizProgressCurrent').textContent = currentSlide + 1;
+      document.getElementById('quizProgressTotal').textContent = totalSlides;
+    }
+
+    function setBackground(bgId) {
+      document.querySelectorAll('.quiz-bg-img').forEach(img => img.classList.remove('active'));
+      const bg = document.getElementById(bgId);
+      if (bg) bg.classList.add('active');
+    }
+
+    function showResult() {
+      document.querySelectorAll('.quiz-slide').forEach(s => {
+        s.classList.remove('active');
+        s.style.display = 'none';
+      });
+
+      const result = document.getElementById('quizResult');
+      result.style.display = 'block';
+      void result.offsetWidth;
+      result.classList.add('active');
+
+      setBackground('bg-result');
+      document.getElementById('quizProgress').style.opacity = '0';
+
+      // Determine recommended services based on answers
+      const recommendedServices = [];
+
+      // Logic: map answers to services
+      // Q0: Online status (0=complete, 1=partial, 2=new)
+      // Q1: Budget (0=<5k, 1=5k-15k, 2=>15k)
+      // Q2: Priority (0=visibility, 1=sales, 2=identity)
+      // Q3: Current situation (0=none, 1=outdated, 2=solid)
+      // Q4: Target audience (0=B2C, 1=B2B, 2=Mix)
+      // Q5: Team size (0=solo, 1=2-5, 2=5+)
+      // Q6: Driving force (0=growth, 1=solidit, 2=innovation)
+
+      if (answers[0] === 2 || answers[3] === 0) { // Totally new or no presence
+        recommendedServices.push('branding', 'webdesign', 'webontwikkeling');
+      }
+
+      if (answers[2] === 0 || answers[2] === 2) { // Visibility or identity priority
+        recommendedServices.push('branding', 'socialmedia');
+      }
+
+      if (answers[2] === 1 || answers[1] === 2) { // Sales priority or high budget
+        recommendedServices.push('webontwikkeling', 'marketing');
+      }
+
+      if (answers[1] >= 1) { // Budget >= 5k-15k
+        recommendedServices.push('marketing', 'copywriting');
+      }
+
+      if (answers[4] === 2 || answers[5] === 2) { // Mix audience or large team
+        recommendedServices.push('ai', 'training');
+      }
+
+      if (answers[6] === 2) { // Innovation priority
+        recommendedServices.push('ai', 'apps');
+      }
+
+      // Limit to 3 unique services
+      const uniqueServices = [...new Set(recommendedServices)].slice(0, 3);
+
+      let servicesHTML = '';
+      if (uniqueServices.length > 0) {
+        uniqueServices.forEach(serviceKey => {
+          const service = quizServices[serviceKey];
+          if (service) {
+            servicesHTML += `<div class="result-service"><div class="result-service-label">Aanbevolen</div><div class="result-service-name">${service.name}</div></div>`;
+          }
+        });
+      } else {
+        servicesHTML = '<div class="result-service"><div class="result-service-name">Benieuwd naar meer?</div></div>';
+      }
+
+      document.getElementById('resultServices').innerHTML = servicesHTML;
+      document.getElementById('resultSubtitle').textContent = 'Op maat voor jouw situatie.';
+    }
+
+    function resetQuiz() {
+      currentSlide = -1;
+      answers.fill(null);
+      document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+      document.getElementById('quizIntro').classList.add('active');
+      document.getElementById('quizIntro').style.display = 'block';
+      document.getElementById('quizResult').classList.remove('active');
+      document.getElementById('quizResult').style.display = 'none';
+      document.getElementById('quizProgress').style.opacity = '0';
+      setBackground('bg-intro');
     }
   </script>
 
