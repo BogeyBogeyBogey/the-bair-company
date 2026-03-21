@@ -264,7 +264,7 @@
       }
 
       .contact-info {
-        order: -1;
+        order: 1;
       }
     }
 
@@ -891,10 +891,13 @@
 
     /* ── Recirculation ── */
     .recirculation {
-      max-width: 800px;
-      margin: 0 auto;
+      background: var(--black);
       padding: 4rem 2.5rem 6rem;
       text-align: center;
+    }
+    .recirculation-inner {
+      max-width: 800px;
+      margin: 0 auto;
     }
     .recirculation h3 {
       font-family: var(--font-display);
@@ -916,28 +919,28 @@
       align-items: center;
       gap: 0.6rem;
       padding: 1.8rem 1rem;
-      background: rgba(240,237,232,0.03);
-      border: 1px solid rgba(240,237,232,0.06);
+      background: rgba(240,237,232,0.04);
+      border: 1px solid rgba(240,237,232,0.08);
       border-radius: 14px;
       text-decoration: none;
       transition: all 0.3s var(--ease);
       cursor: pointer;
     }
     .recirc-card:hover {
-      border-color: rgba(240,237,232,0.15);
-      background: rgba(240,237,232,0.05);
+      border-color: rgba(240,237,232,0.2);
+      background: rgba(240,237,232,0.08);
       transform: translateY(-3px);
     }
     .recirc-icon {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--white);
-      opacity: 0.5;
+      opacity: 0.6;
     }
-    .recirc-icon svg { width: 22px; height: 22px; }
+    .recirc-icon svg { width: 24px; height: 24px; }
     .recirc-title {
       font-family: var(--font-display);
       font-size: 0.82rem;
@@ -1105,6 +1108,7 @@
 
   <!-- Recirculatie -->
   <section class="recirculation">
+    <div class="recirculation-inner">
     <h3>Misschien ook interessant</h3>
     <div class="recirc-grid">
       <a href="javascript:void(0)" onclick="openQuiz()" class="recirc-card">
@@ -1127,6 +1131,7 @@
         <span class="recirc-title">Blog</span>
         <span class="recirc-desc">Inzichten en tips</span>
       </a>
+    </div>
     </div>
   </section>
 
