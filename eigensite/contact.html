@@ -15,13 +15,24 @@
     'wait_for_update': 500
   });
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J"></script>
 <script>
-  gtag('js', new Date());
-  gtag('config', 'G-TEPNG02Z0J', {
-    send_page_view: true,
-    cookie_flags: 'SameSite=None;Secure'
-  });
+  // Defer GTM script loading until after page is interactive
+  function loadGTM() {
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
+    s.async = true;
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-TEPNG02Z0J', {
+      send_page_view: true,
+      cookie_flags: 'SameSite=None;Secure'
+    });
+  }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadGTM, { timeout: 3000 });
+  } else {
+    setTimeout(loadGTM, 2000);
+  }
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — The Bair Co. | Creatief Bureau Glabbeek</title>
@@ -960,7 +971,7 @@
       .recirc-grid { grid-template-columns: 1fr; }
       .recirculation { padding: 3rem 1.5rem 4rem; }
     }
-  </style>
+  .footer-col h4{margin-bottom:2rem}</style>
 
 <script type="application/ld+json">
 {
@@ -1154,14 +1165,14 @@
 
   <!-- Background photos -->
   <div class="quiz-bg">
-    <div class="quiz-bg-img active" id="bg-intro" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-0" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-1" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-2" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-3" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-4" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-5" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-result" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img active" id="bg-intro"  data-bg="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-0"  data-bg="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-1"  data-bg="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-2"  data-bg="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-3"  data-bg="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-4"  data-bg="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-5"  data-bg="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-result"  data-bg="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1280&q=75&auto=format"></div>
   </div>
 
   <div class="quiz-content">

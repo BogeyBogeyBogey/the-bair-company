@@ -15,13 +15,24 @@
     'wait_for_update': 500
   });
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J"></script>
 <script>
-  gtag('js', new Date());
-  gtag('config', 'G-TEPNG02Z0J', {
-    send_page_view: true,
-    cookie_flags: 'SameSite=None;Secure'
-  });
+  // Defer GTM script loading until after page is interactive
+  function loadGTM() {
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
+    s.async = true;
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-TEPNG02Z0J', {
+      send_page_view: true,
+      cookie_flags: 'SameSite=None;Secure'
+    });
+  }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadGTM, { timeout: 3000 });
+  } else {
+    setTimeout(loadGTM, 2000);
+  }
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Ontwikkeling — The Bair Co. | App Laten Maken België</title>
@@ -209,7 +220,7 @@
       .cta-heading { font-size: 1.8rem; }
     }
 
-  </style>
+  .footer-col h4{margin-bottom:2rem}</style>
 
 <script type="application/ld+json">
 {

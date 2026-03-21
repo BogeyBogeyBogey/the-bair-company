@@ -836,14 +836,14 @@ body {
 
   <!-- Background photos -->
   <div class="quiz-bg">
-    <div class="quiz-bg-img active" id="bg-intro" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-0" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-1" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-2" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-3" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-4" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-5" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&auto=format')"></div>
-    <div class="quiz-bg-img" id="bg-result" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format')"></div>
+    <div class="quiz-bg-img active" id="bg-intro"  data-bg="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-0"  data-bg="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-1"  data-bg="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-2"  data-bg="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-3"  data-bg="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-4"  data-bg="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-5"  data-bg="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-result"  data-bg="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1280&q=75&auto=format"></div>
   </div>
 
   <div class="quiz-content">
@@ -1314,6 +1314,11 @@ function setBackground(id) {
 // ── Flow ──
 function openQuiz() {
   const overlay = document.getElementById('quizOverlay');
+  // Lazy-load quiz background images on first open
+  overlay.querySelectorAll('.quiz-bg-img[data-bg]').forEach(el => {
+    el.style.backgroundImage = "url('" + el.dataset.bg + "')";
+    el.removeAttribute('data-bg');
+  });
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
   // Always start fresh from intro
