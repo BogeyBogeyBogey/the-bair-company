@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bair Co. — Social Media Templates</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* === RESET & GLOBAL === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#0a0a0a;color:#f0ede8;min-height:100vh}
+
+/* === PASSWORD SCREEN === */
+#login-screen{position:fixed;inset:0;background:#0a0a0a;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+#login-screen.hidden{display:none}
+.login-logo{width:40px;opacity:0.4;filter:brightness(0) invert(1)}
+.login-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.2em;text-transform:uppercase;color:#f0ede8;opacity:0.6}
+.login-subtitle{font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;color:#a0998f;margin-top:-8px}
+.login-input{background:#141417;border:1px solid #333;color:#f0ede8;font-family:'DM Sans',sans-serif;font-size:16px;padding:14px 24px;border-radius:100px;width:300px;text-align:center;outline:none;transition:border-color 0.3s}
+.login-input:focus{border-color:#a0998f}
+.login-input::placeholder{color:#666}
+.login-btn{background:transparent;border:1px solid #f0ede8;color:#f0ede8;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:12px 36px;border-radius:100px;cursor:pointer;transition:all 0.3s}
+.login-btn:hover{background:#f0ede8;color:#0a0a0a}
+.login-error{color:#ff6b6b;font-size:13px;height:20px}
+
+/* === MAIN APP (hidden until login) === */
+#app{display:none}
+#app.visible{display:block}
+
+/* === HEADER === */
+.page-header{background:linear-gradient(135deg,#0a0a0a 0%,#141417 60%,#1e1e24 100%);color:#f0ede8;padding:40px 24px 32px;text-align:center;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none}
+.page-header h1{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px;position:relative;letter-spacing:0.05em}
+.page-header p{font-size:15px;color:#a0998f;position:relative}
+.header-logo{width:28px;opacity:0.4;filter:brightness(0) invert(1);margin-bottom:16px}
+
+/* === TAB NAV === */
+.tab-nav{display:flex;gap:0;background:#141417;border-bottom:1px solid #333;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:50}
+.tab-btn{flex:none;padding:16px 20px;background:none;border:none;border-bottom:2px solid transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#666;cursor:pointer;white-space:nowrap;transition:all 0.2s}
+.tab-btn:hover{color:#a0998f;background:rgba(240,237,232,0.03)}
+.tab-btn.active{color:#f0ede8;border-bottom-color:#f0ede8;background:rgba(240,237,232,0.05)}
+.badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:100px;margin-left:8px;vertical-align:middle;letter-spacing:0.05em;text-transform:uppercase}
+.badge-carousel{background:rgba(240,237,232,0.1);color:#a0998f}
+.badge-linkedin{background:rgba(240,237,232,0.08);color:#666}
+.badge-story{background:rgba(240,237,232,0.06);color:#666}
+
+/* === TAB PANELS === */
+.tab-panel{display:none;padding:40px 24px}
+.tab-panel.active{display:flex;flex-direction:column;align-items:center}
+.panel-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#f0ede8;margin-bottom:4px}
+.panel-subtitle{font-family:'JetBrains Mono',monospace;font-size:12px;color:#666;margin-bottom:24px;letter-spacing:0.05em}
+
+/* === TOOLBAR === */
+.toolbar{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;justify-content:center}
+.toolbar button{background:transparent;color:#f0ede8;border:1px solid #f0ede8;padding:12px 28px;border-radius:100px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.toolbar button:hover{background:#f0ede8;color:#0a0a0a;transform:translateY(-1px)}
+.toolbar button:active{transform:translateY(0)}
+.toolbar button.secondary{border-color:#333;color:#a0998f}
+.toolbar button.secondary:hover{border-color:#f0ede8;color:#f0ede8;background:transparent}
+
+/* === ZOOM CONTROLS === */
+.zoom-controls{display:none;align-items:center;gap:12px;margin-bottom:20px;background:#141417;border:1px solid #333;padding:12px 24px;border-radius:100px}
+.zoom-controls.visible{display:flex}
+.zoom-controls label{font-family:'JetBrains Mono',monospace;font-size:11px;color:#a0998f;white-space:nowrap;letter-spacing:0.1em;text-transform:uppercase}
+.zoom-controls input[type="range"]{width:180px;accent-color:#f0ede8;cursor:pointer;background:transparent}
+.zoom-controls .zoom-val{font-family:'JetBrains Mono',monospace;font-size:12px;color:#666;min-width:36px;text-align:center}
+.zoom-controls .reset-btn{background:none;border:1px solid #333;color:#666;padding:4px 12px;border-radius:100px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.zoom-controls .reset-btn:hover{border-color:#f0ede8;color:#f0ede8}
+.drag-hint{display:none;font-family:'JetBrains Mono',monospace;font-size:11px;color:#666;margin-bottom:16px;letter-spacing:0.05em}
+.drag-hint.visible{display:block}
+
+/* === HELP TEXT === */
+.help-text{color:#666;font-size:13px;margin-top:20px;max-width:540px;text-align:center;line-height:1.7;padding:16px 20px;background:#141417;border:1px solid #333;border-radius:12px}
+.help-text strong{color:#a0998f}
+
+/* === TEMPLATE WRAPPERS === */
+.template-wrapper-post{transform:scale(0.42);transform-origin:top center;margin-bottom:-780px;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.template-wrapper-linkedin{transform:scale(0.5);transform-origin:top center;margin-bottom:-310px;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.template-wrapper-banner{transform:scale(0.4);transform-origin:top center;margin-bottom:-236px;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.template-wrapper-story{transform:scale(0.3);transform-origin:top center;margin-bottom:-1340px;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+
+/* === PHOTO AREAS === */
+.photo-area{position:relative;overflow:hidden}
+.photo-area img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;cursor:grab;user-select:none;-webkit-user-select:none;transform-origin:0 0}
+.photo-area img:active{cursor:grabbing}
+.photo-placeholder{color:#666;font-size:18px;text-align:center;line-height:1.5;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%}
+.photo-placeholder .icon{font-size:48px;display:block;margin-bottom:12px;opacity:0.3}
+
+/* === TOAST === */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:#f0ede8;color:#0a0a0a;padding:14px 32px;border-radius:100px;font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:999;transition:transform 0.3s ease;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* === EDITABLE ELEMENTS === */
+[contenteditable="true"]{outline:none;cursor:text;border-radius:4px;transition:box-shadow 0.2s}
+[contenteditable="true"]:focus{box-shadow:0 0 0 2px rgba(240,237,232,0.3)}
+[contenteditable="true"]:hover{box-shadow:0 0 0 1px rgba(240,237,232,0.15)}
+
+/* ==============================
+   DESIGN TOKENS (Precision Noir)
+   ============================== */
+:root{
+  --noir:#0a0a0a;--noir-surface:#141417;--noir-elevated:#1e1e24;--noir-line:#333;
+  --bone:#f0ede8;--bone-surface:#e8e4de;--bone-line:#d0ccc5;
+  --text-primary:#f0ede8;--text-secondary:#a0998f;--text-dim:#666;
+  --text-on-bone:#0a0a0a;--text-on-bone-muted:#888;
+  --noise:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")
+}
+
+/* ==============================
+   TEMPLATE: CAROUSEL HOOK (Slide 1)
+   ============================== */
+.c-hook{width:1080px;height:1350px;background:var(--noir);display:flex;align-items:center;justify-content:center;text-align:center;padding:80px;position:relative;overflow:hidden}
+.c-hook::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:5}
+.c-hook::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-hook h1{font-family:'Syne',sans-serif;font-weight:800;font-size:96px;line-height:1;color:var(--text-primary);position:relative;z-index:2;max-width:900px}
+.c-hook .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);z-index:2}
+.c-hook .watermark{position:absolute;bottom:60px;right:60px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);opacity:0.4;z-index:2}
+
+/* ==============================
+   TEMPLATE: CAROUSEL CONTEXT (Slide 2-3)
+   ============================== */
+.c-context{width:1080px;height:1350px;background:var(--bone);padding:80px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.c-context::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:multiply;pointer-events:none;z-index:10}
+.c-context .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-on-bone-muted);z-index:2}
+.c-context h2{font-family:'Syne',sans-serif;font-weight:700;font-size:56px;line-height:1.1;color:var(--text-on-bone);margin-bottom:24px;max-width:800px;position:relative;z-index:2}
+.c-context h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+.c-context p{font-family:'DM Sans',sans-serif;font-weight:300;font-size:22px;line-height:1.6;color:var(--text-on-bone-muted);max-width:780px;position:relative;z-index:2}
+
+/* ==============================
+   TEMPLATE: CAROUSEL MOCKUP (Slide 4)
+   ============================== */
+.c-mockup{width:1080px;height:1350px;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px;position:relative;overflow:hidden}
+.c-mockup::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-mockup .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);z-index:2}
+.c-mockup .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:24px;position:relative;z-index:2}
+.c-mockup .browser-frame{width:920px;background:#1a1a1e;border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6);position:relative;z-index:2}
+.c-mockup .browser-bar{height:40px;background:#2a2a2e;display:flex;align-items:center;padding:0 16px;gap:8px}
+.c-mockup .browser-dot{width:10px;height:10px;border-radius:50%;background:#444}
+.c-mockup .browser-body{height:540px;background:var(--noir-surface);overflow:hidden}
+.c-mockup .browser-body .photo-placeholder{font-size:14px}
+
+/* ==============================
+   TEMPLATE: CAROUSEL SPLIT (Slide 5)
+   ============================== */
+.c-split{width:1080px;height:1350px;background:var(--noir);display:flex;position:relative;overflow:hidden}
+.c-split::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-split .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);z-index:2}
+.c-split .split-left{width:50%;padding:80px 48px 80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.c-split .split-right{width:50%;background:var(--noir-surface);overflow:hidden}
+.c-split .split-divider{position:absolute;top:80px;bottom:80px;left:50%;width:1px;background:var(--noir-line);z-index:3}
+.c-split h2{font-family:'Syne',sans-serif;font-weight:700;font-size:40px;line-height:1.15;color:var(--text-primary);margin-bottom:20px}
+.c-split p{font-family:'DM Sans',sans-serif;font-weight:300;font-size:18px;line-height:1.6;color:var(--text-secondary)}
+
+/* ==============================
+   TEMPLATE: CAROUSEL FULL BLEED (Slide 6)
+   ============================== */
+.c-fullbleed{width:1080px;height:1350px;background:var(--noir);position:relative;overflow:hidden}
+.c-fullbleed::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-fullbleed .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);z-index:6}
+.c-fullbleed .fb-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--noir-surface) 0%,var(--noir-elevated) 40%,var(--noir-surface) 100%)}
+.c-fullbleed .fb-bg::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(160,153,143,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(160,153,143,0.3) 1px,transparent 1px);background-size:60px 60px;opacity:0.12}
+.c-fullbleed .fb-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,10,10,0.95) 80%);z-index:4}
+.c-fullbleed .fb-text{position:absolute;bottom:80px;left:60px;right:60px;z-index:5}
+.c-fullbleed .fb-text h3{font-family:'Syne',sans-serif;font-weight:700;font-size:36px;color:var(--text-primary);margin-bottom:12px}
+.c-fullbleed .fb-text p{font-family:'DM Sans',sans-serif;font-weight:300;font-size:18px;color:var(--text-secondary);max-width:600px}
+
+/* ==============================
+   TEMPLATE: CAROUSEL METRIC (Slide 7)
+   ============================== */
+.c-metric{width:1080px;height:1350px;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px;position:relative;overflow:hidden}
+.c-metric::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:5}
+.c-metric::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-metric .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);z-index:2}
+.c-metric .big-number{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:96px;color:var(--text-primary);line-height:1.1;position:relative;z-index:2}
+.c-metric .metric-label{font-family:'DM Sans',sans-serif;font-weight:300;font-size:22px;color:var(--text-secondary);margin-top:24px;max-width:600px;position:relative;z-index:2}
+
+/* ==============================
+   TEMPLATE: CAROUSEL TESTIMONIAL (Slide 8)
+   ============================== */
+.c-testimonial{width:1080px;height:1350px;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 100px;position:relative;overflow:hidden}
+.c-testimonial::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-testimonial .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);z-index:2}
+.c-testimonial .quote-mark{font-family:'Instrument Serif',serif;font-size:200px;color:var(--text-dim);opacity:0.3;line-height:0.5;position:relative;z-index:2}
+.c-testimonial .quote-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:44px;line-height:1.4;color:var(--text-primary);max-width:800px;margin:32px 0;position:relative;z-index:2}
+.c-testimonial .quote-author{font-family:'DM Sans',sans-serif;font-weight:500;font-size:18px;color:var(--text-secondary);position:relative;z-index:2}
+.c-testimonial .quote-role{font-family:'DM Sans',sans-serif;font-weight:300;font-size:15px;color:var(--text-dim);margin-top:4px;position:relative;z-index:2}
+
+/* ==============================
+   TEMPLATE: CAROUSEL TAKEAWAY (Slide 9)
+   ============================== */
+.c-takeaway{width:1080px;height:1350px;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 100px;position:relative;overflow:hidden}
+.c-takeaway::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-takeaway .slide-num{position:absolute;top:60px;left:60px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);z-index:2}
+.c-takeaway .blockquote-line{width:2px;height:60px;background:var(--text-dim);margin-bottom:32px;position:relative;z-index:2}
+.c-takeaway .main-text{font-family:'Syne',sans-serif;font-weight:700;font-size:44px;line-height:1.2;color:var(--text-primary);max-width:800px;margin-bottom:40px;position:relative;z-index:2}
+.c-takeaway .closing{font-family:'Instrument Serif',serif;font-style:italic;font-size:24px;color:var(--text-secondary);position:relative;z-index:2}
+
+/* ==============================
+   TEMPLATE: CAROUSEL CTA (Slide 10)
+   ============================== */
+.c-cta{width:1080px;height:1350px;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px;position:relative;overflow:hidden}
+.c-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:5}
+.c-cta::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.c-cta .cta-company{font-family:'Syne',sans-serif;font-weight:700;font-size:28px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-primary);margin-bottom:12px;position:relative;z-index:2}
+.c-cta .cta-tagline{font-family:'Instrument Serif',serif;font-style:italic;font-size:24px;color:var(--text-secondary);margin-bottom:48px;position:relative;z-index:2}
+.c-cta .ghost-btn{display:inline-block;border:1px solid var(--text-primary);background:transparent;color:var(--text-primary);font-family:'DM Sans',sans-serif;font-weight:500;font-size:18px;padding:16px 40px;border-radius:100px;position:relative;z-index:2}
+.c-cta .cta-url{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--text-dim);margin-top:32px;position:relative;z-index:2}
+
+/* ==============================
+   TEMPLATE: LINKEDIN PORTFOLIO
+   ============================== */
+.li-portfolio{width:1200px;height:628px;background:var(--noir);display:flex;position:relative;overflow:hidden}
+.li-portfolio::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.li-portfolio .li-left{width:55%;padding:48px 40px 48px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.li-portfolio .li-right{width:45%;background:var(--noir-surface);overflow:hidden}
+.li-portfolio h2{font-family:'Syne',sans-serif;font-weight:700;font-size:36px;line-height:1.15;color:var(--text-primary);margin-bottom:16px}
+.li-portfolio p{font-family:'DM Sans',sans-serif;font-weight:300;font-size:17px;line-height:1.6;color:var(--text-secondary);max-width:480px}
+
+/* ==============================
+   TEMPLATE: LINKEDIN THOUGHT
+   ============================== */
+.li-thought{width:1200px;height:628px;background:var(--bone);display:flex;align-items:center;justify-content:center;text-align:center;padding:56px 80px;position:relative;overflow:hidden}
+.li-thought::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:multiply;pointer-events:none;z-index:10}
+.li-thought .thought-quote{font-family:'Syne',sans-serif;font-weight:700;font-size:36px;line-height:1.3;color:var(--text-on-bone);max-width:900px;position:relative;z-index:2}
+.li-thought .thought-author{font-family:'DM Sans',sans-serif;font-weight:500;font-size:16px;color:var(--text-on-bone-muted);margin-top:24px;position:relative;z-index:2}
+
+/* ==============================
+   TEMPLATE: LINKEDIN METRIC
+   ============================== */
+.li-metric{width:1200px;height:628px;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px;position:relative;overflow:hidden}
+.li-metric::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:5}
+.li-metric::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.li-metric .big-number{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:80px;color:var(--text-primary);position:relative;z-index:2}
+.li-metric .metric-label{font-family:'DM Sans',sans-serif;font-weight:300;font-size:20px;color:var(--text-secondary);margin-top:16px;max-width:500px;position:relative;z-index:2}
+
+/* ==============================
+   TEMPLATE: LINKEDIN BANNER
+   ============================== */
+.li-banner{width:1584px;height:396px;background:linear-gradient(135deg,var(--noir) 0%,var(--noir-surface) 50%,var(--noir-elevated) 100%);display:flex;align-items:center;justify-content:flex-end;padding:0 80px;position:relative;overflow:hidden}
+.li-banner::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.li-banner .banner-text{text-align:right;position:relative;z-index:2}
+.li-banner .banner-name{font-family:'Syne',sans-serif;font-weight:700;font-size:32px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-primary)}
+.li-banner .banner-tagline{font-family:'Instrument Serif',serif;font-style:italic;font-size:20px;color:var(--text-secondary);margin-top:8px}
+
+/* ==============================
+   TEMPLATE: STORY TIP
+   ============================== */
+.s-tip{width:1080px;height:1920px;background:var(--noir);position:relative;overflow:hidden}
+.s-tip::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:5}
+.s-tip::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.s-tip .tip-label{position:absolute;top:180px;left:60px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);z-index:2}
+.s-tip .tip-line{position:absolute;top:220px;left:60px;right:60px;height:1px;background:var(--noir-line);z-index:2}
+.s-tip .tip-content{position:absolute;top:520px;left:60px;right:60px;z-index:2}
+.s-tip .tip-content h1{font-family:'Syne',sans-serif;font-weight:800;font-size:48px;line-height:1.1;color:var(--text-primary);max-width:840px}
+.s-tip .tip-content p{font-family:'DM Sans',sans-serif;font-weight:300;font-size:18px;line-height:1.6;color:var(--text-secondary);margin-top:24px;max-width:780px}
+.s-tip .swipe{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);text-align:center;z-index:2}
+.s-tip .swipe-arrow{font-size:20px;color:var(--text-dim);margin-bottom:8px}
+.s-tip .swipe-text{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-dim)}
+
+/* ==============================
+   TEMPLATE: STORY PORTFOLIO
+   ============================== */
+.s-portfolio{width:1080px;height:1920px;background:var(--noir);position:relative;overflow:hidden}
+.s-portfolio::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.s-portfolio .sp-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--noir-surface) 0%,var(--noir-elevated) 40%,var(--noir-surface) 100%)}
+.s-portfolio .sp-bg::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(160,153,143,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(160,153,143,0.3) 1px,transparent 1px);background-size:60px 60px;opacity:0.12}
+.s-portfolio .sp-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(10,10,10,0.95) 80%);z-index:4}
+.s-portfolio .sp-text{position:absolute;bottom:120px;left:60px;right:60px;z-index:5}
+.s-portfolio .sp-text h2{font-family:'Syne',sans-serif;font-weight:700;font-size:28px;color:var(--text-primary);margin-bottom:8px}
+.s-portfolio .sp-text p{font-family:'DM Sans',sans-serif;font-weight:300;font-size:14px;color:var(--text-secondary)}
+
+/* ==============================
+   TEMPLATE: STORY BTS
+   ============================== */
+.s-bts{width:1080px;height:1920px;background:var(--noir);position:relative;overflow:hidden}
+.s-bts::after{content:'';position:absolute;inset:0;background:var(--noise);opacity:0.025;mix-blend-mode:overlay;pointer-events:none;z-index:10}
+.s-bts .bts-code{position:absolute;inset:0;background:#1e1e2e;padding:80px 40px;overflow:hidden}
+.s-bts .bts-code-line{font-family:'JetBrains Mono',monospace;font-size:14px;line-height:2;color:var(--text-dim);opacity:0.5;white-space:nowrap}
+.s-bts .bts-code-line:nth-child(3n){color:var(--text-secondary);opacity:0.7}
+.s-bts .bts-overlay{position:absolute;bottom:0;left:0;right:0;height:200px;background:rgba(10,10,10,0.88);z-index:6;display:flex;align-items:center;padding:40px 60px}
+.s-bts .bts-overlay p{font-family:'DM Sans',sans-serif;font-weight:400;font-size:16px;line-height:1.5;color:var(--text-primary);max-width:800px}
+
+/* === RESPONSIVE === */
+@media(max-width:600px){
+  .tab-btn{padding:14px 14px;font-size:12px}
+  .page-header h1{font-size:22px}
+  .template-wrapper-post{transform:scale(0.28);margin-bottom:-970px}
+  .template-wrapper-linkedin{transform:scale(0.32);margin-bottom:-424px}
+  .template-wrapper-banner{transform:scale(0.22);margin-bottom:-308px}
+  .template-wrapper-story{transform:scale(0.2);margin-bottom:-1530px}
+  .zoom-controls input[type="range"]{width:120px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PASSWORD SCREEN ============ -->
+<div id="login-screen">
+  <img src="/logo-white.png" alt="B" class="login-logo" onerror="this.style.display='none'">
+  <div class="login-title">The Bair Co.</div>
+  <div class="login-subtitle">Backoffice — Templates</div>
+  <input type="password" class="login-input" id="pw-input" placeholder="Wachtwoord" onkeydown="if(event.key==='Enter')tryLogin()">
+  <button class="login-btn" onclick="tryLogin()">Inloggen</button>
+  <div class="login-error" id="pw-error"></div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="app">
+
+<!-- HEADER -->
+<div class="page-header">
+  <img src="/logo-white.png" alt="B" class="header-logo" onerror="this.style.display='none'">
+  <h1>Social Media Templates</h1>
+  <p>Kies een template, pas tekst en foto aan, download als PNG</p>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">Hook<span class="badge badge-carousel">Slide 1</span></button>
+  <button class="tab-btn" onclick="showTab(1)">Context<span class="badge badge-carousel">Slide 2-3</span></button>
+  <button class="tab-btn" onclick="showTab(2)">Mockup<span class="badge badge-carousel">Slide 4</span></button>
+  <button class="tab-btn" onclick="showTab(3)">Split<span class="badge badge-carousel">Slide 5</span></button>
+  <button class="tab-btn" onclick="showTab(4)">Full Bleed<span class="badge badge-carousel">Slide 6</span></button>
+  <button class="tab-btn" onclick="showTab(5)">Metric<span class="badge badge-carousel">Slide 7</span></button>
+  <button class="tab-btn" onclick="showTab(6)">Testimonial<span class="badge badge-carousel">Slide 8</span></button>
+  <button class="tab-btn" onclick="showTab(7)">Takeaway<span class="badge badge-carousel">Slide 9</span></button>
+  <button class="tab-btn" onclick="showTab(8)">CTA<span class="badge badge-carousel">Slide 10</span></button>
+  <button class="tab-btn" onclick="showTab(9)">LinkedIn Portfolio<span class="badge badge-linkedin">LI</span></button>
+  <button class="tab-btn" onclick="showTab(10)">LinkedIn Thought<span class="badge badge-linkedin">LI</span></button>
+  <button class="tab-btn" onclick="showTab(11)">LinkedIn Metric<span class="badge badge-linkedin">LI</span></button>
+  <button class="tab-btn" onclick="showTab(12)">LinkedIn Banner<span class="badge badge-linkedin">LI</span></button>
+  <button class="tab-btn" onclick="showTab(13)">Story Tip<span class="badge badge-story">Story</span></button>
+  <button class="tab-btn" onclick="showTab(14)">Story Portfolio<span class="badge badge-story">Story</span></button>
+  <button class="tab-btn" onclick="showTab(15)">Story BTS<span class="badge badge-story">Story</span></button>
+</div>
+
+<!-- ===== TAB 0: HOOK ===== -->
+<div class="tab-panel active" id="panel-0">
+  <h2 class="panel-title">Slide 1 — Hook</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar"><button onclick="downloadTemplate(0,'bair-hook.png',1080,1350)">Download als PNG</button></div>
+  <div class="template-wrapper-post" id="wrapper-0">
+    <div class="template-canvas c-hook" id="canvas-0">
+      <span class="slide-num">01</span>
+      <h1 contenteditable="true">Websites die converteren</h1>
+      <span class="watermark">The Bair Co.</span>
+    </div>
+  </div>
+  <p class="help-text"><strong>Tip:</strong> Klik op de tekst om je headline aan te passen. Houd het kort — max 4 woorden werkt het best.</p>
+</div>
+
+<!-- ===== TAB 1: CONTEXT ===== -->
+<div class="tab-panel" id="panel-1">
+  <h2 class="panel-title">Slide 2-3 — Context</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar"><button onclick="downloadTemplate(1,'bair-context.png',1080,1350)">Download als PNG</button></div>
+  <div class="template-wrapper-post" id="wrapper-1">
+    <div class="template-canvas c-context" id="canvas-1">
+      <span class="slide-num">02</span>
+      <h2 contenteditable="true">80% van je bezoekers <em>haakt af</em> binnen 3 seconden</h2>
+      <p contenteditable="true">Niet omdat je aanbod slecht is. Maar omdat je website niet communiceert wat je waard bent. Design is geen decoratie — het is je eerste indruk.</p>
+    </div>
+  </div>
+  <p class="help-text"><strong>Tip:</strong> Gebruik &lt;em&gt; tags in de heading voor cursieve Instrument Serif accenten. Klik om te bewerken.</p>
+</div>
+
+<!-- ===== TAB 2: MOCKUP ===== -->
+<div class="tab-panel" id="panel-2">
+  <h2 class="panel-title">Slide 4 — Mockup</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar">
+    <button onclick="downloadTemplate(2,'bair-mockup.png',1080,1350)">Download als PNG</button>
+    <button class="secondary" onclick="choosePhoto(2)">Screenshot kiezen</button>
+  </div>
+  <div class="zoom-controls" id="zoom-2"><label>Zoom:</label><input type="range" min="100" max="300" value="100" oninput="setZoom(2,this.value)"><span class="zoom-val" id="zoomval-2">100%</span><button class="reset-btn" onclick="resetPhoto(2)">Reset</button></div>
+  <div class="drag-hint" id="draghint-2">Sleep de screenshot om te herpositioneren</div>
+  <div class="template-wrapper-post" id="wrapper-2">
+    <div class="template-canvas c-mockup" id="canvas-2">
+      <span class="slide-num">04</span>
+      <div class="label" contenteditable="true">Case Study</div>
+      <div class="browser-frame">
+        <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+        <div class="browser-body photo-area" id="photo-2">
+          <div class="photo-placeholder" id="ph-2"><span class="icon">🖥</span>Klik "Screenshot kiezen"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="help-text"><strong>Hoe:</strong> Upload een website-screenshot, zoom en sleep tot het er goed uitziet in het browser-frame.</p>
+</div>
+
+<!-- ===== TAB 3: SPLIT ===== -->
+<div class="tab-panel" id="panel-3">
+  <h2 class="panel-title">Slide 5 — Split</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar">
+    <button onclick="downloadTemplate(3,'bair-split.png',1080,1350)">Download als PNG</button>
+    <button class="secondary" onclick="choosePhoto(3)">Foto kiezen</button>
+  </div>
+  <div class="zoom-controls" id="zoom-3"><label>Zoom:</label><input type="range" min="100" max="300" value="100" oninput="setZoom(3,this.value)"><span class="zoom-val" id="zoomval-3">100%</span><button class="reset-btn" onclick="resetPhoto(3)">Reset</button></div>
+  <div class="drag-hint" id="draghint-3">Sleep de foto om te herpositioneren</div>
+  <div class="template-wrapper-post" id="wrapper-3">
+    <div class="template-canvas c-split" id="canvas-3">
+      <span class="slide-num">05</span>
+      <div class="split-left">
+        <h2 contenteditable="true">Design dat werkt voor je merk</h2>
+        <p contenteditable="true">Geen templates. Geen standaardoplossingen. Elk project begint bij jouw verhaal.</p>
+      </div>
+      <div class="split-right photo-area" id="photo-3">
+        <div class="photo-placeholder" id="ph-3"><span class="icon">📷</span>Klik "Foto kiezen"</div>
+      </div>
+      <div class="split-divider"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 4: FULL BLEED ===== -->
+<div class="tab-panel" id="panel-4">
+  <h2 class="panel-title">Slide 6 — Full Bleed</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar">
+    <button onclick="downloadTemplate(4,'bair-fullbleed.png',1080,1350)">Download als PNG</button>
+    <button class="secondary" onclick="choosePhoto(4)">Achtergrondbeeld kiezen</button>
+  </div>
+  <div class="zoom-controls" id="zoom-4"><label>Zoom:</label><input type="range" min="100" max="300" value="100" oninput="setZoom(4,this.value)"><span class="zoom-val" id="zoomval-4">100%</span><button class="reset-btn" onclick="resetPhoto(4)">Reset</button></div>
+  <div class="drag-hint" id="draghint-4">Sleep het beeld om te herpositioneren</div>
+  <div class="template-wrapper-post" id="wrapper-4">
+    <div class="template-canvas c-fullbleed" id="canvas-4">
+      <span class="slide-num">06</span>
+      <div class="fb-bg photo-area" id="photo-4">
+        <div class="photo-placeholder" id="ph-4"><span class="icon">📷</span>Klik "Achtergrondbeeld kiezen"</div>
+      </div>
+      <div class="fb-gradient"></div>
+      <div class="fb-text">
+        <h3 contenteditable="true">Artoah Family Farm</h3>
+        <p contenteditable="true">Van concept tot lancering — een website die het ambacht eer aandoet.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 5: METRIC ===== -->
+<div class="tab-panel" id="panel-5">
+  <h2 class="panel-title">Slide 7 — Metric</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar"><button onclick="downloadTemplate(5,'bair-metric.png',1080,1350)">Download als PNG</button></div>
+  <div class="template-wrapper-post" id="wrapper-5">
+    <div class="template-canvas c-metric" id="canvas-5">
+      <span class="slide-num">07</span>
+      <div class="big-number" contenteditable="true">+240%</div>
+      <div class="metric-label" contenteditable="true">meer conversies na de redesign</div>
+    </div>
+  </div>
+  <p class="help-text"><strong>Tip:</strong> Gebruik korte, krachtige getallen. Percentages en euro-bedragen werken het best.</p>
+</div>
+
+<!-- ===== TAB 6: TESTIMONIAL ===== -->
+<div class="tab-panel" id="panel-6">
+  <h2 class="panel-title">Slide 8 — Testimonial</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar"><button onclick="downloadTemplate(6,'bair-testimonial.png',1080,1350)">Download als PNG</button></div>
+  <div class="template-wrapper-post" id="wrapper-6">
+    <div class="template-canvas c-testimonial" id="canvas-6">
+      <span class="slide-num">08</span>
+      <div class="quote-mark">&ldquo;</div>
+      <div class="quote-text" contenteditable="true">Eindelijk een website die aanvoelt zoals ons merk. Professioneel, warm, en het converteert als een malle.</div>
+      <div class="quote-author" contenteditable="true">Peter Janssen</div>
+      <div class="quote-role" contenteditable="true">CEO, Artoah Family Farm</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 7: TAKEAWAY ===== -->
+<div class="tab-panel" id="panel-7">
+  <h2 class="panel-title">Slide 9 — Takeaway</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar"><button onclick="downloadTemplate(7,'bair-takeaway.png',1080,1350)">Download als PNG</button></div>
+  <div class="template-wrapper-post" id="wrapper-7">
+    <div class="template-canvas c-takeaway" id="canvas-7">
+      <span class="slide-num">09</span>
+      <div class="blockquote-line"></div>
+      <div class="main-text" contenteditable="true">Goed design is geen luxe. Het is het verschil tussen bezoekers en klanten.</div>
+      <div class="closing" contenteditable="true">— en dat verschil is meetbaar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 8: CTA ===== -->
+<div class="tab-panel" id="panel-8">
+  <h2 class="panel-title">Slide 10 — CTA</h2>
+  <p class="panel-subtitle">1080 × 1350px — Instagram Carousel</p>
+  <div class="toolbar"><button onclick="downloadTemplate(8,'bair-cta.png',1080,1350)">Download als PNG</button></div>
+  <div class="template-wrapper-post" id="wrapper-8">
+    <div class="template-canvas c-cta" id="canvas-8">
+      <div class="cta-company" contenteditable="true">The Bair Company</div>
+      <div class="cta-tagline" contenteditable="true">Merken die blijven hangen</div>
+      <span class="ghost-btn" contenteditable="true">Neem contact op</span>
+      <div class="cta-url" contenteditable="true">baircompany.be</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 9: LINKEDIN PORTFOLIO ===== -->
+<div class="tab-panel" id="panel-9">
+  <h2 class="panel-title">LinkedIn — Portfolio Showcase</h2>
+  <p class="panel-subtitle">1200 × 628px — LinkedIn Post</p>
+  <div class="toolbar">
+    <button onclick="downloadTemplate(9,'bair-li-portfolio.png',1200,628)">Download als PNG</button>
+    <button class="secondary" onclick="choosePhoto(9)">Screenshot kiezen</button>
+  </div>
+  <div class="zoom-controls" id="zoom-9"><label>Zoom:</label><input type="range" min="100" max="300" value="100" oninput="setZoom(9,this.value)"><span class="zoom-val" id="zoomval-9">100%</span><button class="reset-btn" onclick="resetPhoto(9)">Reset</button></div>
+  <div class="drag-hint" id="draghint-9">Sleep de screenshot om te herpositioneren</div>
+  <div class="template-wrapper-linkedin" id="wrapper-9">
+    <div class="template-canvas li-portfolio" id="canvas-9">
+      <div class="li-left">
+        <h2 contenteditable="true">Nieuwe website live voor Artoah</h2>
+        <p contenteditable="true">Van concept tot lancering in 3 weken. Responsive design, SEO-geoptimaliseerd, en een CMS dat de klant zelf kan beheren.</p>
+      </div>
+      <div class="li-right photo-area" id="photo-9">
+        <div class="photo-placeholder" id="ph-9"><span class="icon">🖥</span>Screenshot kiezen</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 10: LINKEDIN THOUGHT ===== -->
+<div class="tab-panel" id="panel-10">
+  <h2 class="panel-title">LinkedIn — Thought Leadership</h2>
+  <p class="panel-subtitle">1200 × 628px — LinkedIn Post</p>
+  <div class="toolbar"><button onclick="downloadTemplate(10,'bair-li-thought.png',1200,628)">Download als PNG</button></div>
+  <div class="template-wrapper-linkedin" id="wrapper-10">
+    <div class="template-canvas li-thought" id="canvas-10">
+      <div>
+        <div class="thought-quote" contenteditable="true">Een goede website is geen brochure. Het is een verkoper die 24/7 voor je werkt.</div>
+        <div class="thought-author" contenteditable="true">Kristof Bogaerts — The Bair Company</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 11: LINKEDIN METRIC ===== -->
+<div class="tab-panel" id="panel-11">
+  <h2 class="panel-title">LinkedIn — Metric / Insight</h2>
+  <p class="panel-subtitle">1200 × 628px — LinkedIn Post</p>
+  <div class="toolbar"><button onclick="downloadTemplate(11,'bair-li-metric.png',1200,628)">Download als PNG</button></div>
+  <div class="template-wrapper-linkedin" id="wrapper-11">
+    <div class="template-canvas li-metric" id="canvas-11">
+      <div class="big-number" contenteditable="true">3 sec</div>
+      <div class="metric-label" contenteditable="true">Zolang geef je een bezoeker de tijd om een eerste indruk te vormen.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 12: LINKEDIN BANNER ===== -->
+<div class="tab-panel" id="panel-12">
+  <h2 class="panel-title">LinkedIn — Profiel Banner</h2>
+  <p class="panel-subtitle">1584 × 396px — LinkedIn Banner</p>
+  <div class="toolbar"><button onclick="downloadTemplate(12,'bair-li-banner.png',1584,396)">Download als PNG</button></div>
+  <div class="template-wrapper-banner" id="wrapper-12">
+    <div class="template-canvas li-banner" id="canvas-12">
+      <div class="banner-text">
+        <div class="banner-name" contenteditable="true">The Bair Company</div>
+        <div class="banner-tagline" contenteditable="true">Merken die blijven hangen</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 13: STORY TIP ===== -->
+<div class="tab-panel" id="panel-13">
+  <h2 class="panel-title">Story — Quick Tip</h2>
+  <p class="panel-subtitle">1080 × 1920px — Instagram Story</p>
+  <div class="toolbar"><button onclick="downloadTemplate(13,'bair-story-tip.png',1080,1920)">Download als PNG</button></div>
+  <div class="template-wrapper-story" id="wrapper-13">
+    <div class="template-canvas s-tip" id="canvas-13">
+      <span class="tip-label" contenteditable="true">Quick Tip</span>
+      <div class="tip-line"></div>
+      <div class="tip-content">
+        <h1 contenteditable="true">Laadsnelheid is conversie.</h1>
+        <p contenteditable="true">Elke seconde vertraging kost je 7% conversie. Optimaliseer eerst, decoreer daarna.</p>
+      </div>
+      <div class="swipe"><div class="swipe-arrow">↑</div><div class="swipe-text">Meer zien</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 14: STORY PORTFOLIO ===== -->
+<div class="tab-panel" id="panel-14">
+  <h2 class="panel-title">Story — Portfolio Tease</h2>
+  <p class="panel-subtitle">1080 × 1920px — Instagram Story</p>
+  <div class="toolbar">
+    <button onclick="downloadTemplate(14,'bair-story-portfolio.png',1080,1920)">Download als PNG</button>
+    <button class="secondary" onclick="choosePhoto(14)">Projectfoto kiezen</button>
+  </div>
+  <div class="zoom-controls" id="zoom-14"><label>Zoom:</label><input type="range" min="100" max="300" value="100" oninput="setZoom(14,this.value)"><span class="zoom-val" id="zoomval-14">100%</span><button class="reset-btn" onclick="resetPhoto(14)">Reset</button></div>
+  <div class="drag-hint" id="draghint-14">Sleep de foto om te herpositioneren</div>
+  <div class="template-wrapper-story" id="wrapper-14">
+    <div class="template-canvas s-portfolio" id="canvas-14">
+      <div class="sp-bg photo-area" id="photo-14">
+        <div class="photo-placeholder" id="ph-14"><span class="icon">📷</span>Klik "Projectfoto kiezen"</div>
+      </div>
+      <div class="sp-gradient"></div>
+      <div class="sp-text">
+        <h2 contenteditable="true">Bakkerij Verboven</h2>
+        <p contenteditable="true">Bekijk het project →</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 15: STORY BTS ===== -->
+<div class="tab-panel" id="panel-15">
+  <h2 class="panel-title">Story — Behind the Scenes</h2>
+  <p class="panel-subtitle">1080 × 1920px — Instagram Story</p>
+  <div class="toolbar">
+    <button onclick="downloadTemplate(15,'bair-story-bts.png',1080,1920)">Download als PNG</button>
+    <button class="secondary" onclick="choosePhoto(15)">Eigen screenshot kiezen</button>
+  </div>
+  <div class="zoom-controls" id="zoom-15"><label>Zoom:</label><input type="range" min="100" max="300" value="100" oninput="setZoom(15,this.value)"><span class="zoom-val" id="zoomval-15">100%</span><button class="reset-btn" onclick="resetPhoto(15)">Reset</button></div>
+  <div class="drag-hint" id="draghint-15">Sleep de screenshot om te herpositioneren</div>
+  <div class="template-wrapper-story" id="wrapper-15">
+    <div class="template-canvas s-bts" id="canvas-15">
+      <div class="bts-code photo-area" id="photo-15">
+        <div class="photo-placeholder" id="ph-15">
+          <div class="bts-code-line">import { motion } from 'framer-motion'</div>
+          <div class="bts-code-line">import { useInView } from 'react-intersection-observer'</div>
+          <div class="bts-code-line">&nbsp;</div>
+          <div class="bts-code-line">const HeroSection = ({ title, subtitle }) =&gt; {</div>
+          <div class="bts-code-line">&nbsp;&nbsp;const [ref, inView] = useInView({ threshold: 0.3 })</div>
+          <div class="bts-code-line">&nbsp;</div>
+          <div class="bts-code-line">&nbsp;&nbsp;return (</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;motion.section</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ref={ref}</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial={{ opacity: 0, y: 40 }}</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;animate={inView ? { opacity: 1, y: 0 } : {}}</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transition={{ duration: 0.8 }}</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&gt;</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;{title}&lt;/h1&gt;</div>
+          <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/motion.section&gt;</div>
+          <div class="bts-code-line">&nbsp;&nbsp;)</div>
+          <div class="bts-code-line">}</div>
+        </div>
+      </div>
+      <div class="bts-overlay">
+        <p contenteditable="true">Scroll-animaties die aanvoelen als magie. Maar achter de schermen is het pure wiskunde — cubic-bezier curves en intersection observers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HIDDEN FILE INPUTS -->
+<input type="file" id="fileInput-2" accept="image/*" style="display:none" onchange="loadPhoto(2,event)">
+<input type="file" id="fileInput-3" accept="image/*" style="display:none" onchange="loadPhoto(3,event)">
+<input type="file" id="fileInput-4" accept="image/*" style="display:none" onchange="loadPhoto(4,event)">
+<input type="file" id="fileInput-9" accept="image/*" style="display:none" onchange="loadPhoto(9,event)">
+<input type="file" id="fileInput-14" accept="image/*" style="display:none" onchange="loadPhoto(14,event)">
+<input type="file" id="fileInput-15" accept="image/*" style="display:none" onchange="loadPhoto(15,event)">
+
+<!-- TOAST -->
+<div class="toast" id="toast">PNG wordt gedownload...</div>
+
+</div><!-- end #app -->
+
+<script>
+/* =========================================
+   PASSWORD PROTECTION
+   ========================================= */
+var VALID_HASH = '7a2d1f3e'; // Simple hash of password
+function simpleHash(str){var h=0;for(var i=0;i<str.length;i++){h=((h<<5)-h)+str.charCodeAt(i);h|=0}return(h>>>0).toString(16).slice(0,8)}
+
+function tryLogin(){
+  var pw=document.getElementById('pw-input').value;
+  if(pw==='Kristofnoaharthur'){
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app').classList.add('visible');
+    try{sessionStorage.setItem('bair-auth','1')}catch(e){}
+  }else{
+    document.getElementById('pw-error').textContent='Fout wachtwoord. Probeer opnieuw.';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+// Auto-login if already authenticated this session
+try{if(sessionStorage.getItem('bair-auth')==='1'){document.getElementById('login-screen').classList.add('hidden');document.getElementById('app').classList.add('visible')}}catch(e){}
+
+/* =========================================
+   PHOTO STATE
+   ========================================= */
+var photoState={};
+function initState(idx){if(!photoState[idx])photoState[idx]={zoom:100,x:0,y:0,dragging:false,startX:0,startY:0,origX:0,origY:0}}
+
+/* === TAB NAVIGATION === */
+function showTab(idx){
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===idx)});
+  document.querySelectorAll('.tab-panel').forEach(function(p,i){p.classList.toggle('active',i===idx)});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* === PHOTO UPLOAD === */
+function choosePhoto(idx){document.getElementById('fileInput-'+idx).click()}
+
+function loadPhoto(idx,e){
+  var file=e.target.files[0];if(!file)return;
+  initState(idx);
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    var area=document.getElementById('photo-'+idx);
+    var ph=document.getElementById('ph-'+idx);
+    if(ph)ph.style.display='none';
+    var oldImg=area.querySelector('img');if(oldImg)oldImg.remove();
+    var img=document.createElement('img');img.draggable=false;
+    img.onload=function(){
+      var areaW=area.offsetWidth,areaH=area.offsetHeight;
+      var imgRatio=img.naturalWidth/img.naturalHeight;
+      var areaRatio=areaW/areaH;
+      photoState[idx].naturalW=img.naturalWidth;
+      photoState[idx].naturalH=img.naturalHeight;
+      photoState[idx].areaW=areaW;
+      photoState[idx].areaH=areaH;
+      if(imgRatio>areaRatio){photoState[idx].baseH=areaH;photoState[idx].baseW=areaH*imgRatio}
+      else{photoState[idx].baseW=areaW;photoState[idx].baseH=areaW/imgRatio}
+      photoState[idx].zoom=100;photoState[idx].x=0;photoState[idx].y=0;
+      applyTransform(idx);
+      photoState[idx].x=-(photoState[idx].baseW-areaW)/2;
+      photoState[idx].y=-(photoState[idx].baseH-areaH)/2;
+      applyTransform(idx);
+      var zoomEl=document.getElementById('zoom-'+idx);
+      if(zoomEl)zoomEl.classList.add('visible');
+      var hintEl=document.getElementById('draghint-'+idx);
+      if(hintEl)hintEl.classList.add('visible');
+      var slider=zoomEl?zoomEl.querySelector('input[type="range"]'):null;
+      if(slider)slider.value=100;
+      var valEl=document.getElementById('zoomval-'+idx);
+      if(valEl)valEl.textContent='100%';
+      setupDrag(idx,img,area);
+    };
+    img.src=ev.target.result;
+    area.appendChild(img);
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyTransform(idx){
+  var state=photoState[idx];if(!state)return;
+  var area=document.getElementById('photo-'+idx);if(!area)return;
+  var img=area.querySelector('img');if(!img)return;
+  var scale=state.zoom/100;
+  img.style.width=(state.baseW*scale)+'px';
+  img.style.height=(state.baseH*scale)+'px';
+  img.style.left=state.x+'px';
+  img.style.top=state.y+'px';
+  img.style.objectFit='initial';
+}
+
+function setZoom(idx,val){
+  initState(idx);var state=photoState[idx];
+  if(!state.baseW)return;
+  var oldZoom=state.zoom,newZoom=parseInt(val);
+  var areaW=state.areaW,areaH=state.areaH;
+  var imgCenterX=(areaW/2-state.x)/(state.baseW*oldZoom/100);
+  var imgCenterY=(areaH/2-state.y)/(state.baseH*oldZoom/100);
+  state.zoom=newZoom;
+  state.x=areaW/2-imgCenterX*state.baseW*newZoom/100;
+  state.y=areaH/2-imgCenterY*state.baseH*newZoom/100;
+  clampPosition(idx);applyTransform(idx);
+  var valEl=document.getElementById('zoomval-'+idx);
+  if(valEl)valEl.textContent=newZoom+'%';
+}
+
+function clampPosition(idx){
+  var state=photoState[idx];if(!state||!state.baseW)return;
+  var w=state.baseW*state.zoom/100,h=state.baseH*state.zoom/100;
+  if(state.x>0)state.x=0;if(state.y>0)state.y=0;
+  if(state.x<state.areaW-w)state.x=state.areaW-w;
+  if(state.y<state.areaH-h)state.y=state.areaH-h;
+}
+
+function resetPhoto(idx){
+  var state=photoState[idx];if(!state||!state.baseW)return;
+  state.zoom=100;
+  state.x=-(state.baseW-state.areaW)/2;
+  state.y=-(state.baseH-state.areaH)/2;
+  applyTransform(idx);
+  var zoomEl=document.getElementById('zoom-'+idx);
+  var slider=zoomEl?zoomEl.querySelector('input[type="range"]'):null;
+  if(slider)slider.value=100;
+  var valEl=document.getElementById('zoomval-'+idx);
+  if(valEl)valEl.textContent='100%';
+}
+
+function setupDrag(idx,img,area){
+  var state=photoState[idx];
+  function getWrapperScale(){
+    var wrapper=area.closest('[class*="template-wrapper"]');
+    if(!wrapper)return 1;
+    var matrix=getComputedStyle(wrapper).transform;
+    if(matrix&&matrix!=='none'){var v=matrix.match(/matrix\(([^)]+)\)/);if(v)return parseFloat(v[1].split(',')[0])}
+    return 1;
+  }
+  img.addEventListener('mousedown',function(e){
+    e.preventDefault();state.dragging=true;var s=getWrapperScale();
+    state.startX=e.clientX/s;state.startY=e.clientY/s;
+    state.origX=state.x;state.origY=state.y;
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!state.dragging)return;var s=getWrapperScale();
+    state.x=state.origX+(e.clientX/s-state.startX);
+    state.y=state.origY+(e.clientY/s-state.startY);
+    clampPosition(idx);applyTransform(idx);
+  });
+  document.addEventListener('mouseup',function(){state.dragging=false});
+  img.addEventListener('touchstart',function(e){
+    if(e.touches.length!==1)return;e.preventDefault();
+    state.dragging=true;var s=getWrapperScale();
+    state.startX=e.touches[0].clientX/s;state.startY=e.touches[0].clientY/s;
+    state.origX=state.x;state.origY=state.y;
+  },{passive:false});
+  document.addEventListener('touchmove',function(e){
+    if(!state.dragging)return;var s=getWrapperScale();
+    state.x=state.origX+(e.touches[0].clientX/s-state.startX);
+    state.y=state.origY+(e.touches[0].clientY/s-state.startY);
+    clampPosition(idx);applyTransform(idx);
+  },{passive:false});
+  document.addEventListener('touchend',function(){state.dragging=false});
+}
+
+/* === DOWNLOAD AS PNG === */
+function downloadTemplate(idx,filename,w,h){
+  var canvas=document.getElementById('canvas-'+idx);
+  var wrapper=document.getElementById('wrapper-'+idx);
+  var wrapperClass=wrapper.className;
+  wrapper.style.transform='none';wrapper.style.marginBottom='0';
+  var toast=document.getElementById('toast');toast.classList.add('show');
+  html2canvas(canvas,{scale:1,width:w,height:h,useCORS:true,backgroundColor:null}).then(function(result){
+    var link=document.createElement('a');link.download=filename;link.href=result.toDataURL('image/png');link.click();
+    restoreWrapper(wrapper);
+    setTimeout(function(){toast.classList.remove('show')},2000);
+  }).catch(function(err){
+    alert('Er ging iets mis. Probeer het opnieuw.');console.error(err);
+    restoreWrapper(wrapper);
+    setTimeout(function(){toast.classList.remove('show')},2000);
+  });
+}
+
+function restoreWrapper(wrapper){
+  if(wrapper.classList.contains('template-wrapper-story')){wrapper.style.transform='scale(0.3)';wrapper.style.marginBottom='-1340px'}
+  else if(wrapper.classList.contains('template-wrapper-banner')){wrapper.style.transform='scale(0.4)';wrapper.style.marginBottom='-236px'}
+  else if(wrapper.classList.contains('template-wrapper-linkedin')){wrapper.style.transform='scale(0.5)';wrapper.style.marginBottom='-310px'}
+  else{wrapper.style.transform='scale(0.42)';wrapper.style.marginBottom='-780px'}
+}
+</script>
+</body>
+</html>
