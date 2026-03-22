@@ -584,6 +584,41 @@ body {
   color: var(--white);
 }
 
+.quiz-nav-next {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.7rem 2rem;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.4s var(--ease);
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+.quiz-nav-next.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.quiz-nav-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(240,237,232,0.2);
+}
+.quiz-hint {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: rgba(240,237,232,0.4);
+  text-align: center;
+  margin-top: 1.2rem;
+  letter-spacing: 0.03em;
+  font-style: italic;
+}
 /* ═══════════════════════════════════════
    RESULT SCREEN
    ═══════════════════════════════════════ */
@@ -930,7 +965,8 @@ body {
             </div>
           </div>
         </div>
-        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button></div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-0" onclick="nextSlide(0)">Volgende →</button></div>
       </div>
 
       <!-- ── Q2: PIJNPUNT ── -->
@@ -977,7 +1013,8 @@ body {
             </div>
           </div>
         </div>
-        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button></div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-1" onclick="nextSlide(1)">Volgende →</button></div>
       </div>
 
       <!-- ── Q3: PRIORITEIT ── -->
@@ -1024,7 +1061,8 @@ body {
             </div>
           </div>
         </div>
-        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button></div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-2" onclick="nextSlide(2)">Volgende →</button></div>
       </div>
 
       <!-- ── Q4: DIGITALE BASIS ── -->
@@ -1071,7 +1109,8 @@ body {
             </div>
           </div>
         </div>
-        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button></div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-3" onclick="nextSlide(3)">Volgende →</button></div>
       </div>
 
       <!-- ── Q5: ZICHTBAARHEID ── -->
@@ -1118,7 +1157,8 @@ body {
             </div>
           </div>
         </div>
-        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button></div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-4" onclick="nextSlide(4)">Volgende →</button></div>
       </div>
 
       <!-- ── Q6: SAMENWERKING ── -->
@@ -1165,7 +1205,8 @@ body {
             </div>
           </div>
         </div>
-        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button></div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-5" onclick="nextSlide(5)">Bekijk resultaat →</button></div>
       </div>
 
       <!-- ── RESULT ── -->
@@ -1198,7 +1239,7 @@ body {
 
 const TOTAL_QUESTIONS = 6;
 let currentSlide = -1;
-let answers = new Array(TOTAL_QUESTIONS).fill(null);
+let answers = Array.from({ length: TOTAL_QUESTIONS }, () => new Set());
 
 // ── Services ──
 const services = {
@@ -1364,12 +1405,14 @@ function showSlide(index) {
   // Background crossfade
   setBackground(`bg-${index}`);
 
-  // Restore selection
-  if (answers[index] !== null) {
-    slide.querySelectorAll('.quiz-option').forEach((opt, i) => {
-      opt.classList.toggle('selected', i === answers[index]);
-    });
-  }
+  // Restore multi-selections
+  slide.querySelectorAll('.quiz-option').forEach((opt, i) => {
+    opt.classList.toggle('selected', answers[index].has(i));
+  });
+
+  // Show/hide Next button based on selection count
+  const nextBtn = document.getElementById('next-' + index);
+  if (nextBtn) nextBtn.classList.toggle('visible', answers[index].size > 0);
 
   updateProgress(index);
 }
@@ -1382,21 +1425,31 @@ function updateProgress(index) {
 }
 
 function selectOption(qIndex, oIndex) {
-  answers[qIndex] = oIndex;
+  // Toggle selection (multi-select)
+  if (answers[qIndex].has(oIndex)) {
+    answers[qIndex].delete(oIndex);
+  } else {
+    answers[qIndex].add(oIndex);
+  }
 
   const slide = document.getElementById(`slide-${qIndex}`);
   slide.querySelectorAll('.quiz-option').forEach((opt, i) => {
-    opt.classList.toggle('selected', i === oIndex);
+    opt.classList.toggle('selected', answers[qIndex].has(i));
   });
 
-  setTimeout(() => {
-    if (qIndex < TOTAL_QUESTIONS - 1) {
-      currentSlide = qIndex + 1;
-      showSlide(currentSlide);
-    } else {
-      showResult();
-    }
-  }, 400);
+  // Show/hide Next button
+  const nextBtn = document.getElementById('next-' + qIndex);
+  if (nextBtn) nextBtn.classList.toggle('visible', answers[qIndex].size > 0);
+}
+
+function nextSlide(qIndex) {
+  if (answers[qIndex].size === 0) return;
+  if (qIndex < TOTAL_QUESTIONS - 1) {
+    currentSlide = qIndex + 1;
+    showSlide(currentSlide);
+  } else {
+    showResult();
+  }
 }
 
 function goBack() {
@@ -1423,12 +1476,14 @@ function showResult() {
   const scores = {};
   Object.keys(services).forEach(k => scores[k] = 0);
 
-  answers.forEach((answer, qIndex) => {
-    if (answer !== null && scoring[qIndex][answer]) {
-      Object.entries(scoring[qIndex][answer]).forEach(([svc, pts]) => {
-        scores[svc] = (scores[svc] || 0) + pts;
-      });
-    }
+  answers.forEach((selectedSet, qIndex) => {
+    selectedSet.forEach(answer => {
+      if (scoring[qIndex][answer]) {
+        Object.entries(scoring[qIndex][answer]).forEach(([svc, pts]) => {
+          scores[svc] = (scores[svc] || 0) + pts;
+        });
+      }
+    });
   });
 
   const sorted = Object.entries(scores)
@@ -1480,10 +1535,11 @@ function showResult() {
 }
 
 function resetQuiz() {
-  answers = new Array(TOTAL_QUESTIONS).fill(null);
+  answers = Array.from({ length: TOTAL_QUESTIONS }, () => new Set());
   currentSlide = -1;
-  // Clear all selections
+  // Clear all selections and hide Next buttons
   document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+  document.querySelectorAll('.quiz-nav-next').forEach(btn => btn.classList.remove('visible'));
   // Hide result
   const result = document.getElementById('quizResult');
   result.classList.remove('active');

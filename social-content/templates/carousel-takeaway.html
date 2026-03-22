@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 9: Takeaway</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      slideNumber: "09",
+      mainText: "Goed design is geen luxe. Het is je sterkste investering.",
+      closingText: "En het begint met één gesprek.",
+    };
+  </script>
+  <style>
+    .canvas { background: var(--noir-base); display: flex; align-items: center; }
+    .takeaway-content { padding: 0 80px; }
+    .takeaway-main { display: flex; gap: 20px; align-items: flex-start; }
+    .takeaway-line { width: 1px; height: 60px; background: var(--text-secondary); flex-shrink: 0; margin-top: 8px; }
+    .takeaway-heading { font-family: var(--font-display); font-weight: 800; font-size: 48px; line-height: 1.15; color: var(--text-primary); max-width: 760px; }
+    .takeaway-closer { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: var(--text-secondary); margin-top: 28px; margin-left: 21px; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel canvas--vignette">
+    <span class="slide-number" id="slideNum"></span>
+    <div class="takeaway-content">
+      <div class="takeaway-main">
+        <div class="takeaway-line"></div>
+        <h2 class="takeaway-heading" id="mainText"></h2>
+      </div>
+      <p class="takeaway-closer" id="closingText"></p>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark">
+  </div>
+  <script>
+    document.getElementById('slideNum').textContent = CONTENT.slideNumber;
+    document.getElementById('mainText').textContent = CONTENT.mainText;
+    document.getElementById('closingText').textContent = CONTENT.closingText;
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 8: Testimonial</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      slideNumber: "08",
+      quote: "Ze hebben precies begrepen wat we nodig hadden. Onze website voelt nu eindelijk aan als ons merk.",
+      authorName: "Sarah Janssens",
+      authorRole: "CEO, Studio Bloom",
+    };
+  </script>
+  <style>
+    .canvas { background: var(--noir-surface); display: flex; align-items: center; justify-content: center; }
+    .testimonial-content { padding: 0 80px; position: relative; }
+    .testimonial-deco { position: absolute; top: -100px; left: 40px; font-family: var(--font-display); font-weight: 800; font-size: 200px; line-height: 1; color: var(--noir-elevated); z-index: 0; user-select: none; }
+    .testimonial-quote { font-family: var(--font-serif); font-style: italic; font-size: 28px; line-height: 1.5; color: var(--text-primary); max-width: 720px; position: relative; z-index: 1; }
+    .testimonial-author { margin-top: 32px; position: relative; z-index: 1; }
+    .testimonial-name { font-family: var(--font-body); font-weight: 500; font-size: 14px; color: var(--text-secondary); }
+    .testimonial-role { font-family: var(--font-body); font-weight: 300; font-size: 14px; color: var(--text-dim); margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel">
+    <span class="slide-number" id="slideNum"></span>
+    <div class="testimonial-content">
+      <div class="testimonial-deco">&ldquo;</div>
+      <p class="testimonial-quote" id="quote"></p>
+      <div class="testimonial-author">
+        <div class="testimonial-name" id="authorName"></div>
+        <div class="testimonial-role" id="authorRole"></div>
+      </div>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark">
+  </div>
+  <script>
+    document.getElementById('slideNum').textContent = CONTENT.slideNumber;
+    document.getElementById('quote').textContent = '\u201C' + CONTENT.quote + '\u201D';
+    document.getElementById('authorName').textContent = '— ' + CONTENT.authorName;
+    document.getElementById('authorRole').textContent = CONTENT.authorRole;
+  </script>
+</body>
+</html>

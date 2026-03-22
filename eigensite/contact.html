@@ -722,6 +722,48 @@
       line-height: 1.4;
     }
 
+    .quiz-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .quiz-nav-next {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.7rem 2rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+    }
+    .quiz-nav-next.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .quiz-nav-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(240,237,232,0.2);
+    }
+    .quiz-hint {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: rgba(240,237,232,0.4);
+      text-align: center;
+      margin-top: 1.2rem;
+      letter-spacing: 0.03em;
+      font-style: italic;
+    }
+
     .quiz-result {
       max-width: 800px;
       width: 100%;
@@ -1247,6 +1289,8 @@
             </div>
           </div>
         </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-next" id="next-0" onclick="nextSlide(0)">Volgende →</button></div>
       </div>
 
       <div id="slide-1" class="quiz-slide">
@@ -1283,6 +1327,8 @@
             </div>
           </div>
         </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-next" id="next-1" onclick="nextSlide(1)">Volgende →</button></div>
       </div>
 
       <div id="slide-2" class="quiz-slide">
@@ -1319,6 +1365,8 @@
             </div>
           </div>
         </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-next" id="next-2" onclick="nextSlide(2)">Volgende →</button></div>
       </div>
 
       <div id="slide-3" class="quiz-slide">
@@ -1355,6 +1403,8 @@
             </div>
           </div>
         </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-next" id="next-3" onclick="nextSlide(3)">Volgende →</button></div>
       </div>
 
       <div id="slide-4" class="quiz-slide">
@@ -1391,6 +1441,8 @@
             </div>
           </div>
         </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-next" id="next-4" onclick="nextSlide(4)">Volgende →</button></div>
       </div>
 
       <div id="slide-5" class="quiz-slide">
@@ -1427,6 +1479,8 @@
             </div>
           </div>
         </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-next" id="next-5" onclick="nextSlide(5)">Volgende →</button></div>
       </div>
 
       <div id="slide-6" class="quiz-slide">
@@ -1463,6 +1517,8 @@
             </div>
           </div>
         </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-next" id="next-6" onclick="nextSlide(6)">Bekijk resultaat →</button></div>
       </div>
 
       <!-- ── RESULT ── -->
@@ -1767,7 +1823,7 @@
 
     // Quiz state
     let currentSlide = -1;
-    const answers = [null, null, null, null, null, null, null];
+    let answers = Array.from({ length: 7 }, () => new Set());
 
     // Quiz data: services recommended based on answer patterns
     const quizServices = {
@@ -1825,34 +1881,39 @@
 
       setBackground(`bg-${index}`);
 
-      if (answers[index] !== null) {
-        slide.querySelectorAll('.quiz-option').forEach((opt, i) => {
-          if (i === answers[index]) {
-            opt.classList.add('selected');
-          } else {
-            opt.classList.remove('selected');
-          }
-        });
-      }
+      slide.querySelectorAll('.quiz-option').forEach((opt, i) => {
+        opt.classList.toggle('selected', answers[index].has(i));
+      });
+
+      // Show/hide Next button
+      const nextBtn = document.getElementById('next-' + index);
+      if (nextBtn) nextBtn.classList.toggle('visible', answers[index].size > 0);
 
       updateProgressBar();
     }
 
     function selectOption(slideIndex, optionIndex) {
-      answers[slideIndex] = optionIndex;
-      document.querySelectorAll(`#slide-${slideIndex} .quiz-option`).forEach((opt, i) => {
-        opt.classList.toggle('selected', i === optionIndex);
-      });
-
-      if (slideIndex < 6) {
-        setTimeout(() => {
-          currentSlide = slideIndex + 1;
-          showSlide(slideIndex + 1);
-        }, 300);
+      // Toggle multi-select
+      if (answers[slideIndex].has(optionIndex)) {
+        answers[slideIndex].delete(optionIndex);
       } else {
-        setTimeout(() => {
-          showResult();
-        }, 300);
+        answers[slideIndex].add(optionIndex);
+      }
+      document.querySelectorAll(`#slide-${slideIndex} .quiz-option`).forEach((opt, i) => {
+        opt.classList.toggle('selected', answers[slideIndex].has(i));
+      });
+      // Show/hide Next button
+      const nextBtn = document.getElementById('next-' + slideIndex);
+      if (nextBtn) nextBtn.classList.toggle('visible', answers[slideIndex].size > 0);
+    }
+
+    function nextSlide(slideIndex) {
+      if (answers[slideIndex].size === 0) return;
+      if (slideIndex < 6) {
+        currentSlide = slideIndex + 1;
+        showSlide(slideIndex + 1);
+      } else {
+        showResult();
       }
     }
 
@@ -1896,27 +1957,27 @@
       // Q5: Team size (0=solo, 1=2-5, 2=5+)
       // Q6: Driving force (0=growth, 1=solidit, 2=innovation)
 
-      if (answers[0] === 2 || answers[3] === 0) { // Totally new or no presence
+      if (answers[0].has(2) || answers[3].has(0)) { // Totally new or no presence
         recommendedServices.push('branding', 'webdesign', 'webontwikkeling');
       }
 
-      if (answers[2] === 0 || answers[2] === 2) { // Visibility or identity priority
+      if (answers[2].has(0) || answers[2].has(2)) { // Visibility or identity priority
         recommendedServices.push('branding', 'socialmedia');
       }
 
-      if (answers[2] === 1 || answers[1] === 2) { // Sales priority or high budget
+      if (answers[2].has(1) || answers[1].has(2)) { // Sales priority or high budget
         recommendedServices.push('webontwikkeling', 'marketing');
       }
 
-      if (answers[1] >= 1) { // Budget >= 5k-15k
+      if (answers[1].has(1) || answers[1].has(2)) { // Budget >= 5k-15k
         recommendedServices.push('marketing', 'copywriting');
       }
 
-      if (answers[4] === 2 || answers[5] === 2) { // Mix audience or large team
+      if (answers[4].has(2) || answers[5].has(2)) { // Mix audience or large team
         recommendedServices.push('ai', 'training');
       }
 
-      if (answers[6] === 2) { // Innovation priority
+      if (answers[6].has(2)) { // Innovation priority
         recommendedServices.push('ai', 'apps');
       }
 
@@ -1941,8 +2002,9 @@
 
     function resetQuiz() {
       currentSlide = -1;
-      answers.fill(null);
+      answers = Array.from({ length: 7 }, () => new Set());
       document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+      document.querySelectorAll('.quiz-nav-next').forEach(btn => btn.classList.remove('visible'));
       document.getElementById('quizIntro').classList.add('active');
       document.getElementById('quizIntro').style.display = 'block';
       document.getElementById('quizResult').classList.remove('active');

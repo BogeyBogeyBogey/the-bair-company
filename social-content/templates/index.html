@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bair Co. — Social Media Templates</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    body {
+      background: var(--noir-base);
+      min-height: 100vh;
+      display: block;
+      padding: 60px 80px;
+      color: var(--text-primary);
+    }
+
+    /* Header */
+    .kit-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+    .kit-logo {
+      width: 32px;
+      height: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.6;
+    }
+    .kit-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+    .kit-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+    }
+    .kit-line {
+      height: 1px;
+      background: var(--noir-line);
+      margin-bottom: 48px;
+    }
+
+    /* Instructie-link */
+    .kit-help {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      text-decoration: none;
+      border: 1px solid var(--noir-line);
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 48px;
+      transition: all 300ms ease;
+    }
+    .kit-help:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    /* Sectie */
+    .section-label {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    /* Grid */
+    .template-grid {
+      display: grid;
+      gap: 32px;
+      margin-bottom: 64px;
+    }
+    .grid-carousel { grid-template-columns: repeat(5, 1fr); }
+    .grid-linkedin { grid-template-columns: repeat(4, 1fr); }
+    .grid-story    { grid-template-columns: repeat(5, 1fr); }
+
+    /* Card */
+    .template-card {
+      background: var(--noir-surface);
+      border: 1px solid var(--noir-line);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 300ms ease;
+      text-decoration: none;
+      display: block;
+    }
+    .template-card:hover {
+      border-color: var(--text-secondary);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .card-preview {
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--noir-elevated);
+      position: relative;
+    }
+    .card-preview--linkedin { aspect-ratio: 1200/628; }
+    .card-preview--banner   { aspect-ratio: 1584/396; }
+    .card-preview--story    { aspect-ratio: 9/16; }
+
+    .card-preview iframe {
+      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1350px;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    .card-preview--linkedin iframe {
+      width: 1200px;
+      height: 628px;
+    }
+    .card-preview--banner iframe {
+      width: 1584px;
+      height: 396px;
+    }
+    .card-preview--story iframe {
+      width: 1080px;
+      height: 1920px;
+    }
+
+    .card-info {
+      padding: 16px;
+    }
+    .card-name {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .card-size {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 6px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="kit-header">
+    <img src="logo.png" alt="B" class="kit-logo">
+    <span class="kit-title">The Bair Co.</span>
+  </div>
+  <div class="kit-subtitle">Social Media Template Kit — Precision Noir</div>
+  <div class="kit-line"></div>
+
+  <a href="instructies.html" class="kit-help">? Hoe gebruik ik deze templates?</a>
+
+  <!-- CAROUSEL TEMPLATES -->
+  <div class="section-label">Instagram Carousel — 1080 × 1350px</div>
+  <div class="template-grid grid-carousel" id="carousel-grid"></div>
+
+  <!-- LINKEDIN TEMPLATES -->
+  <div class="section-label">LinkedIn Post — 1200 × 628px</div>
+  <div class="template-grid grid-linkedin" id="linkedin-grid"></div>
+
+  <!-- LINKEDIN BANNER -->
+  <div class="section-label">LinkedIn Banner — 1584 × 396px</div>
+  <div class="template-grid grid-linkedin" id="banner-grid"></div>
+
+  <!-- STORY TEMPLATES -->
+  <div class="section-label">Instagram Story — 1080 × 1920px</div>
+  <div class="template-grid grid-story" id="story-grid"></div>
+
+  <script>
+    const templates = {
+      carousel: [
+        { file: "carousel-hook.html",        name: "Slide 1 — Hook",         desc: "Pakkende openingszin" },
+        { file: "carousel-context.html",     name: "Slide 2-3 — Context",    desc: "Probleem of achtergrondinformatie" },
+        { file: "carousel-mockup.html",      name: "Slide 4 — Mockup",       desc: "Screenshot in browser-frame" },
+        { file: "carousel-split.html",       name: "Slide 5 — Split",        desc: "50/50 beeld + tekst" },
+        { file: "carousel-fullbleed.html",   name: "Slide 6 — Full Bleed",   desc: "Volledig beeld met overlay-tekst" },
+        { file: "carousel-metric.html",      name: "Slide 7 — Metric",       desc: "Groot getal / statistiek" },
+        { file: "carousel-testimonial.html", name: "Slide 8 — Testimonial",  desc: "Quote van een klant" },
+        { file: "carousel-takeaway.html",    name: "Slide 9 — Takeaway",     desc: "Kernboodschap" },
+        { file: "carousel-cta.html",         name: "Slide 10 — CTA",         desc: "Call to action + logo" },
+      ],
+      linkedin: [
+        { file: "linkedin-portfolio.html", name: "Portfolio Showcase", desc: "Project tonen met screenshot" },
+        { file: "linkedin-thought.html",   name: "Thought Leadership", desc: "Quote op lichte achtergrond" },
+        { file: "linkedin-metric.html",    name: "Metric / Insight",   desc: "Inzicht met groot getal" },
+      ],
+      banner: [
+        { file: "linkedin-banner.html", name: "Profiel Banner", desc: "LinkedIn achtergrondbanner" },
+      ],
+      story: [
+        { file: "story-tip.html",       name: "Quick Tip",          desc: "Snelle tip met swipe-hint" },
+        { file: "story-portfolio.html",  name: "Portfolio Tease",    desc: "Project teaser met beeld" },
+        { file: "story-bts.html",        name: "Behind the Scenes",  desc: "Code / werkproces" },
+      ],
+    };
+
+    function calcScale(containerWidth, iframeWidth) {
+      return containerWidth / iframeWidth;
+    }
+
+    function createCard(t, type) {
+      const a = document.createElement('a');
+      a.href = t.file;
+      a.className = 'template-card';
+
+      let previewClass = 'card-preview';
+      let iW = 1080, iH = 1350, size = '1080×1350';
+      if (type === 'linkedin')  { previewClass += ' card-preview--linkedin'; iW = 1200; iH = 628; size = '1200×628'; }
+      if (type === 'banner')    { previewClass += ' card-preview--banner';   iW = 1584; iH = 396; size = '1584×396'; }
+      if (type === 'story')     { previewClass += ' card-preview--story';    iW = 1080; iH = 1920; size = '1080×1920'; }
+
+      a.innerHTML = `
+        <div class="${previewClass}">
+          <iframe src="${t.file}" loading="lazy"></iframe>
+        </div>
+        <div class="card-info">
+          <div class="card-name">${t.name}</div>
+          <div class="card-desc">${t.desc}</div>
+          <div class="card-size">${size}</div>
+        </div>
+      `;
+      return a;
+    }
+
+    // Render grids
+    const carouselGrid = document.getElementById('carousel-grid');
+    templates.carousel.forEach(t => carouselGrid.appendChild(createCard(t, 'carousel')));
+
+    const linkedinGrid = document.getElementById('linkedin-grid');
+    templates.linkedin.forEach(t => linkedinGrid.appendChild(createCard(t, 'linkedin')));
+
+    const bannerGrid = document.getElementById('banner-grid');
+    templates.banner.forEach(t => bannerGrid.appendChild(createCard(t, 'banner')));
+
+    const storyGrid = document.getElementById('story-grid');
+    templates.story.forEach(t => storyGrid.appendChild(createCard(t, 'story')));
+
+    // Scale iframes to fit their card containers
+    function scaleIframes() {
+      document.querySelectorAll('.card-preview').forEach(container => {
+        const iframe = container.querySelector('iframe');
+        if (!iframe) return;
+        const cw = container.offsetWidth;
+        let iw = 1080;
+        if (container.classList.contains('card-preview--linkedin')) iw = 1200;
+        if (container.classList.contains('card-preview--banner')) iw = 1584;
+        if (container.classList.contains('card-preview--story')) iw = 1080;
+        const scale = cw / iw;
+        iframe.style.transform = `scale(${scale})`;
+      });
+    }
+
+    window.addEventListener('load', scaleIframes);
+    window.addEventListener('resize', scaleIframes);
+  </script>
+
+</body>
+</html>

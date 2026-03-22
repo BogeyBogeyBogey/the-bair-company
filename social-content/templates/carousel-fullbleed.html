@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 6: Full-bleed Visual</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      slideNumber: "06",
+      title: "Restaurant De Linde",
+      description: "Complete website redesign — van verouderd naar premium",
+      image: "",  // Pad naar de foto, bv: "screenshots/restaurant.jpg"
+    };
+  </script>
+  <style>
+    .canvas { background: var(--noir-base); }
+    .fullbleed-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1) brightness(0.9); z-index: 0; }
+    .fullbleed-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(10, 10, 10, 0.95) 85%); z-index: 1; }
+    .fullbleed-text { position: absolute; bottom: 60px; left: 60px; right: 60px; z-index: 2; }
+    .fullbleed-title { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--text-primary); margin-bottom: 8px; }
+    .fullbleed-desc { font-family: var(--font-body); font-weight: 300; font-size: 16px; color: var(--text-secondary); }
+    .fullbleed-placeholder { position: absolute; inset: 0; background: linear-gradient(135deg, var(--noir-surface) 0%, var(--noir-elevated) 50%, var(--noir-surface) 100%); z-index: 0; }
+    .fullbleed-placeholder::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--noir-line-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--noir-line-subtle) 1px, transparent 1px); background-size: 60px 60px; opacity: 0.15; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel">
+    <span class="slide-number" id="slideNum" style="z-index: 3;"></span>
+    <div id="imageArea"></div>
+    <div class="fullbleed-gradient"></div>
+    <div class="fullbleed-text">
+      <h2 class="fullbleed-title" id="title"></h2>
+      <p class="fullbleed-desc" id="desc"></p>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark" style="z-index: 3;">
+  </div>
+  <script>
+    document.getElementById('slideNum').textContent = CONTENT.slideNumber;
+    document.getElementById('title').textContent = CONTENT.title;
+    document.getElementById('desc').textContent = CONTENT.description;
+    const area = document.getElementById('imageArea');
+    if (CONTENT.image) {
+      area.outerHTML = '<img src="' + CONTENT.image + '" alt="Project" class="fullbleed-image">';
+    } else {
+      area.outerHTML = '<div class="fullbleed-placeholder"></div>';
+    }
+  </script>
+</body>
+</html>

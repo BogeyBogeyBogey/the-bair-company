@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 5: Split Layout</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      slideNumber: "05",
+      heading: "Design dat werkt voor je bedrijf",
+      body: "Elke pixel heeft een doel. We bouwen websites die niet alleen mooi zijn, maar die converteren — bezoekers omzetten in klanten.",
+      image: "",  // Pad naar screenshot of visual, bv: "screenshots/detail.png"
+    };
+  </script>
+  <style>
+    .canvas { background: var(--noir-elevated); display: flex; }
+    .split-left { width: 460px; margin-left: 60px; display: flex; flex-direction: column; justify-content: center; padding-right: 20px; position: relative; }
+    .split-divider { position: absolute; right: 0; top: 60px; bottom: 60px; width: 1px; background: var(--noir-line); }
+    .split-right { flex: 1; padding: 60px 60px 60px 20px; display: flex; align-items: center; justify-content: center; }
+    .split-heading { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.2; color: var(--text-primary); margin-bottom: 16px; }
+    .split-body { font-family: var(--font-body); font-weight: 300; font-size: 18px; line-height: 1.6; color: var(--text-secondary); }
+    .split-visual { width: 100%; border-radius: 8px; overflow: hidden; background: var(--noir-surface); }
+    .split-visual img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.05); }
+    .split-visual-placeholder { width: 100%; height: 500px; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-family: var(--font-mono); font-size: 13px; position: relative; }
+    .split-visual-placeholder::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--noir-line-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--noir-line-subtle) 1px, transparent 1px); background-size: 32px 32px; opacity: 0.25; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel">
+    <span class="slide-number" id="slideNum"></span>
+    <div class="split-left">
+      <div>
+        <h2 class="split-heading" id="heading"></h2>
+        <p class="split-body" id="body"></p>
+      </div>
+      <div class="split-divider"></div>
+    </div>
+    <div class="split-right">
+      <div class="split-visual" id="visual">
+        <div class="split-visual-placeholder">Visual hier</div>
+      </div>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark">
+  </div>
+  <script>
+    document.getElementById('slideNum').textContent = CONTENT.slideNumber;
+    document.getElementById('heading').textContent = CONTENT.heading;
+    document.getElementById('body').textContent = CONTENT.body;
+    if (CONTENT.image) {
+      document.getElementById('visual').innerHTML = '<img src="' + CONTENT.image + '" alt="Visual">';
+    }
+  </script>
+</body>
+</html>

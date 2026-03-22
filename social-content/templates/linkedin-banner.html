@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Banner</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      companyName: "The Bair Co.",
+      tagline: "Merken die blijven hangen.",
+    };
+  </script>
+  <style>
+    .canvas { background: linear-gradient(to right, #0a0a0a, #141417); position: relative; }
+    .banner-line { position: absolute; top: 132px; left: 0; right: 0; height: 1px; background: var(--noir-line); z-index: 1; }
+    .banner-watermark { position: absolute; left: 80px; top: 50%; transform: translateY(-50%); width: 160px; height: auto; filter: brightness(0) invert(1); opacity: 0.06; z-index: 0; }
+    .banner-text { position: absolute; right: 120px; top: 50%; transform: translateY(-50%); text-align: right; z-index: 2; }
+    .banner-name { font-family: var(--font-display); font-weight: 800; font-size: 24px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-primary); }
+    .banner-tagline { font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--text-secondary); margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-banner">
+    <div class="banner-line"></div>
+    <img src="logo.png" alt="B" class="banner-watermark">
+    <div class="banner-text">
+      <div class="banner-name" id="company"></div>
+      <div class="banner-tagline" id="tagline"></div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('company').textContent = CONTENT.companyName;
+    document.getElementById('tagline').textContent = CONTENT.tagline;
+  </script>
+</body>
+</html>

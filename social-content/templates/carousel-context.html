@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 2-3: Context</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      slideNumber: "02",
+      heading: "80% van je bezoekers vertrekt binnen 3 seconden",
+      // Zet het belangrijkste woord tussen <em> tags voor nadruk:
+      headingHTML: '80% van je bezoekers vertrekt<br><em>binnen 3 seconden</em>',
+      body: "Niet omdat je product slecht is. Maar omdat je website niet communiceert wat je waard bent. Eerste indrukken zijn digitaal geworden.",
+    };
+  </script>
+  <style>
+    .canvas { background: var(--noir-surface); display: flex; align-items: center; }
+    .context-content { padding: 0 60px; max-width: 100%; }
+    .context-heading { font-family: var(--font-display); font-weight: 700; font-size: 36px; line-height: 1.15; color: var(--text-primary); max-width: 720px; }
+    .context-heading em { font-family: var(--font-display); font-weight: 800; font-style: normal; color: var(--text-primary); }
+    .context-divider { width: 100%; max-width: 860px; height: 1px; background: var(--noir-line); margin: 24px 0; }
+    .context-body { font-family: var(--font-body); font-weight: 300; font-size: 20px; line-height: 1.6; color: var(--text-secondary); max-width: 680px; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel">
+    <span class="slide-number" id="slideNum"></span>
+    <div class="context-content">
+      <h2 class="context-heading" id="heading"></h2>
+      <div class="context-divider"></div>
+      <p class="context-body" id="body"></p>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark">
+  </div>
+  <script>
+    document.getElementById('slideNum').textContent = CONTENT.slideNumber;
+    document.getElementById('heading').innerHTML = CONTENT.headingHTML;
+    document.getElementById('body').textContent = CONTENT.body;
+  </script>
+</body>
+</html>

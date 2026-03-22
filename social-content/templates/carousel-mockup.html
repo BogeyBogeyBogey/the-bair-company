@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 4: Screenshot/Mockup</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      slideNumber: "04",
+      label: "CASE STUDY",
+      // Zet hieronder het pad naar je screenshot:
+      screenshot: "",  // bv: "screenshots/project-x.png"
+    };
+  </script>
+  <style>
+    .canvas { background: var(--noir-base); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .mockup-label { font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px; align-self: flex-start; margin-left: 90px; }
+    .browser-frame { width: 860px; border: 2px solid var(--noir-line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-mockup); }
+    .browser-titlebar { height: 32px; background: var(--noir-elevated); display: flex; align-items: center; padding-left: 12px; gap: 6px; }
+    .browser-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--noir-line); }
+    .browser-content { width: 100%; height: 620px; background: var(--noir-surface); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-family: var(--font-mono); font-size: 14px; }
+    .browser-content img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.05); }
+    .placeholder-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--noir-line-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--noir-line-subtle) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.3; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel">
+    <span class="slide-number" id="slideNum"></span>
+    <span class="mockup-label" id="label"></span>
+    <div class="browser-frame">
+      <div class="browser-titlebar">
+        <div class="browser-dot"></div>
+        <div class="browser-dot"></div>
+        <div class="browser-dot"></div>
+      </div>
+      <div class="browser-content" id="browserContent">
+        <div class="placeholder-grid"></div>
+        Plaats hier je screenshot
+      </div>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark">
+  </div>
+  <script>
+    document.getElementById('slideNum').textContent = CONTENT.slideNumber;
+    document.getElementById('label').textContent = CONTENT.label;
+    if (CONTENT.screenshot) {
+      document.getElementById('browserContent').innerHTML = '<img src="' + CONTENT.screenshot + '" alt="Project screenshot">';
+    }
+  </script>
+</body>
+</html>

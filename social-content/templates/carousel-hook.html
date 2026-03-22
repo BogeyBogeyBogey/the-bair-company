@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 1: Hook</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ╔══════════════════════════════════════════════════╗
+       ║  📝 BEWERKBARE CONTENT — PAS HIER AAN           ║
+       ║  Verander alleen de tekst in het script-blok     ║
+       ║  hieronder. De rest is automatisch.              ║
+       ╚══════════════════════════════════════════════════╝ */
+  </style>
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      headline: "Websites die converteren",
+      // Tip: houd het kort — max 4 woorden voor maximale impact
+    };
+  </script>
+  <style>
+    .canvas {
+      background: var(--noir-base);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hook-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px;
+      margin-top: -80px;
+    }
+
+    .hook-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 96px;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hook-line {
+      width: 80px;
+      height: 1px;
+      background: var(--noir-line-subtle);
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel canvas--vignette">
+    <div class="hook-content">
+      <h1 class="hook-headline" id="headline"></h1>
+      <div class="hook-line"></div>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark">
+  </div>
+  <script>
+    document.getElementById('headline').textContent = CONTENT.headline;
+  </script>
+</body>
+</html>

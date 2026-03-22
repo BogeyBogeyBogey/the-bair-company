@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story — Quick Tip</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      label: "Quick Tip",
+      heading: "Laadsnelheid is conversie.",
+      body: "Elke seconde vertraging kost je 7% conversie. Optimaliseer eerst, decoreer daarna.",
+      swipeText: "Meer zien",
+    };
+  </script>
+  <style>
+    .canvas {
+      background: var(--noir-base);
+      position: relative;
+    }
+
+    .story-label {
+      position: absolute;
+      top: 180px;
+      left: 60px;
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .story-label-line {
+      position: absolute;
+      top: 220px;
+      left: 60px;
+      right: 60px;
+      height: 1px;
+      background: var(--noir-line);
+    }
+
+    .story-content {
+      position: absolute;
+      top: 520px;
+      left: 60px;
+      right: 60px;
+    }
+
+    .story-heading {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 48px;
+      line-height: 1.1;
+      color: var(--text-primary);
+      max-width: 840px;
+    }
+
+    .story-body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-top: 24px;
+      max-width: 780px;
+    }
+
+    .story-swipe {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .story-swipe-arrow {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 20px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .story-swipe-text {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-story canvas--vignette">
+
+    <span class="story-label" id="label"></span>
+    <div class="story-label-line"></div>
+
+    <div class="story-content">
+      <h1 class="story-heading" id="heading"></h1>
+      <p class="story-body" id="body"></p>
+    </div>
+
+    <div class="story-swipe">
+      <div class="story-swipe-arrow">↑</div>
+      <div class="story-swipe-text" id="swipeText"></div>
+    </div>
+
+  </div>
+  <script>
+    document.getElementById('label').textContent = CONTENT.label;
+    document.getElementById('heading').textContent = CONTENT.heading;
+    document.getElementById('body').textContent = CONTENT.body;
+    document.getElementById('swipeText').textContent = CONTENT.swipeText;
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel — Slide 7: Metric</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      slideNumber: "07",
+      metric: "+45%",          // Het grote getal
+      label: "meer bezoekers\nin 3 maanden",  // Beschrijving (gebruik \n voor nieuwe regel)
+    };
+  </script>
+  <style>
+    .canvas { background: var(--noir-base); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .metric-content { text-align: center; margin-top: -60px; }
+    .metric-number { font-family: var(--font-mono); font-weight: 400; font-size: 96px; letter-spacing: -0.02em; color: var(--text-primary); }
+    .metric-label { font-family: var(--font-body); font-weight: 300; font-size: 18px; color: var(--text-secondary); margin-top: 16px; white-space: pre-line; }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-carousel canvas--vignette">
+    <span class="slide-number" id="slideNum"></span>
+    <div class="metric-content">
+      <div class="metric-number" id="metric"></div>
+      <div class="metric-label" id="label"></div>
+    </div>
+    <img src="logo.png" alt="B" class="logo-watermark">
+  </div>
+  <script>
+    document.getElementById('slideNum').textContent = CONTENT.slideNumber;
+    document.getElementById('metric').textContent = CONTENT.metric;
+    document.getElementById('label').textContent = CONTENT.label;
+  </script>
+</body>
+</html>

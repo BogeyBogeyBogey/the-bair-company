@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bair Co. — Hoe gebruik je de templates?</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    body {
+      background: var(--noir-base);
+      min-height: 100vh;
+      display: block;
+      padding: 60px 80px;
+      color: var(--text-primary);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    .header-logo {
+      width: 28px;
+      height: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.6;
+    }
+    .header-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+    .page-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 32px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      margin-top: 32px;
+    }
+    .page-intro {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+      max-width: 680px;
+    }
+    .divider {
+      height: 1px;
+      background: var(--noir-line);
+      margin: 48px 0;
+    }
+
+    /* Stappen */
+    .step {
+      margin-bottom: 48px;
+    }
+    .step-number {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .step-text {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 680px;
+    }
+
+    /* Code voorbeeld */
+    .code-block {
+      background: var(--noir-elevated);
+      border: 1px solid var(--noir-line);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-top: 16px;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      white-space: pre;
+      margin: 0;
+    }
+    .code-highlight {
+      color: var(--text-primary);
+      font-weight: 400;
+    }
+    .code-comment {
+      color: var(--text-dim);
+    }
+
+    /* Tips */
+    .tip {
+      background: var(--noir-surface);
+      border-left: 2px solid var(--text-dim);
+      padding: 16px 20px;
+      margin-top: 16px;
+      border-radius: 0 6px 6px 0;
+    }
+    .tip-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .tip-text {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* Terug-link */
+    .back-link {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      text-decoration: none;
+      border: 1px solid var(--noir-line);
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: all 300ms ease;
+    }
+    .back-link:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    /* Template overzicht */
+    .template-list {
+      margin-top: 16px;
+    }
+    .template-list-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--noir-line);
+    }
+    .template-list-item:last-child {
+      border-bottom: none;
+    }
+    .tl-file {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      min-width: 220px;
+    }
+    .tl-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="logo.png" alt="B" class="header-logo">
+    <span class="header-title">The Bair Co.</span>
+  </div>
+
+  <h1 class="page-title">Hoe gebruik je de templates?</h1>
+  <p class="page-intro">
+    Elke template is een HTML-bestand dat je opent in een teksteditor, de tekst aanpast,
+    en vervolgens opent in je browser om een screenshot te maken.
+    Geen Photoshop, geen Canva, geen design-kennis nodig.
+  </p>
+
+  <a href="index.html" class="back-link">← Terug naar alle templates</a>
+
+  <div class="divider"></div>
+
+  <!-- STAP 1 -->
+  <div class="step">
+    <div class="step-number">STAP 01</div>
+    <div class="step-title">Open het template-bestand</div>
+    <div class="step-text">
+      Kies een template uit het overzicht en klik met de rechtermuisknop op het HTML-bestand.
+      Kies "Open met" en selecteer een teksteditor. Op Mac werkt TextEdit (zet in "platte tekst"-modus)
+      of het gratis Visual Studio Code. Op Windows werkt Kladblok of Notepad++.
+    </div>
+    <div class="tip">
+      <div class="tip-label">TIP</div>
+      <div class="tip-text">Gebruik NIET Word of Google Docs — die voegen opmaak toe die het bestand breekt.</div>
+    </div>
+  </div>
+
+  <!-- STAP 2 -->
+  <div class="step">
+    <div class="step-number">STAP 02</div>
+    <div class="step-title">Pas de tekst aan bovenaan het bestand</div>
+    <div class="step-text">
+      Bovenaan elk bestand staat een blok met <strong style="color:var(--text-primary)">const CONTENT = { ... }</strong>.
+      Dit is het enige deel dat je aanpast. Verander de tekst tussen de aanhalingstekens.
+    </div>
+    <div class="code-block">
+      <pre><span class="code-comment">// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="code-comment">// ✏️ WIJZIG HIER JE CONTENT:</span>
+<span class="code-comment">// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+const CONTENT = {
+  headline: <span class="code-highlight">"Jouw nieuwe tekst hier"</span>,
+  body: <span class="code-highlight">"En hier je beschrijving."</span>,
+};</pre>
+    </div>
+    <div class="tip">
+      <div class="tip-label">BELANGRIJK</div>
+      <div class="tip-text">Verander ALLEEN de tekst tussen de aanhalingstekens " ". Raak de rest van de code niet aan.</div>
+    </div>
+  </div>
+
+  <!-- STAP 3 -->
+  <div class="step">
+    <div class="step-number">STAP 03</div>
+    <div class="step-title">Afbeeldingen toevoegen (optioneel)</div>
+    <div class="step-text">
+      Sommige templates hebben een veld voor een screenshot of afbeelding.
+      Zet je afbeelding in dezelfde map als de templates (of in een submap)
+      en vul het pad in.
+    </div>
+    <div class="code-block">
+      <pre>const CONTENT = {
+  heading: "Nieuw project live",
+  screenshot: <span class="code-highlight">"screenshots/mijn-project.jpg"</span>,
+};</pre>
+    </div>
+    <div class="tip">
+      <div class="tip-label">TIP</div>
+      <div class="tip-text">Gebruik bij voorkeur afbeeldingen in liggende verhouding (16:9) voor LinkedIn-templates en staande verhouding (4:5 of 9:16) voor carousel en story.</div>
+    </div>
+  </div>
+
+  <!-- STAP 4 -->
+  <div class="step">
+    <div class="step-number">STAP 04</div>
+    <div class="step-title">Open in je browser</div>
+    <div class="step-text">
+      Sla het bestand op en dubbelklik erop (of sleep het naar Chrome/Safari/Firefox).
+      Je ziet nu je aangepaste post op exact het juiste formaat.
+    </div>
+  </div>
+
+  <!-- STAP 5 -->
+  <div class="step">
+    <div class="step-number">STAP 05</div>
+    <div class="step-title">Maak een screenshot</div>
+    <div class="step-text">
+      Gebruik de ingebouwde screenshot-tool van je browser om het canvas op te slaan als PNG.
+    </div>
+    <div class="code-block">
+      <pre><span class="code-comment">// Chrome:</span>
+Rechtermuisknop op de afbeelding → "Inspecteren"
+In DevTools: Rechtermuisknop op het &lt;div class="canvas"&gt; element
+→ "Capture node screenshot"
+
+<span class="code-comment">// Of de makkelijke manier:</span>
+macOS: Cmd + Shift + 4 → selecteer het canvas
+Windows: Win + Shift + S → selecteer het canvas</pre>
+    </div>
+    <div class="tip">
+      <div class="tip-label">PRO TIP</div>
+      <div class="tip-text">
+        De "Capture node screenshot" methode in Chrome DevTools geeft je automatisch het
+        exacte pixelformaat (bv. 1080×1350 voor carousel). Dat is altijd de beste methode.
+      </div>
+    </div>
+  </div>
+
+  <!-- STAP 6 -->
+  <div class="step">
+    <div class="step-number">STAP 06</div>
+    <div class="step-title">Posten!</div>
+    <div class="step-text">
+      Upload de screenshot naar Instagram, LinkedIn of je Stories.
+      Voor carousels maak je meerdere slides door steeds een ander template-bestand aan te passen.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TEMPLATE OVERZICHT -->
+  <div class="step">
+    <div class="step-title">Alle beschikbare templates</div>
+    <div class="template-list">
+      <div class="template-list-item"><span class="tl-file">carousel-hook.html</span><span class="tl-desc">Slide 1 — Pakkende openingszin (max 4 woorden)</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-context.html</span><span class="tl-desc">Slide 2-3 — Probleem of achtergrondinformatie</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-mockup.html</span><span class="tl-desc">Slide 4 — Screenshot in browser-frame</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-split.html</span><span class="tl-desc">Slide 5 — 50/50 beeld + tekst</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-fullbleed.html</span><span class="tl-desc">Slide 6 — Volledig beeld met overlay-tekst</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-metric.html</span><span class="tl-desc">Slide 7 — Groot getal / statistiek</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-testimonial.html</span><span class="tl-desc">Slide 8 — Quote van een klant</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-takeaway.html</span><span class="tl-desc">Slide 9 — Kernboodschap</span></div>
+      <div class="template-list-item"><span class="tl-file">carousel-cta.html</span><span class="tl-desc">Slide 10 — Call to action + logo</span></div>
+      <div class="template-list-item"><span class="tl-file">linkedin-portfolio.html</span><span class="tl-desc">LinkedIn — Project tonen met screenshot</span></div>
+      <div class="template-list-item"><span class="tl-file">linkedin-thought.html</span><span class="tl-desc">LinkedIn — Quote op lichte achtergrond</span></div>
+      <div class="template-list-item"><span class="tl-file">linkedin-metric.html</span><span class="tl-desc">LinkedIn — Inzicht met groot getal</span></div>
+      <div class="template-list-item"><span class="tl-file">linkedin-banner.html</span><span class="tl-desc">LinkedIn — Profiel achtergrondbanner</span></div>
+      <div class="template-list-item"><span class="tl-file">story-tip.html</span><span class="tl-desc">Story — Snelle tip met swipe-hint</span></div>
+      <div class="template-list-item"><span class="tl-file">story-portfolio.html</span><span class="tl-desc">Story — Project teaser met beeld</span></div>
+      <div class="template-list-item"><span class="tl-file">story-bts.html</span><span class="tl-desc">Story — Behind the scenes / werkproces</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="step">
+    <div class="step-title">Hulp nodig?</div>
+    <div class="step-text">
+      Iets kapot? Tekst valt buiten beeld? Neem contact op met The Bair Co.
+      en we helpen je verder.
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;">
+    <a href="index.html" class="back-link">← Terug naar alle templates</a>
+  </div>
+
+  <div style="height: 80px;"></div>
+
+</body>
+</html>

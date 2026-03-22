@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story — Behind the Scenes</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // ✏️ WIJZIG HIER JE CONTENT:
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const CONTENT = {
+      text: "Scroll-animaties die aanvoelen als magie. Maar achter de schermen is het pure wiskunde — cubic-bezier curves en intersection observers.",
+      screenshot: "",  // Pad naar screenshot, bv: "screenshots/editor.png"
+    };
+  </script>
+  <style>
+    .canvas {
+      background: var(--noir-base);
+    }
+
+    .bts-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    /* Placeholder: code editor look */
+    .bts-placeholder {
+      position: absolute;
+      inset: 0;
+      background: #1e1e2e;
+      padding: 80px 40px;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bts-code-line {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 2;
+      color: var(--text-dim);
+      opacity: 0.5;
+      white-space: nowrap;
+    }
+
+    .bts-code-line:nth-child(3),
+    .bts-code-line:nth-child(7),
+    .bts-code-line:nth-child(11) {
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    .bts-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: rgba(10, 10, 10, 0.88);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      padding: 40px 60px;
+    }
+
+    .bts-text {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-primary);
+      max-width: 800px;
+    }
+
+    .bts-logo {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      width: 20px;
+      height: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.4;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas canvas-story">
+
+    <div class="bts-placeholder" id="imageArea">
+      <div class="bts-code-line">import { motion } from 'framer-motion'</div>
+      <div class="bts-code-line">import { useInView } from 'react-intersection-observer'</div>
+      <div class="bts-code-line">&nbsp;</div>
+      <div class="bts-code-line">const HeroSection = ({ title, subtitle }) => {</div>
+      <div class="bts-code-line">&nbsp;&nbsp;const [ref, inView] = useInView({ threshold: 0.3 })</div>
+      <div class="bts-code-line">&nbsp;</div>
+      <div class="bts-code-line">&nbsp;&nbsp;return (</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;motion.section</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ref={ref}</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial={{ opacity: 0, y: 40 }}</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;animate={inView ? { opacity: 1, y: 0 } : {}}</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&gt;</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="hero-title"&gt;{title}&lt;/h1&gt;</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="hero-sub"&gt;{subtitle}&lt;/p&gt;</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/motion.section&gt;</div>
+      <div class="bts-code-line">&nbsp;&nbsp;)</div>
+      <div class="bts-code-line">}</div>
+      <div class="bts-code-line">&nbsp;</div>
+      <div class="bts-code-line">export default HeroSection</div>
+      <div class="bts-code-line">&nbsp;</div>
+      <div class="bts-code-line">// Smooth scroll-triggered animations</div>
+      <div class="bts-code-line">// Custom easing: cubic-bezier(0.16, 1, 0.3, 1)</div>
+      <div class="bts-code-line">&nbsp;</div>
+      <div class="bts-code-line">const ServiceCards = ({ services }) => {</div>
+      <div class="bts-code-line">&nbsp;&nbsp;return services.map((s, i) => (</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;motion.div</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key={s.id}</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial={{ opacity: 0 }}</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whileInView={{ opacity: 1 }}</div>
+      <div class="bts-code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transition={{ delay: i * 0.15 }}</div>
+    </div>
+
+    <div class="bts-overlay">
+      <p class="bts-text" id="text"></p>
+    </div>
+
+    <img src="logo.png" alt="B" class="bts-logo">
+
+  </div>
+  <script>
+    document.getElementById('text').textContent = CONTENT.text;
+    if (CONTENT.screenshot) {
+      document.getElementById('imageArea').outerHTML = '<img src="' + CONTENT.screenshot + '" alt="Code" class="bts-image">';
+    }
+  </script>
+</body>
+</html>

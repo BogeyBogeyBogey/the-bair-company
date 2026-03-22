@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bair Co. — Social Media Kit Preview</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    body {
+      background: #111;
+      display: block;
+      min-height: auto;
+      padding: 60px;
+    }
+
+    .kit-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .kit-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 48px;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .kit-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin-top: 12px;
+    }
+
+    .kit-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 24px;
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .section-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--noir-line);
+      margin: 80px 0 48px;
+    }
+
+    /* Carousel preview: horizontal scroll */
+    .carousel-row {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding-bottom: 24px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .carousel-row::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .carousel-row::-webkit-scrollbar-track {
+      background: var(--noir-surface);
+      border-radius: 3px;
+    }
+
+    .carousel-row::-webkit-scrollbar-thumb {
+      background: var(--noir-line);
+      border-radius: 3px;
+    }
+
+    .carousel-row iframe {
+      width: 324px;
+      height: 405px;
+      border: 1px solid var(--noir-line);
+      border-radius: 8px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      background: var(--noir-base);
+    }
+
+    .carousel-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .carousel-item {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    /* LinkedIn row */
+    .linkedin-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .linkedin-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .linkedin-item iframe {
+      width: 480px;
+      height: 251px;
+      border: 1px solid var(--noir-line);
+      border-radius: 8px;
+      background: var(--noir-base);
+    }
+
+    /* Banner */
+    .banner-item iframe {
+      width: 792px;
+      height: 198px;
+      border: 1px solid var(--noir-line);
+      border-radius: 8px;
+      background: var(--noir-base);
+    }
+
+    /* Story row */
+    .story-row {
+      display: flex;
+      gap: 24px;
+    }
+
+    .story-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .story-item iframe {
+      width: 216px;
+      height: 384px;
+      border: 1px solid var(--noir-line);
+      border-radius: 12px;
+      background: var(--noir-base);
+    }
+
+    /* Scale note */
+    .scale-note {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      margin-bottom: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="kit-header">
+    <h1 class="kit-title">Social Media Kit</h1>
+    <p class="kit-subtitle">Precision Noir — Monochrome System</p>
+    <p class="kit-meta">THE BAIR CO. — MAART 2026</p>
+  </div>
+
+  <!-- ═══ CAROUSEL ═══ -->
+  <h2 class="section-title">Instagram Carousel</h2>
+  <p class="section-desc">10 slides, 1080 × 1350px (4:5). Scroll horizontaal voor alle slides.</p>
+  <p class="scale-note">Getoond op 30% — open individuele bestanden voor volledige resolutie</p>
+
+  <div class="carousel-row">
+    <div class="carousel-item">
+      <iframe src="carousel-hook.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">01 — Hook</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-context.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">02 — Context</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-context.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">03 — Context (variant)</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-mockup.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">04 — Mockup</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-split.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">05 — Split</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-fullbleed.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">06 — Full-bleed</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-metric.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">07 — Metric</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-testimonial.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">08 — Testimonial</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-takeaway.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">09 — Takeaway</span>
+    </div>
+    <div class="carousel-item">
+      <iframe src="carousel-cta.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">10 — CTA</span>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ LINKEDIN ═══ -->
+  <h2 class="section-title">LinkedIn Posts</h2>
+  <p class="section-desc">3 varianten: Portfolio (noir), Thought Leadership (bone), Metric (noir). Elk 1200 × 628px.</p>
+  <p class="scale-note">Getoond op 40%</p>
+
+  <div class="linkedin-row">
+    <div class="linkedin-item">
+      <iframe src="linkedin-portfolio.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">Portfolio Showcase</span>
+    </div>
+    <div class="linkedin-item">
+      <iframe src="linkedin-thought.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">Thought Leadership</span>
+    </div>
+    <div class="linkedin-item">
+      <iframe src="linkedin-metric.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">Metric / Insight</span>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ LINKEDIN BANNER ═══ -->
+  <h2 class="section-title">LinkedIn Banner</h2>
+  <p class="section-desc">1584 × 396px — profiel header.</p>
+  <p class="scale-note">Getoond op 50%</p>
+
+  <div class="linkedin-row">
+    <div class="banner-item">
+      <iframe src="linkedin-banner.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">LinkedIn Banner</span>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ STORIES ═══ -->
+  <h2 class="section-title">Instagram Stories</h2>
+  <p class="section-desc">3 varianten: Quick Tip, Portfolio Tease, Behind the Scenes. Elk 1080 × 1920px.</p>
+  <p class="scale-note">Getoond op 20%</p>
+
+  <div class="story-row">
+    <div class="story-item">
+      <iframe src="story-tip.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">Quick Tip</span>
+    </div>
+    <div class="story-item">
+      <iframe src="story-portfolio.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">Portfolio Tease</span>
+    </div>
+    <div class="story-item">
+      <iframe src="story-bts.html" frameborder="0" scrolling="no"></iframe>
+      <span class="carousel-label">Behind the Scenes</span>
+    </div>
+  </div>
+
+</body>
+</html>
