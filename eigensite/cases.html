@@ -169,6 +169,39 @@
 <style>.reveal:not(.visible){animation:revealFallback 0.8s cubic-bezier(0.16,1,0.3,1) 2s forwards}@keyframes revealFallback{to{opacity:1;transform:translateY(0)}}body::after{opacity:0.03 !important;mix-blend-mode:normal !important}</style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate" style="position:fixed;inset:0;z-index:99999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem">
+  <div style="font-family:'Syne',system-ui,sans-serif;font-weight:800;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:#f0ede8;display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem">
+    <img src="logo-white.png" alt="" style="width:28px;height:28px;object-fit:contain">THE BAIR CO.
+  </div>
+  <p style="color:#888;font-size:0.95rem;text-align:center;max-width:340px;line-height:1.6">Deze pagina is beveiligd.<br>Voer het wachtwoord in om verder te gaan.</p>
+  <div style="display:flex;gap:0.5rem;align-items:center">
+    <input id="pw-input" type="password" placeholder="Wachtwoord" autofocus
+      style="padding:0.75rem 1.2rem;border-radius:100px;border:1px solid rgba(240,237,232,0.15);background:rgba(240,237,232,0.05);color:#f0ede8;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;width:240px;transition:border-color 0.3s"
+      onfocus="this.style.borderColor='#2E8AFF'" onblur="this.style.borderColor='rgba(240,237,232,0.15)'">
+    <button onclick="checkPw()" style="padding:0.75rem 1.5rem;border-radius:100px;background:#f0ede8;color:#0a0a0a;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;border:none;transition:transform 0.2s">OK</button>
+  </div>
+  <p id="pw-error" style="color:#ef4444;font-size:0.82rem;opacity:0;transition:opacity 0.3s">Verkeerd wachtwoord</p>
+</div>
+<script>
+function checkPw(){
+  var v=document.getElementById('pw-input').value;
+  if(v==='Kristofnoaharthur'){
+    document.getElementById('pw-gate').style.opacity='0';
+    document.getElementById('pw-gate').style.transition='opacity 0.4s';
+    setTimeout(function(){document.getElementById('pw-gate').style.display='none'},400);
+    sessionStorage.setItem('cases-auth','1');
+  } else {
+    document.getElementById('pw-error').style.opacity='1';
+    document.getElementById('pw-input').style.borderColor='#ef4444';
+    setTimeout(function(){document.getElementById('pw-error').style.opacity='0'},2000);
+  }
+}
+document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw()});
+if(sessionStorage.getItem('cases-auth')==='1'){document.getElementById('pw-gate').style.display='none'}
+</script>
+
 <a href="#main" class="skip-link">Spring naar inhoud</a>
 
 
