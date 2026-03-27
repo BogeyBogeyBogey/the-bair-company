@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
-:root{--black:#0a0a0a;--white:#f0ede8;--grey:#888;--accent:#2E8AFF;--red:#ef4444;--font-display:'Syne',system-ui,sans-serif;--font-body:'DM Sans',-apple-system,sans-serif;--font-serif:'Instrument Serif',Georgia,serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+:root{--black:#0a0a0a;--white:#f0ede8;--grey:#888;--accent:#2E8AFF;--pink:#ec4899;--amber:#f59e0b;--red:#ef4444;--emerald:#10b981;--font-display:'Syne',system-ui,sans-serif;--font-body:'DM Sans',-apple-system,sans-serif;--font-serif:'Instrument Serif',Georgia,serif;--ease:cubic-bezier(0.16,1,0.3,1)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scrollbar-width:none}
 ::-webkit-scrollbar{width:0;height:0}
@@ -24,66 +24,127 @@ a{color:inherit;text-decoration:none}
 .serif{font-family:var(--font-serif);font-style:italic;font-weight:400}
 ::selection{background:var(--accent);color:var(--black)}
 
-/* ===== HEADER ===== */
+/* HEADER */
 header{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,10,10,0.85);border-bottom:1px solid rgba(240,237,232,0.06)}
 .brand{font-family:var(--font-display);font-size:0.9rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:flex;align-items:center;gap:0.6rem}
 .brand img{width:24px;height:24px;object-fit:contain}
-.header-cta{padding:0.5rem 1.3rem;border-radius:100px;background:var(--white);color:var(--black);font-family:var(--font-display);font-weight:700;font-size:0.78rem;letter-spacing:0.02em;transition:transform 0.3s var(--ease)}
+.header-cta{padding:0.5rem 1.3rem;border-radius:100px;background:var(--white);color:var(--black);font-family:var(--font-display);font-weight:700;font-size:0.78rem;transition:transform 0.3s var(--ease)}
 .header-cta:hover{transform:translateY(-1px)}
 
-/* ===== HERO ===== */
+/* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(46,138,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 40%,rgba(236,72,153,0.05) 0%,transparent 50%)}
 .hero-label{font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:1.5rem;position:relative}
 .hero h1{font-family:var(--font-display);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;letter-spacing:-0.04em;line-height:1.05;max-width:900px;position:relative}
-.hero h1 .serif{font-size:1.05em;display:inline}
-.hero-sub{font-size:clamp(1rem,1.5vw,1.2rem);color:var(--grey);max-width:520px;margin:2rem auto 0;line-height:1.7;position:relative}
+.hero-sub{font-size:clamp(1rem,1.5vw,1.15rem);color:var(--grey);max-width:520px;margin:2rem auto 0;line-height:1.7;position:relative}
 .hero-cta{display:inline-flex;align-items:center;gap:0.6rem;margin-top:2.5rem;padding:1rem 2.5rem;background:var(--white);color:var(--black);font-family:var(--font-display);font-weight:700;font-size:0.95rem;border-radius:100px;transition:transform 0.3s var(--ease),box-shadow 0.3s;position:relative}
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,237,232,0.15)}
-.hero-cta svg{width:18px;height:18px}
 .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--grey);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase}
 .scroll-line{width:1px;height:40px;background:linear-gradient(180deg,rgba(240,237,232,0.3),transparent);animation:scrollPulse 2s infinite}
 @keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:0.8}}
 
-/* ===== PORTFOLIO SHOWCASE ===== */
-.showcase{padding:0 0 0}
-.showcase-label{text-align:center;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);padding:5rem 2rem 2rem}
+/* ===== CASE SECTIONS ===== */
+.case-block{position:relative;overflow:hidden;border-top:1px solid rgba(240,237,232,0.06)}
 
-/* Case cards */
-.case-card{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;border-top:1px solid rgba(240,237,232,0.06)}
-.case-card:nth-child(even){direction:rtl}
-.case-card:nth-child(even) > *{direction:ltr}
-.case-img{position:relative;overflow:hidden}
-.case-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s var(--ease)}
-.case-card:hover .case-img img{transform:scale(1.04)}
-.case-content{display:flex;flex-direction:column;justify-content:center;padding:4rem 5rem}
+/* Video background */
+.case-video-bg{position:absolute;inset:0;z-index:0}
+.case-video-bg video{width:100%;height:100%;object-fit:cover;opacity:0.2}
+.case-video-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.85) 60%,var(--black) 100%)}
+
+/* Case content overlay */
+.case-overlay{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;min-height:90vh;max-width:1400px;margin:0 auto}
+.case-text{display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem}
 .case-tag{font-size:0.68rem;font-weight:500;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:1rem}
-.case-tag.tag-amber{color:#f59e0b}
-.case-tag.tag-red{color:#ef4444}
-.case-tag.tag-pink{color:#ec4899}
-.case-tag.tag-blue{color:var(--accent)}
-.case-name{font-family:var(--font-display);font-size:clamp(2rem,3vw,3rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1.5rem}
-.case-desc{font-size:1rem;line-height:1.8;color:rgba(240,237,232,0.65);max-width:420px}
-.case-services{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
-.case-pill{padding:0.35rem 0.9rem;border-radius:100px;font-size:0.72rem;font-weight:500;border:1px solid rgba(240,237,232,0.12);color:rgba(240,237,232,0.6);letter-spacing:0.02em}
+.case-name{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,4rem);font-weight:800;letter-spacing:-0.04em;line-height:1.05;margin-bottom:1.5rem}
+.case-desc{font-size:1.05rem;line-height:1.8;color:rgba(240,237,232,0.65);max-width:440px;margin-bottom:2rem}
+.case-pills{display:flex;flex-wrap:wrap;gap:0.5rem}
+.pill{padding:0.4rem 1rem;border-radius:100px;font-size:0.72rem;font-weight:500;border:1px solid rgba(240,237,232,0.12);color:rgba(240,237,232,0.6)}
+.case-visual{display:flex;align-items:center;justify-content:center;padding:3rem;position:relative}
 
-/* Phone showcase */
-.phone-showcase{display:flex;justify-content:center;align-items:center;gap:2rem;padding:3rem}
-.phone-frame{width:220px;border-radius:28px;overflow:hidden;border:2px solid rgba(240,237,232,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;background:#1a1a2e}
-.phone-frame img{width:100%;display:block}
+/* ===== SLIDESHOW (Artoah, Rosing) ===== */
+.slideshow{position:relative;width:100%;max-width:560px;aspect-ratio:16/10;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.slideshow img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.slideshow img.active{opacity:1}
+
+/* ===== PHONE CAROUSEL (GiGi) ===== */
+.phone-carousel{display:flex;gap:1.5rem;align-items:center}
+.phone-frame{width:200px;border-radius:28px;overflow:hidden;border:2px solid rgba(240,237,232,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;background:#1a1a2e;flex-shrink:0}
+.phone-frame img{width:100%;display:block;position:absolute;inset:0;height:100%;object-fit:cover;opacity:0;transition:opacity 0.8s ease}
+.phone-frame img.active{opacity:1;position:relative}
 .phone-frame::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:60px;height:18px;background:var(--black);border-radius:0 0 10px 10px;z-index:3}
-.phone-glow-1{filter:drop-shadow(0 10px 50px rgba(236,72,153,0.35))}
-.phone-glow-2{filter:drop-shadow(0 10px 50px rgba(139,92,246,0.35))}
+.phone-glow-pink{filter:drop-shadow(0 10px 50px rgba(236,72,153,0.3))}
+.phone-glow-purple{filter:drop-shadow(0 10px 50px rgba(139,92,246,0.3))}
+.phone-glow-blue{filter:drop-shadow(0 10px 50px rgba(46,138,255,0.3))}
 
-/* ===== NUMBERS BAR ===== */
+/* ===== BAIR.MEDIA DUAL SHOWCASE ===== */
+.bair-showcase{display:flex;gap:2rem;align-items:center;justify-content:center;flex-wrap:wrap}
+
+/* Browser mockup */
+.browser-mock{width:380px;border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(240,237,232,0.1);flex-shrink:0}
+.browser-bar{background:#1a1a1a;padding:7px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(240,237,232,0.08)}
+.b-dot{width:7px;height:7px;border-radius:50%}
+.b-dot.r{background:#ff5f56}.b-dot.y{background:#ffbd2e}.b-dot.g{background:#27c93f}
+.b-url{margin-left:6px;background:rgba(240,237,232,0.06);padding:3px 10px;border-radius:5px;font-size:0.62rem;color:var(--grey);flex:1;text-align:center}
+.live-badge{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:var(--emerald);font-weight:500;letter-spacing:0.05em;text-transform:uppercase}
+.live-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--emerald);animation:livePulse 2s infinite}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* Fake site content */
+.fake-site{background:#0d1b2a;padding:0;height:380px;overflow:hidden;position:relative;font-family:var(--font-body)}
+.fs-header{background:rgba(13,27,42,0.95);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(240,237,232,0.08)}
+.fs-logo{font-family:var(--font-display);font-size:0.8rem;font-weight:800;color:#e53e3e;letter-spacing:0.02em}
+.fs-logo span{color:var(--white)}
+.fs-nav{display:flex;gap:10px}
+.fs-nav span{font-size:0.5rem;color:rgba(240,237,232,0.4);text-transform:uppercase;letter-spacing:0.08em}
+.fs-nav span.act{color:var(--white)}
+.fs-ticker{background:#e53e3e;padding:4px 16px;display:flex;align-items:center;gap:8px;overflow:hidden}
+.fs-ticker .breaking{font-size:0.55rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.1em;flex-shrink:0}
+.fs-ticker .ticker-text{font-size:0.55rem;color:rgba(255,255,255,0.9);white-space:nowrap;animation:tickerScroll 20s linear infinite}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+.fs-ad{background:rgba(240,237,232,0.04);padding:6px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(240,237,232,0.05)}
+.fs-ad-label{font-size:0.45rem;color:rgba(240,237,232,0.25);text-transform:uppercase;letter-spacing:0.1em}
+.fs-ad-text{font-size:0.55rem;color:rgba(240,237,232,0.5);font-weight:500}
+.fs-ad-btn{margin-left:auto;font-size:0.5rem;background:#e53e3e;color:#fff;padding:2px 8px;border-radius:3px;font-weight:600}
+.fs-hero{position:relative;height:160px;background:linear-gradient(180deg,rgba(13,27,42,0) 0%,rgba(13,27,42,0.95) 100%),url('char-trio.webp') center/cover;display:flex;flex-direction:column;justify-content:flex-end;padding:12px 16px}
+.fs-cat{font-size:0.5rem;background:rgba(139,92,246,0.8);color:#fff;padding:2px 6px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:4px;font-weight:600;text-transform:uppercase}
+.fs-title{font-family:var(--font-display);font-size:0.85rem;font-weight:800;color:var(--white);line-height:1.2;text-transform:uppercase;letter-spacing:-0.01em}
+.fs-sub{font-size:0.5rem;color:rgba(240,237,232,0.5);margin-top:3px}
+.fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 16px}
+.fs-card{background:rgba(240,237,232,0.03);border-radius:5px;overflow:hidden;border:1px solid rgba(240,237,232,0.05)}
+.fs-card-img{height:50px;background:linear-gradient(135deg,rgba(46,138,255,0.15),rgba(236,72,153,0.1));position:relative}
+.fs-card-img .fs-cat{position:absolute;bottom:4px;left:6px;font-size:0.42rem;margin:0}
+.fs-card-body{padding:6px}
+.fs-card-body h5{font-family:var(--font-display);font-size:0.52rem;font-weight:700;color:rgba(240,237,232,0.8);line-height:1.3;text-transform:uppercase}
+.fs-card-body p{font-size:0.42rem;color:rgba(240,237,232,0.3);margin-top:2px}
+
+/* Video Hub phone */
+.vh-phone{width:180px;border-radius:24px;overflow:hidden;border:2px solid rgba(240,237,232,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.5);position:relative;background:#0d1b2a;flex-shrink:0;height:360px}
+.vh-phone::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:50px;height:16px;background:var(--black);border-radius:0 0 8px 8px;z-index:5}
+.vh-content{height:100%;background:linear-gradient(180deg,#1a1040 0%,#2d1b69 30%,#1a0a2e 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:0;position:relative;overflow:hidden}
+.vh-bg{position:absolute;inset:0;background:url('char-trio.webp') center/cover;opacity:0.4;filter:blur(1px)}
+.vh-overlay{position:relative;z-index:2;padding:12px}
+.vh-badge{display:flex;align-items:center;gap:4px;font-size:0.5rem;color:var(--white);font-weight:500;margin-bottom:6px}
+.vh-badge::before{content:'▶';font-size:0.45rem}
+.vh-cat{font-size:0.45rem;background:rgba(229,62,62,0.8);color:#fff;padding:1px 5px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:4px;font-weight:600;text-transform:uppercase}
+.vh-title{font-family:var(--font-display);font-size:0.65rem;font-weight:800;color:var(--white);line-height:1.25;text-transform:uppercase}
+.vh-meta{font-size:0.42rem;color:rgba(240,237,232,0.5);margin-top:4px;display:flex;align-items:center;gap:4px}
+.vh-meta img{width:14px;height:14px;border-radius:50%;background:rgba(240,237,232,0.1)}
+.vh-actions{position:absolute;right:10px;top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:12px;align-items:center}
+.vh-action{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--white)}
+.vh-action-icon{font-size:0.9rem}
+.vh-action span{font-size:0.38rem;color:rgba(240,237,232,0.6)}
+.vh-scroll{text-align:center;font-size:0.4rem;color:rgba(240,237,232,0.3);padding:4px 0 8px;position:relative;z-index:2;text-transform:uppercase;letter-spacing:0.1em}
+.vh-glow{filter:drop-shadow(0 10px 40px rgba(139,92,246,0.25))}
+
+/* ===== FEATURED VIDEO (inline player) ===== */
+.featured-video{position:relative;width:100%;max-width:560px;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);cursor:pointer}
+.featured-video video{width:100%;display:block}
+
+/* ===== NUMBERS ===== */
 .numbers{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(240,237,232,0.06);border-bottom:1px solid rgba(240,237,232,0.06)}
 .number-cell{text-align:center;padding:3.5rem 2rem;border-right:1px solid rgba(240,237,232,0.06)}
 .number-cell:last-child{border-right:none}
 .number-val{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-0.03em}
-.number-val.c-accent{color:var(--accent)}
-.number-val.c-pink{color:#ec4899}
-.number-val.c-amber{color:#f59e0b}
-.number-val.c-emerald{color:#10b981}
 .number-label{font-size:0.78rem;color:var(--grey);margin-top:0.5rem}
 
 /* ===== APPROACH ===== */
@@ -94,10 +155,10 @@ header{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;dis
 .step{padding:2rem;border:1px solid rgba(240,237,232,0.08);border-radius:16px;background:rgba(240,237,232,0.02);position:relative;overflow:hidden;transition:border-color 0.4s}
 .step:hover{border-color:rgba(46,138,255,0.2)}
 .step-num{font-family:var(--font-display);font-size:4rem;font-weight:800;opacity:0.06;position:absolute;top:-10px;right:12px}
-.step h4{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.8rem;position:relative}
-.step p{font-size:0.88rem;line-height:1.7;color:rgba(240,237,232,0.55);position:relative}
+.step h4{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.8rem}
+.step p{font-size:0.88rem;line-height:1.7;color:rgba(240,237,232,0.55)}
 
-/* ===== PERSONAL SECTION ===== */
+/* ===== PERSONAL ===== */
 .personal{padding:6rem 3rem;display:grid;grid-template-columns:auto 1fr;gap:4rem;max-width:1000px;margin:0 auto;align-items:center}
 .personal-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;border:3px solid rgba(240,237,232,0.1);box-shadow:0 0 60px rgba(46,138,255,0.1)}
 .personal-text h3{font-family:var(--font-display);font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:1rem}
@@ -105,7 +166,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;dis
 .personal-text .name{font-family:var(--font-display);font-weight:700;color:var(--white);font-size:0.9rem;margin-top:1.5rem}
 .personal-text .role{font-size:0.82rem;color:var(--grey)}
 
-/* ===== CTA SECTION ===== */
+/* ===== CTA ===== */
 .cta-section{padding:8rem 3rem;text-align:center;position:relative;overflow:hidden}
 .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(46,138,255,0.08) 0%,transparent 60%)}
 .cta-section h2{font-family:var(--font-display);font-size:clamp(2.5rem,4.5vw,4rem);font-weight:800;letter-spacing:-0.04em;line-height:1.1;position:relative;max-width:700px;margin:0 auto}
@@ -115,35 +176,37 @@ header{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;dis
 .cta-extra{margin-top:1.5rem;font-size:0.82rem;color:rgba(240,237,232,0.35);position:relative}
 .cta-extra a{color:var(--accent);border-bottom:1px solid rgba(46,138,255,0.3)}
 
-/* ===== FOOTER ===== */
 footer{border-top:1px solid rgba(240,237,232,0.06);padding:2rem 3rem;text-align:center;font-size:0.75rem;color:rgba(240,237,232,0.25)}
+footer a{color:var(--grey)}
 
-/* ===== ANIMATIONS ===== */
+/* ANIMATIONS */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 @media(max-width:900px){
-  .case-card,.case-card:nth-child(even){grid-template-columns:1fr;direction:ltr}
-  .case-card:nth-child(even) > *{direction:ltr}
-  .case-img{height:50vw;min-height:250px}
-  .case-content{padding:2.5rem 1.5rem}
+  header{padding:1rem 1.5rem}
+  .hero{padding:7rem 1.5rem 4rem}
+  .case-overlay{grid-template-columns:1fr}
+  .case-text{padding:3rem 1.5rem 2rem}
+  .case-visual{padding:1.5rem;min-height:300px}
+  .slideshow{max-width:100%;aspect-ratio:16/9}
+  .phone-carousel{gap:0.8rem;justify-content:center}
+  .phone-frame{width:140px}
+  .bair-showcase{flex-direction:column}
+  .browser-mock{width:100%;max-width:340px}
+  .vh-phone{width:150px;height:300px}
   .numbers{grid-template-columns:repeat(2,1fr)}
   .number-cell:nth-child(2){border-right:none}
   .number-cell{padding:2rem 1rem}
   .steps{grid-template-columns:1fr}
   .personal{grid-template-columns:1fr;text-align:center;gap:2rem;padding:4rem 1.5rem}
   .personal-photo{margin:0 auto}
-  .phone-showcase{gap:1rem;padding:2rem 1rem}
-  .phone-frame{width:160px}
   .approach{padding:4rem 1.5rem}
   .cta-section{padding:5rem 1.5rem}
-  header{padding:1rem 1.5rem}
-  .hero{padding:7rem 1.5rem 4rem}
 }
 @media(max-width:500px){
-  .phone-showcase{flex-direction:row}
-  .phone-frame{width:140px}
+  .phone-frame{width:120px}
 }
 </style>
 </head>
@@ -159,99 +222,218 @@ footer{border-top:1px solid rgba(240,237,232,0.06);padding:2rem 3rem;text-align:
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-label">Voor [bedrijfsnaam]</div>
+  <div class="hero-label">Een persoonlijke uitnodiging</div>
   <h1>Jullie merk verdient <span class="serif">beter</span> online.</h1>
-  <p class="hero-sub">Wij bouwen websites die klanten opleveren — niet alleen complimenten. Kijk even mee naar wat we maken.</p>
+  <p class="hero-sub">Wij bouwen websites die klanten opleveren — niet alleen complimenten. Scroll even mee en oordeel zelf.</p>
   <a href="#werk" class="hero-cta">
-    Bekijk ons werk
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    Bekijk ons werk ↓
   </a>
   <div class="scroll-hint">
     <div class="scroll-line"></div>
-    Scroll
   </div>
 </section>
 
-<!-- PORTFOLIO SHOWCASE -->
-<section class="showcase" id="werk">
-  <div class="showcase-label reveal">Recent werk</div>
-
-  <!-- 1 — Artoah -->
-  <div class="case-card">
-    <div class="case-img">
-      <img src="poster-artoah.jpg" alt="Artoah Family Farm website" loading="lazy">
+<!-- ===================================================================== -->
+<!-- CASE 1 — ARTOAH (video background + photo slideshow)                  -->
+<!-- ===================================================================== -->
+<section class="case-block" id="werk">
+  <div class="case-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="artoah-video.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="case-overlay">
+    <div class="case-text reveal">
+      <div class="case-tag" style="color:var(--amber)">Family Farm · Landen, Vlaams-Brabant</div>
+      <h2 class="case-name">Artoah</h2>
+      <p class="case-desc">Van nul naar een warme, professionele online aanwezigheid. Website met webshop, blog, workshops, formulieren, SEO — en een compleet marketingplan met concurrentie-analyse. Stefanie kan nu zélf haar verhaal vertellen.</p>
+      <div class="case-pills">
+        <span class="pill">Website</span>
+        <span class="pill">Webshop</span>
+        <span class="pill">Blog</span>
+        <span class="pill">SEO & GEO</span>
+        <span class="pill">Marketingplan</span>
+        <span class="pill">Handleiding 40+ pg</span>
+      </div>
     </div>
-    <div class="case-content reveal">
-      <div class="case-tag tag-amber">Family Farm · Landen</div>
-      <h3 class="case-name">Artoah</h3>
-      <p class="case-desc">Van nul naar een warme, professionele online aanwezigheid. Website, webshop, blog, formulieren, SEO — en een compleet marketingplan met concurrentie-analyse. Stefanie kan nu zélf haar verhaal vertellen.</p>
-      <div class="case-services">
-        <span class="case-pill">Website</span>
-        <span class="case-pill">Webshop</span>
-        <span class="case-pill">Branding</span>
-        <span class="case-pill">SEO</span>
-        <span class="case-pill">Marketingplan</span>
+    <div class="case-visual">
+      <div class="slideshow" id="artoah-slides">
+        <img src="poster-artoah.jpg" alt="Artoah website" class="active">
+        <img src="broodmand.jpg" alt="Artoah broodmand" loading="lazy">
+        <img src="brood-bakken.jpg" alt="Brood bakken" loading="lazy">
+        <img src="cupcakes.jpg" alt="Cupcakes" loading="lazy">
+        <img src="zuurdesem.jpg" alt="Zuurdesem" loading="lazy">
+        <img src="workshopbakken.png" alt="Workshop bakken" loading="lazy">
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 2 — Rosing Security -->
-  <div class="case-card">
-    <div class="case-img">
-      <img src="rosingsecuritycase.png" alt="Rosing Security rebrand" loading="lazy">
+<!-- ===================================================================== -->
+<!-- CASE 2 — ROSING SECURITY (video background + featured video)          -->
+<!-- ===================================================================== -->
+<section class="case-block">
+  <div class="case-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="rosing-video.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="case-overlay">
+    <div class="case-text reveal">
+      <div class="case-tag" style="color:var(--red)">Beveiligingsbedrijf · België</div>
+      <h2 class="case-name">Rosing Security</h2>
+      <p class="case-desc">Complete rebrand voor een toonaangevend beveiligingsbedrijf. Nieuwe visuele identiteit die vertrouwen en professionaliteit uitstraalt — van logo tot social content templates. Elke pixel ademt veiligheid.</p>
+      <div class="case-pills">
+        <span class="pill">Rebrand</span>
+        <span class="pill">Website</span>
+        <span class="pill">Visuele identiteit</span>
+        <span class="pill">Social templates</span>
+        <span class="pill">Strategie</span>
+      </div>
     </div>
-    <div class="case-content reveal">
-      <div class="case-tag tag-red">Beveiligingsbedrijf · België</div>
-      <h3 class="case-name">Rosing Security</h3>
-      <p class="case-desc">Complete rebrand voor een toonaangevend beveiligingsbedrijf. Nieuwe visuele identiteit die vertrouwen en professionaliteit uitstraalt. Van logo tot website — alles op maat.</p>
-      <div class="case-services">
-        <span class="case-pill">Rebrand</span>
-        <span class="case-pill">Website</span>
-        <span class="case-pill">Visuele identiteit</span>
-        <span class="case-pill">Strategie</span>
+    <div class="case-visual">
+      <div class="featured-video">
+        <video autoplay muted loop playsinline>
+          <source src="rosing-video.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 3 — GiGi Money (with phone frames) -->
-  <div class="case-card">
-    <div class="case-img" style="background:linear-gradient(180deg,#0c0a1a,#1a1030);display:flex;align-items:center;justify-content:center">
-      <div class="phone-showcase">
-        <div class="phone-frame phone-glow-1">
-          <img src="app-daily-freedom.png" alt="GiGi Money Daily Freedom" loading="lazy">
+<!-- ===================================================================== -->
+<!-- CASE 3 — GIGI MONEY (purple bg + phone carousel)                      -->
+<!-- ===================================================================== -->
+<section class="case-block" style="background:linear-gradient(180deg,#0c0a1a 0%,var(--black) 100%)">
+  <div class="case-overlay">
+    <div class="case-text reveal">
+      <div class="case-tag" style="color:var(--pink)">FinTech Startup · Internationaal</div>
+      <h2 class="case-name">GiGi Money</h2>
+      <p class="case-desc">Een complete personal finance app — van concept tot lancering in de App Store & Play Store. AI-coach met drie persoonlijkheden, real-time berekeningen, koppelmodus, en 200+ social media assets.</p>
+      <div class="case-pills">
+        <span class="pill">App (React + TS)</span>
+        <span class="pill">Website</span>
+        <span class="pill">AI Coach</span>
+        <span class="pill">Social Content</span>
+        <span class="pill">Stripe Payments</span>
+      </div>
+    </div>
+    <div class="case-visual">
+      <div class="phone-carousel">
+        <div class="phone-frame phone-glow-pink" id="phone-1">
+          <img src="app-daily-freedom.png" alt="Daily Freedom" class="active">
+          <img src="app-fire.png" alt="FIRE Planning" loading="lazy">
+          <img src="app-coaches.png" alt="AI Coaches" loading="lazy">
         </div>
-        <div class="phone-frame phone-glow-2">
-          <img src="app-wrapped.png" alt="GiGi Money Wrapped" loading="lazy">
+        <div class="phone-frame phone-glow-purple" id="phone-2">
+          <img src="app-wrapped.png" alt="Money Wrapped" class="active">
+          <img src="app-money-dates.png" alt="Money Dates" loading="lazy">
+          <img src="app-shared-goals.png" alt="Shared Goals" loading="lazy">
         </div>
       </div>
     </div>
-    <div class="case-content reveal">
-      <div class="case-tag tag-pink">FinTech Startup · Internationaal</div>
-      <h3 class="case-name">GiGi Money</h3>
-      <p class="case-desc">Een complete personal finance app — van concept tot lancering. React + TypeScript frontend, Supabase backend, AI-coach met drie persoonlijkheden, Stripe betalingen, en 200+ social media assets.</p>
-      <div class="case-services">
-        <span class="case-pill">App Development</span>
-        <span class="case-pill">Website</span>
-        <span class="case-pill">AI Integratie</span>
-        <span class="case-pill">Social Content</span>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- CASE 4 — BAIR.MEDIA (live site embed!)                                -->
+<!-- ===================================================================== -->
+<section class="case-block" style="background:linear-gradient(180deg,#060d18 0%,var(--black) 100%)">
+  <div class="case-overlay">
+    <div class="case-text reveal">
+      <div class="case-tag" style="color:var(--accent)">AI Newsroom · Full Stack</div>
+      <h2 class="case-name">BAIR.media</h2>
+      <p class="case-desc">Een volledig autonome nieuwsredactie. 10 AI-journalisten, 14 rubrieken, 29 bronnen — publiceert 9× per dag, 24/7, zonder menselijke tussenkomst. Dit is geen mockup. Dit draait nu. Live.</p>
+      <div class="case-pills">
+        <span class="pill">Next.js 14</span>
+        <span class="pill">Supabase</span>
+        <span class="pill">Claude API</span>
+        <span class="pill">10 AI Journalisten</span>
+        <span class="pill">Autonome pipeline</span>
       </div>
     </div>
-  </div>
-
-  <!-- 4 — BAIR.media -->
-  <div class="case-card">
-    <div class="case-img">
-      <img src="og-image.jpg" alt="BAIR.media AI Newsroom" loading="lazy">
-    </div>
-    <div class="case-content reveal">
-      <div class="case-tag tag-blue">AI Newsroom · Full Stack</div>
-      <h3 class="case-name">BAIR.media</h3>
-      <p class="case-desc">Een volledig autonome nieuwsredactie. 10 AI-journalisten, 14 rubrieken, 29 bronnen — publiceert 9× per dag, 24/7. Van RSS-feeds tot gepubliceerd artikel, zonder menselijke tussenkomst.</p>
-      <div class="case-services">
-        <span class="case-pill">Full Stack</span>
-        <span class="case-pill">AI Automatisering</span>
-        <span class="case-pill">Next.js</span>
-        <span class="case-pill">Supabase</span>
+    <div class="case-visual">
+      <div class="bair-showcase">
+        <!-- Desktop browser mockup -->
+        <a href="https://bair.media" target="_blank" class="browser-mock" style="text-decoration:none;cursor:pointer">
+          <div class="browser-bar">
+            <span class="b-dot r"></span>
+            <span class="b-dot y"></span>
+            <span class="b-dot g"></span>
+            <span class="b-url">bair.media</span>
+            <span class="live-badge">Live</span>
+          </div>
+          <div class="fake-site">
+            <div class="fs-header">
+              <div class="fs-logo"><span>BAIR</span>.MEDIA</div>
+              <div class="fs-nav">
+                <span class="act">Home</span>
+                <span>Binnenland</span>
+                <span>Buitenland</span>
+                <span>Sport</span>
+                <span>Tech</span>
+                <span>Showbizz</span>
+              </div>
+            </div>
+            <div class="fs-ticker">
+              <span class="breaking">● Breaking</span>
+              <span class="ticker-text">Iran-conflict dag 16: VS en Israël bombarderen Isfahan — Nationale betoging trekt 80.000 naar Brussel — Straat van Hormuz dicht: energiecrisis dreigt</span>
+            </div>
+            <div class="fs-ad">
+              <span class="fs-ad-label">Advertentie</span>
+              <span class="fs-ad-text">BMW iX — De nieuwe standaard in elektrisch rijden</span>
+              <span class="fs-ad-btn">Ontdek →</span>
+            </div>
+            <div class="fs-hero">
+              <span class="fs-cat">Geld</span>
+              <div class="fs-title">Vandendriessche wil duurste penthouse van Knokke kopen voor 25 miljoen</div>
+              <div class="fs-sub">AI samengesteld · 2 uur geleden</div>
+            </div>
+            <div class="fs-grid">
+              <div class="fs-card">
+                <div class="fs-card-img" style="background:linear-gradient(135deg,#1a3a5c,#0d2137)">
+                  <span class="fs-cat" style="background:rgba(46,138,255,0.8)">Sport</span>
+                </div>
+                <div class="fs-card-body">
+                  <h5>Genk houdt druk op Club Brugge</h5>
+                  <p>AI · 1 uur geleden</p>
+                </div>
+              </div>
+              <div class="fs-card">
+                <div class="fs-card-img" style="background:linear-gradient(135deg,#3a1a2e,#1a0a1a)">
+                  <span class="fs-cat" style="background:rgba(236,72,153,0.8)">Showbizz</span>
+                </div>
+                <div class="fs-card-body">
+                  <h5>Bill Maher controversieel op Netflix</h5>
+                  <p>AI · 3 uur geleden</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- Video Hub phone -->
+        <a href="https://bair.media/video" target="_blank" class="vh-phone vh-glow" style="text-decoration:none;cursor:pointer">
+          <div class="vh-content">
+            <div class="vh-bg"></div>
+            <div class="vh-actions">
+              <div class="vh-action"><span class="vh-action-icon">♡</span><span>2.8k</span></div>
+              <div class="vh-action"><span class="vh-action-icon">💬</span><span>312</span></div>
+              <div class="vh-action"><span class="vh-action-icon">↗</span><span>Deel</span></div>
+              <div class="vh-action"><span class="vh-action-icon">📄</span><span>Artikel</span></div>
+              <div class="vh-action"><span class="vh-action-icon">🔖</span><span>Bewaar</span></div>
+            </div>
+            <div class="vh-overlay">
+              <div class="vh-badge">VIDEO</div>
+              <span class="vh-cat">Binnenland</span>
+              <div class="vh-title">Noodweer trekt over België: straten blank</div>
+              <div class="vh-meta">
+                <div style="width:14px;height:14px;border-radius:50%;background:rgba(240,237,232,0.2)"></div>
+                Emma Claessens · AI · 2u
+              </div>
+            </div>
+            <div class="vh-scroll">Scroll ↓</div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -260,19 +442,19 @@ footer{border-top:1px solid rgba(240,237,232,0.06);padding:2rem 3rem;text-align:
 <!-- NUMBERS -->
 <section class="numbers reveal">
   <div class="number-cell">
-    <div class="number-val c-accent">20+</div>
+    <div class="number-val" style="color:var(--accent)">20+</div>
     <div class="number-label">Jaar ervaring in content & merken</div>
   </div>
   <div class="number-cell">
-    <div class="number-val c-pink">100%</div>
+    <div class="number-val" style="color:var(--pink)">100%</div>
     <div class="number-label">Custom design — nooit templates</div>
   </div>
   <div class="number-cell">
-    <div class="number-val c-amber">9</div>
+    <div class="number-val" style="color:var(--amber)">9</div>
     <div class="number-label">Disciplines onder één dak</div>
   </div>
   <div class="number-cell">
-    <div class="number-val c-emerald">A→Z</div>
+    <div class="number-val" style="color:var(--emerald)">A→Z</div>
     <div class="number-label">Van strategie tot lancering</div>
   </div>
 </section>
@@ -280,12 +462,12 @@ footer{border-top:1px solid rgba(240,237,232,0.06);padding:2rem 3rem;text-align:
 <!-- APPROACH -->
 <section class="approach">
   <h2 class="reveal">Hoe we <span class="serif">werken</span></h2>
-  <p class="sub reveal">Geen verrassing-facturen. Geen eindeloze feedbackrondes. Gewoon een helder proces met één aanspreekpunt.</p>
+  <p class="sub reveal">Geen verrassings-facturen. Geen eindeloze feedbackrondes. Gewoon een helder proces.</p>
   <div class="steps">
     <div class="step reveal">
       <div class="step-num">01</div>
       <h4>Kennismaking</h4>
-      <p>20 minuten videocall. We bekijken jullie huidige situatie, luisteren naar jullie ambities, en geven eerlijke input. Gratis, zonder verplichtingen.</p>
+      <p>20 minuten videocall. We bekijken jullie situatie, luisteren naar jullie ambities, en geven eerlijke input. Gratis, zonder verplichtingen.</p>
     </div>
     <div class="step reveal">
       <div class="step-num">02</div>
@@ -300,7 +482,7 @@ footer{border-top:1px solid rgba(240,237,232,0.06);padding:2rem 3rem;text-align:
   </div>
 </section>
 
-<!-- PERSONAL / KRISTOF -->
+<!-- PERSONAL -->
 <section class="personal reveal">
   <img src="Kristofoverons2.png" alt="Kristof Bogaerts" class="personal-photo">
   <div class="personal-text">
@@ -324,17 +506,50 @@ footer{border-top:1px solid rgba(240,237,232,0.06);padding:2rem 3rem;text-align:
   </p>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  © 2026 The Bair Company · Glabbeek, Vlaams-Brabant · <a href="https://www.baircompany.be" style="color:var(--grey)">baircompany.be</a>
+  © 2026 The Bair Company · Glabbeek, Vlaams-Brabant · <a href="https://www.baircompany.be">baircompany.be</a>
 </footer>
 
-<!-- Scroll reveal -->
+<!-- ===== SCRIPTS ===== -->
 <script>
+// Scroll reveal
 const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)} });
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Auto-slideshow for Artoah
+function runSlideshow(containerId, interval) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const imgs = el.querySelectorAll('img');
+  let current = 0;
+  setInterval(() => {
+    imgs[current].classList.remove('active');
+    current = (current + 1) % imgs.length;
+    imgs[current].classList.add('active');
+  }, interval);
+}
+runSlideshow('artoah-slides', 3500);
+
+// Phone carousel auto-cycle (staggered)
+function runPhoneCarousel(frameId, interval) {
+  const el = document.getElementById(frameId);
+  if (!el) return;
+  const imgs = el.querySelectorAll('img');
+  let current = 0;
+  setInterval(() => {
+    imgs[current].classList.remove('active');
+    current = (current + 1) % imgs.length;
+    imgs[current].classList.add('active');
+  }, interval);
+}
+runPhoneCarousel('phone-1', 3000);
+setTimeout(() => runPhoneCarousel('phone-2', 3200), 1500);
+
+// Ticker animation restart
+const ticker = document.querySelector('.ticker-text');
+if(ticker) { ticker.addEventListener('animationiteration', () => {}); }
 </script>
 
 </body>
