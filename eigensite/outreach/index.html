@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jullie website verdient beter — The Bair Co.</title>
+<meta name="description" content="Premium webdesign, branding en digitale strategie. Bekijk wat The Bair Company voor jouw merk kan betekenen.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Jullie website verdient beter — The Bair Co.">
+<meta property="og:description" content="Premium webdesign, branding en digitale strategie. Eén team, één visie, één resultaat.">
+<meta property="og:image" content="https://www.baircompany.be/og-image.jpg">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0a0a0a;--white:#f0ede8;--grey:#888;--accent:#2E8AFF;--red:#ef4444;--font-display:'Syne',system-ui,sans-serif;--font-body:'DM Sans',-apple-system,sans-serif;--font-serif:'Instrument Serif',Georgia,serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scrollbar-width:none}
+::-webkit-scrollbar{width:0;height:0}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.03;mix-blend-mode:normal}
+a{color:inherit;text-decoration:none}
+.serif{font-family:var(--font-serif);font-style:italic;font-weight:400}
+::selection{background:var(--accent);color:var(--black)}
+
+/* ===== HEADER ===== */
+header{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,10,10,0.85);border-bottom:1px solid rgba(240,237,232,0.06)}
+.brand{font-family:var(--font-display);font-size:0.9rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:flex;align-items:center;gap:0.6rem}
+.brand img{width:24px;height:24px;object-fit:contain}
+.header-cta{padding:0.5rem 1.3rem;border-radius:100px;background:var(--white);color:var(--black);font-family:var(--font-display);font-weight:700;font-size:0.78rem;letter-spacing:0.02em;transition:transform 0.3s var(--ease)}
+.header-cta:hover{transform:translateY(-1px)}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(46,138,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 40%,rgba(236,72,153,0.05) 0%,transparent 50%)}
+.hero-label{font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:1.5rem;position:relative}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;letter-spacing:-0.04em;line-height:1.05;max-width:900px;position:relative}
+.hero h1 .serif{font-size:1.05em;display:inline}
+.hero-sub{font-size:clamp(1rem,1.5vw,1.2rem);color:var(--grey);max-width:520px;margin:2rem auto 0;line-height:1.7;position:relative}
+.hero-cta{display:inline-flex;align-items:center;gap:0.6rem;margin-top:2.5rem;padding:1rem 2.5rem;background:var(--white);color:var(--black);font-family:var(--font-display);font-weight:700;font-size:0.95rem;border-radius:100px;transition:transform 0.3s var(--ease),box-shadow 0.3s;position:relative}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,237,232,0.15)}
+.hero-cta svg{width:18px;height:18px}
+.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--grey);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(180deg,rgba(240,237,232,0.3),transparent);animation:scrollPulse 2s infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:0.8}}
+
+/* ===== PORTFOLIO SHOWCASE ===== */
+.showcase{padding:0 0 0}
+.showcase-label{text-align:center;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);padding:5rem 2rem 2rem}
+
+/* Case cards */
+.case-card{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;border-top:1px solid rgba(240,237,232,0.06)}
+.case-card:nth-child(even){direction:rtl}
+.case-card:nth-child(even) > *{direction:ltr}
+.case-img{position:relative;overflow:hidden}
+.case-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s var(--ease)}
+.case-card:hover .case-img img{transform:scale(1.04)}
+.case-content{display:flex;flex-direction:column;justify-content:center;padding:4rem 5rem}
+.case-tag{font-size:0.68rem;font-weight:500;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:1rem}
+.case-tag.tag-amber{color:#f59e0b}
+.case-tag.tag-red{color:#ef4444}
+.case-tag.tag-pink{color:#ec4899}
+.case-tag.tag-blue{color:var(--accent)}
+.case-name{font-family:var(--font-display);font-size:clamp(2rem,3vw,3rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1.5rem}
+.case-desc{font-size:1rem;line-height:1.8;color:rgba(240,237,232,0.65);max-width:420px}
+.case-services{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
+.case-pill{padding:0.35rem 0.9rem;border-radius:100px;font-size:0.72rem;font-weight:500;border:1px solid rgba(240,237,232,0.12);color:rgba(240,237,232,0.6);letter-spacing:0.02em}
+
+/* Phone showcase */
+.phone-showcase{display:flex;justify-content:center;align-items:center;gap:2rem;padding:3rem}
+.phone-frame{width:220px;border-radius:28px;overflow:hidden;border:2px solid rgba(240,237,232,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;background:#1a1a2e}
+.phone-frame img{width:100%;display:block}
+.phone-frame::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:60px;height:18px;background:var(--black);border-radius:0 0 10px 10px;z-index:3}
+.phone-glow-1{filter:drop-shadow(0 10px 50px rgba(236,72,153,0.35))}
+.phone-glow-2{filter:drop-shadow(0 10px 50px rgba(139,92,246,0.35))}
+
+/* ===== NUMBERS BAR ===== */
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(240,237,232,0.06);border-bottom:1px solid rgba(240,237,232,0.06)}
+.number-cell{text-align:center;padding:3.5rem 2rem;border-right:1px solid rgba(240,237,232,0.06)}
+.number-cell:last-child{border-right:none}
+.number-val{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-0.03em}
+.number-val.c-accent{color:var(--accent)}
+.number-val.c-pink{color:#ec4899}
+.number-val.c-amber{color:#f59e0b}
+.number-val.c-emerald{color:#10b981}
+.number-label{font-size:0.78rem;color:var(--grey);margin-top:0.5rem}
+
+/* ===== APPROACH ===== */
+.approach{padding:6rem 3rem;max-width:1000px;margin:0 auto;text-align:center}
+.approach h2{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem}
+.approach .sub{color:var(--grey);font-size:1.05rem;max-width:580px;margin:0 auto 3.5rem;line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:left}
+.step{padding:2rem;border:1px solid rgba(240,237,232,0.08);border-radius:16px;background:rgba(240,237,232,0.02);position:relative;overflow:hidden;transition:border-color 0.4s}
+.step:hover{border-color:rgba(46,138,255,0.2)}
+.step-num{font-family:var(--font-display);font-size:4rem;font-weight:800;opacity:0.06;position:absolute;top:-10px;right:12px}
+.step h4{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.8rem;position:relative}
+.step p{font-size:0.88rem;line-height:1.7;color:rgba(240,237,232,0.55);position:relative}
+
+/* ===== PERSONAL SECTION ===== */
+.personal{padding:6rem 3rem;display:grid;grid-template-columns:auto 1fr;gap:4rem;max-width:1000px;margin:0 auto;align-items:center}
+.personal-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;border:3px solid rgba(240,237,232,0.1);box-shadow:0 0 60px rgba(46,138,255,0.1)}
+.personal-text h3{font-family:var(--font-display);font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:1rem}
+.personal-text p{font-size:1rem;line-height:1.8;color:rgba(240,237,232,0.65);margin-bottom:0.8rem}
+.personal-text .name{font-family:var(--font-display);font-weight:700;color:var(--white);font-size:0.9rem;margin-top:1.5rem}
+.personal-text .role{font-size:0.82rem;color:var(--grey)}
+
+/* ===== CTA SECTION ===== */
+.cta-section{padding:8rem 3rem;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(46,138,255,0.08) 0%,transparent 60%)}
+.cta-section h2{font-family:var(--font-display);font-size:clamp(2.5rem,4.5vw,4rem);font-weight:800;letter-spacing:-0.04em;line-height:1.1;position:relative;max-width:700px;margin:0 auto}
+.cta-section .sub{color:var(--grey);font-size:1.05rem;margin:1.5rem auto 0;max-width:500px;line-height:1.7;position:relative}
+.cta-btn-big{display:inline-flex;align-items:center;gap:0.8rem;margin-top:3rem;padding:1.2rem 3rem;background:var(--white);color:var(--black);font-family:var(--font-display);font-weight:700;font-size:1.05rem;border-radius:100px;transition:transform 0.3s var(--ease),box-shadow 0.3s;position:relative}
+.cta-btn-big:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(240,237,232,0.15)}
+.cta-extra{margin-top:1.5rem;font-size:0.82rem;color:rgba(240,237,232,0.35);position:relative}
+.cta-extra a{color:var(--accent);border-bottom:1px solid rgba(46,138,255,0.3)}
+
+/* ===== FOOTER ===== */
+footer{border-top:1px solid rgba(240,237,232,0.06);padding:2rem 3rem;text-align:center;font-size:0.75rem;color:rgba(240,237,232,0.25)}
+
+/* ===== ANIMATIONS ===== */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .case-card,.case-card:nth-child(even){grid-template-columns:1fr;direction:ltr}
+  .case-card:nth-child(even) > *{direction:ltr}
+  .case-img{height:50vw;min-height:250px}
+  .case-content{padding:2.5rem 1.5rem}
+  .numbers{grid-template-columns:repeat(2,1fr)}
+  .number-cell:nth-child(2){border-right:none}
+  .number-cell{padding:2rem 1rem}
+  .steps{grid-template-columns:1fr}
+  .personal{grid-template-columns:1fr;text-align:center;gap:2rem;padding:4rem 1.5rem}
+  .personal-photo{margin:0 auto}
+  .phone-showcase{gap:1rem;padding:2rem 1rem}
+  .phone-frame{width:160px}
+  .approach{padding:4rem 1.5rem}
+  .cta-section{padding:5rem 1.5rem}
+  header{padding:1rem 1.5rem}
+  .hero{padding:7rem 1.5rem 4rem}
+}
+@media(max-width:500px){
+  .phone-showcase{flex-direction:row}
+  .phone-frame{width:140px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="https://www.baircompany.be" class="brand" target="_blank">
+    <img src="logo-white.png" alt="The Bair Co.">The Bair Co.
+  </a>
+  <a href="#gesprek" class="header-cta">Plan een gesprek</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Voor [bedrijfsnaam]</div>
+  <h1>Jullie merk verdient <span class="serif">beter</span> online.</h1>
+  <p class="hero-sub">Wij bouwen websites die klanten opleveren — niet alleen complimenten. Kijk even mee naar wat we maken.</p>
+  <a href="#werk" class="hero-cta">
+    Bekijk ons werk
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </a>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- PORTFOLIO SHOWCASE -->
+<section class="showcase" id="werk">
+  <div class="showcase-label reveal">Recent werk</div>
+
+  <!-- 1 — Artoah -->
+  <div class="case-card">
+    <div class="case-img">
+      <img src="poster-artoah.jpg" alt="Artoah Family Farm website" loading="lazy">
+    </div>
+    <div class="case-content reveal">
+      <div class="case-tag tag-amber">Family Farm · Landen</div>
+      <h3 class="case-name">Artoah</h3>
+      <p class="case-desc">Van nul naar een warme, professionele online aanwezigheid. Website, webshop, blog, formulieren, SEO — en een compleet marketingplan met concurrentie-analyse. Stefanie kan nu zélf haar verhaal vertellen.</p>
+      <div class="case-services">
+        <span class="case-pill">Website</span>
+        <span class="case-pill">Webshop</span>
+        <span class="case-pill">Branding</span>
+        <span class="case-pill">SEO</span>
+        <span class="case-pill">Marketingplan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 — Rosing Security -->
+  <div class="case-card">
+    <div class="case-img">
+      <img src="rosingsecuritycase.png" alt="Rosing Security rebrand" loading="lazy">
+    </div>
+    <div class="case-content reveal">
+      <div class="case-tag tag-red">Beveiligingsbedrijf · België</div>
+      <h3 class="case-name">Rosing Security</h3>
+      <p class="case-desc">Complete rebrand voor een toonaangevend beveiligingsbedrijf. Nieuwe visuele identiteit die vertrouwen en professionaliteit uitstraalt. Van logo tot website — alles op maat.</p>
+      <div class="case-services">
+        <span class="case-pill">Rebrand</span>
+        <span class="case-pill">Website</span>
+        <span class="case-pill">Visuele identiteit</span>
+        <span class="case-pill">Strategie</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 — GiGi Money (with phone frames) -->
+  <div class="case-card">
+    <div class="case-img" style="background:linear-gradient(180deg,#0c0a1a,#1a1030);display:flex;align-items:center;justify-content:center">
+      <div class="phone-showcase">
+        <div class="phone-frame phone-glow-1">
+          <img src="app-daily-freedom.png" alt="GiGi Money Daily Freedom" loading="lazy">
+        </div>
+        <div class="phone-frame phone-glow-2">
+          <img src="app-wrapped.png" alt="GiGi Money Wrapped" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="case-content reveal">
+      <div class="case-tag tag-pink">FinTech Startup · Internationaal</div>
+      <h3 class="case-name">GiGi Money</h3>
+      <p class="case-desc">Een complete personal finance app — van concept tot lancering. React + TypeScript frontend, Supabase backend, AI-coach met drie persoonlijkheden, Stripe betalingen, en 200+ social media assets.</p>
+      <div class="case-services">
+        <span class="case-pill">App Development</span>
+        <span class="case-pill">Website</span>
+        <span class="case-pill">AI Integratie</span>
+        <span class="case-pill">Social Content</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 — BAIR.media -->
+  <div class="case-card">
+    <div class="case-img">
+      <img src="og-image.jpg" alt="BAIR.media AI Newsroom" loading="lazy">
+    </div>
+    <div class="case-content reveal">
+      <div class="case-tag tag-blue">AI Newsroom · Full Stack</div>
+      <h3 class="case-name">BAIR.media</h3>
+      <p class="case-desc">Een volledig autonome nieuwsredactie. 10 AI-journalisten, 14 rubrieken, 29 bronnen — publiceert 9× per dag, 24/7. Van RSS-feeds tot gepubliceerd artikel, zonder menselijke tussenkomst.</p>
+      <div class="case-services">
+        <span class="case-pill">Full Stack</span>
+        <span class="case-pill">AI Automatisering</span>
+        <span class="case-pill">Next.js</span>
+        <span class="case-pill">Supabase</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="numbers reveal">
+  <div class="number-cell">
+    <div class="number-val c-accent">20+</div>
+    <div class="number-label">Jaar ervaring in content & merken</div>
+  </div>
+  <div class="number-cell">
+    <div class="number-val c-pink">100%</div>
+    <div class="number-label">Custom design — nooit templates</div>
+  </div>
+  <div class="number-cell">
+    <div class="number-val c-amber">9</div>
+    <div class="number-label">Disciplines onder één dak</div>
+  </div>
+  <div class="number-cell">
+    <div class="number-val c-emerald">A→Z</div>
+    <div class="number-label">Van strategie tot lancering</div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach">
+  <h2 class="reveal">Hoe we <span class="serif">werken</span></h2>
+  <p class="sub reveal">Geen verrassing-facturen. Geen eindeloze feedbackrondes. Gewoon een helder proces met één aanspreekpunt.</p>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h4>Kennismaking</h4>
+      <p>20 minuten videocall. We bekijken jullie huidige situatie, luisteren naar jullie ambities, en geven eerlijke input. Gratis, zonder verplichtingen.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <h4>Strategie & Design</h4>
+      <p>We analyseren jullie markt, concurrenten en doelgroep. Daarna ontwerpen we — tot het precies goed voelt. Jullie zien alles vóór we bouwen.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <h4>Realisatie & Lancering</h4>
+      <p>We bouwen alles op maat — snel, modern, geoptimaliseerd. Na lancering blijven we beschikbaar. Jullie site groeit mee met jullie merk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL / KRISTOF -->
+<section class="personal reveal">
+  <img src="Kristofoverons2.png" alt="Kristof Bogaerts" class="personal-photo">
+  <div class="personal-text">
+    <h3>De mens achter het bureau</h3>
+    <p>20 jaar geleden begon ik als hoofdredacteur van magazines. Ik leerde hoe je een verhaal vertelt dat mensen bijblijft. Vandaag doe ik hetzelfde — maar dan voor merken, websites en digitale producten.</p>
+    <p>Ik geloof dat elk bedrijf — groot of klein — een online aanwezigheid verdient die even sterk is als wat ze in het echt neerzetten. Niet duurder. Niet complexer. Gewoon <em>beter</em>.</p>
+    <div class="name">Kristof Bogaerts</div>
+    <div class="role">Oprichter & Creative Director — The Bair Company</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="gesprek">
+  <h2 class="reveal">Klaar om jullie merk <span class="serif">sterker</span> neer te zetten?</h2>
+  <p class="sub reveal">20 minuten. Eerlijke input. Vrijblijvend. Ik bekijk van tevoren jullie website en kom voorbereid.</p>
+  <a href="https://calendly.com/thebaircompany" class="cta-btn-big reveal" target="_blank">
+    Plan een vrijblijvend gesprek →
+  </a>
+  <p class="cta-extra reveal">
+    Of mail direct: <a href="mailto:kristof@baircompany.be">kristof@baircompany.be</a>
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 The Bair Company · Glabbeek, Vlaams-Brabant · <a href="https://www.baircompany.be" style="color:var(--grey)">baircompany.be</a>
+</footer>
+
+<!-- Scroll reveal -->
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
