@@ -12,12 +12,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://www.baircompany.be/blog.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
   <!-- Dienstenpagina's -->
   <url>
     <loc>https://www.baircompany.be/diensten/branding.html</loc>
