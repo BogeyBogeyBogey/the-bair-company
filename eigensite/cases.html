@@ -105,13 +105,14 @@
 .grad-text-blue{background:linear-gradient(135deg,#1B45AB,#4A8FE7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .grad-text-red{background:linear-gradient(135deg,#BC1A25,#E85D65);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .bair-connector{width:1px;height:60px;margin:0 auto;background:linear-gradient(180deg,transparent,rgba(27,69,171,0.15),transparent)}
-.reporter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 3rem}
+.reporter-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 3rem}
 .reporter-card{text-align:center;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}.reporter-card:hover{transform:translateY(-6px)}
 .reporter-card img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid rgba(27,69,171,0.3);margin-bottom:0.8rem}
 .pipeline-flow{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;padding:2rem 3rem;max-width:1100px;margin:0 auto}
 .pipeline-step{padding:1rem 1.5rem;border-radius:12px;text-align:center;min-width:140px;position:relative}
 .pipeline-arrow{font-size:1.5rem;color:rgba(27,69,171,0.4);padding:0 0.5rem}
 .dept-tag{display:inline-block;padding:4px 12px;border-radius:100px;font-size:0.7rem;font-weight:500;letter-spacing:0.05em}
+@media(max-width:900px){.reporter-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){.reporter-grid{grid-template-columns:1fr 1fr;gap:1rem;padding:0 1.5rem}.pipeline-flow{flex-direction:column;gap:0.5rem}.pipeline-arrow{transform:rotate(90deg)}}
 
 /* ===== ARTOAH CASE — Warm farm visual system ===== */
@@ -128,7 +129,22 @@
 @media(max-width:768px){.deliverable-grid{grid-template-columns:1fr}}
 
 @media(max-width:900px){.phone-frame{width:220px}}
-@media(max-width:768px){.gigi-coach-grid{grid-template-columns:1fr !important}.gigi-phones-row{flex-direction:column !important;align-items:center !important;gap:2rem !important}.gigi-trailer-sub{grid-template-columns:1fr !important}.gigi-ig-grid{grid-template-columns:1fr 1fr !important}.phone-frame{width:240px}}</style>
+@media(max-width:768px){.gigi-coach-grid{grid-template-columns:1fr !important}.gigi-phones-row{flex-direction:column !important;align-items:center !important;gap:2rem !important}.gigi-trailer-sub{grid-template-columns:1fr !important}.gigi-ig-grid{grid-template-columns:1fr 1fr !important}.phone-frame{width:240px}}
+
+/* ===== ROSING SECURITY CASE — Dark Authority visual system ===== */
+.rosing-bg-dark{background:linear-gradient(180deg,#080e1a 0%,#0a0a0a 100%)}
+.rosing-bg-blue{background:linear-gradient(180deg,#080e1a 0%,rgba(20,60,120,0.1) 50%,#0a0a0a 100%)}
+.rosing-bg-red{background:linear-gradient(180deg,#0a0a0a 0%,rgba(180,20,20,0.07) 50%,#0a0a0a 100%)}
+.rosing-bg-steel{background:linear-gradient(180deg,#0a0a0a 0%,rgba(80,100,130,0.06) 50%,#0a0a0a 100%)}
+.grad-text-rosing{background:linear-gradient(135deg,#3a7bd5,#6faee8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-text-steel{background:linear-gradient(135deg,#8da9c4,#c8d8e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.rosing-connector{width:1px;height:60px;margin:0 auto;background:linear-gradient(180deg,transparent,rgba(46,138,255,0.12),transparent)}
+.rosing-stat-card{padding:2rem 1.5rem;border-radius:16px;border:1px solid rgba(46,138,255,0.08);background:rgba(20,60,120,0.05);text-align:center;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}.rosing-stat-card:hover{transform:translateY(-4px);border-color:rgba(46,138,255,0.15)}
+.rosing-service-card{padding:2rem;border-radius:14px;border:1px solid rgba(240,237,232,0.06);background:rgba(20,60,120,0.04);transition:border-color 0.3s}.rosing-service-card:hover{border-color:rgba(46,138,255,0.2)}
+.rosing-live-btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(46,138,255,0.3);color:#3a7bd5;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s}.rosing-live-btn:hover{background:rgba(46,138,255,0.08);border-color:rgba(46,138,255,0.5);color:#6faee8}
+.rosing-live-dot{width:7px;height:7px;border-radius:50%;background:#3a7bd5;animation:pulse-rosing 2s infinite}
+@keyframes pulse-rosing{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+@media(max-width:768px){.rosing-services-grid{grid-template-columns:1fr 1fr !important}}</style>
 
 <script type="application/ld+json">
 {
@@ -170,37 +186,6 @@
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
-<div id="pw-gate" style="position:fixed;inset:0;z-index:99999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem">
-  <div style="font-family:'Syne',system-ui,sans-serif;font-weight:800;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:#f0ede8;display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem">
-    <img src="logo-white.png" alt="" style="width:28px;height:28px;object-fit:contain">THE BAIR CO.
-  </div>
-  <p style="color:#888;font-size:0.95rem;text-align:center;max-width:340px;line-height:1.6">Deze pagina is beveiligd.<br>Voer het wachtwoord in om verder te gaan.</p>
-  <div style="display:flex;gap:0.5rem;align-items:center">
-    <input id="pw-input" type="password" placeholder="Wachtwoord" autofocus
-      style="padding:0.75rem 1.2rem;border-radius:100px;border:1px solid rgba(240,237,232,0.15);background:rgba(240,237,232,0.05);color:#f0ede8;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;width:240px;transition:border-color 0.3s"
-      onfocus="this.style.borderColor='#2E8AFF'" onblur="this.style.borderColor='rgba(240,237,232,0.15)'">
-    <button onclick="checkPw()" style="padding:0.75rem 1.5rem;border-radius:100px;background:#f0ede8;color:#0a0a0a;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;border:none;transition:transform 0.2s">OK</button>
-  </div>
-  <p id="pw-error" style="color:#ef4444;font-size:0.82rem;opacity:0;transition:opacity 0.3s">Verkeerd wachtwoord</p>
-</div>
-<script>
-function checkPw(){
-  var v=document.getElementById('pw-input').value;
-  if(v==='Kristofnoaharthur'){
-    document.getElementById('pw-gate').style.opacity='0';
-    document.getElementById('pw-gate').style.transition='opacity 0.4s';
-    setTimeout(function(){document.getElementById('pw-gate').style.display='none'},400);
-    sessionStorage.setItem('cases-auth','1');
-  } else {
-    document.getElementById('pw-error').style.opacity='1';
-    document.getElementById('pw-input').style.borderColor='#ef4444';
-    setTimeout(function(){document.getElementById('pw-error').style.opacity='0'},2000);
-  }
-}
-document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw()});
-if(sessionStorage.getItem('cases-auth')==='1'){document.getElementById('pw-gate').style.display='none'}
-</script>
 
 <a href="#main" class="skip-link">Spring naar inhoud</a>
 
@@ -275,110 +260,213 @@ if(sessionStorage.getItem('cases-auth')==='1'){document.getElementById('pw-gate'
 <!-- ═══════════════════════════════════════════ -->
 <div class="case-study active" id="case-rosing">
 
-  <img class="case-hero-img" src="https://images.unsplash.com/photo-1558002038-1055907df827?w=1600&h=900&fit=crop&q=85&auto=format" alt="Rosing Security — camera surveillance systeem" loading="lazy">
-
-  <div class="case-intro">
-    <div class="case-intro-left">
-      <h2 class="reveal">Van onzichtbaar naar onmisbaar</h2>
-      <div class="case-meta reveal">
-        <div class="case-meta-item">
-          <div class="case-meta-label">Klant</div>
-          <div class="case-meta-val">Rosing Security</div>
+  <!-- ══════ HERO — dark authority sfeer ══════ -->
+  <div style="position:relative; width:100%; height:70vh; overflow:hidden; background:#080e1a; display:flex; align-items:center; justify-content:center;">
+    <!-- Glow orbs -->
+    <div class="glow-orb" style="width:550px;height:350px;background:rgba(46,138,255,0.12);top:10%;left:15%;"></div>
+    <div class="glow-orb" style="width:350px;height:350px;background:rgba(180,20,20,0.1);top:30%;right:10%;"></div>
+    <div class="glow-orb" style="width:250px;height:250px;background:rgba(46,138,255,0.08);bottom:15%;left:45%;"></div>
+    <!-- Geometric security grid pattern -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.04;z-index:0" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#2E8AFF" stroke-width="0.5"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+      <circle cx="400" cy="250" r="200" fill="none" stroke="#2E8AFF" stroke-width="0.5" opacity="0.5"/>
+      <circle cx="400" cy="250" r="140" fill="none" stroke="#2E8AFF" stroke-width="0.5" opacity="0.4"/>
+      <circle cx="400" cy="250" r="80" fill="none" stroke="#2E8AFF" stroke-width="0.5" opacity="0.3"/>
+      <line x1="0" y1="250" x2="800" y2="250" stroke="#2E8AFF" stroke-width="0.3" opacity="0.4"/>
+      <line x1="400" y1="0" x2="400" y2="500" stroke="#2E8AFF" stroke-width="0.3" opacity="0.4"/>
+    </svg>
+    <div style="position:relative; z-index:1; text-align:center; padding:0 3rem; max-width:900px;">
+      <!-- Shield icon -->
+      <svg width="60" height="68" viewBox="0 0 60 68" fill="none" style="margin-bottom:2rem; opacity:0.85;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 2L4 13V34C4 49.5 15.2 62.8 30 66C44.8 62.8 56 49.5 56 34V13L30 2Z" stroke="#3a7bd5" stroke-width="1.5" fill="rgba(58,123,213,0.08)"/>
+        <path d="M21 34l6 6 12-12" stroke="#3a7bd5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 style="font-family:var(--font-display); font-size:clamp(2.2rem,4.5vw,4rem); font-weight:800; letter-spacing:-0.03em; line-height:1.1;">Van onzichtbaar naar <span class="grad-text-rosing">onmisbaar</span>.</h2>
+      <p style="font-family:var(--font-serif); font-style:italic; font-size:clamp(1rem,2vw,1.3rem); color:rgba(240,237,232,0.45); margin-top:1.5rem;">Beveiliging die je kunt zien — en vertrouwen.</p>
+      <!-- Services strip -->
+      <div style="display:flex; justify-content:center; gap:2.5rem; margin-top:2.5rem; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Camera</div>
         </div>
-        <div class="case-meta-item">
-          <div class="case-meta-label">Scope</div>
-          <div class="case-meta-val">Website & Branding</div>
+        <div style="color:rgba(240,237,232,0.12);">|</div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Alarm</div>
         </div>
-        <div class="case-meta-item">
-          <div class="case-meta-label">Tijdlijn</div>
-          <div class="case-meta-val">8 weken</div>
+        <div style="color:rgba(240,237,232,0.12);">|</div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Manbewaking</div>
+        </div>
+        <div style="color:rgba(240,237,232,0.12);">|</div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Branding</div>
         </div>
       </div>
     </div>
-    <div class="case-intro-right reveal">
-      <p>Rosing Security beschermt al meer dan vijftien jaar bedrijfspanden, evenementen en particuliere woningen in heel Vlaanderen. Hun team van veertig professionals installeert camerasystemen, configureert alarmen en levert manbewaking op locatie. Maar hun online aanwezigheid vertelde een ander verhaal: een website uit 2014 met stockfoto's van glimlachende bewakers en een contactformulier dat niet werkte.</p>
-      <p>Toen eigenaar Thomas Rosing ons belde, was zijn frustratie voelbaar. "We verliezen opdrachten aan bedrijven die half zo goed zijn, maar er online twee keer zo professioneel uitzien." Dat was het startschot voor een transformatie die veel verder ging dan een nieuwe website.</p>
+    <div style="position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(transparent, #080e1a); z-index:2;"></div>
+  </div>
+
+  <!-- ══════ INTRO ══════ -->
+  <div class="rosing-bg-dark">
+    <div class="case-intro" style="padding-top:5rem; padding-bottom:5rem;">
+      <div class="case-intro-left">
+        <h2 class="reveal">Een merk dat eindelijk <span class="grad-text-rosing">klopt</span> met de realiteit.</h2>
+        <div class="case-meta reveal">
+          <div class="case-meta-item">
+            <div class="case-meta-label">Klant</div>
+            <div class="case-meta-val">Rosing Security</div>
+          </div>
+          <div class="case-meta-item">
+            <div class="case-meta-label">Scope</div>
+            <div class="case-meta-val">Website & Branding</div>
+          </div>
+          <div class="case-meta-item">
+            <div class="case-meta-label">Tijdlijn</div>
+            <div class="case-meta-val">8 weken</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-intro-right reveal">
+        <p>Rosing Security beschermt al meer dan vijftien jaar bedrijfspanden, evenementen en particuliere woningen in heel Vlaanderen. Hun team van veertig professionals installeert camerasystemen, configureert alarmen en levert manbewaking op locatie. Maar hun online aanwezigheid vertelde een ander verhaal: een website uit 2014 met stockfoto's van glimlachende bewakers en een contactformulier dat niet werkte.</p>
+        <p>Toen eigenaar Thomas Rosing ons belde, was zijn frustratie voelbaar. "We verliezen opdrachten aan bedrijven die half zo goed zijn, maar er online twee keer zo professioneel uitzien." Dat was het startschot voor een transformatie die veel verder ging dan een nieuwe website.</p>
+      </div>
     </div>
   </div>
 
-  <!-- Challenge -->
-  <div class="case-section">
-    <p class="case-section-label reveal" style="color:var(--red)">De uitdaging</p>
-    <h3 class="reveal">Een merk dat niet overeenkwam met de realiteit</h3>
-    <div class="case-dual reveal">
-      <div>
-        <p>Het probleem zat dieper dan een lelijke website. Rosing Security had geen herkenbare identiteit. Geen consistent kleurgebruik, geen vaste tone of voice, en drie verschillende logo-varianten die op verschillende plekken opdoken. Offertes gingen de deur uit als Word-documenten met een pixelig logo. Bedrijfswagens hadden stickers in kleuren die niet bij elkaar pasten.</p>
-        <p>Het gevolg? Potentiële klanten kozen voor concurrenten die er professioneler uitzagen — terwijl Rosing kwalitatief de betere keuze was. In een sector waar vertrouwen alles is, ondermijnde hun visuele presentatie hun eigen expertise.</p>
-      </div>
-      <div>
-        <p>Daarnaast was de website technisch een ramp. Laadtijden van meer dan drie seconden, geen HTTPS-certificaat (ironisch voor een beveiligingsbedrijf), en een mobiele versie die meer leek op een rekenblad dan een website. Google strafte hen af: ze stonden nergens in de zoekresultaten.</p>
-        <p>We moesten niet alleen een website bouwen, maar een compleet merk herdefiniëren. Van logo tot lettertype, van offerte-template tot voertuigbestickering. Alles moest één verhaal vertellen: "Wij nemen beveiliging serieus — tot op het kleinste detail."</p>
+  <!-- ══════ CHALLENGE ══════ -->
+  <div class="rosing-bg-red">
+    <div class="case-section">
+      <p class="case-section-label reveal" style="color:#ef5555;">De uitdaging</p>
+      <h3 class="reveal">Een merk dat niet overeenkwam met de <span class="serif">realiteit</span>.</h3>
+      <div class="case-dual reveal">
+        <div>
+          <p>Het probleem zat dieper dan een lelijke website. Rosing Security had geen herkenbare identiteit. Geen consistent kleurgebruik, geen vaste tone of voice, en drie verschillende logo-varianten die op verschillende plekken opdoken. Offertes gingen de deur uit als Word-documenten met een pixelig logo. Bedrijfswagens hadden stickers in kleuren die niet bij elkaar pasten.</p>
+          <p style="margin-top:1rem;">Het gevolg? Potentiële klanten kozen voor concurrenten die er professioneler uitzagen — terwijl Rosing kwalitatief de betere keuze was. In een sector waar vertrouwen alles is, ondermijnde hun visuele presentatie hun eigen expertise.</p>
+        </div>
+        <div>
+          <p>Daarnaast was de website technisch een ramp. Laadtijden van meer dan drie seconden, geen HTTPS-certificaat (ironisch voor een beveiligingsbedrijf), en een mobiele versie die meer leek op een rekenblad dan een website. Google strafte hen af: ze stonden nergens in de zoekresultaten.</p>
+          <p style="margin-top:1rem;">We moesten niet alleen een website bouwen, maar een compleet merk herdefiniëren. Van logo tot lettertype, van offerte-template tot voertuigbestickering. Alles moest één verhaal vertellen: "Wij nemen beveiliging serieus — tot op het kleinste detail."</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Image strip -->
+  <div class="rosing-connector"></div>
+
+  <!-- ══════ IMAGE STRIP ══════ -->
   <div class="case-img-strip">
     <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&h=400&fit=crop&q=85&auto=format" alt="Beveiligingscamera close-up" loading="lazy">
     <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=400&fit=crop&q=85&auto=format" alt="Controleruimte met monitoren" loading="lazy">
     <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&q=85&auto=format" alt="Modern kantoorgebouw bij nacht" loading="lazy">
   </div>
 
-  <!-- Solution -->
-  <div class="case-section">
-    <p class="case-section-label reveal" style="color:var(--emerald)">De aanpak</p>
-    <h3 class="reveal">Vertrouwen ontwerpen, pixel voor pixel</h3>
-    <div class="case-process reveal">
-      <div class="case-step" data-num="01">
-        <h4>Merkstrategie & Identiteit</h4>
-        <p>We begonnen met een merkaudit en stakeholder-interviews. Samen definieerden we drie merkwaarden: betrouwbaarheid, precisie en toegankelijkheid. Het nieuwe logo — een minimalistisch schild met een subtiele 'R' — straalt bescherming uit zonder agressief te zijn. Het kleurenpalet van diepblauw, staal en signaalrood verankert het merk in professionaliteit.</p>
-      </div>
-      <div class="case-step" data-num="02">
-        <h4>Website Design & Development</h4>
-        <p>De nieuwe website opent met een full-screen video van een beveiligingsteam in actie — echt beeldmateriaal, geen stockfoto's. De navigatie brengt bezoekers in drie klikken naar een offerte. Elke pagina is gebouwd rondom één gedachte: "Wat moet deze bezoeker nu weten om actie te ondernemen?" Technisch draaien we op een headless CMS met SSG voor bliksemsnelle laadtijden.</p>
-      </div>
-      <div class="case-step" data-num="03">
-        <h4>Merkdragers & Rollout</h4>
-        <p>We leverden een compleet brandbook met richtlijnen voor alles: van e-mail signatures en PowerPoint-templates tot de bestickering van acht bedrijfsvoertuigen. Offertes gaan nu de deur uit als strak vormgegeven PDF's die er even professioneel uitzien als het werk dat Rosing levert. Zelfs de werkkleding werd herontworpen.</p>
+  <div class="rosing-connector"></div>
+
+  <!-- ══════ SOLUTION ══════ -->
+  <div class="rosing-bg-blue">
+    <div class="case-section" style="padding-bottom:2rem;">
+      <p class="case-section-label reveal" style="color:#3a7bd5;">De aanpak</p>
+      <h3 class="reveal">Vertrouwen ontwerpen, <span class="serif">pixel voor pixel</span>.</h3>
+      <div class="case-process reveal">
+        <div class="case-step" data-num="01">
+          <h4>Merkstrategie & Identiteit</h4>
+          <p>We begonnen met een merkaudit en stakeholder-interviews. Samen definieerden we drie merkwaarden: betrouwbaarheid, precisie en toegankelijkheid. Het nieuwe logo — een minimalistisch schild met een subtiele 'R' — straalt bescherming uit zonder agressief te zijn. Het kleurenpalet van diepblauw, staal en signaalrood verankert het merk in professionaliteit.</p>
+        </div>
+        <div class="case-step" data-num="02">
+          <h4>Website Design & Development</h4>
+          <p>De nieuwe website opent met een full-screen video van een beveiligingsteam in actie — echt beeldmateriaal, geen stockfoto's. De navigatie brengt bezoekers in drie klikken naar een offerte. Elke pagina is gebouwd rondom één gedachte: "Wat moet deze bezoeker nu weten om actie te ondernemen?" Technisch draaien we op een headless CMS met SSG voor bliksemsnelle laadtijden.</p>
+        </div>
+        <div class="case-step" data-num="03">
+          <h4>Merkdragers & Rollout</h4>
+          <p>We leverden een compleet brandbook met richtlijnen voor alles: van e-mail signatures en PowerPoint-templates tot de bestickering van acht bedrijfsvoertuigen. Offertes gaan nu de deur uit als strak vormgegeven PDF's die er even professioneel uitzien als het werk dat Rosing levert. Zelfs de werkkleding werd herontworpen.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Quote -->
-  <div class="case-quote reveal">
-    <blockquote>"We krijgen nu regelmatig complimenten over onze uitstraling — van klanten én van concurrenten. Dat is misschien wel het mooiste compliment."</blockquote>
-    <cite>
-      <strong>Thomas Rosing</strong>
-      Eigenaar, Rosing Security
-    </cite>
-  </div>
+  <div class="rosing-connector"></div>
 
-  <!-- Results -->
-  <div class="case-results-section">
-    <p class="case-section-label reveal" style="color:var(--amber)">Het resultaat</p>
-    <h3 class="reveal">Wat we opgeleverd hebben</h3>
-    <div class="case-results-grid reveal">
-      <div class="case-result-card">
-        <div class="case-result-val" style="color:var(--emerald)">Full</div>
-        <div class="case-result-label">Rebrand</div>
-        <div class="case-result-desc">Compleet nieuw logo, kleurenpalet, typografie en merkstrategie — van visitekaartje tot voertuigbestickering.</div>
-      </div>
-      <div class="case-result-card">
-        <div class="case-result-val" style="color:var(--accent)">&lt;2s</div>
-        <div class="case-result-label">Laadtijd nieuwe site</div>
-        <div class="case-result-desc">Gebouwd met moderne technologie voor bliksemsnelle prestaties — mobile-first en SEO-geoptimaliseerd.</div>
-      </div>
-      <div class="case-result-card">
-        <div class="case-result-val" style="color:var(--amber)">3 wkn</div>
-        <div class="case-result-label">Van concept tot oplevering</div>
-        <div class="case-result-desc">Volledige merkidentiteit en website opgeleverd in drie weken — zonder concessies aan kwaliteit.</div>
+  <!-- ══════ SERVICES OVERZICHT ══════ -->
+  <div class="rosing-bg-steel">
+    <div class="case-section" style="padding-bottom:3rem;">
+      <p class="case-section-label reveal" style="color:rgba(141,169,196,0.8);">Wat we opleverden</p>
+      <h3 class="reveal">Niet enkel een website. Een <span class="grad-text-steel">complete identiteit</span>.</h3>
+      <div class="reveal rosing-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:2rem;">
+        <div class="rosing-service-card">
+          <div style="font-size:1.8rem; margin-bottom:0.8rem;">🛡</div>
+          <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:#6faee8;">Nieuw logo & merk</div>
+          <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Minimalistisch schild-logo, volledig kleurenpalet, typografieregels. Eén consistente uitstraling van visitekaartje tot bouwbord.</p>
+        </div>
+        <div class="rosing-service-card">
+          <div style="font-size:1.8rem; margin-bottom:0.8rem;">💻</div>
+          <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:#6faee8;">Website & SEO</div>
+          <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Performante, mobile-first website met HTTPS, snelle laadtijden en lokale SEO-optimalisatie. Van onvindbaar naar eerste pagina.</p>
+        </div>
+        <div class="rosing-service-card">
+          <div style="font-size:1.8rem; margin-bottom:0.8rem;">🚗</div>
+          <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:#6faee8;">Merkdragers</div>
+          <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Wagenbestickering (8 voertuigen), werkkleding, offerte-templates in PDF, e-mailsignaturen en PowerPoint-sjablonen.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Final highlight -->
-  <div class="case-highlight reveal" style="border-top: 1px solid rgba(240,237,232,0.06);">
-    <h3>Van een verouderde site naar een merk dat vertrouwen uitstraalt</h3>
+  <!-- ══════ QUOTE ══════ -->
+  <div class="rosing-bg-dark">
+    <div class="case-quote reveal" style="padding-top:4rem; padding-bottom:4rem;">
+      <blockquote>"We krijgen nu regelmatig complimenten over onze uitstraling — van klanten én van concurrenten. Dat is misschien wel het mooiste compliment."</blockquote>
+      <cite>
+        <strong>Thomas Rosing</strong>
+        Eigenaar, Rosing Security
+      </cite>
+    </div>
+  </div>
+
+  <!-- ══════ RESULTS ══════ -->
+  <div class="rosing-bg-blue">
+    <div class="case-results-section">
+      <p class="case-section-label reveal" style="color:#3a7bd5;">In cijfers</p>
+      <h3 class="reveal">Wat <span class="grad-text-rosing">acht weken</span> kunnen doen.</h3>
+      <div class="case-results-grid reveal">
+        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
+          <div class="case-result-val" style="color:#6faee8;">Full</div>
+          <div class="case-result-label">Rebrand</div>
+          <div class="case-result-desc">Compleet nieuw logo, kleurenpalet, typografie en merkstrategie — van visitekaartje tot voertuigbestickering.</div>
+        </div>
+        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
+          <div class="case-result-val" style="color:#3a7bd5;">&lt;2s</div>
+          <div class="case-result-label">Laadtijd nieuwe site</div>
+          <div class="case-result-desc">Gebouwd met moderne technologie voor bliksemsnelle prestaties — mobile-first en SEO-geoptimaliseerd.</div>
+        </div>
+        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
+          <div class="case-result-val" style="color:#8da9c4;">8</div>
+          <div class="case-result-label">Voertuigen gerebranded</div>
+          <div class="case-result-desc">Van plakkerige foliestickers in inconsistente kleuren naar een uniform wagenpark dat het merk draagt.</div>
+        </div>
+      </div>
+      <div class="case-results-grid reveal" style="margin-top:1.5rem;">
+        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
+          <div class="case-result-val" style="color:#6faee8;">3</div>
+          <div class="case-result-label">Merkwaarden gedefinieerd</div>
+          <div class="case-result-desc">Betrouwbaarheid · Precisie · Toegankelijkheid. Elk beslissing in het project getoetst aan deze drie.</div>
+        </div>
+        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
+          <div class="case-result-val" style="color:#3a7bd5;">40+</div>
+          <div class="case-result-label">Professionals in het team</div>
+          <div class="case-result-desc">Een professioneel uitziend merk geeft ook de medewerkers een betere eerste indruk bij elke klantbezoek.</div>
+        </div>
+        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
+          <div class="case-result-val" style="color:#8da9c4;">15+</div>
+          <div class="case-result-label">Jaar ervaring — nu zichtbaar</div>
+          <div class="case-result-desc">Vijftien jaar expertise die eindelijk ook online overkomt. De kloof tussen werkelijkheid en uitstraling — gedicht.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ CLOSING ══════ -->
+  <div class="case-highlight reveal" style="border-top:1px solid rgba(46,138,255,0.08); padding:5rem 3rem;">
+    <h3><span class="grad-text-rosing">Van een verouderde site naar een merk dat vertrouwen uitstraalt.</span> Beveiliging die je ziet — ook online.</h3>
     <p>Een beveiligingsbedrijf dat er nu ook online uitziet alsof ze beveiliging serieus nemen — tot op het kleinste detail.</p>
   </div>
 </div>
@@ -581,6 +669,11 @@ if(sessionStorage.getItem('cases-auth')==='1'){document.getElementById('pw-gate'
   <div class="case-highlight reveal" style="border-top:1px solid rgba(45,80,22,0.1); padding:5rem 3rem;">
     <h3><span class="grad-text-forest">Van een boerderij zonder website naar het digitale gezicht van het Hageland.</span> Warm, professioneel, en volledig in eigen handen.</h3>
     <p>Soms is het mooiste project niet het grootste, maar het meest persoonlijke. Een familieboerderij die eindelijk haar verhaal kan vertellen — op haar eigen manier.</p>
+    <a href="https://artoah.be" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:2rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(45,80,22,0.35);color:#7A9B5C;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.background='rgba(45,80,22,0.1)';this.style.borderColor='rgba(45,80,22,0.6)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(45,80,22,0.35)'">
+      <span style="width:7px;height:7px;border-radius:50%;background:#7A9B5C;animation:pulse-rosing 2s infinite;flex-shrink:0;"></span>
+      Bekijk live op artoah.be
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
   </div>
 </div>
 
@@ -902,6 +995,11 @@ if(sessionStorage.getItem('cases-auth')==='1'){document.getElementById('pw-gate'
   <div class="case-highlight reveal" style="border-top:1px solid rgba(236,72,153,0.1); padding:5rem 3rem;">
     <h3><span class="grad-text-pink">Van spreadsheet naar product.</span> Van idee naar 28 landen. Van solo-project naar iets dat écht mensen helpt.</h3>
     <p>De technische diepgang van een enterprise-applicatie. De toegankelijkheid van een consumer-app. Gebouwd, getest en gelanceerd — door één persoon.</p>
+    <a href="https://gigimoney.app" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:2rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(236,72,153,0.35);color:#ec4899;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.background='rgba(236,72,153,0.08)';this.style.borderColor='rgba(236,72,153,0.6)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(236,72,153,0.35)'">
+      <span style="width:7px;height:7px;border-radius:50%;background:#ec4899;animation:pulse-rosing 2s infinite;flex-shrink:0;"></span>
+      Bekijk live op gigimoney.app
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
   </div>
 </div>
 
@@ -1038,6 +1136,16 @@ if(sessionStorage.getItem('cases-auth')==='1'){document.getElementById('pw-gate'
         <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Lien</div>
         <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Gezondheid</div>
       </div>
+      <div class="reporter-card">
+        <img src="cases/bair/nikolaas.jpg" alt="Nikolaas — AI-journalist" loading="lazy">
+        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Nikolaas</div>
+        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Misdaad</div>
+      </div>
+      <div class="reporter-card">
+        <img src="cases/bair/hanna.jpg" alt="Hanna — AI-journalist" loading="lazy">
+        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Hanna</div>
+        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Wetenschap</div>
+      </div>
     </div>
   </div>
 
@@ -1152,6 +1260,11 @@ if(sessionStorage.getItem('cases-auth')==='1'){document.getElementById('pw-gate'
   <div class="case-highlight reveal" style="border-top:1px solid rgba(27,69,171,0.1); padding:5rem 3rem;">
     <h3><span class="grad-text-blue">Van concept tot autonome nieuwsredactie.</span> Van nul bronnen naar 29. Van idee naar een site die zichzelf vult — elke dag, zonder tussenkomst.</h3>
     <p>De architectuur van een enterprise newsroom. De wendbaarheid van een startup. Gebouwd door één persoon die wilde bewijzen dat het anders kan.</p>
+    <a href="https://bair.media" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:2rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(27,69,171,0.35);color:#4A8FE7;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.background='rgba(27,69,171,0.1)';this.style.borderColor='rgba(27,69,171,0.6)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(27,69,171,0.35)'">
+      <span style="width:7px;height:7px;border-radius:50%;background:#4A8FE7;animation:pulse-rosing 2s infinite;flex-shrink:0;"></span>
+      Bekijk live op bair.media
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
   </div>
 </div>
 

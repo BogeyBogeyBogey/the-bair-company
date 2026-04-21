@@ -876,8 +876,9 @@ body {
     <div class="quiz-bg-img" id="bg-1"  data-bg="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1280&q=75&auto=format"></div>
     <div class="quiz-bg-img" id="bg-2"  data-bg="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1280&q=75&auto=format"></div>
     <div class="quiz-bg-img" id="bg-3"  data-bg="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1280&q=75&auto=format"></div>
-    <div class="quiz-bg-img" id="bg-4"  data-bg="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1280&q=75&auto=format"></div>
-    <div class="quiz-bg-img" id="bg-result"  data-bg="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-4"  data-bg="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-5"  data-bg="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1280&q=75&auto=format"></div>
+    <div class="quiz-bg-img" id="bg-result"  data-bg="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1280&q=75&auto=format"></div>
   </div>
 
   <div class="quiz-content">
@@ -899,7 +900,7 @@ body {
         <div class="quiz-progress-fill" id="progressFill"></div>
       </div>
       <div class="quiz-progress-meta">
-        <span id="progressStep">Vraag 1 van 5</span>
+        <span id="progressStep">Vraag 1 van 6</span>
         <span id="progressPct">0%</span>
       </div>
     </div>
@@ -911,8 +912,8 @@ body {
       <div class="quiz-intro active" id="quizIntro">
         <div class="intro-overline">Persoonlijk advies in 2 minuten</div>
         <div class="intro-line"></div>
-        <h2 class="intro-title">Ontdek wat AI voor<br><span class="serif">jouw bedrijf kan doen</span></h2>
-        <p class="intro-desc">Vijf vragen. Eén helder advies. We kijken waar je staat, waar je vastloopt, en welke AI-oplossing bij jou past — als die past. Geen hype, geen sales-praat.</p>
+        <h2 class="intro-title">Ontdek wat jouw merk<br><span class="serif">nodig heeft</span></h2>
+        <p class="intro-desc">Zes vragen. Eén helder advies. Wij analyseren waar jij staat en vertellen je precies wat de volgende stap is.</p>
         <p class="intro-meta">Vrijblijvend — geen registratie nodig</p>
         <button class="intro-start" onclick="startQuiz()">
           Start
@@ -960,7 +961,7 @@ body {
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
               <div class="quiz-option-label">Ik heb een concreet idee</div>
-              <div class="quiz-option-desc">Een app, platform of AI-product dat gebouwd moet worden.</div>
+              <div class="quiz-option-desc">Een app, platform of project dat gebouwd moet worden.</div>
             </div>
           </div>
         </div>
@@ -980,8 +981,8 @@ body {
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
-              <div class="quiz-option-label">Leads komen te traag binnen</div>
-              <div class="quiz-option-desc">Online ben ik onzichtbaar of te weinig vindbaar.</div>
+              <div class="quiz-option-label">Mijn doelgroep vindt me niet</div>
+              <div class="quiz-option-desc">Online ben ik zo goed als onzichtbaar.</div>
             </div>
           </div>
           <div class="quiz-option" onclick="selectOption(1,1)">
@@ -1007,8 +1008,8 @@ body {
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
-              <div class="quiz-option-label">Te veel handwerk, te weinig tijd</div>
-              <div class="quiz-option-desc">Repetitieve taken vreten uren die ik niet heb.</div>
+              <div class="quiz-option-label">Alles kost me te veel tijd</div>
+              <div class="quiz-option-desc">Handmatig werk vreet uren die ik niet heb.</div>
             </div>
           </div>
         </div>
@@ -1016,47 +1017,47 @@ body {
         <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-1" onclick="nextSlide(1)">Volgende →</button></div>
       </div>
 
-      <!-- ── Q3: AMBITIE ── -->
+      <!-- ── Q3: PRIORITEIT ── -->
       <div class="quiz-slide" id="slide-2">
         <div class="slide-header">
-          <div class="quiz-question-num">Vraag 03 — Ambitie</div>
-          <h2 class="quiz-question">Waar wil AI voor jou<br><span class="serif">het verschil maken</span>?</h2>
+          <div class="quiz-question-num">Vraag 03 — Prioriteit</div>
+          <h2 class="quiz-question">Als je morgen één ding<br><span class="serif">kon aanpakken</span>?</h2>
         </div>
         <div class="quiz-options">
           <div class="quiz-option" onclick="selectOption(2,0)">
-            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80&auto=format')"></div>
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
-              <div class="quiz-option-label">AI die leads binnenhaalt</div>
-              <div class="quiz-option-desc">Chatbots, slimme funnels en personalisatie die klanten aantrekken.</div>
+              <div class="quiz-option-label">Een sterk merk</div>
+              <div class="quiz-option-desc">Een identiteit die vertrouwen wekt en blijft hangen.</div>
             </div>
           </div>
           <div class="quiz-option" onclick="selectOption(2,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Een website die werkt</div>
+              <div class="quiz-option-desc">Online aanwezig zijn, dag en nacht, zonder moeite.</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(2,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552581234-26160f608093?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Content die aankomt</div>
+              <div class="quiz-option-desc">Mijn verhaal vertellen op een manier die raakt.</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(2,3)">
             <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80&auto=format')"></div>
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
-              <div class="quiz-option-label">AI die herhaalwerk overneemt</div>
-              <div class="quiz-option-desc">Rapportage, e-mails, data — automatiseren wat uren kost.</div>
-            </div>
-          </div>
-          <div class="quiz-option" onclick="selectOption(2,2)">
-            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80&auto=format')"></div>
-            <div class="quiz-option-gradient"></div>
-            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div class="quiz-option-text">
-              <div class="quiz-option-label">Een AI-product voor mijn klanten</div>
-              <div class="quiz-option-desc">Een tool of dienst met AI erin, die ik zelf vermarkt.</div>
-            </div>
-          </div>
-          <div class="quiz-option" onclick="selectOption(2,3)">
-            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format')"></div>
-            <div class="quiz-option-gradient"></div>
-            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div class="quiz-option-text">
-              <div class="quiz-option-label">Eerst de basics, dan AI</div>
-              <div class="quiz-option-desc">Merk, website of content moet eerst kloppen voor AI zin heeft.</div>
+              <div class="quiz-option-label">Slimmere tools en processen</div>
+              <div class="quiz-option-desc">Minder handwerk, meer impact — met de juiste systemen.</div>
             </div>
           </div>
         </div>
@@ -1064,11 +1065,11 @@ body {
         <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-2" onclick="nextSlide(2)">Volgende →</button></div>
       </div>
 
-      <!-- ── Q4: FUNDAMENT ── -->
+      <!-- ── Q4: DIGITALE BASIS ── -->
       <div class="quiz-slide" id="slide-3">
         <div class="slide-header">
-          <div class="quiz-question-num">Vraag 04 — Fundament</div>
-          <h2 class="quiz-question">Hoe sterk staat je<br><span class="serif">digitale basis</span> vandaag?</h2>
+          <div class="quiz-question-num">Vraag 04 — Basis</div>
+          <h2 class="quiz-question">Hoe omschrijf je je<br><span class="serif">online aanwezigheid</span>?</h2>
         </div>
         <div class="quiz-options">
           <div class="quiz-option" onclick="selectOption(3,0)">
@@ -1077,25 +1078,25 @@ body {
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
               <div class="quiz-option-label">Weinig tot niets</div>
-              <div class="quiz-option-desc">Geen website, amper zichtbaar. We beginnen bij nul.</div>
+              <div class="quiz-option-desc">Geen website, of alleen een vergeten Facebook-pagina.</div>
             </div>
           </div>
           <div class="quiz-option" onclick="selectOption(3,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Verouderd en rommelig</div>
+              <div class="quiz-option-desc">Een site uit een ander tijdperk die traag laadt en niet converteert.</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(3,2)">
             <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80&auto=format')"></div>
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
-              <div class="quiz-option-label">Staat, maar presteert niet</div>
-              <div class="quiz-option-desc">Site en socials leven, maar leveren weinig op.</div>
-            </div>
-          </div>
-          <div class="quiz-option" onclick="selectOption(3,2)">
-            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&q=80&auto=format')"></div>
-            <div class="quiz-option-gradient"></div>
-            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div class="quiz-option-text">
-              <div class="quiz-option-label">Loopt, niet op kruissnelheid</div>
-              <div class="quiz-option-desc">De basis staat — tijd om slimmer op te schalen.</div>
+              <div class="quiz-option-label">Staat, maar doet niets</div>
+              <div class="quiz-option-desc">Modern genoeg, maar geen leads en amper verkeer.</div>
             </div>
           </div>
           <div class="quiz-option" onclick="selectOption(3,3)">
@@ -1104,7 +1105,7 @@ body {
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
               <div class="quiz-option-label">Ik wil iets nieuws bouwen</div>
-              <div class="quiz-option-desc">Een app, platform of AI-product dat er nog niet is.</div>
+              <div class="quiz-option-desc">Een app, platform, dashboard of digitaal product.</div>
             </div>
           </div>
         </div>
@@ -1112,15 +1113,63 @@ body {
         <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-3" onclick="nextSlide(3)">Volgende →</button></div>
       </div>
 
-      <!-- ── Q5: SAMENWERKING ── -->
+      <!-- ── Q5: ZICHTBAARHEID ── -->
       <div class="quiz-slide" id="slide-4">
         <div class="slide-header">
-          <div class="quiz-question-num">Vraag 05 — Samenwerking</div>
-          <h2 class="quiz-question">Hoe wil je het liefst<br><span class="serif">samenwerken</span>?</h2>
+          <div class="quiz-question-num">Vraag 05 — Zichtbaarheid</div>
+          <h2 class="quiz-question">Hoe bereik je vandaag<br><span class="serif">je klanten</span>?</h2>
         </div>
         <div class="quiz-options">
           <div class="quiz-option" onclick="selectOption(4,0)">
-            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Vooral mond-tot-mondreclame</div>
+              <div class="quiz-option-desc">Geen actieve online strategie — het komt vanzelf.</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(4,1)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Social media, zonder plan</div>
+              <div class="quiz-option-desc">Ik post af en toe iets, maar het voelt willekeurig.</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(4,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Content met weinig bereik</div>
+              <div class="quiz-option-desc">Er zit werk in, maar het verkeer blijft uit.</div>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(4,3)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&q=80&auto=format')"></div>
+            <div class="quiz-option-gradient"></div>
+            <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="quiz-option-text">
+              <div class="quiz-option-label">Goed — ik wil opschalen</div>
+              <div class="quiz-option-desc">De basis staat, ik zoek meer kanalen of efficiëntie.</div>
+            </div>
+          </div>
+        </div>
+        <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-4" onclick="nextSlide(4)">Volgende →</button></div>
+      </div>
+
+      <!-- ── Q6: SAMENWERKING ── -->
+      <div class="quiz-slide" id="slide-5">
+        <div class="slide-header">
+          <div class="quiz-question-num">Vraag 06 — Samenwerking</div>
+          <h2 class="quiz-question">Hoe wil je het liefst<br><span class="serif">samenwerken</span>?</h2>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(5,0)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format')"></div>
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
@@ -1128,7 +1177,7 @@ body {
               <div class="quiz-option-desc">Ik zoek een partner die het regelt, van A tot Z.</div>
             </div>
           </div>
-          <div class="quiz-option" onclick="selectOption(4,1)">
+          <div class="quiz-option" onclick="selectOption(5,1)">
             <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80&auto=format')"></div>
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -1137,27 +1186,27 @@ body {
               <div class="quiz-option-desc">Geef me een plan en de juiste richting.</div>
             </div>
           </div>
-          <div class="quiz-option" onclick="selectOption(4,2)">
-            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80&auto=format')"></div>
+          <div class="quiz-option" onclick="selectOption(5,2)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=600&q=80&auto=format')"></div>
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
               <div class="quiz-option-label">Bouw het, leer mij de rest</div>
-              <div class="quiz-option-desc">Ik wil er zelf mee verder kunnen — met AI als copilot.</div>
+              <div class="quiz-option-desc">Ik wil het daarna zelf kunnen onderhouden.</div>
             </div>
           </div>
-          <div class="quiz-option" onclick="selectOption(4,3)">
-            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80&auto=format')"></div>
+          <div class="quiz-option" onclick="selectOption(5,3)">
+            <div class="quiz-option-img" style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80&auto=format')"></div>
             <div class="quiz-option-gradient"></div>
             <div class="quiz-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="quiz-option-text">
               <div class="quiz-option-label">Maak het slim en automatisch</div>
-              <div class="quiz-option-desc">AI en workflows die het werk uit handen nemen.</div>
+              <div class="quiz-option-desc">AI en tools die het werk uit handen nemen.</div>
             </div>
           </div>
         </div>
         <p class="quiz-hint">Je mag meerdere antwoorden kiezen</p>
-        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-4" onclick="nextSlide(4)">Bekijk resultaat →</button></div>
+        <div class="quiz-nav"><button class="quiz-nav-back" onclick="goBack()">Terug</button><button class="quiz-nav-next" id="next-5" onclick="nextSlide(5)">Bekijk resultaat →</button></div>
       </div>
 
       <!-- ── RESULT ── -->
@@ -1188,7 +1237,7 @@ body {
    Ontdek Tool — The Bair Co. V2
    ═══════════════════════════════════════ */
 
-const TOTAL_QUESTIONS = 5;
+const TOTAL_QUESTIONS = 6;
 let currentSlide = -1;
 let answers = Array.from({ length: TOTAL_QUESTIONS }, () => new Set());
 
@@ -1197,7 +1246,7 @@ const services = {
   branding: {
     name: 'Branding & Identiteit',
     link: 'diensten/branding.html',
-    photo: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=400&q=80&auto=format',
+    photo: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&q=80&auto=format',
     why: 'Een sterk merk is de basis van alles. We bouwen een visuele identiteit die je doelgroep onthoudt en vertrouwt.'
   },
   webdesign: {
@@ -1209,7 +1258,7 @@ const services = {
   development: {
     name: 'Webontwikkeling',
     link: 'diensten/webontwikkeling.html',
-    photo: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&q=80&auto=format',
+    photo: 'https://images.unsplash.com/photo-1537498425277-c283d32ef9db?w=400&q=80&auto=format',
     why: 'Razendsnelle, moderne websites gebouwd met de nieuwste technologieën. Klaar voor de toekomst.'
   },
   social: {
@@ -1221,13 +1270,13 @@ const services = {
   ai: {
     name: 'AI & Automatisering',
     link: 'diensten/ai-automatisering.html',
-    photo: 'https://images.unsplash.com/photo-1518085250887-2f903c200fee?w=400&q=80&auto=format',
+    photo: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80&auto=format',
     why: 'Slimme workflows en AI-tools die je team uren per week besparen. Praktisch en toegankelijk.'
   },
   apps: {
     name: 'Apps & Producten',
     link: 'diensten/apps.html',
-    photo: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&q=80&auto=format',
+    photo: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80&auto=format',
     why: 'Van concept tot App Store — wij begeleiden het volledige traject voor jouw digitaal product.'
   },
   copy: {
@@ -1239,7 +1288,7 @@ const services = {
   marketing: {
     name: 'Marketing',
     link: 'diensten/marketing.html',
-    photo: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=400&q=80&auto=format',
+    photo: 'https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=400&q=80&auto=format',
     why: 'Data-gedreven campagnes die resultaat opleveren. SEO, ads, funnels — we meten alles.'
   },
   training: {
@@ -1255,37 +1304,44 @@ const scoring = [
   // Q1: Situatie — wie ben je?
   [
     { branding: 4, webdesign: 3, development: 3, copy: 2, marketing: 1 },   // Start iets nieuws
-    { marketing: 3, social: 2, copy: 2, ai: 3, webdesign: 2 },              // Groei stagneert
+    { marketing: 4, social: 3, copy: 2, webdesign: 2, ai: 1 },             // Groei stagneert
     { branding: 4, webdesign: 3, copy: 2, development: 1 },                 // Vernieuwing
-    { apps: 5, development: 3, ai: 3, webdesign: 1 }                        // Concreet idee / AI-product
+    { apps: 4, development: 3, webdesign: 2, ai: 1 }                        // Concreet idee
   ],
   // Q2: Pijnpunt — wat doet pijn?
   [
-    { marketing: 3, social: 2, copy: 2, webdesign: 2, ai: 2 },              // Leads te traag / onzichtbaar
+    { marketing: 4, social: 3, copy: 2, webdesign: 1 },                     // Doelgroep vindt me niet
     { branding: 5, webdesign: 3, copy: 1 },                                 // Uitstraling klopt niet
-    { marketing: 3, copy: 3, webdesign: 2, ai: 2 },                         // Bezoekers → geen klanten
-    { ai: 6, training: 2 }                                                   // Te veel handwerk
+    { marketing: 3, copy: 3, webdesign: 2, social: 1 },                     // Bezoekers → geen klanten
+    { ai: 5, training: 2 }                                                   // Te veel tijd
   ],
-  // Q3: Ambitie — waar wil AI het verschil maken?
+  // Q3: Prioriteit — waar zou je in investeren?
   [
-    { ai: 5, marketing: 2, webdesign: 1 },                                   // AI die leads binnenhaalt
-    { ai: 6, training: 2 },                                                  // AI die herhaalwerk overneemt
-    { apps: 5, ai: 4, development: 2 },                                      // AI-product voor klanten
-    { branding: 3, webdesign: 3, copy: 2, development: 1 }                   // Eerst de basics
+    { branding: 4, copy: 2 },                                                // Sterk merk
+    { webdesign: 4, development: 3 },                                        // Website die werkt
+    { social: 3, copy: 3, marketing: 2 },                                    // Content die aankomt
+    { ai: 4, training: 2 }                                                   // Slimmere tools
   ],
-  // Q4: Fundament — hoe sterk staat je basis?
+  // Q4: Digitale basis — wat heb je nu?
   [
-    { webdesign: 4, development: 3, branding: 3, copy: 2 },                 // Weinig tot niets
-    { marketing: 3, copy: 2, webdesign: 2, ai: 2, social: 1 },              // Staat, presteert niet
-    { ai: 3, marketing: 2, social: 2, copy: 1 },                            // Loopt, wil opschalen
-    { apps: 5, development: 3, ai: 2 }                                       // Iets nieuws bouwen
+    { webdesign: 4, development: 4, branding: 2, copy: 2 },                 // Weinig tot niets
+    { webdesign: 4, development: 3, copy: 1 },                              // Verouderd
+    { marketing: 4, copy: 2, social: 1 },                                   // Staat maar doet niets
+    { apps: 5, development: 3 }                                              // Iets nieuws bouwen
   ],
-  // Q5: Samenwerking — hoe wil je werken?
+  // Q5: Zichtbaarheid — hoe bereik je klanten?
   [
-    { branding: 2, webdesign: 2, development: 2, social: 2, copy: 2, marketing: 2, ai: 2 },  // Uit handen
+    { social: 4, marketing: 3, copy: 3 },                                   // Mond-tot-mond
+    { social: 3, marketing: 3, copy: 2 },                                   // Social zonder plan
+    { marketing: 4, copy: 3 },                                              // Content weinig bereik
+    { ai: 3, training: 2, marketing: 2 }                                    // Wil opschalen
+  ],
+  // Q6: Samenwerking — hoe wil je werken?
+  [
+    { branding: 2, webdesign: 2, development: 2, social: 2, copy: 2, marketing: 2 },  // Uit handen
     { training: 3, copy: 1 },                                               // Denk mee, zelf uitvoeren
-    { training: 4, ai: 2 },                                                 // Bouw het, leer mij
-    { ai: 6, training: 1 }                                                   // Slim en automatisch
+    { training: 4, webdesign: 1 },                                          // Bouw het, leer mij
+    { ai: 5, training: 1 }                                                   // Slim en automatisch
   ]
 ];
 
@@ -1448,19 +1504,12 @@ function showResult() {
   // Background
   setBackground('bg-result');
 
-  // Subtitle — AI-first framing
+  // Subtitle
   let subtitle = 'Op basis van jouw antwoorden hebben we een persoonlijk advies samengesteld.';
-  if (scores.apps >= 6) {
-    subtitle = 'Je hebt een idee. Wij bouwen producten — mét AI end-to-end verweven. Laten we kijken of het past.';
-  } else if (scores.ai >= 10) {
-    subtitle = 'Je zit op het juiste spoor. AI kan voor jouw bedrijf concreet het verschil maken — hier is hoe we het zouden aanpakken.';
-  } else if ((scores.webdesign + scores.branding) >= 8 && scores.ai < 6) {
-    subtitle = 'Eerst de basis, dan de automatisering. Dat is de juiste volgorde — en we bouwen beide.';
-  } else if (scores.ai >= 6) {
-    subtitle = 'AI is geen hype bij jouw situatie — het is een hefboom. We laten zien waar het voor jou het grootste verschil maakt.';
-  } else if (scores.marketing >= 6) {
-    subtitle = 'Je hebt een basis. Nu is het tijd om meer klanten te bereiken — slimmer, niet harder.';
-  }
+  if (scores.branding >= 8) subtitle = 'Je merk is het startpunt van alles. Laten we daar samen een ijzersterke basis voor leggen.';
+  else if (scores.webdesign >= 8 || scores.development >= 8) subtitle = 'Je online aanwezigheid verdient een upgrade. Tijd voor een website die echt voor je werkt.';
+  else if (scores.marketing >= 6) subtitle = 'Je hebt de basis, nu is het tijd om meer klanten te bereiken met een slimme strategie.';
+  else if (scores.ai >= 6) subtitle = 'Slimmer werken begint met de juiste tools. We laten je zien hoe AI je bedrijf kan transformeren.';
   document.getElementById('resultSubtitle').textContent = subtitle;
 
   // Render
