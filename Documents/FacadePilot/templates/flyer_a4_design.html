@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>FacadePilot Flyer A4 — Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  @page { size: A4; margin: 0; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    font-family: 'Archivo', sans-serif;
+    color: #f5f5f0;
+    background: #0a0a0a;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    grid-template-rows: 12mm 1fr 0;
+    background: #0a0a0a;
+  }
+
+  /* ── Top bar — monospaced systeem-info ─────────── */
+  .topbar {
+    background: #0a0a0a;
+    border-bottom: 1px solid #2a2a26;
+    padding: 0 14mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: #888;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .topbar .left b { color: {{ accent_color | default('#ff5722') }}; font-weight: 500; }
+  .topbar .right { display: flex; gap: 16px; }
+  .topbar .right span::before {
+    content: '— ';
+    color: #555;
+  }
+
+  /* ── Body grid: links image stack, rechts content ── */
+  .body {
+    display: grid;
+    grid-template-columns: 105mm 1fr;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* ── Linkse kolom — twee stacked images ─────────── */
+  .img-stack {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    gap: 0;
+    background: #1a1a1a;
+    border-right: 1px solid #2a2a26;
+  }
+  .img-large {
+    position: relative;
+    overflow: hidden;
+  }
+  .img-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .img-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: {{ accent_color | default('#ff5722') }};
+    color: #0a0a0a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 4px 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .img-tag.minor { background: #f5f5f0; color: #0a0a0a; }
+  .img-small {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #2a2a26;
+  }
+  .img-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.6) brightness(0.85);
+  }
+
+  /* ── Rechtse kolom — content ─────────────────────── */
+  .content {
+    padding: 18mm 14mm 0 14mm;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: {{ accent_color | default('#ff5722') }};
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: {{ accent_color | default('#ff5722') }};
+    display: inline-block;
+  }
+
+  h1.headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 0.95;
+    color: #f5f5f0;
+    letter-spacing: -1.5px;
+    margin-bottom: 6px;
+  }
+  h1.headline em {
+    font-style: italic;
+    font-weight: 600;
+    color: {{ accent_color | default('#ff5722') }};
+  }
+
+  .subhead {
+    font-size: 11px;
+    color: #999;
+    line-height: 1.55;
+    font-weight: 300;
+    margin-bottom: 22px;
+    max-width: 70mm;
+  }
+
+  /* ── Facts in monospaced table ──────────────────── */
+  .facts-block {
+    border-top: 1px solid #2a2a26;
+    border-bottom: 1px solid #2a2a26;
+    padding: 14px 0;
+    margin-bottom: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .fact-cell {
+    padding: 0 8px 0 0;
+    border-right: 1px solid #2a2a26;
+  }
+  .fact-cell:last-child { border-right: none; padding-left: 8px; padding-right: 0; }
+  .fact-cell .num {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #f5f5f0;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .fact-cell .num .unit {
+    font-size: 12px;
+    color: {{ accent_color | default('#ff5722') }};
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  .fact-cell .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-top: 5px;
+  }
+
+  /* ── Bullet list, asymmetrisch ──────────────────── */
+  .bullets {
+    margin-bottom: 18px;
+  }
+  .bullet {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 7px;
+    align-items: baseline;
+  }
+  .bullet .marker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: {{ accent_color | default('#ff5722') }};
+    letter-spacing: 1px;
+    min-width: 18px;
+  }
+  .bullet .txt {
+    font-size: 10.5px;
+    color: #ccc;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .bullet .txt strong {
+    color: #f5f5f0;
+    font-weight: 600;
+  }
+
+  /* ── CTA — full width band onderaan ─────────────── */
+  .cta-band {
+    background: {{ accent_color | default('#ff5722') }};
+    color: #0a0a0a;
+    padding: 14px 14mm;
+    display: grid;
+    grid-template-columns: 1fr 22mm;
+    gap: 16px;
+    align-items: center;
+    margin-top: auto;
+    margin-left: -14mm;
+    margin-right: -14mm;
+  }
+  .cta-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cta-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .cta-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .cta-qr {
+    background: #0a0a0a;
+    padding: 5px;
+  }
+  .cta-qr img {
+    width: 100%;
+    display: block;
+  }
+
+  /* ── Footer overlay onderaan linker beeld ──────── */
+  .img-large .img-meta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 18px 14px 12px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    color: #f5f5f0;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .img-large .img-meta .addr { color: {{ accent_color | default('#ff5722') }}; }
+  .img-large .img-meta .builder { color: #888; margin-top: 3px; font-size: 7.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <div class="left">FACADE<b>•</b>PILOT — N°{{ '%03d' % lead_idx | default(1) }}</div>
+    <div class="right">
+      <span>persoonlijk voorstel</span>
+      <span>2026</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="img-stack">
+      <div class="img-large">
+        {% if render_path %}<img src="{{ render_path }}" alt="Renovatie">{% endif %}
+        <div class="img-tag">/ Voorstel</div>
+        <div class="img-meta">
+          <div class="addr">{{ adres_kort }}</div>
+          <div class="builder">{{ builder_naam }}</div>
+        </div>
+      </div>
+      <div class="img-small">
+        {% if aerial_path %}<img src="{{ aerial_path }}" alt="Huidig">{% endif %}
+        <div class="img-tag minor">/ Vandaag</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="eyebrow">Renovatie-impressie</div>
+
+      <h1 class="headline">Een nieuwe<br><em>identiteit</em><br>voor uw gevel.</h1>
+
+      <p class="subhead">
+        We hebben een fotorealistische impressie laten maken van wat een
+        <strong style="color:#f5f5f0">{{ facade_label | default('moderne crépi-afwerking') }}</strong> zou
+        doen voor uw woning. Het beeld hiernaast is gemaakt op basis
+        van een recente straatfoto van {{ adres_kort }}.
+      </p>
+
+      <div class="facts-block">
+        <div class="fact-cell">
+          <div class="num">{{ facade_afmeting | default('95<span class="unit">m²</span>') | safe }}</div>
+          <div class="lbl">{{ facade_afmeting_label | default('Geveloppervlak') }}</div>
+        </div>
+        <div class="fact-cell">
+          <div class="num">{{ facade_prijs | default('€22<span class="unit">K+</span>') | safe }}</div>
+          <div class="lbl">Indicatieprijs</div>
+        </div>
+        <div class="fact-cell">
+          <div class="num">{{ facade_bouwtijd | default('4–6<span class="unit">wk</span>') | safe }}</div>
+          <div class="lbl">Bouwtijd</div>
+        </div>
+      </div>
+
+      <div class="bullets">
+        <div class="bullet">
+          <div class="marker">01 →</div>
+          <div class="txt"><strong>Energie −30%.</strong> Buitenisolatie verlaagt direct uw verbruik. Comfort in winter én zomer.</div>
+        </div>
+        <div class="bullet">
+          <div class="marker">02 →</div>
+          <div class="txt"><strong>Meerwaarde +15%.</strong> Een vernieuwde gevel verhoogt de marktwaarde aantoonbaar.</div>
+        </div>
+        <div class="bullet">
+          <div class="marker">03 →</div>
+          <div class="txt"><strong>Premies tot €8.000.</strong> Vlaamse renovatiepremie + EPC-verbetering. Wij regelen.</div>
+        </div>
+        <div class="bullet">
+          <div class="marker">04 →</div>
+          <div class="txt"><strong>Eén aanspreekpunt.</strong> Vaste prijs, één team, duidelijke planning. Geen verrassingen.</div>
+        </div>
+      </div>
+
+      <div class="cta-band">
+        <div class="cta-text">
+          <div class="cta-title">Vraag uw offerte aan</div>
+          <div class="cta-sub">Scan / {{ landing_url }}</div>
+        </div>
+        <div class="cta-qr">
+          {% if qr_path %}<img src="{{ qr_path }}" alt="QR">{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

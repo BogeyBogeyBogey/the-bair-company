@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>FacadePilot Flyer A5 Recto-Verso</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+  @page { size: A5 portrait; margin: 0; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    font-family: 'Sora', sans-serif;
+    color: #1a1614;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 148mm;
+    height: 210mm;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ═══════════════════════════════════════════════════
+     VOORKANT (RECTO) — full-bleed render + headline
+     ═══════════════════════════════════════════════════ */
+  .front .top-accent {
+    height: 3px;
+    background: #1a1614;
+    flex-shrink: 0;
+  }
+
+  .front .header {
+    padding: 8px 12mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .logo {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1614;
+    letter-spacing: -0.3px;
+  }
+  .logo span { color: {{ accent_color | default('#a8784f') }}; }
+  .header-tag {
+    font-size: 7.5px;
+    color: #999;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  .front .hero {
+    position: relative;
+    flex-shrink: 0;
+    height: 142mm;
+    overflow: hidden;
+    background: #1a1614;
+  }
+  .front .hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-chip {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.95);
+    color: #1a1614;
+    font-size: 7.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+
+  .front .hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.25) 60%, transparent 100%);
+    padding: 38px 12mm 14px;
+  }
+  .front .hero-overlay h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 5px;
+    letter-spacing: -0.2px;
+  }
+  .front .hero-overlay h1 em {
+    font-style: italic;
+    color: {{ accent_color | default('#d9a87a') }};
+  }
+  .front .hero-overlay p {
+    font-size: 8.5px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.82);
+    font-weight: 300;
+  }
+  .front .hero-overlay p strong { color: #fff; font-weight: 500; }
+
+  .front .address-bar {
+    padding: 8px 12mm;
+    background: #fbf9f6;
+    font-size: 8.5px;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .front .address-bar strong {
+    color: #1a1614;
+    font-weight: 500;
+  }
+  .flip-hint {
+    font-size: 7.5px;
+    color: {{ accent_color | default('#a8784f') }};
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ACHTERKANT (VERSO)
+     ═══════════════════════════════════════════════════ */
+  .back .top-accent {
+    height: 3px;
+    background: {{ accent_color | default('#a8784f') }};
+    flex-shrink: 0;
+  }
+
+  .back .header {
+    padding: 8px 12mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0ece7;
+    flex-shrink: 0;
+  }
+
+  .facts {
+    display: flex;
+    gap: 1px;
+    background: #ece7e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 12mm;
+  }
+  .fact {
+    flex: 1;
+    background: #fbf9f6;
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .fact-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1614;
+    line-height: 1;
+    margin-bottom: 2px;
+    letter-spacing: -0.3px;
+  }
+  .fact-value .unit {
+    font-size: 11px;
+    font-weight: 400;
+    color: {{ accent_color | default('#a8784f') }};
+  }
+  .fact-label {
+    font-size: 7px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Steps */
+  .steps-title {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #999;
+    padding: 6px 12mm 6px;
+  }
+  .steps {
+    padding: 0 12mm;
+    margin-bottom: 8px;
+  }
+  .step {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    background: {{ accent_color | default('#a8784f') }};
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .step-title {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #1a1614;
+    margin-bottom: 1px;
+  }
+  .step-desc {
+    font-size: 8px;
+    color: #888;
+    line-height: 1.45;
+    font-weight: 300;
+  }
+
+  /* Compacte argumenten */
+  .args-compact {
+    padding: 0 12mm;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .arg-mini {
+    flex: 1;
+    background: #fbf9f6;
+    border-radius: 6px;
+    padding: 9px 8px;
+    text-align: center;
+  }
+  .arg-mini-num {
+    width: 18px;
+    height: 18px;
+    margin: 0 auto 4px;
+    background: {{ accent_color | default('#a8784f') }};
+    color: #fff;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .arg-mini-text {
+    font-size: 8px;
+    font-weight: 500;
+    color: #555;
+    line-height: 1.3;
+  }
+
+  /* CTA + QR */
+  .cta-section {
+    margin: 0 12mm;
+    background: #1a1614;
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .cta-text { flex: 1; }
+  .cta-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .cta-sub {
+    font-size: 8px;
+    color: #888;
+    font-weight: 300;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .cta-url-box {
+    font-size: 8px;
+    color: {{ accent_color | default('#d9a87a') }};
+    font-weight: 500;
+  }
+  .qr-wrap {
+    background: #fff;
+    padding: 6px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .qr-wrap img {
+    width: 64px;
+    height: 64px;
+    display: block;
+  }
+
+  /* Before/after vergelijking */
+  .comparison {
+    margin: 10px 12mm 0;
+    display: flex;
+    gap: 6px;
+  }
+  .compare-item {
+    flex: 1;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 38mm;
+  }
+  .compare-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .compare-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.72) 0%, transparent 100%);
+    padding: 12px 8px 5px;
+    font-size: 8px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .compare-label em { color: {{ accent_color | default('#d9a87a') }}; font-style: normal; }
+
+  .back .footer {
+    padding: 8px 12mm;
+    font-size: 6.5px;
+    color: #b0aaa3;
+    text-align: center;
+    line-height: 1.5;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .footer a { color: {{ accent_color | default('#a8784f') }}; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ VOORKANT ══════════ -->
+<div class="page front">
+  <div class="top-accent"></div>
+
+  <div class="header">
+    <div class="logo">Facade<span>Pilot</span></div>
+    <div class="header-tag">Persoonlijk renovatievoorstel</div>
+  </div>
+
+  <div class="hero">
+    {% if render_path %}<img src="{{ render_path }}" alt="Voorstel renovatie">{% endif %}
+    <div class="hero-chip">{{ adres_kort }}</div>
+    <div class="hero-overlay">
+      <h1>Wat als uw gevel er <em>zo</em> uitzag?</h1>
+      <p>Een <strong>fotorealistische impressie</strong> van uw woning na renovatie, op basis van een straatfoto.</p>
+    </div>
+  </div>
+
+  <div class="address-bar">
+    <span>Bestemd voor <strong>{{ adres }}</strong></span>
+    <span class="flip-hint">→ draai om voor meer info</span>
+  </div>
+</div>
+
+<!-- ══════════ ACHTERKANT ══════════ -->
+<div class="page back">
+  <div class="top-accent"></div>
+
+  <div class="header">
+    <div class="logo">Facade<span>Pilot</span></div>
+    <div class="header-tag">Uw renovatie in cijfers</div>
+  </div>
+
+  <div class="facts">
+    <div class="fact">
+      <div class="fact-value">{{ facade_afmeting | default('100<span class="unit">m²</span>') | safe }}</div>
+      <div class="fact-label">{{ facade_afmeting_label | default('Geveloppervlak') }}</div>
+    </div>
+    <div class="fact">
+      <div class="fact-value">{{ facade_prijs | default('vanaf <span class="unit">€20K</span>') | safe }}</div>
+      <div class="fact-label">Indicatieprijs</div>
+    </div>
+    <div class="fact">
+      <div class="fact-value">{{ facade_bouwtijd | default('3–6<span class="unit">wk</span>') | safe }}</div>
+      <div class="fact-label">Bouwtijd</div>
+    </div>
+  </div>
+
+  <div class="steps-title">Hoe werkt het?</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Scan de QR-code</div>
+        <div class="step-desc">Bekijk uw persoonlijke pagina met before/after en vraag een gratis offerte aan.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Gratis plaatsbezoek</div>
+        <div class="step-desc">Een specialist meet uw gevel op en bespreekt de mogelijkheden. Vrijblijvend.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Vaste prijs op maat</div>
+        <div class="step-desc">U krijgt een gedetailleerde offerte met materiaalkeuze, planning en premie-aanvraag.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="args-compact">
+    <div class="arg-mini">
+      <div class="arg-mini-num">−30%</div>
+      <div class="arg-mini-text">Energie-<br>factuur</div>
+    </div>
+    <div class="arg-mini">
+      <div class="arg-mini-num">+15%</div>
+      <div class="arg-mini-text">Meer-<br>waarde</div>
+    </div>
+    <div class="arg-mini">
+      <div class="arg-mini-num">€8K</div>
+      <div class="arg-mini-text">Premies<br>mogelijk</div>
+    </div>
+    <div class="arg-mini">
+      <div class="arg-mini-num">10j</div>
+      <div class="arg-mini-text">Garantie<br>op werk</div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="cta-text">
+      <div class="cta-title">Vrijblijvende offerte?</div>
+      <div class="cta-sub">Scan de QR-code voor uw persoonlijke pagina. Geen verplichtingen, wel een duidelijk beeld.</div>
+      <div class="cta-url-box">{{ landing_url }}</div>
+    </div>
+    <div class="qr-wrap">
+      {% if qr_path %}<img src="{{ qr_path }}" alt="QR Code">{% endif %}
+    </div>
+  </div>
+
+  {% if aerial_path %}
+  <div class="comparison">
+    <div class="compare-item">
+      <img src="{{ aerial_path }}" alt="Huidige situatie">
+      <div class="compare-label"><em>Nu</em></div>
+    </div>
+    <div class="compare-item">
+      {% if render_path %}<img src="{{ render_path }}" alt="Na renovatie">{% endif %}
+      <div class="compare-label"><em>Straks?</em></div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="footer">
+    Aangeboden door <a href="#">{{ builder_naam }}</a> · Erkend gevelrenoveerder · {{ builder_telefoon }}<br>
+    AI-gegenereerde impressie op basis van Google Street View, uitsluitend ter illustratie.<br>
+    <a href="#">Niet meer ontvangen</a> · <a href="#">Privacybeleid</a>
+  </div>
+</div>
+
+</body>
+</html>

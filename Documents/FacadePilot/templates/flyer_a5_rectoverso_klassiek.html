@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>FacadePilot Flyer A5 Recto-Verso — Klassiek</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+  @page { size: A5 portrait; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    font-family: 'Lora', Georgia, serif;
+    color: #2a201a;
+    background: #f7f1e8;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 148mm;
+    height: 210mm;
+    overflow: hidden;
+    position: relative;
+    page-break-after: always;
+    background: #f7f1e8;
+    padding: 11mm 12mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* Decoratief dubbel kader (alleen voor recto) */
+  .ornament-frame::before,
+  .ornament-frame::after {
+    content: '';
+    position: absolute;
+    left: 8mm;
+    right: 8mm;
+    border-top: 1px solid {{ accent_color | default('#7a2f3e') }};
+    border-bottom: 1px solid {{ accent_color | default('#7a2f3e') }};
+    height: 4px;
+    pointer-events: none;
+  }
+  .ornament-frame::before { top: 6mm; }
+  .ornament-frame::after { bottom: 6mm; }
+
+  /* ═══════════════════════════════════════════════════
+     VOORKANT — uitnodigingskaart
+     ═══════════════════════════════════════════════════ */
+  .front .header {
+    text-align: center;
+    padding-bottom: 6mm;
+    margin-bottom: 6mm;
+    border-bottom: 1px solid #d8c9b3;
+  }
+  .front .header-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 9px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .front .header-mark span { display: inline-block; padding: 0 6px; }
+  .front .header-mark::before, .front .header-mark::after {
+    content: '◆';
+    font-size: 6px;
+    vertical-align: middle;
+  }
+  .front .header-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24px;
+    color: #2a201a;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .front .header-title em {
+    font-style: italic;
+    color: {{ accent_color | default('#7a2f3e') }};
+    font-weight: 500;
+  }
+  .front .header-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 9.5px;
+    color: #6b5d4f;
+  }
+
+  .front .hero-frame {
+    border: 1px solid #c9b89c;
+    padding: 4px;
+    background: #fff;
+    margin-bottom: 5mm;
+    position: relative;
+  }
+  .front .hero-frame::before {
+    content: '';
+    position: absolute;
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
+    border: 1px solid #e8dcc4;
+    pointer-events: none;
+  }
+  .front .hero-img {
+    width: 100%;
+    height: 95mm;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .front .hero-caption {
+    text-align: center;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 9px;
+    color: #6b5d4f;
+    margin-bottom: 4mm;
+  }
+
+  .front .address-block {
+    text-align: center;
+    margin-top: auto;
+    padding-top: 4mm;
+    border-top: 1px solid #d8c9b3;
+  }
+  .front .address-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 8px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .front .address-line {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #2a201a;
+  }
+  .front .flip-hint {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 8.5px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ACHTERKANT — carte de visite met details
+     ═══════════════════════════════════════════════════ */
+  .back .head-line {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: #2a201a;
+    text-align: center;
+    margin-bottom: 4mm;
+  }
+  .back .head-line em {
+    font-style: italic;
+    color: {{ accent_color | default('#7a2f3e') }};
+  }
+  .back .ornament-row {
+    text-align: center;
+    color: {{ accent_color | default('#7a2f3e') }};
+    font-size: 8px;
+    letter-spacing: 8px;
+    margin-bottom: 6mm;
+  }
+
+  .back .specs {
+    background: #fff;
+    border: 1px solid #c9b89c;
+    padding: 4mm 5mm;
+    margin-bottom: 5mm;
+    position: relative;
+  }
+  .back .specs::before {
+    content: '';
+    position: absolute;
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
+    border: 1px solid #e8dcc4;
+    pointer-events: none;
+  }
+  .back .specs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 9px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 3mm;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .back .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px 0;
+    border-bottom: 1px dotted #c9b89c;
+    font-family: 'Lora', serif;
+    font-size: 9.5px;
+    color: #6b5d4f;
+    position: relative;
+    z-index: 1;
+  }
+  .back .spec-row:last-child { border-bottom: none; }
+  .back .spec-row .lbl { font-style: italic; }
+  .back .spec-row .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    color: #2a201a;
+    font-weight: 500;
+  }
+  .back .spec-row .val em {
+    font-size: 9.5px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .back .merits {
+    margin-bottom: 5mm;
+  }
+  .back .merit {
+    font-family: 'Lora', serif;
+    font-size: 9.5pt;
+    color: #3d322a;
+    line-height: 1.55;
+    padding: 2.5mm 0;
+    border-bottom: 1px dotted #d8c9b3;
+  }
+  .back .merit:last-child { border-bottom: none; }
+  .back .merit::before {
+    content: '◆ ';
+    color: {{ accent_color | default('#7a2f3e') }};
+    font-size: 7px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+  .back .merit strong {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-style: italic;
+    color: #2a201a;
+  }
+
+  .back .cta-card {
+    background: #fff;
+    border: 1px solid #c9b89c;
+    padding: 4mm 5mm;
+    display: grid;
+    grid-template-columns: 1fr 16mm;
+    gap: 4mm;
+    align-items: center;
+    margin-top: auto;
+  }
+  .back .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13pt;
+    color: #2a201a;
+    margin-bottom: 2px;
+    line-height: 1.15;
+  }
+  .back .cta-sub {
+    font-family: 'Lora', serif;
+    font-size: 8.5px;
+    color: #6b5d4f;
+    line-height: 1.5;
+  }
+  .back .cta-sub a { color: {{ accent_color | default('#7a2f3e') }}; text-decoration: none; }
+  .back .cta-qr {
+    background: #f7f1e8;
+    padding: 3px;
+    border: 1px solid #c9b89c;
+  }
+  .back .cta-qr img { width: 100%; display: block; }
+
+  .back .footer {
+    text-align: center;
+    margin-top: 4mm;
+    padding-top: 3mm;
+    border-top: 1px solid #d8c9b3;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 7px;
+    color: #8a7c6b;
+    line-height: 1.5;
+  }
+  .back .footer .builder {
+    font-family: 'Playfair Display', serif;
+    font-style: normal;
+    font-size: 9.5px;
+    color: #2a201a;
+    margin-bottom: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ VOORKANT ══════════ -->
+<div class="page front ornament-frame">
+  <div class="header">
+    <div class="header-mark"><span>FacadePilot · Atelier</span></div>
+    <div class="header-title">Een nieuw <em>gelaat</em> voor uw woning</div>
+    <div class="header-sub">een persoonlijk renovatievoorstel</div>
+  </div>
+
+  <div class="hero-frame">
+    {% if render_path %}<img src="{{ render_path }}" class="hero-img" alt="Renovatie-impressie">{% endif %}
+  </div>
+  <div class="hero-caption">— {{ facade_label | default('moderne crépi-afwerking') }} —</div>
+
+  <div class="address-block">
+    <div class="address-mark">opgemaakt voor</div>
+    <div class="address-line">{{ adres }}</div>
+    <div class="flip-hint">— gelieve om te draaien voor het voorstel in detail —</div>
+  </div>
+</div>
+
+<!-- ══════════ ACHTERKANT ══════════ -->
+<div class="page back">
+  <div class="head-line">Het <em>voorstel</em> in detail</div>
+  <div class="ornament-row">◆ ◆ ◆</div>
+
+  <div class="specs">
+    <div class="specs-title">Carte de visite</div>
+    <div class="spec-row">
+      <span class="lbl">Geveloppervlak</span>
+      <span class="val">{{ facade_afmeting | default('95 <em>m²</em>') | safe }}</span>
+    </div>
+    <div class="spec-row">
+      <span class="lbl">Indicatieprijs</span>
+      <span class="val">{{ facade_prijs | default('vanaf €22.000') | safe }}</span>
+    </div>
+    <div class="spec-row">
+      <span class="lbl">Bouwtijd</span>
+      <span class="val">{{ facade_bouwtijd | default('4–6 <em>weken</em>') | safe }}</span>
+    </div>
+    <div class="spec-row">
+      <span class="lbl">Garantie</span>
+      <span class="val">10 <em>jaar</em></span>
+    </div>
+  </div>
+
+  <div class="merits">
+    <div class="merit"><strong>Energie-efficiëntie.</strong> Buitenisolatie verlaagt het verbruik tot 30%.</div>
+    <div class="merit"><strong>Meerwaarde.</strong> Een verzorgde gevel verhoogt de waarde van uw eigendom.</div>
+    <div class="merit"><strong>Premies tot €8.000.</strong> Vlaamse renovatiepremie — wij begeleiden de aanvraag.</div>
+  </div>
+
+  <div class="cta-card">
+    <div>
+      <div class="cta-title">Een vrijblijvend gesprek?</div>
+      <div class="cta-sub">
+        Scan de QR voor uw persoonlijke pagina, of bel
+        <strong>{{ builder_telefoon }}</strong>.<br>
+        <a href="#">{{ landing_url }}</a>
+      </div>
+    </div>
+    <div class="cta-qr">
+      {% if qr_path %}<img src="{{ qr_path }}" alt="QR">{% endif %}
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="builder">{{ builder_naam }}</div>
+    Erkend gevelrenoveerder · {{ builder_telefoon }}<br>
+    Beeld is een artistieke impressie — exacte uitvoering volgt na plaatsbezoek.
+  </div>
+</div>
+
+</body>
+</html>

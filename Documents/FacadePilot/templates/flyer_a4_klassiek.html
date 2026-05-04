@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>FacadePilot Flyer A4 — Klassiek</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+  @page { size: A4; margin: 0; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    font-family: 'Lora', Georgia, serif;
+    color: #2a201a;
+    background: #f7f1e8;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 14mm 16mm;
+    display: flex;
+    flex-direction: column;
+    background: #f7f1e8;
+    position: relative;
+  }
+
+  /* ── Decoratieve kader ──────────────────────────── */
+  .ornament-frame::before,
+  .ornament-frame::after {
+    content: '';
+    position: absolute;
+    left: 11mm;
+    right: 11mm;
+    border-top: 1px solid {{ accent_color | default('#7a2f3e') }};
+    border-bottom: 1px solid {{ accent_color | default('#7a2f3e') }};
+    height: 4px;
+    pointer-events: none;
+  }
+  .ornament-frame::before { top: 9mm; }
+  .ornament-frame::after { bottom: 9mm; }
+
+  /* ── Header — gecentreerd, ornamental ───────────── */
+  .header {
+    text-align: center;
+    padding-bottom: 8mm;
+    border-bottom: 1px solid #d8c9b3;
+    margin-bottom: 6mm;
+  }
+  .header-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .header-mark span { display: inline-block; padding: 0 8px; }
+  .header-mark::before, .header-mark::after {
+    content: '◆';
+    font-size: 7px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    vertical-align: middle;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 30px;
+    color: #2a201a;
+    line-height: 1.1;
+    margin-bottom: 5px;
+  }
+  .header-title em { font-style: italic; color: {{ accent_color | default('#7a2f3e') }}; font-weight: 500; }
+  .header-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: #6b5d4f;
+  }
+
+  /* ── Hero render in geornament kader ────────────── */
+  .hero-frame {
+    border: 1px solid #c9b89c;
+    padding: 4px;
+    background: #fff;
+    margin-bottom: 6mm;
+    position: relative;
+  }
+  .hero-frame::before {
+    content: '';
+    position: absolute;
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
+    border: 1px solid #e8dcc4;
+    pointer-events: none;
+  }
+  .hero-img {
+    width: 100%;
+    height: 105mm;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-caption {
+    text-align: center;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 9.5px;
+    color: #6b5d4f;
+    margin-top: 4mm;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Body — geserifeerde lopende tekst ──────────── */
+  .body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 10mm;
+    flex: 1;
+  }
+
+  .col-text {
+    font-family: 'Lora', serif;
+    font-size: 10pt;
+    line-height: 1.7;
+    color: #3d322a;
+  }
+  .col-text p { margin-bottom: 2mm; }
+  .col-text .salutation {
+    font-style: italic;
+    color: #6b5d4f;
+    margin-bottom: 3mm;
+  }
+  .col-text strong {
+    font-weight: 600;
+    color: #2a201a;
+  }
+  .col-text .signature {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 12pt;
+    color: {{ accent_color | default('#7a2f3e') }};
+    margin-top: 4mm;
+  }
+
+  /* ── Specifications — zoals een carte de visite ── */
+  .col-specs {
+    border-left: 1px solid #c9b89c;
+    padding-left: 8mm;
+  }
+  .specs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4mm;
+  }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px 0;
+    border-bottom: 1px dotted #c9b89c;
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    color: #6b5d4f;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-row .lbl {
+    font-style: italic;
+  }
+  .spec-row .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: #2a201a;
+    font-weight: 500;
+  }
+  .spec-row .val em {
+    font-size: 10px;
+    color: {{ accent_color | default('#7a2f3e') }};
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .merits {
+    margin-top: 6mm;
+    padding-top: 4mm;
+    border-top: 1px solid #d8c9b3;
+  }
+  .merit {
+    font-family: 'Lora', serif;
+    font-size: 9.5pt;
+    color: #3d322a;
+    line-height: 1.55;
+    padding: 3mm 0;
+    border-bottom: 1px dotted #d8c9b3;
+  }
+  .merit:last-child { border-bottom: none; }
+  .merit::before {
+    content: '◆ ';
+    color: {{ accent_color | default('#7a2f3e') }};
+    font-size: 7px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+  .merit strong {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-style: italic;
+    color: #2a201a;
+  }
+
+  /* ── CTA — kleine kaart onderaan ────────────────── */
+  .cta-card {
+    margin-top: 5mm;
+    background: #fff;
+    border: 1px solid #c9b89c;
+    padding: 4mm 5mm;
+    display: grid;
+    grid-template-columns: 1fr 18mm;
+    gap: 5mm;
+    align-items: center;
+  }
+  .cta-card-text {
+    font-family: 'Lora', serif;
+  }
+  .cta-card-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14pt;
+    color: #2a201a;
+    margin-bottom: 2px;
+  }
+  .cta-card-sub {
+    font-size: 9px;
+    color: #6b5d4f;
+    line-height: 1.5;
+  }
+  .cta-card-sub a { color: {{ accent_color | default('#7a2f3e') }}; text-decoration: none; }
+  .cta-card-qr {
+    background: #f7f1e8;
+    padding: 4px;
+    border: 1px solid #c9b89c;
+  }
+  .cta-card-qr img { width: 100%; display: block; }
+
+  /* ── Footer ─────────────────────────────────────── */
+  .footer {
+    text-align: center;
+    margin-top: 4mm;
+    padding-top: 4mm;
+    border-top: 1px solid #d8c9b3;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 8px;
+    color: #8a7c6b;
+    line-height: 1.6;
+  }
+  .footer .builder {
+    font-family: 'Playfair Display', serif;
+    font-style: normal;
+    font-size: 11px;
+    color: #2a201a;
+    margin-bottom: 2px;
+  }
+  .footer .ornament {
+    color: {{ accent_color | default('#7a2f3e') }};
+    margin: 2px 0;
+    font-size: 8px;
+    letter-spacing: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="page ornament-frame">
+  <div class="header">
+    <div class="header-mark"><span>FacadePilot · Atelier</span></div>
+    <div class="header-title">Een nieuw <em>gelaat</em> voor uw woning</div>
+    <div class="header-sub">een persoonlijk renovatievoorstel — opgemaakt voor {{ adres_kort }}</div>
+  </div>
+
+  <div class="hero-frame">
+    {% if render_path %}<img src="{{ render_path }}" class="hero-img" alt="Renovatie-impressie">{% endif %}
+  </div>
+  <div class="hero-caption">— Voorstel : {{ facade_label | default('moderne crépi-afwerking') }} —</div>
+
+  <div class="body">
+    <div class="col-text">
+      <p class="salutation">Geachte bewoner van {{ adres }},</p>
+      <p>
+        Het is met genoegen dat wij u dit persoonlijk voorstel mogen aanbieden.
+        Uw woning aan de <strong>{{ adres_kort }}</strong> heeft een gevel met karakter —
+        en met de juiste afwerking kan zij haar volle waardigheid herwinnen.
+      </p>
+      <p>
+        Het beeld hierboven is een <em>fotorealistische impressie</em>, gemaakt op basis
+        van een straatfoto. Geen verbouwing van de architectuur — wel een verfijning
+        van het materiaal, de kleur en de details die uw gevel vandaag vertonen.
+      </p>
+      <p>
+        Wenst u een vrijblijvend gesprek over de mogelijkheden? Wij komen graag
+        ter plaatse, meten de gevel op, en bespreken samen de afwerking
+        die het best bij uw woning past.
+      </p>
+      <div class="signature">— {{ builder_naam }}</div>
+    </div>
+
+    <div class="col-specs">
+      <div class="specs-title">Het voorstel</div>
+      <div class="spec-row">
+        <span class="lbl">Geveloppervlak</span>
+        <span class="val">{{ facade_afmeting | default('95 <em>m²</em>') | safe }}</span>
+      </div>
+      <div class="spec-row">
+        <span class="lbl">Indicatieprijs</span>
+        <span class="val">{{ facade_prijs | default('vanaf €22.000') | safe }}</span>
+      </div>
+      <div class="spec-row">
+        <span class="lbl">Bouwtijd</span>
+        <span class="val">{{ facade_bouwtijd | default('4–6 <em>weken</em>') | safe }}</span>
+      </div>
+      <div class="spec-row">
+        <span class="lbl">Garantie</span>
+        <span class="val">10 <em>jaar</em></span>
+      </div>
+
+      <div class="merits">
+        <div class="merit"><strong>Energie-efficiëntie.</strong> Buitenisolatie verlaagt het verbruik tot 30%.</div>
+        <div class="merit"><strong>Meerwaarde.</strong> Een verzorgde gevel verhoogt de waarde van uw eigendom.</div>
+        <div class="merit"><strong>Premies.</strong> Tot €8.000 Vlaamse renovatiepremie — wij begeleiden de aanvraag.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-card">
+    <div class="cta-card-text">
+      <div class="cta-card-title">Een vrijblijvend gesprek?</div>
+      <div class="cta-card-sub">
+        Scan de QR-code voor uw persoonlijke pagina, of bel ons op
+        <strong>{{ builder_telefoon }}</strong>. Wij staan u graag te woord.<br>
+        <a href="#">{{ landing_url }}</a>
+      </div>
+    </div>
+    <div class="cta-card-qr">
+      {% if qr_path %}<img src="{{ qr_path }}" alt="QR">{% endif %}
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="builder">{{ builder_naam }}</div>
+    Erkend gevelrenoveerder · {{ builder_telefoon }}<br>
+    <div class="ornament">◆ ◆ ◆</div>
+    Beeld is een artistieke impressie op basis van een straatfoto, ter illustratie. <br>
+    De definitieve uitvoering wordt vastgelegd na plaatsbezoek.
+  </div>
+</div>
+</body>
+</html>

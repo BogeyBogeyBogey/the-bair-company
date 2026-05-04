@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Audit — Koffiemachinewijzer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #1B2332; line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: 2.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+  h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; font-weight: 400; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid #C17817; }
+  h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: #2A3347; }
+  .hero { background: linear-gradient(135deg, #1B2332, #2A3347); color: white; padding: 3rem 2rem; border-radius: 12px; margin-bottom: 2rem; }
+  .hero p { color: #E5E7EB; font-size: 1.1rem; margin-top: 0.5rem; }
+  .hero .date { color: #C17817; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card { background: white; border: 1px solid #E5E7EB; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; }
+  .score-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .score-card { flex: 1; min-width: 140px; text-align: center; padding: 1.2rem; border-radius: 10px; color: white; }
+  .score-card .number { font-size: 2.2rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
+  .red { background: #dc2626; } .orange { background: #C17817; } .green { background: #059669; } .blue { background: #2563eb; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th { background: #1B2332; color: white; padding: 0.7rem 1rem; text-align: left; font-weight: 600; }
+  td { padding: 0.6rem 1rem; border-bottom: 1px solid #E5E7EB; }
+  tr:nth-child(even) { background: #F8F9FA; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+  .badge-critical { background: #fecaca; color: #991b1b; }
+  .badge-high { background: #fed7aa; color: #9a3412; }
+  .badge-medium { background: #fef08a; color: #854d0e; }
+  .badge-low { background: #d1fae5; color: #065f46; }
+  .badge-pass { background: #d1fae5; color: #065f46; }
+  .badge-fail { background: #fecaca; color: #991b1b; }
+  .badge-warn { background: #fef08a; color: #854d0e; }
+  .summary-box { background: #fffbeb; border-left: 4px solid #C17817; padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  .competitor-table td:first-child { font-weight: 600; }
+  .winner { background: #d1fae5 !important; font-weight: 600; }
+  .action-item { display: flex; gap: 0.8rem; padding: 0.8rem 0; border-bottom: 1px solid #f3f4f6; }
+  .action-item:last-child { border-bottom: none; }
+  .action-num { width: 28px; height: 28px; border-radius: 50%; background: #C17817; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
+  .action-content { flex: 1; }
+  .action-content strong { display: block; margin-bottom: 2px; }
+  .action-meta { font-size: 0.8rem; color: #6B7280; }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-left: 6px; }
+  .tag-impact-high { background: #dcfce7; color: #166534; }
+  .tag-impact-med { background: #fef9c3; color: #854d0e; }
+  .tag-effort-low { background: #e0e7ff; color: #3730a3; }
+  .tag-effort-med { background: #fce7f3; color: #9d174d; }
+  .tag-effort-high { background: #fecaca; color: #991b1b; }
+  ul { padding-left: 1.2rem; margin: 0.5rem 0; }
+  li { margin-bottom: 0.3rem; }
+  .footer { text-align: center; padding: 2rem; color: #6B7280; font-size: 0.85rem; margin-top: 2rem; border-top: 1px solid #E5E7EB; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="date">SEO Audit Rapport — 15 maart 2026</div>
+  <h1>Koffiemachinewijzer</h1>
+  <p>Volledige SEO-analyse met keyword research, on-page audit, technische check, content gaps en concurrentie-analyse</p>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="summary-box">
+  <h3 style="margin-top:0; color:#92400e;">Executive Summary</h3>
+  <p>Koffiemachinewijzer heeft een <strong>sterke technische basis</strong> dankzij Next.js (snelle laadtijd, SSG) en een logische URL-structuur. De grootste kracht is de diepgaande productcontent met 20 gedetailleerde reviews. Echter, de site is <strong>nog niet geïndexeerd door Google</strong> en mist essentiële SEO-infrastructuur: geen robots.txt, geen sitemap.xml, en 7 van de 12 pagina's hebben geen eigen metadata (title/description). De top 3 prioriteiten zijn: (1) robots.txt + sitemap toevoegen, (2) metadata op alle pagina's, (3) structured data (FAQ-schema, Product-schema) toevoegen. <strong>Status: sterke basis, maar kritieke SEO-infrastructuur ontbreekt.</strong></p>
+</div>
+
+<!-- SCORES -->
+<div class="score-row">
+  <div class="score-card red"><div class="number">32</div><div class="label">SEO Score</div></div>
+  <div class="score-card orange"><div class="number">5/12</div><div class="label">Pagina's met metadata</div></div>
+  <div class="score-card green"><div class="number">20</div><div class="label">Product reviews</div></div>
+  <div class="score-card blue"><div class="number">38</div><div class="label">Totaal pagina's</div></div>
+</div>
+
+<!-- KEYWORD OPPORTUNITIES -->
+<h2>1. Keyword Opportunities</h2>
+<p>Op basis van concurrentie-analyse en zoekintentie in de Nederlandse markt:</p>
+
+<table>
+<thead><tr><th>Zoekwoord</th><th>Moeilijkheid</th><th>Kans</th><th>Intent</th><th>Content Type</th></tr></thead>
+<tbody>
+<tr><td>beste volautomaat 2026</td><td><span class="badge badge-high">Hoog</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Roundup / Categoriepagina</td></tr>
+<tr><td>koffiemachine kopen</td><td><span class="badge badge-high">Hoog</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Transactional</td><td>Koopgids</td></tr>
+<tr><td>jura e8 review</td><td><span class="badge badge-medium">Midden</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Review (bestaat al ✓)</td></tr>
+<tr><td>siemens eq900 review</td><td><span class="badge badge-medium">Midden</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Review (bestaat al ✓)</td></tr>
+<tr><td>volautomaat vs halfautomaat</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Informational</td><td>Blog (bestaat al ✓)</td></tr>
+<tr><td>koffiemachine vergelijken</td><td><span class="badge badge-medium">Midden</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Vergelijkpagina (bestaat ✓)</td></tr>
+<tr><td>beste espressomachine thuis</td><td><span class="badge badge-medium">Midden</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Categoriepagina (bestaat ✓)</td></tr>
+<tr><td>delonghi rivelia review</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Review (bestaat al ✓)</td></tr>
+<tr><td>beste koffiebonen volautomaat</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Informational</td><td>Blog (bestaat al ✓)</td></tr>
+<tr><td>koffiemachine tot 500 euro</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Nieuwe pagina nodig</td></tr>
+<tr><td>sage barista touch review</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Review (bestaat al ✓)</td></tr>
+<tr><td>koffiemachine onderhoud tips</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-medium">Midden</span></td><td>Informational</td><td>Blog (bestaat al ✓)</td></tr>
+<tr><td>jura vs siemens</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-pass">Hoog</span></td><td>Commercial</td><td>Versus-pagina (nieuw)</td></tr>
+<tr><td>koffiemachine met melksysteem</td><td><span class="badge badge-medium">Midden</span></td><td><span class="badge badge-medium">Midden</span></td><td>Commercial</td><td>Filter/categorie (nieuw)</td></tr>
+<tr><td>latte art thuis maken</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-medium">Midden</span></td><td>Informational</td><td>Blog (nieuw)</td></tr>
+<tr><td>koffiemachine black friday deals</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-medium">Midden</span></td><td>Transactional</td><td>Deals-pagina (nieuw)</td></tr>
+<tr><td>verschil arabica robusta</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-low">Laag</span></td><td>Informational</td><td>Blog (nieuw)</td></tr>
+<tr><td>waterfilter koffiemachine</td><td><span class="badge badge-low">Laag</span></td><td><span class="badge badge-medium">Midden</span></td><td>Commercial</td><td>Accessoire-detail (nieuw)</td></tr>
+</tbody>
+</table>
+
+<!-- ON-PAGE ISSUES -->
+<h2>2. On-Page SEO Issues</h2>
+
+<table>
+<thead><tr><th>Pagina</th><th>Probleem</th><th>Ernst</th><th>Aanbeveling</th></tr></thead>
+<tbody>
+<tr><td>/volautomaten</td><td>Geen metadata export</td><td><span class="badge badge-critical">Kritiek</span></td><td>Voeg title "Beste Volautomaten 2026 | Koffiemachinewijzer" + description toe</td></tr>
+<tr><td>/koopgids</td><td>Geen metadata export</td><td><span class="badge badge-critical">Kritiek</span></td><td>Voeg title "Koffiemachine Kopen — Koopgids 2026" + description toe</td></tr>
+<tr><td>/vergelijken</td><td>Geen metadata export</td><td><span class="badge badge-critical">Kritiek</span></td><td>Voeg title "Koffiemachines Vergelijken | Koffiemachinewijzer" + description toe</td></tr>
+<tr><td>/blog</td><td>Geen metadata export</td><td><span class="badge badge-critical">Kritiek</span></td><td>Voeg title "Koffiemachine Blog — Tips & Gidsen" + description toe</td></tr>
+<tr><td>/faq</td><td>Geen metadata + geen FAQPage schema</td><td><span class="badge badge-critical">Kritiek</span></td><td>Voeg metadata + JSON-LD FAQPage schema toe</td></tr>
+<tr><td>/koffiesoorten</td><td>Geen metadata export</td><td><span class="badge badge-high">Hoog</span></td><td>Voeg title "Koffiesoorten Uitgelegd" + description toe</td></tr>
+<tr><td>/accessoires</td><td>Geen metadata export</td><td><span class="badge badge-high">Hoog</span></td><td>Voeg title "Koffiemachine Accessoires" + description toe</td></tr>
+<tr><td>/ (homepage)</td><td>H1 tag gefragmenteerd over spans</td><td><span class="badge badge-high">Hoog</span></td><td>Wrap de heading in een clean &lt;h1&gt; tag</td></tr>
+<tr><td>/reviews/*</td><td>og:image ontbreekt</td><td><span class="badge badge-medium">Midden</span></td><td>Voeg product-afbeelding toe als og:image in generateMetadata</td></tr>
+<tr><td>Globaal</td><td>Geen og:image in layout.tsx</td><td><span class="badge badge-medium">Midden</span></td><td>Maak een standaard OG-image (1200x630) en stel in als default</td></tr>
+<tr><td>Globaal</td><td>Geen Twitter card metadata</td><td><span class="badge badge-low">Laag</span></td><td>Voeg twitter:card, twitter:title, twitter:description toe</td></tr>
+<tr><td>/reviews/*</td><td>Schema image is placeholder URL</td><td><span class="badge badge-medium">Midden</span></td><td>Gebruik echte product-image URLs in JSON-LD</td></tr>
+</tbody>
+</table>
+
+<!-- CONTENT GAPS -->
+<h2>3. Content Gap Analyse</h2>
+
+<div class="card">
+<h3>Ontbrekende content die concurrenten wél hebben</h3>
+<table>
+<thead><tr><th>Topic</th><th>Waarom belangrijk</th><th>Format</th><th>Prioriteit</th><th>Effort</th></tr></thead>
+<tbody>
+<tr><td>"Beste koffiemachine tot €500"</td><td>Hoog zoekvolume, budget-kopers converteren goed</td><td>Roundup pagina</td><td><span class="badge badge-critical">Hoog</span></td><td>Half day</td></tr>
+<tr><td>Jura vs Siemens vs DeLonghi</td><td>Veel gezocht, concurrenten ranken hiermee</td><td>Versus-pagina</td><td><span class="badge badge-critical">Hoog</span></td><td>Half day</td></tr>
+<tr><td>Koffiemachine deals / aanbiedingen</td><td>Transactionele intent, hoge conversie</td><td>Deals-pagina</td><td><span class="badge badge-high">Midden</span></td><td>2 uur</td></tr>
+<tr><td>"Welke koffiemachine past bij mij" quiz</td><td>Engagement + links, uniek t.o.v. concurrenten</td><td>Interactieve tool</td><td><span class="badge badge-high">Midden</span></td><td>Multi-day</td></tr>
+<tr><td>Koffiemachine voor kantoor/bedrijf</td><td>B2B segment, minder concurrentie</td><td>Aparte categorie</td><td><span class="badge badge-medium">Laag</span></td><td>1 dag</td></tr>
+<tr><td>Latte art tutorial / gids</td><td>Informationeel, linkbait potentieel</td><td>Blog + video</td><td><span class="badge badge-medium">Laag</span></td><td>Half day</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- TECHNICAL SEO -->
+<h2>4. Technische SEO Checklist</h2>
+
+<table>
+<thead><tr><th>Check</th><th>Status</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td>robots.txt</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>Geen robots.txt gevonden. Google weet niet wat te crawlen.</td></tr>
+<tr><td>sitemap.xml</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>Geen sitemap. Alle 38 pagina's moeten erin. Next.js kan dit auto-genereren.</td></tr>
+<tr><td>HTTPS</td><td><span class="badge badge-pass">OK</span></td><td>Vercel regelt SSL automatisch.</td></tr>
+<tr><td>Mobile responsive</td><td><span class="badge badge-pass">OK</span></td><td>Tailwind CSS responsive classes op alle pagina's.</td></tr>
+<tr><td>Paginasnelheid (SSG)</td><td><span class="badge badge-pass">OK</span></td><td>Static Generation = snelle laadtijd. Alle 38 pagina's pre-rendered.</td></tr>
+<tr><td>Image optimization</td><td><span class="badge badge-pass">OK</span></td><td>Next.js Image component met lazy loading en WebP conversie.</td></tr>
+<tr><td>Alt teksten</td><td><span class="badge badge-warn">DEELS</span></td><td>Product images: ✓. Decoratieve elementen: sommige missen alt.</td></tr>
+<tr><td>Canonical tags</td><td><span class="badge badge-pass">OK</span></td><td>Next.js handelt canonicals automatisch af.</td></tr>
+<tr><td>Structured data (Product)</td><td><span class="badge badge-pass">OK</span></td><td>Review pagina's hebben Product + Review schema.</td></tr>
+<tr><td>Structured data (FAQ)</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>/faq pagina heeft 15 vragen maar GEEN FAQPage schema.</td></tr>
+<tr><td>Structured data (Blog)</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>Geen BlogPosting/Article schema op blogpagina's.</td></tr>
+<tr><td>Structured data (BreadcrumbList)</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>Visuele breadcrumbs bestaan, maar geen JSON-LD BreadcrumbList.</td></tr>
+<tr><td>Structured data (Organization)</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>Geen Organization schema op site-niveau.</td></tr>
+<tr><td>Structured data (WebSite + SearchAction)</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>Geen WebSite schema met zoekfunctionaliteit.</td></tr>
+<tr><td>Open Graph image</td><td><span class="badge badge-fail">ONTBREEKT</span></td><td>Geen default og:image — social shares tonen geen preview.</td></tr>
+<tr><td>Taalattribuut</td><td><span class="badge badge-pass">OK</span></td><td>html lang="nl" correct ingesteld.</td></tr>
+<tr><td>Viewport meta</td><td><span class="badge badge-pass">OK</span></td><td>Correct geconfigureerd voor mobiel.</td></tr>
+<tr><td>Font loading</td><td><span class="badge badge-pass">OK</span></td><td>Google Fonts met display: swap — geen render-blocking.</td></tr>
+</tbody>
+</table>
+
+<!-- COMPETITOR COMPARISON -->
+<h2>5. Concurrent-Analyse</h2>
+<p>Vergelijking met de belangrijkste Nederlandse koffiemachine affiliate/review sites:</p>
+
+<table class="competitor-table">
+<thead><tr><th>Dimensie</th><th>Koffiemachinewijzer</th><th>Coffeeness.de/nl</th><th>Keukenapparaatgids.nl</th><th>Vivakoffie.nl</th></tr></thead>
+<tbody>
+<tr><td>Aantal reviews</td><td>20 machines</td><td class="winner">100+ machines</td><td>127 machines</td><td>50+ machines</td></tr>
+<tr><td>Content diepte per review</td><td class="winner">Zeer uitgebreid</td><td>Uitgebreid</td><td>Uitgebreid</td><td>Gemiddeld</td></tr>
+<tr><td>Vergelijktool</td><td class="winner">Interactief (3 machines)</td><td>Tabel</td><td>Keuzehulp</td><td>Top 10 lijsten</td></tr>
+<tr><td>Structured data</td><td>Alleen Product/Review</td><td class="winner">Volledig</td><td>Volledig</td><td>Beperkt</td></tr>
+<tr><td>Sitemap + robots.txt</td><td style="background:#fecaca">Ontbreekt</td><td class="winner">Aanwezig</td><td class="winner">Aanwezig</td><td class="winner">Aanwezig</td></tr>
+<tr><td>Domein leeftijd</td><td style="background:#fecaca">Nieuw</td><td class="winner">5+ jaar</td><td class="winner">3+ jaar</td><td class="winner">4+ jaar</td></tr>
+<tr><td>Publicatiefrequentie</td><td>6 blogposts</td><td class="winner">Wekelijks</td><td>Maandelijks</td><td>Maandelijks</td></tr>
+<tr><td>Design kwaliteit</td><td class="winner">Modern, professioneel</td><td>Goed</td><td>Gemiddeld</td><td>Goed</td></tr>
+<tr><td>Page speed (SSG)</td><td class="winner">Zeer snel (Next.js SSG)</td><td>Snel (WordPress)</td><td>Gemiddeld</td><td>Gemiddeld</td></tr>
+<tr><td>Koopgids</td><td class="winner">Uitgebreid met tiers</td><td>Aanwezig</td><td>Keuzehulp</td><td>Beperkt</td></tr>
+</tbody>
+</table>
+
+<div class="summary-box">
+  <strong>Conclusie:</strong> Je site heeft een modern design en uitgebreide reviews, maar concurrenten winnen op SEO-infrastructuur en domein-autoriteit. De snelste winst zit in technische SEO fixes (robots.txt, sitemap, metadata) — dat is gratis en kost weinig tijd.
+</div>
+
+<!-- ACTION PLAN -->
+<h2>6. Actieplan</h2>
+
+<h3>🔥 Quick Wins — Deze week doen</h3>
+<div class="card">
+  <div class="action-item">
+    <div class="action-num">1</div>
+    <div class="action-content">
+      <strong>robots.txt + sitemap.xml toevoegen</strong><span class="tag tag-impact-high">Impact: Hoog</span><span class="tag tag-effort-low">15 min</span>
+      <div class="action-meta">Maak public/robots.txt en src/app/sitemap.ts. Zonder sitemap vindt Google je 38 pagina's niet.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">2</div>
+    <div class="action-content">
+      <strong>Metadata toevoegen aan 7 pagina's</strong><span class="tag tag-impact-high">Impact: Hoog</span><span class="tag tag-effort-low">30 min</span>
+      <div class="action-meta">Volautomaten, koopgids, vergelijken, blog, faq, koffiesoorten, accessoires. Elke pagina eigen title + description.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">3</div>
+    <div class="action-content">
+      <strong>Google Search Console instellen</strong><span class="tag tag-impact-high">Impact: Hoog</span><span class="tag tag-effort-low">10 min</span>
+      <div class="action-meta">Verifieer je domein, submit je sitemap, monitor indexatie. Zonder dit vlieg je blind.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">4</div>
+    <div class="action-content">
+      <strong>FAQPage schema toevoegen aan /faq</strong><span class="tag tag-impact-high">Impact: Hoog</span><span class="tag tag-effort-low">15 min</span>
+      <div class="action-meta">15 vragen staan er al — alleen het JSON-LD script moet erbij. Kan rich snippets opleveren in Google.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">5</div>
+    <div class="action-content">
+      <strong>Open Graph image maken</strong><span class="tag tag-impact-med">Impact: Midden</span><span class="tag tag-effort-low">20 min</span>
+      <div class="action-meta">1200×630 default afbeelding met logo + tagline. Instellen als default og:image in layout.tsx.</div>
+    </div>
+  </div>
+</div>
+
+<h3>📈 Strategische investeringen — Dit kwartaal</h3>
+<div class="card">
+  <div class="action-item">
+    <div class="action-num">6</div>
+    <div class="action-content">
+      <strong>BlogPosting + BreadcrumbList schema toevoegen</strong><span class="tag tag-impact-med">Impact: Midden</span><span class="tag tag-effort-med">2 uur</span>
+      <div class="action-meta">Alle blogposts en review-pagina's krijgen Article/BlogPosting schema. Breadcrumbs als JSON-LD op elke pagina.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">7</div>
+    <div class="action-content">
+      <strong>"Beste koffiemachine tot €500" pagina maken</strong><span class="tag tag-impact-high">Impact: Hoog</span><span class="tag tag-effort-med">Half dag</span>
+      <div class="action-meta">Budget-roundup pagina. Hoog zoekvolume, lage concurrentie voor long-tail variant.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">8</div>
+    <div class="action-content">
+      <strong>Versus-pagina's maken (Jura vs Siemens, etc.)</strong><span class="tag tag-impact-high">Impact: Hoog</span><span class="tag tag-effort-med">Half dag per pagina</span>
+      <div class="action-meta">Vergelijkingscontent scoort goed in Google. Start met de 3 populairste merkcombinaties.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">9</div>
+    <div class="action-content">
+      <strong>Meer blogcontent publiceren (2x per maand)</strong><span class="tag tag-impact-high">Impact: Hoog</span><span class="tag tag-effort-high">Doorlopend</span>
+      <div class="action-meta">Concurrenten publiceren wekelijks. Onderwerpen: latte art, bonen tips, seizoensdeals, onderhoudsgidsen.</div>
+    </div>
+  </div>
+  <div class="action-item">
+    <div class="action-num">10</div>
+    <div class="action-content">
+      <strong>Google Analytics 4 + affiliate click tracking</strong><span class="tag tag-impact-med">Impact: Midden</span><span class="tag tag-effort-med">1 uur</span>
+      <div class="action-meta">Meet welke pagina's en producten converteren. Essentieel voor data-driven optimalisatie.</div>
+    </div>
+  </div>
+</div>
+
+<h2>7. Volgende stappen</h2>
+<div class="card">
+  <p>Wil je dat ik nu direct aan de slag ga met:</p>
+  <ul>
+    <li><strong>robots.txt + sitemap.xml</strong> genereren en toevoegen aan het project?</li>
+    <li><strong>Metadata exports</strong> toevoegen aan alle 7 pagina's die het missen?</li>
+    <li><strong>FAQPage JSON-LD schema</strong> toevoegen aan de FAQ-pagina?</li>
+    <li><strong>Content briefs</strong> schrijven voor de top keyword-kansen?</li>
+    <li><strong>Versus-pagina's</strong> (Jura vs Siemens, etc.) bouwen?</li>
+  </ul>
+</div>
+
+<div class="footer">
+  SEO Audit uitgevoerd op 15 maart 2026 voor Koffiemachinewijzer<br>
+  Op basis van codebase-analyse, Google zoekresultaten en concurrentie-benchmark
+</div>
+
+</div>
+</body>
+</html>

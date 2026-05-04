@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koffiemachinewijzer — De #1 Koffiemachine Gids van Nederland</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display:wght@400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ══════════════════════════════════════
+       KOFFIEMACHINEWIJZER — Design System
+       ══════════════════════════════════════ */
+
+    :root {
+      --dark: #1B2332;
+      --dark-soft: #2A3347;
+      --accent: #C17817;
+      --accent-hover: #A36514;
+      --accent-light: rgba(193, 120, 23, 0.08);
+      --text: #1B2332;
+      --text-secondary: #4B5563;
+      --text-light: #6B7280;
+      --bg: #FFFFFF;
+      --bg-soft: #F8F9FA;
+      --bg-warm: #FDF8F4;
+      --border: #E5E7EB;
+      --border-light: #F3F4F6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--dark);
+    }
+
+    h1 { font-size: 3.5rem; }
+    h2 { font-size: 2.5rem; }
+    h3 { font-size: 1.5rem; }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      letter-spacing: 0.025em;
+      transition: all 0.3s ease;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(193, 120, 23, 0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      letter-spacing: 0.025em;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: var(--dark);
+      border: 2px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      border-color: var(--dark);
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-secondary-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      letter-spacing: 0.025em;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-secondary-light:hover {
+      border-color: white;
+      background: white;
+      color: var(--dark);
+    }
+
+    /* ── Eyebrow label ── */
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: 'Inter', sans-serif;
+      display: inline-block;
+    }
+
+    /* ── Award badge ── */
+    .award-badge {
+      display: inline-block;
+      padding: 0.375rem 0.875rem;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      background: var(--accent);
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Pill badge (orange border) ── */
+    .pill-badge {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      border: 2px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Product card ── */
+    .product-card {
+      display: block;
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .product-card:hover {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+      border-color: var(--border);
+    }
+    .product-card-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-soft);
+      padding: 1.5rem;
+      overflow: hidden;
+      min-height: 200px;
+    }
+    .product-card-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-card-image img {
+      transform: scale(1.05);
+    }
+    .product-card-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    /* ── Score link ── */
+    .score-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      color: var(--accent);
+    }
+    .score-link:hover {
+      color: var(--accent-hover);
+      gap: 0.5rem;
+    }
+
+    /* ── Stars ── */
+    .stars {
+      display: inline-flex;
+      gap: 0.125rem;
+      color: #F59E0B;
+    }
+
+    /* ── Marquee ── */
+    .marquee {
+      display: flex;
+      overflow: hidden;
+      user-select: none;
+      background: white;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 30s linear infinite;
+      will-change: transform;
+    }
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── Gradient overlays ── */
+    .gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(27, 35, 50, 0.85), rgba(27, 35, 50, 0.95));
+      z-index: 10;
+    }
+
+    /* ── Hero section ── */
+    .hero {
+      height: 100vh;
+      background: var(--dark);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero h1 {
+      color: white;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 3.5rem;
+    }
+
+    .hero h1 .accent {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      color: var(--text-light);
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .trust-signals {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .trust-signal {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .checkmark {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    /* ── Section spacing ── */
+    .section {
+      padding: 5rem 2rem;
+    }
+
+    .section-header {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Category cards ── */
+    .category-card {
+      background: white;
+      border-radius: 1.25rem;
+      padding: 2rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .category-card:hover {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .category-card h3 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .category-card-meta {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .category-card-desc {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .category-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .category-link:hover {
+      gap: 1rem;
+    }
+
+    /* ── Feature section alternating ── */
+    .feature-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+
+    .feature-section.reverse {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
+
+    .feature-image {
+      background: var(--border-light);
+      border-radius: 1.5rem;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+    }
+
+    .feature-content h3 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .feature-content p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Top picks grid ── */
+    .top-picks-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .top-picks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .top-picks-large {
+      grid-column: 1 / -1;
+      grid-row: 1 / 3;
+    }
+
+    @media (min-width: 1024px) {
+      .top-picks-grid {
+        grid-template-columns: 2fr 1fr;
+      }
+      .top-picks-large {
+        grid-column: 1;
+        grid-row: 1 / 3;
+      }
+    }
+
+    .top-pick-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      background: var(--bg-soft);
+      min-height: 500px;
+    }
+
+    .top-pick-card.large {
+      min-height: 600px;
+    }
+
+    .top-pick-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .top-pick-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(27, 35, 50, 0.7), rgba(27, 35, 50, 0.85));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      color: white;
+    }
+
+    .top-pick-content h3 {
+      color: white;
+      font-size: 1.75rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .top-pick-brand {
+      font-size: 0.875rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .top-pick-model {
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .top-pick-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* ── Dark sections ── */
+    .dark-section {
+      background: var(--dark);
+      color: white;
+    }
+
+    .dark-section h2,
+    .dark-section h3 {
+      color: white;
+    }
+
+    .dark-section .eyebrow {
+      color: var(--accent);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.25rem; }
+      h2 { font-size: 1.75rem; }
+      .hero { height: auto; min-height: 100vh; padding: 2rem 1rem; }
+      .hero h1 { font-size: 2.25rem; }
+      .button-group { flex-direction: column; }
+      .feature-section { grid-template-columns: 1fr; }
+      .feature-section.reverse { grid-auto-flow: row; }
+      .trust-signals { flex-direction: column; gap: 1.5rem; }
+      .top-picks-grid { grid-template-columns: 1fr; }
+      .top-picks-large { grid-column: 1; grid-row: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════
+     1. HERO SECTION
+     ════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="pill-badge">De #1 Koffiemachine Gids van Nederland</div>
+
+  <h1>Vind Jouw Perfecte <span class="accent">Koffiemachine</span></h1>
+
+  <p class="hero-subtitle">Onafhankelijke reviews en handige vergelijkers voor de beste koffiemachines in Nederland en België</p>
+
+  <div class="button-group">
+    <button class="btn-primary">Bekijk Top 5</button>
+    <button class="btn-secondary-light">Koopgids Lezen</button>
+  </div>
+
+  <div class="trust-signals">
+    <div class="trust-signal">
+      <span class="checkmark">✓</span>
+      <span>Onafhankelijk</span>
+    </div>
+    <div class="trust-signal">
+      <span class="checkmark">✓</span>
+      <span>20+ Reviews</span>
+    </div>
+    <div class="trust-signal">
+      <span class="checkmark">✓</span>
+      <span>NL & BE Markt</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     2. TOP PICKS SECTION
+     ════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background: white;">
+  <div class="top-picks-container">
+    <!-- Section header -->
+    <div class="section-header">
+      <div class="eyebrow">Onze Selectie</div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <h2 class="section-title">Top Picks van 2026</h2>
+        <button class="btn-primary" style="margin-top: 0.5rem;">Alle Modellen</button>
+      </div>
+    </div>
+
+    <!-- Grid: 1 large left (Jura Z10) + 2 stacked right (Philips + Sage) -->
+    <div class="top-picks-grid">
+      <!-- Large card: Jura Z10 -->
+      <div class="top-pick-card large">
+        <div style="background: linear-gradient(135deg, #e8d5c4, #d4b5a0); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 0.9rem;">
+          Jura Z10 Product Image
+        </div>
+        <div class="top-pick-overlay">
+          <span class="award-badge">Beste Keuze</span>
+          <div class="top-pick-brand">Jura</div>
+          <h3 class="top-pick-content" style="font-size: 2rem;">Z10</h3>
+          <div class="top-pick-meta">
+            <span>€2.399</span>
+            <span>⭐ 9.0/10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stacked right: Philips 3300 LatteGo -->
+      <div class="top-pick-card">
+        <div style="background: linear-gradient(135deg, #f0e8e0, #e8dcd4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 0.85rem;">
+          Philips 3300 LatteGo Image
+        </div>
+        <div class="top-pick-overlay">
+          <span class="award-badge" style="background: var(--text-secondary);">Beste Prijs-Kwaliteit</span>
+          <div class="top-pick-brand">Philips</div>
+          <h3 style="color: white; font-size: 1.25rem;">3300 LatteGo</h3>
+          <div class="top-pick-meta">
+            <span>€449</span>
+            <span>⭐ 8.5/10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stacked right: Sage Oracle Jet -->
+      <div class="top-pick-card">
+        <div style="background: linear-gradient(135deg, #e5dcd4, #d9ccc0); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 0.85rem;">
+          Sage Oracle Jet Image
+        </div>
+        <div class="top-pick-overlay">
+          <span class="award-badge" style="background: var(--accent-hover);">Espresso Toppertje</span>
+          <div class="top-pick-brand">Sage</div>
+          <h3 style="color: white; font-size: 1.25rem;">Oracle Jet</h3>
+          <div class="top-pick-meta">
+            <span>€2.999</span>
+            <span>⭐ 9.1/10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     3. BRAND MARQUEE
+     ════════════════════════════════════════════════════════════════ -->
+<section class="marquee" style="padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="marquee-track">
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Jura</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Siemens</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">De'Longhi</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Sage</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Philips</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Miele</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Melitta</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Gaggia</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Rancilio</span>
+    <!-- Duplicate for seamless loop -->
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Jura</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Siemens</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">De'Longhi</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Sage</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Philips</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Miele</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Melitta</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Gaggia</span>
+    <span style="color: var(--accent);">•</span>
+    <span style="white-space: nowrap; color: var(--text-secondary); font-weight: 600;">Rancilio</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     4. FEATURE SECTIONS
+     ════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background: white;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <!-- Feature 1: Image Left, Text Right -->
+    <div class="feature-section">
+      <div class="feature-image">Afbeelding</div>
+      <div class="feature-content">
+        <div class="eyebrow">01 — Eerlijke Reviews</div>
+        <h3>Onafhankelijk en Transparant</h3>
+        <p>We testen elke koffiemachine zelf en geven je eerlijke feedback. Geen adverteerders die ons bepalen, alleen jouw volgende perfecte koffiemachine.</p>
+        <a href="#" class="score-link">Lees onze testmethodologie →</a>
+      </div>
+    </div>
+
+    <!-- Feature 2: Text Left, Image Right -->
+    <div class="feature-section reverse" style="margin-top: 4rem;">
+      <div class="feature-image">Afbeelding</div>
+      <div class="feature-content">
+        <div class="eyebrow">02 — Perfecte Match Finder</div>
+        <h3>Vind Jouw Machine in 2 Minuten</h3>
+        <p>Met onze intelligente vergelijker beantwoord je 5 vragen en krijg je persoonlijke aanbevelingen. Geen ingewikkelde lijsten, gewoon het juiste voor jou.</p>
+        <a href="#" class="score-link">Start de quiz →</a>
+      </div>
+    </div>
+
+    <!-- Feature 3: Image Left, Text Right -->
+    <div class="feature-section" style="margin-top: 4rem;">
+      <div class="feature-image">Afbeelding</div>
+      <div class="feature-content">
+        <div class="eyebrow">03 — Prijsvergelijking</div>
+        <h3>Bespaar tot 30% met Onze Gids</h3>
+        <p>We vergelijken prijzen van alle grote winkels. Vind de laagste prijs, bekijk bezorgopties en lees ervaringen van echte gebruikers.</p>
+        <a href="#" class="score-link">Vergelijk prijzen →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     5. CATEGORIES SECTION
+     ════════════════════════════════════════════════════════════════ -->
+<section class="dark-section section">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-header">
+      <div class="eyebrow">Alle Categorieën</div>
+      <h2 class="section-title">Browse op Type</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <!-- Category: Volautomaten -->
+      <div class="category-card" style="background: white;">
+        <h3>Volautomaten</h3>
+        <div class="category-card-meta">14 modellen</div>
+        <p class="category-card-desc">Van instant koffie tot cappuccino in één druk. Perfect voor wie wil genieten zonder gedoe.</p>
+        <a href="#" class="category-link">Bekijk alle → </a>
+      </div>
+
+      <!-- Category: Espressomachines -->
+      <div class="category-card" style="background: white;">
+        <h3>Espressomachines</h3>
+        <div class="category-card-meta">6 modellen</div>
+        <p class="category-card-desc">Voor de echte koffieliefhebber. Volledige controle over elke stap van het brouwproces.</p>
+        <a href="#" class="category-link">Bekijk alle →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     6. FEATURED PRODUCTS GRID
+     ════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background: white;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-header">
+      <div class="eyebrow">Populaire Modellen</div>
+      <h2 class="section-title">Meest Aanbevolen</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+
+      <!-- Product 1: Jura S8 -->
+      <a href="#" class="product-card">
+        <div class="product-card-image" style="background: linear-gradient(135deg, #e8d5c4, #d4b5a0);">
+          Jura S8
+        </div>
+        <div class="product-card-body">
+          <div class="stars">★★★★★</div>
+          <div style="color: var(--text-secondary); font-size: 0.8rem; margin: 0.5rem 0;">JURA</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Jura S8</h3>
+          <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Premium volautomaat voor thuisgebruik</p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; color: var(--dark);">€1.499</span>
+            <a href="#" class="score-link">Score: 8.9 →</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- Product 2: Siemens EQ.900 -->
+      <a href="#" class="product-card">
+        <div class="product-card-image" style="background: linear-gradient(135deg, #f0e8e0, #e8dcd4);">
+          Siemens EQ.900
+        </div>
+        <div class="product-card-body">
+          <div class="stars">★★★★★</div>
+          <div style="color: var(--text-secondary); font-size: 0.8rem; margin: 0.5rem 0;">SIEMENS</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">EQ.900</h3>
+          <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Volledig geavanceerde volautomaat</p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; color: var(--dark);">€1.599</span>
+            <a href="#" class="score-link">Score: 8.7 →</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- Product 3: De'Longhi Rivelia -->
+      <a href="#" class="product-card">
+        <div class="product-card-image" style="background: linear-gradient(135deg, #e5dcd4, #d9ccc0);">
+          De'Longhi Rivelia
+        </div>
+        <div class="product-card-body">
+          <div class="stars">★★★★☆</div>
+          <div style="color: var(--text-secondary); font-size: 0.8rem; margin: 0.5rem 0;">DE'LONGHI</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Rivelia</h3>
+          <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Goede volautomaat voor beginners</p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; color: var(--dark);">€899</span>
+            <a href="#" class="score-link">Score: 8.5 →</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- Product 4: Miele CM 7750 -->
+      <a href="#" class="product-card">
+        <div class="product-card-image" style="background: linear-gradient(135deg, #e0d5cc, #d4c5b8);">
+          Miele CM 7750
+        </div>
+        <div class="product-card-body">
+          <div class="stars">★★★★★</div>
+          <div style="color: var(--text-secondary); font-size: 0.8rem; margin: 0.5rem 0;">MIELE</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">CM 7750</h3>
+          <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Duurzame Duitse kwaliteit</p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; color: var(--dark);">€1.849</span>
+            <a href="#" class="score-link">Score: 8.8 →</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- Product 5: Sage Barista Touch Impress -->
+      <a href="#" class="product-card">
+        <div class="product-card-image" style="background: linear-gradient(135deg, #dcccc4, #cdbbb0);">
+          Sage Barista Touch
+        </div>
+        <div class="product-card-body">
+          <div class="stars">★★★★★</div>
+          <div style="color: var(--text-secondary); font-size: 0.8rem; margin: 0.5rem 0;">SAGE</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Barista Touch Impress</h3>
+          <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Voor aspiring barista's</p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; color: var(--dark);">€1.249</span>
+            <a href="#" class="score-link">Score: 9.0 →</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- Product 6: Philips 5400 LatteGo -->
+      <a href="#" class="product-card">
+        <div class="product-card-image" style="background: linear-gradient(135deg, #f5ede5, #eaddd4);">
+          Philips 5400
+        </div>
+        <div class="product-card-body">
+          <div class="stars">★★★★☆</div>
+          <div style="color: var(--text-secondary); font-size: 0.8rem; margin: 0.5rem 0;">PHILIPS</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">5400 LatteGo</h3>
+          <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Budget-vriendelijke volautomaat</p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; color: var(--dark);">€749</span>
+            <a href="#" class="score-link">Score: 8.3 →</a>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     7. FINAL CTA SECTION
+     ════════════════════════════════════════════════════════════════ -->
+<section class="dark-section section">
+  <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+    <div class="eyebrow">Begin Nu</div>
+    <h2 style="color: white; margin-bottom: 1rem; font-size: 2.5rem;">Klaar om jouw perfecte machine te vinden?</h2>
+    <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.8;">Met onze gids en reviews vind je in minuten de ideale koffiemachine voor jouw budget en voorkeur. Geen gedoe, geen spam.</p>
+
+    <div class="button-group">
+      <button class="btn-primary">Start de Quiz</button>
+      <button class="btn-secondary-light">Alle Reviews Lezen</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     FOOTER (minimal)
+     ════════════════════════════════════════════════════════════════ -->
+<footer style="background: var(--bg-soft); padding: 2rem; text-align: center; color: var(--text-light);">
+  <p style="font-size: 0.9rem;">© 2026 Koffiemachinewijzer. Onafhankelijke reviews en aanbevelingen.</p>
+</footer>
+
+</body>
+</html>

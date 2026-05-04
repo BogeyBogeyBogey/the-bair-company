@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>FacadePilot Flyer A5 Recto-Verso — Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  @page { size: A5 portrait; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    font-family: 'Archivo', sans-serif;
+    color: #f5f5f0;
+    background: #0a0a0a;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 148mm;
+    height: 210mm;
+    overflow: hidden;
+    position: relative;
+    page-break-after: always;
+    background: #0a0a0a;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ═══════════════════════════════════════════════════
+     VOORKANT — editorial cover
+     ═══════════════════════════════════════════════════ */
+  .front {
+    display: grid;
+    grid-template-rows: 10mm 1fr;
+  }
+
+  .front .topbar {
+    background: #0a0a0a;
+    border-bottom: 1px solid #2a2a26;
+    padding: 0 12mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    color: #888;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .front .topbar b { color: {{ accent_color | default('#ff5722') }}; font-weight: 500; }
+
+  .front .hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .front .hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Tag overlay rechtsboven */
+  .front .img-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: {{ accent_color | default('#ff5722') }};
+    color: #0a0a0a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    font-weight: 500;
+    padding: 4px 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* Headline-overlay onderaan */
+  .front .headline-block {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 50px 12mm 14mm;
+    background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+  }
+  .front .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: {{ accent_color | default('#ff5722') }};
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .front .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: {{ accent_color | default('#ff5722') }};
+    display: inline-block;
+  }
+  .front h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 0.95;
+    color: #f5f5f0;
+    letter-spacing: -1.2px;
+    margin-bottom: 8px;
+  }
+  .front h1 em {
+    font-style: italic;
+    font-weight: 600;
+    color: {{ accent_color | default('#ff5722') }};
+  }
+  .front .meta-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    display: flex;
+    justify-content: space-between;
+  }
+  .front .meta-line .right { color: {{ accent_color | default('#ff5722') }}; }
+
+  /* ═══════════════════════════════════════════════════
+     ACHTERKANT
+     ═══════════════════════════════════════════════════ */
+  .back {
+    padding: 12mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .back .topbar {
+    border-bottom: 1px solid #2a2a26;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    color: #888;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .back .topbar b { color: {{ accent_color | default('#ff5722') }}; font-weight: 500; }
+
+  .back .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: {{ accent_color | default('#ff5722') }};
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* Specs als monospaced tabel */
+  .specs-table {
+    border-top: 1px solid #2a2a26;
+    border-bottom: 1px solid #2a2a26;
+    padding: 12px 0;
+    margin-bottom: 18px;
+  }
+  .spec-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding: 4px 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .spec-row .lbl {
+    font-size: 9px;
+    color: #888;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .spec-row .val {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: #f5f5f0;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .spec-row .val .unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: {{ accent_color | default('#ff5722') }};
+    margin-left: 2px;
+  }
+
+  /* Bullets compact */
+  .bullets {
+    margin-bottom: 18px;
+  }
+  .bullet {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: baseline;
+  }
+  .bullet .marker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: {{ accent_color | default('#ff5722') }};
+    letter-spacing: 1px;
+    min-width: 22px;
+  }
+  .bullet .txt {
+    font-size: 9.5px;
+    color: #ccc;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .bullet .txt strong {
+    color: #f5f5f0;
+    font-weight: 600;
+  }
+
+  /* CTA — full-bleed band */
+  .cta-band {
+    background: {{ accent_color | default('#ff5722') }};
+    color: #0a0a0a;
+    padding: 14px 12mm;
+    display: grid;
+    grid-template-columns: 1fr 22mm;
+    gap: 12px;
+    align-items: center;
+    margin: auto -12mm 0 -12mm;
+  }
+  .cta-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .cta-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: -0.3px;
+  }
+  .cta-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .cta-qr {
+    background: #0a0a0a;
+    padding: 4px;
+  }
+  .cta-qr img {
+    width: 100%;
+    display: block;
+  }
+
+  /* Footer micro */
+  .back-footer {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #2a2a26;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.5px;
+    color: #555;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .back-footer b { color: #aaa; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ VOORKANT ══════════ -->
+<div class="page front">
+  <div class="topbar">
+    <div>FACADE<b>•</b>PILOT</div>
+    <div>2026 / N°{{ '%03d' % lead_idx | default(1) }}</div>
+  </div>
+
+  <div class="hero">
+    {% if render_path %}<img src="{{ render_path }}" alt="Voorstel">{% endif %}
+    <div class="img-tag">/ Voorstel</div>
+    <div class="headline-block">
+      <div class="eyebrow">Renovatie-impressie</div>
+      <h1>Een nieuwe<br><em>identiteit</em><br>voor uw gevel.</h1>
+      <div class="meta-line">
+        <span>{{ adres_kort }}</span>
+        <span class="right">→ DRAAI OM</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ACHTERKANT ══════════ -->
+<div class="page back">
+  <div class="topbar">
+    <div>FACADE<b>•</b>PILOT — DOSSIER</div>
+    <div>{{ adres_kort }}</div>
+  </div>
+
+  <div class="section-label">/ Het voorstel</div>
+
+  <div class="specs-table">
+    <div class="spec-row">
+      <span class="lbl">Geveloppervlak</span>
+      <span class="val">{{ facade_afmeting | default('95<span class="unit">m²</span>') | safe }}</span>
+    </div>
+    <div class="spec-row">
+      <span class="lbl">Indicatieprijs</span>
+      <span class="val">{{ facade_prijs | default('€22<span class="unit">K+</span>') | safe }}</span>
+    </div>
+    <div class="spec-row">
+      <span class="lbl">Bouwtijd</span>
+      <span class="val">{{ facade_bouwtijd | default('4–6<span class="unit">wk</span>') | safe }}</span>
+    </div>
+    <div class="spec-row">
+      <span class="lbl">Garantie</span>
+      <span class="val">10<span class="unit">jaar</span></span>
+    </div>
+  </div>
+
+  <div class="section-label">/ Waarom nu</div>
+
+  <div class="bullets">
+    <div class="bullet">
+      <div class="marker">01 →</div>
+      <div class="txt"><strong>Energie −30%.</strong> Buitenisolatie verlaagt direct uw verbruik.</div>
+    </div>
+    <div class="bullet">
+      <div class="marker">02 →</div>
+      <div class="txt"><strong>Meerwaarde +15%.</strong> Vernieuwde gevel = hogere marktwaarde.</div>
+    </div>
+    <div class="bullet">
+      <div class="marker">03 →</div>
+      <div class="txt"><strong>Premies tot €8.000.</strong> Vlaamse renovatiepremie. Wij regelen.</div>
+    </div>
+    <div class="bullet">
+      <div class="marker">04 →</div>
+      <div class="txt"><strong>Eén aanspreekpunt.</strong> Vaste prijs, vast team, vaste planning.</div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <div class="cta-text">
+      <div class="cta-title">Vraag uw offerte aan</div>
+      <div class="cta-sub">Scan / {{ landing_url }}</div>
+    </div>
+    <div class="cta-qr">
+      {% if qr_path %}<img src="{{ qr_path }}" alt="QR">{% endif %}
+    </div>
+  </div>
+
+  <div class="back-footer">
+    <b>{{ builder_naam }}</b> · {{ builder_telefoon }}<br>
+    AI-impressie op basis van straatfoto / definitieve uitvoering volgt na plaatsbezoek
+  </div>
+</div>
+
+</body>
+</html>

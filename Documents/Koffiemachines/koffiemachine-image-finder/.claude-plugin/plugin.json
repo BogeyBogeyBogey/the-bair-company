@@ -1,0 +1,9 @@
+{
+  "name": "koffiemachine-image-finder",
+  "version": "0.1.0",
+  "description": "Zoekt, downloadt en optimaliseert productafbeeldingen van koffiemachinemerken voor Koffiemachinewijzer. Werkt met alle merken: Jura, Siemens, De'Longhi, Philips, Miele, Melitta, Krups, Gaggia, Sage, Lelit, Rancilio, en meer.",
+  "author": {
+    "name": "Kristof"
+  },
+  "keywords": ["koffiemachine", "coffee", "images", "affiliate", "product-photos", "optimization", "espresso"]
+}

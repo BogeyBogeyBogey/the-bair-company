@@ -1,0 +1,80 @@
+# ─── Secrets ── nooit committen ─────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ─── Python ─────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+venv/
+.venv/
+env/
+.env-bak
+
+# ─── OS ────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+desktop.ini
+
+# ─── iCloud sync conflicts ─────────────────────────────────────
+* 2.*
+* 3.*
+* 4.*
+*\ 2.*
+*\ 3.*
+
+# ─── Logs ──────────────────────────────────────────────────────
+*.log
+facadepilot.log
+facadepilot.log.*
+
+# ─── Outputs (privacy + grootte) ───────────────────────────────
+# Lead-CSV's bevatten adresgegevens van prospects
+facadepilot_leads_*.csv
+manual_leads*.csv
+failed_renders.csv
+vergunningen_cache.csv
+
+# Gegenereerde media — kunnen honderden MB's worden, hoeven niet
+# in git (worden lokaal opnieuw gemaakt door de pipeline)
+renders/
+flyers/
+flyers_preview_premium/
+landing/
+emails/
+streetview/
+
+# ─── Builder profile (kan logo bevatten + persoonlijke data) ──
+builder_profile.json
+
+# ─── Statbel data (groot + niet onze data om te delen) ─────────
+sh_statbel_*/
+TF_*.xlsx
+
+# ─── Local archief ─────────────────────────────────────────────
+_archive*/
+
+# ─── SQLite legacy (uit voor-Supabase fase) ───────────────────
+facadepilot_crm.db
+*.db-journal
+
+# ─── IDE ──────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.editorconfig
