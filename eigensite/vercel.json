@@ -1,3 +1,49 @@
 {
-    "cleanUrls": true
+    "cleanUrls": true,
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                { "key": "X-Frame-Options", "value": "DENY" },
+                { "key": "X-Content-Type-Options", "value": "nosniff" },
+                { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+                { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+                { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+                { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self' https://www.google-analytics.com https://formspree.io https://vitals.vercel-insights.com; frame-src 'none'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io" }
+            ]
+        },
+        {
+            "source": "/assets/(.*)",
+            "headers": [
+                { "key": "Cache-Control", "value": "public, max-age=604800" }
+            ]
+        },
+        {
+            "source": "/(.*)\\.(jpg|jpeg|png|webp|svg|mp4|woff2|ico)",
+            "headers": [
+                { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+            ]
+        }
+    ],
+    "redirects": [
+        { "source": "/diensten/ai-automatisering", "destination": "/solutions/intelligent-automation", "permanent": true },
+        { "source": "/diensten/ai-automatisering.html", "destination": "/solutions/intelligent-automation", "permanent": true },
+        { "source": "/diensten/apps", "destination": "/solutions/ai-products", "permanent": true },
+        { "source": "/diensten/apps.html", "destination": "/solutions/ai-products", "permanent": true },
+        { "source": "/diensten/training", "destination": "/solutions/enterprise-ai", "permanent": true },
+        { "source": "/diensten/training.html", "destination": "/solutions/enterprise-ai", "permanent": true },
+        { "source": "/diensten/webdesign", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/webdesign.html", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/webontwikkeling", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/webontwikkeling.html", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/branding", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/branding.html", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/copywriting", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/copywriting.html", "destination": "/solutions/ai-platforms", "permanent": true },
+        { "source": "/diensten/social-media", "destination": "/", "permanent": true },
+        { "source": "/diensten/social-media.html", "destination": "/", "permanent": true },
+        { "source": "/diensten/marketing", "destination": "/", "permanent": true },
+        { "source": "/diensten/marketing.html", "destination": "/", "permanent": true },
+        { "source": "/diensten", "destination": "/#solutions", "permanent": true }
+    ]
 }

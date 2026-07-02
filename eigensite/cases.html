@@ -1,1616 +1,238 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<!-- Google Analytics 4 — met Consent Mode v2 -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('consent', 'default', {
-    'analytics_storage': 'denied',
-    'ad_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied',
-    'wait_for_update': 500
-  });
-</script>
-<script>
-  // Defer GTM script loading until after page is interactive
-  function loadGTM() {
-    var s = document.createElement('script');
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEPNG02Z0J';
-    s.async = true;
-    document.head.appendChild(s);
-    gtag('js', new Date());
-    gtag('config', 'G-TEPNG02Z0J', {
-      send_page_view: true,
-      cookie_flags: 'SameSite=None;Secure'
-    });
-  }
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadGTM, { timeout: 3000 });
-  } else {
-    setTimeout(loadGTM, 2000);
-  }
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cases — The Bair Co.</title>
-<meta name="description" content="Bekijk hoe The Bair Co. merken transformeert. Klantverhalen van Rosing Security, Artoah, GiGi Money en BAIR.media.">
-<meta property="og:title" content="Cases — The Bair Co.">
-<meta property="og:description" content="Bekijk hoe The Bair Co. merken transformeert. Klantverhalen van Rosing Security, Artoah en GiGi Money.">
+<title>Work — The Bair Co.</title>
+<meta name="description" content="AI in production: case studies from The Bair Co. — fintech AI, computer-vision pipelines, automated commerce and brand systems.">
+<link rel="canonical" href="https://www.baircompany.be/cases">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.baircompany.be/cases.html">
+<meta property="og:title" content="Work — The Bair Co.">
+<meta property="og:description" content="AI in production: fintech AI, computer-vision pipelines, automated commerce and brand systems.">
 <meta property="og:image" content="https://www.baircompany.be/og-image.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Cases — The Bair Co.">
-<meta name="twitter:image" content="https://www.baircompany.be/og-image.jpg">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet"></noscript>
-<style>:root{--black:#0a0a0a;--white:#f0ede8;--grey:#888;--accent:#2E8AFF;--pink:#ec4899;--amber:#f59e0b;--emerald:#10b981;--red:#ef4444;--font-display:'Syne',system-ui,sans-serif;--font-body:'DM Sans',-apple-system,sans-serif;--font-serif:'Instrument Serif',Georgia,serif;--ease:cubic-bezier(0.16,1,0.3,1)}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scrollbar-width:none}::-webkit-scrollbar{width:0;height:0}body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.5;mix-blend-mode:overlay}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}::selection{background:var(--accent);color:var(--black)}.serif{font-family:var(--font-serif);font-style:italic;font-weight:400}header{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.75rem 2.5rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,10,10,0.85);border-bottom:1px solid rgba(240,237,232,0.06)}.brand{font-family:var(--font-display);font-size:1rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:flex;align-items:center;gap:0.6rem}.brand-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}nav{display:flex;gap:0.3rem}.nav-pill{padding:0.45rem 1rem;border-radius:100px;font-size:0.82rem;font-weight:400;transition:background 0.3s,color 0.3s;letter-spacing:0.01em}.nav-pill:hover,.nav-pill.active{background:var(--white);color:var(--black)}.mob-toggle{display:none;width:28px;height:20px;flex-direction:column;justify-content:space-between;cursor:pointer;z-index:200}.mob-toggle span{display:block;height:2px;background:var(--white);border-radius:2px;transition:0.3s var(--ease)}.mob-toggle.active span:nth-child(1){transform:translateY(9px) rotate(45deg)}.mob-toggle.active span:nth-child(2){opacity:0}.mob-toggle.active span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}.mob-nav{position:fixed;inset:0;z-index:150;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;visibility:hidden;transition:0.4s var(--ease)}.mob-nav.open{opacity:1;visibility:visible}.mob-nav a{font-family:var(--font-display);font-size:2rem;font-weight:700}@media (max-width:768px){header{padding:1rem 1.5rem}nav{display:none}.mob-toggle{display:flex}}.cases-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 4rem;position:relative}.cases-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(46,138,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(236,72,153,0.06) 0%,transparent 50%)}.cases-hero-label{font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent);margin-bottom:1rem;position:relative}.cases-hero h1{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;max-width:800px;position:relative}.cases-hero p{font-size:1.1rem;color:var(--grey);max-width:550px;margin-top:1.5rem;line-height:1.7;position:relative}@media (max-width:768px){.cases-hero{padding:0 1.5rem 3rem;min-height:50vh}}.case-nav{display:flex;gap:0;border-top:1px solid rgba(240,237,232,0.1);border-bottom:1px solid rgba(240,237,232,0.1)}.case-nav-item{flex:1;padding:1.5rem 2rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:background 0.3s;border-right:1px solid rgba(240,237,232,0.1);position:relative}.case-nav-item:last-child{border-right:none}.case-nav-item:hover{background:rgba(240,237,232,0.03)}.case-nav-item.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}.case-nav-item[data-case="rosing"].active::after{background:var(--red)}.case-nav-item[data-case="artoah"].active::after{background:var(--amber)}.case-nav-item[data-case="gigi"].active::after{background:var(--pink)}.case-nav-item[data-case="bair"].active::after{background:var(--accent)}.case-nav-num{font-family:var(--font-display);font-size:0.7rem;font-weight:700;color:var(--grey);letter-spacing:0.1em}.case-nav-name{font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:-0.01em}.case-nav-type{font-size:0.75rem;color:var(--grey)}@media (max-width:768px){.case-nav{flex-direction:column}.case-nav-item{border-right:none;border-bottom:1px solid rgba(240,237,232,0.1);padding:1rem 1.5rem}.case-nav-item:last-child{border-bottom:none}.case-nav-item.active::after{height:100%;width:3px;bottom:auto;top:0;right:auto}}.case-study{display:none}.case-study.active{display:block}.case-hero-img{width:100%;height:70vh;object-fit:cover;display:block}@media (max-width:768px){.case-hero-img{height:40vh}}.case-intro{padding:5rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1300px;margin:0 auto}.case-intro-left h2{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;letter-spacing:-0.03em;line-height:1.15}.case-meta{display:flex;gap:3rem;margin-top:2rem}.case-meta-item{}.case-meta-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--grey);margin-bottom:0.3rem}.case-meta-val{font-family:var(--font-display);font-size:0.9rem;font-weight:700}.case-intro-right{font-size:1.05rem;line-height:1.8;color:rgba(240,237,232,0.8);display:flex;flex-direction:column;gap:1.2rem}.case-intro-right p:first-child::first-letter{font-family:var(--font-serif);font-style:italic;font-size:3.5rem;float:left;line-height:0.8;margin-right:0.5rem;margin-top:0.1rem;color:var(--white)}@media (max-width:768px){.case-intro{grid-template-columns:1fr;padding:3rem 1.5rem;gap:2rem}.case-meta{gap:1.5rem}}.case-section{padding:5rem 3rem;max-width:1300px;margin:0 auto}.case-section-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:1rem}.case-section h3{font-family:var(--font-display);font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:2rem}.case-dual{display:grid;grid-template-columns:1fr 1fr;gap:3rem}.case-dual p{font-size:1rem;line-height:1.8;color:rgba(240,237,232,0.75)}@media (max-width:768px){.case-section{padding:3rem 1.5rem}.case-dual{grid-template-columns:1fr;gap:1.5rem}}.case-process{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2.5rem}.case-step{padding:2rem;border:1px solid rgba(240,237,232,0.08);border-radius:12px;background:rgba(240,237,232,0.02);position:relative;overflow:hidden}.case-step::before{content:attr(data-num);position:absolute;top:-10px;right:10px;font-family:var(--font-display);font-size:5rem;font-weight:800;opacity:0.04}.case-step h4{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.8rem}.case-step p{font-size:0.9rem;line-height:1.7;color:rgba(240,237,232,0.65)}@media (max-width:768px){.case-process{grid-template-columns:1fr}}.case-img-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0}.case-img-strip img{width:100%;height:350px;object-fit:cover;display:block}@media (max-width:768px){.case-img-strip{grid-template-columns:1fr}.case-img-strip img{height:220px}}.case-full-img{width:100%;height:500px;object-fit:cover;display:block}@media (max-width:768px){.case-full-img{height:250px}}.case-results-section{padding:5rem 3rem;max-width:1300px;margin:0 auto}.case-results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2.5rem}.case-result-card{padding:2.5rem 2rem;border-radius:16px;background:rgba(240,237,232,0.03);border:1px solid rgba(240,237,232,0.06);text-align:center}.case-result-val{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-0.03em}.case-result-label{font-size:0.85rem;color:var(--grey);margin-top:0.5rem}.case-result-desc{font-size:0.82rem;color:rgba(240,237,232,0.5);margin-top:0.8rem;line-height:1.5}@media (max-width:768px){.case-results-section{padding:3rem 1.5rem}.case-results-grid{grid-template-columns:1fr}}.case-quote{padding:5rem 3rem;max-width:900px;margin:0 auto;text-align:center}.case-quote blockquote{font-family:var(--font-serif);font-style:italic;font-size:clamp(1.3rem,2.5vw,2rem);line-height:1.5;position:relative}.case-quote blockquote::before{content:'"';font-size:6rem;position:absolute;top:-2.5rem;left:-1rem;opacity:0.15;font-family:var(--font-serif)}.case-quote cite{display:block;margin-top:1.5rem;font-style:normal;font-size:0.85rem;color:var(--grey)}.case-quote cite strong{display:block;font-family:var(--font-display);font-weight:700;color:var(--white);font-size:0.95rem}.case-highlight{padding:4rem 3rem;text-align:center;position:relative;overflow:hidden}.case-highlight h3{font-family:var(--font-display);font-size:clamp(1.3rem,2vw,1.8rem);font-weight:700;max-width:700px;margin:0 auto}.case-highlight p{font-size:0.95rem;color:rgba(240,237,232,0.6);max-width:550px;margin:1rem auto 0;line-height:1.7}.case-gallery{display:grid;grid-template-columns:2fr 1fr;gap:4px;margin:0}.case-gallery img{width:100%;height:100%;object-fit:cover;display:block}.case-gallery-stack{display:grid;grid-template-rows:1fr 1fr;gap:4px}@media (max-width:768px){.case-gallery{grid-template-columns:1fr}}.case-divider{height:1px;background:linear-gradient(to right,transparent,rgba(240,237,232,0.1) 30%,rgba(240,237,232,0.1) 70%,transparent);margin:0 3rem}.cases-cta{padding:6rem 3rem;text-align:center;position:relative}.cases-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(46,138,255,0.06) 0%,transparent 60%)}.cases-cta h2{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;letter-spacing:-0.03em;position:relative}.cases-cta p{color:var(--grey);font-size:1.05rem;margin-top:1rem;position:relative}.cases-cta-btn{display:inline-flex;align-items:center;gap:0.8rem;margin-top:2.5rem;padding:1rem 2.5rem;background:var(--white);color:var(--black);font-family:var(--font-display);font-weight:700;font-size:0.95rem;border-radius:100px;transition:transform 0.3s var(--ease),box-shadow 0.3s;position:relative}.cases-cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,237,232,0.15)}@media (max-width:768px){.cases-cta{padding:4rem 1.5rem}}footer{background:var(--black);color:var(--white);padding:4rem 2.5rem 2rem;border-top:1px solid rgba(255,255,255,0.06)}.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;max-width:1300px;margin-left:auto;margin-right:auto}.footer-brand{font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem}.footer-desc{font-size:0.85rem;line-height:1.7;color:var(--grey);margin-bottom:1.5rem;max-width:300px}.footer-col h4{font-family:var(--font-display);font-size:0.7rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);margin-bottom:1.25rem}.footer-col a{display:block;font-size:0.85rem;color:var(--grey);margin-bottom:0.75rem;transition:color 0.3s;text-decoration:none}.footer-col a:hover{color:var(--white)}.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);font-size:0.7rem;color:rgba(255,255,255,0.25);max-width:1300px;margin:0 auto}.footer-legal{display:flex;gap:2rem}.footer-bottom a{color:rgba(255,255,255,0.25);transition:color 0.3s;text-decoration:none}.footer-bottom a:hover{color:var(--grey)}footer .social-icons{display:flex;gap:0.5rem;align-items:center}footer .social-icon{width:32px;height:32px;border-radius:50%;border:1px solid rgba(240,237,232,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s var(--ease)}footer .social-icon:hover{border-color:rgba(240,237,232,0.5);background:rgba(240,237,232,0.1);transform:translateY(-2px)}footer .social-icon svg{width:14px;height:14px;fill:var(--white);transition:fill 0.3s}@media (max-width:768px){footer{padding:3rem 1.5rem 1.5rem}.footer-top{grid-template-columns:1fr;gap:2rem}.footer-bottom{flex-direction:column;gap:1rem;text-align:center}.footer-legal{flex-wrap:wrap;justify-content:center}}.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}.reveal.visible{opacity:1;transform:translateY(0)}.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.video-grid video{width:100%;height:350px;object-fit:cover;display:block;cursor:pointer}@media(max-width:768px){.video-grid{grid-template-columns:1fr}.video-grid video{height:220px}}.char-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.tiktok-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;max-width:900px;margin:0 auto}@media(max-width:768px){.char-grid{grid-template-columns:1fr}.char-grid img{height:300px !important}.tiktok-grid{grid-template-columns:1fr;max-width:400px}}@media(max-width:768px){.case-process{grid-template-columns:1fr 1fr}}
-
-/* ===== GIGI CASE — Premium visual system (inspired by gigimoney.com) ===== */
-.gigi-bg-deep{background:linear-gradient(180deg,#0c0a1a 0%,#0a0a0a 100%)}
-.gigi-bg-purple{background:linear-gradient(180deg,#0c0a1a 0%,rgba(139,92,246,0.06) 50%,#0c0a1a 100%)}
-.gigi-bg-pink{background:linear-gradient(180deg,#0c0a1a 0%,rgba(236,72,153,0.05) 50%,#0c0a1a 100%)}
-.gigi-bg-emerald{background:linear-gradient(180deg,#0c0a1a 0%,rgba(52,211,153,0.05) 50%,#0c0a1a 100%)}
-
-/* Phone frame */
-.phone-frame{position:relative;width:280px;max-width:100%;aspect-ratio:9/19.5;border-radius:32px;overflow:hidden;background:#1a1a2e;border:2px solid rgba(240,237,232,0.1);box-shadow:0 0 0 1px rgba(240,237,232,0.05)}
-.phone-frame img{width:100%;height:100%;object-fit:cover;display:block}
-.phone-frame::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:80px;height:22px;background:#0a0a0a;border-radius:0 0 12px 12px;z-index:3}
-.phone-glow-pink{filter:drop-shadow(0 10px 50px rgba(236,72,153,0.3))}
-.phone-glow-blue{filter:drop-shadow(0 10px 50px rgba(46,138,255,0.3))}
-.phone-glow-purple{filter:drop-shadow(0 10px 50px rgba(139,92,246,0.3))}
-.phone-glow-emerald{filter:drop-shadow(0 10px 50px rgba(52,211,153,0.3))}
-
-/* Glow orbs */
-.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;pointer-events:none;z-index:0}
-
-/* Gradient text */
-.grad-text-pink{background:linear-gradient(135deg,#ec4899,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-text-emerald{background:linear-gradient(135deg,#34d399,#2E8AFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-text-gold{background:linear-gradient(135deg,#ecb74d,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-/* Coach cards */
-.coach-card{position:relative;border-radius:20px;overflow:hidden;padding:2rem 1.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
-.coach-card:hover{transform:translateY(-6px)}
-.coach-card-bro{background:linear-gradient(180deg,rgba(236,72,153,0.1) 0%,rgba(236,72,153,0.02) 100%);border:1px solid rgba(236,72,153,0.15)}
-.coach-card-dry{background:linear-gradient(180deg,rgba(236,183,77,0.1) 0%,rgba(236,183,77,0.02) 100%);border:1px solid rgba(236,183,77,0.15)}
-.coach-card-warm{background:linear-gradient(180deg,rgba(46,138,255,0.1) 0%,rgba(46,138,255,0.02) 100%);border:1px solid rgba(46,138,255,0.15)}
-.coach-card img{width:70%;max-width:220px;height:auto;margin-bottom:1.2rem}
-
-/* Trailer play pulse */
-@keyframes pulse-pink{0%,100%{box-shadow:0 0 0 0 rgba(236,72,153,0.5)}50%{box-shadow:0 0 0 22px rgba(236,72,153,0)}}
-@keyframes pulse-purple{0%,100%{box-shadow:0 0 0 0 rgba(139,92,246,0.5)}50%{box-shadow:0 0 0 22px rgba(139,92,246,0)}}
-@keyframes pulse-emerald{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.5)}50%{box-shadow:0 0 0 22px rgba(52,211,153,0)}}
-.play-btn{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);transition:transform 0.3s}
-.play-btn:hover{transform:scale(1.12)}
-.play-btn-pink{background:rgba(236,72,153,0.85);animation:pulse-pink 3s infinite}
-.play-btn-purple{background:rgba(139,92,246,0.85);animation:pulse-purple 3s infinite}
-.play-btn-emerald{background:rgba(52,211,153,0.85);animation:pulse-emerald 3s infinite}
-.play-btn-sm{width:56px;height:56px}
-
-/* Section connector */
-.gigi-connector{width:1px;height:60px;margin:0 auto;background:linear-gradient(180deg,transparent,rgba(240,237,232,0.12),transparent)}
-
-/* ===== BAIR.MEDIA CASE — AI Newsroom visual system ===== */
-.bair-bg-dark{background:linear-gradient(180deg,#060d18 0%,#0a0a0a 100%)}
-.bair-bg-blue{background:linear-gradient(180deg,#060d18 0%,rgba(27,69,171,0.06) 50%,#060d18 100%)}
-.bair-bg-red{background:linear-gradient(180deg,#060d18 0%,rgba(188,26,37,0.05) 50%,#060d18 100%)}
-.grad-text-blue{background:linear-gradient(135deg,#1B45AB,#4A8FE7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-text-red{background:linear-gradient(135deg,#BC1A25,#E85D65);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.bair-connector{width:1px;height:60px;margin:0 auto;background:linear-gradient(180deg,transparent,rgba(27,69,171,0.15),transparent)}
-.reporter-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 3rem}
-.reporter-card{text-align:center;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}.reporter-card:hover{transform:translateY(-6px)}
-.reporter-card img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid rgba(27,69,171,0.3);margin-bottom:0.8rem}
-.pipeline-flow{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;padding:2rem 3rem;max-width:1100px;margin:0 auto}
-.pipeline-step{padding:1rem 1.5rem;border-radius:12px;text-align:center;min-width:140px;position:relative}
-.pipeline-arrow{font-size:1.5rem;color:rgba(27,69,171,0.4);padding:0 0.5rem}
-.dept-tag{display:inline-block;padding:4px 12px;border-radius:100px;font-size:0.7rem;font-weight:500;letter-spacing:0.05em}
-@media(max-width:900px){.reporter-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:768px){.reporter-grid{grid-template-columns:1fr 1fr;gap:1rem;padding:0 1.5rem}.pipeline-flow{flex-direction:column;gap:0.5rem}.pipeline-arrow{transform:rotate(90deg)}}
-
-/* ===== ARTOAH CASE — Warm farm visual system ===== */
-.artoah-bg-cream{background:linear-gradient(180deg,#0a0a0a 0%,rgba(45,80,22,0.04) 50%,#0a0a0a 100%)}
-.artoah-bg-forest{background:linear-gradient(180deg,#0a0a0a 0%,rgba(45,80,22,0.06) 50%,#0a0a0a 100%)}
-.artoah-bg-gold{background:linear-gradient(180deg,#0a0a0a 0%,rgba(201,168,76,0.05) 50%,#0a0a0a 100%)}
-.grad-text-forest{background:linear-gradient(135deg,#4A7A2E,#7A9B5C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-text-butter{background:linear-gradient(135deg,#E8C547,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.artoah-connector{width:1px;height:60px;margin:0 auto;background:linear-gradient(180deg,transparent,rgba(45,80,22,0.15),transparent)}
-.artoah-card{border-radius:16px;overflow:hidden;border:1px solid rgba(45,80,22,0.1);background:rgba(45,80,22,0.03);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}.artoah-card:hover{transform:translateY(-4px)}
-.artoah-img-frame{border-radius:16px;overflow:hidden;border:1px solid rgba(240,237,232,0.08)}
-.artoah-img-frame img{width:100%;height:100%;object-fit:cover;display:block}
-.deliverable-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-@media(max-width:768px){.deliverable-grid{grid-template-columns:1fr}}
-
-@media(max-width:900px){.phone-frame{width:220px}}
-@media(max-width:768px){.gigi-coach-grid{grid-template-columns:1fr !important}.gigi-phones-row{flex-direction:column !important;align-items:center !important;gap:2rem !important}.gigi-trailer-sub{grid-template-columns:1fr !important}.gigi-ig-grid{grid-template-columns:1fr 1fr !important}.phone-frame{width:240px}}
-
-/* ===== ROSING SECURITY CASE — Dark Authority visual system ===== */
-.rosing-bg-dark{background:linear-gradient(180deg,#080e1a 0%,#0a0a0a 100%)}
-.rosing-bg-blue{background:linear-gradient(180deg,#080e1a 0%,rgba(20,60,120,0.1) 50%,#0a0a0a 100%)}
-.rosing-bg-red{background:linear-gradient(180deg,#0a0a0a 0%,rgba(180,20,20,0.07) 50%,#0a0a0a 100%)}
-.rosing-bg-steel{background:linear-gradient(180deg,#0a0a0a 0%,rgba(80,100,130,0.06) 50%,#0a0a0a 100%)}
-.grad-text-rosing{background:linear-gradient(135deg,#3a7bd5,#6faee8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-text-steel{background:linear-gradient(135deg,#8da9c4,#c8d8e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.rosing-connector{width:1px;height:60px;margin:0 auto;background:linear-gradient(180deg,transparent,rgba(46,138,255,0.12),transparent)}
-.rosing-stat-card{padding:2rem 1.5rem;border-radius:16px;border:1px solid rgba(46,138,255,0.08);background:rgba(20,60,120,0.05);text-align:center;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}.rosing-stat-card:hover{transform:translateY(-4px);border-color:rgba(46,138,255,0.15)}
-.rosing-service-card{padding:2rem;border-radius:14px;border:1px solid rgba(240,237,232,0.06);background:rgba(20,60,120,0.04);transition:border-color 0.3s}.rosing-service-card:hover{border-color:rgba(46,138,255,0.2)}
-.rosing-live-btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(46,138,255,0.3);color:#3a7bd5;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s}.rosing-live-btn:hover{background:rgba(46,138,255,0.08);border-color:rgba(46,138,255,0.5);color:#6faee8}
-.rosing-live-dot{width:7px;height:7px;border-radius:50%;background:#3a7bd5;animation:pulse-rosing 2s infinite}
-@keyframes pulse-rosing{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
-@media(max-width:768px){.rosing-services-grid{grid-template-columns:1fr 1fr !important}}</style>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Cases — The Bair Co.",
-  "description": "Bekijk hoe The Bair Co. merken transformeert. Klantverhalen van Rosing Security, Artoah, GiGi Money en BAIR.media.",
-  "url": "https://www.baircompany.be/cases.html",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "The Bair Co.",
-    "url": "https://www.baircompany.be"
-  },
-  "inLanguage": "nl-BE",
-  "dateModified": "2026-03-14"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.baircompany.be/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Cases",
-      "item": "https://www.baircompany.be/cases.html"
-    }
-  ]
-}
-</script>
-<style>.reveal:not(.visible){animation:revealFallback 0.8s cubic-bezier(0.16,1,0.3,1) 2s forwards}@keyframes revealFallback{to{opacity:1;transform:translateY(0)}}body::after{opacity:0.03 !important;mix-blend-mode:normal !important}</style>
-</head>
-<body>
-
-
-<a href="#main" class="skip-link">Spring naar inhoud</a>
-
-
-<!-- HEADER -->
-<header>
-  <a href="index.html" class="brand"><img src="logo-white.png" alt="The Bair Co. logo" class="brand-logo">The Bair Co.</a>
-  <nav>
-    <a href="index.html#werk" class="nav-pill">Portfolio</a>
-    <a href="index.html#diensten" class="nav-pill">Studio</a>
-    <a href="cases.html" class="nav-pill active">Cases</a>
-    <a href="over.html" class="nav-pill">Over</a>
-    <a href="index.html#contact" class="nav-pill">Contact</a>
-  </nav>
-  <div class="mob-toggle" id="mobToggle">
-    <span></span><span></span><span></span>
-  </div>
-</header>
-
-<div class="mob-nav" id="mobNav">
-  <a href="index.html#werk" onclick="closeMob()">Portfolio</a>
-  <a href="index.html#diensten" onclick="closeMob()">Studio</a>
-  <a href="cases.html" onclick="closeMob()">Cases</a>
-  <a href="over.html" onclick="closeMob()">Over</a>
-  <a href="index.html#contact" onclick="closeMob()">Contact</a>
-</div>
-
-<!-- HERO -->
-<main id="main">
-<section class="cases-hero">
-  <p class="cases-hero-label reveal">Klantverhalen</p>
-  <h1 class="reveal">Elk project vertelt een <span class="serif">verhaal</span></h1>
-  <p class="reveal">Geen twee merken zijn hetzelfde. Ontdek hoe we voor elk project de juiste strategie, het juiste design en de juiste toon vonden — en welk resultaat dat opleverde.</p>
-</section>
-
-<!-- CASE NAV -->
-<div class="case-nav">
-  <div class="case-nav-item active" data-case="rosing" onclick="showCase('rosing')">
-    <span class="case-nav-num">01</span>
-    <div>
-      <div class="case-nav-name">Rosing Security</div>
-      <div class="case-nav-type">Website & Branding</div>
-    </div>
-  </div>
-  <div class="case-nav-item" data-case="artoah" onclick="showCase('artoah')">
-    <span class="case-nav-num">02</span>
-    <div>
-      <div class="case-nav-name">Artoah</div>
-      <div class="case-nav-type">Webshop & Branding</div>
-    </div>
-  </div>
-  <div class="case-nav-item" data-case="gigi" onclick="showCase('gigi')">
-    <span class="case-nav-num">03</span>
-    <div>
-      <div class="case-nav-name">GiGi Money</div>
-      <div class="case-nav-type">App · AI · Branding · Video</div>
-    </div>
-  </div>
-  <div class="case-nav-item" data-case="bair" onclick="showCase('bair')">
-    <span class="case-nav-num">04</span>
-    <div>
-      <div class="case-nav-name">BAIR.media</div>
-      <div class="case-nav-type">AI Newsroom · Full Stack</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CASE 1: ROSING SECURITY                     -->
-<!-- ═══════════════════════════════════════════ -->
-<div class="case-study active" id="case-rosing">
-
-  <!-- ══════ HERO — dark authority sfeer ══════ -->
-  <div style="position:relative; width:100%; height:70vh; overflow:hidden; background:#080e1a; display:flex; align-items:center; justify-content:center;">
-    <!-- Glow orbs -->
-    <div class="glow-orb" style="width:550px;height:350px;background:rgba(46,138,255,0.12);top:10%;left:15%;"></div>
-    <div class="glow-orb" style="width:350px;height:350px;background:rgba(180,20,20,0.1);top:30%;right:10%;"></div>
-    <div class="glow-orb" style="width:250px;height:250px;background:rgba(46,138,255,0.08);bottom:15%;left:45%;"></div>
-    <!-- Geometric security grid pattern -->
-    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.04;z-index:0" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
-      <defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#2E8AFF" stroke-width="0.5"/></pattern></defs>
-      <rect width="100%" height="100%" fill="url(#grid)"/>
-      <circle cx="400" cy="250" r="200" fill="none" stroke="#2E8AFF" stroke-width="0.5" opacity="0.5"/>
-      <circle cx="400" cy="250" r="140" fill="none" stroke="#2E8AFF" stroke-width="0.5" opacity="0.4"/>
-      <circle cx="400" cy="250" r="80" fill="none" stroke="#2E8AFF" stroke-width="0.5" opacity="0.3"/>
-      <line x1="0" y1="250" x2="800" y2="250" stroke="#2E8AFF" stroke-width="0.3" opacity="0.4"/>
-      <line x1="400" y1="0" x2="400" y2="500" stroke="#2E8AFF" stroke-width="0.3" opacity="0.4"/>
-    </svg>
-    <div style="position:relative; z-index:1; text-align:center; padding:0 3rem; max-width:900px;">
-      <!-- Shield icon -->
-      <svg width="60" height="68" viewBox="0 0 60 68" fill="none" style="margin-bottom:2rem; opacity:0.85;" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30 2L4 13V34C4 49.5 15.2 62.8 30 66C44.8 62.8 56 49.5 56 34V13L30 2Z" stroke="#3a7bd5" stroke-width="1.5" fill="rgba(58,123,213,0.08)"/>
-        <path d="M21 34l6 6 12-12" stroke="#3a7bd5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <h2 style="font-family:var(--font-display); font-size:clamp(2.2rem,4.5vw,4rem); font-weight:800; letter-spacing:-0.03em; line-height:1.1;">Van onzichtbaar naar <span class="grad-text-rosing">onmisbaar</span>.</h2>
-      <p style="font-family:var(--font-serif); font-style:italic; font-size:clamp(1rem,2vw,1.3rem); color:rgba(240,237,232,0.45); margin-top:1.5rem;">Beveiliging die je kunt zien — en vertrouwen.</p>
-      <!-- Services strip -->
-      <div style="display:flex; justify-content:center; gap:2.5rem; margin-top:2.5rem; flex-wrap:wrap;">
-        <div style="text-align:center;">
-          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Camera</div>
-        </div>
-        <div style="color:rgba(240,237,232,0.12);">|</div>
-        <div style="text-align:center;">
-          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Alarm</div>
-        </div>
-        <div style="color:rgba(240,237,232,0.12);">|</div>
-        <div style="text-align:center;">
-          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Manbewaking</div>
-        </div>
-        <div style="color:rgba(240,237,232,0.12);">|</div>
-        <div style="text-align:center;">
-          <div style="font-family:var(--font-display); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:rgba(58,123,213,0.7); text-transform:uppercase;">Branding</div>
-        </div>
-      </div>
-    </div>
-    <div style="position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(transparent, #080e1a); z-index:2;"></div>
-  </div>
-
-  <!-- ══════ INTRO ══════ -->
-  <div class="rosing-bg-dark">
-    <div class="case-intro" style="padding-top:5rem; padding-bottom:5rem;">
-      <div class="case-intro-left">
-        <h2 class="reveal">Een merk dat eindelijk <span class="grad-text-rosing">klopt</span> met de realiteit.</h2>
-        <div class="case-meta reveal">
-          <div class="case-meta-item">
-            <div class="case-meta-label">Klant</div>
-            <div class="case-meta-val">Rosing Security</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Scope</div>
-            <div class="case-meta-val">Website & Branding</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Tijdlijn</div>
-            <div class="case-meta-val">8 weken</div>
-          </div>
-        </div>
-      </div>
-      <div class="case-intro-right reveal">
-        <p>Rosing Security beschermt al meer dan vijftien jaar bedrijfspanden, evenementen en particuliere woningen in heel Vlaanderen. Hun team van veertig professionals installeert camerasystemen, configureert alarmen en levert manbewaking op locatie. Maar hun online aanwezigheid vertelde een ander verhaal: een website uit 2014 met stockfoto's van glimlachende bewakers en een contactformulier dat niet werkte.</p>
-        <p>Toen eigenaar Thomas Rosing ons belde, was zijn frustratie voelbaar. "We verliezen opdrachten aan bedrijven die half zo goed zijn, maar er online twee keer zo professioneel uitzien." Dat was het startschot voor een transformatie die veel verder ging dan een nieuwe website.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ CHALLENGE ══════ -->
-  <div class="rosing-bg-red">
-    <div class="case-section">
-      <p class="case-section-label reveal" style="color:#ef5555;">De uitdaging</p>
-      <h3 class="reveal">Een merk dat niet overeenkwam met de <span class="serif">realiteit</span>.</h3>
-      <div class="case-dual reveal">
-        <div>
-          <p>Het probleem zat dieper dan een lelijke website. Rosing Security had geen herkenbare identiteit. Geen consistent kleurgebruik, geen vaste tone of voice, en drie verschillende logo-varianten die op verschillende plekken opdoken. Offertes gingen de deur uit als Word-documenten met een pixelig logo. Bedrijfswagens hadden stickers in kleuren die niet bij elkaar pasten.</p>
-          <p style="margin-top:1rem;">Het gevolg? Potentiële klanten kozen voor concurrenten die er professioneler uitzagen — terwijl Rosing kwalitatief de betere keuze was. In een sector waar vertrouwen alles is, ondermijnde hun visuele presentatie hun eigen expertise.</p>
-        </div>
-        <div>
-          <p>Daarnaast was de website technisch een ramp. Laadtijden van meer dan drie seconden, geen HTTPS-certificaat (ironisch voor een beveiligingsbedrijf), en een mobiele versie die meer leek op een rekenblad dan een website. Google strafte hen af: ze stonden nergens in de zoekresultaten.</p>
-          <p style="margin-top:1rem;">We moesten niet alleen een website bouwen, maar een compleet merk herdefiniëren. Van logo tot lettertype, van offerte-template tot voertuigbestickering. Alles moest één verhaal vertellen: "Wij nemen beveiliging serieus — tot op het kleinste detail."</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="rosing-connector"></div>
-
-  <!-- ══════ IMAGE STRIP ══════ -->
-  <div class="case-img-strip">
-    <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&h=400&fit=crop&q=85&auto=format" alt="Beveiligingscamera close-up" loading="lazy">
-    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=400&fit=crop&q=85&auto=format" alt="Controleruimte met monitoren" loading="lazy">
-    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&q=85&auto=format" alt="Modern kantoorgebouw bij nacht" loading="lazy">
-  </div>
-
-  <div class="rosing-connector"></div>
-
-  <!-- ══════ SOLUTION ══════ -->
-  <div class="rosing-bg-blue">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:#3a7bd5;">De aanpak</p>
-      <h3 class="reveal">Vertrouwen ontwerpen, <span class="serif">pixel voor pixel</span>.</h3>
-      <div class="case-process reveal">
-        <div class="case-step" data-num="01">
-          <h4>Merkstrategie & Identiteit</h4>
-          <p>We begonnen met een merkaudit en stakeholder-interviews. Samen definieerden we drie merkwaarden: betrouwbaarheid, precisie en toegankelijkheid. Het nieuwe logo — een minimalistisch schild met een subtiele 'R' — straalt bescherming uit zonder agressief te zijn. Het kleurenpalet van diepblauw, staal en signaalrood verankert het merk in professionaliteit.</p>
-        </div>
-        <div class="case-step" data-num="02">
-          <h4>Website Design & Development</h4>
-          <p>De nieuwe website opent met een full-screen video van een beveiligingsteam in actie — echt beeldmateriaal, geen stockfoto's. De navigatie brengt bezoekers in drie klikken naar een offerte. Elke pagina is gebouwd rondom één gedachte: "Wat moet deze bezoeker nu weten om actie te ondernemen?" Technisch draaien we op een headless CMS met SSG voor bliksemsnelle laadtijden.</p>
-        </div>
-        <div class="case-step" data-num="03">
-          <h4>Merkdragers & Rollout</h4>
-          <p>We leverden een compleet brandbook met richtlijnen voor alles: van e-mail signatures en PowerPoint-templates tot de bestickering van acht bedrijfsvoertuigen. Offertes gaan nu de deur uit als strak vormgegeven PDF's die er even professioneel uitzien als het werk dat Rosing levert. Zelfs de werkkleding werd herontworpen.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="rosing-connector"></div>
-
-  <!-- ══════ SERVICES OVERZICHT ══════ -->
-  <div class="rosing-bg-steel">
-    <div class="case-section" style="padding-bottom:3rem;">
-      <p class="case-section-label reveal" style="color:rgba(141,169,196,0.8);">Wat we opleverden</p>
-      <h3 class="reveal">Niet enkel een website. Een <span class="grad-text-steel">complete identiteit</span>.</h3>
-      <div class="reveal rosing-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:2rem;">
-        <div class="rosing-service-card">
-          <div style="font-size:1.8rem; margin-bottom:0.8rem;">🛡</div>
-          <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:#6faee8;">Nieuw logo & merk</div>
-          <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Minimalistisch schild-logo, volledig kleurenpalet, typografieregels. Eén consistente uitstraling van visitekaartje tot bouwbord.</p>
-        </div>
-        <div class="rosing-service-card">
-          <div style="font-size:1.8rem; margin-bottom:0.8rem;">💻</div>
-          <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:#6faee8;">Website & SEO</div>
-          <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Performante, mobile-first website met HTTPS, snelle laadtijden en lokale SEO-optimalisatie. Van onvindbaar naar eerste pagina.</p>
-        </div>
-        <div class="rosing-service-card">
-          <div style="font-size:1.8rem; margin-bottom:0.8rem;">🚗</div>
-          <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:#6faee8;">Merkdragers</div>
-          <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Wagenbestickering (8 voertuigen), werkkleding, offerte-templates in PDF, e-mailsignaturen en PowerPoint-sjablonen.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ QUOTE ══════ -->
-  <div class="rosing-bg-dark">
-    <div class="case-quote reveal" style="padding-top:4rem; padding-bottom:4rem;">
-      <blockquote>"We krijgen nu regelmatig complimenten over onze uitstraling — van klanten én van concurrenten. Dat is misschien wel het mooiste compliment."</blockquote>
-      <cite>
-        <strong>Thomas Rosing</strong>
-        Eigenaar, Rosing Security
-      </cite>
-    </div>
-  </div>
-
-  <!-- ══════ RESULTS ══════ -->
-  <div class="rosing-bg-blue">
-    <div class="case-results-section">
-      <p class="case-section-label reveal" style="color:#3a7bd5;">In cijfers</p>
-      <h3 class="reveal">Wat <span class="grad-text-rosing">acht weken</span> kunnen doen.</h3>
-      <div class="case-results-grid reveal">
-        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
-          <div class="case-result-val" style="color:#6faee8;">Full</div>
-          <div class="case-result-label">Rebrand</div>
-          <div class="case-result-desc">Compleet nieuw logo, kleurenpalet, typografie en merkstrategie — van visitekaartje tot voertuigbestickering.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
-          <div class="case-result-val" style="color:#3a7bd5;">&lt;2s</div>
-          <div class="case-result-label">Laadtijd nieuwe site</div>
-          <div class="case-result-desc">Gebouwd met moderne technologie voor bliksemsnelle prestaties — mobile-first en SEO-geoptimaliseerd.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
-          <div class="case-result-val" style="color:#8da9c4;">8</div>
-          <div class="case-result-label">Voertuigen gerebranded</div>
-          <div class="case-result-desc">Van plakkerige foliestickers in inconsistente kleuren naar een uniform wagenpark dat het merk draagt.</div>
-        </div>
-      </div>
-      <div class="case-results-grid reveal" style="margin-top:1.5rem;">
-        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
-          <div class="case-result-val" style="color:#6faee8;">3</div>
-          <div class="case-result-label">Merkwaarden gedefinieerd</div>
-          <div class="case-result-desc">Betrouwbaarheid · Precisie · Toegankelijkheid. Elk beslissing in het project getoetst aan deze drie.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
-          <div class="case-result-val" style="color:#3a7bd5;">40+</div>
-          <div class="case-result-label">Professionals in het team</div>
-          <div class="case-result-desc">Een professioneel uitziend merk geeft ook de medewerkers een betere eerste indruk bij elke klantbezoek.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(20,60,120,0.06); border-color:rgba(46,138,255,0.1);">
-          <div class="case-result-val" style="color:#8da9c4;">15+</div>
-          <div class="case-result-label">Jaar ervaring — nu zichtbaar</div>
-          <div class="case-result-desc">Vijftien jaar expertise die eindelijk ook online overkomt. De kloof tussen werkelijkheid en uitstraling — gedicht.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ CLOSING ══════ -->
-  <div class="case-highlight reveal" style="border-top:1px solid rgba(46,138,255,0.08); padding:5rem 3rem;">
-    <h3><span class="grad-text-rosing">Van een verouderde site naar een merk dat vertrouwen uitstraalt.</span> Beveiliging die je ziet — ook online.</h3>
-    <p>Een beveiligingsbedrijf dat er nu ook online uitziet alsof ze beveiliging serieus nemen — tot op het kleinste detail.</p>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CASE 2: ARTOAH                              -->
-<!-- ═══════════════════════════════════════════ -->
-<div class="case-study" id="case-artoah">
-
-  <!-- ══════ HERO — warm boerderijsfeer ══════ -->
-  <div style="position:relative; width:100%; height:70vh; overflow:hidden; background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
-    <div class="glow-orb" style="width:500px;height:500px;background:rgba(45,80,22,0.15);top:15%;left:20%;"></div>
-    <div class="glow-orb" style="width:400px;height:400px;background:rgba(201,168,76,0.12);top:25%;right:15%;"></div>
-    <div style="position:relative; z-index:1; display:flex; align-items:center; gap:3rem; padding:0 3rem; max-width:1100px; width:100%;">
-      <div style="flex:1;">
-        <img src="cases/artoah/logo.jpeg" alt="Artoah Family Farm logo" loading="lazy" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid rgba(201,168,76,0.3); margin-bottom:1.5rem;">
-        <h2 style="font-family:var(--font-display); font-size:clamp(2rem,3.5vw,3rem); font-weight:800; letter-spacing:-0.03em; line-height:1.15;">Van boerderij zonder website naar het <span class="grad-text-forest">online gezicht</span> van het Hageland.</h2>
-        <p style="font-family:var(--font-serif); font-style:italic; font-size:clamp(0.95rem,1.5vw,1.15rem); color:rgba(240,237,232,0.5); margin-top:1rem;">Puur, lokaal en met liefde gemaakt.</p>
-      </div>
-      <div class="artoah-img-frame" style="width:350px; height:400px; flex-shrink:0; display:none;" id="artoah-hero-img">
-        <img src="cases/artoah/broodmand.jpg" alt="Vers brood uit de oven van Artoah" loading="lazy">
-      </div>
-    </div>
-    <div style="position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(transparent, #0a0a0a); z-index:2;"></div>
-  </div>
-  <style>@media(min-width:769px){#artoah-hero-img{display:block !important}}</style>
-
-  <!-- ══════ INTRO — het echte verhaal ══════ -->
-  <div class="artoah-bg-cream">
-    <div class="case-intro" style="padding-top:5rem; padding-bottom:5rem;">
-      <div class="case-intro-left">
-        <h2 class="reveal">Drie generaties boeren. Nul online <span class="grad-text-butter">aanwezigheid</span>.</h2>
-        <div class="case-meta reveal">
-          <div class="case-meta-item">
-            <div class="case-meta-label">Klant</div>
-            <div class="case-meta-val">Artoah Family Farm</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Locatie</div>
-            <div class="case-meta-val">Landen, Vlaams-Brabant</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Scope</div>
-            <div class="case-meta-val">Website · Webshop · Blog · Marketing</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Team</div>
-            <div class="case-meta-val">Kristof — alles</div>
-          </div>
-        </div>
-      </div>
-      <div class="case-intro-right reveal">
-        <p>Stefanie runt Artoah Family Farm in Landen — een familieboerderij van drie generaties met 80+ melkkoeien, 120 hectare grond, verse zuivel, ambachtelijk hoeve-ijs, zuurdesembrood en patisserie. De hoevewinkel loopt storm bij wie het kent. Maar online? Niets. Geen website, geen webshop, geen vindbare aanwezigheid. Wie "hoeve-ijs Landen" googelde, vond de concurrenten. Dat moest anders.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="artoah-connector"></div>
-
-  <!-- ══════ WAT WE BOUWDEN ══════ -->
-  <div class="artoah-bg-forest">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:#7A9B5C;">Wat we bouwden</p>
-      <h3 class="reveal">Niet zomaar een website. Een compleet <span class="serif">digitaal ecosysteem</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:750px;">Stefanie wilde meer dan een visitekaartje. Ze wilde online kunnen verkopen, haar verhaal vertellen, workshops promoten, kampen aankondigen, een blog bijhouden en zelf alles beheren. We bouwden dat — van nul tot live in een maand.</p>
-    </div>
-
-    <div class="deliverable-grid reveal" style="max-width:1300px; margin:0 auto; padding:0 3rem 4rem;">
-      <div class="artoah-card" style="padding:2rem;">
-        <div style="font-size:2rem; margin-bottom:0.8rem;">🏡</div>
-        <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.6rem;">Volledige website</div>
-        <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Homepage, zuivel & ijs, bakkerij, workshops, kampen, over ons, leveranciers, FAQ, privacy en voorwaarden. 10+ pagina's met premium design in warme aardetinten.</p>
-      </div>
-      <div class="artoah-card" style="padding:2rem;">
-        <div style="font-size:2rem; margin-bottom:0.8rem;">🛒</div>
-        <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.6rem;">Hoevewinkel online</div>
-        <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Productcatalogus met filterfunctie, bestelsysteem, en seizoensgebonden aanbod. Van ijstaarten tot broodpakketten — alles bestelbaar.</p>
-      </div>
-      <div class="artoah-card" style="padding:2rem;">
-        <div style="font-size:2rem; margin-bottom:0.8rem;">✍️</div>
-        <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.6rem;">Blog & verhalen</div>
-        <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Stefanie kan zelf blogposts schrijven en publiceren. Over het seizoen, nieuwe smaken, het leven op de boerderij. Haar stem, haar verhaal.</p>
-      </div>
-      <div class="artoah-card" style="padding:2rem;">
-        <div style="font-size:2rem; margin-bottom:0.8rem;">📋</div>
-        <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.6rem;">Formulieren & contact</div>
-        <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Contactformulier, workshop-inschrijving, nieuwsbrief-aanmelding. Alles geïntegreerd met e-mailnotificaties zodat Stefanie niks mist.</p>
-      </div>
-      <div class="artoah-card" style="padding:2rem;">
-        <div style="font-size:2rem; margin-bottom:0.8rem;">📈</div>
-        <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.6rem;">SEO & GEO optimalisatie</div>
-        <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Lokale SEO voor "hoeve-ijs Landen", "vers brood Hageland", "boerderijwinkel Vlaams-Brabant". Google Business profiel opgezet. Schema.org markup voor lokale zaken.</p>
-      </div>
-      <div class="artoah-card" style="padding:2rem;">
-        <div style="font-size:2rem; margin-bottom:0.8rem;">🎯</div>
-        <div style="font-family:var(--font-display); font-size:0.85rem; font-weight:700; margin-bottom:0.6rem;">Compleet marketingplan</div>
-        <p style="font-size:0.85rem; line-height:1.6; color:rgba(240,237,232,0.6);">Campagneplan, social media strategie, nieuwsbriefstrategie, concurrentie-analyse van alle hoevewinkels in de regio. Niet alleen bouwen, maar ook groeien.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="artoah-connector"></div>
-
-  <!-- ══════ BEELDSTRIP — echte producten ══════ -->
-  <div class="case-img-strip">
-    <img src="cases/artoah/brood-bakken.jpg" alt="Brood bakken op de hoeve" loading="lazy">
-    <img src="cases/artoah/zuurdesem.jpg" alt="Zuurdesembrood vers uit de oven" loading="lazy">
-    <img src="cases/artoah/cupcakes.jpg" alt="Ambachtelijke cupcakes van Artoah" loading="lazy">
-  </div>
-
-  <div class="artoah-connector"></div>
-
-  <!-- ══════ DE DETAILS — wat het verschil maakt ══════ -->
-  <div class="artoah-bg-gold">
-    <div class="case-section" style="padding-bottom:3rem;">
-      <p class="case-section-label reveal" style="color:#E8C547;">Verder dan een website</p>
-      <h3 class="reveal">De dingen die een <span class="grad-text-butter">klant niet vraagt</span> maar wél nodig heeft.</h3>
-      <div class="case-dual reveal">
-        <div>
-          <p style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.75);">Stefanie kwam voor een website. Ze kreeg een compleet digitaal fundament. We deden een diepgaande concurrentie-analyse: elke hoeve-ijsmaker, elke ambachtelijke bakkerij, elke boerderijwinkel in de regio — in kaart gebracht met hun sterktes en zwaktes. Dat gaf Artoah een voorsprong die je niet koopt met alleen een mooi design.</p>
-          <p style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.75); margin-top:1rem;">De GEO-audit onthulde dat geen enkele concurrent serieus aan lokale SEO deed. Daar lag de kans. Binnen weken stond Artoah bovenaan voor lokale zoektermen.</p>
-        </div>
-        <div>
-          <p style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.75);">Het campagneplan bevat een seizoensgebonden contentstrategie: lentelammetjes en verse boter in maart, hoeve-ijs en zomerse smaken in juni, pompoenbrood en Sint-Niklaaspakketten in het najaar. Social media templates klaar voor elk seizoen.</p>
-          <p style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.75); margin-top:1rem;">En het mooiste? Stefanie beheert alles zelf. De handleiding die we meeleverden telt 40+ pagina's — elke knop, elk formulier, elke wijziging uitgelegd in gewone taal. Geen afhankelijkheid van een bureau. Dat is echte empowerment.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ VIDEO ══════ -->
-  <div style="max-width:1000px; margin:0 auto; padding:2rem 3rem;">
-    <div style="position:relative; border-radius:20px; overflow:hidden; background:#0a0a0a; cursor:pointer; border:1px solid rgba(45,80,22,0.15);" onclick="var v=this.querySelector('video');var o=this.querySelector('.play-overlay');if(v.paused){v.play();o.style.opacity='0';}else{v.pause();o.style.opacity='1';}">
-      <video muted loop playsinline preload="metadata" style="width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover;">
-        <source src="cases/artoah/artoah-promo.mp4" type="video/mp4">
-      </video>
-      <div class="play-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,10,0.5);transition:opacity 0.4s;">
-        <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(45,80,22,0.85);backdrop-filter:blur(10px);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
-        </div>
-        <div style="margin-top:16px;font-family:var(--font-display);font-size:1rem;font-weight:700;letter-spacing:0.08em;">ARTOAH FAMILY FARM</div>
-        <div style="font-size:0.85rem;color:rgba(240,237,232,0.5);margin-top:4px;">Puur van het land</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="artoah-connector"></div>
-
-  <!-- ══════ RESULTATEN ══════ -->
-  <div class="artoah-bg-forest">
-    <div class="case-results-section">
-      <p class="case-section-label reveal" style="color:#E8C547;">Het resultaat</p>
-      <h3 class="reveal">Van onvindbaar naar <span class="grad-text-forest">onmisbaar</span>.</h3>
-      <div class="case-results-grid reveal">
-        <div class="case-result-card" style="background:rgba(45,80,22,0.05); border-color:rgba(45,80,22,0.12);">
-          <div class="case-result-val" style="color:#7A9B5C;">10+</div>
-          <div class="case-result-label">Pagina's premium content</div>
-          <div class="case-result-desc">Van zuivel tot kampen — elk deel van het bedrijf heeft nu een plek online.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(201,168,76,0.05); border-color:rgba(201,168,76,0.12);">
-          <div class="case-result-val" style="color:#E8C547;">#1</div>
-          <div class="case-result-label">Lokale zoekresultaten</div>
-          <div class="case-result-desc">Bovenaan voor "hoeve-ijs Landen" en gerelateerde termen. Van onzichtbaar naar de eerste hit.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(45,80,22,0.05); border-color:rgba(45,80,22,0.12);">
-          <div class="case-result-val" style="color:#7A9B5C;">40+</div>
-          <div class="case-result-label">Pagina's handleiding</div>
-          <div class="case-result-desc">Elke knop, elk formulier, elke functie — uitgelegd in gewone taal. Stefanie beheert alles zelf.</div>
-        </div>
-      </div>
-      <div class="case-results-grid reveal" style="margin-top:1.5rem;">
-        <div class="case-result-card" style="background:rgba(201,168,76,0.05); border-color:rgba(201,168,76,0.12);">
-          <div class="case-result-val" style="color:#E8C547;">80+</div>
-          <div class="case-result-label">Melkkoeien op de boerderij</div>
-          <div class="case-result-desc">Van koe tot bol, van weide tot hoevewinkel. Elk product vertelt het verhaal van het land.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(45,80,22,0.05); border-color:rgba(45,80,22,0.12);">
-          <div class="case-result-val" style="color:#7A9B5C;">120ha</div>
-          <div class="case-result-label">Landbouwgrond in beeld</div>
-          <div class="case-result-desc">Drie generaties boeren. Nu eindelijk ook online zichtbaar voor de wereld daarbuiten.</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(240,237,232,0.04); border-color:rgba(240,237,232,0.08);">
-          <div class="case-result-val" style="color:var(--white);">∞</div>
-          <div class="case-result-label">Zelf te beheren</div>
-          <div class="case-result-desc">Geen afhankelijkheid. Stefanie publiceert, past aan en groeit — op haar eigen tempo.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ QUOTE ══════ -->
-  <div class="artoah-bg-cream">
-    <div class="case-quote reveal" style="padding-top:4rem; padding-bottom:4rem;">
-      <blockquote>"Ik wilde gewoon een website. Ik kreeg een compleet plan: een webshop, een blog, een marketingstrategie, en het vertrouwen dat ik het zelf kan. Kristof snapte meteen wat we nodig hadden — en bouwde meer dan we durfden vragen."</blockquote>
-      <cite><strong>Stefanie</strong> Eigenaresse, Artoah Family Farm</cite>
-    </div>
-  </div>
-
-  <!-- ══════ CLOSING ══════ -->
-  <div class="case-highlight reveal" style="border-top:1px solid rgba(45,80,22,0.1); padding:5rem 3rem;">
-    <h3><span class="grad-text-forest">Van een boerderij zonder website naar het digitale gezicht van het Hageland.</span> Warm, professioneel, en volledig in eigen handen.</h3>
-    <p>Soms is het mooiste project niet het grootste, maar het meest persoonlijke. Een familieboerderij die eindelijk haar verhaal kan vertellen — op haar eigen manier.</p>
-    <a href="https://artoah.be" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:2rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(45,80,22,0.35);color:#7A9B5C;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.background='rgba(45,80,22,0.1)';this.style.borderColor='rgba(45,80,22,0.6)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(45,80,22,0.35)'">
-      <span style="width:7px;height:7px;border-radius:50%;background:#7A9B5C;animation:pulse-rosing 2s infinite;flex-shrink:0;"></span>
-      Bekijk live op artoah.be
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CASE 3: GIGI MONEY                          -->
-<!-- ═══════════════════════════════════════════ -->
-<div class="case-study" id="case-gigi">
-
-  <!-- ══════ HERO — drie characters met glow ══════ -->
-  <div style="position:relative; width:100%; height:80vh; overflow:hidden; background:#0c0a1a; display:flex; align-items:center; justify-content:center;">
-    <!-- Glow orbs achter characters -->
-    <div class="glow-orb" style="width:400px;height:400px;background:rgba(236,72,153,0.3);top:20%;left:15%;"></div>
-    <div class="glow-orb" style="width:350px;height:350px;background:rgba(139,92,246,0.25);top:25%;right:20%;"></div>
-    <div class="glow-orb" style="width:300px;height:300px;background:rgba(46,138,255,0.2);bottom:20%;left:45%;"></div>
-    <img src="cases/gigi/hero-characters.webp" alt="De drie GiGi Money AI-coaches" loading="lazy" style="height:85%; width:auto; max-width:90%; object-fit:contain; position:relative; z-index:1;">
-    <div style="position:absolute; bottom:0; left:0; right:0; height:50%; background:linear-gradient(transparent, #0c0a1a); z-index:2;"></div>
-    <div style="position:absolute; bottom:3.5rem; left:3rem; right:3rem; text-align:center; z-index:3;">
-      <p style="font-family:var(--font-serif); font-style:italic; font-size:clamp(1.3rem,2.5vw,2.2rem); color:rgba(240,237,232,0.75);">Personal finance, finally personal.</p>
-    </div>
-  </div>
-
-  <!-- ══════ INTRO — origin story ══════ -->
-  <div class="gigi-bg-deep">
-    <div class="case-intro" style="padding-top:6rem; padding-bottom:6rem;">
-      <div class="case-intro-left">
-        <h2 class="reveal">Van een <span class="grad-text-pink">Excel-bestand</span> op een keukentafel naar een product in 25 talen.</h2>
-        <div class="case-meta reveal">
-          <div class="case-meta-item">
-            <div class="case-meta-label">Product</div>
-            <div class="case-meta-val">GiGi Money</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Scope</div>
-            <div class="case-meta-val">Concept · UX · Dev · AI · Branding · Video</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Markt</div>
-            <div class="case-meta-val">25 talen · 28 landen</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Team</div>
-            <div class="case-meta-val">1 persoon — alles</div>
-          </div>
-        </div>
-      </div>
-      <div class="case-intro-right reveal">
-        <p>Het begon met een spreadsheet. Eén getal per dag: hoeveel kun je vandaag uitgeven zonder schuldgevoel? Dat simpele idee groeide uit tot een volledige personal finance app — met AI-coaching in drie persoonlijkheden, koppelmodus, pensioenprojecties, Monte Carlo-simulaties, en een sociaal deelbaar maandoverzicht. Alles ontworpen, gebouwd en gelanceerd door één persoon.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ EVOLUTIE 1: Van simpel dagbudget… ══════ -->
-  <div class="gigi-bg-pink">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:var(--pink)">Van simpel dagbudget…</p>
-      <h3 class="reveal">Eén getal. Dat was het <span class="serif">startpunt</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:700px;">Hoeveel kun je vandáág uitgeven? Geen categorieën, geen spreadsheets, geen stress. Gewoon één getal dat meteen rust geeft.</p>
-    </div>
-
-    <!-- Phone frames met glow -->
-    <div class="gigi-phones-row" style="display:flex; justify-content:center; gap:3rem; padding:1rem 3rem 5rem; position:relative;">
-      <div class="glow-orb" style="width:300px;height:300px;background:rgba(236,72,153,0.3);top:30%;left:25%;"></div>
-      <div class="glow-orb" style="width:300px;height:300px;background:rgba(46,138,255,0.3);top:30%;right:25%;"></div>
-      <div class="phone-frame phone-glow-pink" style="position:relative; z-index:1;">
-        <img src="cases/gigi/ai-coach.webp" alt="AI-coach gesprek over dagbudget en noodbuffer" loading="lazy">
-      </div>
-      <div class="phone-frame phone-glow-blue" style="position:relative; z-index:1;">
-        <img src="cases/gigi/wrapped.webp" alt="GiGi Wrapped — maandoverzicht deelbaar via social" loading="lazy">
-      </div>
-    </div>
-  </div>
-
-  <div class="gigi-connector"></div>
-
-  <!-- ══════ EVOLUTIE 2: …naar complexe simulaties ══════ -->
-  <div class="gigi-bg-purple">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:var(--amber)">…naar 5.000 <span class="grad-text-gold">toekomstscenario's</span></p>
-      <h3 class="reveal">Geen rechte lijn. Duizenden mogelijke <span class="serif">toekomsten</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:700px;">Monte Carlo-simulaties berekenen 5.000 mogelijke scenario's op basis van marktvolatiliteit, inflatie en levensverwachting. Met pensioenregels voor 28 EU-landen. Geen gokwerk, maar kansverdelingen.</p>
-    </div>
-
-    <!-- Horizon: groot, met glow -->
-    <div style="position:relative; display:flex; align-items:center; justify-content:center; padding:0 3rem 2rem;">
-      <div class="glow-orb" style="width:500px;height:300px;background:rgba(139,92,246,0.3);top:20%;left:30%;"></div>
-      <div class="phone-frame phone-glow-purple" style="width:320px; position:relative; z-index:1;">
-        <img src="cases/gigi/horizon-monte-carlo.webp" alt="Horizon — Monte Carlo simulaties met scenarioplanning" loading="lazy">
-      </div>
-    </div>
-
-    <!-- Drie extra screens -->
-    <div class="gigi-phones-row" style="display:flex; justify-content:center; gap:2rem; padding:1rem 3rem 5rem; position:relative; z-index:1;">
-      <div class="phone-frame phone-glow-pink" style="width:220px;">
-        <img src="cases/gigi/fire-projection.webp" alt="FIRE projectie met onzekerheidsbanden" loading="lazy">
-      </div>
-      <div class="phone-frame phone-glow-blue" style="width:220px;">
-        <img src="cases/gigi/money-film.webp" alt="Money Film — financiële reis als cinematisch verhaal" loading="lazy">
-      </div>
-      <div class="phone-frame phone-glow-emerald" style="width:220px;">
-        <img src="cases/gigi/shared-goals.webp" alt="Gedeelde spaardoelen in Together Mode" loading="lazy">
-      </div>
-    </div>
-  </div>
-
-  <div class="gigi-connector"></div>
-
-  <!-- ══════ EVOLUTIE 3: Van solo naar samen ══════ -->
-  <div class="gigi-bg-emerald">
-    <div class="case-section" style="padding-bottom:3rem;">
-      <p class="case-section-label reveal" style="color:var(--emerald)">Van solo tool…</p>
-      <h3 class="reveal">…naar een complete <span class="grad-text-emerald">koppelmodus</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:700px;">22 partnership-features. Gedeelde spaardoelen. Money Dates die koppels begeleiden bij geldgesprekken. Een Secret Reveal-wizard waarmee je financiële info veilig kunt delen. Drie privacyniveaus — elke partner bepaalt zelf wat zichtbaar is. Encryptie per persoon.</p>
-    </div>
-  </div>
-
-  <div class="gigi-connector"></div>
-
-  <!-- ══════ EVOLUTIE 4: Drie persoonlijkheden ══════ -->
-  <div class="gigi-bg-pink">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:var(--pink)">Van gezichtsloze app…</p>
-      <h3 class="reveal">…naar drie persoonlijkheden die écht met je <span class="serif">praten</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:700px;">Niet iedereen wil op dezelfde manier over geld praten. Daarom heeft GiGi Money drie AI-coaches — elk met een eigen stem, toon en aanpak. Dezelfde intelligentie, drie totaal verschillende ervaringen. In 25 talen.</p>
-    </div>
-
-    <!-- Drie coach cards -->
-    <div class="gigi-coach-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem; max-width:1300px; margin:0 auto; padding:0 3rem 5rem;">
-      <!-- Finance Bro -->
-      <div class="coach-card coach-card-bro reveal">
-        <img src="cases/gigi/char-finance-bro.webp" alt="Finance Bro — de enthousiasteling" loading="lazy">
-        <div style="font-family:var(--font-display);font-size:0.7rem;font-weight:700;color:var(--pink);letter-spacing:0.2em;text-transform:uppercase;">Finance Bro</div>
-        <div style="font-family:var(--font-serif);font-style:italic;font-size:1rem;color:rgba(240,237,232,0.8);margin-top:8px;line-height:1.5;">"23% savings rate! Top-tier. Je speed-runt financial freedom!"</div>
-        <div style="font-size:0.75rem;color:rgba(240,237,232,0.35);margin-top:10px;">Enthousiast · motiverend · FIRE-minded</div>
-      </div>
-      <!-- Droge Boekhouder -->
-      <div class="coach-card coach-card-dry reveal">
-        <img src="cases/gigi/ig-accountant.webp" alt="Droge Boekhouder — de cijferaar" loading="lazy">
-        <div style="font-family:var(--font-display);font-size:0.7rem;font-weight:700;color:var(--amber);letter-spacing:0.2em;text-transform:uppercase;">Droge Boekhouder</div>
-        <div style="font-family:var(--font-serif);font-style:italic;font-size:1rem;color:rgba(240,237,232,0.8);margin-top:8px;line-height:1.5;">"Je uitgaven zijn 12,4% gestegen. Dat is een feit, geen oordeel."</div>
-        <div style="font-size:0.75rem;color:rgba(240,237,232,0.35);margin-top:10px;">Zakelijk · feitelijk · recht-door-zee</div>
-      </div>
-      <!-- Warme Coach -->
-      <div class="coach-card coach-card-warm reveal">
-        <img src="cases/gigi/char-warm-coach.webp" alt="Warme Coach — de steun en toeverlaat" loading="lazy">
-        <div style="font-family:var(--font-display);font-size:0.7rem;font-weight:700;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;">Warme Coach</div>
-        <div style="font-family:var(--font-serif);font-style:italic;font-size:1rem;color:rgba(240,237,232,0.8);margin-top:8px;line-height:1.5;">"Dat was een duurdere maand. Dat is oké. Laten we samen kijken."</div>
-        <div style="font-size:0.75rem;color:rgba(240,237,232,0.35);margin-top:10px;">Empathisch · warm · nooit veroordelend</div>
-      </div>
-    </div>
-
-    <!-- Trio samen — full width -->
-    <div style="position:relative; display:flex; justify-content:center; padding:0 3rem 4rem;">
-      <div class="glow-orb" style="width:500px;height:300px;background:rgba(236,72,153,0.2);top:0;left:30%;"></div>
-      <img src="cases/gigi/char-trio.webp" alt="De drie GiGi's samen — Finance Bro, Droge Boekhouder en Warme Coach" loading="lazy" style="max-width:600px; width:100%; height:auto; position:relative; z-index:1; border-radius:16px;">
-    </div>
-  </div>
-
-  <!-- ══════ PRODUCT TRAILERS — premium formaat met pulse ══════ -->
-  <div class="gigi-bg-deep" style="padding-top:1rem;">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:var(--pink)">Product in actie</p>
-      <h3 class="reveal">Drie trailers. Nul extern team. Alles <span class="serif">in-house</span>.</h3>
-    </div>
-
-    <!-- Featured: Daily Freedom -->
-    <div style="max-width:1300px; margin:0 auto; padding:0 3rem 1.5rem;">
-      <div style="position:relative; border-radius:20px; overflow:hidden; background:#0c0a1a; cursor:pointer; border:1px solid rgba(236,72,153,0.1);" onclick="var v=this.querySelector('video');var o=this.querySelector('.play-overlay');if(v.paused){v.play();o.style.opacity='0';}else{v.pause();o.style.opacity='1';}">
-        <video muted loop playsinline preload="metadata" style="width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover;">
-          <source src="cases/gigi/dailyfreedomtrailer-web.mp4" type="video/mp4">
-        </video>
-        <div class="play-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(12,10,26,0.5);transition:opacity 0.4s;">
-          <div class="play-btn play-btn-pink">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
-          </div>
-          <div style="margin-top:16px;font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:0.08em;">DAILY FREEDOM</div>
-          <div style="font-size:0.85rem;color:rgba(240,237,232,0.5);margin-top:4px;">Het hart van de app — één getal, totale rust</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sub trailers: Horizon + Together -->
-    <div class="gigi-trailer-sub" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; max-width:1300px; margin:0 auto; padding:0 3rem 5rem;">
-      <div style="position:relative; border-radius:20px; overflow:hidden; background:#0c0a1a; cursor:pointer; border:1px solid rgba(139,92,246,0.1);" onclick="var v=this.querySelector('video');var o=this.querySelector('.play-overlay');if(v.paused){v.play();o.style.opacity='0';}else{v.pause();o.style.opacity='1';}">
-        <video muted loop playsinline preload="metadata" style="width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover;">
-          <source src="cases/gigi/horizontrailer-web.mp4" type="video/mp4">
-        </video>
-        <div class="play-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(12,10,26,0.5);transition:opacity 0.4s;">
-          <div class="play-btn play-btn-sm play-btn-purple">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
-          </div>
-          <div style="margin-top:12px;font-family:var(--font-display);font-size:0.9rem;font-weight:700;letter-spacing:0.08em;">HORIZON</div>
-          <div style="font-size:0.8rem;color:rgba(240,237,232,0.4);margin-top:4px;">Toekomst in beeld</div>
-        </div>
-      </div>
-      <div style="position:relative; border-radius:20px; overflow:hidden; background:#0c0a1a; cursor:pointer; border:1px solid rgba(52,211,153,0.1);" onclick="var v=this.querySelector('video');var o=this.querySelector('.play-overlay');if(v.paused){v.play();o.style.opacity='0';}else{v.pause();o.style.opacity='1';}">
-        <video muted loop playsinline preload="metadata" style="width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover;">
-          <source src="cases/gigi/togethermodetrailer-web.mp4" type="video/mp4">
-        </video>
-        <div class="play-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(12,10,26,0.5);transition:opacity 0.4s;">
-          <div class="play-btn play-btn-sm play-btn-emerald">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
-          </div>
-          <div style="margin-top:12px;font-family:var(--font-display);font-size:0.9rem;font-weight:700;letter-spacing:0.08em;">TOGETHER MODE</div>
-          <div style="font-size:0.8rem;color:rgba(240,237,232,0.4);margin-top:4px;">Samen over geld</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ ONDER DE MOTORKAP ══════ -->
-  <div class="gigi-bg-purple">
-    <div class="case-section">
-      <p class="case-section-label reveal" style="color:var(--accent)">Onder de motorkap</p>
-      <h3 class="reveal">Wat je niet ziet maar wél <span class="serif">voelt</span>.</h3>
-      <div class="case-process reveal">
-        <div class="case-step" data-num="🌍">
-          <h4>25 talen, écht gelokaliseerd</h4>
-          <p>Niet vertaald — gelokaliseerd. Valuta, datumnotatie, financiële terminologie, AI-coaching per taal.</p>
-        </div>
-        <div class="case-step" data-num="🏛">
-          <h4>28 landen pensioenregels</h4>
-          <p>Pensioenleeftijden, staatspensioenen, belastingregels — actueel bijgewerkt. CBS, NBB, Destatis, INSEE, ONS.</p>
-        </div>
-        <div class="case-step" data-num="🎲">
-          <h4>5.000 Monte Carlo simulaties</h4>
-          <p>Stochastische modellering met marktvolatiliteit, inflatievariatie en levensverwachting. Kansverdelingen.</p>
-        </div>
-        <div class="case-step" data-num="💑">
-          <h4>22 koppel-features</h4>
-          <p>Money Dates, Secret Reveals, drie privacyniveaus, gezamenlijke pot, pensioengap-analyse. Encryptie per persoon.</p>
-        </div>
-        <div class="case-step" data-num="🛡">
-          <h4>Crisisdetectie & veiligheid</h4>
-          <p>AI herkent financieel geweld en psychologische druk. Hulplijnen voor 15+ landen, 24/7. Zonder stigma.</p>
-        </div>
-        <div class="case-step" data-num="🔐">
-          <h4>Privacy als architectuur</h4>
-          <p>AES-GCM 256-bit. Zero-server-decryptie. EU-gehoste analytics. GDPR met granulaire consent.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ SOCIAL: Instagram ══════ -->
-  <div class="gigi-bg-deep">
-    <div class="case-section" style="padding-bottom:1.5rem;">
-      <p class="case-section-label reveal" style="color:var(--pink)">Drie stemmen, overal</p>
-      <h3 class="reveal">Elk karakter heeft zijn eigen <span class="serif">stem</span> op social.</h3>
-    </div>
-    <div class="gigi-ig-grid reveal" style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px; max-width:1300px; margin:0 auto; padding:0 3rem 4rem;">
-      <img src="cases/gigi/ig-finance-bro.webp" alt="Instagram — Finance Bro stat bomb" loading="lazy" style="width:100%; height:auto; display:block; border-radius:12px;">
-      <img src="cases/gigi/ig-warm-lie.webp" alt="Instagram — Warme Coach over eerlijkheid" loading="lazy" style="width:100%; height:auto; display:block; border-radius:12px;">
-      <img src="cases/gigi/ig-dry-lie.webp" alt="Instagram — Droge Boekhouder over leugens" loading="lazy" style="width:100%; height:auto; display:block; border-radius:12px;">
-      <img src="cases/gigi/ig-dry-redflag.webp" alt="Instagram — Droge Boekhouder red flags" loading="lazy" style="width:100%; height:auto; display:block; border-radius:12px;">
-    </div>
-  </div>
-
-  <!-- ══════ RESULTATEN ══════ -->
-  <div class="gigi-bg-pink">
-    <div class="case-results-section">
-      <p class="case-section-label reveal" style="color:var(--amber)">In cijfers</p>
-      <h3 class="reveal">Geen prototype. Een <span class="grad-text-pink">compleet product</span>.</h3>
-      <div class="case-results-grid reveal">
-        <div class="case-result-card" style="background:rgba(236,72,153,0.05); border-color:rgba(236,72,153,0.1);">
-          <div class="case-result-val" style="color:var(--pink)">25</div>
-          <div class="case-result-label">Talen — écht gelokaliseerd</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(46,138,255,0.05); border-color:rgba(46,138,255,0.1);">
-          <div class="case-result-val" style="color:var(--accent)">28</div>
-          <div class="case-result-label">Landen met pensioenregels</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(245,158,11,0.05); border-color:rgba(245,158,11,0.1);">
-          <div class="case-result-val" style="color:var(--amber)">5.000</div>
-          <div class="case-result-label">Monte Carlo simulaties</div>
-        </div>
-      </div>
-      <div class="case-results-grid reveal" style="margin-top:1.5rem;">
-        <div class="case-result-card" style="background:rgba(52,211,153,0.05); border-color:rgba(52,211,153,0.1);">
-          <div class="case-result-val" style="color:var(--emerald)">3 × 25</div>
-          <div class="case-result-label">AI-coaches × talen = 75 unieke stemmen</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(236,72,153,0.05); border-color:rgba(236,72,153,0.1);">
-          <div class="case-result-val" style="color:var(--pink)">22</div>
-          <div class="case-result-label">Partnership-features</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(240,237,232,0.04); border-color:rgba(240,237,232,0.08);">
-          <div class="case-result-val" style="color:var(--white)">1</div>
-          <div class="case-result-label">Persoon. Alles. Solo.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ TESTIMONIALS ══════ -->
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:1300px; margin:0 auto; padding:3rem;" class="reveal">
-    <div style="padding:1.5rem; border-radius:16px; background:rgba(236,72,153,0.04); border:1px solid rgba(236,72,153,0.1);">
-      <p style="font-family:var(--font-serif); font-style:italic; font-size:0.95rem; line-height:1.6; color:rgba(240,237,232,0.85);">"Het is waanzinnig hoeveel handige tools er in zitten. Ik zocht al jaren naar zoiets."</p>
-      <p style="font-size:0.75rem; color:var(--pink); margin-top:0.8rem;">Stefanie ★★★★★</p>
-    </div>
-    <div style="padding:1.5rem; border-radius:16px; background:rgba(46,138,255,0.04); border:1px solid rgba(46,138,255,0.1);">
-      <p style="font-family:var(--font-serif); font-style:italic; font-size:0.95rem; line-height:1.6; color:rgba(240,237,232,0.85);">"De eerste geld-app die me geen stress bezorgt. Eigenlijk leuk om te gebruiken."</p>
-      <p style="font-size:0.75rem; color:var(--accent); margin-top:0.8rem;">Carine ★★★★★</p>
-    </div>
-    <div style="padding:1.5rem; border-radius:16px; background:rgba(245,158,11,0.04); border:1px solid rgba(245,158,11,0.1);">
-      <p style="font-family:var(--font-serif); font-style:italic; font-size:0.95rem; line-height:1.6; color:rgba(240,237,232,0.85);">"Eronder zit een serieus knappe tool. Numbers mode is the way to go."</p>
-      <p style="font-size:0.75rem; color:var(--amber); margin-top:0.8rem;">Noah ★★★★☆</p>
-    </div>
-  </div>
-
-  <!-- ══════ QUOTE ══════ -->
-  <div class="gigi-bg-purple">
-    <div class="case-quote reveal" style="padding-top:4rem; padding-bottom:4rem;">
-      <blockquote>"Mensen willen niet weten waar hun geld naartoe is gegaan. Ze willen weten hoeveel ze vandaag kunnen uitgeven — zonder schuldgevoel. En ze willen zien dat hun keuzes er toe doen."</blockquote>
-      <cite><strong>Kristof Bogaerts</strong> Oprichter, GiGi Money</cite>
-    </div>
-  </div>
-
-  <!-- ══════ CLOSING ══════ -->
-  <div class="case-highlight reveal" style="border-top:1px solid rgba(236,72,153,0.1); padding:5rem 3rem;">
-    <h3><span class="grad-text-pink">Van spreadsheet naar product.</span> Van idee naar 28 landen. Van solo-project naar iets dat écht mensen helpt.</h3>
-    <p>De technische diepgang van een enterprise-applicatie. De toegankelijkheid van een consumer-app. Gebouwd, getest en gelanceerd — door één persoon.</p>
-    <a href="https://gigimoney.app" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:2rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(236,72,153,0.35);color:#ec4899;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.background='rgba(236,72,153,0.08)';this.style.borderColor='rgba(236,72,153,0.6)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(236,72,153,0.35)'">
-      <span style="width:7px;height:7px;border-radius:50%;background:#ec4899;animation:pulse-rosing 2s infinite;flex-shrink:0;"></span>
-      Bekijk live op gigimoney.app
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CASE 4: BAIR.MEDIA — AI NEWSROOM            -->
-<!-- ═══════════════════════════════════════════ -->
-<div class="case-study" id="case-bair">
-
-  <!-- ══════ HERO — dark newsroom atmosphere ══════ -->
-  <div style="position:relative; width:100%; height:70vh; overflow:hidden; background:#060d18; display:flex; align-items:center; justify-content:center;">
-    <div class="glow-orb" style="width:500px;height:500px;background:rgba(27,69,171,0.2);top:10%;left:20%;"></div>
-    <div class="glow-orb" style="width:400px;height:400px;background:rgba(188,26,37,0.15);top:30%;right:15%;"></div>
-    <div style="position:relative; z-index:1; text-align:center; padding:0 3rem;">
-      <img src="cases/bair/logo-nobg.png" alt="Nieuwssite logo" loading="lazy" style="height:100px; width:auto; margin-bottom:2rem; opacity:0.9;">
-      <h2 style="font-family:var(--font-display); font-size:clamp(2rem,4vw,3.5rem); font-weight:800; letter-spacing:-0.03em; line-height:1.1;">Een volledige <span class="grad-text-blue">nieuwsredactie</span>.<br>Nul journalisten.</h2>
-      <p style="font-family:var(--font-serif); font-style:italic; font-size:clamp(1rem,2vw,1.3rem); color:rgba(240,237,232,0.5); margin-top:1.5rem;">Het belangrijkste nieuws verzameld door AI</p>
-    </div>
-    <div style="position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(transparent, #060d18); z-index:2;"></div>
-  </div>
-
-  <!-- ══════ INTRO ══════ -->
-  <div class="bair-bg-dark">
-    <div class="case-intro" style="padding-top:5rem; padding-bottom:5rem;">
-      <div class="case-intro-left">
-        <h2 class="reveal">Van <span class="grad-text-blue">"kan dat?"</span> naar een site die 24/7 publiceert.</h2>
-        <div class="case-meta reveal">
-          <div class="case-meta-item">
-            <div class="case-meta-label">Product</div>
-            <div class="case-meta-val">BAIR.media</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Scope</div>
-            <div class="case-meta-val">Concept · AI · Dev · Design · Content</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Stack</div>
-            <div class="case-meta-val">Next.js · Supabase · Claude API</div>
-          </div>
-          <div class="case-meta-item">
-            <div class="case-meta-label">Status</div>
-            <div class="case-meta-val">Live — bair.media</div>
-          </div>
-        </div>
-      </div>
-      <div class="case-intro-right reveal">
-        <p>Wat als je een complete Nederlandstalige nieuwssite kon bouwen — met redactie, rubrieken, persona's en publicatieritme — zonder één journalist in dienst te nemen? Niet als experiment, maar als volwaardig product. Dat was de vraag. BAIR.media is het antwoord: een autonome AI-newsroom die 24 uur per dag nieuws detecteert, schrijft en publiceert. Met 10 AI-journalisten, 14 rubrieken en 29 bronnen.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ DE PIPELINE — visuele flow ══════ -->
-  <div class="bair-bg-blue">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:#4A8FE7;">De machine</p>
-      <h3 class="reveal">Van RSS-feed tot gepubliceerd artikel — <span class="serif">volledig automatisch</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:750px;">Elke 4 uur scant het systeem 29 nieuwsbronnen. AI detecteert nieuwswaardige signalen. Claude schrijft volledige artikelen in de stijl van de juiste persona. De homepage vult zichzelf. Negen keer per dag, zonder menselijke tussenkomst.</p>
-    </div>
-
-    <div class="pipeline-flow reveal" style="padding-bottom:4rem;">
-      <div class="pipeline-step" style="background:rgba(27,69,171,0.08); border:1px solid rgba(27,69,171,0.15);">
-        <div style="font-size:1.8rem; margin-bottom:6px;">📡</div>
-        <div style="font-family:var(--font-display); font-size:0.75rem; font-weight:700; letter-spacing:0.1em;">29 RSS FEEDS</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4); margin-top:4px;">BE · NL · INT</div>
-      </div>
-      <div class="pipeline-arrow">→</div>
-      <div class="pipeline-step" style="background:rgba(27,69,171,0.08); border:1px solid rgba(27,69,171,0.15);">
-        <div style="font-size:1.8rem; margin-bottom:6px;">🧠</div>
-        <div style="font-family:var(--font-display); font-size:0.75rem; font-weight:700; letter-spacing:0.1em;">SIGNAALDETECTIE</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4); margin-top:4px;">AI filtert ruis</div>
-      </div>
-      <div class="pipeline-arrow">→</div>
-      <div class="pipeline-step" style="background:rgba(188,26,37,0.08); border:1px solid rgba(188,26,37,0.15);">
-        <div style="font-size:1.8rem; margin-bottom:6px;">✍️</div>
-        <div style="font-family:var(--font-display); font-size:0.75rem; font-weight:700; letter-spacing:0.1em;">ARTIKELGENERATIE</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4); margin-top:4px;">Claude + persona</div>
-      </div>
-      <div class="pipeline-arrow">→</div>
-      <div class="pipeline-step" style="background:rgba(27,69,171,0.08); border:1px solid rgba(27,69,171,0.15);">
-        <div style="font-size:1.8rem; margin-bottom:6px;">📰</div>
-        <div style="font-family:var(--font-display); font-size:0.75rem; font-weight:700; letter-spacing:0.1em;">PUBLICATIE</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4); margin-top:4px;">bair.media</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bair-connector"></div>
-
-  <!-- ══════ 10 AI-JOURNALISTEN ══════ -->
-  <div class="bair-bg-red">
-    <div class="case-section" style="padding-bottom:2rem;">
-      <p class="case-section-label reveal" style="color:#E85D65;">De redactie</p>
-      <h3 class="reveal">10 AI-journalisten. Elk met een eigen <span class="serif">stem</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:700px;">Geen generieke teksten. Elke persona schrijft in een herkenbare stijl — van de doorwinterde politieke analist tot de entertainmentjournalist met gevoel voor drama. Elk artikel draagt een byline, een foto, en een schrijfstijl die consistent is over honderden stukken.</p>
-    </div>
-
-    <div class="reporter-grid reveal" style="padding-bottom:4rem;">
-      <div class="reporter-card">
-        <img src="cases/bair/lisa.jpg" alt="Lisa — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Lisa</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Binnenland</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/frederik.jpg" alt="Frederik — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Frederik</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Buitenland</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/sophie.jpg" alt="Sophie — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Sophie</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Showbizz</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/mike.jpg" alt="Mike — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Mike</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Sport</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/britt.jpg" alt="Britt — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Britt</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Cultuur</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/rutger.jpg" alt="Rutger — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Rutger</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Economie</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/jelgher.jpg" alt="Jelgher — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Jelgher</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Tech</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/lien.jpg" alt="Lien — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Lien</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Gezondheid</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/nikolaas.jpg" alt="Nikolaas — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Nikolaas</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Misdaad</div>
-      </div>
-      <div class="reporter-card">
-        <img src="cases/bair/hanna.jpg" alt="Hanna — AI-journalist" loading="lazy">
-        <div style="font-family:var(--font-display); font-size:0.8rem; font-weight:700;">Hanna</div>
-        <div style="font-size:0.7rem; color:rgba(240,237,232,0.4);">Wetenschap</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bair-connector"></div>
-
-  <!-- ══════ 14 RUBRIEKEN ══════ -->
-  <div class="bair-bg-blue">
-    <div class="case-section" style="padding-bottom:3rem;">
-      <p class="case-section-label reveal" style="color:#4A8FE7;">Het ecosysteem</p>
-      <h3 class="reveal">14 rubrieken. Een complete <span class="grad-text-blue">krant</span>.</h3>
-      <p class="reveal" style="font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:700px;">Van binnenland tot showbizz, van misdaad tot seks &amp; relaties. Elk departement heeft een eigen kleurcode, eigen prioriteitslogica, en wordt automatisch gevuld. Lege rubrieken krijgen voorrang — het systeem balanceert zichzelf.</p>
-      <div class="reveal" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:2rem; max-width:800px;">
-        <span class="dept-tag" style="background:rgba(198,40,40,0.15); color:#EF5350;">Binnenland</span>
-        <span class="dept-tag" style="background:rgba(21,101,192,0.15); color:#42A5F5;">Buitenland</span>
-        <span class="dept-tag" style="background:rgba(46,125,50,0.15); color:#66BB6A;">Sport</span>
-        <span class="dept-tag" style="background:rgba(216,27,96,0.15); color:#EC407A;">Showbizz</span>
-        <span class="dept-tag" style="background:rgba(106,27,154,0.15); color:#AB47BC;">Geld</span>
-        <span class="dept-tag" style="background:rgba(0,131,143,0.15); color:#26C6DA;">Gezondheid</span>
-        <span class="dept-tag" style="background:rgba(2,119,189,0.15); color:#29B6F6;">Tech</span>
-        <span class="dept-tag" style="background:rgba(69,39,160,0.15); color:#7E57C2;">Economie &amp; Tech</span>
-        <span class="dept-tag" style="background:rgba(245,124,0,0.15); color:#FFA726;">Cultuur</span>
-        <span class="dept-tag" style="background:rgba(0,105,92,0.15); color:#26A69A;">Wetenschap</span>
-        <span class="dept-tag" style="background:rgba(55,71,79,0.15); color:#78909C;">Misdaad</span>
-        <span class="dept-tag" style="background:rgba(121,85,72,0.15); color:#A1887F;">Regionaal</span>
-        <span class="dept-tag" style="background:rgba(84,110,122,0.15); color:#90A4AE;">Opinie</span>
-        <span class="dept-tag" style="background:rgba(194,24,91,0.15); color:#F06292;">Seks &amp; Relaties</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="bair-connector"></div>
-
-  <!-- ══════ ONDER DE MOTORKAP ══════ -->
-  <div class="bair-bg-dark">
-    <div class="case-section">
-      <p class="case-section-label reveal" style="color:#4A8FE7;">Technologie</p>
-      <h3 class="reveal">Wat je niet ziet maar wél <span class="serif">draait</span>.</h3>
-      <div class="case-process reveal">
-        <div class="case-step" data-num="📡">
-          <h4>29 RSS-feeds in 3 talen</h4>
-          <p>Belgische, Nederlandse en internationale bronnen. Verwerkt in batches van 10. VRT, HLN, De Standaard, Reuters, BBC — allemaal in de mix.</p>
-        </div>
-        <div class="case-step" data-num="⚡">
-          <h4>pg_cron scheduling</h4>
-          <p>Signaaldetectie elke 4 uur. Artikelgeneratie 9x per dag. Trenddetectie tussen elke run. Geen externe scheduler — alles vanuit de database zelf.</p>
-        </div>
-        <div class="case-step" data-num="🤖">
-          <h4>Claude API + persona's</h4>
-          <p>Elk artikel wordt geschreven door een specifieke persona met eigen schrijfstijl, woordkeuze en focus. 10 unieke stemmen, consistent over duizenden artikelen.</p>
-        </div>
-        <div class="case-step" data-num="⚖️">
-          <h4>EU AI Act compliant</h4>
-          <p>Volledige transparantie: AI-labels op elk artikel, bronvermelding, Art. 50 disclaimer. Geen verborgen AI — open en eerlijk.</p>
-        </div>
-        <div class="case-step" data-num="📊">
-          <h4>Datajournalistiek</h4>
-          <p>Geautomatiseerde infographics bij data-intensieve artikelen. Interactieve charts en statische PNG's. AI die data vertaalt naar visuele verhalen.</p>
-        </div>
-        <div class="case-step" data-num="📱">
-          <h4>Social-ready content</h4>
-          <p>Instagram-templates, Facebook-posts en nieuwsbrieven worden automatisch gegenereerd. Elk artikel is direct deelbaar in het juiste formaat.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ RESULTATEN ══════ -->
-  <div class="bair-bg-blue">
-    <div class="case-results-section">
-      <p class="case-section-label reveal" style="color:#E85D65;">In cijfers</p>
-      <h3 class="reveal">Geen experiment. Een <span class="grad-text-blue">levend product</span>.</h3>
-      <div class="case-results-grid reveal">
-        <div class="case-result-card" style="background:rgba(27,69,171,0.05); border-color:rgba(27,69,171,0.12);">
-          <div class="case-result-val" style="color:#4A8FE7;">10</div>
-          <div class="case-result-label">AI-journalisten met eigen stem</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(188,26,37,0.05); border-color:rgba(188,26,37,0.12);">
-          <div class="case-result-val" style="color:#E85D65;">14</div>
-          <div class="case-result-label">Nieuwsrubrieken — van sport tot misdaad</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(27,69,171,0.05); border-color:rgba(27,69,171,0.12);">
-          <div class="case-result-val" style="color:#4A8FE7;">29</div>
-          <div class="case-result-label">RSS-bronnen in 3 talen</div>
-        </div>
-      </div>
-      <div class="case-results-grid reveal" style="margin-top:1.5rem;">
-        <div class="case-result-card" style="background:rgba(188,26,37,0.05); border-color:rgba(188,26,37,0.12);">
-          <div class="case-result-val" style="color:#E85D65;">9×</div>
-          <div class="case-result-label">Publicaties per dag — automatisch</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(27,69,171,0.05); border-color:rgba(27,69,171,0.12);">
-          <div class="case-result-val" style="color:#4A8FE7;">24/7</div>
-          <div class="case-result-label">Signaaldetectie — nooit offline</div>
-        </div>
-        <div class="case-result-card" style="background:rgba(240,237,232,0.04); border-color:rgba(240,237,232,0.08);">
-          <div class="case-result-val" style="color:var(--white);">0</div>
-          <div class="case-result-label">Journalisten in dienst</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════ QUOTE ══════ -->
-  <div class="bair-bg-dark">
-    <div class="case-quote reveal" style="padding-top:4rem; padding-bottom:4rem;">
-      <blockquote>"De vraag was niet of AI nieuwsartikelen kan schrijven. De vraag was: kan het een volledige redactie simuleren — met persoonlijkheid, ritme en kwaliteitscontrole? BAIR.media bewijst dat het kan."</blockquote>
-      <cite><strong>Kristof Bogaerts</strong> Oprichter, The Bair Company</cite>
-    </div>
-  </div>
-
-  <!-- ══════ CLOSING ══════ -->
-  <div class="case-highlight reveal" style="border-top:1px solid rgba(27,69,171,0.1); padding:5rem 3rem;">
-    <h3><span class="grad-text-blue">Van concept tot autonome nieuwsredactie.</span> Van nul bronnen naar 29. Van idee naar een site die zichzelf vult — elke dag, zonder tussenkomst.</h3>
-    <p>De architectuur van een enterprise newsroom. De wendbaarheid van een startup. Gebouwd door één persoon die wilde bewijzen dat het anders kan.</p>
-    <a href="https://bair.media" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:2rem;padding:0.65rem 1.6rem;border-radius:100px;border:1px solid rgba(27,69,171,0.35);color:#4A8FE7;font-family:var(--font-display);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.background='rgba(27,69,171,0.1)';this.style.borderColor='rgba(27,69,171,0.6)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(27,69,171,0.35)'">
-      <span style="width:7px;height:7px;border-radius:50%;background:#4A8FE7;animation:pulse-rosing 2s infinite;flex-shrink:0;"></span>
-      Bekijk live op bair.media
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
-
-<!-- CTA -->
-<section class="cases-cta">
-  <h2 class="reveal">Jouw verhaal als <span class="serif">volgende</span>?</h2>
-  <p class="reveal">Elk project begint met een gesprek. Vertel ons waar je staat, en waar je naartoe wilt.</p>
-  <a href="index.html#contact" class="cases-cta-btn reveal">Start jouw project <span>→</span></a>
-</section>
-
-<!-- FOOTER -->
-</main>
-<footer>
-  <div class="footer-top">
-    <div class="footer-col">
-      <div class="footer-brand">The Bair Co.</div>
-      <p class="footer-desc">AI-first studio uit Glabbeek. We bouwen AI-producten, automatiseringen en AI-ready websites die resultaat opleveren.</p>
-      <div class="social-icons">
-        <a href="https://www.linkedin.com/company/the-bair-company" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Navigatie</h4>
-      <a href="index.html#werk">Portfolio</a>
-      <a href="index.html#diensten">Onze diensten</a>
-      <a href="cases.html">Cases</a>
-      <a href="over.html">Over</a>
-      <a href="index.html#contact">Contact</a>
-    </div>
-    <div class="footer-col">
-      <h4>Diensten</h4>
-      <a href="diensten/branding.html">Branding</a>
-      <a href="diensten/webdesign.html">Website Sprints</a>
-      <a href="diensten/webontwikkeling.html">AI-ready Websites</a>
-      <a href="diensten/social-media.html">Social Media</a>
-      <a href="diensten/marketing.html">Marketing</a>
-      <a href="diensten/apps.html">Apps</a>
-      <a href="diensten/copywriting.html">Copywriting</a>
-      <a href="diensten/ai-automatisering.html">AI &amp; Automatisering</a>
-      <a href="diensten/training.html">Corporate AI Solutions</a>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <a href="mailto:kristof@baircompany.be">kristof@baircompany.be</a>
-      <a href="index.html#contact">Glabbeek, België</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div>&copy; 2026 The Bair Co. Alle rechten voorbehouden.</div>
-    <div class="footer-legal">
-      <a href="privacy.html">Privacy</a>
-      <a href="voorwaarden.html">Voorwaarden</a>
-      <span>BTW BE 1034.232.509</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-// Mobile nav
-const mobToggle = document.getElementById('mobToggle');
-const mobNav = document.getElementById('mobNav');
-if (mobToggle && mobNav) {
-  mobToggle.addEventListener('click', () => {
-    mobNav.classList.toggle('open');
-    mobToggle.classList.toggle('active');
-  });
-}
-function closeMob() {
-  if (mobNav) mobNav.classList.remove('open');
-  if (mobToggle) mobToggle.classList.remove('active');
-}
-
-// Case switching
-function showCase(id) {
-  document.querySelectorAll('.case-study').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.case-nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('case-' + id).classList.add('active');
-  document.querySelector('[data-case="' + id + '"]').classList.add('active');
-  // Re-trigger reveals
-  setTimeout(() => {
-    document.querySelectorAll('.case-study.active .reveal').forEach(el => {
-      el.classList.remove('visible');
-      void el.offsetHeight;
-      observer.observe(el);
-    });
-  }, 50);
-  // Scroll to top of case
-  window.scrollTo({ top: document.querySelector('.case-nav').offsetTop + document.querySelector('.case-nav').offsetHeight, behavior: 'smooth' });
-}
-
-// Hash-based navigation
-function checkHash() {
-  const hash = window.location.hash.replace('#', '');
-  if (hash === 'rosing') showCase('rosing');
-  else if (hash === 'artoah') showCase('artoah');
-  else if (hash === 'gigi') showCase('gigi');
-  else if (hash === 'bair') showCase('bair');
-}
-
-// Scroll reveals
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Init
-checkHash();
-window.addEventListener('hashchange', checkHash);
-
-</script>
-<!-- GA4 Event Tracking & Consent Update -->
-<script>
-// Track formulier-submits
-document.querySelectorAll('form').forEach(function(form) {
-  form.addEventListener('submit', function() {
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'form_submit', {
-        event_category: 'engagement',
-        event_label: form.id || 'contact_form'
-      });
-    }
-  });
-});
-
-// Track scroll-diepte (25%, 50%, 75%, 100%)
-(function(){
-  var scrollMarkers = [25, 50, 75, 100];
-  var scrollTracked = {};
-  window.addEventListener('scroll', function() {
-    var scrollPercent = Math.round(
-      (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
-    );
-    scrollMarkers.forEach(function(marker) {
-      if (scrollPercent >= marker && !scrollTracked[marker]) {
-        scrollTracked[marker] = true;
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'scroll_depth', {
-            event_category: 'engagement',
-            event_label: marker + '%'
-          });
-        }
-      }
-    });
-  }, { passive: true });
-})();
-
-// Track externe links
-document.querySelectorAll('a[href^="http"]').forEach(function(link) {
-  if (link.href.indexOf(location.hostname) === -1) {
-    link.addEventListener('click', function() {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'outbound_click', {
-          event_category: 'engagement',
-          event_label: link.href
-        });
-      }
-    });
-  }
-});
-
-// Track telefoon-kliks
-document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
-  link.addEventListener('click', function() {
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'phone_call', {
-        event_category: 'contact',
-        event_label: link.href.replace('tel:', '')
-      });
-    }
-  });
-});
-</script>
-
-<!-- Vercel Speed Insights -->
-<script defer src="https://va.vercel-scripts.com/v1/speed-insights/script.js"></script>
-
-<!-- Cookie Consent Manager -->
-<div id="cookie-consent" class="cookie-consent" role="dialog" aria-label="Cookie-instellingen" aria-modal="true">
-  <div class="cookie-consent__inner">
-    <div class="cookie-consent__text">
-      <h3>Cookie-instellingen</h3>
-      <p>Wij gebruiken cookies om je ervaring te verbeteren. Je kunt kiezen welke cookies je toestaat.</p>
-    </div>
-    <div class="cookie-consent__categories">
-      <label class="cookie-category">
-        <input type="checkbox" checked disabled> <strong>Noodzakelijk</strong>
-        <span class="cookie-desc">Vereist voor de werking van de website</span>
-      </label>
-      <label class="cookie-category">
-        <input type="checkbox" id="cookie-analytics"> <strong>Analytisch</strong>
-        <span class="cookie-desc">Helpt ons begrijpen hoe bezoekers de site gebruiken</span>
-      </label>
-      <label class="cookie-category">
-        <input type="checkbox" id="cookie-marketing"> <strong>Marketing</strong>
-        <span class="cookie-desc">Wordt gebruikt voor gepersonaliseerde advertenties</span>
-      </label>
-    </div>
-    <div class="cookie-consent__buttons">
-      <button class="cookie-btn cookie-btn--settings" onclick="saveCookiePreferences()">Opslaan</button>
-      <button class="cookie-btn cookie-btn--accept" onclick="acceptAllCookies()">Alles accepteren</button>
-    </div>
-    <a href="/cookies.html" class="cookie-consent__link">Cookiebeleid</a>
-  </div>
-</div>
-<button class="cookie-settings-trigger" onclick="openCookieSettings()" aria-label="Cookie-instellingen wijzigen">Cookie-instellingen</button>
-<style>/* Cookie Consent Manager */
-.cookie-consent{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:rgba(10,10,10,0.97);border-top:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1.5rem 2rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);box-shadow:0 -4px 20px rgba(0,0,0,.3)}
-.cookie-consent.visible{transform:translateY(0)}
-.cookie-consent__inner{max-width:900px;margin:0 auto}
-.cookie-consent__text h3{margin:0 0 .5rem 0;font-family:var(--font-heading,'Syne',sans-serif);font-size:1.1rem;color:#f0ede8;font-weight:700}
-.cookie-consent__text p{margin:0 0 1rem 0;font-family:var(--font-body,'DM Sans',sans-serif);color:rgba(240,237,232,.7);font-size:.88rem;line-height:1.6}
-.cookie-consent__categories{display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.5rem}
-.cookie-category{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;font-family:var(--font-body,'DM Sans',sans-serif);font-size:.88rem;color:rgba(240,237,232,.9);cursor:pointer}
-.cookie-category input[type="checkbox"]{width:18px;height:18px;accent-color:#2E8AFF;cursor:pointer}
-.cookie-category strong{color:#f0ede8}
-.cookie-desc{display:block;width:100%;font-size:.75rem;color:rgba(240,237,232,.45);margin-left:1.8rem;margin-top:-.2rem}
-.cookie-consent__buttons{display:flex;gap:.8rem;flex-wrap:wrap}
-.cookie-btn{font-family:var(--font-body,'DM Sans',sans-serif);font-size:.85rem;padding:.6rem 1.6rem;border:none;border-radius:100px;font-weight:600;cursor:pointer;transition:all .25s}
-.cookie-btn--accept{background:#2E8AFF;color:#fff}.cookie-btn--accept:hover{background:#4a9dff}
-.cookie-btn--settings{background:transparent;color:rgba(240,237,232,.7);border:1px solid rgba(255,255,255,.12)}.cookie-btn--settings:hover{color:#f0ede8;border-color:rgba(255,255,255,.3)}
-.cookie-consent__link{display:inline-block;margin-top:1rem;color:rgba(240,237,232,.4);font-family:var(--font-body,'DM Sans',sans-serif);font-size:.78rem;text-decoration:underline}
-.cookie-consent__link:hover{color:rgba(240,237,232,.7)}
-.cookie-settings-trigger{position:fixed;bottom:1rem;left:1rem;z-index:9998;background:rgba(10,10,10,.9);color:rgba(240,237,232,.6);border:1px solid rgba(255,255,255,.08);padding:.45rem 1rem;border-radius:100px;font-family:var(--font-body,'DM Sans',sans-serif);font-size:.72rem;cursor:pointer;opacity:.7;transition:all .25s;backdrop-filter:blur(10px)}
-.cookie-settings-trigger:hover{opacity:1;color:#f0ede8;border-color:rgba(255,255,255,.2)}
-.cookie-settings-trigger.hidden{display:none}
-@media(max-width:600px){.cookie-consent__categories{flex-direction:column}.cookie-consent__buttons{flex-direction:column}.cookie-btn{width:100%;text-align:center}}
-/* Skip-link for keyboard navigation (WCAG 2.1 AA) */
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 1rem;
-  z-index: 100000;
-  padding: 0.75rem 1.5rem;
-  background: var(--white, #f0ede8);
-  color: var(--black, #0a0a0a);
-  font-family: var(--font-display, 'Syne', sans-serif);
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-decoration: none;
-  border-radius: 0 0 8px 8px;
-  transition: top 0.2s ease;
-}
-.skip-link:focus {
-  top: 0;
-}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/bair.css">
+<style>
+.support-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.support{background:var(--bg);padding:0;transition:background .3s;position:relative;overflow:hidden}
+.support:hover{background:var(--panel)}
+.support img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(60%);transition:filter .5s,transform .8s var(--ease)}
+.support:hover img{filter:grayscale(0%);transform:scale(1.04)}
+.support .s-body{padding:1.3rem 1.4rem 1.5rem}
+.support h3{font-size:.98rem;font-weight:600;letter-spacing:-.01em}
+.support p{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:.4rem}
+@media(max-width:900px){.support-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.support-grid{grid-template-columns:1fr}}
 </style>
-<script>/* Cookie Consent Manager — Professional */
-(function() {
-  var COOKIE_KEY = 'cookie_preferences';
+</head>
+<body data-nav="work">
+<a href="#main" class="skip-link">Skip to content</a>
+<main id="main">
 
-  function getConsent() {
-    try {
-      var stored = localStorage.getItem(COOKIE_KEY);
-      return stored ? JSON.parse(stored) : null;
-    } catch(e) { return null; }
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><span data-i18n="bc.this">Work</span></div>
+    <div class="sec-label"><span class="idx">04</span><span data-i18n="ph.label">Selected work</span></div>
+    <h1 class="sec-title" data-i18n="ph.title">AI in production. Not in slideware.</h1>
+    <p class="sec-sub" data-i18n="ph.sub">We hold ourselves to one standard: systems that run, ship and deliver in the real world. A selection of what's live today.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <article class="case-row reveal" style="padding-top:0;border-top:none">
+      <div class="case-media">
+        <video muted loop playsinline preload="metadata" poster="/poster-gigimoneysite.webp" width="800" height="500" aria-label="GiGi Money product video">
+          <source src="/portfoloiogigimoneysitemuziek.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="case-body">
+        <span class="case-kicker" data-i18n="c1.k">Proprietary product · Fintech AI · Mobile app</span>
+        <h3>GiGi Money</h3>
+        <p class="case-tagline" data-i18n="c1.tag">Three AI coaches. 28 markets. One codebase.</p>
+        <p data-i18n="c1.p">A personal-finance platform with three AI coach personalities, Monte Carlo FIRE projections, a couples mode and multilingual video content — engineered for launch in 28 countries and 25 languages, from concept to App Store and Google Play.</p>
+        <div class="case-metrics">
+          <div class="m"><b>3</b><span data-i18n="c1.m1">AI coach personas</span></div>
+          <div class="m"><b>25</b><span data-i18n="c1.m2">Languages</span></div>
+          <div class="m"><b>28</b><span data-i18n="c1.m3">Markets</span></div>
+        </div>
+        <a class="link-arrow" href="https://www.gigimoney.com" target="_blank" rel="noopener">www.gigimoney.com →</a>
+      </div>
+    </article>
+
+    <article class="case-row flip reveal">
+      <div class="case-media">
+        <video muted loop playsinline preload="metadata" poster="/poster-poolpilot.webp" width="800" height="500" aria-label="PoolPilot product video">
+          <source src="/portfoliopoolpilot.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="case-body">
+        <span class="case-kicker" data-i18n="c2.k">AI pipeline · Computer vision · SaaS</span>
+        <h3>PoolPilot</h3>
+        <p class="case-tagline" data-i18n="c2.tag">From satellite to mailbox. Fully automated.</p>
+        <p data-i18n="c2.p">Pool builders were wasting budgets on mass mailings in neighbourhoods where half the homes already had pools. PoolPilot solves it with an end-to-end AI pipeline: geographic data mining and computer vision scan satellite imagery, identify homes without pools, score purchase intent and generate a personalised flyer — including a 3D render of a pool in the prospect's own garden.</p>
+        <div class="case-metrics">
+          <div class="m"><b>4</b><span data-i18n="c2.m1">AI layers in pipeline</span></div>
+          <div class="m"><b>1:1</b><span data-i18n="c2.m2">Flyer per home</span></div>
+          <div class="m"><b>Live</b><span data-i18n="c2.m3">In production</span></div>
+        </div>
+        <a class="link-arrow" href="https://www.poolpilot.be" target="_blank" rel="noopener">www.poolpilot.be →</a>
+      </div>
+    </article>
+
+    <article class="case-row reveal">
+      <div class="case-media">
+        <video muted loop playsinline preload="metadata" poster="/poster-artoah.webp" width="800" height="500" aria-label="Artoah brand video">
+          <source src="/portfolioartoahmuziek.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="case-body">
+        <span class="case-kicker" data-i18n="c3.k">Commerce · Automation · Brand system</span>
+        <h3>Artoah Family Farm</h3>
+        <p class="case-tagline" data-i18n="c3.tag">Warm on screen. Automated behind the scenes.</p>
+        <p data-i18n="c3.p">A farm with 50+ animals, workshops and a shop of 30+ products. We built the identity, the webshop and the architecture around it: automated on-brand mails after every order, workflows that take operational work off the family's hands, and a blog that keeps the story alive. The farm experience visible; the technology invisible.</p>
+        <div class="case-metrics">
+          <div class="m"><b>30+</b><span data-i18n="c3.m1">Products online</span></div>
+          <div class="m"><b>Auto</b><span data-i18n="c3.m2">Mail flow &amp; admin</span></div>
+          <div class="m"><b>Live</b><span data-i18n="c3.m3">In production</span></div>
+        </div>
+        <a class="link-arrow" href="https://www.artoah.be" target="_blank" rel="noopener">www.artoah.be →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label reveal"><span class="idx">+</span><span data-i18n="sup.label">Brand &amp; media work</span></div>
+      <h2 class="sec-title reveal" data-i18n="sup.title">The creative layer behind the systems.</h2>
+      <p class="sec-sub reveal" data-i18n="sup.sub">Twenty years of media craft doesn't disappear — it powers the brand, video and content work inside every deployment.</p>
+    </div>
+    <div class="support-grid reveal">
+      <div class="support">
+        <img src="/poster-rosing.webp" alt="Rosing Security brand work" loading="lazy" width="400" height="300">
+        <div class="s-body"><h3>Rosing Security</h3><p data-i18n="sup.1">Security · Animation · Web</p></div>
+      </div>
+      <div class="support">
+        <img src="/poster-vantricht.webp" alt="Freddy Van Tricht — KBC Verzekeringen video work" loading="lazy" width="400" height="300">
+        <div class="s-body"><h3>Van Tricht — KBC</h3><p data-i18n="sup.2">Insurance · Video · Branding</p></div>
+      </div>
+      <div class="support">
+        <img src="/poster-baasoverjegeld.webp" alt="Baas Over Je Geld app and e-book" loading="lazy" width="400" height="300">
+        <div class="s-body"><h3>Baas Over Je Geld</h3><p data-i18n="sup.3">App · E-book · Workshops</p></div>
+      </div>
+      <div class="support">
+        <img src="/poster-gigimoneysocials.webp" alt="GiGi Money social campaign" loading="lazy" width="400" height="300">
+        <div class="s-body"><h3>GiGi Money — Social</h3><p data-i18n="sup.4">Commercials · Social media</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div>
+        <h2 data-i18n="cta.title">Your organisation could be next on this page.</h2>
+        <p data-i18n="cta.sub">Tell us where you want AI to make a difference. We'll show you what's realistic — with proof, not promises.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary"><span data-i18n="cta.btn">Start the conversation</span><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+window.BAIR_PAGE_I18N = {
+  en: {
+    'meta.title': 'Work — The Bair Co.',
+    'meta.desc': 'AI in production: case studies from The Bair Co. — fintech AI, computer-vision pipelines, automated commerce and brand systems.',
+    'bc.this': 'Work', 'ph.label': 'Selected work',
+    'ph.title': 'AI in production. Not in slideware.',
+    'ph.sub': 'We hold ourselves to one standard: systems that run, ship and deliver in the real world. A selection of what\'s live today.',
+    'c1.k': 'Proprietary product · Fintech AI · Mobile app', 'c1.tag': 'Three AI coaches. 28 markets. One codebase.',
+    'c1.p': 'A personal-finance platform with three AI coach personalities, Monte Carlo FIRE projections, a couples mode and multilingual video content — engineered for launch in 28 countries and 25 languages, from concept to App Store and Google Play.',
+    'c1.m1': 'AI coach personas', 'c1.m2': 'Languages', 'c1.m3': 'Markets',
+    'c2.k': 'AI pipeline · Computer vision · SaaS', 'c2.tag': 'From satellite to mailbox. Fully automated.',
+    'c2.p': 'Pool builders were wasting budgets on mass mailings in neighbourhoods where half the homes already had pools. PoolPilot solves it with an end-to-end AI pipeline: geographic data mining and computer vision scan satellite imagery, identify homes without pools, score purchase intent and generate a personalised flyer — including a 3D render of a pool in the prospect\'s own garden.',
+    'c2.m1': 'AI layers in pipeline', 'c2.m2': 'Flyer per home', 'c2.m3': 'In production',
+    'c3.k': 'Commerce · Automation · Brand system', 'c3.tag': 'Warm on screen. Automated behind the scenes.',
+    'c3.p': 'A farm with 50+ animals, workshops and a shop of 30+ products. We built the identity, the webshop and the architecture around it: automated on-brand mails after every order, workflows that take operational work off the family\'s hands, and a blog that keeps the story alive. The farm experience visible; the technology invisible.',
+    'c3.m1': 'Products online', 'c3.m2': 'Mail flow & admin', 'c3.m3': 'In production',
+    'sup.label': 'Brand & media work', 'sup.title': 'The creative layer behind the systems.',
+    'sup.sub': 'Twenty years of media craft doesn\'t disappear — it powers the brand, video and content work inside every deployment.',
+    'sup.1': 'Security · Animation · Web', 'sup.2': 'Insurance · Video · Branding', 'sup.3': 'App · E-book · Workshops', 'sup.4': 'Commercials · Social media',
+    'cta.title': 'Your organisation could be next on this page.',
+    'cta.sub': 'Tell us where you want AI to make a difference. We\'ll show you what\'s realistic — with proof, not promises.',
+    'cta.btn': 'Start the conversation'
+  },
+  nl: {
+    'meta.title': 'Werk — The Bair Co.',
+    'meta.desc': 'AI in productie: cases van The Bair Co. — fintech AI, computer-vision pipelines, geautomatiseerde commerce en merksystemen.',
+    'bc.this': 'Werk', 'ph.label': 'Uitgelicht werk',
+    'ph.title': 'AI in productie. Niet in slides.',
+    'ph.sub': 'We leggen onszelf één standaard op: systemen die draaien, live gaan en presteren in de echte wereld. Een selectie van wat vandaag live staat.',
+    'c1.k': 'Eigen product · Fintech AI · Mobile app', 'c1.tag': 'Drie AI-coaches. 28 markten. Eén codebase.',
+    'c1.p': 'Een personal-finance platform met drie AI-coachpersoonlijkheden, Monte Carlo FIRE-projecties, een koppelmodus en meertalige videocontent — gebouwd voor lancering in 28 landen en 25 talen, van concept tot App Store en Google Play.',
+    'c1.m1': 'AI-coach persona’s', 'c1.m2': 'Talen', 'c1.m3': 'Markten',
+    'c2.k': 'AI-pipeline · Computer vision · SaaS', 'c2.tag': 'Van satelliet tot brievenbus. Volledig geautomatiseerd.',
+    'c2.p': 'Zwembadbouwers verspilden budgetten aan mass-mailings in wijken waar de helft al een zwembad heeft. PoolPilot lost dat op met een end-to-end AI-pipeline: geografische data-mining en computer vision scannen satellietbeelden, identificeren woningen zonder zwembad, scoren koopintentie en genereren een gepersonaliseerde flyer — inclusief 3D-render van een zwembad in hún tuin.',
+    'c2.m1': 'AI-lagen in pipeline', 'c2.m2': 'Flyer per woning', 'c2.m3': 'In productie',
+    'c3.k': 'Commerce · Automatisering · Merksysteem', 'c3.tag': 'Warm op het scherm. Automatisch op de achtergrond.',
+    'c3.p': 'Een boerderij met 50+ dieren, workshops en een winkel met 30+ producten. We bouwden de identiteit, de webshop én de architectuur errond: geautomatiseerde mails in Artoah-stijl na elke bestelling, workflows die de hoeve werk uit handen nemen, en een blog die het gezinsverhaal levend houdt. De boerderijbeleving zichtbaar; de technologie onzichtbaar.',
+    'c3.m1': 'Producten online', 'c3.m2': 'Mailflow & admin', 'c3.m3': 'In productie',
+    'sup.label': 'Merk- & mediawerk', 'sup.title': 'De creatieve laag achter de systemen.',
+    'sup.sub': 'Twintig jaar mediavakmanschap verdwijnt niet — het voedt het merk-, video- en contentwerk binnen elke implementatie.',
+    'sup.1': 'Security · Animatie · Web', 'sup.2': 'Verzekeringen · Video · Branding', 'sup.3': 'App · E-book · Workshops', 'sup.4': 'Commercials · Social media',
+    'cta.title': 'Jouw organisatie kan de volgende op deze pagina zijn.',
+    'cta.sub': 'Vertel ons waar AI het verschil moet maken. Wij tonen wat realistisch is — met bewijs, niet met beloftes.',
+    'cta.btn': 'Start het gesprek'
+  },
+  fr: {
+    'meta.title': 'Réalisations — The Bair Co.',
+    'meta.desc': 'L’IA en production : études de cas de The Bair Co. — IA fintech, pipelines de vision par ordinateur, commerce automatisé et systèmes de marque.',
+    'bc.this': 'Réalisations', 'ph.label': 'Réalisations',
+    'ph.title': 'L’IA en production. Pas en slides.',
+    'ph.sub': 'Nous nous imposons un seul standard : des systèmes qui tournent, se déploient et performent dans le monde réel. Une sélection de ce qui est en ligne aujourd’hui.',
+    'c1.k': 'Produit propriétaire · Fintech IA · App mobile', 'c1.tag': 'Trois coachs IA. 28 marchés. Une seule codebase.',
+    'c1.p': 'Une plateforme de finances personnelles avec trois personnalités de coach IA, des projections FIRE Monte Carlo, un mode couple et du contenu vidéo multilingue — conçue pour un lancement dans 28 pays et 25 langues, du concept à l’App Store et Google Play.',
+    'c1.m1': 'Personas de coach IA', 'c1.m2': 'Langues', 'c1.m3': 'Marchés',
+    'c2.k': 'Pipeline IA · Vision par ordinateur · SaaS', 'c2.tag': 'Du satellite à la boîte aux lettres. Entièrement automatisé.',
+    'c2.p': 'Les constructeurs de piscines gaspillaient leurs budgets en mailings de masse dans des quartiers où la moitié des maisons avaient déjà une piscine. PoolPilot résout cela avec un pipeline IA de bout en bout : exploration de données géographiques et vision par ordinateur analysent les images satellites, identifient les maisons sans piscine, scorent l’intention d’achat et génèrent un flyer personnalisé — avec un rendu 3D d’une piscine dans le jardin du prospect.',
+    'c2.m1': 'Couches IA', 'c2.m2': 'Flyer par maison', 'c2.m3': 'En production',
+    'c3.k': 'Commerce · Automatisation · Système de marque', 'c3.tag': 'Chaleureux à l’écran. Automatisé en coulisses.',
+    'c3.p': 'Une ferme avec 50+ animaux, des ateliers et une boutique de 30+ produits. Nous avons construit l’identité, la boutique en ligne et l’architecture autour : e-mails automatisés à l’image d’Artoah après chaque commande, workflows qui soulagent la famille du travail opérationnel, et un blog qui fait vivre l’histoire. L’expérience de la ferme visible ; la technologie invisible.',
+    'c3.m1': 'Produits en ligne', 'c3.m2': 'Mails & admin', 'c3.m3': 'En production',
+    'sup.label': 'Travail de marque & médias', 'sup.title': 'La couche créative derrière les systèmes.',
+    'sup.sub': 'Vingt ans de métier dans les médias ne disparaissent pas — ils alimentent le travail de marque, de vidéo et de contenu de chaque déploiement.',
+    'sup.1': 'Sécurité · Animation · Web', 'sup.2': 'Assurances · Vidéo · Branding', 'sup.3': 'App · E-book · Ateliers', 'sup.4': 'Publicités · Réseaux sociaux',
+    'cta.title': 'Votre organisation pourrait être la prochaine sur cette page.',
+    'cta.sub': 'Dites-nous où l’IA doit faire la différence. Nous vous montrerons ce qui est réaliste — avec des preuves, pas des promesses.',
+    'cta.btn': 'Entamer la conversation'
   }
+};
 
-  function setConsent(prefs) {
-    try {
-      prefs.timestamp = new Date().toISOString();
-      localStorage.setItem(COOKIE_KEY, JSON.stringify(prefs));
-      // Also set simple cookie for server-side detection
-      document.cookie = 'cookie_consent=' + (prefs.analytics ? 'accepted' : 'declined') + ';path=/;max-age=31536000;SameSite=Lax';
-    } catch(e) {}
-  }
-
-  function isConsentExpired(prefs) {
-    if (!prefs || !prefs.timestamp) return true;
-    var consentDate = new Date(prefs.timestamp);
-    var yearAgo = new Date();
-    yearAgo.setMonth(yearAgo.getMonth() - 12);
-    return consentDate < yearAgo;
-  }
-
-  function applyConsent(prefs) {
-    if (typeof gtag === 'function') {
-      if (prefs.analytics) {
-        gtag('consent', 'update', { 'analytics_storage': 'granted' });
-      }
-      if (prefs.marketing) {
-        gtag('consent', 'update', {
-          'ad_storage': 'granted',
-          'ad_user_data': 'granted',
-          'ad_personalization': 'granted'
-        });
-      }
-    }
-    window.dispatchEvent(new CustomEvent('cookieConsentUpdated', { detail: prefs }));
-  }
-
-  var banner = document.getElementById('cookie-consent');
-  var trigger = document.querySelector('.cookie-settings-trigger');
-
-  function showBanner() {
-    if (banner) { banner.classList.add('visible'); }
-    if (trigger) { trigger.classList.add('hidden'); }
-  }
-
-  function hideBanner() {
-    if (banner) { banner.classList.remove('visible'); }
-    if (trigger) { trigger.classList.remove('hidden'); }
-  }
-
-  window.acceptAllCookies = function() {
-    var prefs = { necessary: true, analytics: true, marketing: true };
-    setConsent(prefs);
-    applyConsent(prefs);
-    hideBanner();
-  };
-
-  window.saveCookiePreferences = function() {
-    var prefs = {
-      necessary: true,
-      analytics: document.getElementById('cookie-analytics').checked,
-      marketing: document.getElementById('cookie-marketing').checked
-    };
-    setConsent(prefs);
-    applyConsent(prefs);
-    hideBanner();
-  };
-
-  window.openCookieSettings = function() {
-    var existing = getConsent();
-    if (existing) {
-      document.getElementById('cookie-analytics').checked = existing.analytics || false;
-      document.getElementById('cookie-marketing').checked = existing.marketing || false;
-    }
-    showBanner();
-  };
-
-  // Also expose for backwards compatibility with GA4 event tracking
-  window.updateAnalyticsConsent = function(granted) {
-    if (typeof gtag === 'function' && granted) {
-      gtag('consent', 'update', { 'analytics_storage': 'granted' });
-    }
-  };
-
-  // Init
-  var existing = getConsent();
-  if (existing && !isConsentExpired(existing)) {
-    applyConsent(existing);
-  } else {
-    setTimeout(showBanner, 800);
-  }
-})();</script>
+/* play/pause case videos when (in)visible */
+(function () {
+  var vids = document.querySelectorAll('.case-media video');
+  if (!vids.length || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      var v = en.target;
+      if (en.isIntersecting) { v.play().catch(function(){}); }
+      else { v.pause(); }
+    });
+  }, { threshold: 0.25 });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
+<script src="/assets/bair.js" defer></script>
 </body>
 </html>
