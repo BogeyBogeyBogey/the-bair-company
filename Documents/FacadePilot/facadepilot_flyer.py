@@ -28,6 +28,15 @@ import qrcode
 from jinja2 import Template
 from PIL import Image
 
+from facadepilot_keys import (
+    first_existing,
+    legacy_index_stem,
+    legacy_streetview_candidates,
+    output_stem,
+    slugify,
+    streetview_path as stable_streetview_path,
+)
+
 HERE = Path(__file__).parent.resolve()
 
 # ─── CONFIG ──────────────────────────────────────────────────────────────────
@@ -245,19 +254,19 @@ body {
 
     <div class="arguments">
         <div class="argument">
-            <div class="icon">⚡</div>
-            <div class="text"><strong>Energiebesparing tot 30%</strong>Buitenisolatie verlaagt uw energiefactuur direct</div>
+            <div class="icon">E</div>
+            <div class="text"><strong>Lagere energievraag</strong>Buitenisolatie verhoogt comfort en kan het verbruik verlagen</div>
         </div>
         <div class="argument">
-            <div class="icon">📈</div>
-            <div class="text"><strong>Meerwaarde woning +15%</strong>Een gerenoveerde gevel verhoogt de verkoopwaarde</div>
+            <div class="icon">+</div>
+            <div class="text"><strong>Meer comfort en uitstraling</strong>Een verzorgde gevel maakt uw woning aantrekkelijker</div>
         </div>
         <div class="argument">
-            <div class="icon">💰</div>
-            <div class="text"><strong>Premies tot €8.000</strong>Vlaamse renovatiepremie + EPC-label verbetering</div>
+            <div class="icon">€</div>
+            <div class="text"><strong>Premies? Wij checken het</strong>Actuele voorwaarden verschillen per woning en inkomen</div>
         </div>
         <div class="argument">
-            <div class="icon">🏠</div>
+            <div class="icon">✓</div>
             <div class="text"><strong>Uitstraling van nieuwbouw</strong>Geniet elke dag van een woning die er als nieuw uitziet</div>
         </div>
     </div>
@@ -417,19 +426,43 @@ def prepare_lead_variables(row: pd.Series, idx: int,
 
     render_path_csv = str(row.get("render_path", ""))
     if render_path_csv and Path(render_path_csv).exists():
-        sv_path = str(Path(render_path_csv).with_name(
-            Path(render_path_csv).name.replace("_render.jpg", "_streetview.jpg")
-        ))
+        explicit_sv = str(row.get("streetview_path", "") or "").strip()
+        if explicit_sv and Path(explicit_sv).exists():
+            sv_path = explicit_sv
+        else:
+            matched_sv = first_existing([
+                stable_streetview_path(renders_dir, row, idx),
+                *legacy_streetview_candidates(renders_dir, row, idx),
+            ])
+            sv_path = str(matched_sv) if matched_sv else ""
     else:
-        safe_name = f"{idx:03d}_{adres[:35].replace(' ', '_').replace(',', '').replace('/', '_')}"
-        render_path_csv = str(renders_dir / f"{safe_name}_render.jpg")
-        sv_path = str(renders_dir / f"{safe_name}_streetview.jpg")
+        stable_glob = sorted(Path(renders_dir).glob(f"{output_stem(row, idx)}_*_render.jpg"))
+        legacy_glob = sorted(Path(renders_dir).glob(f"{legacy_index_stem(row, idx)}*_render.jpg"))
+        matched_render = first_existing([*stable_glob, *legacy_glob])
+        matched_sv = first_existing([
+            stable_streetview_path(renders_dir, row, idx),
+            *legacy_streetview_candidates(renders_dir, row, idx),
+        ])
+        render_path_csv = str(matched_render) if matched_render else ""
+        sv_path = str(matched_sv) if matched_sv else ""
 
     render_uri = image_to_data_uri(render_path_csv)
     aerial_uri = image_to_data_uri(sv_path)
 
-    tracker_base = os.environ.get("FACADEPILOT_TRACKER_URL", "facadepilot.be")
-    lead_url = f"https://{tracker_base}/r/{idx:03d}"
+    explicit_landing = str(row.get("landing_url", "") or "").strip()
+    if explicit_landing:
+        if "src=" in explicit_landing:
+            lead_url = explicit_landing
+        else:
+            lead_url = explicit_landing + ("&" if "?" in explicit_landing else "?") + "src=flyer"
+    else:
+        tracker_base = os.environ.get("FACADEPILOT_TRACKER_URL", landing_base_url or DEFAULT_LANDING_URL)
+        tracker_base = tracker_base if tracker_base.startswith(("http://", "https://")) else f"https://{tracker_base}"
+        capakey = str(row.get("CAPAKEY", "") or row.get("capakey", "") or "").strip()
+        lead_slug = slugify(capakey) if capakey else f"row-{idx:03d}"
+        niscode = str(row.get("niscode", "") or row.get("NISCODE", "") or "").strip()
+        route_key = f"{niscode}-{lead_slug}" if niscode else lead_slug
+        lead_url = f"{tracker_base.rstrip('/')}/r/{route_key}?src=flyer"
     qr_uri = generate_qr_code(lead_url)
 
     result = {
@@ -438,7 +471,7 @@ def prepare_lead_variables(row: pd.Series, idx: int,
         "render_path": render_uri,
         "aerial_path": aerial_uri,
         "qr_path": qr_uri,
-        "landing_url": landing_base_url,
+        "landing_url": lead_url,
         "builder_naam": builder_naam,
         "builder_telefoon": builder_telefoon,
         "lead_idx": idx,
@@ -485,7 +518,7 @@ async def generate_flyers(df: pd.DataFrame, output_dir: Path,
 
         for i, (idx, row) in enumerate(df.iterrows()):
             adres = str(row.get("adres", f"rij_{i}"))
-            safe_name = f"{i:03d}_{adres[:35].replace(' ', '_').replace(',', '').replace('/', '_')}"
+            safe_name = output_stem(row, i)
 
             try:
                 print(f"   [{i+1}/{total}] {adres[:50]}...", end="", flush=True)

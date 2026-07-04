@@ -10,7 +10,7 @@ Genereert per lead een statische HTML-landingpagina met:
   - Tracking via Supabase: scan-event + form_submit-event
 
 Output: landing/{niscode}/{capakey-safe}.html
-URL-pad: facadepilot.be/r/{niscode}-{idx} (te uploaden naar Vercel/CDN)
+URL-pad: facadepilot.be/r/{niscode}-{capakey} (te uploaden naar Vercel/CDN)
 
 Gebruik (als module):
     from facadepilot_landing import generate_landing_pages
@@ -23,6 +23,7 @@ Of CLI:
 
 import argparse
 import base64
+import html
 import json
 import os
 import re
@@ -32,20 +33,53 @@ from pathlib import Path
 import pandas as pd
 from dotenv import load_dotenv
 
+from facadepilot_keys import (
+    first_existing,
+    legacy_index_stem,
+    legacy_streetview_candidates,
+    output_stem,
+    slugify,
+    streetview_path as stable_streetview_path,
+)
+
 HERE = Path(__file__).parent.resolve()
 load_dotenv(HERE / ".env")
 
 DEFAULT_BASE_URL = "https://facadepilot.be"
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "")
+FORM_SUBMITS_TABLE = os.environ.get("FACADEPILOT_FORM_SUBMITS_TABLE", "form_submits")
+PRIVACY_URL = os.environ.get("FACADEPILOT_PRIVACY_URL", "/privacybeleid.html")
 
 
 # ─── HELPERS ───────────────────────────────────────────────────────────────
 
 def _slugify(s: str) -> str:
     """capakey-safe slug voor filename / URL-pad."""
-    s = re.sub(r"[^A-Za-z0-9_-]+", "-", str(s)).strip("-")
-    return s or "lead"
+    return slugify(s)
+
+
+def _escape(value) -> str:
+    return html.escape(str(value or ""), quote=True)
+
+
+def _find_render_path(row: pd.Series, index: int, renders_dir: Path) -> Path | None:
+    explicit = str(row.get("render_path", "") or "").strip()
+    if explicit and Path(explicit).exists():
+        return Path(explicit)
+    stable_glob = sorted(Path(renders_dir).glob(f"{output_stem(row, index)}_*_render.jpg"))
+    legacy_glob = sorted(Path(renders_dir).glob(f"{legacy_index_stem(row, index)}*_render.jpg"))
+    return first_existing([*stable_glob, *legacy_glob])
+
+
+def _find_streetview_path(row: pd.Series, index: int, renders_dir: Path) -> Path | None:
+    explicit = str(row.get("streetview_path", "") or "").strip()
+    if explicit and Path(explicit).exists():
+        return Path(explicit)
+    return first_existing([
+        stable_streetview_path(renders_dir, row, index),
+        *legacy_streetview_candidates(renders_dir, row, index),
+    ])
 
 
 def _image_to_data_uri(path: Path) -> str:
@@ -103,11 +137,15 @@ h1 b{{color:{accent}}}
 .field input:focus,.field select:focus,.field textarea:focus{{outline:none;border-color:{accent};box-shadow:0 0 0 3px {accent}25}}
 .field label{{display:block;font-size:11px;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600}}
 .field{{margin-bottom:10px}}
+.consent{{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#64748b;margin:10px 0 4px}}
+.consent input{{margin-top:2px}}
 .btn{{width:100%;padding:14px;background:{accent};color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;transition:transform .15s,box-shadow .15s}}
 .btn:hover{{transform:translateY(-1px);box-shadow:0 6px 20px {accent}55}}
 .btn:disabled{{opacity:.5;cursor:not-allowed;transform:none}}
 .success{{display:none;text-align:center;padding:24px;background:#dcfce7;border-radius:10px;color:#166534;font-weight:600}}
 .success.show{{display:block}}
+.error{{display:none;margin-top:12px;padding:14px;background:#fee2e2;border-radius:10px;color:#991b1b;font-size:13px;font-weight:600}}
+.error.show{{display:block}}
 
 .footer{{text-align:center;font-size:12px;color:#64748b;margin-top:36px;line-height:1.7}}
 .footer b{{color:#0f172a}}
@@ -167,17 +205,24 @@ h1 b{{color:{accent}}}
         <label>Vraag of opmerking <span style="color:#94a3b8;text-transform:none;font-weight:400">(optioneel)</span></label>
         <textarea name="opmerking" rows="3" placeholder="Bv. wanneer wilt u starten? Welke afwerking ziet u zitten?"></textarea>
       </div>
+      <label class="consent">
+        <input type="checkbox" name="consent" value="ja" required>
+        <span>Ik ga akkoord dat {builder_naam} mij contacteert over deze gevelcheck. Zie <a href="{privacy_url}" target="_blank" rel="noopener">privacybeleid</a>.</span>
+      </label>
       <button type="submit" class="btn" id="submitBtn">Vraag mijn vrijblijvende offerte</button>
     </form>
     <div class="success" id="successMsg">
       ✓ Bedankt! We bellen u binnen 1 werkdag op<br>
       <span style="font-weight:400;font-size:13px;color:#15803d">{builder_naam} • {builder_tel}</span>
     </div>
+    <div class="error" id="errorMsg">
+      Er ging iets mis bij het versturen. Bel ons rechtstreeks op <a href="tel:{builder_tel_clean}">{builder_tel}</a>.
+    </div>
   </div>
 
   <div class="footer">
     <b>{builder_naam}</b><br>
-    Tel: <a href="tel:{builder_tel_clean}">{builder_tel}</a>{builder_email_html}
+    Tel: <a href="tel:{builder_tel_clean}" onclick="logEvent('call_click','src=' + FORM_SOURCE)">{builder_tel}</a>{builder_email_html}
     <div class="privacy">
       Render gegenereerd met AI op basis van een Google Street View foto. <br>
       Indicatieprijzen zijn richtprijzen — exacte offerte volgt na plaatsbezoek.<br>
@@ -195,6 +240,8 @@ const LEAD = {{
 }};
 const SB_URL = "{supabase_url}";
 const SB_KEY = "{supabase_anon_key}";
+const FORM_TABLE = "{form_submits_table}";
+const FORM_SOURCE = new URLSearchParams(window.location.search).get('src') || "{source}";
 
 // ─── BEFORE/AFTER SLIDER ─────────────────────────────────────────────
 (function() {{
@@ -245,24 +292,64 @@ async function logEvent(event, detail) {{
         user_agent: navigator.userAgent.substring(0, 200)
       }})
     }});
-  }} catch (e) {{ /* stilzwijgend */ }}
+  }} catch (e) {{ /* analytics mag conversie nooit blokkeren */ }}
+}}
+
+async function storeFormSubmit(data) {{
+  if (!SB_URL || !SB_KEY || !FORM_TABLE) {{
+    throw new Error('contact_backend_not_configured');
+  }}
+  const payload = {{
+    capakey: LEAD.capakey,
+    niscode: LEAD.niscode,
+    source: FORM_SOURCE,
+    naam: data.naam || '',
+    telefoon: data.telefoon || '',
+    email: data.email || '',
+    opmerking: data.opmerking || '',
+    consent: data.consent === 'ja',
+    page_url: window.location.href,
+    user_agent: navigator.userAgent.substring(0, 200)
+  }};
+  const response = await fetch(SB_URL + '/rest/v1/' + FORM_TABLE, {{
+    method: 'POST',
+    headers: {{
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    }},
+    body: JSON.stringify(payload)
+  }});
+  if (!response.ok) {{
+    throw new Error('contact_backend_failed_' + response.status);
+  }}
 }}
 
 // Log scan = page load
-logEvent('scan', 'klasse=' + LEAD.klasse);
+logEvent('scan', 'klasse=' + LEAD.klasse + ';src=' + FORM_SOURCE);
 
 // ─── FORM SUBMIT ─────────────────────────────────────────────────────
 document.getElementById('offerteForm').addEventListener('submit', async function(e) {{
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
+  const error = document.getElementById('errorMsg');
+  error.classList.remove('show');
   btn.disabled = true;
   btn.textContent = 'Versturen...';
   const data = {{}};
   new FormData(e.target).forEach((v, k) => data[k] = v);
-  await logEvent('form_submit', JSON.stringify(data));
-  // Visueel: success
-  e.target.style.display = 'none';
-  document.getElementById('successMsg').classList.add('show');
+  try {{
+    await storeFormSubmit(data);
+    await logEvent('form_submit', 'stored=' + FORM_TABLE + ';src=' + FORM_SOURCE);
+    e.target.style.display = 'none';
+    document.getElementById('successMsg').classList.add('show');
+  }} catch (err) {{
+    await logEvent('form_submit_failed', String(err && err.message ? err.message : err).substring(0, 120));
+    error.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Vraag mijn vrijblijvende offerte';
+  }}
 }});
 </script>
 </body>
@@ -323,7 +410,8 @@ def generate_landing_pages(df: pd.DataFrame,
     accent_hex = accent_color.lstrip("#")
     builder_tel_clean = "".join(c for c in builder_telefoon if c.isdigit() or c == "+")
 
-    builder_email_html = (f"<br>E-mail: <a href='mailto:{builder_email}'>{builder_email}</a>"
+    safe_builder_email = _escape(builder_email)
+    builder_email_html = (f"<br>E-mail: <a href='mailto:{safe_builder_email}'>{safe_builder_email}</a>"
                           if builder_email else "")
 
     results = []
@@ -337,17 +425,16 @@ def generate_landing_pages(df: pd.DataFrame,
         adres = str(row.get("adres", "uw woning"))
         klasse = str(row.get("lead_klasse", ""))
         # Vind de render + streetview foto
-        safe_name = f"{i:03d}_{adres[:35].replace(' ', '_').replace(',', '').replace('/', '_')}"
-        render_path = renders_dir / f"{safe_name}_render.jpg"
-        sv_path = renders_dir / f"{safe_name}_streetview.jpg"
+        render_path = _find_render_path(row, i, renders_dir)
+        sv_path = _find_streetview_path(row, i, renders_dir)
 
         # Skip als geen render
-        if not render_path.exists():
+        if not render_path:
             if progress_callback:
                 progress_callback(i + 1, total, f"[{i+1}/{total}] ⏭️ {adres[:40]} (geen render)")
             continue
 
-        before_uri = _image_to_data_uri(sv_path) if sv_path.exists() else ""
+        before_uri = _image_to_data_uri(sv_path) if sv_path and sv_path.exists() else ""
         after_uri = _image_to_data_uri(render_path)
 
         slug = _slugify(capakey)
@@ -355,30 +442,33 @@ def generate_landing_pages(df: pd.DataFrame,
         file_path = output_dir / filename
 
         html = TEMPLATE.format(
-            adres=adres.replace('"', '&quot;'),
-            capakey=capakey,
-            niscode=niscode,
-            klasse=klasse,
+            adres=_escape(adres),
+            capakey=_escape(capakey),
+            niscode=_escape(niscode),
+            klasse=_escape(klasse),
             accent=accent_color,
             accent_hex=accent_hex,
             before_img=before_uri or after_uri,  # fallback als geen sv
             after_img=after_uri,
-            afmeting_num=afmeting_num,
-            afmeting_label=afmeting_label,
-            prijs_num=prijs_num,
-            bouwtijd_num=bouwtijd_num,
-            builder_naam=builder_naam.replace('"', '&quot;'),
-            builder_tel=builder_telefoon,
+            afmeting_num=_escape(afmeting_num),
+            afmeting_label=_escape(afmeting_label),
+            prijs_num=_escape(prijs_num),
+            bouwtijd_num=_escape(bouwtijd_num),
+            builder_naam=_escape(builder_naam),
+            builder_tel=_escape(builder_telefoon),
             builder_tel_clean=builder_tel_clean,
-            builder_email=builder_email,
+            builder_email=_escape(builder_email),
             builder_email_html=builder_email_html,
             supabase_url=SUPABASE_URL,
             supabase_anon_key=SUPABASE_ANON_KEY,
+            form_submits_table=FORM_SUBMITS_TABLE,
+            privacy_url=_escape(PRIVACY_URL),
+            source="qr",
         )
 
         file_path.write_text(html, encoding="utf-8")
 
-        public_url = f"{base_url.rstrip('/')}/r/{niscode}-{i:03d}"
+        public_url = f"{base_url.rstrip('/')}/r/{niscode}-{slug}?src=qr"
         results.append({
             "capakey": capakey,
             "file_path": str(file_path),

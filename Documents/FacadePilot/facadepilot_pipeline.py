@@ -31,6 +31,9 @@ import pandas as pd
 
 HERE = Path(__file__).parent.resolve()
 sys.path.insert(0, str(HERE))
+SHARED_PY = HERE / "shared" / "python"
+if SHARED_PY.exists():
+    sys.path.insert(0, str(SHARED_PY))
 
 DEFAULT_PORT = 8769
 
@@ -581,10 +584,12 @@ def step_render(input_file: str, top_n: int | None, klassen: list | None,
             for _, row in result_df.iterrows():
                 capakey = str(row.get("CAPAKEY", "") or "").strip()
                 rp = str(row.get("render_path", "") or "")
+                sp = str(row.get("streetview_path", "") or "")
                 if capakey and rp:
                     # Sla relatieve paden op (vanuit FacadePilot/)
                     rel_render = rp.replace(str(HERE) + "/", "").replace(str(HERE) + "\\", "")
-                    store.set_render_paths(capakey, render_path=rel_render)
+                    rel_streetview = sp.replace(str(HERE) + "/", "").replace(str(HERE) + "\\", "") if sp else None
+                    store.set_render_paths(capakey, render_path=rel_render, streetview_path=rel_streetview)
                     n_synced += 1
             if n_synced:
                 log(f"  -> {n_synced} render-paden gesynced naar CRM")
@@ -1384,7 +1389,10 @@ input:focus,select:focus{outline:none;border-color:#60a5fa;box-shadow:0 0 0 3px 
       <div class="subtitle">Gevelrenovatie lead-campagne in een klik</div>
     </div>
   </div>
-  <div class="subtitle">Local / Port <span id="port"></span></div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="btn-sm btn-copy" onclick="window.location.href='/flyer-editor'">Flyer-editor</button>
+    <div class="subtitle">Local / Port <span id="port"></span></div>
+  </div>
 </header>
 
 <div class="layout">
@@ -2680,10 +2688,52 @@ class Handler(http.server.BaseHTTPRequestHandler):
         url = urlparse(self.path)
         if url.path == "/":
             self._html(HTML)
+        elif url.path == "/flyer-editor":
+            try:
+                from homepilot_shared.flyer_editor import flyer_editor_html
+                self._html(flyer_editor_html())
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
         elif url.path == "/api/state" or url.path == "/api/status":
             with state_lock:
                 snap = json.loads(json.dumps(pipeline_state))
             self._json(snap)
+        elif url.path == "/api/flyer_editor_assets":
+            try:
+                from homepilot_shared.flyer_editor import flyer_editor_payload
+                with state_lock:
+                    default_niscode = pipeline_state.get("niscode", "")
+                self._json(flyer_editor_payload(
+                    HERE,
+                    profile=load_builder_profile(),
+                    public_base_url=os.environ.get("FACADEPILOT_TRACKER_URL", "https://facadepilot.be"),
+                    default_niscode=default_niscode,
+                ))
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
+        elif url.path == "/api/flyer_editor_qr":
+            try:
+                from homepilot_shared.flyer_editor import flyer_editor_qr
+                qs = parse_qs(url.query)
+                with state_lock:
+                    default_niscode = pipeline_state.get("niscode", "")
+                self._json(flyer_editor_qr(
+                    HERE,
+                    capakey=(qs.get("capakey", [""])[0] or "").strip(),
+                    url=(qs.get("url", [""])[0] or "").strip(),
+                    profile=load_builder_profile(),
+                    public_base_url=os.environ.get("FACADEPILOT_TRACKER_URL", "https://facadepilot.be"),
+                    default_niscode=default_niscode,
+                ))
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
+        elif url.path == "/api/flyer_editor_draft":
+            try:
+                from homepilot_shared.flyer_editor import load_flyer_editor_draft
+                qs = parse_qs(url.query)
+                self._json(load_flyer_editor_draft(HERE, (qs.get("id", [""])[0] or "").strip()))
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
         elif url.path == "/api/files":
             self._json(list_csv_files())
         elif url.path == "/api/gemeenten":
@@ -2771,11 +2821,27 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
     def do_POST(self):
         url = urlparse(self.path)
-        length = int(self.headers.get("Content-Length", 0))
-        raw = self.rfile.read(length).decode("utf-8") if length else ""
-        data = parse_qs(raw)
+        content_type = self.headers.get("Content-Type", "")
+        json_body = {}
+        if "multipart/form-data" in content_type:
+            # Upload handlers read the raw body themselves.
+            raw = ""
+            data = {}
+        else:
+            length = int(self.headers.get("Content-Length", 0))
+            raw = self.rfile.read(length).decode("utf-8") if length else ""
+            if "application/json" in content_type and raw:
+                try:
+                    loaded = json.loads(raw)
+                    json_body = loaded if isinstance(loaded, dict) else {}
+                except Exception:
+                    json_body = {}
+            data = {} if json_body else parse_qs(raw)
 
         def g(key, default=""):
+            if key in json_body:
+                value = json_body.get(key, default)
+                return str(value if value is not None else default).strip()
             return (data.get(key, [default])[0] or default).strip()
 
         if url.path == "/api/start":
@@ -2928,6 +2994,15 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 t = threading.Thread(target=run_pipeline, args=(config,), daemon=True)
                 t.start()
                 self._json({"ok": True})
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
+
+        elif url.path == "/api/flyer_editor_export":
+            try:
+                from homepilot_shared.flyer_editor import save_flyer_editor_export
+                payload = json_body if json_body else {k: v[0] for k, v in data.items() if v}
+                result = save_flyer_editor_export(HERE, payload)
+                self._json(result, 200 if result.get("ok") else 400)
             except Exception as e:
                 self._json({"ok": False, "error": str(e)}, 500)
 

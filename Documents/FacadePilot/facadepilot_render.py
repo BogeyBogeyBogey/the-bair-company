@@ -36,6 +36,14 @@ import requests
 from PIL import Image
 from dotenv import load_dotenv
 
+from facadepilot_keys import (
+    first_existing,
+    legacy_render_candidates,
+    legacy_streetview_candidates,
+    render_path as stable_render_path,
+    streetview_path as stable_streetview_path,
+)
+
 HERE = Path(__file__).parent.resolve()
 load_dotenv(HERE / ".env")
 
@@ -298,11 +306,12 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
         ["moderne_crepi", "baksteen_rejoint", "totaalrenovatie"]
     """
     output_dir.mkdir(parents=True, exist_ok=True)
-    render_paths = []
-    quality_results = []     # (pass: bool, reason: str)
-    extra_render_paths = []  # dict met preset_key -> path voor multi-preset rijen
 
     total = len(df)
+    render_paths = [""] * total
+    streetview_paths = [""] * total
+    quality_results = [{"pass": False, "reason": "not_processed"} for _ in range(total)]
+    extra_render_paths = [{} for _ in range(total)]
     success = 0
     errors = 0
     skipped_quality = 0
@@ -333,31 +342,54 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
     print(f"   Auto-preset:   {'AAN (per lead)' if auto_preset else 'UIT (vaste preset)'}")
     if multi_preset_for_klassen and multi_presets:
         print(f"   Multi-preset: {multi_presets} voor klassen {multi_preset_for_klassen}")
+        estimated_extra = 0
+        if "lead_klasse" in df.columns:
+            estimated_extra = int(df["lead_klasse"].astype(str).isin(multi_preset_for_klassen).sum()) * len(multi_presets)
+        else:
+            estimated_extra = total * len(multi_presets)
+        print(f"   Kostenraming: {total + estimated_extra} mogelijke renders ≈ ${(total + estimated_extra) * COST_PER_RENDER_USD:.2f}")
     print(f"   Output: {output_dir}/")
     print()
 
-    auto_preset_results = []  # voor logging in CSV
+    auto_preset_results = [{"key": "", "reden": ""} for _ in range(total)]
 
     t_start = time.time()
 
     for i, (idx, row) in enumerate(df.iterrows()):
         adres = str(row.get("adres", f"rij_{i}"))
-        safe_name = f"{i:03d}_{adres[:35].replace(' ', '_').replace(',', '').replace('/', '_')}"
 
         # Bepaal welke preset_key we voor de hoofdrender gebruiken (voor filename)
         # — bij auto_preset wordt dit per rij overschreven verderop
-        active_preset_key = preset_key
+        active_preset_key = preset_key if preset_key in FACADE_PRESETS else DEFAULT_PRESET
+        row_prompt = prompt
+        row_preset_key = ""
+        row_preset_reden = ""
+        if auto_preset and preset_selector is not None:
+            selected_key, selected_reden = preset_selector(row)
+            if selected_key in FACADE_PRESETS:
+                active_preset_key = selected_key
+                row_prompt = FACADE_PRESETS[selected_key]["prompt"]
+                row_preset_key = selected_key
+                row_preset_reden = selected_reden
+            auto_preset_results[i] = {"key": row_preset_key, "reden": row_preset_reden}
 
         # Skip als render al bestaat — probeer eerst preset-specifieke naam,
         # dan legacy naam zonder preset (backward compatible)
-        new_style = output_dir / f"{safe_name}_{active_preset_key}_render.jpg"
-        legacy = output_dir / f"{safe_name}_render.jpg"
-        existing_render = new_style if new_style.exists() else legacy
-        if existing_render.exists():
+        render_candidates = [
+            stable_render_path(output_dir, row, i, active_preset_key),
+            *legacy_render_candidates(output_dir, row, i, active_preset_key),
+        ]
+        existing_render = first_existing(render_candidates)
+        if existing_render:
+            existing_streetview = first_existing([
+                stable_streetview_path(output_dir, row, i),
+                *legacy_streetview_candidates(output_dir, row, i),
+            ])
             print(f"   [{i+1}/{total}] {adres[:50]}... ⏭️ al gerenderd ({existing_render.name})")
-            render_paths.append(str(existing_render))
-            quality_results.append({"pass": True, "reason": "cached"})
-            extra_render_paths.append({})
+            render_paths[i] = str(existing_render)
+            streetview_paths[i] = str(existing_streetview) if existing_streetview else ""
+            quality_results[i] = {"pass": True, "reason": "cached"}
+            extra_render_paths[i] = {}
             success += 1
             if progress_callback:
                 progress_callback(i + 1, total, f"[{i+1}/{total}] ⏭️ {adres[:40]}... (al gerenderd)")
@@ -372,8 +404,9 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
             streetview = fetch_streetview_for_render(row["lat"], row["lon"])
 
             # Sla Street View foto op (before)
-            sv_path = output_dir / f"{safe_name}_streetview.jpg"
+            sv_path = stable_streetview_path(output_dir, row, i)
             streetview.save(sv_path, "JPEG", quality=90)
+            streetview_paths[i] = str(sv_path)
 
             # Stap 1b: Pre-render kwaliteitscheck
             if quality_check and quality_checker is not None:
@@ -383,9 +416,10 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
                 qc = quality_checker(streetview)
                 if not qc["pass"]:
                     print(f" ❌ skip ({qc['type']}: {qc['reason']})")
-                    render_paths.append("")
-                    quality_results.append(qc)
-                    extra_render_paths.append({})
+                    render_paths[i] = ""
+                    streetview_paths[i] = str(sv_path)
+                    quality_results[i] = qc
+                    extra_render_paths[i] = {}
                     skipped_quality += 1
                     _render_cost_state["renders_skipped_quality"] += 1
                     if progress_callback:
@@ -395,21 +429,14 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
                         time.sleep(REQUEST_DELAY)
                     continue
                 print(f" ✅ ({qc['type']})")
-                quality_results.append(qc)
+                quality_results[i] = qc
             else:
-                quality_results.append({"pass": True, "reason": "check uit"})
+                quality_results[i] = {"pass": True, "reason": "check uit"}
 
             # Stap 2: Hoofdrender (eventueel met auto-gekozen preset)
-            row_prompt = prompt
-            row_preset_key = None
-            row_preset_reden = ""
-            file_preset_key = preset_key  # voor filename
-            if auto_preset and preset_selector is not None:
-                row_preset_key, row_preset_reden = preset_selector(row)
-                if row_preset_key in FACADE_PRESETS:
-                    row_prompt = FACADE_PRESETS[row_preset_key]["prompt"]
-                    file_preset_key = row_preset_key
-                    print(f"           → Auto-preset: {row_preset_key} ({row_preset_reden})")
+            file_preset_key = active_preset_key
+            if row_preset_key:
+                print(f"           → Auto-preset: {row_preset_key} ({row_preset_reden})")
 
             print(f"           → Render genereren...", end="", flush=True)
             if progress_callback:
@@ -419,12 +446,12 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
             render = render_facade(streetview, prompt=row_prompt, size=size)
             elapsed = time.time() - t0
             print(f" ✅ ({elapsed:.1f}s)")
-            auto_preset_results.append({"key": row_preset_key or "", "reden": row_preset_reden})
 
             # Schrijf met preset-specifieke naam zodat varianten naast elkaar kunnen
-            render_path = output_dir / f"{safe_name}_{file_preset_key}_render.jpg"
+            render_path = stable_render_path(output_dir, row, i, file_preset_key)
             render.save(render_path, "JPEG", quality=95)
-            render_paths.append(str(render_path))
+            render_paths[i] = str(render_path)
+            streetview_paths[i] = str(sv_path)
             success += 1
             _render_cost_state["renders_done"] += 1
             _render_cost_state["estimated_cost_usd"] += COST_PER_RENDER_USD
@@ -437,7 +464,7 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
                 for preset_key in multi_presets:
                     if preset_key not in FACADE_PRESETS:
                         continue
-                    extra_path = output_dir / f"{safe_name}_render_{preset_key}.jpg"
+                    extra_path = output_dir / f"{stable_render_path(output_dir, row, i, preset_key).stem}_extra.jpg"
                     if extra_path.exists():
                         extra_paths_for_row[preset_key] = str(extra_path)
                         continue
@@ -454,16 +481,16 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
                     except Exception as e:
                         print(f" ❌ {e}")
                     time.sleep(REQUEST_DELAY)
-            extra_render_paths.append(extra_paths_for_row)
+            extra_render_paths[i] = extra_paths_for_row
 
             if progress_callback:
                 progress_callback(i + 1, total, f"[{i+1}/{total}] ✅ {adres[:40]}... ({elapsed:.0f}s)")
 
         except Exception as e:
             print(f"           → ❌ Fout: {e}")
-            render_paths.append("")
-            quality_results.append({"pass": False, "reason": f"fetch/render fout: {str(e)[:80]}"})
-            extra_render_paths.append({})
+            render_paths[i] = ""
+            quality_results[i] = {"pass": False, "reason": f"fetch/render fout: {str(e)[:80]}"}
+            extra_render_paths[i] = {}
             errors += 1
             # Log naar failed_renders.csv voor latere retry
             _log_failed_render(
@@ -480,15 +507,13 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
 
     df = df.copy()
     df["render_path"] = render_paths
+    df["streetview_path"] = streetview_paths
     df["render_quality_pass"] = [q["pass"] for q in quality_results]
     df["render_quality_type"] = [q.get("type", "") for q in quality_results]
     df["render_quality_reason"] = [q.get("reason", "") for q in quality_results]
-    if auto_preset and auto_preset_results:
-        # Pad naar lengte van df
-        while len(auto_preset_results) < len(df):
-            auto_preset_results.append({"key": "", "reden": ""})
-        df["preset_auto"] = [a["key"] for a in auto_preset_results[:len(df)]]
-        df["preset_reden"] = [a["reden"] for a in auto_preset_results[:len(df)]]
+    if auto_preset:
+        df["preset_auto"] = [a["key"] for a in auto_preset_results]
+        df["preset_reden"] = [a["reden"] for a in auto_preset_results]
 
     # Multi-preset paden als extra kolommen
     if multi_preset_for_klassen and multi_presets:

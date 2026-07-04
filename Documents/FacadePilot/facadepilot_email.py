@@ -26,14 +26,42 @@ from pathlib import Path
 
 import pandas as pd
 
+from facadepilot_keys import (
+    first_existing,
+    legacy_index_stem,
+    legacy_streetview_candidates,
+    output_stem,
+    slugify,
+    streetview_path as stable_streetview_path,
+)
+
 HERE = Path(__file__).parent.resolve()
 
 
 # ─── HELPERS ───────────────────────────────────────────────────────────────
 
 def _slugify(s: str) -> str:
-    s = re.sub(r"[^A-Za-z0-9_-]+", "-", str(s)).strip("-")
-    return s or "lead"
+    return slugify(s)
+
+
+def _find_render_path(row: pd.Series, index: int, renders_dir: Path) -> Path | None:
+    explicit = str(row.get("render_path", "") or "").strip()
+    if explicit and Path(explicit).exists():
+        return Path(explicit)
+    return first_existing([
+        *sorted(Path(renders_dir).glob(f"{output_stem(row, index)}_*_render.jpg")),
+        *sorted(Path(renders_dir).glob(f"{legacy_index_stem(row, index)}*_render.jpg")),
+    ])
+
+
+def _find_streetview_path(row: pd.Series, index: int, renders_dir: Path) -> Path | None:
+    explicit = str(row.get("streetview_path", "") or "").strip()
+    if explicit and Path(explicit).exists():
+        return Path(explicit)
+    return first_existing([
+        stable_streetview_path(renders_dir, row, index),
+        *legacy_streetview_candidates(renders_dir, row, index),
+    ])
 
 
 def _image_to_data_uri(path: Path) -> str:
@@ -216,21 +244,21 @@ def generate_emails(df: pd.DataFrame,
             continue
 
         adres = str(row.get("adres", "uw woning"))
-        safe_name = f"{i:03d}_{adres[:35].replace(' ', '_').replace(',', '').replace('/', '_')}"
-        render_path = renders_dir / f"{safe_name}_render.jpg"
-        sv_path = renders_dir / f"{safe_name}_streetview.jpg"
+        render_path = _find_render_path(row, i, renders_dir)
+        sv_path = _find_streetview_path(row, i, renders_dir)
 
-        if not render_path.exists():
+        if not render_path:
             if progress_callback:
                 progress_callback(i + 1, total, f"[{i+1}/{total}] ⏭️ {adres[:40]} (geen render)")
             continue
 
         # Voor mail: data URIs werken in de meeste clients (behalve oudere Outlook).
         # Voor productie zou je naar een CID-attachement of CDN-hosted image moeten.
-        before_uri = _image_to_data_uri(sv_path) if sv_path.exists() else ""
+        before_uri = _image_to_data_uri(sv_path) if sv_path and sv_path.exists() else ""
         after_uri = _image_to_data_uri(render_path)
 
-        landing_url = f"{landing_base_url.rstrip('/')}/r/{niscode}-{i:03d}"
+        slug = _slugify(capakey)
+        landing_url = f"{landing_base_url.rstrip('/')}/r/{niscode}-{slug}?src=email"
         subject = f"Uw gevel renoveren — persoonlijk voorstel voor {adres}"
 
         html = EMAIL_TEMPLATE.format(
@@ -251,7 +279,6 @@ def generate_emails(df: pd.DataFrame,
             builder_email_html=builder_email_html,
         )
 
-        slug = _slugify(capakey)
         html_path = output_dir / f"{slug}.html"
         html_path.write_text(html, encoding="utf-8")
 

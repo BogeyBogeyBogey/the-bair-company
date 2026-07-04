@@ -186,7 +186,7 @@ Klassen: A+ (top 5%), A (top 15%), B (top 35%), C (top 65%), D (rest)
 - Before/after slider (mouse + touch), persoonlijke aanhef, facts-strip, offerteformulier
 - Afbeeldingen geëmbed als data: URI → werkt offline / op elke host
 - Tracking via Supabase: scan-event bij page load, form_submit-event bij submit
-- Public URL pattern: `facadepilot.be/r/{niscode}-{idx}` (te uploaden naar Vercel)
+- Public URL pattern: `facadepilot.be/r/{niscode}-{capakey}?src=qr|flyer|email` (te uploaden naar Vercel)
 - URL wordt teruggesynced naar `leads.landing_url`
 
 ### 8. HTML e-mail-flyer (`facadepilot_email.py`)
@@ -222,7 +222,7 @@ Klassen: A+ (top 5%), A (top 15%), B (top 35%), C (top 65%), D (rest)
 4. Pipeline draaien — leads worden auto-gepopuleerd in Supabase
 5. CRM-tab in dashboard toont funnel + status-dropdowns
 6. Voor productie van landingpagina's: `landing/{niscode}/` uploaden naar Vercel
-   met routing `r/{niscode}-{idx} → {slug}.html`
+   met routing `r/{niscode}-{capakey} → {slug}.html`
 
 ---
 
