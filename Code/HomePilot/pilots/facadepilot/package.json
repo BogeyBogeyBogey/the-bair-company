@@ -1,0 +1,11 @@
+{
+  "name": "homepilot-facadepilot",
+  "private": true,
+  "version": "0.1.0",
+  "description": "HomePilot entrypoint for the FacadePilot dashboard.",
+  "scripts": {
+    "dev": "python3 -u app.py",
+    "start": "python3 -u app.py"
+  }
+}
+
