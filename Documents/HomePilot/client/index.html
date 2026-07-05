@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HomePilot Intelligence</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Workspace">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">HP</div>
+        <div>
+          <div class="brand-name">HomePilot</div>
+          <div class="brand-subtitle">Property Intelligence</div>
+        </div>
+      </div>
+
+      <div class="tenant-box">
+        <label for="tenantSelect">Tenant</label>
+        <select id="tenantSelect">
+          <option value="daw-belgium-crepi-network">DAW Belgium (demo)</option>
+          <option value="homepilot-demo">HomePilot demo</option>
+        </select>
+      </div>
+
+      <div id="partnerLensBox" class="tenant-box partner-lens" hidden>
+        <label for="partnerSelect">Scope</label>
+        <select id="partnerSelect">
+          <option value="all">All partners</option>
+        </select>
+        <small id="partnerScopeNote" class="scope-note">Network view</small>
+      </div>
+
+      <div id="accessLensBox" class="tenant-box access-lens">
+        <label for="accessLensSelect">Access lens</label>
+        <select id="accessLensSelect">
+          <option value="producer_network">Producer network</option>
+        </select>
+        <small id="accessLensNote" class="scope-note">Buyer-review lens</small>
+      </div>
+
+      <nav class="nav-tabs" aria-label="Views">
+        <button class="nav-tab active" data-view="executive">Executive</button>
+        <button class="nav-tab" data-view="trust">Trust</button>
+        <button class="nav-tab" data-view="intelligence">Intelligence</button>
+        <button class="nav-tab" data-view="overview">Overview</button>
+        <button class="nav-tab" data-view="database">Database</button>
+        <button class="nav-tab" data-view="property">Property</button>
+        <button class="nav-tab" data-view="map">Map</button>
+        <button class="nav-tab" data-view="campaign">Campaign</button>
+        <button class="nav-tab" data-view="brain">Second brain</button>
+      </nav>
+
+      <div id="moduleStack" class="module-stack" aria-label="Enabled modules">
+        <div class="sidebar-label">Modules</div>
+        <label><input type="checkbox" value="facadepilot" checked> FacadePilot</label>
+        <label><input type="checkbox" value="windowpilot" checked> WindowPilot</label>
+        <label><input type="checkbox" value="roofpilot" checked> RoofPilot</label>
+        <label><input type="checkbox" value="drivewaypilot" checked> DrivewayPilot</label>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p id="workspaceEyebrow" class="eyebrow">DAW Belgium demo · synthetic buyer review</p>
+          <h1 id="workspaceTitle">Facade opportunity command center</h1>
+        </div>
+        <div class="topbar-actions">
+          <div id="demoBadge" class="demo-badge" title="Generated demo records; not homeowner intent or real campaign results.">Demo · synthetic data</div>
+          <div class="search-wrap">
+            <input id="searchInput" type="search" placeholder="Search address, city, signal">
+          </div>
+          <a class="action-btn secondary" href="./boardroom-report.html" target="_blank" rel="noopener">Boardroom report</a>
+          <button id="exportBtn" class="action-btn">Export CSV</button>
+        </div>
+      </header>
+
+      <section id="executive" class="view-panel active" aria-label="Executive decision view">
+        <section id="accessLensPanel" class="panel access-lens-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Customer visibility</p>
+              <h2>Access lens cockpit</h2>
+            </div>
+            <div id="accessLensStatus" class="scope-chip">Buyer review</div>
+          </div>
+          <div id="accessLensCards" class="access-lens-cards"></div>
+        </section>
+
+        <section id="networkPanel" class="panel network-panel" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Producer network</p>
+              <h2 id="networkTitle">Partner cockpit</h2>
+            </div>
+            <div id="networkScopeChip" class="scope-chip">All partners</div>
+          </div>
+          <div id="networkSummary" class="network-summary"></div>
+          <div id="partnerGrid" class="partner-grid"></div>
+        </section>
+
+        <div class="executive-layout">
+          <section class="panel executive-ledger">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Boardroom view</p>
+                <h2>Decision ledger</h2>
+              </div>
+              <div id="executiveScope" class="scope-chip">Filtered workspace</div>
+            </div>
+            <div id="decisionLedger" class="decision-ledger" aria-label="Decision ledger"></div>
+          </section>
+
+          <section class="panel executive-verdict">
+            <div>
+              <p class="eyebrow">Data trust</p>
+              <h2 id="trustLabel">Ready for review</h2>
+            </div>
+            <div id="trustMeter" class="trust-meter" aria-label="Data trust score"></div>
+            <div id="trustSignals" class="trust-signals"></div>
+          </section>
+        </div>
+
+        <div class="split-layout executive-split">
+          <section class="panel wide-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Best defended opportunities</p>
+                <h2>Shortlist for sales</h2>
+              </div>
+            </div>
+            <div id="executiveShortlist" class="executive-shortlist"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Risk and readiness</p>
+                <h2>Handoff checks</h2>
+              </div>
+            </div>
+            <div id="executiveReadiness" class="readiness-list"></div>
+          </section>
+        </div>
+
+        <section class="panel executive-learning-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Campaign memory</p>
+              <h2>What the system learned</h2>
+            </div>
+          </div>
+          <div id="executiveLearnings" class="executive-learnings"></div>
+        </section>
+      </section>
+
+      <section id="trust" class="view-panel" aria-label="Trust and provenance">
+        <div class="trust-layout-grid">
+          <section class="panel trust-ledger-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Source ledger</p>
+                <h2>Evidence and provenance</h2>
+              </div>
+              <div id="trustScopeChip" class="scope-chip">Tenant scoped</div>
+            </div>
+            <div id="trustSummaryCards" class="trust-summary-cards"></div>
+          </section>
+
+          <section class="panel trust-verdict-panel">
+            <div>
+              <p class="eyebrow">Handoff confidence</p>
+              <h2 id="trustVerdictLabel">Reviewing</h2>
+            </div>
+            <div id="trustVerdictMeter" class="trust-meter" aria-label="Source ledger trust score"></div>
+            <div id="trustGuardrails" class="guardrail-list"></div>
+          </section>
+        </div>
+
+        <div class="split-layout trust-split">
+          <section class="panel wide-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Module coverage</p>
+                <h2>What is defensible per pilot</h2>
+              </div>
+            </div>
+            <div id="trustModuleCoverage" class="coverage-table"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Source runs</p>
+                <h2>Lineage</h2>
+              </div>
+            </div>
+            <div id="trustSourceRuns" class="source-run-list"></div>
+          </section>
+        </div>
+
+        <div class="split-layout trust-split">
+          <section class="panel wide-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Evidence types</p>
+                <h2>Receipts behind the scores</h2>
+              </div>
+            </div>
+            <div id="trustEvidenceTypes" class="evidence-type-grid"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Review gaps</p>
+                <h2>Before enterprise handoff</h2>
+              </div>
+            </div>
+            <div id="trustReviewGaps" class="review-gap-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="intelligence" class="view-panel" aria-label="Open Intelligence">
+        <section class="panel intelligence-hero">
+          <div>
+            <p class="eyebrow">Open Intelligence</p>
+            <h2 id="intelligenceModelName">HomePilot Opportunity Model</h2>
+            <p id="intelligenceModelMeta">Tenant-scoped renovation intelligence</p>
+          </div>
+          <div id="intelligenceScoreStrip" class="intelligence-score-strip"></div>
+        </section>
+
+        <section id="intelligenceDecisionBrief" class="panel intelligence-boardroom">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Boardroom decisions</p>
+              <h2>What DAW can decide</h2>
+            </div>
+            <div id="intelligenceBriefStatus" class="scope-chip">Buyer review</div>
+          </div>
+          <div id="intelligenceBriefSummary" class="intelligence-brief-summary"></div>
+          <div id="intelligenceDecisionMatrix" class="intelligence-decision-list"></div>
+        </section>
+
+        <section id="intelligenceLabCockpit" class="panel intelligence-cockpit">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Intelligence Lab</p>
+              <h2>Campaign operating model</h2>
+            </div>
+            <div id="intelligenceLabStatus" class="scope-chip">Review evidence</div>
+          </div>
+          <div id="intelligenceCockpitMetrics" class="intelligence-cockpit-metrics"></div>
+          <div class="intelligence-cockpit-grid">
+            <div>
+              <div class="section-label">Partner waves</div>
+              <div id="intelligencePartnerWaves" class="intelligence-wave-list"></div>
+            </div>
+            <div>
+              <div class="section-label">Segments and messages</div>
+              <div id="intelligenceSegments" class="intelligence-segment-list"></div>
+              <div id="intelligenceMessageTests" class="intelligence-message-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel intelligence-impact">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Marketing impact planner</p>
+              <h2>Activation lanes and measurement</h2>
+            </div>
+            <div id="intelligenceImpactStatus" class="scope-chip">Review plan</div>
+          </div>
+          <div id="intelligenceImpactMetrics" class="intelligence-impact-metrics"></div>
+          <div class="intelligence-impact-grid">
+            <div>
+              <div class="section-label">Activation lanes</div>
+              <div id="intelligenceImpactLanes" class="intelligence-impact-list"></div>
+            </div>
+            <div>
+              <div class="section-label">Channel mix</div>
+              <div id="intelligenceChannelMix" class="intelligence-channel-list"></div>
+              <div class="section-label measurement-label">Measurement loop</div>
+              <div id="intelligenceMeasurementLoop" class="intelligence-measurement-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="intelligence-grid">
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Model card</p>
+                <h2>Allowed signals</h2>
+              </div>
+            </div>
+            <div id="intelligenceModelSignals" class="intelligence-chip-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Guardrails</p>
+                <h2>Hard boundaries</h2>
+              </div>
+            </div>
+            <div id="intelligenceModelGuardrails" class="guardrail-list"></div>
+          </section>
+        </div>
+
+        <div class="split-layout intelligence-split">
+          <section class="panel wide-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Model Lab</p>
+                <h2>Autoresearch evidence</h2>
+              </div>
+            </div>
+            <div id="intelligenceLab" class="intelligence-lab-grid"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Activation</p>
+                <h2>Review-ready paths</h2>
+              </div>
+            </div>
+            <div id="intelligenceActivation" class="intelligence-list"></div>
+          </section>
+        </div>
+
+        <div class="split-layout intelligence-split">
+          <section class="panel wide-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Data collaboration room</p>
+                <h2>Sources and allowed use</h2>
+              </div>
+            </div>
+            <div id="intelligenceDataRoom" class="intelligence-source-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Outcome loop</p>
+                <h2>What improves next</h2>
+              </div>
+            </div>
+            <div id="intelligenceOutcomes" class="intelligence-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="overview" class="view-panel" aria-label="Overview">
+        <div class="metrics-grid">
+          <div class="metric-panel">
+            <span class="metric-label">Properties</span>
+            <strong id="metricProperties">0</strong>
+            <small id="metricPropertiesNote">Filtered workspace</small>
+          </div>
+          <div class="metric-panel">
+            <span class="metric-label">Top opportunities</span>
+            <strong id="metricTop">0</strong>
+            <small>A and A+ combined</small>
+          </div>
+          <div class="metric-panel">
+            <span class="metric-label">Response rate</span>
+            <strong id="metricResponse">0%</strong>
+            <small>Current campaign</small>
+          </div>
+          <div class="metric-panel">
+            <span class="metric-label">Pipeline value</span>
+            <strong id="metricValue">EUR0</strong>
+            <small>Weighted estimate</small>
+          </div>
+        </div>
+
+        <div class="split-layout">
+          <section class="panel wide-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Territory quality</p>
+                <h2>Opportunity by module</h2>
+              </div>
+              <select id="campaignSelect">
+                <option value="all">All campaigns</option>
+                <option value="facade-leuven-q3">Facade Leuven Q3</option>
+                <option value="windows-ring-east">Windows Ring East</option>
+              </select>
+            </div>
+            <div id="moduleBars" class="bar-stage" aria-label="Module score chart"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Recommended next actions</p>
+                <h2>Priority queue</h2>
+              </div>
+            </div>
+            <div id="priorityQueue" class="priority-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="database" class="view-panel" aria-label="Database">
+        <div class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Tenant-safe records</p>
+              <h2>Property database</h2>
+            </div>
+            <div class="filter-row">
+              <select id="gradeFilter">
+                <option value="all">All grades</option>
+                <option value="A+">A+</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+              </select>
+              <select id="statusFilter">
+                <option value="all">All statuses</option>
+                <option value="generated">Generated</option>
+                <option value="sent">Sent</option>
+                <option value="responded">Responded</option>
+                <option value="appointment">Appointment</option>
+                <option value="no_response">No response</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+	                  <th>Address</th>
+	                  <th>Partner</th>
+	                  <th>Modules</th>
+                  <th>Best score</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                  <th>Next action</th>
+                </tr>
+              </thead>
+              <tbody id="propertyTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="property" class="view-panel" aria-label="Property profile">
+        <div class="property-layout">
+          <section class="panel property-hero">
+            <div class="property-visual" id="propertyVisual" aria-hidden="true">
+              <div class="house-shape">
+                <div class="roof-line"></div>
+                <div class="window-grid">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+            <div class="property-copy">
+              <p class="eyebrow">Property profile</p>
+              <h2 id="propertyTitle">Select a property</h2>
+              <p id="propertySubtitle">Choose a row in the database to inspect signals, evidence, and follow-up history.</p>
+              <div id="propertyTags" class="tag-row"></div>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Assessments</p>
+                <h2>Module scores</h2>
+              </div>
+            </div>
+            <div id="assessmentList" class="assessment-list"></div>
+          </section>
+          <section class="panel public-context-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Public context</p>
+                <h2>Source-backed signals</h2>
+              </div>
+            </div>
+            <div id="publicContextList" class="public-context-list"></div>
+          </section>
+          <section class="panel timeline-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Contact history</p>
+                <h2>Interactions</h2>
+              </div>
+            </div>
+            <div id="interactionTimeline" class="timeline"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="map" class="view-panel" aria-label="Opportunity map">
+        <div class="panel map-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Opportunity map</p>
+              <h2>Clustered renovation signals</h2>
+            </div>
+            <div class="map-legend">
+              <span><i class="legend-dot high"></i>High</span>
+              <span><i class="legend-dot mid"></i>Medium</span>
+              <span><i class="legend-dot low"></i>Low</span>
+            </div>
+          </div>
+          <div id="opportunityMap" class="opportunity-map"></div>
+        </div>
+      </section>
+
+      <section id="campaign" class="view-panel" aria-label="Campaign intelligence">
+        <div class="split-layout">
+          <section class="panel wide-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Campaign intelligence</p>
+                <h2>Response funnel</h2>
+              </div>
+            </div>
+            <div id="funnel" class="funnel"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Objections</p>
+                <h2>Learning signals</h2>
+              </div>
+            </div>
+            <div id="objectionCloud" class="objection-cloud"></div>
+          </section>
+        </div>
+        <section class="panel recommendations-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Recommendations</p>
+              <h2>What the campaign learned</h2>
+            </div>
+          </div>
+          <div id="recommendations" class="recommendations"></div>
+        </section>
+      </section>
+
+      <section id="brain" class="view-panel" aria-label="Second brain">
+        <div class="panel brain-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Second brain</p>
+              <h2>Signals, properties, reactions, actions</h2>
+            </div>
+            <div class="brain-actions" aria-label="Second brain controls">
+              <button id="brainZoomOut" class="graph-tool" type="button" title="Zoom out" aria-label="Zoom out">-</button>
+              <button id="brainZoomIn" class="graph-tool" type="button" title="Zoom in" aria-label="Zoom in">+</button>
+              <button id="brainFit" class="graph-tool" type="button" title="Fit graph" aria-label="Fit graph">Fit</button>
+              <button id="brainResetLayout" class="graph-tool" type="button" title="Reset dragged nodes" aria-label="Reset dragged nodes">Reset</button>
+              <button id="brainMoveMode" class="graph-tool" type="button" title="Move nodes" aria-label="Move nodes" aria-pressed="false">Move</button>
+              <button id="brainNudgeLeft" class="graph-tool" type="button" title="Nudge selected node left" aria-label="Nudge selected node left">&#8592;</button>
+              <button id="brainNudgeUp" class="graph-tool" type="button" title="Nudge selected node up" aria-label="Nudge selected node up">&#8593;</button>
+              <button id="brainNudgeDown" class="graph-tool" type="button" title="Nudge selected node down" aria-label="Nudge selected node down">&#8595;</button>
+              <button id="brainNudgeRight" class="graph-tool" type="button" title="Nudge selected node right" aria-label="Nudge selected node right">&#8594;</button>
+              <button id="focusBestBtn" class="action-btn secondary" type="button">Focus best cluster</button>
+            </div>
+          </div>
+          <div id="brainStats" class="brain-stats" aria-label="Second brain statistics"></div>
+          <div id="brainLegend" class="brain-legend" aria-label="Second brain legend"></div>
+          <svg id="brainGraph" viewBox="0 0 980 520" role="img" aria-label="Knowledge graph"></svg>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./dashboard-data.js"></script>
+  <script src="./sample-data.js"></script>
+  <script src="./live-config.js"></script>
+  <script src="./live-data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FacadePilot — Second Brain (DAW Belgium · synthetische demo)</title>
+<!--
+  Second Brain — property-intelligence kennisgraaf voor DAW Belgium / Caparol.
+  100% offline: geen externe scripts, geen kaarttegels, geen afbeeldingen, geen backend.
+  Data: leest window.HOMEPILOT_DASHBOARD indien aanwezig, anders deterministisch synthetisch.
+  Alle cijfers zijn illustratief/synthetisch — opportunity-signalen, geen koopintentie.
+-->
+<style>
+:root{
+  --bg:#0c1118;--panel:#121a26;--panel2:#0f1620;--panel3:#0b131d;--line:rgba(255,255,255,.07);
+  --ink:#e9eef5;--muted:#8b9bb0;--dim:#5c6b80;
+  --gold:#e2a35c;--gold2:#d97a45;--blue:#5aa2e0;--green:#5fbe8f;
+  --cyan:#4fc3d1;--orange:#e8913a;--pink:#cd7cd6;--bgreen:#46d17f;--evi:#aeb9c9;--slate:#8ba0bb;
+  --wave:#dfe6ef;
+  font-synthesis-weight:none;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font:13.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:900;display:flex;align-items:center;gap:22px;padding:12px 22px;background:rgba(12,17,24,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-weight:900;color:#12100c;font-size:12px}
+.brand b{font-size:14px;letter-spacing:-.01em}
+.brand span{display:block;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.crumbs{flex:1;font-size:12px;color:var(--dim)}
+.crumbs b{color:var(--muted);font-weight:700}
+.demo-badge{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
+.demo-badge .b1{font-size:10.5px;font-weight:900;letter-spacing:.06em;color:#0c1118;background:var(--gold);border-radius:5px;padding:3px 9px}
+.demo-badge .b2{font-size:10px;color:var(--dim)}
+/* WRAP */
+.wrap{max-width:1480px;margin:0 auto;padding:22px 22px 40px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-size:22px;letter-spacing:-.015em}
+.sub{color:var(--muted);font-size:13px;margin-top:4px;max-width:760px}
+.headkpis{display:flex;gap:22px}
+.hk{text-align:right}
+.hk label{display:block;font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.hk .v{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.hk .v.gold{color:var(--gold)}.hk .v.green{color:var(--green)}
+/* FILTER BAR */
+.filterbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.search{flex:1 1 220px;min-width:200px;max-width:340px;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px 12px}
+.search input{flex:1;border:0;background:none;color:var(--ink);font:inherit;outline:none}
+.search svg{opacity:.5;flex:none}
+.fgroup{display:flex;gap:6px;flex-wrap:wrap}
+.fchip{border:1px solid var(--line);background:var(--panel);color:var(--muted);font:inherit;font-size:12px;font-weight:700;border-radius:99px;padding:7px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:.12s}
+.fchip:hover{color:var(--ink)}
+.fchip i{width:8px;height:8px;border-radius:99px;display:inline-block;flex:none}
+.fchip.on{background:rgba(226,163,92,.14);border-color:rgba(226,163,92,.5);color:var(--gold)}
+.fchip.on.tp{background:rgba(226,163,92,.14);border-color:rgba(226,163,92,.45);color:#f0c48c}
+.spacer{flex:1}
+select.fsel{border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-size:12.5px;border-radius:9px;padding:8px 10px;cursor:pointer;max-width:240px}
+.toggles{display:flex;gap:6px;flex-wrap:wrap}
+.tg{border:1px solid var(--line);background:var(--panel);color:var(--muted);font:inherit;font-size:11.5px;font-weight:700;border-radius:8px;padding:7px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.tg .sw{width:26px;height:15px;border-radius:99px;background:rgba(255,255,255,.1);position:relative;transition:.15s;flex:none}
+.tg .sw::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:99px;background:#8b9bb0;transition:.15s}
+.tg.on{color:var(--ink);border-color:rgba(90,162,224,.45)}
+.tg.on .sw{background:rgba(90,162,224,.55)}
+.tg.on .sw::after{left:13px;background:#eaf2fb}
+/* STAGE */
+.stage{position:relative;height:660px;border-radius:14px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(1200px 640px at 42% 46%,#0f1a2a 0%,#0a1017 62%,#080d14 100%)}
+#brain{position:absolute;inset:0;display:block;cursor:grab;touch-action:none}
+#brain.grab{cursor:grabbing}
+.tools{position:absolute;left:14px;top:14px;z-index:6;display:flex;gap:7px;flex-wrap:wrap;max-width:60%}
+.tbtn{background:rgba(12,17,24,.82);backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--ink);font:inherit;font-weight:700;font-size:12px;padding:8px 12px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.tbtn:hover{border-color:rgba(226,163,92,.45);color:var(--gold)}
+.tbtn.zg{padding:8px 10px;font-size:14px;line-height:1;font-weight:800}
+.hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:4;font-size:11px;color:var(--dim);background:rgba(12,17,24,.6);border:1px solid var(--line);border-radius:99px;padding:5px 13px;pointer-events:none;white-space:nowrap}
+/* LEGEND */
+.legend{position:absolute;left:14px;bottom:14px;z-index:6;background:rgba(11,17,25,.86);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:11px;padding:12px 13px;font-size:11px;color:var(--muted);width:236px}
+.legend h5{color:var(--ink);font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px}
+.legend .cols{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.legend .row{display:flex;align-items:center;gap:7px;margin-bottom:2px;line-height:1.35}
+.legend .row i{width:10px;height:10px;border-radius:99px;display:inline-block;flex:none}
+.legend .row i.hollow{background:transparent;border:1.5px solid var(--evi)}
+.legend .ed{display:flex;align-items:center;gap:7px;margin-bottom:2px}
+.legend .ed .l{width:16px;height:0;border-top:2px solid;flex:none}
+.legend .foot{margin-top:9px;padding-top:8px;border-top:1px solid var(--line);font-size:10px;color:var(--dim);display:flex;align-items:center;gap:7px}
+.legend .foot .ring{width:12px;height:12px;border-radius:99px;border:2px solid var(--gold);box-shadow:0 0 8px rgba(226,163,92,.6);flex:none}
+.legend.hide{display:none}
+.legToggle{position:absolute;left:14px;bottom:14px;z-index:5}
+/* DETAIL */
+.detail{position:absolute;right:0;top:0;bottom:0;width:340px;z-index:7;background:linear-gradient(180deg,rgba(15,22,32,.97),rgba(11,17,25,.97));backdrop-filter:blur(12px);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .26s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.detail.show{transform:none}
+.dhero{padding:16px 16px 14px;border-bottom:1px solid var(--line);position:relative}
+.dhero .close{position:absolute;right:12px;top:12px;width:24px;height:24px;border-radius:7px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;font-size:14px;line-height:1;display:grid;place-items:center}
+.dhero .close:hover{color:var(--ink)}
+.dtag{display:inline-flex;align-items:center;gap:6px;font-size:9.5px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;border-radius:5px;padding:3px 8px;margin-bottom:9px}
+.dtag i{width:8px;height:8px;border-radius:99px;display:inline-block}
+.dhero h3{font-size:16px;letter-spacing:-.01em;padding-right:28px}
+.dhero .dmeta{font-size:11.5px;color:var(--muted);margin-top:4px}
+.dbody{overflow:auto;flex:1}
+.dsec{padding:13px 16px;border-bottom:1px solid var(--line)}
+.dsec h4{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dsec h4 .why{color:var(--gold)}
+.mrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-bottom:9px;font-size:12px;color:var(--muted)}
+.mrow:last-child{margin-bottom:0}
+.mrow b{color:var(--ink);text-align:right;font-size:12.5px}
+.mrow.bar{grid-template-columns:88px 1fr auto}
+.mrow.bar .track{height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.mrow.bar .track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold2),var(--gold))}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.nchip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--ink);border-radius:99px;padding:5px 10px;cursor:pointer;transition:.12s}
+.nchip:hover{border-color:rgba(226,163,92,.5);background:rgba(226,163,92,.08)}
+.nchip i{width:8px;height:8px;border-radius:99px;flex:none}
+.callout{border-radius:9px;padding:11px 12px;font-size:12px;line-height:1.5}
+.callout.act{background:rgba(70,209,127,.09);border:1px solid rgba(70,209,127,.28);color:#cdefd8}
+.callout.act b{color:var(--bgreen)}
+.callout.guard{background:rgba(174,185,201,.07);border:1px solid rgba(174,185,201,.22);color:#cfd7e2}
+.callout.guard b{color:#eef2f7}
+.callout .lbl{display:block;font-size:9.5px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px;opacity:.85}
+.dcta{padding:13px 16px;display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-weight:700;font-size:12px;padding:9px 13px;border-radius:9px;cursor:pointer}
+.btn:hover{border-color:rgba(255,255,255,.2)}
+.btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));border:0;color:#161006}
+.btn.wide{flex:1;text-align:center}
+/* INSIGHT STRIP */
+.insight{margin-top:14px;display:grid;grid-template-columns:auto repeat(4,1fr);gap:12px;align-items:stretch}
+@media(max-width:1100px){.insight{grid-template-columns:1fr 1fr}}
+.iw-lead{background:linear-gradient(135deg,rgba(226,163,92,.14),rgba(217,122,69,.05));border:1px solid rgba(226,163,92,.3);border-radius:12px;padding:14px 15px;display:flex;flex-direction:column;justify-content:center;min-width:190px}
+.iw-lead .lbl{font-size:9.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.iw-lead .big{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:2px 0}
+.iw-lead .sub2{font-size:11px;color:var(--muted)}
+.icard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+.icard .k{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.icard .k i{width:9px;height:9px;border-radius:99px;flex:none}
+.icard p{font-size:12px;color:var(--ink);line-height:1.5}
+.icard p b{color:var(--gold);font-weight:700}
+footer{margin-top:22px;font-size:10.5px;color:var(--dim);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="mark">FP</div><div><b>FacadePilot Intelligence</b><span>Second Brain · kennisgraaf</span></div></div>
+  <div class="crumbs"><b>DAW Belgium (demo)</b> &nbsp;›&nbsp; FacadePilot &nbsp;›&nbsp; nationaal netwerk &nbsp;·&nbsp; 10 partners</div>
+  <div class="demo-badge"><span class="b1">DEMO · SYNTHETISCHE DATA</span><span class="b2">Scores = opportunity-signalen, geen koopintentie</span></div>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <div>
+      <h1>Second Brain — zo denkt de campagne</h1>
+      <p class="sub">Eén verbonden geheel: DAW als producent, FacadePilot als module, het verwerkersnetwerk, de scoringssignalen, de reactiepatronen, de volgende acties en het bewijs eronder. Sleep om te verkennen, scroll om te zoomen, klik een knooppunt voor detail, dubbelklik een cluster om de adressen open te vouwen.</p>
+    </div>
+    <div class="headkpis">
+      <div class="hk"><label>Adressen in scope</label><div class="v num" id="hkAddr">—</div></div>
+      <div class="hk"><label>A/A+ kansen</label><div class="v num green" id="hkAA">—</div></div>
+      <div class="hk"><label>Gewogen pipeline</label><div class="v num gold" id="hkPipe">—</div></div>
+    </div>
+  </div>
+
+  <div class="filterbar">
+    <label class="search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b9bb0" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" placeholder="Zoek adres, partner, stad, signaal, status…" autocomplete="off">
+    </label>
+    <div class="fgroup" id="filters">
+      <button class="fchip on" data-f="all">Alles</button>
+      <button class="fchip on" data-f="partner"><i style="background:var(--green)"></i>Partners</button>
+      <button class="fchip on" data-f="signaal"><i style="background:var(--orange)"></i>Signalen</button>
+      <button class="fchip on" data-f="cluster"><i style="background:var(--cyan)"></i>Adressen</button>
+      <button class="fchip on" data-f="reactie"><i style="background:var(--pink)"></i>Reacties</button>
+      <button class="fchip on" data-f="actie"><i style="background:var(--bgreen)"></i>Acties</button>
+      <button class="fchip on" data-f="bewijs"><i style="background:var(--evi)"></i>Bewijs</button>
+    </div>
+    <div class="spacer"></div>
+    <select class="fsel" id="scope"><option value="">Partner-scope: heel het netwerk</option></select>
+    <div class="toggles">
+      <button class="tg on" data-t="labels"><span class="sw"></span>Labels</button>
+      <button class="tg" data-t="prio"><span class="sw"></span>Alleen hoge prioriteit</button>
+      <button class="tg on" data-t="evi"><span class="sw"></span>Bewijs-links</button>
+      <button class="tg on" data-t="resp"><span class="sw"></span>Reactie-links</button>
+    </div>
+  </div>
+
+  <div class="stage">
+    <canvas id="brain"></canvas>
+    <div class="tools">
+      <button class="tbtn" id="tFit">Fit-to-view</button>
+      <button class="tbtn" id="tReset">Reset layout</button>
+      <button class="tbtn" id="tFocus">Focus beste cluster</button>
+      <button class="tbtn zg" id="tZin" title="Inzoomen">+</button>
+      <button class="tbtn zg" id="tZout" title="Uitzoomen">−</button>
+    </div>
+    <div class="legend" id="legend">
+      <h5>Knooppunten</h5>
+      <div class="cols">
+        <div class="row"><i style="background:var(--gold)"></i>DAW (producent)</div>
+        <div class="row"><i style="background:var(--blue)"></i>FacadePilot</div>
+        <div class="row"><i style="background:var(--green)"></i>Partner</div>
+        <div class="row"><i style="background:var(--wave)"></i>Campagnegolf</div>
+        <div class="row"><i style="background:var(--cyan)"></i>Adres-cluster</div>
+        <div class="row"><i style="background:var(--orange)"></i>Signaal</div>
+        <div class="row"><i style="background:var(--pink)"></i>Reactie</div>
+        <div class="row"><i style="background:var(--bgreen)"></i>Actie</div>
+        <div class="row"><i class="hollow"></i>Bewijs / guardrail</div>
+        <div class="row"><i style="background:var(--slate)"></i>Adres (drilldown)</div>
+      </div>
+      <h5 style="margin-top:11px">Verbanden</h5>
+      <div class="ed"><span class="l" style="border-color:rgba(255,255,255,.5)"></span>Netwerk &amp; regie</div>
+      <div class="ed"><span class="l" style="border-color:var(--blue)"></span>Scoring (signaal)</div>
+      <div class="ed"><span class="l" style="border-color:var(--pink)"></span>Reactiepatroon</div>
+      <div class="ed"><span class="l" style="border-color:var(--evi);border-top-style:dashed"></span>Bewijs / provenance</div>
+      <div class="foot"><span class="ring"></span>Gouden ring = hoge-prioriteit cluster</div>
+    </div>
+    <button class="tbtn legToggle" id="legToggle" style="display:none">Legenda tonen</button>
+    <div class="hint" id="hint">Klik een knooppunt · dubbelklik een cluster voor adressen</div>
+    <aside class="detail" id="detail"></aside>
+  </div>
+
+  <div class="insight">
+    <div class="iw-lead">
+      <span class="lbl">Netwerk-opportunity-index</span>
+      <span class="big num" id="iwIndex">—</span>
+      <span class="sub2">gewogen over 10 partners · synthetisch</span>
+    </div>
+    <div class="icard"><div class="k"><i style="background:var(--green)"></i>Netwerk-regie</div><p id="iw1">—</p></div>
+    <div class="icard"><div class="k"><i style="background:var(--orange)"></i>Scoring leert</div><p id="iw2">—</p></div>
+    <div class="icard"><div class="k"><i style="background:var(--pink)"></i>Reactiepatroon</div><p id="iw3">—</p></div>
+    <div class="icard"><div class="k"><i style="background:var(--evi)"></i>Legal-first</div><p id="iw4">—</p></div>
+  </div>
+
+  <footer>
+    <span>FacadePilot Second Brain — kennisgraaf bij de DAW Belgium demo · alle data synthetisch en deterministisch gegenereerd · offline, geen externe bronnen.</span>
+    <span>Knooppunten = gebouw- en netwerkniveau · geen persoonsgegevens.</span>
+  </footer>
+</div>
+
+<script src="./dashboard-data.js"></script>
+<script>
+"use strict";
+/* ══════════════════════════════════════════════════════════════════
+   0 · HELPERS — Belgische notatie + deterministische RNG
+   ══════════════════════════════════════════════════════════════════ */
+const nlInt = v => Math.round(v).toLocaleString("nl-BE");
+const nlDec = (v,d=1) => v.toLocaleString("nl-BE",{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct   = (v,d=1) => nlDec(v,d)+"%";
+const eur   = v => v>=1e6 ? "€ "+nlDec(v/1e6,1)+" M" : v>=1e3 ? "€ "+nlInt(Math.round(v/1e3))+" K" : "€ "+nlInt(v);
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+/* Canonieke live demo-cijfers. Houd deze gelijk met dashboard-data.js. */
+const NET = { addresses:2000, aa:860, pipelineEUR:59214679, index:80.9 };
+
+/* ══════════════════════════════════════════════════════════════════
+   1 · DATA — leest window.HOMEPILOT_DASHBOARD, anders synthetisch
+   ══════════════════════════════════════════════════════════════════ */
+const PARTNERS = [
+  {id:"renotec-antwerp", name:"Renotec Gevelwerken", city:"Antwerpen", prov:"Antwerp"},
+  {id:"crepi-plus-limburg", name:"Crepi Plus Limburg", city:"Hasselt", prov:"Limburg"},
+  {id:"gevelmeesters-vlaams-brabant", name:"Gevelmeesters Vlaams-Brabant", city:"Leuven", prov:"Vlaams-Brabant"},
+  {id:"facadecare-brussels", name:"FacadeCare Brussels", city:"Brussel", prov:"Brussels"},
+  {id:"oost-crepi-gent", name:"Oost Crepi Gent", city:"Gent", prov:"Oost-Vlaanderen"},
+  {id:"westkust-gevel", name:"Westkust Gevel", city:"Brugge", prov:"West-Vlaanderen"},
+  {id:"waals-brabant-facades", name:"Waals-Brabant Facades", city:"Waver", prov:"Waals-Brabant"},
+  {id:"liege-crepi-solutions", name:"Liege Crepi Solutions", city:"Luik", prov:"Liege"},
+  {id:"namur-facade-team", name:"Namur Facade Team", city:"Namen", prov:"Namur"},
+  {id:"hainaut-renovation", name:"Hainaut Renovation", city:"Bergen", prov:"Hainaut"}
+];
+const SIGNALS = [
+  {id:"s0", label:"Oude crepi / gevelstaat", why:"Verouderde crepi of zichtbaar gevelverval is de sterkste opportunity-proxy voor een gevelrenovatie.", evi:"e0"},
+  {id:"s1", label:"Groot geveloppervlak",    why:"Meer m² gevel = hogere projectwaarde en een beter renderende campagnekost.", evi:"e1"},
+  {id:"s2", label:"Bouwperiode & buurtjaargang", why:"Woningen van vóór de isolatienormen scoren hoger; bouwperiode-proxy op sectorniveau.", evi:"e2"},
+  {id:"s3", label:"Route-fit voor partner",  why:"Adressen die op de bestaande werfroute van een verwerker liggen, verlagen de uitvoeringsdrempel.", evi:"e1"},
+  {id:"s4", label:"Energie-renovatiecontext", why:"Renovatieverplichting E/F→D binnen 6 jaar creëert natuurlijke urgentie — als context, niet als intentie.", evi:"e3"},
+  {id:"s5", label:"Visuele verificatie in wachtrij", why:"Gebouwen die nog een gevelfoto-controle nodig hebben vóór ze de shortlist in gaan.", evi:"e4"}
+];
+const REACTIONS = [
+  {id:"r0", label:"Wachtrij",     tone:"queue"},
+  {id:"r1", label:"Verstuurd",    tone:"sent"},
+  {id:"r2", label:"Aangeklikt",   tone:"click"},
+  {id:"r3", label:"Gereageerd",   tone:"resp"},
+  {id:"r4", label:"Afspraak",     tone:"appt"},
+  {id:"r5", label:"Geen reactie", tone:"none"}
+];
+const ACTIONS = [
+  {id:"a0", label:"Shortlist beoordelen", note:"Bevestig welke A/A+-adressen mee mogen in de volgende golf."},
+  {id:"a1", label:"Partner toewijzen",    note:"Verdeel bevestigde kansen over verwerkers met vrije capaciteit."},
+  {id:"a2", label:"Boodschap goedkeuren", note:"Keur de winnende boodschapvariant goed vóór de golf vertrekt."},
+  {id:"a3", label:"Veldfoto-audit",       note:"Laat een gevelfoto-controle uitvoeren vóór retarget of shortlist."},
+  {id:"a4", label:"Lanceer-poort",        note:"Golf vertrekt pas als scope, bronnen en boodschap groen staan."}
+];
+const EVIDENCE = [
+  {id:"e0", label:"Bronnenregister / source ledger", note:"Elk signaal krijgt een bron, licentie en ophaaldatum vóór productie-import."},
+  {id:"e1", label:"GRB-gebouwgeometrie",             note:"Open data · geveloppervlakte en perceel op gebouwniveau."},
+  {id:"e2", label:"Statbel — sector & bouwjaar",     note:"Open data · buurtinkomen en bouwperiode per statistische sector."},
+  {id:"e3", label:"Legal-first guardrail",           note:"EPC per adres zit bewust níet in de demo — pas na juridische afklaring."},
+  {id:"e4", label:"Provenance per datapunt",         note:"Geen persoonsgegevens; contactdata ontstaat pas wanneer een bewoner zelf reageert."}
+];
+
+/* ---- deterministische synthetische opbouw van de partner/cluster-cijfers ---- */
+function buildSynthetic(){
+  const rng = mulberry32(20260706); // meeting-datum als seed → altijd identiek
+  // 1) recordverdeling over partners, som exact = NET.addresses
+  let raw = PARTNERS.map(()=>0.7+rng()*0.7);
+  const rsum = raw.reduce((s,v)=>s+v,0);
+  let counts = raw.map(v=>Math.max(80,Math.round(v/rsum*NET.addresses)));
+  let diff = NET.addresses - counts.reduce((s,v)=>s+v,0);
+  counts[counts.indexOf(Math.max(...counts))] += diff; // rest op de grootste
+  // 2) A/A+-aandeel per partner, som exact = NET.aa
+  let aaFrac = PARTNERS.map(()=>0.50+rng()*0.18);
+  let aa = counts.map((c,i)=>Math.round(c*aaFrac[i]));
+  let adiff = NET.aa - aa.reduce((s,v)=>s+v,0);
+  aa[aa.indexOf(Math.max(...aa))] += adiff;
+  // 3) bouw per partner 2 clusters: Top (A/A+) en Watch (B/C/D + no-response)
+  const clusters=[];
+  PARTNERS.forEach((p,i)=>{
+    const topN = aa[i], watchN = counts[i]-aa[i];
+    const topScore   = 80 + rng()*10;            // 80–90
+    const watchScore = 42 + rng()*13;            // 42–55
+    const topM2   = 236 + rng()*40;              // gem. gevel-m²
+    const watchM2 = 208 + rng()*34;
+    const resp    = 22 + rng()*20;               // synthetische respons %
+    const appt    = 6 + rng()*9;
+    clusters.push({
+      id:"c"+i+"t", partner:p.id, tier:"top", grade:"A/A+",
+      count:topN, avg:topScore, m2:Math.round(topN*topM2), resp,
+      appt, react:(rng()<0.6?"r3":"r4"),
+      signals:pickSignals(rng,["s2","s1","s0","s4"],2),
+      prio:false, rawPipe:topN*topM2*1.0*(0.9+rng()*0.3)
+    });
+    clusters.push({
+      id:"c"+i+"w", partner:p.id, tier:"watch", grade:"B / no-response",
+      count:watchN, avg:watchScore, m2:Math.round(watchN*watchM2), resp:resp*0.5,
+      appt:appt*0.4, react:(rng()<0.55?"r5":"r1"),
+      signals:pickSignals(rng,["s5","s3","s0","s4"],2),
+      prio:false, rawPipe:watchN*watchM2*0.45*(0.9+rng()*0.3)
+    });
+  });
+  // 4) hoge prioriteit: top-clusters, hoogste (avg×count) — top 6
+  clusters.filter(c=>c.tier==="top").sort((a,b)=>b.avg*b.count-a.avg*a.count).slice(0,6).forEach(c=>c.prio=true);
+  // 5) pipeline schalen zodat som exact = NET.pipelineEUR
+  const rawSum = clusters.reduce((s,c)=>s+c.rawPipe,0);
+  const f = NET.pipelineEUR/rawSum;
+  clusters.forEach(c=>c.pipeline=c.rawPipe*f);
+  // 6) partner-aggregaten
+  const pAgg={};
+  PARTNERS.forEach((p,i)=>{
+    const cs=clusters.filter(c=>c.partner===p.id);
+    pAgg[p.id]={records:counts[i], aa:aa[i],
+      pipeline:cs.reduce((s,c)=>s+c.pipeline,0),
+      m2:cs.reduce((s,c)=>s+c.m2,0),
+      resp:cs[0].resp, appt:Math.round(cs.reduce((s,c)=>s+c.appt,0))};
+  });
+  return {clusters, pAgg};
+}
+function pickSignals(rng, pool, n){
+  const a=pool.slice(); const out=[];
+  while(out.length<n && a.length){ out.push(a.splice(Math.floor(rng()*a.length),1)[0]); }
+  return out;
+}
+
+/* Adapter: gebruik echte dashboard-data indien beschikbaar, anders synthetisch. */
+function loadModel(){
+  const D = window.HOMEPILOT_DASHBOARD;
+  if(D && D.visualIntelligence && D.visualIntelligence.graph &&
+     Array.isArray(D.visualIntelligence.graph.nodes) && D.visualIntelligence.graph.nodes.length>20){
+    return {mode:"dashboard", graph:D.visualIntelligence.graph};
+  }
+  // (Een volledige afleiding uit D.network.partners / D.properties kan hier later
+  //  aangesloten worden; voor de offline demo bouwen we deterministisch.)
+  return {mode:"synthetic", ...buildSynthetic()};
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   2 · GRAAF — knooppunten + verbanden opbouwen
+   ══════════════════════════════════════════════════════════════════ */
+const TYPE = {
+  tenant :{c:"#e2a35c", r:32, z:"DAW"},
+  module :{c:"#5aa2e0", r:19, z:"Module"},
+  partner:{c:"#5fbe8f", r:15, z:"Partner"},
+  wave   :{c:"#dfe6ef", r:13, z:"Campagnegolf"},
+  cluster:{c:"#4fc3d1", r:14, z:"Adres-cluster"},
+  signaal:{c:"#e8913a", r:12, z:"Signaal"},
+  reactie:{c:"#cd7cd6", r:11, z:"Reactie"},
+  actie  :{c:"#46d17f", r:12, z:"Actie"},
+  bewijs :{c:"#aeb9c9", r:9,  z:"Bewijs / guardrail"},
+  adres  :{c:"#8ba0bb", r:6,  z:"Adres"}
+};
+/* filtergroepen: module telt als partner-laag; wave als reactie-laag; adres als cluster */
+const FGROUP = {tenant:"all",module:"partner",partner:"partner",wave:"reactie",cluster:"cluster",signaal:"signaal",reactie:"reactie",actie:"actie",bewijs:"bewijs",adres:"cluster"};
+
+let MODEL, NODES=[], EDGES=[], BYID={};
+function N(id,type,label,ex){const t=TYPE[type];const n={id,type,label,r:t.r,c:t.c,x:0,y:0,px:0,py:0,...ex};NODES.push(n);BYID[id]=n;return n;}
+function E(a,b,kind,ex){EDGES.push({a,b,kind,...(ex||{})});}
+
+function buildGraph(){
+  NODES=[];EDGES=[];BYID={};
+  MODEL = loadModel();
+
+  const daw = N("daw","tenant","DAW Belgium",{sub:"Producent · Capatect",
+    metrics:[["Adressen in scope",nlInt(NET.addresses)],["A/A+ kansen",nlInt(NET.aa)+" ("+pct(NET.aa/NET.addresses*100)+")"],["Gewogen pipeline",eur(NET.pipelineEUR)],["Partners",nlInt(PARTNERS.length)]],
+    action:"a0", guard:"Netwerk-regie, geen leadhandel: DAW kiest wie waar actief wordt.",
+    note:"Producent aan het hoofd van het verwerkersnetwerk. Alles hieronder is één campagnedataset."});
+  const mod = N("mod","module","FacadePilot",{sub:"Property-intelligence module",
+    metrics:[["Scoringssignalen",nlInt(SIGNALS.length)],["Campagnegolven","2"],["Clusters",nlInt(PARTNERS.length*2)]],
+    action:"a4", guard:"Elke score is herleidbaar tot bron en signaal — geen black box.",
+    note:"De module die van elk adres een gescoorde gevelrenovatiekans maakt en die over het netwerk verdeelt."});
+  E("daw","mod","struct",{w:2});
+
+  // waves
+  const w1=N("w1","wave","Golf 1 — baseline",{note:"Eerste campagnegolf. Zet de nulmeting voor boodschap en timing.",
+    metrics:[["Type","Nulmeting"],["Leert van","—"]], action:"a2", guard:"Statussen zijn werkvoorraden, geen koopintentie."});
+  const w2=N("w2","wave","Golf 2 — met learnings",{note:"Hergebruikt de learnings van golf 1: boodschap 'energie' + donderdagbedeling. +6pp respons (synthetisch).",
+    metrics:[["Type","Geoptimaliseerd"],["Verschil t.o.v. golf 1","+6pp respons"]], action:"a2", guard:"Vergelijking is illustratief; de pilot levert de echte cijfers."});
+  E("mod","w1","struct");E("mod","w2","struct");
+
+  // signals + evidence
+  SIGNALS.forEach(s=>{ N(s.id,"signaal",s.label,{note:s.why, action:"a0", guard:"Opportunity-signaal op gebouwniveau — geen voorspelling van koopintentie.",
+      metrics:[["Type","Scoringsdimensie"]]}); E("mod",s.id,"score"); });
+  EVIDENCE.forEach(e=>{ N(e.id,"bewijs",e.label,{note:e.note, guard:e.note,
+      metrics:[["Rol","Provenance / guardrail"]], action:null}); });
+  SIGNALS.forEach(s=>E(s.id,s.evi,"evi"));
+  // reactions
+  REACTIONS.forEach(r=>{ N(r.id,"reactie",r.label,{note:reactNote(r), action:reactAction(r),
+      guard:"Noemer expliciet: respons wordt gemeten op gecontacteerde adressen.",
+      metrics:[["Fase","Funnel"]]}); });
+  E("mod","r0","struct");
+  // reaction → action flow
+  E("r5","a3","flow");E("r5","a0","flow");E("r3","a1","flow");E("r4","a1","flow");E("r4","a2","flow");E("r2","a2","flow");E("r1","a0","flow");
+  // waves → reactions (learning)
+  E("w1","r1","resp");E("w1","r5","resp");E("w2","r3","resp");E("w2","r4","resp");
+  // actions → launch gate
+  ACTIONS.forEach(a=>{ N(a.id,"actie",a.label,{note:a.note, guard:"Governance-stap: niets vertrekt zonder groen licht.",
+      metrics:[["Type","Volgende actie"]]}); });
+  E("a0","a4","flow");E("a1","a4","flow");E("a2","a4","flow");E("a3","a4","flow");
+
+  // partners + clusters
+  PARTNERS.forEach(p=>{
+    const ag=MODEL.pAgg[p.id];
+    N(p.id,"partner",p.name,{sub:p.city+" · "+p.prov, city:p.city, prov:p.prov,
+      metrics:[["Toegewezen adressen",nlInt(ag.records)],["A/A+",nlInt(ag.aa)],["Respons (synth.)",pct(ag.resp)],["Afspraken",nlInt(ag.appt)],["Pipeline",eur(ag.pipeline)],["Gevel",nlInt(ag.m2)+" m²"]],
+      action:"a1", guard:"Partner ziet uitsluitend eigen toegewezen records (workflow-ontwerp / pilot-deliverable)."});
+    E("mod",p.id,"struct");
+  });
+  MODEL.clusters.forEach(c=>{
+    const p=PARTNERS.find(x=>x.id===c.partner);
+    const label=(c.tier==="top"?"Top A/A+ · ":"Watch · ")+p.city;
+    N(c.id,"cluster",label,{cluster:c, partner:c.partner, prio:c.prio, r:12+Math.min(12,c.pipeline/6.2e6*12),
+      city:p.city, grade:c.grade,
+      metrics:[["Adressen",nlInt(c.count)],["Gem. score",nlDec(c.avg)],["Pipeline",eur(c.pipeline)],["Gevel",nlInt(c.m2)+" m²"],["Respons (synth.)",pct(c.resp)]],
+      action:reactAction({id:c.react})||"a0", react:c.react,
+      guard:"Cluster = som van gebouw-kansen; geen persoonsgegevens.",
+      note:(c.tier==="top"
+        ? "Beste segment van "+p.name+": geconcentreerd A/A+-potentieel, klaar voor toewijzing."
+        : "Werkvoorraad van "+p.name+": B-kansen en no-response-backlog die rijpt voor retarget.")});
+    E(c.partner,c.id,"struct",{w: c.tier==="top"?1.6:1});
+    c.signals.forEach(s=>E(c.id,s,"score"));
+    E(c.id,c.react,"resp");
+  });
+}
+function reactNote(r){return{
+  r0:"Adressen die wachten op partnercapaciteit vóór ze de golf in gaan.",
+  r1:"Flyer/boodschap bezorgd. Start van de meting.",
+  r2:"QR of landingspagina aangeklikt — interesse-signaal, geen intentie.",
+  r3:"Bewoner reageerde zelf via het formulier — pas hier ontstaat contactdata.",
+  r4:"Afspraak ingepland met de toegewezen verwerker.",
+  r5:"Geen reactie na 14 dagen — terug in de retarget-wachtrij van de volgende golf."
+}[r.id];}
+function reactAction(r){return{r0:"a0",r1:"a0",r2:"a2",r3:"a1",r4:"a1",r5:"a3"}[r.id];}
+
+/* ══════════════════════════════════════════════════════════════════
+   3 · LAYOUT — deterministisch, gezoneerd, niet-overlappend
+   ══════════════════════════════════════════════════════════════════ */
+const jit = mulberry32(999);
+function pol(R,deg){const a=deg*Math.PI/180;return{x:R*Math.sin(a), y:-R*Math.cos(a)};} // 0=boven,90=rechts,180=onder,270=links
+function spread(n,a0,a1){const o=[];for(let i=0;i<n;i++)o.push(n===1?(a0+a1)/2:a0+(a1-a0)*i/(n-1));return o;}
+function place(id,x,y){const n=BYID[id];if(!n)return;n.x=n.px=x;n.y=n.py=y;}
+
+function layout(){
+  if(MODEL.mode==="dashboard"){ layoutDashboard(); return; }
+  place("daw",0,0);
+  const m=pol(135,150); place("mod",m.x,m.y);
+  { const a=pol(182,166); place("w1",a.x,a.y); const b=pol(182,194); place("w2",b.x,b.y); }
+  // signalen links (bovenkant→onderkant boog), bewijs erachter
+  spread(SIGNALS.length,242,298).forEach((deg,i)=>{const q=pol(232,deg);place(SIGNALS[i].id,q.x,q.y);});
+  spread(EVIDENCE.length,236,304).forEach((deg,i)=>{const q=pol(384,deg);place(EVIDENCE[i].id,q.x,q.y);});
+  // reacties onderaan, acties eronder
+  spread(REACTIONS.length,150,210).forEach((deg,i)=>{const q=pol(272,deg);place(REACTIONS[i].id,q.x,q.y);});
+  spread(ACTIONS.length,152,208).forEach((deg,i)=>{const q=pol(392,deg);place(ACTIONS[i].id,q.x,q.y);});
+  // partners: rechterhelft (bovenrechts→onderrechts)
+  const pDeg=spread(PARTNERS.length,45,135);
+  PARTNERS.forEach((p,i)=>{const q=pol(402,pDeg[i]);place(p.id,q.x,q.y);});
+  // clusters: buiten hun partner, 2 radii + kleine seeded jitter → regio's, geen overlap
+  PARTNERS.forEach((p,i)=>{
+    const base=pDeg[i];
+    const t=pol(520+(jit()-.5)*12, base-4+(jit()-.5)*1.6); place("c"+i+"t",t.x,t.y);
+    const w=pol(592+(jit()-.5)*12, base+4+(jit()-.5)*1.6); place("c"+i+"w",w.x,w.y);
+  });
+  // eventueel opengevouwen adresknopen herplaatsen
+  NODES.filter(n=>n.type==="adres").forEach(n=>{const c=BYID[n.parent];if(c)ringPlace(n,c);});
+}
+function layoutDashboard(){ // simpele deterministische ring-fallback voor externe graph
+  const t={}; NODES.forEach(n=>{(t[n.type]=t[n.type]||[]).push(n);});
+  let ri=0; Object.keys(t).forEach(k=>{ const arr=t[k]; const R=120+ri*135; ri++;
+    arr.forEach((n,i)=>{const q=pol(R,(i/arr.length)*360);n.x=n.px=q.x;n.y=n.py=q.y;}); });
+  if(BYID.daw){BYID.daw.x=BYID.daw.px=0;BYID.daw.y=BYID.daw.py=0;}
+}
+function ringPlace(n,c){ const sib=NODES.filter(x=>x.parent===c.id); const idx=sib.indexOf(n);
+  const q=pol(92,(idx/Math.max(1,sib.length))*360); n.x=n.px=c.x+q.x; n.y=n.py=c.y+q.y; }
+
+/* ══════════════════════════════════════════════════════════════════
+   4 · RENDER — canvas met pan/zoom, gebogen edges, glow
+   ══════════════════════════════════════════════════════════════════ */
+const cv=document.getElementById("brain"), ctx=cv.getContext("2d");
+let W=0,H=0,DPR=1, scale=1, offX=0, offY=0;
+let hover=null, selected=null, drag=null, pan=null, moved=false;
+let introT=0, introRAF=0;
+const ST = {labels:true, prio:false, evi:true, resp:true, scope:"", filters:new Set(["all","partner","signaal","cluster","reactie","actie","bewijs"]), query:""};
+const EDGECOL = {struct:"255,255,255", score:"90,162,224", resp:"205,124,214", flow:"70,209,127", evi:"174,185,201"};
+
+function size(){const s=cv.parentElement;DPR=Math.min(2,window.devicePixelRatio||1);W=s.clientWidth;H=s.clientHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+"px";cv.style.height=H+"px";}
+function world(mx,my){return{x:(mx-offX)/scale,y:(my-offY)/scale};}
+function nodeVisible(n){
+  if(!ST.filters.has("all")){ if(!ST.filters.has(FGROUP[n.type])) return false; }
+  if(ST.prio && (n.type==="cluster"||n.type==="adres") && !n.prio && !(n.parent&&BYID[n.parent]&&BYID[n.parent].prio)) return false;
+  if(ST.scope){ // partner-scope: toon spine + gekozen partner-tak
+    const keep = scopeKeep(n);
+    if(!keep) return false;
+  }
+  return true;
+}
+function scopeKeep(n){
+  const p=ST.scope;
+  if(["tenant","module","signaal","reactie","actie","bewijs","wave"].includes(n.type)) return true;
+  if(n.type==="partner") return n.id===p;
+  if(n.type==="cluster") return n.partner===p;
+  if(n.type==="adres"){const c=BYID[n.parent];return c&&c.partner===p;}
+  return true;
+}
+function edgeVisible(e){
+  const a=BYID[e.a],b=BYID[e.b]; if(!a||!b) return false;
+  if(!nodeVisible(a)||!nodeVisible(b)) return false;
+  if(e.kind==="evi" && !ST.evi) return false;
+  if(e.kind==="resp" && !ST.resp) return false;
+  return true;
+}
+function neighbours(n){const s=new Set([n.id]);EDGES.forEach(e=>{if(e.a===n.id)s.add(e.b);if(e.b===n.id)s.add(e.a);});return s;}
+function matchQuery(n){
+  if(!ST.query) return false;
+  const q=ST.query;
+  let hay=(n.label||"")+" "+(n.sub||"")+" "+(n.city||"")+" "+(n.grade||"");
+  if(n.type==="cluster"&&n.partner&&BYID[n.partner]) hay+=" "+BYID[n.partner].label;
+  return hay.toLowerCase().includes(q);
+}
+
+function draw(){
+  ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H);
+  ctx.setTransform(DPR*scale,0,0,DPR*scale,DPR*offX,DPR*offY);
+  const focus = hover||selected;
+  const nb = focus? neighbours(focus): null;
+  const anyQuery = !!ST.query;
+
+  // region-halo's per partner (achter alles)
+  if(!ST.scope || true){
+    PARTNERS.forEach((p,i)=>{
+      const pn=BYID[p.id]; if(!pn||!nodeVisible(pn))return;
+      const ct=BYID["c"+i+"t"], cw=BYID["c"+i+"w"]; if(!ct||!cw)return;
+      const hx=(ct.x+cw.x+pn.x)/3, hy=(ct.y+cw.y+pn.y)/3;
+      const prio = pn && MODEL.pAgg && (BYID["c"+i+"t"].prio);
+      const g=ctx.createRadialGradient(hx,hy,10,hx,hy,150);
+      const col = prio? "226,163,92" : "95,190,143";
+      const al = (focus&&nb&&!nb.has(pn.id)&&pn!==focus)?0.03:0.07;
+      g.addColorStop(0,`rgba(${col},${al})`); g.addColorStop(1,"rgba(0,0,0,0)");
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(hx,hy,150,0,7); ctx.fill();
+    });
+  }
+
+  // edges
+  EDGES.forEach(e=>{
+    if(!edgeVisible(e))return;
+    const a=BYID[e.a],b=BYID[e.b];
+    const inFocus = nb && nb.has(a.id) && nb.has(b.id) && (e.a===focus.id||e.b===focus.id);
+    const dim = nb && !inFocus;
+    const base = EDGECOL[e.kind]||"255,255,255";
+    let al = e.kind==="struct"?0.14:e.kind==="score"?0.10:e.kind==="resp"?0.11:e.kind==="flow"?0.13:0.10;
+    if(dim) al*=0.28; if(inFocus) al=0.85;
+    ctx.strokeStyle=`rgba(${inFocus?base:base},${al})`;
+    ctx.lineWidth=(inFocus?2:1)/scale;
+    ctx.setLineDash(e.kind==="evi"?[4/scale,4/scale]:[]);
+    // gebogen edge
+    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2, dx=b.x-a.x, dy=b.y-a.y, d=Math.hypot(dx,dy)||1;
+    const curv = e.kind==="flow"?0.06:0.12;
+    const cx=mx - dy*curv, cy=my + dx*curv;
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.quadraticCurveTo(cx,cy,b.x,b.y); ctx.stroke();
+  });
+  ctx.setLineDash([]);
+
+  // nodes
+  const labelRects=[];
+  NODES.forEach(n=>{
+    if(!nodeVisible(n))return;
+    const isFocus=n===focus;
+    const dim = (nb&&!nb.has(n.id)) || (anyQuery&&!matchQuery(n)&&!isFocus);
+    const rr = n.r*(0.35+0.65*Math.min(1,introT));
+    ctx.globalAlpha = dim?0.16:1;
+
+    // prio-ring
+    if((n.prio) && !dim){
+      ctx.beginPath(); ctx.arc(n.x,n.y,rr+6/1,0,7);
+      ctx.strokeStyle="rgba(226,163,92,.8)"; ctx.lineWidth=2/scale;
+      ctx.shadowColor="#e2a35c"; ctx.shadowBlur=18/scale; ctx.stroke(); ctx.shadowBlur=0;
+    }
+    // search-hit ring
+    if(anyQuery && matchQuery(n) && !dim){
+      ctx.beginPath(); ctx.arc(n.x,n.y,rr+9,0,7); ctx.strokeStyle="rgba(226,163,92,.9)"; ctx.lineWidth=2/scale; ctx.stroke();
+    }
+    // body
+    ctx.shadowColor=n.c; ctx.shadowBlur=(isFocus?26:(n.prio?16:10))/scale;
+    if(n.type==="bewijs"){ // hol knooppunt
+      ctx.beginPath(); ctx.arc(n.x,n.y,rr,0,7); ctx.fillStyle="rgba(174,185,201,.10)"; ctx.fill();
+      ctx.lineWidth=2/scale; ctx.strokeStyle=n.c; ctx.stroke();
+    } else if(n.type==="signaal"){ // ruit voor signalen → visueel onderscheiden
+      ctx.save(); ctx.translate(n.x,n.y); ctx.rotate(Math.PI/4);
+      ctx.fillStyle=n.c; ctx.fillRect(-rr*0.86,-rr*0.86,rr*1.72,rr*1.72); ctx.restore();
+    } else {
+      ctx.beginPath(); ctx.arc(n.x,n.y,rr,0,7); ctx.fillStyle=n.c; ctx.fill();
+    }
+    ctx.shadowBlur=0;
+    // tenant / module binnenring
+    if(n.type==="tenant"){ ctx.beginPath();ctx.arc(n.x,n.y,rr-8,0,7);ctx.strokeStyle="rgba(18,16,12,.5)";ctx.lineWidth=2/scale;ctx.stroke();
+      ctx.fillStyle="#12100c";ctx.font="800 12px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("DAW",n.x,n.y);ctx.textAlign="left";ctx.textBaseline="alphabetic"; }
+    if(isFocus){ ctx.beginPath();ctx.arc(n.x,n.y,rr+3,0,7);ctx.strokeStyle="rgba(255,255,255,.6)";ctx.lineWidth=1.5/scale;ctx.stroke(); }
+
+    // label
+    const showLabel = ST.labels && !dim && (
+      ["tenant","module","partner","wave","signaal","reactie","actie"].includes(n.type) ||
+      (n.type==="cluster" && (n.prio || isFocus || scale>0.9)) ||
+      (n.type==="bewijs" && (isFocus||scale>0.85)) ||
+      (n.type==="adres" && (isFocus||scale>1.3)) || isFocus
+    );
+    if(showLabel){
+      const fs=(n.type==="tenant"?13:n.type==="module"?12:n.type==="adres"?9.5:11)/scale;
+      ctx.font=(isFocus?"700 ":"600 ")+fs+"px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+      const tx=n.x+rr+6/scale, ty=n.y+3.5/scale, tw=ctx.measureText(n.label).width;
+      const rect={x:tx,y:ty-fs,w:tw,h:fs+3};
+      const clash = labelRects.some(o=>Math.abs(o.x-rect.x)<(o.w+rect.w)/2 && Math.abs((o.y-o.h/2)-(rect.y-rect.h/2))<(o.h+rect.h)/2*0.9);
+      if(!clash || isFocus || ["tenant","module","partner"].includes(n.type)){
+        labelRects.push(rect);
+        ctx.fillStyle=dim?"rgba(233,238,245,.25)":isFocus?"#fff":"rgba(233,238,245,.9)";
+        ctx.fillText(n.label,tx,ty);
+      }
+    }
+    ctx.globalAlpha=1;
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   5 · CAMERA — fit, reset, zoom, intro
+   ══════════════════════════════════════════════════════════════════ */
+function bbox(){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9,any=false;
+  NODES.forEach(n=>{if(!nodeVisible(n))return;any=true;x0=Math.min(x0,n.x-n.r);y0=Math.min(y0,n.y-n.r);x1=Math.max(x1,n.x+n.r);y1=Math.max(y1,n.y+n.r);});
+  if(!any){x0=y0=-400;x1=y1=400;} return{x0,y0,x1,y1};}
+function fit(pad=66){const b=bbox();const sw=W-2*pad,sh=H-2*pad;
+  scale=Math.max(.2,Math.min(1.7,Math.min(sw/(b.x1-b.x0||1),sh/(b.y1-b.y0||1))));
+  offX=W/2-(b.x0+b.x1)/2*scale; offY=H/2-(b.y0+b.y1)/2*scale; draw();}
+function zoomAt(mx,my,f){const ns=Math.max(.2,Math.min(4,scale*f));offX=mx-(mx-offX)*(ns/scale);offY=my-(my-offY)*(ns/scale);scale=ns;draw();}
+function intro(){cancelAnimationFrame(introRAF);introT=0;const t0=performance.now();
+  (function step(t){introT=Math.min(1,(t-t0)/620);const e=1-Math.pow(1-introT,3);introT=e;draw();if(introT<1)introRAF=requestAnimationFrame(step);})(t0);}
+
+/* ══════════════════════════════════════════════════════════════════
+   6 · PICK + INTERACTIE
+   ══════════════════════════════════════════════════════════════════ */
+function pick(mx,my){const w=world(mx,my);let best=null,bd=1e9;
+  NODES.forEach(n=>{if(!nodeVisible(n))return;const d=Math.hypot(n.x-w.x,n.y-w.y);if(d<n.r+8/scale&&d<bd){bd=d;best=n;}});return best;}
+cv.addEventListener("pointerdown",e=>{cv.setPointerCapture(e.pointerId);const r=cv.getBoundingClientRect();const mx=e.clientX-r.left,my=e.clientY-r.top;
+  const n=pick(mx,my); moved=false;
+  if(n){drag={n,mx,my};} else {pan={mx,my,ox:offX,oy:offY};cv.classList.add("grab");}
+});
+cv.addEventListener("pointermove",e=>{const r=cv.getBoundingClientRect();const mx=e.clientX-r.left,my=e.clientY-r.top;
+  if(drag){const w=world(mx,my);drag.n.x=w.x;drag.n.y=w.y;if(Math.hypot(mx-drag.mx,my-drag.my)>3)moved=true;draw();}
+  else if(pan){offX=pan.ox+(mx-pan.mx);offY=pan.oy+(my-pan.my);if(Math.hypot(mx-pan.mx,my-pan.my)>3)moved=true;draw();}
+  else{const h=pick(mx,my);if(h!==hover){hover=h;cv.style.cursor=h?"pointer":"grab";draw();}}
+});
+function endPtr(e){const wasDrag=drag,wasPan=pan;drag=null;pan=null;cv.classList.remove("grab");
+  if(wasDrag && !moved){ selectNode(wasDrag.n); }
+  else if(wasPan && !moved){ selected=null; closeDetail(); draw(); }
+}
+cv.addEventListener("pointerup",endPtr);
+cv.addEventListener("pointercancel",()=>{drag=null;pan=null;cv.classList.remove("grab");});
+cv.addEventListener("pointerleave",()=>{if(hover){hover=null;draw();}});
+cv.addEventListener("wheel",e=>{e.preventDefault();const r=cv.getBoundingClientRect();zoomAt(e.clientX-r.left,e.clientY-r.top,e.deltaY<0?1.12:0.89);},{passive:false});
+cv.addEventListener("dblclick",e=>{const r=cv.getBoundingClientRect();const n=pick(e.clientX-r.left,e.clientY-r.top);
+  if(n&&n.type==="cluster")toggleCluster(n);else if(n)selectNode(n);});
+
+/* ══════════════════════════════════════════════════════════════════
+   7 · DRILLDOWN — cluster → gesamplede adressen
+   ══════════════════════════════════════════════════════════════════ */
+let openCluster=null;
+const STRAAT=["Dorpsstraat","Kerkweg","Lindelaan","Statiestraat","Nieuwstraat","Molenweg","Vaartstraat","Hoogstraat","Beekstraat","Parklaan","Gasthuisstraat","Vestenstraat"];
+function toggleCluster(c){
+  if(openCluster===c.id){ collapseCluster(); selectNode(c); return; }
+  collapseCluster();
+  const cl=c.cluster; const rng=mulberry32(hashStr(c.id));
+  const n=Math.min(10,cl.count); const grades=cl.tier==="top"?["A+","A"]:["B","C"];
+  for(let i=0;i<n;i++){
+    const score=Math.round(cl.avg+(rng()-.5)*12);
+    const m2=Math.round(cl.m2/cl.count+(rng()-.5)*70);
+    const nd=N(c.id+"_a"+i,"adres",STRAAT[Math.floor(rng()*STRAAT.length)]+" "+(1+Math.floor(rng()*140)),{
+      parent:c.id, prio:c.prio, city:c.city, grade:grades[rng()<.5?0:1],
+      note:"Synthetisch adres in "+c.label+" — gebouwniveau, geen persoonsgegevens.",
+      metrics:[["Score",nlDec(Math.max(8,score),0)],["Klasse",grades[rng()<.5?0:1]],["Gevel",nlInt(Math.max(60,m2))+" m²"],["Stad",c.city]],
+      action:c.react?reactAction({id:c.react}):"a0", guard:"Adres = gebouw-kans; contactdata pas bij eigen reactie van de bewoner."});
+    ringPlace(nd,c); E(c.id,nd.id,"struct");
+  }
+  openCluster=c.id; hint("Cluster opengevouwen — dubbelklik opnieuw om te sluiten"); draw();
+}
+function collapseCluster(){
+  if(!openCluster)return;
+  const rem=new Set(NODES.filter(n=>n.type==="adres"&&n.parent===openCluster).map(n=>n.id));
+  NODES=NODES.filter(n=>!rem.has(n.id));
+  EDGES=EDGES.filter(e=>!rem.has(e.a)&&!rem.has(e.b));
+  BYID={}; NODES.forEach(n=>BYID[n.id]=n);
+  openCluster=null;
+}
+function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+
+/* ══════════════════════════════════════════════════════════════════
+   8 · DETAIL-PANEEL
+   ══════════════════════════════════════════════════════════════════ */
+const detail=document.getElementById("detail");
+function selectNode(n){selected=n;hover=null;renderDetail(n);draw();}
+function closeDetail(){detail.classList.remove("show");}
+function renderDetail(n){
+  const t=TYPE[n.type];
+  const nb=[...neighbours(n)].filter(id=>id!==n.id).map(id=>BYID[id]).filter(Boolean)
+    .sort((a,b)=>rank(a.type)-rank(b.type)).slice(0,12);
+  const act = n.action?BYID[n.action]:null;
+  const metrics=(n.metrics||[]).map(m=>`<div class="mrow"><span>${m[0]}</span><b class="num">${m[1]}</b></div>`).join("");
+  const chips=nb.map(x=>`<span class="nchip" data-go="${x.id}"><i style="background:${TYPE[x.type].c};${x.type==='bewijs'?'background:transparent;border:1.5px solid '+TYPE[x.type].c:''}"></i>${esc(x.label)}</span>`).join("");
+  const whyLabel = n.type==="cluster"?"Waarom dit cluster telt":n.type==="signaal"?"Waarom dit signaal telt":n.type==="partner"?"Partner-scope":"Wat dit knooppunt betekent";
+  detail.innerHTML=`
+    <div class="dhero">
+      <button class="close" id="dClose">×</button>
+      <span class="dtag" style="background:${hex2rgba(t.c,.16)};color:${t.c==='#aeb9c9'?'#cfd7e2':t.c}"><i style="background:${t.c}"></i>${t.z}</span>
+      <h3>${esc(n.label)}</h3>
+      ${n.sub?`<div class="dmeta">${esc(n.sub)}</div>`:""}
+    </div>
+    <div class="dbody">
+      ${(n.note)?`<div class="dsec"><h4><span class="why">▸</span> ${whyLabel}</h4><div style="font-size:12.5px;color:var(--ink);line-height:1.55">${esc(n.note)}</div></div>`:""}
+      ${metrics?`<div class="dsec"><h4>Relevante cijfers</h4>${metrics}</div>`:""}
+      ${chips?`<div class="dsec"><h4>Verbonden knooppunten · ${nb.length}</h4><div class="chips">${chips}</div></div>`:""}
+      ${act?`<div class="dsec"><div class="callout act"><span class="lbl">Aanbevolen volgende actie</span><b>${esc(act.label)}</b> — ${esc(act.note)}</div></div>`:""}
+      ${n.guard?`<div class="dsec" style="border-bottom:0"><div class="callout guard"><span class="lbl">Legal-first guardrail</span>${esc(n.guard)}</div></div>`:""}
+    </div>
+    <div class="dcta">
+      ${n.type==="cluster"?`<button class="btn primary wide" id="dDrill">${openCluster===n.id?"Adressen verbergen":"Toon adressen in dit cluster"}</button>`:""}
+      <button class="btn ${n.type==="cluster"?"":"wide"}" id="dFocusN">Centreer</button>
+    </div>`;
+  detail.classList.add("show");
+  detail.querySelector("#dClose").onclick=()=>{closeDetail();selected=null;draw();};
+  const df=detail.querySelector("#dFocusN"); if(df)df.onclick=()=>centerOn(n);
+  const dd=detail.querySelector("#dDrill"); if(dd)dd.onclick=()=>{toggleCluster(n);renderDetail(n);};
+  detail.querySelectorAll(".nchip").forEach(el=>el.onclick=()=>{const g=BYID[el.dataset.go];if(g){selectNode(g);centerOn(g,false);}});
+}
+function centerOn(n,zoom=true){ if(zoom)scale=Math.max(scale,1.15); offX=W/2-n.x*scale; offY=H/2-n.y*scale; draw(); }
+function rank(t){return{tenant:0,module:1,partner:2,cluster:3,signaal:4,reactie:5,actie:6,wave:7,bewijs:8,adres:9}[t]??9;}
+function esc(s){return(""+s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function hex2rgba(h,a){const n=parseInt(h.slice(1),16);return`rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;}
+
+/* ══════════════════════════════════════════════════════════════════
+   9 · UI-BINDINGEN
+   ══════════════════════════════════════════════════════════════════ */
+function hint(t){const h=document.getElementById("hint");h.textContent=t;h.style.opacity=1;clearTimeout(h._t);h._t=setTimeout(()=>h.style.opacity=.6,2600);}
+document.getElementById("tFit").onclick=()=>fit();
+document.getElementById("tReset").onclick=()=>{collapseCluster();layout();selected=null;closeDetail();intro();fit();hint("Layout hersteld");};
+document.getElementById("tFocus").onclick=()=>{const best=NODES.filter(n=>n.type==="cluster"&&n.prio).sort((a,b)=>b.r-a.r)[0];if(best){selectNode(best);centerOn(best);}};
+document.getElementById("tZin").onclick=()=>zoomAt(W/2,H/2,1.2);
+document.getElementById("tZout").onclick=()=>zoomAt(W/2,H/2,0.83);
+document.getElementById("legToggle").onclick=function(){document.getElementById("legend").classList.remove("hide");this.style.display="none";};
+// filters
+document.getElementById("filters").addEventListener("click",e=>{const b=e.target.closest(".fchip");if(!b)return;
+  const f=b.dataset.f;
+  if(f==="all"){ const on=!b.classList.contains("on"); document.querySelectorAll("#filters .fchip").forEach(c=>c.classList.toggle("on",on)); ST.filters=new Set(on?["all","partner","signaal","cluster","reactie","actie","bewijs"]:[]); }
+  else{ b.classList.toggle("on"); b.classList.contains("on")?ST.filters.add(f):ST.filters.delete(f);
+    const groups=["partner","signaal","cluster","reactie","actie","bewijs"];
+    const allOn=groups.every(g=>ST.filters.has(g)); ST.filters.has("all")||allOn?ST.filters.add("all"):ST.filters.delete("all");
+    document.querySelector('#filters [data-f="all"]').classList.toggle("on",allOn); }
+  draw();});
+// toggles
+document.querySelectorAll(".tg").forEach(tg=>tg.onclick=()=>{tg.classList.toggle("on");const k=tg.dataset.t;ST[k]=tg.classList.contains("on");draw();});
+// scope
+const scopeSel=document.getElementById("scope");
+PARTNERS.forEach(p=>{const o=document.createElement("option");o.value=p.id;o.textContent="Partner-scope: "+p.name+" ("+p.city+")";scopeSel.appendChild(o);});
+scopeSel.onchange=()=>{ST.scope=scopeSel.value;collapseCluster();selected=null;closeDetail();fit();hint(ST.scope?"Scope → "+BYID[ST.scope].label:"Scope → heel het netwerk");};
+// search
+const qEl=document.getElementById("q");
+qEl.oninput=()=>{ST.query=qEl.value.trim().toLowerCase();draw();};
+qEl.onkeydown=e=>{if(e.key==="Enter"){const hits=NODES.filter(n=>nodeVisible(n)&&matchQuery(n));if(hits.length){selectNode(hits[0]);centerOn(hits[0]);}}};
+
+window.addEventListener("resize",()=>{size();fit();});
+
+/* ══════════════════════════════════════════════════════════════════
+   10 · HEADER + INSIGHT STRIP + BOOT
+   ══════════════════════════════════════════════════════════════════ */
+function fillHeader(){
+  document.getElementById("hkAddr").textContent=nlInt(NET.addresses);
+  document.getElementById("hkAA").textContent=nlInt(NET.aa)+" · "+pct(NET.aa/NET.addresses*100);
+  document.getElementById("hkPipe").textContent=eur(NET.pipelineEUR);
+  document.getElementById("iwIndex").textContent=nlDec(NET.index);
+  const totM2=MODEL.clusters?MODEL.clusters.reduce((s,c)=>s+c.m2,0):0;
+  document.getElementById("iw1").innerHTML=`10 partners, 20 opportunity-clusters over álle provincies incl. Brussel en Wallonië — DAW ziet nationaal wat elke verwerker lokaal niet ziet. <b>≈ ${nlInt(totM2)} m²</b> gevel in beeld.`;
+  document.getElementById("iw2").innerHTML=`Golf 2 leert van golf 1: boodschap <b>'energie'</b> bij oude bouwperiode geeft +6pp respons (synthetisch). De graaf toont wélke signalen een cluster laten scoren.`;
+  document.getElementById("iw3").innerHTML=`No-response-backlog rijpt na 14 dagen → eerst <b>veldfoto-audit</b>, dan retarget in de volgende golf — niet omgekeerd.`;
+  document.getElementById("iw4").innerHTML=`Elk signaal hangt aan bewijs: GRB, Statbel, bronnenregister. <b>Geen persoonsgegevens</b>; scores zijn opportunity-signalen, geen koopintentie.`;
+}
+function boot(){
+  buildGraph(); layout(); fillHeader(); size(); fit(); intro();
+  hint("Klik een knooppunt · dubbelklik een cluster voor adressen");
+  // open op DAW voor een gekaderde start
+  setTimeout(()=>{ if(BYID.daw){selected=BYID.daw;renderDetail(BYID.daw);draw();} },260);
+}
+boot();
+window.SecondBrain={fit,reset:()=>document.getElementById("tReset").click(),select:id=>{if(BYID[id])selectNode(BYID[id]);},NET};
+</script>
+</body>
+</html>

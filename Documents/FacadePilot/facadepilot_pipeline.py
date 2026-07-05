@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """
-FacadePilot Pipeline — Gevelrenovatie lead-campagne in één klik
-================================================================
+FacadePilot Pipeline — legal-first gevelrenovatiecampagnes
+==========================================================
 Unified dashboard dat alle stappen orkestreert:
-  1. Adresselectie (GIS data → lead CSV)
-  2. Lead scoring (rangschik op woninggrootte/bouwjaar)
-  3. Gevelrenovatie renders (Street View → GPT Image)
-  4. Flyer generatie (PDF per lead)
+  1. Adresselectie (legale/open/klantdata → property CSV)
+  2. Property opportunity scoring (pand/gebied, geen homeowner-intent)
+  3. Shortlist voor eigen/partner/licensed fotoverificatie
+  4. Gevelrenovatie renders + flyers pas na geldige beeldbron
 
 Gebruik:
     python3 facadepilot_pipeline.py
     → opent http://localhost:8769
 
-Geen extra config nodig — detecteert automatisch welke modules beschikbaar zijn.
+Google Street View is niet langer een standaard productiestap. Gebruik het
+hoogstens als expliciet tijdelijke oriëntatie/review met
+FACADEPILOT_ALLOW_GOOGLE_STREETVIEW=1; sla geen Google-derived beelden op als
+campagne-assets.
 """
 
 import asyncio
@@ -36,6 +39,7 @@ if SHARED_PY.exists():
     sys.path.insert(0, str(SHARED_PY))
 
 DEFAULT_PORT = 8769
+ALLOW_GOOGLE_STREETVIEW = os.environ.get("FACADEPILOT_ALLOW_GOOGLE_STREETVIEW", "0") == "1"
 
 
 def find_free_port(start: int = DEFAULT_PORT, end: int = 8900) -> int:
@@ -77,7 +81,7 @@ def check_modules():
         available["flyer"] = False
     try:
         import facadepilot_streetview as m
-        available["streetview"] = bool(os.environ.get("GOOGLE_API_KEY"))
+        available["streetview"] = ALLOW_GOOGLE_STREETVIEW and bool(os.environ.get("GOOGLE_API_KEY"))
     except ImportError:
         available["streetview"] = False
     return available
@@ -1566,8 +1570,8 @@ input:focus,select:focus{outline:none;border-color:#60a5fa;box-shadow:0 0 0 3px 
       </div>
       <div class="toggle-row">
         <div>
-          <div class="toggle-label">3. Gevelrenovatie renders <span class="badge" id="modRender">--</span></div>
-          <div class="toggle-hint">Street View -> GPT Image renders</div>
+          <div class="toggle-label">3. Verified visuals + renders <span class="badge" id="modRender">--</span></div>
+          <div class="toggle-hint">Eigen/partner/licensed beeldbron -> AI render. Street View is standaard uit.</div>
         </div>
         <label class="toggle"><input type="checkbox" id="stepRender" checked><span class="slider"></span></label>
       </div>
@@ -1643,7 +1647,7 @@ input:focus,select:focus{outline:none;border-color:#60a5fa;box-shadow:0 0 0 3px 
       </h2>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:12px">
         <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px">
-          <div style="color:#94a3b8;text-transform:uppercase;font-size:10px;letter-spacing:0.5px;margin-bottom:4px">Street View</div>
+          <div style="color:#94a3b8;text-transform:uppercase;font-size:10px;letter-spacing:0.5px;margin-bottom:4px">Bronbeeld / verification source</div>
           <div style="font-size:15px;font-weight:700" id="costSV">$0.00</div>
           <div style="color:#94a3b8;font-size:11px;margin-top:2px"><span id="costSVPhotos">0</span> foto's</div>
         </div>
@@ -1761,7 +1765,7 @@ input:focus,select:focus{outline:none;border-color:#60a5fa;box-shadow:0 0 0 3px 
 
     <!-- Render Gallery + Preview -->
     <div class="card section" id="renderCard" style="display:none">
-      <h2>Gevelrenovatie renders</h2>
+      <h2>Verified visuals + gevelrenovatie renders</h2>
       <div class="tab-bar">
         <div class="tab active" onclick="switchRenderTab('gallery')">Galerij</div>
         <div class="tab" onclick="switchRenderTab('replace')">Vervangen</div>
@@ -1774,12 +1778,12 @@ input:focus,select:focus{outline:none;border-color:#60a5fa;box-shadow:0 0 0 3px 
       <div id="renderReplaceTab" style="display:none">
         <div class="replace-section">
           <h4>Render vervangen</h4>
-          <p>Selecteer een render hierboven, gebruik de originele Street View foto om zelf een betere render te maken in ChatGPT, en upload het resultaat hier.</p>
+          <p>Selecteer een render hierboven, gebruik een eigen/partner/licensed bronbeeld om zelf een betere render te maken in ChatGPT, en upload het resultaat hier.</p>
 
           <div id="selectedRenderInfo" style="margin-bottom:12px;display:none">
             <div class="preview-grid" style="margin-bottom:12px">
               <div class="preview-item">
-                <div class="label">Origineel (Street View)</div>
+                <div class="label">Bronbeeld / verification source</div>
                 <img id="replaceStreetview" src="">
               </div>
               <div class="preview-item">
@@ -1789,7 +1793,7 @@ input:focus,select:focus{outline:none;border-color:#60a5fa;box-shadow:0 0 0 3px 
             </div>
             <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
               <button class="btn-sm btn-copy" onclick="copyFacadePrompt()">Kopieer prompt voor ChatGPT</button>
-              <button class="btn-sm btn-copy" onclick="downloadStreetview()">Download Street View foto</button>
+              <button class="btn-sm btn-copy" onclick="downloadStreetview()">Download bronbeeld</button>
             </div>
           </div>
 
