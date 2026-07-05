@@ -376,14 +376,25 @@
         --daw-ink: #edf3f8;
         --daw-muted: #9caabc;
       }
-      .nav-tab[data-view="property"] { display: none !important; }
+      .nav-tab[data-view="property"],
+      .nav-tab[data-view="trust"],
+      #trust {
+        display: none !important;
+      }
       #accessLensBox,
       #accessLensPanel,
       #executive .executive-layout,
       #executive .executive-split,
       #executive .executive-learning-panel,
       #trust .trust-layout-grid,
-      #trust .trust-split {
+      #trust .trust-split,
+      #campaign > .split-layout,
+      #campaign > .recommendations-panel,
+      #intelligenceDecisionBrief,
+      #intelligenceLabCockpit,
+      #intelligence .intelligence-impact,
+      #intelligence .intelligence-grid,
+      #intelligence .intelligence-split {
         display: none !important;
       }
       .nav-tab[data-view="executive"] { order: 1; }
@@ -393,7 +404,6 @@
       .nav-tab[data-view="intelligence"] { order: 5; }
       .nav-tab[data-view="database"] { order: 6; }
       .nav-tab[data-view="brain"] { order: 7; }
-      .nav-tab[data-view="trust"] { order: 8; }
       .strategy-shell {
         border: 1px solid rgba(255,255,255,.10);
         border-radius: 10px;
@@ -782,8 +792,7 @@
       campaign: t("Campagnelearnings", "Campaign learnings"),
       intelligence: t("Product & Afwerking", "Product & Finish"),
       database: t("Adresdatabase", "Address database"),
-      brain: t("Second Brain", "Second Brain"),
-      trust: t("Datacheck", "Data check")
+      brain: t("Second Brain", "Second Brain")
     };
     document.querySelectorAll(".nav-tab").forEach((button) => {
       if (labels[button.dataset.view]) button.textContent = labels[button.dataset.view];
@@ -1138,30 +1147,10 @@
   }
 
   function renderTrustStrategy() {
-    const trust = document.getElementById("trust");
-    if (!trust) return;
-    let panel = document.getElementById("simpleDataCheck");
-    if (!panel) {
-      panel = document.createElement("section");
-      panel.id = "simpleDataCheck";
-      panel.className = "panel simple-data-check";
-      trust.prepend(panel);
+    const activeTrust = document.querySelector('.nav-tab.active[data-view="trust"], #trust.active');
+    if (activeTrust) {
+      document.querySelector('.nav-tab[data-view="executive"]')?.click();
     }
-    panel.innerHTML = `
-      <div class="strategy-head">
-        <div>
-          <div class="eyebrow">${t("Datacheck", "Data check")}</div>
-          <h2>${t("Wat mag DAW uit deze demo besluiten?", "What can DAW safely conclude from this demo?")}</h2>
-          <p>${t("De demo toont het beslissysteem en de meetlogica. Voor live campagnes vervangen we synthetische records door klantgoedgekeurde data, eigen of toegelaten beelden en echte QR-respons.", "The demo shows the decision system and measurement logic. For live campaigns we replace synthetic records with customer-approved data, own or permitted imagery and real QR response.")}</p>
-        </div>
-      </div>
-      <div class="simple-data-check-grid">
-        <div class="simple-data-check-card"><span>${t("Demo", "Demo")}</span><strong>${t("Synthetische dataset", "Synthetic dataset")}</strong><small>${t("De 2.000 records tonen hoe het systeem werkt; het zijn geen echte bewonersclaims.", "The 2,000 records show how the system works; they are not real homeowner claims.")}</small></div>
-        <div class="simple-data-check-card"><span>${t("Score", "Score")}</span><strong>${t("Woningkans, geen intentie", "Property opportunity, not intent")}</strong><small>${t("Een hoge score betekent: dit woningtype en deze context zijn commercieel interessant om te testen.", "A high score means: this property type and context are commercially interesting to test.")}</small></div>
-        <div class="simple-data-check-card"><span>${t("Beelden", "Images")}</span><strong>${t("Eigen of toegelaten bron nodig", "Own or permitted source needed")}</strong><small>${t("Voor productie gebruiken we eigen foto, partnerupload, vergunde provider of officiële embed.", "For production we use own capture, partner upload, licensed provider or official embed.")}</small></div>
-        <div class="simple-data-check-card"><span>${t("Live bewijs", "Live proof")}</span><strong>${t("QR-respons beslist", "QR response decides")}</strong><small>${t("Echte learnings ontstaan pas wanneer scans, formulieren, afspraken en partnerfeedback binnenkomen.", "Real learnings start when scans, forms, appointments and partner feedback arrive.")}</small></div>
-      </div>
-    `;
   }
 
   function renderAll() {
