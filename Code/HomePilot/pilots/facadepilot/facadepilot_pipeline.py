@@ -4467,7 +4467,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .layout{
 body.hp-ui-v2.hp-view-route .layout,
 body.hp-ui-v2.hp-view-photos .layout,
 body.hp-ui-v2.hp-view-renderreview .layout{
-  grid-template-columns:0 minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr);
   gap:0;
 }
 #hpTargetDrawer{
@@ -4758,6 +4758,89 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   gap:10px;
   margin:12px 0;
 }
+.field-route-card{
+  width:100%;
+}
+.field-route-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:start;
+}
+.field-route-actions button.active{
+  border-color:rgba(226,163,92,.65);
+  background:linear-gradient(135deg,var(--db-accent),var(--db-accent2));
+  color:#161006;
+}
+.route-control-grid{
+  display:grid;
+  grid-template-columns:minmax(260px,1fr) auto;
+  gap:12px;
+  align-items:end;
+  margin:12px 0;
+}
+.route-control-grid .field{
+  margin-bottom:0;
+}
+.route-workspace{
+  display:grid;
+  grid-template-columns:minmax(260px,340px) minmax(0,1fr);
+  gap:12px;
+  align-items:start;
+}
+.route-batch-panel{
+  border:1px solid var(--db-line);
+  border-radius:10px;
+  background:#0a0f16;
+  padding:11px;
+}
+.route-batch-panel h4{
+  margin:0 0 8px;
+  color:var(--db-ink);
+  font-size:13px;
+}
+.route-batch-list{
+  display:grid;
+  gap:7px;
+  max-height:520px;
+  overflow:auto;
+}
+.route-batch-btn{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px;
+  align-items:center;
+  width:100%;
+  min-height:44px;
+  border:1px solid var(--db-line);
+  border-radius:9px;
+  background:var(--db-panel);
+  color:var(--db-ink);
+  text-align:left;
+  padding:8px 9px;
+  cursor:pointer;
+  font:inherit;
+}
+.route-batch-btn strong,
+.route-batch-btn span{
+  display:block;
+}
+.route-batch-btn strong{
+  font-size:12px;
+}
+.route-batch-btn span{
+  color:var(--db-muted);
+  font-size:10.5px;
+  margin-top:2px;
+}
+.route-batch-btn i{
+  font-style:normal;
+  color:var(--db-accent);
+  font-weight:900;
+}
+.route-batch-btn.active{
+  border-color:rgba(226,163,92,.65);
+  background:rgba(226,163,92,.12);
+}
 .route-summary div{
   border:1px solid var(--db-line);
   border-radius:10px;
@@ -4782,6 +4865,11 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   display:grid;
   gap:8px;
 }
+.route-list{
+  max-height:620px;
+  overflow:auto;
+  padding-right:4px;
+}
 .route-stop,
 .photo-row{
   display:grid;
@@ -4804,6 +4892,29 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   color:var(--db-accent);
   font-style:normal;
   font-weight:900;
+}
+.route-stop-actions{
+  display:flex;
+  gap:7px;
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.route-stop-actions button,
+.route-stop-actions a{
+  min-height:32px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  border:1px solid rgba(96,165,250,.25);
+  background:rgba(96,165,250,.11);
+  color:#bfdbfe;
+  font-size:11px;
+  font-weight:850;
+  padding:0 10px;
+  text-decoration:none;
+  cursor:pointer;
 }
 .photo-drop{
   border:1px dashed rgba(226,163,92,.34);
@@ -4835,6 +4946,11 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   .map-review-layout,
   body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout,
   .lead-address-row{
+    grid-template-columns:1fr;
+  }
+  .route-workspace,
+  .route-control-grid,
+  .field-route-head{
     grid-template-columns:1fr;
   }
   .route-summary{
@@ -5894,15 +6010,21 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
           <p>Gebruik de geselecteerde adressen als routebatch. De app ordent de stops lokaal; Google Maps opent daarna de route voor live navigatie.</p>
         </div>
         <div class="field-route-actions">
-          <button type="button" onclick="buildFieldRoute('driving')" class="primary">Autoroute</button>
-          <button type="button" onclick="buildFieldRoute('bicycling')">Fietsroute</button>
+          <button type="button" id="fieldRouteDrivingBtn" onclick="buildFieldRoute('driving')" class="primary active">Autoroute</button>
+          <button type="button" id="fieldRouteBikeBtn" onclick="buildFieldRoute('bicycling')">Fietsroute</button>
           <button type="button" onclick="openFieldRouteInGoogle()">Open in Google Maps</button>
         </div>
       </div>
-      <div class="field">
-        <label>Startpunt fotograaf <span class="badge">optioneel</span></label>
-        <input type="text" id="fieldRouteOrigin" placeholder="bv. Tiensesteenweg 54A, 3380 Bunsbeek">
-        <div class="mode-note">Leeg laten = vertrek bij eerste geselecteerde adres. Exacte live reistijd komt uit Google Maps; hieronder tonen we een werkinschatting.</div>
+      <div class="route-control-grid">
+        <div class="field">
+          <label>Startpunt fotograaf <span class="badge">optioneel</span></label>
+          <input type="text" id="fieldRouteOrigin" placeholder="bv. Tiensesteenweg 54A, 3380 Bunsbeek" oninput="queueFieldRouteRebuild()">
+          <div class="mode-note">Leeg laten = vertrek bij eerste adres van de actieve batch. Exacte live reistijd komt uit Google Maps.</div>
+        </div>
+        <div class="field-route-actions">
+          <button type="button" onclick="buildFieldRoute(_fieldRouteMode || 'driving')">Route verversen</button>
+          <button type="button" onclick="hpSetView('leads')">Terug naar selectie</button>
+        </div>
       </div>
       <div id="fieldRouteSummary" class="route-summary">
         <div><span>Stops</span><strong>-</strong></div>
@@ -5910,10 +6032,18 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
         <div><span>Auto</span><strong>-</strong></div>
         <div><span>Fiets</span><strong>-</strong></div>
       </div>
-      <div id="fieldRouteList" class="route-list">
-        <div class="lead-review-empty">Selecteer eerst adressen op de kaart of in de alfabetische lijst.</div>
+      <div class="route-workspace">
+        <aside class="route-batch-panel">
+          <h4>Routebatches</h4>
+          <div id="fieldRouteBatches" class="route-batch-list">
+            <div class="lead-review-empty">Nog geen routebatch.</div>
+          </div>
+        </aside>
+        <div id="fieldRouteList" class="route-list">
+          <div class="lead-review-empty">Selecteer eerst adressen op de kaart of in de alfabetische lijst.</div>
+        </div>
       </div>
-      <div class="pipeline-gate-note">Praktisch: maak kleine batches van 10-20 adressen per rit. Zo blijft Google Maps bruikbaar en kan je onderweg foto’s rustig controleren.</div>
+      <div class="pipeline-gate-note">Praktisch: de app knipt automatisch in batches van 20 stops. Open per batch Google Maps, fotografeer, en koppel daarna de eigen foto’s.</div>
     </div>
 
     <div class="card section photo-intake-card" id="fieldPhotoCard" data-hp-view="photos">
@@ -7849,6 +7979,8 @@ let _addressListSort = 'score_desc';
 let _streetviewMiniObserver = null;
 let _fieldRoute = null;
 let _fieldRouteMode = 'driving';
+let _fieldRouteBatchIndex = 0;
+let _fieldRouteRebuildDebounce = null;
 let _fieldPhotos = {};
 let _boxMode = false;
 let _boxDrag = null;
@@ -8285,14 +8417,47 @@ function formatMinutes(minutes) {
   return `${h}u${m ? ` ${m}m` : ''}`;
 }
 
-function buildGoogleRouteUrl(mode, stops) {
+const FIELD_ROUTE_BATCH_SIZE = 20;
+
+function routeMetrics(stops) {
+  let distance = 0;
+  for (let i = 1; i < stops.length; i += 1) {
+    distance += haversineKm(featureCoords(stops[i - 1]), featureCoords(stops[i]));
+  }
+  return {
+    distance,
+    carMinutes: distance / 34 * 60 + stops.length * 2.5,
+    bikeMinutes: distance / 15 * 60 + stops.length * 1.5,
+  };
+}
+
+function routeBatches(stops) {
+  const batches = [];
+  for (let i = 0; i < stops.length; i += FIELD_ROUTE_BATCH_SIZE) {
+    const batchStops = stops.slice(i, i + FIELD_ROUTE_BATCH_SIZE);
+    batches.push({
+      index: batches.length,
+      stops: batchStops,
+      ...routeMetrics(batchStops),
+    });
+  }
+  return batches;
+}
+
+function googleMapsSearchUrl(feature) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(featureAddress(feature))}`;
+}
+
+function buildGoogleRouteUrl(mode, stops, batchIndex=0) {
   if (!stops.length) return '';
   const originInput = (document.getElementById('fieldRouteOrigin') || {}).value || '';
   const travelmode = mode === 'bicycling' ? 'bicycling' : 'driving';
   const labels = stops.map(featureAddress);
-  const origin = originInput.trim() || labels[0];
+  if (stops.length === 1 && !originInput.trim()) return googleMapsSearchUrl(stops[0]);
+  const useExternalOrigin = batchIndex === 0 && originInput.trim();
+  const origin = useExternalOrigin ? originInput.trim() : labels[0];
   const destination = labels[labels.length - 1] || origin;
-  const waypointLabels = originInput.trim() ? labels : labels.slice(1, -1);
+  const waypointLabels = useExternalOrigin ? labels.slice(0, -1) : labels.slice(1, -1);
   const params = new URLSearchParams({
     api: '1',
     origin,
@@ -8307,40 +8472,93 @@ function buildFieldRoute(mode='driving') {
   _fieldRouteMode = mode;
   const target = document.getElementById('fieldRouteList');
   const summary = document.getElementById('fieldRouteSummary');
-  if (!target || !summary) return;
-  const candidates = orderedRouteFeatures(routeCandidateFeatures()).slice(0, 24);
+  const batchTarget = document.getElementById('fieldRouteBatches');
+  if (!target || !summary || !batchTarget) return;
+  const candidates = orderedRouteFeatures(routeCandidateFeatures());
+  updateFieldRouteModeButtons();
   if (!candidates.length) {
     target.innerHTML = '<div class="lead-review-empty">Selecteer eerst adressen op de kaart of in de alfabetische lijst.</div>';
+    batchTarget.innerHTML = '<div class="lead-review-empty">Nog geen routebatch.</div>';
     summary.innerHTML = '<div><span>Stops</span><strong>-</strong></div><div><span>Afstand</span><strong>-</strong></div><div><span>Auto</span><strong>-</strong></div><div><span>Fiets</span><strong>-</strong></div>';
     _fieldRoute = null;
     return;
   }
-  let distance = 0;
-  for (let i = 1; i < candidates.length; i += 1) {
-    distance += haversineKm(featureCoords(candidates[i - 1]), featureCoords(candidates[i]));
-  }
-  const carMinutes = distance / 34 * 60 + candidates.length * 2.5;
-  const bikeMinutes = distance / 15 * 60 + candidates.length * 1.5;
+  const totals = routeMetrics(candidates);
+  const batches = routeBatches(candidates);
+  _fieldRouteBatchIndex = Math.max(0, Math.min(_fieldRouteBatchIndex || 0, batches.length - 1));
   _fieldRoute = {
     mode,
     stops: candidates,
-    distance,
-    url: buildGoogleRouteUrl(mode, candidates)
+    batches,
+    distance: totals.distance,
+    url: buildGoogleRouteUrl(mode, batches[_fieldRouteBatchIndex].stops, _fieldRouteBatchIndex)
   };
   summary.innerHTML = `
-    <div><span>Stops</span><strong>${candidates.length}</strong></div>
-    <div><span>Afstand</span><strong>${distance.toFixed(1)} km</strong></div>
-    <div><span>Auto</span><strong>${formatMinutes(carMinutes)}</strong></div>
-    <div><span>Fiets</span><strong>${formatMinutes(bikeMinutes)}</strong></div>
+    <div><span>Stops</span><strong>${formatBENumber(candidates.length)}</strong></div>
+    <div><span>Batches</span><strong>${formatBENumber(batches.length)}</strong></div>
+    <div><span>Auto totaal</span><strong>${formatMinutes(totals.carMinutes)}</strong></div>
+    <div><span>Fiets totaal</span><strong>${formatMinutes(totals.bikeMinutes)}</strong></div>
   `;
-  target.innerHTML = candidates.map((feature, index) => `
+  renderFieldRouteBatches();
+  renderFieldRouteBatch(_fieldRouteBatchIndex);
+  hpSyncTopbar();
+}
+
+function updateFieldRouteModeButtons() {
+  const driving = document.getElementById('fieldRouteDrivingBtn');
+  const bike = document.getElementById('fieldRouteBikeBtn');
+  if (driving) driving.classList.toggle('active', _fieldRouteMode !== 'bicycling');
+  if (bike) bike.classList.toggle('active', _fieldRouteMode === 'bicycling');
+}
+
+function renderFieldRouteBatches() {
+  const target = document.getElementById('fieldRouteBatches');
+  if (!target || !_fieldRoute || !(_fieldRoute.batches || []).length) return;
+  target.innerHTML = _fieldRoute.batches.map(batch => `
+    <button type="button" class="route-batch-btn ${batch.index === _fieldRouteBatchIndex ? 'active' : ''}" onclick="renderFieldRouteBatch(${batch.index})">
+      <span><strong>Batch ${batch.index + 1}</strong><span>${batch.stops.length} stops · ${formatBENumber(batch.distance, 1)} km · auto ${formatMinutes(batch.carMinutes)}</span></span>
+      <i>${batch.index === _fieldRouteBatchIndex ? 'actief' : 'open'}</i>
+    </button>
+  `).join('');
+}
+
+function renderFieldRouteBatch(index=0) {
+  if (!_fieldRoute || !(_fieldRoute.batches || []).length) return;
+  const target = document.getElementById('fieldRouteList');
+  const summary = document.getElementById('fieldRouteSummary');
+  if (!target || !summary) return;
+  _fieldRouteBatchIndex = Math.max(0, Math.min(index, _fieldRoute.batches.length - 1));
+  const batch = _fieldRoute.batches[_fieldRouteBatchIndex];
+  _fieldRoute.url = buildGoogleRouteUrl(_fieldRoute.mode, batch.stops, _fieldRouteBatchIndex);
+  const totals = routeMetrics(_fieldRoute.stops);
+  summary.innerHTML = `
+    <div><span>Actieve batch</span><strong>${_fieldRouteBatchIndex + 1}/${_fieldRoute.batches.length}</strong></div>
+    <div><span>Batchafstand</span><strong>${formatBENumber(batch.distance, 1)} km</strong></div>
+    <div><span>Auto batch</span><strong>${formatMinutes(batch.carMinutes)}</strong></div>
+    <div><span>Totaal stops</span><strong>${formatBENumber(_fieldRoute.stops.length)}</strong></div>
+  `;
+  renderFieldRouteBatches();
+  target.innerHTML = `
+    <div class="route-stop">
+      <i>${_fieldRouteBatchIndex + 1}</i>
+      <div><strong>Batch ${_fieldRouteBatchIndex + 1}: ${batch.stops.length} stops</strong><span>${formatBENumber(batch.distance, 1)} km · auto ${formatMinutes(batch.carMinutes)} · fiets ${formatMinutes(batch.bikeMinutes)} · totaal alle batches: auto ${formatMinutes(totals.carMinutes)}</span></div>
+      <div class="route-stop-actions"><button type="button" onclick="openFieldRouteInGoogle()">Open batch in Google Maps</button></div>
+    </div>
+  ` + batch.stops.map((feature, index) => `
     <div class="route-stop">
       <i>${index + 1}</i>
-      <div><strong>${escapeHtml(featureAddress(feature))}</strong><span>${escapeHtml((feature.properties || {}).klasse || '?')} · ${escapeHtml((feature.properties || {}).review_decision || 'niet beoordeeld')}</span></div>
-      <button type="button" class="hp-secondary-action" onclick="openLeadReviewByKey('${jsq(featureKey(feature))}')">Open</button>
+      <div><strong>${escapeHtml(featureAddress(feature))}</strong><span>${escapeHtml((feature.properties || {}).klasse || '?')} · score ${formatBENumber((feature.properties || {}).score || 0, 1)} · ${escapeHtml((feature.properties || {}).review_decision || 'niet beoordeeld')}</span></div>
+      <div class="route-stop-actions">
+        <button type="button" onclick="openLeadReviewByKey('${jsq(featureKey(feature))}')">Review</button>
+        <a href="${escapeHtml(googleMapsSearchUrl(feature))}" target="_blank" rel="noopener">Maps</a>
+      </div>
     </div>
   `).join('');
-  hpSyncTopbar();
+}
+
+function queueFieldRouteRebuild() {
+  clearTimeout(_fieldRouteRebuildDebounce);
+  _fieldRouteRebuildDebounce = setTimeout(() => buildFieldRoute(_fieldRouteMode || 'driving'), 350);
 }
 
 function openFieldRouteInGoogle() {
