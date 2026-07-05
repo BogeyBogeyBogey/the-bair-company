@@ -8419,26 +8419,34 @@ function formatMinutes(minutes) {
 
 const FIELD_ROUTE_BATCH_SIZE = 20;
 
-function routeMetrics(stops) {
+function routeTravelMetrics(stops, serviceStopCount) {
   let distance = 0;
   for (let i = 1; i < stops.length; i += 1) {
     distance += haversineKm(featureCoords(stops[i - 1]), featureCoords(stops[i]));
   }
+  const services = serviceStopCount ?? stops.length;
   return {
     distance,
-    carMinutes: distance / 34 * 60 + stops.length * 2.5,
-    bikeMinutes: distance / 15 * 60 + stops.length * 1.5,
+    carMinutes: distance / 34 * 60 + services * 2.5,
+    bikeMinutes: distance / 15 * 60 + services * 1.5,
   };
+}
+
+function routeMetrics(stops) {
+  return routeTravelMetrics(stops, stops.length);
 }
 
 function routeBatches(stops) {
   const batches = [];
   for (let i = 0; i < stops.length; i += FIELD_ROUTE_BATCH_SIZE) {
     const batchStops = stops.slice(i, i + FIELD_ROUTE_BATCH_SIZE);
+    const entryOrigin = i > 0 ? stops[i - 1] : null;
+    const travelStops = entryOrigin ? [entryOrigin, ...batchStops] : batchStops;
     batches.push({
       index: batches.length,
       stops: batchStops,
-      ...routeMetrics(batchStops),
+      entryOrigin,
+      ...routeTravelMetrics(travelStops, batchStops.length),
     });
   }
   return batches;
@@ -8448,16 +8456,20 @@ function googleMapsSearchUrl(feature) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(featureAddress(feature))}`;
 }
 
-function buildGoogleRouteUrl(mode, stops, batchIndex=0) {
+function buildGoogleRouteUrl(mode, stops, batchIndex=0, entryOrigin=null) {
   if (!stops.length) return '';
   const originInput = (document.getElementById('fieldRouteOrigin') || {}).value || '';
   const travelmode = mode === 'bicycling' ? 'bicycling' : 'driving';
   const labels = stops.map(featureAddress);
-  if (stops.length === 1 && !originInput.trim()) return googleMapsSearchUrl(stops[0]);
+  if (stops.length === 1 && !originInput.trim() && !entryOrigin) return googleMapsSearchUrl(stops[0]);
   const useExternalOrigin = batchIndex === 0 && originInput.trim();
-  const origin = useExternalOrigin ? originInput.trim() : labels[0];
+  const origin = entryOrigin
+    ? featureAddress(entryOrigin)
+    : (useExternalOrigin ? originInput.trim() : labels[0]);
   const destination = labels[labels.length - 1] || origin;
-  const waypointLabels = useExternalOrigin ? labels.slice(0, -1) : labels.slice(1, -1);
+  const waypointLabels = entryOrigin
+    ? labels.slice(0, -1)
+    : (useExternalOrigin ? labels.slice(0, -1) : labels.slice(1, -1));
   const params = new URLSearchParams({
     api: '1',
     origin,
@@ -8491,7 +8503,8 @@ function buildFieldRoute(mode='driving') {
     stops: candidates,
     batches,
     distance: totals.distance,
-    url: buildGoogleRouteUrl(mode, batches[_fieldRouteBatchIndex].stops, _fieldRouteBatchIndex)
+    totals,
+    url: buildGoogleRouteUrl(mode, batches[_fieldRouteBatchIndex].stops, _fieldRouteBatchIndex, batches[_fieldRouteBatchIndex].entryOrigin)
   };
   summary.innerHTML = `
     <div><span>Stops</span><strong>${formatBENumber(candidates.length)}</strong></div>
@@ -8516,7 +8529,7 @@ function renderFieldRouteBatches() {
   if (!target || !_fieldRoute || !(_fieldRoute.batches || []).length) return;
   target.innerHTML = _fieldRoute.batches.map(batch => `
     <button type="button" class="route-batch-btn ${batch.index === _fieldRouteBatchIndex ? 'active' : ''}" onclick="renderFieldRouteBatch(${batch.index})">
-      <span><strong>Batch ${batch.index + 1}</strong><span>${batch.stops.length} stops · ${formatBENumber(batch.distance, 1)} km · auto ${formatMinutes(batch.carMinutes)}</span></span>
+      <span><strong>Batch ${batch.index + 1}</strong><span>${batch.stops.length} stops · ${formatBENumber(batch.distance, 1)} km · auto ${formatMinutes(batch.carMinutes)}${batch.entryOrigin ? ' · doorlopend' : ''}</span></span>
       <i>${batch.index === _fieldRouteBatchIndex ? 'actief' : 'open'}</i>
     </button>
   `).join('');
@@ -8529,19 +8542,19 @@ function renderFieldRouteBatch(index=0) {
   if (!target || !summary) return;
   _fieldRouteBatchIndex = Math.max(0, Math.min(index, _fieldRoute.batches.length - 1));
   const batch = _fieldRoute.batches[_fieldRouteBatchIndex];
-  _fieldRoute.url = buildGoogleRouteUrl(_fieldRoute.mode, batch.stops, _fieldRouteBatchIndex);
-  const totals = routeMetrics(_fieldRoute.stops);
+  _fieldRoute.url = buildGoogleRouteUrl(_fieldRoute.mode, batch.stops, _fieldRouteBatchIndex, batch.entryOrigin);
+  const totals = _fieldRoute.totals || routeMetrics(_fieldRoute.stops);
   summary.innerHTML = `
+    <div><span>Totale ronde auto</span><strong>${formatMinutes(totals.carMinutes)}</strong></div>
+    <div><span>Totale ronde fiets</span><strong>${formatMinutes(totals.bikeMinutes)}</strong></div>
     <div><span>Actieve batch</span><strong>${_fieldRouteBatchIndex + 1}/${_fieldRoute.batches.length}</strong></div>
-    <div><span>Batchafstand</span><strong>${formatBENumber(batch.distance, 1)} km</strong></div>
-    <div><span>Auto batch</span><strong>${formatMinutes(batch.carMinutes)}</strong></div>
-    <div><span>Totaal stops</span><strong>${formatBENumber(_fieldRoute.stops.length)}</strong></div>
+    <div><span>Batch auto</span><strong>${formatMinutes(batch.carMinutes)}</strong></div>
   `;
   renderFieldRouteBatches();
   target.innerHTML = `
     <div class="route-stop">
       <i>${_fieldRouteBatchIndex + 1}</i>
-      <div><strong>Batch ${_fieldRouteBatchIndex + 1}: ${batch.stops.length} stops</strong><span>${formatBENumber(batch.distance, 1)} km · auto ${formatMinutes(batch.carMinutes)} · fiets ${formatMinutes(batch.bikeMinutes)} · totaal alle batches: auto ${formatMinutes(totals.carMinutes)}</span></div>
+      <div><strong>Batch ${_fieldRouteBatchIndex + 1}: ${batch.stops.length} stops</strong><span>${batch.entryOrigin ? `Vertrekt vanaf vorige batch: ${escapeHtml(featureAddress(batch.entryOrigin))} · ` : ''}${formatBENumber(batch.distance, 1)} km · auto ${formatMinutes(batch.carMinutes)} · fiets ${formatMinutes(batch.bikeMinutes)} · totale ronde auto ${formatMinutes(totals.carMinutes)}</span></div>
       <div class="route-stop-actions"><button type="button" onclick="openFieldRouteInGoogle()">Open batch in Google Maps</button></div>
     </div>
   ` + batch.stops.map((feature, index) => `
