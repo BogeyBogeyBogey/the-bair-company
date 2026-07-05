@@ -2532,16 +2532,39 @@ def save_lead_review(data: dict) -> dict:
 
     capakey = (data.get("capakey", [""])[0] or "").strip()
     decision = (data.get("decision", [""])[0] or "").strip() or None
-    note = (data.get("note", [""])[0] or "").strip()
-    updates = {"note": note}
+    updates = {}
     if decision is not None:
         updates["decision"] = decision
+    if "note" in data:
+        updates["note"] = (data.get("note", [""])[0] or "").strip()
     for key in ("heading", "pitch", "fov", "strafe_m"):
         if key in data:
             updates[key] = (data.get(key, [""])[0] or "").strip()
     if "target_box" in data:
         updates["target_box"] = (data.get("target_box", [""])[0] or "").strip()
     return update_review(capakey, **updates)
+
+
+def save_lead_review_bulk(data: dict) -> dict:
+    from facadepilot_lead_review import bulk_update_reviews
+
+    raw = (data.get("capakeys", [""])[0] or "").strip()
+    capakeys: list[str]
+    if raw.startswith("["):
+        parsed = json.loads(raw)
+        if not isinstance(parsed, list):
+            raise ValueError("capakeys moet een lijst zijn")
+        capakeys = [str(item) for item in parsed]
+    else:
+        capakeys = [part.strip() for part in raw.split(",") if part.strip()]
+
+    decision = (data.get("decision", [""])[0] or "").strip() or None
+    updates = {}
+    if decision is not None:
+        updates["decision"] = decision
+    if "note" in data:
+        updates["note"] = (data.get("note", [""])[0] or "").strip()
+    return bulk_update_reviews(capakeys, **updates)
 
 
 def get_lead_review_summary(niscode: str | None = None, manual: bool = False) -> dict:
@@ -4535,6 +4558,13 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   border-color:rgba(95,190,143,.55);
   box-shadow:0 0 0 3px rgba(95,190,143,.08);
 }
+.lead-address-row.is-reserve{
+  border-color:rgba(226,163,92,.42);
+}
+.lead-address-row.is-removed{
+  opacity:.72;
+  border-color:rgba(248,113,113,.35);
+}
 .streetview-mini{
   min-height:118px;
   border:1px solid var(--db-line);
@@ -4594,6 +4624,71 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   text-transform:uppercase;
   letter-spacing:.04em;
 }
+.lead-address-feedback{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:7px;
+  align-items:end;
+  margin-top:10px;
+}
+.lead-address-feedback span{
+  grid-column:1 / -1;
+  margin:0;
+  color:var(--db-dim);
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.lead-address-feedback textarea,
+.lead-learning-note textarea{
+  width:100%;
+  min-height:54px;
+  resize:vertical;
+  border:1px solid var(--db-line);
+  border-radius:8px;
+  background:#07101a;
+  color:var(--db-ink);
+  font:inherit;
+  font-size:12px;
+  line-height:1.45;
+  padding:8px 9px;
+  outline:none;
+}
+.lead-address-feedback textarea:focus,
+.lead-learning-note textarea:focus{
+  border-color:rgba(226,163,92,.62);
+  box-shadow:0 0 0 3px rgba(226,163,92,.10);
+}
+.lead-address-feedback button,
+.lead-learning-note button{
+  min-height:54px;
+}
+.lead-feedback-status{
+  grid-column:1 / -1;
+  min-height:14px;
+  color:var(--db-muted);
+  font-size:10.5px;
+}
+.lead-learning-note{
+  display:grid;
+  gap:7px;
+  border:1px solid var(--db-line);
+  border-radius:10px;
+  background:#0a0f16;
+  padding:10px;
+}
+.lead-learning-note label{
+  color:var(--db-accent);
+  font-size:10.5px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.lead-learning-note small{
+  color:var(--db-muted);
+  line-height:1.4;
+}
 .lead-address-buttons{
   display:grid;
   gap:7px;
@@ -4613,6 +4708,16 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   font-weight:850;
   padding:0 10px;
   cursor:pointer;
+}
+.address-actions button.is-active,
+.lead-address-buttons button.is-active{
+  border-color:rgba(226,163,92,.65);
+  background:rgba(226,163,92,.14);
+  color:var(--db-accent);
+}
+.lead-address-buttons button.danger{
+  border-color:rgba(248,113,113,.36);
+  color:#fecaca;
 }
 .lead-address-buttons button.primary,
 .field-route-actions button.primary,
@@ -5729,6 +5834,8 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
             <p>Selecteer adressen vanuit de lijst, laad Street View per rij en bewaar alleen wat later door eigen fotografie bevestigd wordt.</p>
           </div>
           <div class="address-actions">
+            <button type="button" id="selectAllAddressBtn" onclick="selectAllAddressLeads()">Selecteer alles</button>
+            <button type="button" id="reserveListBtn" onclick="toggleReserveAddressList()">Reservelijst</button>
             <button type="button" onclick="hpSetView('route')">Maak fotoroute</button>
             <button type="button" class="primary" onclick="hpSetView('photos')">Foto's koppelen</button>
           </div>
@@ -7698,6 +7805,7 @@ let _cameraDrag = null;
 let _mapMode = 'leads';
 let _mapFeatures = [];
 let _addressListLimit = 80;
+let _addressListFilter = 'all';
 let _streetviewMiniObserver = null;
 let _fieldRoute = null;
 let _fieldRouteMode = 'driving';
@@ -7752,6 +7860,11 @@ function featureAddress(feature) {
   return String(feature?.properties?.adres || '(geen adres)').trim();
 }
 
+function formatBENumber(value, digits = 0) {
+  const n = Number(value || 0);
+  return n.toLocaleString('nl-BE', {minimumFractionDigits: digits, maximumFractionDigits: digits});
+}
+
 function featureCoords(feature) {
   const coords = feature?.geometry?.coordinates || [];
   const lon = Number(coords[0]);
@@ -7775,6 +7888,32 @@ function streetviewEmbedForFeature(feature) {
 
 function sortedMapFeatures() {
   return (_mapFeatures || []).slice().sort((a, b) => featureAddress(a).localeCompare(featureAddress(b), 'nl-BE'));
+}
+
+function addressFilteredFeatures() {
+  const rows = sortedMapFeatures();
+  if (_addressListFilter === 'reserve') {
+    return rows.filter(feature => (feature.properties || {}).review_decision === 'reserve');
+  }
+  return rows;
+}
+
+function updateAddressListControls(totalRows, filteredRows) {
+  const reserveBtn = document.getElementById('reserveListBtn');
+  if (reserveBtn) {
+    reserveBtn.classList.toggle('is-active', _addressListFilter === 'reserve');
+    const reserveCount = sortedMapFeatures().filter(f => (f.properties || {}).review_decision === 'reserve').length;
+    reserveBtn.textContent = _addressListFilter === 'reserve'
+      ? `Alle adressen (${formatBENumber(totalRows)})`
+      : `Reservelijst (${formatBENumber(reserveCount)})`;
+  }
+  const selectAllBtn = document.getElementById('selectAllAddressBtn');
+  if (selectAllBtn) {
+    selectAllBtn.disabled = filteredRows === 0;
+    selectAllBtn.textContent = _addressListFilter === 'reserve'
+      ? `Selecteer reservelijst`
+      : `Selecteer alles`;
+  }
 }
 
 function routeCandidateFeatures() {
@@ -7814,9 +7953,13 @@ function installStreetviewMiniObserver() {
 function renderLeadAddressList() {
   const target = document.getElementById('leadAddressList');
   if (!target) return;
-  const rows = sortedMapFeatures();
+  const totalRows = sortedMapFeatures().length;
+  const rows = addressFilteredFeatures();
+  updateAddressListControls(totalRows, rows.length);
   if (!rows.length) {
-    target.innerHTML = '<div class="lead-review-empty">Geen kaartleads geladen.</div>';
+    target.innerHTML = _addressListFilter === 'reserve'
+      ? '<div class="lead-review-empty">Nog geen adressen op de reservelijst.</div>'
+      : '<div class="lead-review-empty">Geen kaartleads geladen.</div>';
     const more = document.getElementById('leadAddressMoreBtn');
     if (more) more.style.display = 'none';
     return;
@@ -7827,25 +7970,34 @@ function renderLeadAddressList() {
     const key = featureKey(feature);
     const decision = p.review_decision || 'unreviewed';
     const embed = streetviewEmbedForFeature(feature);
-    const selectedClass = decision === 'selected' ? ' is-selected' : '';
-    return `<article class="lead-address-row${selectedClass}" data-address-key="${escapeHtml(key)}">
+    const stateClass = decision === 'selected'
+      ? ' is-selected'
+      : (decision === 'reserve' ? ' is-reserve' : (decision === 'removed' ? ' is-removed' : ''));
+    return `<article class="lead-address-row${stateClass}" data-address-key="${escapeHtml(key)}">
       <div class="streetview-mini" data-sv-url="${escapeHtml(embed)}">
         <button type="button" onclick="loadStreetviewMini(this.parentElement)">Street View laden</button>
       </div>
       <div class="lead-address-main">
         <strong>${escapeHtml(featureAddress(feature))}</strong>
-        <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${Number(p.score || 0).toFixed(1)} · ${(p.bebouwd_m2 || 0).toFixed(0)}m² bebouwd</span>
+        <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${formatBENumber(p.score || 0, 1)} · ${formatBENumber(p.bebouwd_m2 || 0)}m² bebouwd</span>
         <div class="lead-address-badges">
-          <b>${escapeHtml(decision.replace('_',' '))}</b>
+          <b>${escapeHtml(REVIEW_LABELS[decision] || decision.replace('_',' '))}</b>
           <b>${escapeHtml(p.huistype || 'woningtype ?')}</b>
           ${p.review_heading !== null && p.review_heading !== undefined ? '<b>camera</b>' : ''}
           ${p.review_target_box ? '<b>gevelkader</b>' : ''}
         </div>
+        <label class="lead-address-feedback">
+          <span>Feedback voor leerloop</span>
+          <textarea data-feedback-key="${escapeHtml(key)}" oninput="markLeadFeedbackDirty(this)" placeholder="bv. oude boerderij, geen villa">${escapeHtml(p.review_note || '')}</textarea>
+          <button type="button" onclick="saveLeadFeedback('${jsq(key)}')">Opslaan</button>
+          <small class="lead-feedback-status">${p.review_note ? 'Bewaard in Karpathyloop.' : ''}</small>
+        </label>
       </div>
       <div class="lead-address-buttons">
         <button type="button" class="primary" onclick="openLeadReviewByKey('${jsq(key)}')">Open</button>
-        <button type="button" onclick="chooseLeadFromList('${jsq(key)}','selected')">Selecteer</button>
-        <button type="button" onclick="chooseLeadFromList('${jsq(key)}','reserve')">Reserve</button>
+        <button type="button" class="${decision === 'selected' ? 'is-active' : ''}" onclick="chooseLeadFromList('${jsq(key)}','selected')">Selecteer</button>
+        <button type="button" class="${decision === 'reserve' ? 'is-active' : ''}" onclick="chooseLeadFromList('${jsq(key)}','reserve')">Reserve</button>
+        <button type="button" class="danger ${decision === 'removed' ? 'is-active' : ''}" onclick="chooseLeadFromList('${jsq(key)}','removed')">Verwijder</button>
       </div>
     </article>`;
   }).join('');
@@ -7855,6 +8007,12 @@ function renderLeadAddressList() {
     more.textContent = `Toon meer adressen (${visible.length}/${rows.length})`;
   }
   installStreetviewMiniObserver();
+}
+
+function toggleReserveAddressList() {
+  _addressListFilter = _addressListFilter === 'reserve' ? 'all' : 'reserve';
+  _addressListLimit = 80;
+  renderLeadAddressList();
 }
 
 function showMoreLeadAddresses() {
@@ -7874,10 +8032,120 @@ async function openLeadReviewByKey(key) {
   return feature;
 }
 
+function featureByKey(key) {
+  return (_mapFeatures || []).find(f => featureKey(f) === key) || null;
+}
+
+function applyReviewToFeature(feature, review) {
+  if (!feature || !review) return;
+  const p = feature.properties || {};
+  feature.properties = p;
+  p.review_decision = review.decision || p.review_decision || 'unreviewed';
+  p.review_heading = review.heading;
+  p.review_pitch = review.pitch;
+  p.review_fov = review.fov;
+  p.review_strafe_m = review.strafe_m;
+  p.review_target_box = review.target_box || null;
+  p.review_note = review.note || '';
+}
+
+async function saveFeatureReview(feature, payload) {
+  const key = featureKey(feature);
+  const body = new URLSearchParams();
+  body.set('capakey', key);
+  for (const [name, value] of Object.entries(payload)) {
+    body.set(name, value == null ? '' : value);
+  }
+  const res = await fetch('/api/lead_review', {method: 'POST', body});
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || 'opslaan mislukt');
+  applyReviewToFeature(feature, data.review);
+  if (_activeLeadReview && _activeLeadReview.capakey === key) {
+    _activeLeadReview.decision = data.review.decision || _activeLeadReview.decision;
+    _activeLeadReview.note = data.review.note || '';
+    updateDecisionButtons(_activeLeadReview.decision);
+    const note = document.getElementById('leadReviewNote');
+    if (note && document.activeElement !== note) note.value = _activeLeadReview.note || '';
+  }
+  return data.review;
+}
+
 async function chooseLeadFromList(key, decision) {
-  const feature = await openLeadReviewByKey(key);
+  const feature = featureByKey(key);
   if (!feature) return;
-  await setLeadDecision(decision);
+  const row = Array.from(document.querySelectorAll('.lead-address-row')).find(el => el.dataset.addressKey === key);
+  const status = row ? row.querySelector('.lead-feedback-status') : null;
+  if (status) status.textContent = 'Beslissing opslaan...';
+  try {
+    await saveFeatureReview(feature, {decision});
+    if (status) {
+      status.textContent = decision === 'selected'
+        ? 'Geselecteerd en bewaard in leerloop.'
+        : (decision === 'reserve' ? 'Toegevoegd aan reservelijst.' : 'Verwijderd uit pipeline.');
+    }
+    renderLeadAddressList();
+    refreshReviewSummary();
+  } catch (e) {
+    if (status) status.textContent = 'Opslaan mislukt: ' + e.message;
+  }
+}
+
+function markLeadFeedbackDirty(textarea) {
+  const row = textarea.closest('.lead-address-row');
+  const status = row ? row.querySelector('.lead-feedback-status') : null;
+  if (status) status.textContent = 'Nog niet opgeslagen.';
+}
+
+async function saveLeadFeedback(key) {
+  const feature = featureByKey(key);
+  const row = Array.from(document.querySelectorAll('.lead-address-row')).find(el => el.dataset.addressKey === key);
+  const textarea = row ? row.querySelector('textarea[data-feedback-key]') : null;
+  const status = row ? row.querySelector('.lead-feedback-status') : null;
+  if (!feature || !textarea) return;
+  if (status) status.textContent = 'Feedback opslaan...';
+  try {
+    await saveFeatureReview(feature, {note: textarea.value.trim()});
+    if (status) status.textContent = textarea.value.trim()
+      ? 'Feedback bewaard in Karpathyloop.'
+      : 'Feedback gewist.';
+    refreshReviewSummary();
+  } catch (e) {
+    if (status) status.textContent = 'Feedback mislukt: ' + e.message;
+  }
+}
+
+async function selectAllAddressLeads() {
+  const rows = addressFilteredFeatures();
+  const capakeys = rows.map(featureKey).filter(Boolean);
+  const btn = document.getElementById('selectAllAddressBtn');
+  if (!capakeys.length) return;
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Selecteren...';
+  }
+  try {
+    const body = new URLSearchParams();
+    body.set('decision', 'selected');
+    body.set('capakeys', JSON.stringify(capakeys));
+    const res = await fetch('/api/lead_review_bulk', {method: 'POST', body});
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'bulkselectie mislukt');
+    rows.forEach(feature => {
+      const p = feature.properties || {};
+      feature.properties = p;
+      p.review_decision = 'selected';
+    });
+    _addressListFilter = 'all';
+    renderLeadAddressList();
+    await refreshReviewSummary();
+  } catch (e) {
+    alert('Selecteer alles mislukt: ' + e.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Selecteer alles';
+    }
+  }
 }
 
 function haversineKm(a, b) {
@@ -8174,6 +8442,7 @@ async function openLeadReview(feature) {
     fov: p.review_fov,
     strafeM: p.review_strafe_m || 0,
     targetBox: p.review_target_box || null,
+    note: p.review_note || '',
   };
 
   panel.innerHTML = `
@@ -8197,6 +8466,13 @@ async function openLeadReview(feature) {
       <button class="review-action" data-decision="selected" onclick="setLeadDecision('selected')">Selecteren</button>
       <button class="review-action" data-decision="reserve" onclick="setLeadDecision('reserve')">Reserve</button>
       <button class="review-action" data-decision="removed" onclick="setLeadDecision('removed')">Verwijderen</button>
+    </div>
+
+    <div class="lead-learning-note">
+      <label for="leadReviewNote">Feedback voor Karpathyloop</label>
+      <textarea id="leadReviewNote" placeholder="bv. oude boerderij, geen villa">${escapeHtml(p.review_note || '')}</textarea>
+      <button type="button" onclick="saveActiveLeadFeedback()">Feedback opslaan</button>
+      <small>Deze notitie wordt opgeslagen als leerfeedback voor latere selectie- en scoringsverbetering.</small>
     </div>
 
     <div class="camera-grid">
@@ -8566,6 +8842,10 @@ async function saveLeadReview(payload) {
   const res = await fetch('/api/lead_review', {method: 'POST', body});
   const data = await res.json();
   if (!data.ok) throw new Error(data.error || 'opslaan mislukt');
+  if (_activeLeadReview) {
+    const feature = featureByKey(_activeLeadReview.capakey);
+    applyReviewToFeature(feature, data.review);
+  }
   return data.review;
 }
 
@@ -8578,9 +8858,27 @@ async function setLeadDecision(decision) {
     status.textContent = decision === 'selected'
       ? 'Geselecteerd voor de pipeline.'
       : (decision === 'reserve' ? 'Op reservelijst gezet.' : 'Uit de pipeline gehaald.');
-    reloadMap();
+    renderLeadAddressList();
+    refreshReviewSummary();
   } catch (e) {
     status.textContent = 'Opslaan mislukt: ' + e.message;
+  }
+}
+
+async function saveActiveLeadFeedback() {
+  if (!_activeLeadReview) return;
+  const note = document.getElementById('leadReviewNote');
+  const status = document.getElementById('leadReviewStatus');
+  try {
+    const review = await saveLeadReview({note: note ? note.value.trim() : ''});
+    _activeLeadReview.note = review.note || '';
+    if (status) status.textContent = _activeLeadReview.note
+      ? 'Feedback bewaard in Karpathyloop.'
+      : 'Feedback gewist.';
+    renderLeadAddressList();
+    refreshReviewSummary();
+  } catch (e) {
+    if (status) status.textContent = 'Feedback opslaan mislukt: ' + e.message;
   }
 }
 
@@ -9866,6 +10164,12 @@ class Handler(http.server.BaseHTTPRequestHandler):
         elif url.path == "/api/lead_review":
             try:
                 self._json({"ok": True, "review": save_lead_review(data)})
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
+
+        elif url.path == "/api/lead_review_bulk":
+            try:
+                self._json({"ok": True, "result": save_lead_review_bulk(data)})
             except Exception as e:
                 self._json({"ok": False, "error": str(e)}, 500)
 
