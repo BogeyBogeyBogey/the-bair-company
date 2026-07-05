@@ -390,6 +390,7 @@
       #trust .trust-split,
       #campaign > .split-layout,
       #campaign > .recommendations-panel,
+      #overview > :not(#partnerPerformanceStrategy),
       #intelligenceDecisionBrief,
       #intelligenceLabCockpit,
       #intelligence .intelligence-impact,
@@ -660,6 +661,12 @@
         color: var(--daw-ink);
         font-size: 20px;
       }
+      .strategy-partner-verdict {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, .6fr));
+        gap: 12px;
+        margin-bottom: 12px;
+      }
       .strategy-deep-grid,
       .strategy-message-grid,
       .strategy-segment-grid {
@@ -669,7 +676,8 @@
       }
       .strategy-deep-card,
       .strategy-message-card,
-      .strategy-segment-card {
+      .strategy-segment-card,
+      .strategy-verdict-card {
         border: 1px solid rgba(255,255,255,.09);
         border-radius: 8px;
         background: rgba(17, 26, 36, .82);
@@ -677,7 +685,8 @@
       }
       .strategy-deep-card span,
       .strategy-message-card span,
-      .strategy-segment-card span {
+      .strategy-segment-card span,
+      .strategy-verdict-card span {
         display: block;
         color: var(--daw-amber);
         font-size: 10px;
@@ -687,7 +696,8 @@
       }
       .strategy-deep-card strong,
       .strategy-message-card strong,
-      .strategy-segment-card strong {
+      .strategy-segment-card strong,
+      .strategy-verdict-card strong {
         display: block;
         color: var(--daw-ink);
         font-size: 18px;
@@ -696,7 +706,8 @@
       }
       .strategy-deep-card small,
       .strategy-message-card small,
-      .strategy-segment-card small {
+      .strategy-segment-card small,
+      .strategy-verdict-card small {
         color: var(--daw-muted);
         line-height: 1.4;
       }
@@ -756,6 +767,7 @@
       @media (max-width: 1100px) {
         .strategy-decision-grid,
         .strategy-partner-grid,
+        .strategy-partner-verdict,
         .strategy-deep-grid,
         .strategy-message-grid,
         .strategy-segment-grid,
@@ -768,6 +780,7 @@
         .strategy-decision-grid,
         .strategy-strip,
         .strategy-partner-grid,
+        .strategy-partner-verdict,
         .strategy-qr-flow,
         .strategy-deep-grid,
         .strategy-message-grid,
@@ -911,11 +924,11 @@
     panel.innerHTML = `
       <div class="panel-head">
         <div><p class="eyebrow">${t("Partnerprestaties", "Partner performance")}</p><h2>${t("Wie kan DAW-vraag echt verzilveren?", "Who can truly convert DAW demand?")}</h2></div>
-        <div class="scope-chip">${t("portfolio view", "portfolio view")}</div>
+        <div class="scope-chip">${t("klik een partner", "select a partner")}</div>
       </div>
       <div class="strategy-partner-grid">
         ${rows.map((partner) => `
-          <button class="strategy-partner-row ${partner.id === selectedStrategyPartnerId ? "is-active" : ""}" type="button" data-strategy-partner="${esc(partner.id)}">
+          <button class="strategy-partner-row ${partner.id === selectedStrategyPartnerId ? "is-active" : ""}" type="button" data-strategy-partner="${esc(partner.id)}" aria-pressed="${partner.id === selectedStrategyPartnerId ? "true" : "false"}">
             <span class="strategy-eyebrow">${esc(partner.region)} - ${esc(label[partner.classKey])}</span>
             <strong>${esc(partner.name)}</strong>
             <small>${formatInt(partner.top)} A/A+ - ${formatPct(partner.responseRate)} ${t("respons", "response")} - ${formatPct(partner.appointmentRate)} ${t("afspraakratio", "appointment rate")}</small>
@@ -942,27 +955,75 @@
     const income = groupRows(rows, incomeClass, incomeLabel)[0] || {};
     const message = groupRows(rows, suggestedMessageAngle, messageLabel)[0] || {};
     const noResponse = rows.filter((property) => property.status === "no_response").length;
+    const allPartners = computeStrategy().partnerData;
+    const avgResponse = allPartners.length ? sum(allPartners, (item) => item.responseRate) / allPartners.length : 0;
+    const avgAppointment = allPartners.length ? sum(allPartners, (item) => item.appointmentRate) / allPartners.length : 0;
+    const responseDelta = partner.responseRate - avgResponse;
+    const appointmentDelta = partner.appointmentRate - avgAppointment;
+    const capacityLabel = partner.capacityLoad >= 75
+      ? t("capaciteit eerst bevestigen", "confirm capacity first")
+      : partner.capacityLoad >= 55
+        ? t("gecontroleerd opschalen", "scale in a controlled way")
+        : t("ruimte voor extra volume", "room for extra volume");
+    const noResponseLabel = noResponse >= 32
+      ? t("veel stille adressen", "many silent addresses")
+      : noResponse <= 24
+        ? t("gezonde opvolgbasis", "healthy follow-up base")
+        : t("opvolging monitoren", "monitor follow-up");
+    const advice = partner.classKey === "volume_ready"
+      ? t("Geef deze partner meer volume, maar hou opvolgtijd en offertefeedback per batch verplicht bij.", "Give this partner more volume, but require follow-up time and quote feedback per batch.")
+      : partner.classKey === "coach_first"
+        ? t("Geef nog geen brede golf. Start met een kleinere batch en maak opvolgcapaciteit eerst aantoonbaar.", "Do not give a broad wave yet. Start with a smaller batch and prove follow-up capacity first.")
+        : t("Gebruik deze partner als testcel: klein volume, duidelijke boodschaptest, daarna pas opschalen.", "Use this partner as a test cell: small volume, clear message test, then scale.");
+    const why = [
+      responseDelta >= 0 ? t(`respons ${formatPct(Math.abs(responseDelta))} boven netwerk`, `response ${formatPct(Math.abs(responseDelta))} above network`) : t(`respons ${formatPct(Math.abs(responseDelta))} onder netwerk`, `response ${formatPct(Math.abs(responseDelta))} below network`),
+      appointmentDelta >= 0 ? t(`afspraken ${formatPct(Math.abs(appointmentDelta))} boven netwerk`, `appointments ${formatPct(Math.abs(appointmentDelta))} above network`) : t(`afspraken ${formatPct(Math.abs(appointmentDelta))} onder netwerk`, `appointments ${formatPct(Math.abs(appointmentDelta))} below network`),
+      `${formatInt(topRows.length)} A/A+`,
+      noResponseLabel
+    ].join(" - ");
     return `
       <div class="strategy-deep-dive" id="partnerDeepDiveStrategy">
-        <h3>${t("Waarom deze partner anders sturen?", "Why steer this partner differently?")} ${esc(partner.name)}</h3>
+        <h3>${t("Partneradvies voor", "Partner advice for")} ${esc(partner.name)}</h3>
+        <div class="strategy-partner-verdict">
+          <div class="strategy-verdict-card">
+            <span>${t("DAW-stuurregel", "DAW steering rule")}</span>
+            <strong>${partner.classKey === "volume_ready" ? t("Meer volume, strak meten", "More volume, measure tightly") : partner.classKey === "coach_first" ? t("Eerst coachen, dan opschalen", "Coach first, then scale") : t("Kleine testbatch", "Small test batch")}</strong>
+            <small>${esc(advice)}</small>
+          </div>
+          <div class="strategy-verdict-card">
+            <span>${t("Waarom", "Why")}</span>
+            <strong>${esc(capacityLabel)}</strong>
+            <small>${esc(why)}</small>
+          </div>
+          <div class="strategy-verdict-card">
+            <span>${t("Verwachte waarde", "Expected value")}</span>
+            <strong>${formatEuro(partner.pipeline)}</strong>
+            <small>${formatArea(partner.facadeM2)} ${t("gevel in deze partnerzone", "facade in this partner zone")}</small>
+          </div>
+          <div class="strategy-verdict-card">
+            <span>${t("Eerste actie", "First action")}</span>
+            <strong>${partner.classKey === "volume_ready" ? t("Golf voorbereiden", "Prepare wave") : t("Reviewgesprek", "Review call")}</strong>
+            <small>${partner.classKey === "volume_ready" ? t("Selecteer A/A+ adressen en meet respons per boodschap.", "Select A/A+ addresses and measure response by message.") : t("Bespreek opvolgtijd, capaciteit en lokale bewijslast.", "Discuss follow-up speed, capacity and local proof.")}</small>
+          </div>
+        </div>
         <div class="strategy-deep-grid">
           <div class="strategy-deep-card">
-            <span>${t("Sterkste woningtype", "Strongest property type")}</span>
+            <span>${t("Waar zit het volume?", "Where is the volume?")}</span>
             <strong>${esc(house.label || t("Nog te meten", "To be measured"))}</strong>
-            <small>${formatInt(house.count || 0)} ${t("records", "records")} - ${formatPct(house.responseRate || 0)} ${t("respons", "response")} - ${formatPct(house.appointmentRate || 0)} ${t("afspraken", "appointments")}</small>
+            <small>${formatInt(house.count || 0)} ${t("woningen", "properties")} - ${formatPct(house.responseRate || 0)} ${t("respons", "response")} - ${formatPct(house.appointmentRate || 0)} ${t("afspraken", "appointments")}. ${t("Gebruik dit om kaartselectie en routeplanning te sturen.", "Use this to steer postcard selection and route planning.")}</small>
           </div>
           <div class="strategy-deep-card">
-            <span>${t("Gevelsignaal", "Facade signal")}</span>
+            <span>${t("Welk productverhaal past?", "Which product story fits?")}</span>
             <strong>${esc(facade.label || t("Nog te meten", "To be measured"))}</strong>
-            <small>${formatInt(facade.top || 0)} A/A+ - ${formatArea(facade.facadeM2 || 0)} ${t("gevelpotentieel", "facade potential")}</small>
+            <small>${formatInt(facade.top || 0)} A/A+ - ${formatArea(facade.facadeM2 || 0)} ${t("gevelpotentieel", "facade potential")}. ${t("Koppel hier een passende afwerking en staalkaart aan.", "Connect a matching finish and sample card to this.")}</small>
           </div>
           <div class="strategy-deep-card">
-            <span>${t("Buurtklasse", "Area class")}</span>
+            <span>${t("Welke toon gebruiken?", "Which tone should be used?")}</span>
             <strong>${esc(income.label || t("Middenklasse buurt", "Middle-income area"))}</strong>
-            <small>${t("Gebruik dit voor prijsanker, toon en landingspagina-inhoud.", "Use this for price framing, tone and landing-page content.")}</small>
+            <small>${t("Bepaalt prijsanker, bewijsvoering en of de kaart eerder op premie, comfort of uitstraling moet inzetten.", "Determines price framing, proof and whether the postcard should lean on subsidy, comfort or appearance.")}</small>
           </div>
           <div class="strategy-deep-card">
-            <span>${t("Beste boodschap om te testen", "Best message to test")}</span>
+            <span>${t("Welke boodschap testen?", "Which message should be tested?")}</span>
             <strong>${esc(message.label || t("Lokale partnercheck", "Local partner review"))}</strong>
             <small>${t("Postkaart:", "Postcard:")} ${esc(postcardPromise(message.key || "local_partner_review"))}</small>
           </div>
@@ -970,23 +1031,23 @@
         <div class="strategy-deep-grid" style="margin-top:12px">
           <div class="strategy-deep-card">
             <span>${t("Landingspagina", "Landing page")}</span>
-            <strong>${t("Niet dezelfde tekst als de kaart", "Not the same copy as the postcard")}</strong>
+            <strong>${t("Verdiept de belofte", "Deepens the promise")}</strong>
             <small>${esc(landingPromise(message.key || "local_partner_review"))}</small>
           </div>
           <div class="strategy-deep-card">
-            <span>${t("Opvolgvraag", "Follow-up question")}</span>
+            <span>${t("Waar zit frictie?", "Where is friction?")}</span>
             <strong>${formatInt(noResponse)} ${t("zonder respons", "without response")}</strong>
-            <small>${t("Test of dit boodschap, timing of partneropvolging is voordat DAW meer adressen geeft.", "Test whether this is message, timing or partner follow-up before DAW gives more addresses.")}</small>
+            <small>${t("Als dit hoog blijft: zachtere boodschap of snellere partneropvolging testen voor DAW meer adressen vrijgeeft.", "If this stays high: test a softer message or faster partner follow-up before DAW releases more addresses.")}</small>
           </div>
           <div class="strategy-deep-card">
             <span>${t("Capaciteitsvraag", "Capacity question")}</span>
             <strong>${formatInt(topRows.length)} A/A+ ${t("kansen", "opportunities")}</strong>
-            <small>${t("Kan deze partner binnen 48 uur reageren op scans en afspraken?", "Can this partner respond to scans and appointments within 48 hours?")}</small>
+            <small>${formatPct(partner.capacityLoad)} ${t("van demo-capaciteit. Kan deze partner binnen 48 uur reageren op scans en afspraken?", "of demo capacity. Can this partner respond to scans and appointments within 48 hours?")}</small>
           </div>
           <div class="strategy-deep-card">
-            <span>${t("DAW-beslissing", "DAW decision")}</span>
-            <strong>${partner.classKey === "volume_ready" ? t("Opschalen", "Scale") : partner.classKey === "coach_first" ? t("Eerst coachen", "Coach first") : t("Kleine testbatch", "Small test batch")}</strong>
-            <small>${t("Beslis niet op volume alleen, maar op respons, afspraakratio, woningmix en partnerfeedback.", "Decide not on volume alone, but on response, appointment rate, property mix and partner feedback.")}</small>
+            <span>${t("Wat moet DAW vragen?", "What should DAW ask?")}</span>
+            <strong>${t("Bewijs per batch", "Proof per batch")}</strong>
+            <small>${t("Vraag per partner: scans, formulierstarts, afspraken, offertes, gewonnen/verloren en reden van bezwaar.", "Ask per partner: scans, form starts, appointments, quotes, won/lost and objection reason.")}</small>
           </div>
         </div>
       </div>
@@ -1003,44 +1064,51 @@
       panel.className = "panel strategy-section";
       campaign.prepend(panel);
     }
-    const messageRows = groupRows(properties().filter(isTop), suggestedMessageAngle, messageLabel).slice(0, 4);
+    const topRows = properties().filter(isTop);
+    const messageRows = groupRows(topRows, suggestedMessageAngle, messageLabel).slice(0, 4);
     const bestHouseByMessage = (group) => groupRows(group.rows || [], (property) => property.houseType, houseLabel)[0];
     const bestIncomeByMessage = (group) => groupRows(group.rows || [], incomeClass, incomeLabel)[0];
-    const steps = [
-      [t("QR-scan", "QR scan"), t("Welke regio, partner en boodschap wekt eerste aandacht?", "Which region, partner and message creates first attention?")],
-      [t("Formulierstart", "Form start"), t("Welke belofte is sterk genoeg om gegevens achter te laten?", "Which promise is strong enough to leave details?")],
-      [t("Interesse", "Interest"), t("Energie, esthetiek, onderhoud, subsidiecheck of comfort.", "Energy, aesthetics, maintenance, subsidy check or comfort.")],
-      [t("Renderkeuze", "Render choice"), t("Welke afwerking, kleur en productlijn trekt door naar sales?", "Which finish, color and product line moves to sales?")],
-      [t("Partneruitkomst", "Partner outcome"), t("Opvolgtijd, afspraak, offerte, gewonnen/verloren en bezwaar.", "Follow-up time, appointment, quote, won/lost and objection.")]
+    const proofSteps = [
+      [t("Aandacht", "Attention"), t("QR-scan per 100 verzonden kaarten, uitgesplitst per boodschap en partner.", "QR scans per 100 sent cards, split by message and partner.")],
+      [t("Motief", "Motivation"), t("Welke reden kiest de bewoner: energie, uitstraling, onderhoud, subsidie of lokale partner?", "Which reason does the homeowner choose: energy, appearance, maintenance, subsidy or local partner?")],
+      [t("Productvoorkeur", "Product preference"), t("Welke afwerking, kleur of render wordt gekozen voor afspraak of offerte?", "Which finish, color or render is chosen before appointment or quote?")],
+      [t("Partnerfit", "Partner fit"), t("Hoe snel volgt de partner op, hoeveel afspraken ontstaan, welke bezwaren komen terug?", "How quickly does the partner follow up, how many appointments happen, which objections recur?")]
     ];
+    const learningDecision = (group) => {
+      if (group.responseRate >= 63) return t("opschalen als live scanrate dit bevestigt", "scale if live scan rate confirms this");
+      if (group.appointmentRate >= 24) return t("houden, maar partneropvolging scherper meten", "keep, but measure partner follow-up more tightly");
+      return t("alleen testen als controlegroep of met andere copy", "only test as control group or with different copy");
+    };
     panel.innerHTML = `
       <div class="panel-head">
-        <div><p class="eyebrow">${t("Campagnelearnings", "Campaign learnings")}</p><h2>${t("Welke boodschap werkt voor welk woning- en buurtsegment?", "Which message works for which property and area segment?")}</h2></div>
-        <div class="scope-chip">${t("postkaart + landingpagina", "postcard + landing page")}</div>
+        <div><p class="eyebrow">${t("Campagnelearnings", "Campaign learnings")}</p><h2>${t("Wat moet DAW leren uit de eerste postkaartgolf?", "What should DAW learn from the first postcard wave?")}</h2></div>
+        <div class="scope-chip">${t("postkaart - QR - landingspagina - partner", "postcard - QR - landing page - partner")}</div>
       </div>
       <div class="strategy-message-lab">
-        <h3>${t("Boodschaptests voor golf 1", "Message tests for wave 1")}</h3>
+        <h3>${t("Learning register voor golf 1", "Learning register for wave 1")}</h3>
         <div class="strategy-message-grid">
           ${messageRows.map((group) => {
             const house = bestHouseByMessage(group) || {};
             const income = bestIncomeByMessage(group) || {};
+            const noResponse = (group.rows || []).filter((property) => property.status === "no_response").length;
             return `
               <div class="strategy-message-card">
-                <span>${t("Testcel", "Test cell")}</span>
-                <strong>${esc(group.label)}</strong>
-                <small>${formatInt(group.count)} A/A+ - ${formatPct(group.responseRate)} ${t("demo-respons", "demo response")} - ${esc(house.label || t("gemengde woningtypes", "mixed property types"))} - ${esc(income.label || t("middenklasse buurt", "middle-income area"))}</small>
-                <div class="promise"><b>${t("Op de postkaart:", "On the postcard:")}</b><br><small>${esc(postcardPromise(group.key))}</small></div>
-                <div class="promise"><b>${t("Op de landingspagina:", "On the landing page:")}</b><br><small>${esc(landingPromise(group.key))}</small></div>
-                <div class="promise"><b>${t("Meet:", "Measure:")}</b><br><small>${t("scanrate, formulierstart, gekozen afwerking, afspraakvraag en bezwaar.", "scan rate, form start, chosen finish, appointment request and objection.")}</small></div>
+                <span>${t("Hypothese", "Hypothesis")}</span>
+                <strong>${esc(group.label)} ${t("werkt vooral bij", "works especially for")} ${esc(house.label || t("gemengde woningen", "mixed properties"))}</strong>
+                <small>${formatInt(group.count)} A/A+ ${t("testadressen", "test addresses")} - ${esc(income.label || t("middenklasse buurt", "middle-income area"))} - ${formatInt(noResponse)} ${t("zonder respons in demo", "without response in demo")}</small>
+                <div class="promise"><b>${t("Wat leren we?", "What do we learn?")}</b><br><small>${t("Of deze belofte sterk genoeg is om van aandacht naar formulier en afspraak te gaan binnen dit woning- en buurtsegment.", "Whether this promise is strong enough to move from attention to form and appointment inside this property and area segment.")}</small></div>
+                <div class="promise"><b>${t("Postkaarttest:", "Postcard test:")}</b><br><small>${esc(postcardPromise(group.key))}</small></div>
+                <div class="promise"><b>${t("Landingspaginatest:", "Landing-page test:")}</b><br><small>${esc(landingPromise(group.key))}</small></div>
+                <div class="promise"><b>${t("DAW-beslissing na golf:", "DAW decision after wave:")}</b><br><small>${esc(learningDecision(group))}. ${t("Meet scanrate, formulierstart, gekozen afwerking, afspraakvraag en bezwaar.", "Measure scan rate, form start, chosen finish, appointment request and objection.")}</small></div>
               </div>
             `;
           }).join("")}
         </div>
       </div>
       <div class="strategy-qr-flow">
-        ${steps.map(([title, detail], index) => `
+        ${proofSteps.map(([title, detail], index) => `
           <div class="strategy-qr-step">
-            <span>${t("Stap", "Step")} ${index + 1}</span>
+            <span>${t("Bewijslaag", "Evidence layer")} ${index + 1}</span>
             <strong>${esc(title)}</strong>
             <small>${esc(detail)}</small>
           </div>
