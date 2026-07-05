@@ -8626,6 +8626,9 @@ async function uploadFieldPhoto(key, address, input) {
   body.set('address', address || '');
   body.set('file', file);
   const row = input.closest('.photo-row');
+  const status = row ? row.querySelector('span') : null;
+  if (input) input.disabled = true;
+  if (status) status.textContent = `Uploaden: ${file.name}`;
   try {
     const res = await fetch('/api/lead_photo_upload', {method:'POST', body});
     const data = await res.json();
@@ -8638,7 +8641,13 @@ async function uploadFieldPhoto(key, address, input) {
     }
     hpSyncTopbar();
   } catch (e) {
+    if (status) status.textContent = 'Foto uploaden mislukt: ' + e.message;
     alert('Foto uploaden mislukt: ' + e.message);
+  } finally {
+    if (input) {
+      input.disabled = false;
+      input.value = '';
+    }
   }
 }
 
@@ -10304,6 +10313,13 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if not _local_request_allowed(self.headers):
             return self._json({"error": "Cross-origin verzoek geweigerd"}, 403)
         url = urlparse(self.path)
+        if url.path == "/api/replace_render":
+            return self._handle_render_upload()
+        if url.path == "/api/upload_logo":
+            return self._handle_logo_upload()
+        if url.path == "/api/lead_photo_upload":
+            return self._handle_field_photo_upload()
+
         length = int(self.headers.get("Content-Length", 0))
         raw = self.rfile.read(length).decode("utf-8") if length else ""
         data = parse_qs(raw)
@@ -10606,9 +10622,6 @@ class Handler(http.server.BaseHTTPRequestHandler):
             except Exception as e:
                 self._json({"ok": False, "error": str(e)}, 500)
 
-        elif url.path == "/api/replace_render":
-            self._handle_render_upload()
-
         elif url.path == "/api/save_profile":
             # Save builder profile (form-encoded)
             profile = load_builder_profile()
@@ -10626,12 +10639,6 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     return self._json({"ok": False, "error": f"Flyer copy ongeldig: {e}"}, 400)
             save_builder_profile(profile)
             self._json({"ok": True, "profile": profile})
-
-        elif url.path == "/api/upload_logo":
-            self._handle_logo_upload()
-
-        elif url.path == "/api/lead_photo_upload":
-            self._handle_field_photo_upload()
 
         else:
             self.send_response(404)
