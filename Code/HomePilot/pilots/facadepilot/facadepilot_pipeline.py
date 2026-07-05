@@ -1118,7 +1118,7 @@ def run_pipeline(config: dict):
         if map_only:
             log("Leads/Map only voltooid: de kaart en selectielijst staan klaar.")
             for step_name in ("render", "flyer", "landing", "publish", "email"):
-                update_step(step_name, status="skipped", message="Overgeslagen in Leads/Map only")
+                update_step(step_name, status="skipped", message="Niet van toepassing bij Leads & kaart")
             with state_lock:
                 pipeline_state["done"] = True
                 pipeline_state["current_step"] = None
@@ -6794,6 +6794,11 @@ async function startPipeline() {
   document.getElementById('startBtn').disabled = true;
   document.getElementById('cancelBtn').style.display = 'block';
   document.getElementById('doneBanner').classList.remove('active');
+  document.getElementById('doneTitle').textContent = mapOnly ? 'Kaartselectie wordt gemaakt...' : 'Pipeline wordt gestart...';
+  document.getElementById('doneSummary').textContent = '';
+  const mapCard = document.getElementById('mapCard');
+  if (mapOnly && mapCard) mapCard.style.display = 'block';
+  poll();
 }
 
 async function cancelPipeline() {
@@ -6873,10 +6878,16 @@ function updateUI(s) {
       icon.style.fontSize = '';
     }
 
-    msg.textContent = step.message || 'Wacht op start';
+    msg.textContent = step.message === 'Overgeslagen in Leads/Map only'
+      ? 'Niet van toepassing bij Leads & kaart'
+      : (step.message || 'Wacht op start');
 
     if (step.total > 0) {
       barFill.style.width = Math.round((step.progress / step.total) * 100) + '%';
+    } else if (step.status === 'done') {
+      barFill.style.width = '100%';
+    } else {
+      barFill.style.width = '0%';
     }
   }
 
@@ -6931,11 +6942,14 @@ function updateUI(s) {
   }
 
   // Done banner
+  const banner = document.getElementById('doneBanner');
+  if (!s.done) {
+    banner.classList.remove('active');
+  }
   if (s.done) {
-    const banner = document.getElementById('doneBanner');
     banner.classList.add('active');
     let summary = '';
-    const mapOnlyDone = s.summary && s.summary.map_only;
+    const mapOnlyDone = (s.mode === 'map_only') || (s.summary && s.summary.map_only);
     const doneTitle = document.getElementById('doneTitle');
     if (doneTitle) doneTitle.textContent = mapOnlyDone ? 'Kaartselectie klaar!' : 'Pipeline voltooid!';
     if (s.summary.scoring) {
@@ -8668,6 +8682,7 @@ async function startPipelineFromMapSelection() {
   await startPipeline();
 }
 
+let _lastAutoMapKey = '';
 function showMapWhenAvailable(s) {
   // Show map card zodra scoring done is
   const haveLeads = (s.steps && s.steps.scoring && s.steps.scoring.status === 'done') || s.done;
@@ -8675,6 +8690,18 @@ function showMapWhenAvailable(s) {
     const card = document.getElementById('mapCard');
     if (card.style.display === 'none') {
       card.style.display = 'block';
+    }
+    const scoring = s.steps && s.steps.scoring ? s.steps.scoring : {};
+    const mapOnly = s.summary && s.summary.map_only ? s.summary.map_only : {};
+    const key = [
+      s.niscode || '',
+      scoring.output_file || '',
+      mapOnly.input_file || '',
+      s.mode || '',
+      s.done ? 'done' : 'running'
+    ].join('|');
+    if (key && key !== _lastAutoMapKey) {
+      _lastAutoMapKey = key;
       reloadMap();
     }
   }
@@ -9799,6 +9826,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
             with state_lock:
                 pipeline_state["running"] = True
+                pipeline_state["start_time"] = time.time()
+                pipeline_state["mode"] = pipeline_mode
 
             t = threading.Thread(target=run_pipeline, args=(config,), daemon=True)
             t.start()
