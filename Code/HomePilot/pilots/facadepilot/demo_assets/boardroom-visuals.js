@@ -219,10 +219,10 @@
       <span>${escapeHtml(property.city || "")} - ${escapeHtml(partnerName(property))}</span>
       <small>
         Score ${escapeHtml(best.score)} / ${escapeHtml(best.grade || "n/a")}<br>
-        ${escapeHtml(best.label || "Facade opportunity")}<br>
-        Status: ${escapeHtml(property.status || "queued")}<br>
+        ${escapeHtml(best.label || "Gevelkans")}<br>
+        Status: ${escapeHtml(property.status || "wachtrij")}<br>
         Pipeline: ${formatMoney(property.estimatedValue || 0)}<br>
-        Next action: ${escapeHtml(property.nextAction || "Review with partner")}
+        Volgende actie: ${escapeHtml(property.nextAction || "Review met partner")}
       </small>
     `;
   }
@@ -243,10 +243,10 @@
     const value = list.reduce((sum, property) => sum + Number(property.estimatedValue || 0), 0);
 
     stats.innerHTML = `
-      <div><strong>${formatNumber(list.length)}</strong><span>Visible records</span></div>
+      <div><strong>${formatNumber(list.length)}</strong><span>Zichtbare records</span></div>
       <div><strong>${formatNumber(topCount)}</strong><span>A/A+ focus</span></div>
       <div><strong>${formatNumber(partners.length)}</strong><span>Partners</span></div>
-      <div><strong>${formatPercent((engaged / Math.max(1, contacted)) * 100)}</strong><span>Contacted response</span></div>
+      <div><strong>${formatPercent((engaged / Math.max(1, contacted)) * 100)}</strong><span>Respons op gecontacteerd</span></div>
       <div><strong>${formatMoney(value)}</strong><span>Pipeline</span></div>
     `;
 
@@ -387,12 +387,12 @@
       x: cx,
       y: cy,
       r: 48,
-      detail: "Producer command node: aggregate view over partners, scoring signals, response proof and legal-first guardrails.",
+      detail: "Producentensturing: totaalbeeld over partners, kanssignalen, echte respons en legal-first guardrails.",
       meta: `${formatNumber(properties.length)} records`,
       metrics: [
-        `${formatNumber(topProperties.length)} A/A+ opportunities`,
-        `${formatMoney(totalValue)} visible pipeline`,
-        `${formatNumber(facadeM2)} m² facade context`
+        `${formatNumber(topProperties.length)} A/A+ kansen`,
+        `${formatMoney(totalValue)} zichtbare pipeline`,
+        `${formatNumber(facadeM2)} m² gevelcontext`
       ]
     });
     addNode({
@@ -402,56 +402,56 @@
       x: cx - 190,
       y: cy - 138,
       r: 34,
-      detail: "Opportunity model for facade renovation campaigns, not homeowner intent profiling.",
+      detail: "Kansmodel voor gevelrenovatiecampagnes, geen bewonersintentieprofiel.",
       meta: "legal-first module",
-      metrics: ["scores property opportunity", "keeps launch approval gated"]
+      metrics: ["scoort woningkans", "houdt lancering gescheiden van demo"]
     });
     addNode({
       id: "action:launch_gate",
       type: "action",
-      label: "Launch gate",
+      label: "Lanceringstoets",
       x: cx + 195,
       y: cy - 138,
       r: 32,
-      detail: "Boardroom decision: approve scoped first wave only after customer go/no-go, suppression and routing proof.",
-      meta: "proof gated",
-      metrics: ["approval before outreach", "no live send from demo data"]
+      detail: "Boardroombeslissing: keur een afgebakende eerste golf pas goed na klant-go/no-go, suppressie en routingcheck.",
+      meta: "beslissing vereist",
+      metrics: ["goedkeuring voor verzending", "geen live verzending vanuit demodata"]
     });
     addNode({
       id: "action:field_photo",
       type: "action",
-      label: "Field-photo audit",
+      label: "Veldfoto-audit",
       x: cx + 205,
       y: cy + 142,
       r: 29,
-      detail: "Production visual proof should come from own capture, partner upload, licensed provider or official embed.",
-      meta: "visual proof",
-      metrics: ["shortlist before photography", "no Google-derived imagery"]
+      detail: "Productiebeelden komen uit eigen fotografie, partnerupload, vergunde provider of officiele embed.",
+      meta: "beeldcontrole",
+      metrics: ["shortlist voor fotografie", "geen van Google afgeleide beelden"]
     });
     addNode({
       id: "status:response_loop",
       type: "status",
-      label: "Response loop",
+      label: "Responsloop",
       x: cx - 205,
       y: cy + 142,
       r: 28,
-      detail: "Only real replies, clicks and appointments become campaign learning evidence.",
-      meta: `${formatPercent((engaged / Math.max(1, contacted)) * 100)} contacted response`,
-      metrics: [`${formatNumber(engaged)} engaged records`, `${formatNumber(contacted)} contacted denominator`]
+      detail: "Alleen echte replies, klikken en afspraken worden campagnelearning.",
+      meta: `${formatPercent((engaged / Math.max(1, contacted)) * 100)} respons op gecontacteerd`,
+      metrics: [`${formatNumber(engaged)} responsrecords`, `${formatNumber(contacted)} gecontacteerde noemer`]
     });
-    addEdge("producer:daw", "module:facadepilot", "module", "uses", 3);
-    addEdge("producer:daw", "action:launch_gate", "action", "approve", 2.6);
-    addEdge("producer:daw", "action:field_photo", "action", "verify", 2.2);
-    addEdge("producer:daw", "status:response_loop", "status", "learns", 2.2);
-    addEdge("module:facadepilot", "action:launch_gate", "action", "gates", 1.8);
-    addEdge("status:response_loop", "action:launch_gate", "status", "proof", 1.4);
+    addEdge("producer:daw", "module:facadepilot", "module", "gebruikt", 3);
+    addEdge("producer:daw", "action:launch_gate", "action", "keurt goed", 2.6);
+    addEdge("producer:daw", "action:field_photo", "action", "verifieert", 2.2);
+    addEdge("producer:daw", "status:response_loop", "status", "leert", 2.2);
+    addEdge("module:facadepilot", "action:launch_gate", "action", "toetst", 1.8);
+    addEdge("status:response_loop", "action:launch_gate", "status", "bewijs", 1.4);
 
     const signalNodes = [
-      { id: "signal:a_plus", label: "A/A+ queue", x: 245, y: 205, detail: "High-score property opportunity queue for first-wave review.", meta: `${formatNumber(topProperties.length)} records` },
-      { id: "signal:surface", label: "Facade surface", x: 255, y: 492, detail: "Estimated facade surface supports pipeline sizing, not homeowner intent.", meta: `${formatNumber(facadeM2)} m²` },
-      { id: "signal:public_context", label: "Public context", x: 255, y: 775, detail: "Source-backed context lane: licences, allowed use and provenance before production import.", meta: "source gated" },
-      { id: "signal:retarget", label: "Retarget backlog", x: 1405, y: 775, detail: "No-response records are a follow-up queue, not negative intent.", meta: `${formatNumber(noResponse)} records` },
-      { id: "signal:partner_fit", label: "Partner fit", x: 1405, y: 205, detail: "Routes opportunities to the right renovation partner before partner-level handoff.", meta: "scope safe" }
+      { id: "signal:a_plus", label: "A/A+ wachtrij", x: 245, y: 205, detail: "Woningkansen met hoge score voor review van de eerste golf.", meta: `${formatNumber(topProperties.length)} records` },
+      { id: "signal:surface", label: "Geveloppervlak", x: 255, y: 492, detail: "Geschat geveloppervlak helpt pipeline inschatten, niet bewonersintentie.", meta: `${formatNumber(facadeM2)} m²` },
+      { id: "signal:public_context", label: "Publieke context", x: 255, y: 775, detail: "Bronlaag: licenties, allowed use en herkomst voor productie-import.", meta: "brontoets" },
+      { id: "signal:retarget", label: "Geen-respons wachtrij", x: 1405, y: 775, detail: "Geen-respons records zijn opvolgkansen, geen negatieve intentie.", meta: `${formatNumber(noResponse)} records` },
+      { id: "signal:partner_fit", label: "Partnerfit", x: 1405, y: 205, detail: "Routeert kansen naar de juiste renovatiepartner voor partneroverdracht.", meta: "scope veilig" }
     ];
     signalNodes.forEach((node) => addNode({ ...node, type: "signal", r: 26 }));
     signalNodes.forEach((node) => addEdge("module:facadepilot", node.id, "signal", node.label, 2));
@@ -475,11 +475,11 @@
         x: px,
         y: py,
         r: Math.max(28, Math.min(39, 25 + Math.sqrt(partner.properties.length))),
-        detail: `${partner.region || "Region"} partner scope: ${formatNumber(partner.properties.length)} assigned records, ${formatNumber(top)} A/A+, ${formatNumber(response)} engaged.`,
+        detail: `${partner.region || "Regio"} partnerscope: ${formatNumber(partner.properties.length)} toegewezen records, ${formatNumber(top)} A/A+, ${formatNumber(response)} respons.`,
         meta: `${formatNumber(top)} A/A+`,
-        metrics: [`Avg score ${formatNumber(avgScore)}`, formatMoney(partnerValue), `${formatNumber(partnerNoResponse)} no-response`]
+        metrics: [`Gem. score ${formatNumber(avgScore)}`, formatMoney(partnerValue), `${formatNumber(partnerNoResponse)} geen respons`]
       });
-      addEdge("producer:daw", partnerId, "partner", "partner scope", 2.6);
+      addEdge("producer:daw", partnerId, "partner", "partnerscope", 2.6);
       addEdge(partnerId, "signal:partner_fit", "signal", "fit", 1.6);
 
       const partnerTop = partner.properties
@@ -497,34 +497,34 @@
           target: "signal:a_plus",
           edge: "signal",
           meta: "review first",
-          detail: `${partner.name}: first-wave shortlist with ${formatNumber(top)} A/A+ property opportunities.`,
-          metrics: ["Approve shortlist before outreach", "Property opportunity, not homeowner intent"]
+          detail: `${partner.name}: first-wave shortlist met ${formatNumber(top)} A/A+ woningkansen.`,
+          metrics: ["Keur shortlist goed voor verzending", "Woningkans, geen bewonersintentie"]
         },
         {
           id: `cluster:${partner.id}:response`,
-          label: `${formatNumber(response)} engaged`,
+          label: `${formatNumber(response)} respons`,
           type: "cluster",
           count: response,
           x: px + Math.cos(angle + 0.12) * 152,
           y: py + Math.sin(angle + 0.12) * 152,
           target: "status:response_loop",
           edge: "status",
-          meta: "proof loop",
-          detail: `${partner.name}: clicked/responded/appointment rows become response learning once real campaign data exists.`,
-          metrics: [`${formatNumber(response)} engaged demo records`, "Denominator stays contacted records"]
+          meta: "responsloop",
+          detail: `${partner.name}: klik-, respons- en afspraakrecords worden learning zodra echte campagnedata bestaat.`,
+          metrics: [`${formatNumber(response)} responsrecords`, "Noemer blijft gecontacteerde records"]
         },
         {
           id: `cluster:${partner.id}:retarget`,
-          label: `${formatNumber(partnerNoResponse)} retarget`,
+          label: `${formatNumber(partnerNoResponse)} heractiveren`,
           type: "cluster",
           count: partnerNoResponse,
           x: px + Math.cos(angle + 0.34) * 122,
           y: py + Math.sin(angle + 0.34) * 122,
           target: "signal:retarget",
           edge: "action",
-          meta: "follow-up",
-          detail: `${partner.name}: no-response backlog can be reviewed for a lower-friction second message.`,
-          metrics: [`${formatNumber(partnerNoResponse)} no-response`, "Retarget only after approval"]
+          meta: "opvolging",
+          detail: `${partner.name}: geen-respons wachtrij kan opnieuw getest worden met een zachtere tweede boodschap.`,
+          metrics: [`${formatNumber(partnerNoResponse)} geen respons`, "Retarget pas na goedkeuring"]
         }
       ].filter((cluster) => cluster.count > 0);
 
@@ -554,8 +554,8 @@
           propertyId: property.id,
           score: best.score,
           meta: best.grade || "",
-          detail: `${property.address} - ${best.label || "Facade signal"} - ${property.status || "queued"}`,
-          metrics: [formatMoney(property.estimatedValue || 0), `${formatNumber(property.estimatedFacadeM2 || 0)} m² facade`]
+          detail: `${property.address} - ${best.label || "Gevelsignaal"} - ${property.status || "wachtrij"}`,
+          metrics: [formatMoney(property.estimatedValue || 0), `${formatNumber(property.estimatedFacadeM2 || 0)} m² gevel`]
         });
         addEdge(cluster.id, propertyId, "assignment", "sample", 1);
         addEdge(propertyId, "signal:surface", "signal", "value", 1);
@@ -605,7 +605,7 @@
     const node = brainState.byId[brainState.selectedId];
     if (!node) {
       const matched = brainState.nodes.filter(matchesSearch).length;
-      target.innerHTML = `<strong>${matched} matching nodes</strong><span>Search or click a node.</span><small>Drag the empty graph background to pan. Scroll to zoom.</small>`;
+      target.innerHTML = `<strong>${matched} passende nodes</strong><span>Zoek of klik op een node.</span><small>Sleep de lege graph-achtergrond om te pannen. Scroll om te zoomen.</small>`;
       return;
     }
     const links = brainState.edges
@@ -620,7 +620,7 @@
     target.innerHTML = `
       <strong>${escapeHtml(node.label)}</strong>
       <span>${escapeHtml(node.type)}${node.meta ? ` - ${escapeHtml(node.meta)}` : ""}${node.score ? ` - score ${escapeHtml(node.score)}` : ""}</span>
-      <small>${escapeHtml(node.detail || "Graph context")}</small>
+      <small>${escapeHtml(node.detail || "Graph-context")}</small>
       ${metrics ? `<div class="inspector-metrics">${metrics}</div>` : ""}
       <small>${links.map(escapeHtml).join("<br>")}</small>
     `;
@@ -635,10 +635,10 @@
     const engaged = properties.filter((property) => ENGAGED.has(property.status)).length;
     const noResponse = properties.filter((property) => property.status === "no_response").length;
     target.innerHTML = [
-      ["Reusable memory", `${formatNumber(brainState.nodes.length)} nodes`, "partners, signals, actions and proof loops"],
-      ["First-wave focus", `${formatNumber(top)} A/A+`, "shortlist before field-photo spend"],
-      ["Partner network", `${formatNumber(partners)} scopes`, "each partner keeps assigned records only"],
-      ["Learning loop", formatPercent((engaged / Math.max(1, contacted)) * 100), `${formatNumber(noResponse)} retarget candidates`]
+      ["Herbruikbaar geheugen", `${formatNumber(brainState.nodes.length)} nodes`, "partners, signalen, acties en responsloops"],
+      ["First-wave focus", `${formatNumber(top)} A/A+`, "shortlist voor veldfotobudget"],
+      ["Partnernetwerk", `${formatNumber(partners)} scopes`, "elke partner ziet alleen toegewezen records"],
+      ["Learning loop", formatPercent((engaged / Math.max(1, contacted)) * 100), `${formatNumber(noResponse)} heractiveerkandidaten`]
     ].map(([label, value, detail]) => `
       <div><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong><small>${escapeHtml(detail)}</small></div>
     `).join("");
@@ -648,12 +648,12 @@
     const target = document.getElementById("reportBrainLegend");
     if (!target) return;
     target.innerHTML = [
-      ["module", "FacadePilot module"],
-      ["partner", "Renovation partner"],
-      ["cluster", "Opportunity cluster"],
-      ["signal", "Scoring signal"],
-      ["status", "Response loop"],
-      ["action", "Next action"]
+      ["module", "FacadePilot-module"],
+      ["partner", "Renovatiepartner"],
+      ["cluster", "Kansencluster"],
+      ["signal", "Scoresignaal"],
+      ["status", "Responsloop"],
+      ["action", "Volgende actie"]
     ].map(([type, label]) => `<span><i class="${type}"></i>${escapeHtml(label)}</span>`).join("");
   }
 

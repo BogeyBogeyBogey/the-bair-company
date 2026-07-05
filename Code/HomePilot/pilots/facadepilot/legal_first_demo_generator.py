@@ -34,6 +34,8 @@ DASHBOARD_JS = DASHBOARD / "dashboard-data.js"
 AI_HERO_FACADE = Path(__file__).with_name("demo_assets") / "daw_ai_hero_facade.jpg"
 BOARDROOM_VISUALS_TEMPLATE = Path(__file__).with_name("demo_assets") / "boardroom-visuals.js"
 SECOND_BRAIN_TEMPLATE = Path(__file__).with_name("demo_assets") / "second-brain-daw.html"
+DAW_STRATEGY_DASHBOARD_SCRIPT = Path(__file__).with_name("demo_assets") / "daw-strategy-dashboard.js"
+INTERNAL_DEMODASHBOARD_SCRIPT = Path(__file__).with_name("demo_assets") / "internal-demodashboard.js"
 
 RUN_ID = "daw-legal-first-demo-v2"
 CREATED_AT = "2026-07-04T12:00:00+02:00"
@@ -49,6 +51,7 @@ STREET_ROOTS = [
 STREET_SUFFIXES = ["laan", "straat", "dreef", "pad", "hof", "weg", "plein"]
 HOUSE_TYPES = ["rijwoning", "halfopen", "vrijstaand", "bungalow", "hoekwoning"]
 FACADE_STYLES = ["brick", "painted_brick", "old_crepi", "mixed_facade", "sixties_brick"]
+INCOME_CLASSES = ["budgetbewust", "middenklasse", "comfortklasse", "premiumbuurt"]
 RENOVATION_CONTEXTS = [
     "high renovation activity", "energy retrofit priority", "older facade cluster",
     "partner route fit", "insulation grant context", "dense lookalike pocket",
@@ -61,15 +64,41 @@ STATUS_SEQUENCE = ["queued", "sent", "clicked", "responded", "appointment", "no_
 
 
 def load_snapshot() -> dict:
-    with SNAPSHOT_JSON.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+    candidates = [
+        SNAPSHOT_JSON,
+        DATA_DIR / "scoped_payload.json",
+        DEMO_ROOT / "data" / "payload.json",
+    ]
+    last_error: Exception | None = None
+    for candidate in candidates:
+        if not candidate.exists():
+            continue
+        try:
+            with candidate.open("r", encoding="utf-8") as handle:
+                return json.load(handle)
+        except (json.JSONDecodeError, OSError) as exc:
+            last_error = exc
+    if DASHBOARD_JS.exists():
+        try:
+            text = DASHBOARD_JS.read_text(encoding="utf-8")
+            marker = "window.HOMEPILOT_DASHBOARD = "
+            start = text.index(marker) + len(marker)
+            payload = text[start:].strip()
+            if payload.endswith(";"):
+                payload = payload[:-1]
+            return json.loads(payload)
+        except (ValueError, json.JSONDecodeError, OSError) as exc:
+            last_error = exc
+    raise RuntimeError(f"No readable dashboard snapshot found: {last_error}")
 
 
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as handle:
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    with tmp_path.open("w", encoding="utf-8") as handle:
         json.dump(payload, handle, ensure_ascii=False, indent=2)
         handle.write("\n")
+    tmp_path.replace(path)
 
 
 def as_js(payload: dict) -> str:
@@ -171,7 +200,12 @@ def final_score(components: dict) -> int:
     return int(round(score))
 
 
-def make_public_context(property_row: dict, components: dict, facade_style: str, house_type: str) -> dict:
+def income_class_for(index: int, partner: dict, components: dict) -> str:
+    base = (index + int(components["value_fit"] / 12) + (2 if partner.get("tier") == "platinum" else 0)) % len(INCOME_CLASSES)
+    return INCOME_CLASSES[base]
+
+
+def make_public_context(property_row: dict, components: dict, facade_style: str, house_type: str, income_class: str) -> dict:
     parcel = int(property_row.get("parcelAreaM2") or property_row.get("perceel_m2") or 220)
     footprint = int(property_row.get("buildingFootprintM2") or property_row.get("estimatedFacadeM2", 120) * 0.62)
     pre_1990 = 42 + (components["renovation_context"] % 37)
@@ -234,6 +268,15 @@ def make_public_context(property_row: dict, components: dict, facade_style: str,
                 "source": "Synthetic Statbel-style aggregate lane",
                 "geographyLevel": "statistical_sector",
                 "licence": "Demo only; mirror of aggregate open-data lane",
+            },
+            {
+                "key": "stat_sector_income_class",
+                "label": "Neighbourhood income class",
+                "value": income_class,
+                "unit": "",
+                "source": "Synthetic Statbel-style aggregate income lane",
+                "geographyLevel": "statistical_sector",
+                "licence": "Demo only; production source required",
             },
             {
                 "key": "property_fit_basis",
@@ -427,6 +470,7 @@ def transform_snapshot(snapshot: dict) -> dict:
         house_type = HOUSE_TYPES[(index + local_rnd.randint(0, 4)) % len(HOUSE_TYPES)]
         facade_style = FACADE_STYLES[(index * 3 + local_rnd.randint(0, 4)) % len(FACADE_STYLES)]
         components = score_components(index, partner, house_type, facade_style, local_rnd)
+        income_class = income_class_for(index, partner, components)
         score = final_score(components)
         grade = grade_for(score, "pending_field_audit")
         facade_m2 = int(72 + components["property_fit"] * 1.35 + (index % 23))
@@ -457,6 +501,7 @@ def transform_snapshot(snapshot: dict) -> dict:
             "renovationSystem": "DAW crepi + facade insulation",
             "houseType": house_type,
             "facadeStyle": facade_style,
+            "neighbourhoodIncomeClass": income_class,
             "nextAction": next_action_for(status, partner["name"], grade),
             "tags": [
                 "synthetic address",
@@ -464,9 +509,10 @@ def transform_snapshot(snapshot: dict) -> dict:
                 "no Google imagery",
                 house_type,
                 facade_style.replace("_", " "),
+                income_class,
                 f"FacadePilot {grade}",
             ],
-            "publicContext": make_public_context(property_row, components, facade_style, house_type),
+            "publicContext": make_public_context(property_row, components, facade_style, house_type, income_class),
             "visuals": {
                 "facade_image_path": visual_rel,
                 "image_source_type": "generated_synthetic",
@@ -487,7 +533,7 @@ def transform_snapshot(snapshot: dict) -> dict:
             "campaignPolicy": {
                 "claim_boundary": "No homeowner intent claim before real response.",
                 "outreach_boundary": "Electronic outreach requires GDPR/ePrivacy review; postal/direct mail requires opt-out and legitimate-interest assessment.",
-                "tenant_scope": "DAW producer network aggregate; partner cutdowns show assigned records only.",
+                "tenant_scope": "DAW producer network aggregate; partner views show assigned records only.",
             },
         })
 
@@ -740,7 +786,7 @@ def write_exports(snapshot: dict) -> None:
     EXPORTS.mkdir(parents=True, exist_ok=True)
     properties = snapshot["properties"]
     prop_fields = [
-        "id", "address", "city", "territory", "producer", "status", "houseType", "facadeStyle",
+        "id", "address", "city", "territory", "producer", "status", "houseType", "facadeStyle", "neighbourhoodIncomeClass",
         "estimatedValue", "estimatedFacadeM2", "partner_id", "partner_name", "score", "grade",
         "property_fit", "territory_fit", "renovation_context", "campaign_readiness",
         "visual_status", "visual_path", "image_source_type", "rights_status", "nextAction",
@@ -761,6 +807,7 @@ def write_exports(snapshot: dict) -> None:
                 "status": row.get("status", ""),
                 "houseType": row.get("houseType", ""),
                 "facadeStyle": row.get("facadeStyle", ""),
+                "neighbourhoodIncomeClass": row.get("neighbourhoodIncomeClass", ""),
                 "estimatedValue": row.get("estimatedValue", 0),
                 "estimatedFacadeM2": row.get("estimatedFacadeM2", 0),
                 "partner_id": row.get("partner", {}).get("id", ""),
@@ -1182,7 +1229,7 @@ function scoreComponentDetail(key, value) {
     territory_fit: "Fits the assigned renovation partner route",
     renovation_context: "Neighbourhood and property-context signals",
     campaign_readiness: "Useful for a concrete direct-mail or sales action",
-    value_fit: "Estimated facade surface and weighted pipeline value"
+    value_fit: "Estimated facade surface and project value"
   };
   return details[key] || "Source-backed scoring component";
 }
@@ -1283,6 +1330,26 @@ function assessmentDetailMarkup(property, key, item) {
         '? formatPercent(contactedResponseRate(properties))'
     )
     app = app.replace(
+        'title.textContent = daw ? "Facade opportunity command center" : "Renovation opportunity command center";',
+        'title.textContent = daw ? "Facade intelligence platform" : "Renovation intelligence platform";'
+    )
+    app = app.replace("DAW Belgium demo · synthetic buyer review", "DAW Belgium demo · synthetische marktintelligentie")
+    app = app.replace(
+        'document.getElementById("networkTitle").textContent = `${producerName} partner cockpit`;',
+        'document.getElementById("networkTitle").textContent = `${producerName} partner intelligence`;'
+    )
+    app = app.replace('["Top opportunities"', '["Topkansen"')
+    app = app.replace('"first-wave focus"', '"focus eerste golf"')
+    app = app.replace('["Partner scopes"', '["Partnerscopes"')
+    app = app.replace('} batches`]', '} batches`]')
+    app = app.replace('["Segments"', '["Segmenten"')
+    app = app.replace('} message tests`]', '} boodschaptests`]')
+    app = app.replace(
+        '["Launch position", summary.launch_position ? humanizeKey(summary.launch_position) : "buyer review", "proof gated"]',
+        '["Beslissing", summary.launch_position ? humanizeKey(summary.launch_position) : "review nodig", "goedkeuring voor live inzet"]'
+    )
+    app = app.replace('"Buyer review"', '"Klantreview"')
+    app = app.replace(
         '    ["Visible records", input.visible_properties ?? properties.length, "tenant scoped"],\n'
         '    ["Avg score", input.average_best_score ?? "n/a", "best module"],\n'
         '    ["Pipeline", formatEuro(input.estimated_pipeline_value || 0), "estimated"],\n'
@@ -1344,6 +1411,46 @@ function assessmentDetailMarkup(property, key, item) {
             '  renderStreetViewPanel(selectedProperty());\n'
             '  renderCampaign(properties);'
         )
+    app = app.replace('["Top opportunities"', '["Topkansen"')
+    app = app.replace('"first-wave focus"', '"focus eerste golf"')
+    app = app.replace('["Partner scopes"', '["Partnerscopes"')
+    app = app.replace('} message tests`]', '} boodschaptests`]')
+    app = app.replace('["Segments"', '["Segmenten"')
+    app = app.replace('"Visible records"', '"Zichtbare woningen"')
+    app = app.replace('"tenant scoped"', '"klantgebonden"')
+    app = app.replace('"partner cutdown"', '"alleen deze partner"')
+    app = app.replace('"network scope"', '"volledig partnernetwerk"')
+    app = app.replace('"A/A+ targets"', '"A/A+ kansen"')
+    app = app.replace('"Response proof"', '"Respons"')
+    app = app.replace('"Weighted pipeline"', '"Geschatte projectwaarde"')
+    app = app.replace('"Top share"', '"A/A+ aandeel"')
+    app = app.replace('"Follow-up risk"', '"Opvolgdruk"')
+    app = app.replace('"No-response records"', '"woningen zonder respons"')
+    app = app.replace('"A and A+ in filtered set"', '"A en A+ in de selectie"')
+    app = app.replace('"Ready for review"', '"Klaar voor review"')
+    app = app.replace('"Review before handoff"', '"Eerst nakijken"')
+    app = app.replace('"Needs cleanup"', '"Opschoning nodig"')
+    app = app.replace('"Data trust"', '"Datacheck"')
+    app = app.replace('"Source ledger trust score"', '"Datacheckscore"')
+    app = app.replace('"Source ledger"', '"Bronnencheck"')
+    app = app.replace('"Evidence and provenance"', '"Bewijs en herkomst"')
+    app = app.replace('"Handoff confidence"', '"Datacheck"')
+    app = app.replace('"Reviewing"', '"In review"')
+    app = app.replace('"Tenant scope"', '"Klantbereik"')
+    app = app.replace('"Export set"', '"Exportset"')
+    app = app.replace('"Campaign evidence"', '"Campagnebewijs"')
+    app = app.replace('"Retention review"', '"Opvolging"')
+    app = app.replace('"review"', '"review"')
+    app = app.replace('"No tenant"', '"Geen klant"')
+    app = app.replace('"rows visible"', '"rijen zichtbaar"')
+    app = app.replace('"response signals"', '"responssignalen"')
+    app = app.replace('"contacted records"', '"gecontacteerde woningen"')
+    app = app.replace('"Data trust score"', '"Datacheckscore"')
+    app = app.replace(
+        '["Launch position", summary.launch_position ? humanizeKey(summary.launch_position) : "buyer review", "proof gated"]',
+        '["Beslissing", summary.launch_position ? humanizeKey(summary.launch_position) : "review nodig", "goedkeuring voor live inzet"]'
+    )
+    app = app.replace('"Buyer review"', '"Klantreview"')
     app_js.write_text(app, encoding="utf-8")
 
     styles = css.read_text(encoding="utf-8")
@@ -1919,6 +2026,8 @@ function assessmentDetailMarkup(property, key, item) {
 def patch_boardroom_report(snapshot: dict) -> None:
     path = DASHBOARD / "boardroom-report.html"
     html = path.read_text(encoding="utf-8")
+    html = html.replace('<html lang="en">', '<html lang="nl">')
+    html = html.replace("<title>DAW Belgium Boardroom Report</title>", "<title>DAW Belgium Strategisch Boardroomrapport</title>")
     html = html.replace(
         "DAW Belgium can steer 10 partners across 2 000 visible opportunities.",
         "DAW Belgium can steer 10 partners across 2 000 synthetic, legal-first property opportunities."
@@ -1939,9 +2048,35 @@ def patch_boardroom_report(snapshot: dict) -> None:
         "Demo · synthetic data",
         "Demo · legal-first synthetic data"
     )
+    html = html.replace("HomePilot boardroom report", "HomePilot strategisch boardroomrapport")
+    html = html.replace("DAW Belgium Boardroom Report", "DAW Belgium strategisch boardroomrapport")
+    html = html.replace(
+        "DAW Belgium can steer 10 partners across 2 000 synthetic, legal-first property opportunities.",
+        "DAW Belgium kan 10 renovatiepartners sturen op 2.000 synthetische, legal-first woningkansen."
+    )
+    html = html.replace("Open interactive dashboard", "Open interactief dashboard")
+    html = html.replace("Jump to map and second brain", "Ga naar kaart en second brain")
+    html = html.replace("Open meeting scenario", "Open meetingscenario")
+    html = html.replace("Executive Summary", "Strategische samenvatting")
+    html = html.replace(
+        "<li><strong>The report translates the dashboard into an executive reading path.</strong> It uses a legal-first synthetic snapshot: no real addresses, no Google-derived imagery, no homeowner-intent claims.</li>",
+        "<li><strong>Dit rapport vertaalt het dashboard naar een boardroom-leesroute.</strong> Het gebruikt een legal-first synthetische snapshot: geen echte adressen, geen Google-derived beelden en geen bewonersintentieclaims.</li>"
+    )
+    html = html.replace(
+        "<li><strong>The strongest current signal is the verified-shortlist logic.</strong> Broad scoring happens on property/context data; field photos are reserved for the top opportunities.</li>",
+        "<li><strong>Het sterkste signaal is de shortlistlogica.</strong> Brede scoring gebeurt op woning- en contextdata; veldfoto's worden gereserveerd voor de beste kansen.</li>"
+    )
+    html = html.replace(
+        "<li><strong>Campaign follow-up is separated from scoring.</strong> Scores are property opportunity signals; only real campaign responses become engagement evidence.</li>",
+        "<li><strong>Campagne-opvolging staat los van scoring.</strong> Scores zijn woningkanssignalen; alleen echte campagnerespons wordt engagementbewijs.</li>"
+    )
     html = html.replace(
         "Use this part live in the meeting: first show DAW where the opportunity pockets sit per partner, then switch mentally to the graph and explain how properties, signals, campaign reactions and next actions become a reusable customer memory.",
         "Use this part live in the meeting: first show DAW how legal-first opportunity pockets are shortlisted per partner, then switch to the graph and explain how verified photos, real responses and next actions become reusable customer memory."
+    )
+    html = html.replace(
+        "Use this part live in the meeting: first show DAW how legal-first opportunity pockets are shortlisted per partner, then switch to the graph and explain how verified photos, real responses and next actions become reusable customer memory.",
+        "Gebruik dit live in de meeting: toon eerst hoe DAW legal-first kansen per partner shortlist, en schakel daarna naar de graph om te tonen hoe foto's, echte respons en acties herbruikbaar marktgeheugen worden."
     )
     if "reportBrainInsights" not in html:
         html = html.replace(
@@ -2146,16 +2281,172 @@ def patch_boardroom_report(snapshot: dict) -> None:
     if cards_start != -1 and cards_end != -1:
         cards_html = (
             '<div class="cards">'
-            f'<div class="metric"><small>Visible records</small><strong>{be_int(summary["properties"])}</strong><span>synthetic addresses</span></div>'
-            f'<div class="metric"><small>Visible pipeline</small><strong>EUR {be_millions(summary["pipeline_value"])}M</strong><span>{be_int(summary["facade_m2"])} m² gevel</span></div>'
-            f'<div class="metric"><small>A/A opportunities</small><strong>{be_int(summary["top_opportunities"])}</strong><span>property opportunity, not intent</span></div>'
-            f'<div class="metric"><small>Synthetic visuals</small><strong>{be_int(summary["synthetic_visuals"])}</strong><span>0 Google-derived images</span></div>'
-            f'<div class="metric"><small>Verification shortlist</small><strong>{be_int(round(summary["properties"] * 0.18))}</strong><span>field-photo candidates</span></div>'
+            f'<div class="metric"><small>Zichtbare records</small><strong>{be_int(summary["properties"])}</strong><span>synthetische adressen</span></div>'
+            f'<div class="metric"><small>Zichtbare pipeline</small><strong>EUR {be_millions(summary["pipeline_value"])}M</strong><span>{be_int(summary["facade_m2"])} m² gevel</span></div>'
+            f'<div class="metric"><small>A/A kansen</small><strong>{be_int(summary["top_opportunities"])}</strong><span>woningkans, geen intentie</span></div>'
+            f'<div class="metric"><small>Synthetische visuals</small><strong>{be_int(summary["synthetic_visuals"])}</strong><span>0 Google-derived beelden</span></div>'
+            f'<div class="metric"><small>Verificatieshortlist</small><strong>{be_int(round(summary["properties"] * 0.18))}</strong><span>kandidaten voor veldfoto</span></div>'
             f'<div class="metric"><small>Guardrail</small><strong>Pass</strong><span>legal-first demo mode</span></div>'
             '</div>'
         )
         html = html[:cards_start] + cards_html + html[cards_end + len("</div></div>"):]
+
+    partners = snapshot.get("network", {}).get("partners", [])
+    volume_ready = [
+        partner for partner in partners
+        if float(partner.get("response_rate_pct") or 0) >= 60 and float(partner.get("appointment_rate_pct") or 0) >= 22
+    ]
+    coach_first = [
+        partner for partner in partners
+        if float(partner.get("response_rate_pct") or 0) < 55 or int(partner.get("no_response") or 0) >= 28
+    ]
+    top_partner = max(partners, key=lambda item: int(item.get("top_opportunities") or 0), default={})
+    message_tests = snapshot.get("messageStrategy", {}).get("best_message_tests", [])
+    top_message = (message_tests[0] if message_tests else {}).get("angle", "facade_refresh").replace("_", " ")
+    top_styles = Counter(
+        row.get("facadeStyle", "crepi")
+        for row in snapshot.get("properties", [])
+        if row.get("assessments", {}).get("facadepilot", {}).get("grade") in {"A", "A+"}
+    )
+    top_style, top_style_count = top_styles.most_common(1)[0] if top_styles else ("crepi", 0)
+    style_labels = {
+        "old_crepi": "Crepi renovatie",
+        "painted_brick": "Minerale gevelpleister",
+        "mixed_facade": "Mix steenstrips en crepi",
+        "sixties_brick": "Buitenisolatie + crepi",
+        "brick": "Baksteen reinigen/heropvoegen",
+    }
+    if "boardroom-strategy-grid" not in html:
+        strategy_html = f"""
+  <section class="panel" data-contract-section="strategic-decision-layer">
+    <div class="eyebrow">Wat DAW nu kan bijsturen</div>
+    <h2>Van cijferfestival naar beslissingsritme</h2>
+    <p><strong>Elke learning heeft dezelfde structuur:</strong> wat zien we, waarom telt dat, wat beslist DAW en hoe meten we of het klopt.</p>
+    <div class="cards boardroom-strategy-grid">
+      <div class="metric"><small>Markt en capaciteit</small><strong>{be_int(summary["top_opportunities"])} A/A</strong><span>Genoeg voor meerdere golven; hoogste concentratie bij {top_partner.get("name", "de sterkste partnerzone")}.</span></div>
+      <div class="metric"><small>Partnergroei</small><strong>{be_int(len(volume_ready))}/{be_int(len(partners))}</strong><span>partners zijn volumeklaar; {be_int(len(coach_first))} moeten eerst opvolging of capaciteit bewijzen.</span></div>
+      <div class="metric"><small>Boodschaptest</small><strong>{top_message}</strong><span>Test scanrate, formulierstart, afspraak en bezwaar per boodschap.</span></div>
+      <div class="metric"><small>Product & afwerking</small><strong>{style_labels.get(top_style, top_style.replace("_", " "))}</strong><span>{be_int(top_style_count)} A/A records in de demoqueue; capteer render- en kleurkeuze via QR.</span></div>
+      <div class="metric"><small>No-response potentieel</small><strong>{be_int(summary["no_response"])}</strong><span>Herstart met zachtere boodschap en meet retarget-scanrate apart.</span></div>
+      <div class="metric"><small>Volgende golf</small><strong>3 x 2 x 2</strong><span>3 partners, 2 regio's en 2 boodschaphoeken met vaste scorecard.</span></div>
+    </div>
+  </section>
+"""
+        html = html.replace("  <section class='panel' data-contract-section='intelligence-lab-evidence'>", strategy_html + "  <section class='panel' data-contract-section='intelligence-lab-evidence'>", 1)
+
+    html = html.replace("Open Intelligence", "Beslissingsbewijs")
+    html = html.replace("Intelligence Lab Evidence", "Autoresearch als beslissingsbewijs")
+    html = html.replace(
+        "These research loops explain how the first campaign should be reviewed.",
+        "Deze researchloops tonen hoe de eerste campagnegolf moet worden beoordeeld."
+    )
+    html = html.replace(
+        "They support partner waves, campaign segments, and message tests while keeping launch approval separate.",
+        "Ze ondersteunen partnergolven, segmenten en boodschaptests; live lancering blijft een aparte go/no-go."
+    )
+    html = html.replace("Lead Prioritization", "Leadprioritering")
+    html = html.replace("Partner Assignment", "Partnerverdeling")
+    html = html.replace("Campaign Segmentation", "Campagnesegmentatie")
+    html = html.replace("Message Strategy", "Boodschapstrategie")
+    html = html.replace("review rows", "reviewrecords")
+    html = html.replace("partner waves", "partnergolven")
+    html = html.replace("scope leakage: 0", "scope leakage: 0")
+    html = html.replace("segments", "segmenten")
+    html = html.replace("message tests", "boodschaptests")
+    html = html.replace("forbidden claims: 0", "verboden claims: 0")
+    html = html.replace("Autoresearch evidence is review support, not a live outreach decision.", "Autoresearch is reviewbewijs, geen automatische live-outreachbeslissing.")
+    html = html.replace("Response rates stay denominator-explicit and use contacted records where shown.", "Responspercentages blijven denominator-expliciet en gebruiken gecontacteerde records waar getoond.")
+    html = html.replace("Partner assignment evidence must stay assigned-records-only for partner handoffs.", "Partnerverdeling blijft assigned-records-only bij partneroverdracht.")
+    html = html.replace("Message drafts require DAW/customer approval before launch.", "Boodschappen vereisen DAW/klantgoedkeuring voor lancering.")
+    html = html.replace("Visual command layer", "Visuele beslislaag")
+    html = html.replace("Territory map and second brain", "Marktkaart en second brain")
+    html = html.replace("Demo synthetic data", "Synthetische demodata")
+    html = html.replace("Scrollable partner territory map", "Scrollbare partnerkaart")
+    html = html.replace("Drag the canvas, scroll to zoom, click a cluster or top address. The map is a Belgian demo projection, not a legal parcel map.", "Sleep de kaart, scroll om te zoomen en klik op een cluster of topadres. De kaart is een Belgische demoprojectie, geen juridisch perceelplan.")
+    html = html.replace("Click a cluster or point to inspect the DAW handoff context.", "Klik op een cluster of punt om de DAW-overdrachtscontext te bekijken.")
+    html = html.replace("Second brain graph", "Second brain leerkaart")
+    html = html.replace("Full-impact Second Brain cockpit: DAW does not only get leads, it gets a learning system for every partner wave.", "Second Brain leerkaart: DAW krijgt niet alleen leads, maar een leersysteem per partnergolf.")
+    html = html.replace("Second Brain cockpit: DAW krijgt niet alleen leads, maar een leersysteem per partnergolf.", "Second Brain leerkaart: DAW krijgt niet alleen leads, maar een leersysteem per partnergolf.")
+    html = html.replace('title="DAW Second Brain cockpit"', 'title="DAW Second Brain leerkaart"')
+    html = html.replace("Open fullscreen", "Open schermvullend")
+    html = html.replace('aria-label="Map tools"', 'aria-label="Kaarttools"')
+    html = html.replace('aria-label="Second brain tools"', 'aria-label="Second brain tools"')
+    html = html.replace('aria-label="Scrollable territory map"', 'aria-label="Scrollbare marktkaart"')
+    html = html.replace('>Fit</button>', '>Passend</button>')
+    html = html.replace("Partner steering matrix", "Partnersturingsmatrix")
+    html = html.replace("This is the boardroom control surface.", "Dit is de boardroom-stuurlaag.")
+    html = html.replace("It shows where the buyer should focus attention before opening row-level exports.", "Ze toont waar DAW aandacht moet leggen voordat rij-exporten worden geopend.")
+    html = html.replace("<th>Records</th>", "<th>Records</th>")
+    html = html.replace("<th>Response</th>", "<th>Respons</th>")
+    html = html.replace("<th>Appt.</th>", "<th>Afspr.</th>")
+    html = html.replace("<th>Pipeline</th>", "<th>Pipeline</th>")
+    html = html.replace("<th>Action</th>", "<th>Beslissing</th>")
+    html = html.replace("Use as proof partner", "Gebruik als bewijs-partner")
+    html = html.replace("Retarget no-response backlog", "Heractiveer geen-respons wachtrij")
+    html = html.replace("Campaign work queues", "Campagnelearnings")
+    html = html.replace("Statuses are operational queues, not purchase intent.", "Statussen zijn operationele wachtrijen, geen aankoopintentie.")
+    html = html.replace("Use them to decide what to convert, call, retarget, or hold for capacity.", "Gebruik ze om te beslissen wat je converteert, belt, retarget of wacht op capaciteit.")
+    html = html.replace("<th>Status</th><th>Volume</th><th>Count</th>", "<th>Status</th><th>Volume</th><th>Aantal</th>")
+    html = html.replace(">Sent<", ">Verzonden<")
+    html = html.replace(">Clicked<", ">Geklikt<")
+    html = html.replace(">Responded<", ">Gereageerd<")
+    html = html.replace(">Queued<", ">Wachtrij<")
+    html = html.replace(">No Response<", ">Geen respons<")
+    html = html.replace(">Appointment<", ">Afspraak<")
+    html = html.replace("Recommended Next Steps", "Volgende beslissingen")
+    html = html.replace("Review the Intelligence Lab evidence before finalizing partner waves, campaign segments, and message tests.", "Review het autoresearchbewijs voordat partnergolven, segmenten en boodschaptests definitief worden gekozen.")
+    html = html.replace("Review the Intelligence Lab evidence before finalizing partnergolven, campaign segmenten, and boodschaptests.", "Review het autoresearchbewijs voordat partnergolven, segmenten en boodschaptests definitief worden gekozen.")
+    html = html.replace("Use the producer view for aggregate performance and partner drilldown; keep partner exports filtered to assigned records.", "Gebruik de producentenview voor aggregaatprestaties en partnerdrilldown; hou partnerexports beperkt tot toegewezen records.")
+    html = html.replace("Review appointments, clicked records, no-response backlog, and queued capacity with partners every week.", "Bespreek afspraken, klikken, no-response backlog en capaciteit wekelijks met partners.")
+    html = html.replace("Use A/A+ concentration to choose proof partners before scaling spend across the whole network.", "Gebruik A/A+ concentratie om proof partners te kiezen voordat budget over het hele netwerk schaalt.")
+    html = html.replace("Add official address matching, parcel geometry, and statistical-sector context before production import.", "Voeg officiele adresmatching, perceelgeometrie en statistische-sectorcontext toe voor productie-import.")
+    html = html.replace("Review het autoresearchbewijs", "Beoordeel het autoresearchbewijs")
+    html = html.replace("proof partners", "bewijs-partners")
+    html = html.replace("proof partner", "bewijs-partner")
+    html = html.replace("no-response backlog", "geen-respons wachtrij")
+    html = html.replace("assigned-records-only", "alleen toegewezen records")
+    html = html.replace("denominator-expliciet", "noemer-expliciet")
+    html = html.replace("officiele", "officiële")
+    html = html.replace("Google-derived", "van Google afgeleide")
+    html = html.replace("legal-first demo mode", "legal-first demomodus")
+    html = html.replace("<small>Guardrail</small><strong>Pass</strong>", "<small>Controle</small><strong>Geslaagd</strong>")
+    html = html.replace("best variant_", "beste variant_")
+    html = html.replace("denominator: contacted_count", "noemer: gecontacteerde records")
+    html = html.replace("scope leakage: 0", "scopelek: 0")
+    html = html.replace("facade refresh", "gevelvernieuwing")
+    html = html.replace("Caveats and Assumptions", "Datavertrouwen en randvoorwaarden")
+    html = html.replace("Scores and estimated values are opportunity signals, not claims of homeowner buying intent.", "Scores en geschatte waarden zijn kanssignalen, geen claims over aankoopintentie van bewoners.")
+    html = html.replace("Customer-facing rows must remain tenant-scoped, module-scoped, and partner-scoped where applicable.", "Klantzichtbare rijen blijven tenant-, module- en partner-gescoped waar nodig.")
+    html = html.replace("Public-data enrichment needs source provenance, licence, retrieval date, and allowed-use review before production import.", "Public-data enrichment vereist bronherkomst, licentie, ophaaldatum en allowed-use review voor productie-import.")
+    html = html.replace("Autoresearch scores are synthetic/demo outcome proxies unless tied to customer-approved production outcomes.", "Autoresearchscores zijn synthetische/demo outcome proxies tenzij gekoppeld aan klantgoedgekeurde productie-uitkomsten.")
     path.write_text(html, encoding="utf-8")
+
+
+def patch_internal_demodashboard() -> None:
+    index_html = DASHBOARD / "index.html"
+    if DAW_STRATEGY_DASHBOARD_SCRIPT.exists():
+        shutil.copy2(DAW_STRATEGY_DASHBOARD_SCRIPT, DASHBOARD / "daw-strategy-dashboard.js")
+    if INTERNAL_DEMODASHBOARD_SCRIPT.exists():
+        shutil.copy2(INTERNAL_DEMODASHBOARD_SCRIPT, DASHBOARD / "internal-demodashboard.js")
+    if not index_html.exists():
+        return
+
+    html = index_html.read_text(encoding="utf-8")
+    html = html.replace('<html lang="en">', '<html lang="nl">')
+    html = html.replace("<title>HomePilot Intelligence</title>", "<title>FacadePilot Intern Demo Dashboard</title>")
+    html = html.replace("Facade opportunity command center", "DAW Intelligence platform")
+    html = html.replace("Renovation opportunity command center", "Renovation intelligence platform")
+    html = html.replace("DAW Belgium demo · synthetic buyer review", "DAW Belgium demo · synthetische marktintelligentie")
+    html = html.replace("Access lens cockpit", "Toegangsvenster")
+    html = html.replace("Partner cockpit", "Partnerintelligentie")
+    marker = '  <script src="./app.js"></script>\n'
+    strategy_script = '  <script src="./daw-strategy-dashboard.js"></script>\n'
+    script = '  <script src="./internal-demodashboard.js"></script>\n'
+    if "daw-strategy-dashboard.js" not in html and marker in html:
+        html = html.replace(marker, marker + strategy_script)
+    if "internal-demodashboard.js" not in html and marker in html:
+        html = html.replace(marker, marker + script)
+    index_html.write_text(html, encoding="utf-8")
 
 
 def write_package_zip() -> None:
@@ -2181,6 +2472,7 @@ def main() -> None:
     write_exports(snapshot)
     patch_dashboard_ui()
     patch_boardroom_report(snapshot)
+    patch_internal_demodashboard()
     patch_start_page()
     write_docs(snapshot)
     write_package_zip()
