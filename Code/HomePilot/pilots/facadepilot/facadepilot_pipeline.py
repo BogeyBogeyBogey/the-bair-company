@@ -3780,6 +3780,44 @@ body.hp-ui-v2.hp-intelligence-theme .hp-board-panel h2,
 body.hp-ui-v2.hp-intelligence-theme .card h2{
   color:var(--db-ink);
 }
+body.hp-ui-v2.hp-intelligence-theme .step{
+  background:var(--db-panel2);
+  border-color:var(--db-line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+body.hp-ui-v2.hp-intelligence-theme .step.running{
+  background:rgba(90,162,224,.10);
+  border-color:rgba(90,162,224,.45);
+  animation:none;
+}
+body.hp-ui-v2.hp-intelligence-theme .step.done{
+  background:rgba(95,190,143,.08);
+  border-color:rgba(95,190,143,.34);
+}
+body.hp-ui-v2.hp-intelligence-theme .step.skipped{
+  opacity:.72;
+}
+body.hp-ui-v2.hp-intelligence-theme .step-icon{
+  color:var(--db-ink);
+  background:rgba(255,255,255,.07);
+  font-weight:800;
+}
+body.hp-ui-v2.hp-intelligence-theme .step-icon.pending{
+  background:rgba(255,255,255,.07);
+  color:var(--db-muted);
+}
+body.hp-ui-v2.hp-intelligence-theme .step-icon.running{
+  background:rgba(90,162,224,.22);
+  color:#b9dcfb;
+}
+body.hp-ui-v2.hp-intelligence-theme .step-icon.done{
+  background:rgba(95,190,143,.18);
+  color:#b8f0d3;
+}
+body.hp-ui-v2.hp-intelligence-theme .step-icon.skipped{
+  background:rgba(255,255,255,.045);
+  color:var(--db-dim);
+}
 body.hp-ui-v2.hp-intelligence-theme .hp-command-head p,
 body.hp-ui-v2.hp-intelligence-theme .hp-overview-card p,
 body.hp-ui-v2.hp-intelligence-theme .mode-note,
