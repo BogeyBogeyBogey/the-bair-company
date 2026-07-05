@@ -2712,9 +2712,14 @@ def start_field_render(data: dict) -> dict:
         note=note or "Mobiel veldbeeld goedgekeurd voor render.",
     )
     profile = load_builder_profile()
-    preset = profile.get("facade_preset", DEFAULT_FACADE_PRESET)
-    if preset not in FACADE_PRESETS:
-        preset = DEFAULT_FACADE_PRESET
+    raw_presets = (data.get("facade_presets", [""])[0] or "").strip()
+    selected_presets = [p.strip() for p in raw_presets.split(",") if p.strip() in FACADE_PRESETS]
+    if not selected_presets:
+        preset = (data.get("facade_preset", [""])[0] or profile.get("facade_preset", DEFAULT_FACADE_PRESET)).strip()
+        if preset not in FACADE_PRESETS:
+            preset = DEFAULT_FACADE_PRESET
+        selected_presets = [preset]
+    auto_preset = (data.get("auto_preset", ["0"])[0] or "0") == "1"
 
     config = {
         "mode": "field_mobile",
@@ -2727,15 +2732,15 @@ def start_field_render(data: dict) -> dict:
         "render_klassen": None,
         "builder_naam": profile.get("naam", "Uw Gevelrenoveerder"),
         "builder_telefoon": profile.get("telefoon", "0800 00 000"),
-        "facade_preset": preset,
-        "facade_presets": [preset],
+        "facade_preset": selected_presets[0],
+        "facade_presets": selected_presets,
         "builder_profile": profile,
         "flyer_format": "both",
         "flyer_top": None,
         "quality_check": False,
         "multi_preset_klassen": None,
-        "multi_presets": None,
-        "auto_preset": False,
+        "multi_presets": selected_presets if len(selected_presets) > 1 else None,
+        "auto_preset": auto_preset,
         "flyer_style": "premium",
         "flyer_styles": ["premium"],
         "vergunning_filter": False,
@@ -3420,6 +3425,26 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#60a5fa;box-sh
 .review-go-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .review-go-num{font-size:20px;font-weight:800;color:#e2e8f0}
 .review-go-ok{color:#4ade80;font-size:12px;font-weight:700}
+.render-review-status{margin:12px 0;padding:12px 14px;border:1px solid rgba(96,165,250,.18);background:rgba(96,165,250,.07);border-radius:10px;color:#c8dff5;font-size:12px;line-height:1.45}
+.render-review-status strong{color:#eaf2ff}
+.render-review-list{display:grid;gap:12px;margin-top:12px}
+.render-review-row{display:grid;grid-template-columns:160px minmax(0,1fr) auto;gap:14px;align-items:center;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075);border-radius:12px;padding:12px}
+.render-review-row.is-ready{border-color:rgba(34,197,94,.28)}
+.render-review-photo{width:160px;aspect-ratio:4/3;border-radius:9px;overflow:hidden;background:#0a0f1a;border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;color:#64748b;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.render-review-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.render-review-main{min-width:0;display:grid;gap:8px}
+.render-review-main strong{font-size:15px;color:#eaf2ff;line-height:1.2}
+.render-review-main span{font-size:12px;color:#94a3b8}
+.render-review-badges{display:flex;gap:6px;flex-wrap:wrap}
+.render-review-badges b{display:inline-flex;align-items:center;border-radius:999px;background:rgba(255,255,255,.08);color:#cbd5e1;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px}
+.render-review-badges b.ready{background:rgba(34,197,94,.16);color:#86efac}
+.render-review-note{width:100%;min-height:46px;border-radius:8px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:8px 10px;font-size:12px;resize:vertical}
+.render-review-actions{display:grid;gap:8px;min-width:170px}
+.render-review-actions button{padding:10px 12px;border-radius:8px;border:1px solid rgba(96,165,250,.28);background:rgba(96,165,250,.1);color:#bfdbfe;font-size:12px;font-weight:800;cursor:pointer}
+.render-review-actions button.primary{background:#e79a4d;color:#121820;border-color:#e79a4d}
+.render-review-actions button:disabled{opacity:.5;cursor:not-allowed}
+.render-review-empty{padding:18px;border:1px dashed rgba(255,255,255,.13);border-radius:12px;color:#94a3b8;font-size:13px;line-height:1.5}
+@media(max-width:900px){.render-review-row{grid-template-columns:1fr}.render-review-photo{width:100%}.render-review-actions{grid-template-columns:1fr 1fr;min-width:0}}
 
 /* HomePilot Campaign OS v2 */
 :root{
@@ -6618,10 +6643,29 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
     <div class="card section" id="renderApprovalCard" data-hp-view="renderreview">
       <h2>Render review — pas daarna flyers en landingspagina's</h2>
       <div class="pipeline-gate-note">Correcte volgorde: geselecteerd adres → eigen foto gekoppeld → render maken → render goedkeuren → flyerproef → landingpagina → campagne go/no-go.</div>
+      <div class="field" style="margin-top:12px">
+        <label id="renderReviewPresetLabel">Afwerking voor deze render</label>
+        <div class="preset-options" id="renderReviewPresetOptions"></div>
+        <div class="preset-cost" id="renderReviewPresetCost">1 afwerking per woning</div>
+      </div>
+      <label class="toggle" style="margin-top:10px">
+        <div>
+          <div class="toggle-label">Auto-preset voor dit adres <span class="badge ok">optioneel</span></div>
+          <div class="toggle-hint">Laat de engine een passende hoofdafwerking kiezen, met jouw selectie als varianten wanneer je meerdere opties aanvinkt.</div>
+        </div>
+        <input type="checkbox" id="renderReviewAutoPreset">
+        <span class="slider"></span>
+      </label>
+      <div id="renderReviewPipelineStatus" class="render-review-status">Renderstatus laden...</div>
       <div class="address-actions" style="margin-top:12px">
-        <button type="button" onclick="switchReviewGate('render');hpSetView('review');setTimeout(loadReview,80)" class="primary">Open renderwachtrij</button>
+        <button type="button" onclick="renderDesktopRenderQueue()" class="primary">Ververs renderwachtrij</button>
+        <button type="button" onclick="hpSetView('photos')">Terug naar foto's koppelen</button>
+        <button type="button" onclick="loadRenderGallery();document.getElementById('renderCard').style.display='block';document.getElementById('renderCard').scrollIntoView({behavior:'smooth',block:'start'})">Open rendergalerij</button>
         <button type="button" onclick="switchReviewGate('flyer_proof');hpSetView('review');setTimeout(loadReview,80)">Open flyerproeven</button>
         <button type="button" onclick="switchReviewGate('campaign_go');hpSetView('review');setTimeout(loadReview,80)">Campagne go/no-go</button>
+      </div>
+      <div id="desktopRenderQueue" class="render-review-list">
+        <div class="render-review-empty">Nog geen gekoppelde bronfoto's geladen.</div>
       </div>
     </div>
 
@@ -6877,6 +6921,7 @@ function hpSyncTopbar() {
   const brand = (document.querySelector('input[name="clientBrandMode"]:checked') || {}).value || 'facadepilot';
   const renderCount = hpCount('.render-thumb');
   const reviewCount = hpCount('#reviewQueue .review-item');
+  const renderReviewCount = Math.max(reviewCount, hpCount('.render-review-row'));
   const crmCount = hpCount('#crmTableBody tr');
   const manualCount = hpCount('#manualList .manual-item');
   const leadCount = Math.max(crmCount, manualCount, hpCount('.leaflet-marker-icon'));
@@ -6896,10 +6941,10 @@ function hpSyncTopbar() {
   setText('hpLeadCount', String(leadCount));
   setText('hpRouteCount', String(selectedCount || leadCount || 0));
   setText('hpPhotoCount', String(photoCount));
-  setText('hpRenderReviewCount', String(reviewCount));
+  setText('hpRenderReviewCount', String(renderReviewCount));
   setText('hpOverviewLeadCount', String(leadCount));
-  setText('hpReviewCount', String(reviewCount));
-  setText('hpOverviewReviewCount', String(reviewCount));
+  setText('hpReviewCount', String(renderReviewCount));
+  setText('hpOverviewReviewCount', String(renderReviewCount));
   setText('hpOutputCount', String(renderCount || crmCount || 0));
   setText('hpIntelCount', String(leadCount || crmCount || renderCount || 0));
   const headline = document.getElementById('hpCampaignHeadline');
@@ -6923,6 +6968,7 @@ function hpSetView(view) {
   updateTargetDrawerButton();
   if (view === 'route') setTimeout(() => buildFieldRoute(_fieldRouteMode || 'driving'), 0);
   if (view === 'photos') setTimeout(renderFieldPhotoList, 0);
+  if (view === 'renderreview') setTimeout(renderDesktopRenderQueue, 0);
   if (view === 'intelligence' && typeof intelligenceRefresh === 'function') setTimeout(intelligenceRefresh, 0);
 }
 
@@ -7077,6 +7123,10 @@ function renderPresetOptionsForBrand() {
   if (manualLabel) manualLabel.textContent = isWindowPilot
     ? 'Ramen en zonwering voor dit adres'
     : 'Afwerkingen voor dit adres';
+  const renderReviewLabel = document.getElementById('renderReviewPresetLabel');
+  if (renderReviewLabel) renderReviewLabel.textContent = isWindowPilot
+    ? 'Ramen en zonwering voor deze render'
+    : 'Afwerking voor deze render';
   const presets = currentRenderPresetSet();
   const html = presets.map((preset, index) => `
     <label class="preset-option">
@@ -7084,13 +7134,13 @@ function renderPresetOptionsForBrand() {
       <span><span class="preset-title">${escapeHtml(preset.title)}</span><span class="preset-meta">${escapeHtml(preset.meta)}</span></span>
     </label>
   `).join('');
-  ['presetOptions', 'manualPresetOptions'].forEach(id => {
+  ['presetOptions', 'manualPresetOptions', 'renderReviewPresetOptions'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = html;
   });
   const hiddenPreset = document.getElementById('facadePreset');
   if (hiddenPreset) hiddenPreset.value = defaultRenderPresetKey();
-  document.querySelectorAll('#presetOptions input, #manualPresetOptions input').forEach(input => {
+  document.querySelectorAll('#presetOptions input, #manualPresetOptions input, #renderReviewPresetOptions input').forEach(input => {
     input.addEventListener('change', syncPresetSummary);
   });
   syncPresetSummary();
@@ -7488,6 +7538,14 @@ function syncPresetSummary() {
       ? (isWindowPilot ? '1 schrijnwerkoptie voor handmatige adressen' : '1 afwerking voor handmatige adressen')
       : `${manualSelected.length} ${isWindowPilot ? 'schrijnwerkopties' : 'afwerkingen'} voor handmatige adressen · ongeveer ${manualSelected.length}x renderkost`;
   }
+
+  const reviewSelected = getSelectedPresets('renderReviewPresetOptions');
+  const reviewCost = document.getElementById('renderReviewPresetCost');
+  if (reviewCost) {
+    reviewCost.textContent = reviewSelected.length <= 1
+      ? (isWindowPilot ? '1 schrijnwerkoptie voor dit adres' : '1 afwerking voor dit adres')
+      : `${reviewSelected.length} ${isWindowPilot ? 'schrijnwerkvarianten' : 'afwerkingsvarianten'} voor dit adres · ongeveer ${reviewSelected.length}x renderkost`;
+  }
 }
 
 function requirePresetSelection(groupId) {
@@ -7502,7 +7560,7 @@ function requirePresetSelection(groupId) {
   return [defaultRenderPresetKey()];
 }
 
-document.querySelectorAll('#presetOptions input, #manualPresetOptions input').forEach(input => {
+document.querySelectorAll('#presetOptions input, #manualPresetOptions input, #renderReviewPresetOptions input').forEach(input => {
   input.addEventListener('change', syncPresetSummary);
 });
 renderPresetOptionsForBrand();
@@ -7781,7 +7839,10 @@ function updateUI(s) {
 
   // Show render card when renders exist
   if (s.done || (s.steps.render && s.steps.render.status === 'done')) {
-    loadRenderGallery();
+    if (!galleryLoaded) loadRenderGallery();
+  }
+  if (document.body.classList.contains('hp-view-renderreview')) {
+    updateRenderReviewPipelineStatus(s);
   }
 
   // Done banner
@@ -7895,7 +7956,7 @@ let renderData = [];
 let selectedRenderId = null;
 let galleryLoaded = false;
 
-async function loadRenderGallery() {
+async function loadRenderGallery(force=false) {
   try {
     const r = await fetch('/api/renders');
     renderData = await r.json();
@@ -7907,6 +7968,9 @@ async function loadRenderGallery() {
   card.style.display = 'block';
 
   const gallery = document.getElementById('renderGallery');
+  const signature = JSON.stringify(renderData.map(item => [item.id, item.render, item.variant_count || 0, item.has_render]));
+  if (!force && galleryLoaded && gallery.dataset.signature === signature) return;
+  gallery.dataset.signature = signature;
   gallery.innerHTML = '';
 
   for (const item of renderData) {
@@ -8044,7 +8108,7 @@ async function uploadRenderFile(file) {
       status.style.color = '#4ade80';
       status.textContent = `Render vervangen! (${result.size_kb} KB) -- oude versie opgeslagen als backup.`;
       setTimeout(() => {
-        loadRenderGallery();
+        loadRenderGallery(true);
         const item = renderData.find(r => r.id === selectedRenderId);
         if (item) {
           document.getElementById('replaceCurrentRender').src = '/files/' + item.render + '?t=' + Date.now();
@@ -9275,6 +9339,175 @@ async function uploadFieldPhotoFile(key, address, file, row, input) {
       input.disabled = false;
       input.value = '';
     }
+  }
+}
+
+function renderReviewPhotoHtml(photo) {
+  if (!photo || !photo.path) return '<span>Geen foto</span>';
+  return `<img src="/files/${encodeURI(photo.path)}" alt="${escapeHtml(fieldPhotoDisplayName(photo))}">`;
+}
+
+function fallbackFeatureFromPhoto(key, photo) {
+  return {
+    type: 'Feature',
+    geometry: {type: 'Point', coordinates: []},
+    properties: {
+      capakey: key,
+      adres: photo && photo.address ? photo.address : key,
+      klasse: '?',
+      score: 0,
+      review_decision: 'selected',
+      field_photo_only: true,
+    }
+  };
+}
+
+async function ensureRenderReviewData() {
+  await loadFieldPhotos();
+  if ((_mapFeatures || []).length) return;
+  try {
+    const rawCode = (document.getElementById('niscode') || {}).value || '';
+    const params = new URLSearchParams();
+    if (_mapMode === 'manual') {
+      params.set('manual', '1');
+    } else if (rawCode.trim()) {
+      params.set('niscode', rawCode.trim());
+    }
+    const res = await fetch('/api/leads_geojson' + (params.toString() ? '?' + params.toString() : ''));
+    const data = await res.json();
+    _currentMapSource = data.source || '';
+    _currentMapCsv = _currentMapSource === 'manual:manual_leads.csv'
+      ? 'manual_leads.csv'
+      : (_currentMapSource.startsWith('csv:') ? _currentMapSource.substring(4) : '');
+    _mapFeatures = (data.features || []).filter(isUsableAddressFeature);
+  } catch (e) {}
+}
+
+function renderReviewRows() {
+  const byKey = new Map();
+  classScopedMapFeatures().forEach(feature => {
+    const key = featureKey(feature);
+    if (key) byKey.set(key, feature);
+  });
+  Object.entries(_fieldPhotos || {}).forEach(([key, photo]) => {
+    if (key && !byKey.has(key)) byKey.set(key, fallbackFeatureFromPhoto(key, photo));
+  });
+  const rows = Array.from(byKey.values()).filter(feature => {
+    const key = featureKey(feature);
+    return key && !!(_fieldPhotos || {})[key];
+  });
+  const selected = rows.filter(feature => (feature.properties || {}).review_decision === 'selected');
+  const base = selected.length ? selected : rows;
+  return base.sort((a, b) => scoreForFeature(b) - scoreForFeature(a)
+    || featureAddress(a).localeCompare(featureAddress(b), 'nl-BE'));
+}
+
+function updateRenderReviewPipelineStatus(s) {
+  const el = document.getElementById('renderReviewPipelineStatus');
+  if (!el) return;
+  if (!s) {
+    el.innerHTML = 'Renderstatus laden...';
+    return;
+  }
+  const step = s.steps && s.steps.render ? s.steps.render : null;
+  if (s.running) {
+    const msg = step && step.message ? step.message : (s.current_step || 'pipeline loopt');
+    const done = step ? Number(step.progress || 0) : 0;
+    const total = step ? Number(step.total || 0) : 0;
+    el.innerHTML = `<strong>Render loopt.</strong> ${escapeHtml(msg)}${total ? ` · ${formatBENumber(done)}/${formatBENumber(total)}` : ''}`;
+    return;
+  }
+  if (s.error) {
+    el.innerHTML = `<strong>Renderfout.</strong> ${escapeHtml(s.error)}`;
+    return;
+  }
+  if (step && step.status === 'done') {
+    el.innerHTML = `<strong>Render klaar.</strong> Controleer de rendergalerij en keur daarna pas flyerproeven of campagne vrij.`;
+    return;
+  }
+  const nPhotos = Object.keys(_fieldPhotos || {}).length;
+  el.innerHTML = `<strong>${formatBENumber(nPhotos)}</strong> gekoppelde bronfoto${nPhotos === 1 ? '' : "'s"} klaar voor review. Kies hieronder een adres en start alleen die render.`;
+}
+
+async function renderDesktopRenderQueue() {
+  const target = document.getElementById('desktopRenderQueue');
+  if (!target) return;
+  target.innerHTML = '<div class="render-review-empty">Renderwachtrij laden...</div>';
+  await ensureRenderReviewData();
+  updateRenderReviewPipelineStatus(null);
+  try {
+    const status = await fetch('/api/status').then(r => r.json());
+    updateRenderReviewPipelineStatus(status);
+  } catch (e) {
+    updateRenderReviewPipelineStatus({});
+  }
+  const rows = renderReviewRows();
+  if (!rows.length) {
+    target.innerHTML = `<div class="render-review-empty">
+      Er staan nog geen adressen met gekoppelde bronfoto in deze renderwachtrij.<br>
+      Ga naar <b>Foto's koppelen</b>, koppel een eigen foto en kom daarna terug naar Render review.
+    </div>`;
+    hpSyncTopbar();
+    return;
+  }
+  target.innerHTML = rows.map((feature, index) => {
+    const p = feature.properties || {};
+    const key = featureKey(feature);
+    const photo = _fieldPhotos[key];
+    const noteId = `renderReviewNote_${index}`;
+    const sourceLabel = p.field_photo_only ? 'foto uit index' : 'lead + foto';
+    return `<div class="render-review-row is-ready" data-render-key="${escapeHtml(key)}">
+      <div class="render-review-photo">${renderReviewPhotoHtml(photo)}</div>
+      <div class="render-review-main">
+        <strong>${escapeHtml(featureAddress(feature))}</strong>
+        <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${formatBENumber(p.score || 0, 1)} · ${escapeHtml(fieldPhotoDisplayName(photo))}</span>
+        <div class="render-review-badges">
+          <b class="ready">eigen bronfoto</b>
+          <b>${escapeHtml(p.review_decision || 'selected')}</b>
+          <b>${escapeHtml(sourceLabel)}</b>
+        </div>
+        <textarea class="render-review-note" id="${escapeHtml(noteId)}" placeholder="Feedback of briefing voor deze render, bv. moderne crepi, donkere ramen, geen villa-look"></textarea>
+      </div>
+      <div class="render-review-actions">
+        <button type="button" class="primary" onclick="startDesktopFieldRender('${jsq(key)}', '${jsq(featureAddress(feature))}', '${jsq(noteId)}')">Start render</button>
+        <button type="button" onclick="openExternalUrl(googleMapsSearchUrl(fallbackFeatureFromPhoto('${jsq(key)}', {address:'${jsq(featureAddress(feature))}'})))">Maps</button>
+        <button type="button" onclick="hpSetView('photos')">Foto vervangen</button>
+      </div>
+    </div>`;
+  }).join('');
+  hpSyncTopbar();
+}
+
+async function startDesktopFieldRender(key, address, noteId) {
+  const noteEl = document.getElementById(noteId);
+  const row = Array.from(document.querySelectorAll('.render-review-row'))
+    .find(el => el.dataset.renderKey === key);
+  const buttons = row ? Array.from(row.querySelectorAll('button')) : [];
+  buttons.forEach(btn => btn.disabled = true);
+  const selectedPresets = requirePresetSelection('renderReviewPresetOptions');
+  const autoPreset = document.getElementById('renderReviewAutoPreset');
+  const body = new URLSearchParams({
+    capakey: key,
+    address: address || '',
+    note: noteEl && noteEl.value.trim() ? noteEl.value.trim() : 'Desktop renderreview: eigen bronfoto goedgekeurd voor render.',
+    source_csv: _currentMapCsv || '',
+    facade_preset: selectedPresets[0] || defaultRenderPresetKey(),
+    facade_presets: selectedPresets.join(','),
+    multi_preset: selectedPresets.length > 1 ? '1' : '0',
+    auto_preset: autoPreset && autoPreset.checked ? '1' : '0',
+  });
+  updateRenderReviewPipelineStatus({running: true, current_step: 'render starten', steps: {render: {message: `Render starten met ${selectedPresets.length} afwerking${selectedPresets.length === 1 ? '' : 'en'}...`, progress: 0, total: selectedPresets.length}}});
+  try {
+    const res = await fetch('/api/field_start_render', {method:'POST', body});
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Render kon niet starten');
+    if (row) row.classList.add('is-running');
+    updateRenderReviewPipelineStatus({running: true, current_step: 'render', steps: {render: {message: `Render gestart voor ${address || key} · ${selectedPresets.length} variant${selectedPresets.length === 1 ? '' : 'en'}`, progress: 0, total: selectedPresets.length}}});
+    poll();
+  } catch (e) {
+    buttons.forEach(btn => btn.disabled = false);
+    updateRenderReviewPipelineStatus({error: e.message});
+    alert('Render starten mislukt: ' + e.message);
   }
 }
 
