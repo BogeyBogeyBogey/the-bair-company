@@ -4924,10 +4924,42 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   padding:8px 10px;
   font-size:12px;
   font-weight:850;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  min-width:260px;
+  cursor:pointer;
+}
+.photo-drop.dragover{
+  border-color:rgba(95,190,143,.65);
+  background:rgba(95,190,143,.11);
+  color:#bfe5cf;
+}
+.photo-drop button{
+  min-height:32px;
+  border-radius:8px;
+  border:1px solid rgba(226,163,92,.35);
+  background:rgba(226,163,92,.13);
+  color:var(--db-accent);
+  font:inherit;
+  font-size:12px;
+  font-weight:900;
+  padding:0 12px;
+  cursor:pointer;
+}
+.photo-drop small{
+  color:var(--db-muted);
+  font-size:10.5px;
+  font-weight:750;
+  line-height:1.25;
 }
 .photo-drop input{
-  max-width:190px;
-  font-size:11px;
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
 }
 .photo-ready{
   color:var(--db-green) !important;
@@ -8601,31 +8633,58 @@ function renderFieldPhotoList() {
     target.innerHTML = '<div class="lead-review-empty">Nog geen geselecteerde adressen. Ga eerst naar Leads & kaart.</div>';
     return;
   }
-  target.innerHTML = features.map(feature => {
+  target.innerHTML = features.map((feature, index) => {
     const key = featureKey(feature);
     const photo = _fieldPhotos[key];
+    const inputId = `fieldPhotoInput_${index}`;
     return `<div class="photo-row">
       <i class="${photo ? 'photo-ready' : ''}">${photo ? 'OK' : '—'}</i>
       <div>
         <strong>${escapeHtml(featureAddress(feature))}</strong>
         <span>${photo ? `Foto gekoppeld: ${escapeHtml(photo.file || photo.path || 'bronbeeld')}` : 'Nog geen eigen foto gekoppeld.'}</span>
       </div>
-      <label class="photo-drop">Foto kiezen
-        <input type="file" accept="image/*" onchange="uploadFieldPhoto('${jsq(key)}', '${jsq(featureAddress(feature))}', this)">
-      </label>
+      <div class="photo-drop" onclick="triggerFieldPhotoInput('${jsq(inputId)}')" ondragover="handleFieldPhotoDrag(event, true)" ondragleave="handleFieldPhotoDrag(event, false)" ondrop="dropFieldPhoto(event, '${jsq(key)}', '${jsq(featureAddress(feature))}')">
+        <button type="button" onclick="event.stopPropagation(); triggerFieldPhotoInput('${jsq(inputId)}')">Kies foto</button>
+        <small>of sleep hierheen</small>
+        <input id="${escapeHtml(inputId)}" type="file" accept="image/*" onchange="uploadFieldPhoto('${jsq(key)}', '${jsq(featureAddress(feature))}', this)">
+      </div>
     </div>`;
   }).join('');
   hpSyncTopbar();
 }
 
+function triggerFieldPhotoInput(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  input.click();
+}
+
+function handleFieldPhotoDrag(event, active) {
+  event.preventDefault();
+  const zone = event.currentTarget;
+  if (zone) zone.classList.toggle('dragover', !!active);
+}
+
+function dropFieldPhoto(event, key, address) {
+  event.preventDefault();
+  const zone = event.currentTarget;
+  if (zone) zone.classList.remove('dragover');
+  const file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
+  if (!file) return;
+  uploadFieldPhotoFile(key, address, file, zone ? zone.closest('.photo-row') : null, null);
+}
+
 async function uploadFieldPhoto(key, address, input) {
   const file = input && input.files && input.files[0];
   if (!file) return;
+  uploadFieldPhotoFile(key, address, file, input.closest('.photo-row'), input);
+}
+
+async function uploadFieldPhotoFile(key, address, file, row, input) {
   const body = new FormData();
   body.set('capakey', key);
   body.set('address', address || '');
   body.set('file', file);
-  const row = input.closest('.photo-row');
   const status = row ? row.querySelector('span') : null;
   if (input) input.disabled = true;
   if (status) status.textContent = `Uploaden: ${file.name}`;
