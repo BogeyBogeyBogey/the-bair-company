@@ -4537,6 +4537,28 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   align-items:center;
   flex-wrap:wrap;
 }
+.address-sort-control{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:34px;
+  border:1px solid var(--db-line);
+  border-radius:8px;
+  background:var(--db-panel);
+  color:var(--db-muted);
+  font-size:11px;
+  font-weight:850;
+  padding:0 9px;
+}
+.address-sort-control select{
+  min-height:26px;
+  border:0;
+  background:transparent;
+  color:var(--db-ink);
+  font:inherit;
+  font-size:12px;
+  outline:none;
+}
 .address-list{
   display:grid;
   gap:10px;
@@ -5830,10 +5852,18 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
       <section class="address-workbench" id="leadAddressWorkbench">
         <div class="address-workbench-head">
           <div>
-            <h3>Adressen alfabetisch controleren</h3>
-            <p>Selecteer adressen vanuit de lijst, laad Street View per rij en bewaar alleen wat later door eigen fotografie bevestigd wordt.</p>
+            <h3>Adressen controleren</h3>
+            <p>De lijst volgt de gekozen renderklassen. Sorteer op score of adres, laad Street View per rij en bewaar alleen wat later door eigen fotografie bevestigd wordt.</p>
           </div>
           <div class="address-actions">
+            <label class="address-sort-control">Sortering
+              <select id="leadAddressSort" onchange="setLeadAddressSort(this.value)">
+                <option value="score_desc" selected>Score hoog-laag</option>
+                <option value="score_asc">Score laag-hoog</option>
+                <option value="class_score">Klasse + score</option>
+                <option value="address_asc">Alfabetisch</option>
+              </select>
+            </label>
             <button type="button" id="selectAllAddressBtn" onclick="selectAllAddressLeads()">Selecteer alles</button>
             <button type="button" id="reserveListBtn" onclick="toggleReserveAddressList()">Reservelijst</button>
             <button type="button" onclick="hpSetView('route')">Maak fotoroute</button>
@@ -6715,6 +6745,15 @@ document.getElementById('inputCsv').addEventListener('change', function() {
     document.getElementById('niscode').disabled = false;
   }
   applyPipelineMode();
+});
+
+document.getElementById('renderKlassen').addEventListener('change', function() {
+  _addressListLimit = 80;
+  if (_map) {
+    reloadMap();
+  } else {
+    renderLeadAddressList();
+  }
 });
 
 function getSelectedPresets(groupId) {
@@ -7806,6 +7845,7 @@ let _mapMode = 'leads';
 let _mapFeatures = [];
 let _addressListLimit = 80;
 let _addressListFilter = 'all';
+let _addressListSort = 'score_desc';
 let _streetviewMiniObserver = null;
 let _fieldRoute = null;
 let _fieldRouteMode = 'driving';
@@ -7865,6 +7905,8 @@ function formatBENumber(value, digits = 0) {
   return n.toLocaleString('nl-BE', {minimumFractionDigits: digits, maximumFractionDigits: digits});
 }
 
+const CLASS_ORDER = {"A+": 0, "A": 1, "B": 2, "C": 3, "D": 4, "LEAD": 5, "MAN": 6};
+
 function featureCoords(feature) {
   const coords = feature?.geometry?.coordinates || [];
   const lon = Number(coords[0]);
@@ -7886,8 +7928,51 @@ function streetviewEmbedForFeature(feature) {
   return googleStreetviewEmbedUrl(coords.lat, coords.lon);
 }
 
+function selectedRenderClasses() {
+  const el = document.getElementById('renderKlassen');
+  const raw = el ? String(el.value || '').trim() : '';
+  return raw ? raw.split(',').map(v => v.trim()).filter(Boolean) : [];
+}
+
+function renderClassFilterLabel() {
+  const classes = selectedRenderClasses();
+  return classes.length ? classes.join(' en ') : 'alle klassen';
+}
+
+function featureMatchesRenderClasses(feature) {
+  const classes = selectedRenderClasses();
+  if (!classes.length) return true;
+  return classes.includes(String((feature.properties || {}).klasse || ''));
+}
+
+function classScopedMapFeatures() {
+  return (_mapFeatures || []).filter(featureMatchesRenderClasses);
+}
+
+function scoreForFeature(feature) {
+  return Number((feature.properties || {}).score || 0);
+}
+
+function classRankForFeature(feature) {
+  return CLASS_ORDER[(feature.properties || {}).klasse] ?? 99;
+}
+
 function sortedMapFeatures() {
-  return (_mapFeatures || []).slice().sort((a, b) => featureAddress(a).localeCompare(featureAddress(b), 'nl-BE'));
+  const rows = classScopedMapFeatures().slice();
+  return rows.sort((a, b) => {
+    if (_addressListSort === 'score_asc') {
+      return scoreForFeature(a) - scoreForFeature(b) || featureAddress(a).localeCompare(featureAddress(b), 'nl-BE');
+    }
+    if (_addressListSort === 'class_score') {
+      return classRankForFeature(a) - classRankForFeature(b)
+        || scoreForFeature(b) - scoreForFeature(a)
+        || featureAddress(a).localeCompare(featureAddress(b), 'nl-BE');
+    }
+    if (_addressListSort === 'address_asc') {
+      return featureAddress(a).localeCompare(featureAddress(b), 'nl-BE');
+    }
+    return scoreForFeature(b) - scoreForFeature(a) || featureAddress(a).localeCompare(featureAddress(b), 'nl-BE');
+  });
 }
 
 function addressFilteredFeatures() {
@@ -7914,11 +7999,14 @@ function updateAddressListControls(totalRows, filteredRows) {
       ? `Selecteer reservelijst`
       : `Selecteer alles`;
   }
+  const sortEl = document.getElementById('leadAddressSort');
+  if (sortEl && sortEl.value !== _addressListSort) sortEl.value = _addressListSort;
 }
 
 function routeCandidateFeatures() {
-  const selected = (_mapFeatures || []).filter(f => (f.properties || {}).review_decision === 'selected');
-  return selected.length ? selected : (_mapFeatures || []);
+  const scoped = classScopedMapFeatures();
+  const selected = scoped.filter(f => (f.properties || {}).review_decision === 'selected');
+  return selected.length ? selected : scoped;
 }
 
 function loadStreetviewMini(node) {
@@ -7957,7 +8045,9 @@ function renderLeadAddressList() {
   const rows = addressFilteredFeatures();
   updateAddressListControls(totalRows, rows.length);
   if (!rows.length) {
-    target.innerHTML = _addressListFilter === 'reserve'
+    target.innerHTML = totalRows === 0 && (_mapFeatures || []).length
+      ? `<div class="lead-review-empty">Geen leads binnen klassefilter ${escapeHtml(renderClassFilterLabel())}. Kies eventueel “Alle klassen”.</div>`
+      : _addressListFilter === 'reserve'
       ? '<div class="lead-review-empty">Nog geen adressen op de reservelijst.</div>'
       : '<div class="lead-review-empty">Geen kaartleads geladen.</div>';
     const more = document.getElementById('leadAddressMoreBtn');
@@ -8011,6 +8101,12 @@ function renderLeadAddressList() {
 
 function toggleReserveAddressList() {
   _addressListFilter = _addressListFilter === 'reserve' ? 'all' : 'reserve';
+  _addressListLimit = 80;
+  renderLeadAddressList();
+}
+
+function setLeadAddressSort(sortMode) {
+  _addressListSort = sortMode || 'score_desc';
   _addressListLimit = 80;
   renderLeadAddressList();
 }
@@ -8362,15 +8458,25 @@ async function reloadMap() {
   _currentMapCsv = _currentMapSource === 'manual:manual_leads.csv'
     ? 'manual_leads.csv'
     : (_currentMapSource.startsWith('csv:') ? _currentMapSource.substring(4) : '');
-  const features = data.features || [];
-  _mapFeatures = features;
-  if (features.length === 0) {
+  const allFeatures = data.features || [];
+  _mapFeatures = allFeatures;
+  const features = classScopedMapFeatures();
+  if (allFeatures.length === 0) {
     renderLeadAddressList();
     document.getElementById('mapMeta').textContent = _mapMode === 'manual'
       ? 'Geen handmatige adressen op de kaart'
       : rawCode
       ? `Geen kaartleads voor ${rawCode} — draai eerst adresselectie + scoring`
       : 'Geen leads — draai eerst de pipeline';
+    await refreshReviewSummary();
+    return;
+  }
+  if (features.length === 0) {
+    renderLeadAddressList();
+    document.getElementById('mapMeta').textContent =
+      `0 van ${formatBENumber(allFeatures.length)} leads • klassefilter: ${renderClassFilterLabel()} • bron: ${data.source}`;
+    document.getElementById('clusterHint').innerHTML =
+      `<i style="color:#94a3b8">Geen zichtbare leads binnen ${escapeHtml(renderClassFilterLabel())}. Kies eventueel “Alle klassen”.</i>`;
     await refreshReviewSummary();
     return;
   }
@@ -8406,7 +8512,9 @@ async function reloadMap() {
   }
   setTimeout(() => _map.invalidateSize(), 100);
   const meta = document.getElementById('mapMeta');
-  meta.textContent = `${features.length} leads • bron: ${data.source}`;
+  meta.textContent = features.length === allFeatures.length
+    ? `${formatBENumber(features.length)} leads • bron: ${data.source}`
+    : `${formatBENumber(features.length)} van ${formatBENumber(allFeatures.length)} leads • klassefilter: ${renderClassFilterLabel()} • bron: ${data.source}`;
   // Cluster hint
   const klassen = features.reduce((acc, f) => {
     const k = f.properties.klasse || '?';
