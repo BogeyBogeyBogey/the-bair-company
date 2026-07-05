@@ -17,6 +17,8 @@ def maximize_app_window():
     script = f'''
 set appName to "{app_name}"
 set timeoutAt to (current date) + 12
+tell application "Finder" to set desktopBounds to bounds of window of desktop
+set {{screenLeft, screenTop, screenRight, screenBottom}} to desktopBounds
 repeat while (current date) is less than timeoutAt
     tell application "System Events"
         if exists process appName then
@@ -31,7 +33,8 @@ repeat while (current date) is less than timeoutAt
                         return
                     end try
                     try
-                        click (first button of window 1 whose subrole is "AXZoomButton")
+                        set position of window 1 to {{screenLeft, screenTop}}
+                        set size of window 1 to {{screenRight - screenLeft, screenBottom - screenTop}}
                         return
                     end try
                 end if
