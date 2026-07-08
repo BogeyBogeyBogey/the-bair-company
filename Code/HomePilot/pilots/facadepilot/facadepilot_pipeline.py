@@ -79,6 +79,7 @@ def attach_source_registry(df: pd.DataFrame, stage: str = "pipeline") -> pd.Data
         "source_statbel": "Statbel sectorstatistiek indien beschikbaar",
         "source_bouwjaar": "Bouwjaar indien beschikbaar; anders Statbel bouwperiode per sector",
         "source_epc": "VEKA/EPC-zoneproxy indien beschikbaar",
+        "source_window_signal": "",
         "source_recent_verkocht": "Te contracteren: Realo/API, bpost Movers of vergunde verhuis/verkoopbron",
         "source_bpost": "Te contracteren: bpost doelgroepsegmenten zoals Movers/Renovators/Home Owners",
         "source_erfgoed": "Vlaamse erfgoed-/vergunningcontext indien beschikbaar",
@@ -89,6 +90,7 @@ def attach_source_registry(df: pd.DataFrame, stage: str = "pipeline") -> pd.Data
         "retrieved_at_statbel": retrieved,
         "retrieved_at_bouwjaar": "",
         "retrieved_at_epc": "",
+        "retrieved_at_window_signal": "",
         "retrieved_at_recent_verkocht": "",
         "retrieved_at_bpost": "",
         "retrieved_at_erfgoed": "",
@@ -101,6 +103,15 @@ def attach_source_registry(df: pd.DataFrame, stage: str = "pipeline") -> pd.Data
             result[col] = value
         elif col.startswith("retrieved_at") or col.startswith("source_"):
             result[col] = result[col].fillna(value)
+    if "module_key" in result.columns:
+        module_series = result["module_key"].astype(str).str.lower()
+        window_mask = module_series.eq("windowpilot")
+        source_blank = result["source_window_signal"].astype(str).str.strip().isin(["", "nan", "None", "none"])
+        result.loc[window_mask & source_blank, "source_window_signal"] = (
+            "WindowPilot raam-/deur-/poortproxy op basis van gebouwvolume, woningtype en eigen of toegestane beeldcontrole"
+        )
+        retrieved_blank = result["retrieved_at_window_signal"].astype(str).str.strip().isin(["", "nan", "None", "none"])
+        result.loc[window_mask & retrieved_blank, "retrieved_at_window_signal"] = retrieved
     return result
 
 
@@ -594,9 +605,9 @@ def step_adresselectie(niscode: str, min_woning: float, max_woning: float,
         "adres", "CAPAKEY", "perceel_m2", "bebouwd_m2", "bebouwd_ratio", "tuin_m2",
         "lat", "lon", "google_maps",
         "source_grb", "source_crab", "source_statbel", "source_bouwjaar", "source_epc",
-        "source_recent_verkocht", "source_bpost", "source_erfgoed", "source_gipod", "source_streetview",
+        "source_window_signal", "source_recent_verkocht", "source_bpost", "source_erfgoed", "source_gipod", "source_streetview",
         "retrieved_at_grb", "retrieved_at_crab", "retrieved_at_statbel", "retrieved_at_bouwjaar",
-        "retrieved_at_epc", "retrieved_at_recent_verkocht", "retrieved_at_bpost", "retrieved_at_erfgoed",
+        "retrieved_at_epc", "retrieved_at_window_signal", "retrieved_at_recent_verkocht", "retrieved_at_bpost", "retrieved_at_erfgoed",
         "retrieved_at_gipod", "retrieved_at_streetview", "provenance_stage",
     ]
     export_cols = [c for c in export_cols if c in leads.columns]
@@ -616,12 +627,17 @@ def step_adresselectie(niscode: str, min_woning: float, max_woning: float,
 
 
 def step_scoring(input_file: str, niscode: str = "", gemeente: str = "",
-                 facade_preset: str = "", crm_sync: bool = True):
+                 facade_preset: str = "", crm_sync: bool = True,
+                 module_key: str = "facadepilot"):
     """Stap 2: Lead scoring + (optioneel) Supabase CRM sync."""
     from facadepilot_lead_scoring import score_leads
 
     input_path = HERE / input_file
-    log(f"Lead scoring starten voor {input_file}")
+    module_key = str(module_key or "facadepilot").strip().lower()
+    if module_key not in {"facadepilot", "windowpilot"}:
+        module_key = "facadepilot"
+    module_label = "WindowPilot" if module_key == "windowpilot" else "FacadePilot"
+    log(f"Lead scoring starten voor {input_file} ({module_label})")
     update_step("scoring", status="running", message="Leads scoren...")
 
     df = pd.read_csv(input_path, encoding="utf-8-sig")
@@ -631,7 +647,7 @@ def step_scoring(input_file: str, niscode: str = "", gemeente: str = "",
         update_step("scoring", status="done", message="Geen leads")
         return input_file
 
-    scored_df = score_leads(df)
+    scored_df = score_leads(df, module_key=module_key)
     scored_df = attach_source_registry(scored_df, "scoring")
 
     scored_file = input_path.stem + "_scored.csv"
@@ -668,6 +684,7 @@ def step_scoring(input_file: str, niscode: str = "", gemeente: str = "",
             "total": len(scored_df),
             "klassen": klassen,
             "avg_score": round(scored_df["lead_score"].mean(), 1) if "lead_score" in scored_df.columns else 0,
+            "module_key": module_key,
         }
 
     return scored_file
@@ -1235,6 +1252,7 @@ def run_pipeline(config: dict):
                 gemeente=gemeente_naam,
                 facade_preset=config.get("facade_preset", ""),
                 crm_sync=config.get("crm_sync", True),
+                module_key=config.get("client_brand_mode") or config.get("brand_mode") or "facadepilot",
             )
             if is_cancelled():
                 raise Exception("Geannuleerd")
@@ -2372,6 +2390,7 @@ def _source_registry_for_row(row: dict) -> list[dict]:
     def item(field, source, date_key):
         retrieved = _clean_str(row.get(date_key), today)
         return {"field": field, "source": _clean_str(row.get(source), ""), "retrieved_at": retrieved}
+    module = _clean_str(row.get("module_key")).lower()
     defaults = [
         {"field": "Adres en perceel", "source": "Digitaal Vlaanderen GRB/Capakey + adresregister", "retrieved_at": _clean_str(row.get("retrieved_at_grb"), today)},
         {"field": "Geometrie en bebouwde oppervlakte", "source": "GRB gebouwen/percelen", "retrieved_at": _clean_str(row.get("retrieved_at_grb"), today)},
@@ -2382,6 +2401,12 @@ def _source_registry_for_row(row: dict) -> list[dict]:
         {"field": "Belemmeringen", "source": "Erfgoed, vergunningen en GIPOD indien beschikbaar", "retrieved_at": _clean_str(row.get("retrieved_at_gipod") or row.get("retrieved_at_erfgoed"), "")},
         {"field": "Street View/render", "source": "Google Street View alleen wanneer render/review is gebruikt", "retrieved_at": _clean_str(row.get("retrieved_at_streetview"), "")},
     ]
+    if module == "windowpilot" or _clean_str(row.get("source_window_signal")):
+        defaults.insert(5, {
+            "field": "Raam-/deur-/poortproxy",
+            "source": _clean_str(row.get("source_window_signal"), "WindowPilot proxy op basis van gebouwvolume, woningtype en toegestane beeldcontrole"),
+            "retrieved_at": _clean_str(row.get("retrieved_at_window_signal"), ""),
+        })
     explicit = []
     labels = {
         "source_grb": "GRB/perceel",
@@ -2389,6 +2414,7 @@ def _source_registry_for_row(row: dict) -> list[dict]:
         "source_statbel": "Buurtstatistiek",
         "source_bouwjaar": "Bouwouderdom",
         "source_epc": "EPC-/energieproxy",
+        "source_window_signal": "Raam/deur/poortproxy",
         "source_recent_verkocht": "Koop/verhuis-trigger",
         "source_bpost": "Doelgroepsegmenten",
         "source_erfgoed": "Erfgoed",

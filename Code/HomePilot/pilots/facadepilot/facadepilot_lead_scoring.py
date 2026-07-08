@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""FacadePilot property-opportunity scoring v2.
+"""FacadePilot/WindowPilot property-opportunity scoring v2.
 
 Deze module vervangt de oude eenvoudige leadscore door een verklaarbare
 property-opportunity score. De score zegt niets over bewonersintentie. Ze
 rangschikt adressen op de kans dat een woning commercieel interessant is om
-veilig en meetbaar in een gevelcampagne te testen.
+veilig en meetbaar in een gevel- of ramen/poorten-campagne te testen.
 """
 
 from __future__ import annotations
@@ -36,6 +36,7 @@ except Exception:
 
 
 SCORING_VERSION = "facadepilot_property_opportunity_v2_2026_07"
+WINDOWPILOT_SCORING_VERSION = "windowpilot_property_opportunity_v2_2026_07"
 
 # Weights add to 1.0. Penalties are applied afterwards.
 COMPONENT_WEIGHTS = {
@@ -46,6 +47,16 @@ COMPONENT_WEIGHTS = {
     "buurt_draagkracht": 0.14,
     "koop_verhuis_trigger": 0.10,
     "partner_fit": 0.05,
+}
+
+WINDOWPILOT_COMPONENT_WEIGHTS = {
+    "raam_deur_volume": 0.22,
+    "woningtype": 0.15,
+    "bouwouderdom": 0.17,
+    "epc_zone": 0.17,
+    "buurt_draagkracht": 0.12,
+    "koop_verhuis_trigger": 0.10,
+    "partner_fit": 0.07,
 }
 
 MIN_BEBOUWD_M2 = 60
@@ -70,6 +81,17 @@ SOURCE_HINTS = {
     "koop_verhuis_trigger": "Te contracteren: Realo/API, bpost Movers of andere vergunde verhuis/verkoopbron",
     "partner_fit": "Eigen campagnehistoriek en partnercapaciteit",
     "belemmering": "Erfgoed, vergunning, GIPOD/werken en recente renovatie indien beschikbaar",
+}
+
+WINDOWPILOT_SOURCE_HINTS = {
+    "raam_deur_volume": "GRB/Capakey + woningtypeproxy; later eigen beeldherkenning voor ramen/deuren/poorten",
+    "woningtype": "GRB geometrie + perceelratio",
+    "bouwouderdom": "Bouwjaar indien beschikbaar; anders Statbel bouwperiode per sector",
+    "epc_zone": "VEKA/EPC-statistieken op zone + bouwjaar/woningtype proxy",
+    "buurt_draagkracht": "Statbel fiscale inkomensstatistiek per statistische sector",
+    "koop_verhuis_trigger": "Te contracteren: Realo/API, bpost Movers of vergunde verhuis/verkoopbron",
+    "partner_fit": "Eigen campagnehistoriek en partnercapaciteit voor ramen, deuren, poorten en zonwering",
+    "belemmering": "Erfgoed, vergunning, appartementscontext, werfzones en recente raam-/deurwerken indien beschikbaar",
 }
 
 
@@ -229,8 +251,25 @@ def _income_band(score: float) -> str:
     return "budgetgevoeliger"
 
 
-def _component(key: str, label: str, score: float, evidence: str, explanation: str, source: str) -> dict:
-    weight = COMPONENT_WEIGHTS[key]
+def _normalise_module(module_key: str | None = None, df: pd.DataFrame | None = None) -> str:
+    candidates = [module_key]
+    if df is not None and len(df):
+        for col in ["module_key", "client_brand_mode", "brand_mode", "product_brand", "pilot", "module"]:
+            if col in df.columns:
+                value = _clean(df[col].dropna().astype(str).iloc[0] if df[col].dropna().size else "")
+                if value:
+                    candidates.append(value)
+    for candidate in candidates:
+        value = _clean(candidate).lower()
+        if value in {"windowpilot", "window", "ramen", "windows", "ramen_en_deuren"}:
+            return "windowpilot"
+        if value in {"facadepilot", "facade", "gevel", "gevelrenovatie"}:
+            return "facadepilot"
+    return "facadepilot"
+
+
+def _component(weights: dict[str, float], key: str, label: str, score: float, evidence: str, explanation: str, source: str) -> dict:
+    weight = weights[key]
     return {
         "key": key,
         "label": label,
@@ -241,6 +280,139 @@ def _component(key: str, label: str, score: float, evidence: str, explanation: s
         "evidence": evidence,
         "explanation": explanation,
     }
+
+
+def _window_volume_score(row: pd.Series, bebouwd: float, perceel: float, ratio: float, huistype: str) -> tuple[float, str, str]:
+    area_cols = ["window_surface_m2", "visible_window_area_m2", "raamoppervlak_m2", "glass_area_m2"]
+    count_cols = ["window_count", "raam_count", "deur_count", "garage_door_count", "poort_count", "screen_count", "rolluik_count"]
+    for col in area_cols:
+        explicit = _num(row.get(col))
+        if explicit is not None:
+            score = _linear(explicit, 8, 70, 30, 100)
+            return score, f"{explicit:.0f} m2 raam-/glasproxy", "Eigen of beeldherkende raam-/glasoppervlakte."
+    for col in count_cols:
+        explicit = _num(row.get(col))
+        if explicit is not None:
+            score = _linear(explicit, 4, 22, 30, 100)
+            return score, f"{explicit:.0f} openingen/elementen", "Eigen of afgeleide telling van ramen, deuren, poorten, screens of rolluiken."
+
+    base = _linear(bebouwd, 70, 360, 28, 92)
+    type_bonus = {
+        "vrijstaand ruim": 12,
+        "halfopen ruim": 9,
+        "halfopen woning": 6,
+        "rijwoning": 0,
+        "stadswoning": -8,
+        "appartement of dicht bebouwd": -18,
+        "onbekend": 0,
+    }.get(huistype, 0)
+    density_bonus = 6 if 0.25 <= ratio <= 0.65 else (-6 if ratio > 0.82 else 0)
+    score = _clip(base + type_bonus + density_bonus)
+    evidence = f"{bebouwd:.0f} m2 bebouwd, {huistype}"
+    explanation = "Proxy voor aantal/waarde van ramen, deuren, poorten, rolluiken en screens op basis van gebouwvolume en woningtype."
+    return score, evidence, explanation
+
+
+def _window_partner_fit(row: pd.Series) -> tuple[float, str, str]:
+    explicit = _num(_first(row, [
+        "window_partner_fit_score", "schrijnwerk_partner_fit_score", "partner_fit_score",
+        "partner_capacity_score", "partner_response_score",
+    ]))
+    if explicit is not None:
+        return _clip(explicit), f"partnerfit-score {explicit:.0f}", "Eigen partnerdata voor opvolging van ramen/deuren/poorten."
+    response = _num(_first(row, ["window_partner_response_rate", "partner_response_rate", "response_rate"]))
+    if response is not None:
+        return _linear(response, 10, 55, 35, 92), f"{response:.1f}% historische respons", "Partnerrespons uit eerdere of vergelijkbare campagnes."
+    return 60, _clean(_first(row, ["partner", "assigned_partner"]), "partner nog te kiezen"), "Neutrale score tot capaciteit en opvolging per WindowPilot-partner bekend zijn."
+
+
+def _score_facade_row(
+    row: pd.Series,
+    result: pd.DataFrame,
+    idx,
+    huistype: str,
+    huistype_score: float,
+    age_score: float,
+    age_evidence: str,
+    age_expl: str,
+    epc_score: float,
+    epc_evidence: str,
+    epc_expl: str,
+    transaction_score: float,
+    transaction_evidence: str,
+    transaction_expl: str,
+    partner_fit: float,
+    draagkracht: float,
+    gevelvolume: float,
+    bebouwd: float,
+) -> tuple[list[dict], list[dict]]:
+    components = [
+        _component(COMPONENT_WEIGHTS, "gevelvolume", "Gevelvolume", gevelvolume, f"{bebouwd:.0f} m2 bebouwd/gevelproxy", "Grotere gevels leveren meer productwaarde en sterkere visuele impact.", SOURCE_HINTS["gevelvolume"]),
+        _component(COMPONENT_WEIGHTS, "woningtype", "Woningtype", huistype_score, huistype, "Vrijstaande en halfopen woningen zijn vaker interessanter dan kleine dichtbebouwde panden.", SOURCE_HINTS["woningtype"]),
+        _component(COMPONENT_WEIGHTS, "bouwouderdom", "Bouwouderdom", age_score, age_evidence, age_expl, SOURCE_HINTS["bouwouderdom"]),
+        _component(COMPONENT_WEIGHTS, "epc_zone", "EPC-/energieproxy", epc_score, epc_evidence, epc_expl, SOURCE_HINTS["epc_zone"]),
+        _component(COMPONENT_WEIGHTS, "buurt_draagkracht", "Buurt-draagkracht", draagkracht, _income_band(draagkracht), "Duurdere renovaties vragen voldoende betalingscapaciteit in de omgeving.", SOURCE_HINTS["buurt_draagkracht"]),
+        _component(COMPONENT_WEIGHTS, "koop_verhuis_trigger", "Koop/verhuis-trigger", transaction_score, transaction_evidence, transaction_expl, SOURCE_HINTS["koop_verhuis_trigger"]),
+        _component(COMPONENT_WEIGHTS, "partner_fit", "Partnerfit", partner_fit, _clean(_first(row, ["partner", "assigned_partner"]), "partner nog te kiezen"), "Een sterk adres telt pas echt als de juiste partner kan opvolgen.", SOURCE_HINTS["partner_fit"]),
+    ]
+    penalties = []
+    if bebouwd < MIN_BEBOUWD_M2:
+        penalties.append(_penalty("Te kleine gevel", 22, f"{bebouwd:.0f} m2", SOURCE_HINTS["gevelvolume"]))
+    if _boolish(_first(row, ["heritage_flag", "erfgoed_flag", "protected_building", "beschermd_erfgoed"])):
+        penalties.append(_penalty("Erfgoed/vergunning complex", 24, "erfgoedsignaal aanwezig", SOURCE_HINTS["belemmering"]))
+    if _boolish(_first(row, ["permit_recent", "recent_gevelvergunning", "recent_renovated", "renovatie_recent"])):
+        penalties.append(_penalty("Recent al gerenoveerd of vergund", 20, "recente werken/vergunning", SOURCE_HINTS["belemmering"]))
+    if _boolish(_first(row, ["gipod_works", "roadworks_flag", "werfzone"])):
+        penalties.append(_penalty("Tijdelijke hinder/werfzone", 8, "GIPOD/werken-signaal", SOURCE_HINTS["belemmering"]))
+    result.at[idx, "score_gevelvolume"] = round(gevelvolume, 1)
+    return components, penalties
+
+
+def _score_window_row(
+    row: pd.Series,
+    result: pd.DataFrame,
+    idx,
+    huistype: str,
+    huistype_score: float,
+    age_score: float,
+    age_evidence: str,
+    age_expl: str,
+    epc_score: float,
+    epc_evidence: str,
+    epc_expl: str,
+    transaction_score: float,
+    transaction_evidence: str,
+    transaction_expl: str,
+    draagkracht: float,
+    bebouwd: float,
+    perceel: float,
+    ratio: float,
+) -> tuple[list[dict], list[dict], float, float]:
+    window_volume, window_evidence, window_expl = _window_volume_score(row, bebouwd, perceel, ratio, huistype)
+    partner_fit, partner_evidence, partner_expl = _window_partner_fit(row)
+    components = [
+        _component(WINDOWPILOT_COMPONENT_WEIGHTS, "raam_deur_volume", "Raam-/deur-/poortvolume", window_volume, window_evidence, window_expl, WINDOWPILOT_SOURCE_HINTS["raam_deur_volume"]),
+        _component(WINDOWPILOT_COMPONENT_WEIGHTS, "woningtype", "Woningtype", huistype_score, huistype, "Woningtypes met veel buitenopeningen of premium schrijnwerk wegen zwaarder.", WINDOWPILOT_SOURCE_HINTS["woningtype"]),
+        _component(WINDOWPILOT_COMPONENT_WEIGHTS, "bouwouderdom", "Bouwouderdom", age_score, age_evidence, age_expl.replace("gevel-", "raam-/deur-"), WINDOWPILOT_SOURCE_HINTS["bouwouderdom"]),
+        _component(WINDOWPILOT_COMPONENT_WEIGHTS, "epc_zone", "EPC-/comfortproxy", epc_score, epc_evidence, "Zwakkere energieprestatie ondersteunt boodschappen rond glas, isolatie, comfort en tocht.", WINDOWPILOT_SOURCE_HINTS["epc_zone"]),
+        _component(WINDOWPILOT_COMPONENT_WEIGHTS, "buurt_draagkracht", "Buurt-draagkracht", draagkracht, _income_band(draagkracht), "Ramen, deuren, poorten, screens en rolluiken zijn ticketgevoelige investeringen.", WINDOWPILOT_SOURCE_HINTS["buurt_draagkracht"]),
+        _component(WINDOWPILOT_COMPONENT_WEIGHTS, "koop_verhuis_trigger", "Koop/verhuis-trigger", transaction_score, transaction_evidence, transaction_expl, WINDOWPILOT_SOURCE_HINTS["koop_verhuis_trigger"]),
+        _component(WINDOWPILOT_COMPONENT_WEIGHTS, "partner_fit", "Partnerfit", partner_fit, partner_evidence, partner_expl, WINDOWPILOT_SOURCE_HINTS["partner_fit"]),
+    ]
+    penalties = []
+    if bebouwd < MIN_BEBOUWD_M2:
+        penalties.append(_penalty("Te weinig raam-/deurvolume", 18, f"{bebouwd:.0f} m2 bebouwd", WINDOWPILOT_SOURCE_HINTS["raam_deur_volume"]))
+    if huistype == "appartement of dicht bebouwd" and not _boolish(_first(row, ["vme_allowed", "individual_windows_allowed"])):
+        penalties.append(_penalty("Mogelijke VME/appartementcontext", 14, huistype, WINDOWPILOT_SOURCE_HINTS["belemmering"]))
+    if _boolish(_first(row, ["recent_window_permit", "recent_ramen_werken", "recent_schrijnwerk", "recent_renovated"])):
+        penalties.append(_penalty("Recent schrijnwerk vernieuwd", 24, "recente raam-/deurwerken", WINDOWPILOT_SOURCE_HINTS["belemmering"]))
+    if _boolish(_first(row, ["heritage_flag", "erfgoed_flag", "protected_building", "beschermd_erfgoed"])):
+        penalties.append(_penalty("Erfgoed/uitzichtbeperking", 18, "erfgoedsignaal aanwezig", WINDOWPILOT_SOURCE_HINTS["belemmering"]))
+    if _boolish(_first(row, ["gipod_works", "roadworks_flag", "werfzone"])):
+        penalties.append(_penalty("Tijdelijke hinder/werfzone", 8, "GIPOD/werken-signaal", WINDOWPILOT_SOURCE_HINTS["belemmering"]))
+    result.at[idx, "score_raam_deur_volume"] = round(window_volume, 1)
+    result.at[idx, "score_window_partner_fit"] = round(partner_fit, 1)
+    return components, penalties, partner_fit, window_volume
 
 
 def _penalty(label: str, points: float, evidence: str, source: str) -> dict:
@@ -282,12 +454,15 @@ def _compute_confidence(row: pd.Series) -> tuple[float, list[str]]:
     return _clip(score, 30, 95), signals
 
 
-def score_leads(df: pd.DataFrame) -> pd.DataFrame:
+def score_leads(df: pd.DataFrame, module_key: str | None = None) -> pd.DataFrame:
     """Score leads with a transparent, source-aware opportunity model."""
     if df is None or len(df) == 0:
         return df
 
     result = df.copy()
+    module = _normalise_module(module_key, result)
+    version = WINDOWPILOT_SCORING_VERSION if module == "windowpilot" else SCORING_VERSION
+    source_hints = WINDOWPILOT_SOURCE_HINTS if module == "windowpilot" else SOURCE_HINTS
 
     for col in ["perceel_m2", "bebouwd_m2", "bebouwd_ratio", "mediaan_inkomen"]:
         if col in result.columns:
@@ -343,27 +518,20 @@ def score_leads(df: pd.DataFrame) -> pd.DataFrame:
 
         draagkracht = float(result.at[idx, "score_buurt_draagkracht"])
         gevelvolume = float(result.at[idx, "score_gevelvolume"])
-        perceel_score = float(result.at[idx, "score_perceel"])
-
-        components = [
-            _component("gevelvolume", "Gevelvolume", gevelvolume, f"{bebouwd:.0f} m2 bebouwd/gevelproxy", "Grotere gevels leveren meer productwaarde en sterkere visuele impact.", SOURCE_HINTS["gevelvolume"]),
-            _component("woningtype", "Woningtype", huistype_score, huistype, "Vrijstaande en halfopen woningen zijn vaker interessanter dan kleine dichtbebouwde panden.", SOURCE_HINTS["woningtype"]),
-            _component("bouwouderdom", "Bouwouderdom", age_score, age_evidence, age_expl, SOURCE_HINTS["bouwouderdom"]),
-            _component("epc_zone", "EPC-/energieproxy", epc_score, epc_evidence, epc_expl, SOURCE_HINTS["epc_zone"]),
-            _component("buurt_draagkracht", "Buurt-draagkracht", draagkracht, _income_band(draagkracht), "Duurdere renovaties vragen voldoende betalingscapaciteit in de omgeving.", SOURCE_HINTS["buurt_draagkracht"]),
-            _component("koop_verhuis_trigger", "Koop/verhuis-trigger", transaction_score, transaction_evidence, transaction_expl, SOURCE_HINTS["koop_verhuis_trigger"]),
-            _component("partner_fit", "Partnerfit", partner_fit, _clean(_first(row, ["partner", "assigned_partner"]), "partner nog te kiezen"), "Een sterk adres telt pas echt als de juiste partner kan opvolgen.", SOURCE_HINTS["partner_fit"]),
-        ]
-
-        penalties = []
-        if bebouwd < MIN_BEBOUWD_M2:
-            penalties.append(_penalty("Te kleine gevel", 22, f"{bebouwd:.0f} m2", SOURCE_HINTS["gevelvolume"]))
-        if _boolish(_first(row, ["heritage_flag", "erfgoed_flag", "protected_building", "beschermd_erfgoed"])):
-            penalties.append(_penalty("Erfgoed/vergunning complex", 24, "erfgoedsignaal aanwezig", SOURCE_HINTS["belemmering"]))
-        if _boolish(_first(row, ["permit_recent", "recent_gevelvergunning", "recent_renovated", "renovatie_recent"])):
-            penalties.append(_penalty("Recent al gerenoveerd of vergund", 20, "recente werken/vergunning", SOURCE_HINTS["belemmering"]))
-        if _boolish(_first(row, ["gipod_works", "roadworks_flag", "werfzone"])):
-            penalties.append(_penalty("Tijdelijke hinder/werfzone", 8, "GIPOD/werken-signaal", SOURCE_HINTS["belemmering"]))
+        module_volume = gevelvolume
+        if module == "windowpilot":
+            components, penalties, partner_fit, module_volume = _score_window_row(
+                row, result, idx, huistype, huistype_score, age_score, age_evidence,
+                age_expl, epc_score, epc_evidence, epc_expl, transaction_score,
+                transaction_evidence, transaction_expl, draagkracht, bebouwd, perceel, ratio,
+            )
+        else:
+            components, penalties = _score_facade_row(
+                row, result, idx, huistype, huistype_score, age_score, age_evidence,
+                age_expl, epc_score, epc_evidence, epc_expl, transaction_score,
+                transaction_evidence, transaction_expl, partner_fit, draagkracht,
+                gevelvolume, bebouwd,
+            )
 
         raw_score = sum(float(c["contribution"]) for c in components)
         penalty_points = sum(float(p["points"]) for p in penalties)
@@ -377,7 +545,8 @@ def score_leads(df: pd.DataFrame) -> pd.DataFrame:
 
         confidence, conf_signals = _compute_confidence(row)
         breakdown = {
-            "version": SCORING_VERSION,
+            "version": version,
+            "module_key": module,
             "score": round(final_score, 1),
             "klasse": klass,
             "label": label,
@@ -393,7 +562,7 @@ def score_leads(df: pd.DataFrame) -> pd.DataFrame:
         lead_labels.append(label)
         huistypes.append(huistype)
         score_breakdowns.append(json.dumps(breakdown, ensure_ascii=False))
-        score_sources.append(json.dumps({k: v for k, v in SOURCE_HINTS.items()}, ensure_ascii=False))
+        score_sources.append(json.dumps({k: v for k, v in source_hints.items()}, ensure_ascii=False))
         confidence_values.append(round(confidence, 1))
         confidence_signals.append(", ".join(conf_signals) if conf_signals else "basisdata")
         penalties_col.append(json.dumps(penalties, ensure_ascii=False))
@@ -406,7 +575,8 @@ def score_leads(df: pd.DataFrame) -> pd.DataFrame:
         result.at[idx, "score_partner_fit"] = round(partner_fit, 1)
         result.at[idx, "score_huistype"] = round(huistype_score, 1)
         result.at[idx, "score_woningtype"] = round(huistype_score, 1)
-        result.at[idx, "score_woning"] = round(gevelvolume, 1)
+        result.at[idx, "score_woning"] = round(module_volume, 1)
+        result.at[idx, "score_module_volume"] = round(module_volume, 1)
         result.at[idx, "score_inkomen"] = round(draagkracht, 1)
         result.at[idx, "score_ratio"] = round(_linear(1 - min(max(ratio, 0), 1), 0, 1, 15, 100), 1)
 
@@ -419,10 +589,11 @@ def score_leads(df: pd.DataFrame) -> pd.DataFrame:
     result["score_penalties_json"] = penalties_col
     result["score_confidence"] = confidence_values
     result["score_confidence_signals"] = confidence_signals
-    result["score_method_version"] = SCORING_VERSION
+    result["score_method_version"] = version
+    result["module_key"] = module
     result["score_note"] = score_notes
     result["income_band"] = income_bands
-    result["source_scoring_model"] = SCORING_VERSION
+    result["source_scoring_model"] = version
     result["retrieved_at_scoring_model"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
     result = result.sort_values(["lead_score", "score_confidence"], ascending=[False, False]).reset_index(drop=True)
@@ -430,17 +601,21 @@ def score_leads(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Score FacadePilot leads met scoring v2")
+    parser = argparse.ArgumentParser(description="Score HomePilot leads met FacadePilot/WindowPilot scoring v2")
     parser.add_argument("--input", "-i", required=True, help="Input CSV")
     parser.add_argument("--output", "-o", help="Output CSV")
+    parser.add_argument("--module-key", "--module", default="facadepilot",
+                        choices=["facadepilot", "windowpilot"],
+                        help="Scoringvariant: facadepilot of windowpilot")
     args = parser.parse_args()
 
     input_path = Path(args.input)
     output_path = Path(args.output) if args.output else input_path.with_name(input_path.stem + "_scored.csv")
     df = pd.read_csv(input_path, encoding="utf-8-sig")
-    scored = score_leads(df)
+    scored = score_leads(df, module_key=args.module_key)
     scored.to_csv(output_path, index=False, encoding="utf-8-sig")
-    print(f"{len(scored)} leads gescoord met {SCORING_VERSION} -> {output_path}")
+    version = scored["score_method_version"].iloc[0] if len(scored) and "score_method_version" in scored.columns else args.module_key
+    print(f"{len(scored)} leads gescoord met {version} -> {output_path}")
 
 
 if __name__ == "__main__":
