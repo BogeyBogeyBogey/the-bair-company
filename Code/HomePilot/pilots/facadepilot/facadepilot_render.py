@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-FacadePilot Gevelrenovatie Render — GPT Image 2
+FacadePilot Gevelrenovatie Render — Render Engine
 =================================================
 Genereert fotorealistische renovatie-renders van gevels
 op basis van Google Street View foto's.
@@ -8,12 +8,13 @@ op basis van Google Street View foto's.
 Workflow:
   1. Neem de gescoorde CSV als input
   2. Per lead: haal Street View foto op (of gebruik bestaande)
-  3. Stuur foto + renovatie-prompt naar GPT Image 2
+  3. Stuur foto + renovatie-prompt naar de ingestelde image-edit provider
   4. Sla de render op als before/after paar
   5. Voeg render-pad toe aan CSV
 
 Vereist:
-  - OPENAI_API_KEY in .env
+  - XAI_API_KEY in .env voor de standaard Render Engine-provider
+  - OPENAI_API_KEY in .env alleen voor provider=openai
   - GOOGLE_API_KEY in .env (voor Street View)
 
 Gebruik:
@@ -45,7 +46,7 @@ _render_cost_state = {
     "renders_skipped_quality": 0,
     "estimated_cost_usd": 0.0,
 }
-COST_PER_RENDER_USD = 0.10  # GPT Image 2 (1536x1024)
+COST_PER_RENDER_USD = float(os.environ.get("FACADEPILOT_GROK_IMAGE_COST_USD", "0.22"))
 
 
 def get_render_cost_state() -> dict:
@@ -80,7 +81,10 @@ _PRESERVE_RULE = (
     "en buitenschrijnwerk. De gevelindeling blijft 100% identiek. Verander NIET de "
     "dakvorm. Renoveer uitsluitend de aangeduide woning en de bijhorende zichtbare "
     "metselwerkdelen, NIET buurhuizen of losse bijgebouwen. Omgeving (straat, buren, "
-    "beplanting, auto's) blijft volledig ongewijzigd. Fotorealistisch."
+    "beplanting, auto's) blijft volledig ongewijzigd. Voeg geen muren, lage tuinmuren, "
+    "ramen, deuren, volumes, luifels, balkons, trappen, hekwerk, opritten of tuinindeling "
+    "toe. Gebruik subtiele Belgische materiaal- en kleurtonen, geen plastic CGI-look, "
+    "geen showroomlicht en geen willekeurige decoratieve vlakken. Fotorealistisch."
 )
 
 _WINDOW_SCOPE_RULE = (
@@ -258,7 +262,7 @@ FACADE_PRESETS = {
 DEFAULT_PRESET = "moderne_crepi"
 DEFAULT_PROMPT = FACADE_PRESETS[DEFAULT_PRESET]["prompt"]
 
-# GPT Image model
+# Image-edit provider
 
 # Gedeelde kostenbewaking (HomePilot). facadepilot_tracking bootstrapt sys.path.
 try:
@@ -268,7 +272,10 @@ except Exception:  # pragma: no cover
     BudgetGuard = None
     BudgetExceeded = RuntimeError
 
-IMAGE_MODEL = "gpt-image-2"
+IMAGE_PROVIDER = os.environ.get("FACADEPILOT_IMAGE_PROVIDER", "xai").strip().lower()
+XAI_IMAGE_MODEL = os.environ.get("FACADEPILOT_GROK_IMAGE_MODEL", "grok-imagine-image-quality")
+OPENAI_IMAGE_MODEL = os.environ.get("FACADEPILOT_OPENAI_IMAGE_MODEL", "gpt-image-1.5")
+IMAGE_MODEL = XAI_IMAGE_MODEL if IMAGE_PROVIDER in {"xai", "grok"} else OPENAI_IMAGE_MODEL
 IMAGE_SIZE = "1536x1024"  # Landscape — past bij Street View formaat
 RENDER_PROMPT_VERSION = "scope_v2"
 
@@ -347,7 +354,7 @@ def _maybe_use_voorfoto(row, streetview_img: Image.Image) -> Image.Image:
         return streetview_img
 
 
-# ─── GPT IMAGE RENDER ──────────────────────────────────────────────────────
+# ─── IMAGE EDIT RENDER ─────────────────────────────────────────────────────
 
 def image_to_bytesio(img: Image.Image, fmt: str = "PNG") -> io.BytesIO:
     buf = io.BytesIO()
@@ -357,10 +364,88 @@ def image_to_bytesio(img: Image.Image, fmt: str = "PNG") -> io.BytesIO:
     return buf
 
 
-def render_facade(streetview_img: Image.Image, prompt: str = DEFAULT_PROMPT,
-                  size: str = IMAGE_SIZE, max_retries: int = 3) -> Image.Image:
+def image_to_data_uri(img: Image.Image, max_side: int = 1536) -> str:
+    render_img = img.convert("RGB").copy()
+    resample = getattr(getattr(Image, "Resampling", Image), "LANCZOS")
+    render_img.thumbnail((max_side, max_side), resample)
+    buf = io.BytesIO()
+    render_img.save(buf, format="JPEG", quality=92)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+
+
+def _xai_error_message(response: requests.Response) -> str:
+    body = response.text[:600] if response.text else ""
+    return f"xAI Images API {response.status_code}: {body}"
+
+
+def _image_from_xai_payload(item: dict) -> Image.Image:
+    b64_value = item.get("b64_json") or item.get("base64")
+    if b64_value:
+        out_bytes = base64.b64decode(b64_value)
+        return Image.open(io.BytesIO(out_bytes)).convert("RGB")
+    url = item.get("url")
+    if url:
+        r = requests.get(url, timeout=120)
+        r.raise_for_status()
+        return Image.open(io.BytesIO(r.content)).convert("RGB")
+    raise ValueError("Geen afbeelding ontvangen van xAI")
+
+
+def _render_facade_xai(streetview_img: Image.Image, prompt: str,
+                       max_retries: int = 3) -> Image.Image:
+    api_key = os.environ.get("XAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("Render Engine API key ontbreekt. Voeg de provider-key toe aan .env om renders te maken.")
+
+    endpoint = os.environ.get("FACADEPILOT_XAI_IMAGE_EDIT_URL", "https://api.x.ai/v1/images/edits")
+    payload = {
+        "model": XAI_IMAGE_MODEL,
+        "prompt": prompt,
+        "image": {
+            "url": image_to_data_uri(streetview_img),
+            "type": "image_url",
+        },
+    }
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    last_exc = None
+    for attempt in range(max_retries):
+        try:
+            response = requests.post(endpoint, headers=headers, json=payload, timeout=180)
+            if response.status_code in {429} or response.status_code >= 500:
+                if attempt < max_retries - 1:
+                    backoff = 5 * (attempt + 1) if response.status_code == 429 else 2 ** (attempt + 1)
+                    print(f"           ⚠ xAI API {response.status_code} (poging {attempt+1}/{max_retries}), "
+                          f"retry over {backoff}s")
+                    time.sleep(backoff)
+                    continue
+            if response.status_code >= 400:
+                raise RuntimeError(_xai_error_message(response))
+            data = response.json()
+            items = data.get("data") or []
+            if not items:
+                raise ValueError("Geen data[] ontvangen van xAI")
+            return _image_from_xai_payload(items[0])
+        except requests.RequestException as e:
+            last_exc = e
+            if attempt < max_retries - 1:
+                backoff = 2 ** (attempt + 1)
+                print(f"           ⚠ xAI netwerk/timeout (poging {attempt+1}/{max_retries}), "
+                      f"retry over {backoff}s: {str(e)[:80]}")
+                time.sleep(backoff)
+            else:
+                raise
+    if last_exc:
+        raise last_exc
+    raise RuntimeError("xAI render_facade: max retries opgebruikt zonder fout")
+
+
+def _render_facade_openai(streetview_img: Image.Image, prompt: str,
+                          size: str = IMAGE_SIZE, max_retries: int = 3) -> Image.Image:
     """
-    Stuur Street View foto naar GPT Image 2 voor gevelrenovatie render.
+    OpenAI image-edit provider.
 
     Retry-strategie:
       - 3 pogingen totaal
@@ -448,6 +533,18 @@ def render_facade(streetview_img: Image.Image, prompt: str = DEFAULT_PROMPT,
     raise RuntimeError("render_facade: max retries opgebruikt zonder fout")
 
 
+def render_facade(streetview_img: Image.Image, prompt: str = DEFAULT_PROMPT,
+                  size: str = IMAGE_SIZE, max_retries: int = 3) -> Image.Image:
+    """
+    Stuur een bronfoto naar de ingestelde image-edit provider.
+
+    Stuur de bronfoto naar de geconfigureerde Render Engine-provider.
+    """
+    if IMAGE_PROVIDER in {"openai", "gpt", "gpt-image"}:
+        return _render_facade_openai(streetview_img, prompt=prompt, size=size, max_retries=max_retries)
+    return _render_facade_xai(streetview_img, prompt=prompt, max_retries=max_retries)
+
+
 def submit_render_review(*, key: str, render_path, source_path, preset: str,
                          prompt_version: str = RENDER_PROMPT_VERSION,
                          address: str = "") -> None:
@@ -509,7 +606,7 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
     ----------
     quality_check : bool
         Als True (default): elke Street View foto wordt eerst gevalideerd
-        met gpt-4o-mini. Faalt de check → render wordt overgeslagen
+        met de beeldcheck. Faalt de check → render wordt overgeslagen
         (bespaart ~$0.10 per slechte foto).
     multi_preset_for_klassen : list[str] of None
         Bij welke lead_klassen extra renders moeten gemaakt worden, bv.
@@ -561,7 +658,7 @@ def process_renders(df: pd.DataFrame, output_dir: Path,
 
     print(f"\n🏠 FacadePilot Gevelrenovatie Render — {total} leads")
     print(f"   Model: {IMAGE_MODEL} | Formaat: {size}")
-    print(f"   Quality check: {'AAN (gpt-4o-mini)' if quality_check else 'UIT'}")
+    print(f"   Quality check: {'AAN (beeldcheck)' if quality_check else 'UIT'}")
     print(f"   Auto-preset:   {'AAN (per lead)' if auto_preset else 'UIT (vaste preset)'}")
     if multi_presets:
         doelgroep = (
@@ -827,8 +924,12 @@ def main():
 
     if not args.input.exists():
         sys.exit(f"❌ Niet gevonden: {args.input}")
-    if not os.environ.get("OPENAI_API_KEY"):
-        sys.exit("❌ OPENAI_API_KEY niet gevonden")
+    provider = IMAGE_PROVIDER
+    if provider in {"openai", "gpt", "gpt-image"}:
+        if not os.environ.get("OPENAI_API_KEY"):
+            sys.exit("❌ OPENAI_API_KEY niet gevonden voor provider=openai")
+    elif not os.environ.get("XAI_API_KEY"):
+        sys.exit("❌ Render Engine API key niet gevonden")
     if not os.environ.get("GOOGLE_API_KEY"):
         sys.exit("❌ GOOGLE_API_KEY niet gevonden")
 

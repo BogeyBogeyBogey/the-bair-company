@@ -5,7 +5,7 @@ FacadePilot Pipeline — Gevelrenovatie lead-campagne in één klik
 Unified dashboard dat alle stappen orkestreert:
   1. Adresselectie (GIS data → lead CSV)
   2. Lead scoring (rangschik op woninggrootte/bouwjaar)
-  3. Gevelrenovatie renders (Street View → GPT Image)
+  3. Gevelrenovatie renders (bronfoto → Render Engine)
   4. Flyer generatie (PDF per lead)
 
 Gebruik:
@@ -77,10 +77,22 @@ def attach_source_registry(df: pd.DataFrame, stage: str = "pipeline") -> pd.Data
         "source_grb": "Digitaal Vlaanderen GRB/Capakey",
         "source_crab": "Digitaal Vlaanderen adresregister/CRAB",
         "source_statbel": "Statbel sectorstatistiek indien beschikbaar",
+        "source_bouwjaar": "Bouwjaar indien beschikbaar; anders Statbel bouwperiode per sector",
+        "source_epc": "VEKA/EPC-zoneproxy indien beschikbaar",
+        "source_recent_verkocht": "Te contracteren: Realo/API, bpost Movers of vergunde verhuis/verkoopbron",
+        "source_bpost": "Te contracteren: bpost doelgroepsegmenten zoals Movers/Renovators/Home Owners",
+        "source_erfgoed": "Vlaamse erfgoed-/vergunningcontext indien beschikbaar",
+        "source_gipod": "GIPOD publieke hinder-/werfcontext indien beschikbaar",
         "source_streetview": "Google Street View indien render/review gebruikt",
         "retrieved_at_grb": retrieved,
         "retrieved_at_crab": retrieved,
         "retrieved_at_statbel": retrieved,
+        "retrieved_at_bouwjaar": "",
+        "retrieved_at_epc": "",
+        "retrieved_at_recent_verkocht": "",
+        "retrieved_at_bpost": "",
+        "retrieved_at_erfgoed": "",
+        "retrieved_at_gipod": "",
         "retrieved_at_streetview": "",
         "provenance_stage": stage,
     }
@@ -109,7 +121,9 @@ def check_modules():
         available["lead_scoring"] = False
     try:
         import facadepilot_render as m
-        available["render"] = bool(os.environ.get("OPENAI_API_KEY"))
+        provider = os.environ.get("FACADEPILOT_IMAGE_PROVIDER", "xai").strip().lower()
+        required_key = "OPENAI_API_KEY" if provider in {"openai", "gpt", "gpt-image"} else "XAI_API_KEY"
+        available["render"] = bool(os.environ.get(required_key))
     except ImportError:
         available["render"] = False
     try:
@@ -215,6 +229,99 @@ except ImportError:
         },
     }
     DEFAULT_FACADE_PRESET = "moderne_crepi"
+
+
+GEVELVOORSTEL_STYLES = {
+    "crepi": {
+        "title": "Crepi met buitenisolatie",
+        "prompt": (
+            "renovate the facade with fine-grain crepi exterior plaster over insulation, "
+            "keep the existing facade calm, monolithic and premium, preserve exact house "
+            "shape, windows, roof, street perspective and surroundings realistic"
+        ),
+        "colors": [
+            {"name": "Warm wit", "prompt": "warm off-white crepi, soft ivory, high-end Belgian exterior insulation finish"},
+            {"name": "Zandbeige", "prompt": "soft sand beige crepi, warm natural tone, matte and subtle"},
+            {"name": "Greige", "prompt": "warm greige crepi, not too dark, sober architectural tone"},
+        ],
+    },
+    "mineral": {
+        "title": "Minerale gevelpleister",
+        "prompt": (
+            "renovate the facade with a subtle mineral plaster finish, matte and refined, "
+            "preserve all architectural proportions, windows, roof and realistic lighting"
+        ),
+        "colors": [
+            {"name": "Krijtwit", "prompt": "chalky warm white mineral plaster, refined matte surface"},
+            {"name": "Lichtgrijs", "prompt": "light grey mineral plaster, neutral and timeless, not cold"},
+            {"name": "Basaltgrijs", "prompt": "soft basalt grey mineral plaster, elegant and restrained"},
+        ],
+    },
+    "strips": {
+        "title": "Steenstrips op isolatie",
+        "prompt": (
+            "renovate the facade with premium modern stone slips on exterior insulation, "
+            "not traditional full-size red brick, use thin stacked natural stone strips "
+            "with horizontal layered courses, irregular stone lengths, subtle relief and "
+            "tight joints, preserve windows, roof, street and perspective exactly"
+        ),
+        "colors": [
+            {"name": "Lichte kalksteen", "prompt": "light limestone and beige-grey stacked stone strips, like modern natural stone veneer, with subtle cream and grey variation"},
+            {"name": "Warm beige", "prompt": "warm beige natural stone strips, sandy limestone tones, elegant and not orange"},
+            {"name": "Taupe grijs", "prompt": "taupe grey natural stone strips, soft grey-beige layered texture, premium and contemporary"},
+        ],
+    },
+    "mix": {
+        "title": "Mix van steenstrips en crepi",
+        "prompt": (
+            "renovate the facade with a refined mix of light crepi plaster and modern thin "
+            "stone slip accents. Compose like a high-end exterior architect: use stone only "
+            "on technically logical zones such as the entrance volume, recessed/raised bay, "
+            "garage volume, plinth or one coherent side volume; never create random patches, "
+            "checkerboard shapes, awkward half-walls or arbitrary vertical splits; keep "
+            "65-80 percent calm crepi and 20-35 percent stone accents; preserve house "
+            "geometry and make it photorealistic"
+        ),
+        "colors": [
+            {"name": "Warm wit + kalksteen", "prompt": "warm off-white crepi combined with light limestone stacked stone strips"},
+            {"name": "Greige + taupe", "prompt": "warm greige crepi combined with taupe grey natural stone strips"},
+            {"name": "Zand + warm steen", "prompt": "soft sand crepi combined with warm beige limestone stone strips"},
+        ],
+    },
+    "concrete": {
+        "title": "Betonlook en crepi",
+        "prompt": (
+            "renovate the facade with a refined combination of smooth crepi plaster and "
+            "architectural concrete-look accent surfaces. Compose like a top exterior designer: "
+            "concrete-look only on one coherent architectural volume, entrance zone, garage "
+            "volume, plinth, or vertical bay; keep the rest calm crepi; avoid random paneling, "
+            "diagonal shapes, checkerboard, arbitrary color blocks or busy subdivisions; "
+            "preserve all windows, rooflines, doors, proportions and surroundings"
+        ),
+        "colors": [
+            {"name": "Licht beton + warm wit", "prompt": "light warm concrete-look accent with warm off-white crepi"},
+            {"name": "Taupe beton + greige", "prompt": "taupe concrete-look accent with soft greige crepi"},
+            {"name": "Donker beton + krijtwit", "prompt": "restrained dark concrete-look accent with chalky warm white crepi, premium but not harsh"},
+        ],
+    },
+    "cladding": {
+        "title": "Gevelbekleding",
+        "prompt": (
+            "renovate the facade with premium facade cladding accents and clean plaster "
+            "surfaces. Compose like a high-end exterior designer: use cladding only on "
+            "coherent facade volumes, entrance zones, vertical bays or side volumes; avoid "
+            "random strips or busy decorative panels; modern but realistic Belgian residential "
+            "renovation, preserve the house and surroundings"
+        ),
+        "colors": [
+            {"name": "Antraciet accent", "prompt": "deep anthracite cladding accent with calm light mineral plaster"},
+            {"name": "Brons hout", "prompt": "warm bronze-brown wood-look cladding accent with greige plaster"},
+            {"name": "Licht mineraal", "prompt": "light mineral cladding accent with warm white plaster"},
+        ],
+    },
+}
+
+GEVELVOORSTEL_RENDER_VERSION = "gevelvoorstel_v2"
 
 
 # ─── GLOBAL STATE ─────────────────────────────────────────────────────────────
@@ -483,7 +590,15 @@ def step_adresselectie(niscode: str, min_woning: float, max_woning: float,
 
     # Export
     leads = attach_source_registry(leads, "adresselectie")
-    export_cols = ["adres", "CAPAKEY", "perceel_m2", "bebouwd_m2", "bebouwd_ratio", "tuin_m2", "lat", "lon", "google_maps", "source_grb", "source_crab", "source_statbel", "source_streetview", "retrieved_at_grb", "retrieved_at_crab", "retrieved_at_statbel", "retrieved_at_streetview", "provenance_stage"]
+    export_cols = [
+        "adres", "CAPAKEY", "perceel_m2", "bebouwd_m2", "bebouwd_ratio", "tuin_m2",
+        "lat", "lon", "google_maps",
+        "source_grb", "source_crab", "source_statbel", "source_bouwjaar", "source_epc",
+        "source_recent_verkocht", "source_bpost", "source_erfgoed", "source_gipod", "source_streetview",
+        "retrieved_at_grb", "retrieved_at_crab", "retrieved_at_statbel", "retrieved_at_bouwjaar",
+        "retrieved_at_epc", "retrieved_at_recent_verkocht", "retrieved_at_bpost", "retrieved_at_erfgoed",
+        "retrieved_at_gipod", "retrieved_at_streetview", "provenance_stage",
+    ]
     export_cols = [c for c in export_cols if c in leads.columns]
     leads_export = leads[export_cols].sort_values("bebouwd_m2", ascending=False)
 
@@ -566,7 +681,7 @@ def step_render(input_file: str, top_n: int | None, klassen: list | None,
                 auto_preset: bool = False,
                 render_capakey: str | None = None,
                 field_photo_path: str | None = None):
-    """Stap 3: Gevelrenovatie renders via GPT Image."""
+    """Stap 3: Gevelrenovatie renders via de ingestelde image-edit provider."""
     import facadepilot_render as renderer
 
     input_path = HERE / input_file
@@ -621,7 +736,7 @@ def step_render(input_file: str, top_n: int | None, klassen: list | None,
         log(f"  -> Renovatie type: {preset['label']}")
 
     if quality_check:
-        log(f"  -> Quality check AAN (gpt-4o-mini pre-filter)")
+        log(f"  -> Quality check AAN (beeldcheck pre-filter)")
     if multi_presets:
         doelgroep = (
             f"voor klassen {multi_preset_klassen}"
@@ -1321,11 +1436,79 @@ def list_landing_pages(rel_dir: str = ""):
     return pages
 
 
+RENDER_SELECTIONS_PATH = HERE / "render_selections.json"
+
+
+def load_render_selections() -> dict:
+    try:
+        data = json.loads(RENDER_SELECTIONS_PATH.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def save_render_selections(data: dict) -> None:
+    RENDER_SELECTIONS_PATH.write_text(
+        json.dumps(data or {}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def post_render_selection(payload: dict) -> dict:
+    """Registreer de gekozen nafoto voor flyer- en landingspaginaproductie."""
+    capakey = str(payload.get("capakey") or "").strip()
+    address = str(payload.get("address") or "").strip()
+    render_rel = str(payload.get("render") or "").strip()
+    source_rel = str(payload.get("source") or "").strip()
+    if not render_rel:
+        raise ValueError("render ontbreekt")
+    render_path = (HERE / render_rel).resolve()
+    try:
+        render_path.relative_to(HERE.resolve())
+    except ValueError:
+        raise ValueError("render ligt buiten projectmap")
+    if not render_path.exists():
+        raise ValueError("renderbestand bestaat niet")
+
+    render_id = render_path.name.replace("_render.jpg", "")
+    key = safe_photo_key(capakey or address or render_id)
+    record = {
+        "capakey": capakey,
+        "address": address,
+        "render": render_path.relative_to(HERE).as_posix(),
+        "source": source_rel,
+        "render_id": render_id,
+        "style_key": str(payload.get("style_key") or payload.get("styleKey") or "").strip(),
+        "style_title": str(payload.get("style_title") or "").strip(),
+        "color_name": str(payload.get("color_name") or "").strip(),
+        "note": str(payload.get("note") or "").strip(),
+        "selected_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    }
+    selections = load_render_selections()
+    selections[key] = record
+    save_render_selections(selections)
+
+    try:
+        gate = _load_review_gate("render")
+        gate.decide(render_id, "approved", reason_code="production_winner",
+                    note=record["note"] or "gekozen als productiebeeld")
+    except Exception:
+        pass
+    return {"ok": True, "key": key, "selection": record}
+
+
 def list_render_details():
     """Lijst renders gegroepeerd per woning, inclusief afwerkingsvarianten."""
     renders_dir = HERE / "renders"
     if not renders_dir.exists():
         return []
+
+    selections = load_render_selections()
+    selected_by_render = {
+        str(item.get("render") or ""): item
+        for item in selections.values()
+        if isinstance(item, dict)
+    }
 
     try:
         from facadepilot_render import RENDER_PROMPT_VERSION as render_version
@@ -1348,14 +1531,33 @@ def list_render_details():
         except ValueError:
             return str(p)
 
+    def render_style_label(key: str) -> str:
+        if key in GEVELVOORSTEL_STYLES:
+            return GEVELVOORSTEL_STYLES[key]["title"]
+        return FACADE_PRESETS.get(key, {}).get("label", key or "Render")
+
     def preset_from_name(filename: str):
-        for key in FACADE_PRESETS:
+        all_keys = list(FACADE_PRESETS) + [k for k in GEVELVOORSTEL_STYLES if k not in FACADE_PRESETS]
+        for key in all_keys:
             suffix = f"_{key}_{render_version}_render.jpg"
             if filename.endswith(suffix):
+                return key
+            operator_suffix = f"_{key}_{GEVELVOORSTEL_RENDER_VERSION}_render.jpg"
+            if filename.endswith(operator_suffix):
                 return key
             legacy = f"_render_{key}_{render_version}.jpg"
             if filename.endswith(legacy):
                 return key
+        return ""
+
+    def color_from_name(filename: str) -> str:
+        stem = filename.replace("_render.jpg", "")
+        for key in list(GEVELVOORSTEL_STYLES):
+            marker = f"_{key}_"
+            suffix = f"_{GEVELVOORSTEL_RENDER_VERSION}"
+            if marker in stem and stem.endswith(suffix):
+                color_slug = stem.split(marker, 1)[1][:-len(suffix)]
+                return color_slug.replace("_", " ")
         return ""
 
     def streetview_for_render(render_rel):
@@ -1363,10 +1565,14 @@ def list_render_details():
             return None
         render_name = Path(render_rel).name
         candidates = [render_name.replace("_render.jpg", "_streetview.jpg")]
-        for key in FACADE_PRESETS:
+        all_keys = list(FACADE_PRESETS) + [k for k in GEVELVOORSTEL_STYLES if k not in FACADE_PRESETS]
+        for key in all_keys:
             suffix = f"_{key}_{render_version}_render.jpg"
             if render_name.endswith(suffix):
                 candidates.append(render_name[:-len(suffix)] + "_streetview.jpg")
+            operator_suffix = f"_{key}_{GEVELVOORSTEL_RENDER_VERSION}_render.jpg"
+            if render_name.endswith(operator_suffix):
+                candidates.append(render_name[:-len(operator_suffix)] + "_streetview.jpg")
             legacy = f"_render_{key}_{render_version}.jpg"
             if render_name.endswith(legacy):
                 candidates.append(render_name[:-len(legacy)] + "_streetview.jpg")
@@ -1381,12 +1587,15 @@ def list_render_details():
         if not rel:
             return None
         key = preset_key or preset_from_name(Path(rel).name)
-        label = FACADE_PRESETS.get(key, {}).get("label", key or "Render")
+        label = render_style_label(key)
+        selection = selected_by_render.get(rel)
         return {
             "id": Path(rel).name.replace("_render.jpg", ""),
             "preset_key": key,
             "preset_label": label,
+            "color_name": color_from_name(Path(rel).name),
             "render": rel,
+            "selected_for_production": bool(selection),
         }
 
     items = []
@@ -1431,9 +1640,17 @@ def list_render_details():
         preset_key = preset_from_name(render_file.name)
         group_key = render_file.name.replace("_render.jpg", "")
         if preset_key:
-            suffix = f"_{preset_key}_{render_version}"
-            if group_key.endswith(suffix):
-                group_key = group_key[:-len(suffix)]
+            if preset_key in GEVELVOORSTEL_STYLES and group_key.endswith(f"_{GEVELVOORSTEL_RENDER_VERSION}"):
+                marker = f"_{preset_key}_"
+                if marker in group_key:
+                    group_key = group_key.split(marker, 1)[0]
+            else:
+                suffix = f"_{preset_key}_{render_version}"
+                if group_key.endswith(suffix):
+                    group_key = group_key[:-len(suffix)]
+                operator_suffix = f"_{preset_key}_{GEVELVOORSTEL_RENDER_VERSION}"
+                if group_key.endswith(operator_suffix):
+                    group_key = group_key[:-len(operator_suffix)]
         rel = f"renders/{render_file.name}"
         grouped.setdefault(group_key, []).append(make_variant(rel, preset_key))
 
@@ -1856,6 +2073,10 @@ def get_leads_geojson(niscode: str | None = None, manual: bool = False) -> dict:
                     "status": l.get("status", "gegenereerd"),
                     "render_path": l.get("render_path") or "",
                     "streetview_path": l.get("streetview_path") or "",
+                    "score_confidence": l.get("score_confidence", ""),
+                    "score_method_version": l.get("score_method_version", ""),
+                    "score_breakdown_json": l.get("score_breakdown_json", ""),
+                    "score_note": l.get("score_note", ""),
                 }, capakey)
                 features.append({
                     "type": "Feature",
@@ -1910,6 +2131,10 @@ def get_leads_geojson(niscode: str | None = None, manual: bool = False) -> dict:
                 "status": "gegenereerd",
                 "render_path": str(row.get("render_path", "") or ""),
                 "streetview_path": "",
+                "score_confidence": row.get("score_confidence", ""),
+                "score_method_version": row.get("score_method_version", ""),
+                "score_breakdown_json": row.get("score_breakdown_json", ""),
+                "score_note": row.get("score_note", ""),
             }, capakey)
             features.append({
                 "type": "Feature",
@@ -2121,6 +2346,27 @@ def _value_for_row(row: dict, m2: float, score: float) -> int:
     return int(max(0, m2) * 420 + max(0, score) * 340)
 
 
+def _parse_json_value(value, fallback=None):
+    if fallback is None:
+        fallback = {}
+    if value is None:
+        return fallback
+    if isinstance(value, (dict, list)):
+        return value
+    try:
+        if pd.isna(value):
+            return fallback
+    except Exception:
+        pass
+    text = str(value).strip()
+    if not text or text.lower() in {"nan", "none", "null"}:
+        return fallback
+    try:
+        return json.loads(text)
+    except Exception:
+        return fallback
+
+
 def _source_registry_for_row(row: dict) -> list[dict]:
     today = time.strftime("%Y-%m-%d", time.gmtime())
     def item(field, source, date_key):
@@ -2130,13 +2376,81 @@ def _source_registry_for_row(row: dict) -> list[dict]:
         {"field": "Adres en perceel", "source": "Digitaal Vlaanderen GRB/Capakey + adresregister", "retrieved_at": _clean_str(row.get("retrieved_at_grb"), today)},
         {"field": "Geometrie en bebouwde oppervlakte", "source": "GRB gebouwen/percelen", "retrieved_at": _clean_str(row.get("retrieved_at_grb"), today)},
         {"field": "Buurt- en inkomenssignaal", "source": "Statbel sectorstatistiek indien beschikbaar", "retrieved_at": _clean_str(row.get("retrieved_at_statbel"), today)},
+        {"field": "Bouwouderdom", "source": "Bouwjaar indien beschikbaar; anders Statbel bouwperiode per sector", "retrieved_at": _clean_str(row.get("retrieved_at_bouwjaar"), today)},
+        {"field": "EPC-/energieproxy", "source": "VEKA/EPC-zoneproxy indien beschikbaar", "retrieved_at": _clean_str(row.get("retrieved_at_epc"), today)},
+        {"field": "Koop/verhuis-trigger", "source": "Te contracteren: Realo/API, bpost Movers of vergunde verhuis/verkoopbron", "retrieved_at": _clean_str(row.get("retrieved_at_recent_verkocht"), "")},
+        {"field": "Belemmeringen", "source": "Erfgoed, vergunningen en GIPOD indien beschikbaar", "retrieved_at": _clean_str(row.get("retrieved_at_gipod") or row.get("retrieved_at_erfgoed"), "")},
         {"field": "Street View/render", "source": "Google Street View alleen wanneer render/review is gebruikt", "retrieved_at": _clean_str(row.get("retrieved_at_streetview"), "")},
     ]
     explicit = []
-    for col in ("source_grb", "source_crab", "source_statbel", "source_streetview"):
+    labels = {
+        "source_grb": "GRB/perceel",
+        "source_crab": "Adresregister",
+        "source_statbel": "Buurtstatistiek",
+        "source_bouwjaar": "Bouwouderdom",
+        "source_epc": "EPC-/energieproxy",
+        "source_recent_verkocht": "Koop/verhuis-trigger",
+        "source_bpost": "Doelgroepsegmenten",
+        "source_erfgoed": "Erfgoed",
+        "source_gipod": "Werfcontext",
+        "source_streetview": "Street View/render",
+        "source_scoring_model": "Scoremodel",
+    }
+    for col in labels:
         if _clean_str(row.get(col)):
-            explicit.append(item(col.replace("source_", ""), col, "retrieved_at_" + col.replace("source_", "")))
+            explicit.append(item(labels[col], col, "retrieved_at_" + col.replace("source_", "")))
     return explicit or defaults
+
+
+def _score_components_for_row(row: dict, fallback_metrics: dict) -> tuple[list[dict], list[dict], dict]:
+    breakdown = _parse_json_value(row.get("score_breakdown_json"), {})
+    components = breakdown.get("components") if isinstance(breakdown, dict) else None
+    penalties = breakdown.get("penalties", []) if isinstance(breakdown, dict) else []
+    if not components:
+        components = _parse_json_value(row.get("score_components_json"), [])
+    if isinstance(components, dict):
+        components = list(components.values())
+    normalised = []
+    if isinstance(components, list):
+        for comp in components:
+            if not isinstance(comp, dict):
+                continue
+            score = _safe_float(comp.get("score"), 0) or 0
+            normalised.append({
+                "key": _clean_str(comp.get("key"), _clean_str(comp.get("label"), "component")).lower().replace(" ", "_"),
+                "label": _clean_str(comp.get("label"), "Scorecomponent"),
+                "score": round(float(score), 1),
+                "weight_pct": round(float(_safe_float(comp.get("weight_pct"), 0) or 0), 1),
+                "contribution": round(float(_safe_float(comp.get("contribution"), 0) or 0), 1),
+                "source": _clean_str(comp.get("source"), "bron onbekend"),
+                "evidence": _clean_str(comp.get("evidence"), ""),
+                "explanation": _clean_str(comp.get("explanation"), ""),
+            })
+    if not normalised:
+        normalised = [
+            {
+                "key": k.lower(),
+                "label": k,
+                "score": round(float(v), 1),
+                "weight_pct": 0,
+                "contribution": 0,
+                "source": "legacy scorekolom",
+                "evidence": "",
+                "explanation": "Legacy component uit bestaande CSV.",
+            }
+            for k, v in fallback_metrics.items()
+        ]
+    safe_penalties = []
+    if isinstance(penalties, list):
+        for pen in penalties:
+            if isinstance(pen, dict):
+                safe_penalties.append({
+                    "label": _clean_str(pen.get("label"), "Belemmering"),
+                    "points": round(float(_safe_float(pen.get("points"), 0) or 0), 1),
+                    "evidence": _clean_str(pen.get("evidence"), ""),
+                    "source": _clean_str(pen.get("source"), ""),
+                })
+    return normalised, safe_penalties, breakdown if isinstance(breakdown, dict) else {}
 
 
 def _normalise_intelligence_row(row: dict, idx: int, source_path: Path | None) -> dict:
@@ -2160,6 +2474,9 @@ def _normalise_intelligence_row(row: dict, idx: int, source_path: Path | None) -
         "Type": _safe_float(row.get("score_huistype") or row.get("huistype_score"), 50) or 0,
         "Inkomen": _safe_float(row.get("score_inkomen"), 50 if inkomen is None else min(100, max(0, inkomen / 700))) or 0,
     }
+    score_components, score_penalties, score_breakdown = _score_components_for_row(row, metrics)
+    if score_components:
+        metrics = {c["label"]: c["score"] for c in score_components[:7]}
     render = _clean_str(row.get("render_path") or row.get("after_file") or row.get("render_path_window_antraciet"))
     if render and Path(render).is_absolute():
         try:
@@ -2190,6 +2507,13 @@ def _normalise_intelligence_row(row: dict, idx: int, source_path: Path | None) -
         "label": _clean_str(row.get("lead_label") or row.get("label"), "Opportunity-signaal op gebouwniveau"),
         "render_path": render,
         "metrics": {k: round(float(v), 1) for k, v in metrics.items()},
+        "score_components": score_components,
+        "score_penalties": score_penalties,
+        "score_confidence": round(float(_safe_float(row.get("score_confidence"), score_breakdown.get("confidence", 0)) or 0), 1),
+        "score_confidence_signals": _clean_str(row.get("score_confidence_signals"), ", ".join(score_breakdown.get("confidence_signals", []) or [])),
+        "score_method_version": _clean_str(row.get("score_method_version") or row.get("source_scoring_model") or score_breakdown.get("version"), ""),
+        "score_note": _clean_str(row.get("score_note") or score_breakdown.get("note"), "Property opportunity score, geen bewonersintentie."),
+        "income_band": _clean_str(row.get("income_band"), ""),
         "sources": _source_registry_for_row(row),
         "source_path": _path_for_ui(source_path) if source_path else "",
     }
@@ -2371,7 +2695,10 @@ def get_lead_dossier(qs, lead_id: str) -> dict:
         return {"ok": False, "error": "Lead niet gevonden", "meta": meta}
     dossier = dict(row)
     dossier["timeline"] = _status_timeline(row)
-    dossier["provenance_note"] = "Bronnen documenteren opportunity-signalen op gebouwniveau; dit is geen claim over interesse van bewoners."
+    dossier["provenance_note"] = (
+        "De score is een verklaarbare property opportunity score: brondata en proxies op woning/zone/partnerniveau, "
+        "geen claim over interesse of intentie van bewoners."
+    )
     return _json_ready({"ok": True, "dossier": dossier, "meta": meta})
 
 
@@ -2643,6 +2970,172 @@ def safe_photo_key(value: str) -> str:
 
 def list_field_photos() -> dict:
     return {"ok": True, "photos": load_field_photo_index()}
+
+
+def _gevelvoorstel_style(style_key: str) -> tuple[str, dict]:
+    key = (style_key or "crepi").strip()
+    if key not in GEVELVOORSTEL_STYLES:
+        key = "crepi"
+    return key, GEVELVOORSTEL_STYLES[key]
+
+
+def _gevelvoorstel_color(style: dict, color_index: int | str | None) -> tuple[int, dict]:
+    colors = style.get("colors") or [{"name": "Standaard", "prompt": ""}]
+    try:
+        index = int(color_index if color_index is not None else 0)
+    except (TypeError, ValueError):
+        index = 0
+    index = max(0, min(index, len(colors) - 1))
+    return index, colors[index]
+
+
+_GEVELVOORSTEL_REALISM_RULE = (
+    "Edit the existing photograph as a conservative, buildable Belgian facade renovation preview. "
+    "Do not create a new architectural design. Preserve the exact camera angle, lens perspective, "
+    "building footprint, roofline, gutters, downpipes, window count, window size, door count, door "
+    "size, garage openings, columns, balconies, steps, driveway, street, garden, cars, trailer, "
+    "fences, neighbouring buildings and all structural geometry. Do not add or remove walls, low "
+    "garden walls, extensions, fences, windows, doors, porches, balconies, columns, roofs, canopies, "
+    "stairs, paving or landscaping. Only change the visible facade finish, facade material texture, "
+    "subtle trim color and exterior joinery color where it already exists. Use refined matte material "
+    "textures with natural shadows and weather-consistent lighting. Avoid plastic CGI, oversaturated "
+    "colors, flat paint overlays, showroom lighting, fantasy architecture, arbitrary panels and "
+    "decorative shapes. If uncertain, preserve the original detail instead of inventing a new one."
+)
+
+
+def _gevelvoorstel_prompt(style_key: str, color_index: int | str | None, note: str = "") -> tuple[str, dict]:
+    key, style = _gevelvoorstel_style(style_key)
+    color_i, color = _gevelvoorstel_color(style, color_index)
+    prompt_parts = [
+        _GEVELVOORSTEL_REALISM_RULE,
+        style["prompt"],
+        f"Chosen color/material family: {color.get('prompt', '')}.",
+        "The selected color/material must be visible, consistent, understated and realistic across all edited facade surfaces.",
+        "Return only the after image, still looking like the same real photo taken from the same place.",
+    ]
+    clean_note = (note or "").strip()
+    if clean_note:
+        prompt_parts.append(f"Operator note from field review: {clean_note[:500]}")
+    return " ".join(p for p in prompt_parts if p), {
+        "key": key,
+        "title": style["title"],
+        "color_index": color_i,
+        "color_name": color.get("name", "Standaard"),
+    }
+
+
+def _decode_data_image(data_url: str):
+    import base64
+    import io
+    import re
+    from PIL import Image
+
+    raw = (data_url or "").strip()
+    match = re.match(r"^data:([^;]+);base64,(.+)$", raw, re.S)
+    if not match:
+        raise ValueError("imageData moet een data-url met base64 zijn")
+    image_bytes = base64.b64decode(match.group(2), validate=False)
+    return Image.open(io.BytesIO(image_bytes)).convert("RGB")
+
+
+def _field_photo_image(capakey: str):
+    from PIL import Image
+
+    key = (capakey or "").strip()
+    if not key:
+        raise ValueError("capakey ontbreekt")
+    photos = load_field_photo_index()
+    photo = photos.get(key)
+    if not photo:
+        raise ValueError("Koppel eerst een eigen foto voor dit adres.")
+    photo_path = (HERE / str(photo.get("path", ""))).resolve()
+    field_dir = (HERE / "field_photos").resolve()
+    if field_dir not in photo_path.parents or not photo_path.exists():
+        raise ValueError("Gekoppelde foto ontbreekt of ligt buiten field_photos.")
+    return Image.open(photo_path).convert("RGB"), photo
+
+
+def render_gevelvoorstel_after(payload: dict) -> dict:
+    """Render één operator-nafoto met dezelfde stijlpromptlogica als gevelvoorstel.html."""
+    import base64
+    import io
+
+    import facadepilot_render as renderer
+
+    capakey = str(payload.get("capakey") or "").strip()
+    address = str(payload.get("address") or "").strip()
+    note = str(payload.get("note") or "").strip()
+    custom_prompt = str(payload.get("customPrompt") or payload.get("custom_prompt") or "").strip()
+    style_key = str(payload.get("styleKey") or payload.get("facade_style") or "crepi").strip()
+    color_index = payload.get("colorIndex", payload.get("color_index", 0))
+    combined_note = note
+    if custom_prompt:
+        combined_note = (combined_note + "\n" if combined_note else "") + f"Correction prompt for this attempt: {custom_prompt}"
+    prompt, meta = _gevelvoorstel_prompt(style_key, color_index, note=combined_note)
+
+    image_data = str(payload.get("imageData") or "").strip()
+    if image_data:
+        source_img = _decode_data_image(image_data)
+        photo = {"address": address, "path": ""}
+    else:
+        source_img, photo = _field_photo_image(capakey)
+        address = address or str(photo.get("address") or "")
+
+    safe_base = safe_photo_key(capakey or address or f"gevelvoorstel_{int(time.time())}")
+    color_slug = safe_photo_key(meta["color_name"]).lower()
+    file_stem = f"{safe_base}_{meta['key']}_{color_slug}_{GEVELVOORSTEL_RENDER_VERSION}"
+    attempt_suffix = str(payload.get("attemptSuffix") or payload.get("attempt") or "").strip()
+    if custom_prompt and not attempt_suffix:
+        attempt_suffix = f"correctie_{int(time.time())}"
+    if attempt_suffix:
+        file_stem = f"{file_stem}_{safe_photo_key(attempt_suffix).lower()}"
+    renders_dir = HERE / "renders"
+    renders_dir.mkdir(exist_ok=True)
+    source_path = renders_dir / f"{file_stem}_streetview.jpg"
+    render_path = renders_dir / f"{file_stem}_render.jpg"
+
+    source_img.save(source_path, "JPEG", quality=90)
+    rendered = renderer.render_facade(source_img, prompt=prompt, size=getattr(renderer, "IMAGE_SIZE", "1536x1024"))
+    rendered.save(render_path, "JPEG", quality=95)
+
+    try:
+        renderer._render_cost_state["renders_done"] += 1
+        renderer._render_cost_state["estimated_cost_usd"] += getattr(renderer, "COST_PER_RENDER_USD", 0.10)
+    except Exception:
+        pass
+    try:
+        renderer.submit_render_review(
+            key=file_stem,
+            render_path=render_path,
+            source_path=source_path,
+            preset=meta["key"],
+            address=address or capakey,
+            prompt_version=GEVELVOORSTEL_RENDER_VERSION,
+        )
+    except Exception:
+        pass
+    refresh_costs()
+
+    buf = io.BytesIO()
+    rendered.save(buf, format="JPEG", quality=92)
+    image_b64 = base64.b64encode(buf.getvalue()).decode("ascii")
+    rel_render = render_path.relative_to(HERE).as_posix()
+    rel_source = source_path.relative_to(HERE).as_posix()
+    return {
+        "ok": True,
+        "imageBase64": image_b64,
+        "mime": "image/jpeg",
+        "render": rel_render,
+        "source": rel_source,
+        "url": f"/files/{quote(rel_render)}",
+        "address": address,
+        "style": meta,
+        "prompt_version": GEVELVOORSTEL_RENDER_VERSION,
+        "custom_prompt": custom_prompt,
+        "provider": getattr(renderer, "IMAGE_PROVIDER", "xai"),
+        "model": getattr(renderer, "IMAGE_MODEL", "grok-imagine-image-quality"),
+    }
 
 
 def latest_field_source_csv(preferred: str | None = None) -> str | None:
@@ -3428,10 +3921,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#60a5fa;box-sh
 .render-review-status{margin:12px 0;padding:12px 14px;border:1px solid rgba(96,165,250,.18);background:rgba(96,165,250,.07);border-radius:10px;color:#c8dff5;font-size:12px;line-height:1.45}
 .render-review-status strong{color:#eaf2ff}
 .render-review-list{display:grid;gap:12px;margin-top:12px}
-.render-review-row{display:grid;grid-template-columns:160px minmax(0,1fr) auto;gap:14px;align-items:center;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075);border-radius:12px;padding:12px}
+.render-review-row{display:grid;grid-template-columns:minmax(280px,360px) minmax(0,1fr) 210px;gap:18px;align-items:start;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075);border-radius:14px;padding:18px}
 .render-review-row.is-ready{border-color:rgba(34,197,94,.28)}
-.render-review-photo{width:160px;aspect-ratio:4/3;border-radius:9px;overflow:hidden;background:#0a0f1a;border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;color:#64748b;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.render-review-photo{width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#0a0f1a;border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;color:#64748b;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
 .render-review-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.render-review-source-caption{margin-top:8px;color:#94a3b8;font-size:11px;line-height:1.35}
 .render-review-main{min-width:0;display:grid;gap:8px}
 .render-review-main strong{font-size:15px;color:#eaf2ff;line-height:1.2}
 .render-review-main span{font-size:12px;color:#94a3b8}
@@ -3444,7 +3938,51 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#60a5fa;box-sh
 .render-review-actions button.primary{background:#e79a4d;color:#121820;border-color:#e79a4d}
 .render-review-actions button:disabled{opacity:.5;cursor:not-allowed}
 .render-review-empty{padding:18px;border:1px dashed rgba(255,255,255,.13);border-radius:12px;color:#94a3b8;font-size:13px;line-height:1.5}
-@media(max-width:900px){.render-review-row{grid-template-columns:1fr}.render-review-photo{width:100%}.render-review-actions{grid-template-columns:1fr 1fr;min-width:0}}
+.gevel-style-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.gevel-style-card{position:relative;display:grid;gap:10px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);border-radius:12px;padding:14px;transition:.16s ease}
+.gevel-style-card:hover{border-color:rgba(231,154,77,.45);transform:translateY(-1px)}
+.gevel-style-card.is-active,.gevel-style-card:has(.gevel-color-input:checked){border-color:#e79a4d;background:rgba(231,154,77,.10);box-shadow:0 0 0 1px rgba(231,154,77,.18)}
+.gevel-style-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
+.gevel-style-toggle{display:flex;align-items:center;gap:9px;cursor:pointer;min-width:0}
+.gevel-style-toggle input,.gevel-color-choice input{width:16px;height:16px;accent-color:#e79a4d;flex:0 0 auto}
+.gevel-style-copy{display:grid;gap:3px;min-width:0}
+.gevel-style-copy strong{font-size:13px;color:#f5f7fb;line-height:1.15}
+.gevel-style-copy span{font-size:11px;color:#9aa8ba;line-height:1.35}
+.gevel-style-count{border:1px solid rgba(231,154,77,.35);border-radius:999px;color:#f3b56f;font-size:10px;font-weight:900;padding:4px 8px;text-transform:uppercase;white-space:nowrap}
+.gevel-color-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:7px;align-items:stretch}
+.gevel-color-choice{display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(0,0,0,.14);padding:8px;cursor:pointer;color:#cbd5e1;font-size:11px;font-weight:800;min-width:0}
+.gevel-color-choice:has(input:checked){border-color:rgba(231,154,77,.62);background:rgba(231,154,77,.13);color:#f5f7fb}
+.gevel-color{width:24px;height:24px;border-radius:999px;border:1px solid rgba(255,255,255,.2);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);flex:0 0 auto}
+.gevel-color-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.render-review-result{display:none;margin-top:8px}
+.render-variant-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.render-variant-card{border:1px solid rgba(255,255,255,.09);border-radius:12px;overflow:hidden;background:#0a0f1a;box-shadow:0 12px 24px rgba(0,0,0,.18)}
+.render-variant-card.is-selected{border-color:#4ade80;box-shadow:0 0 0 2px rgba(74,222,128,.18),0 14px 28px rgba(0,0,0,.28)}
+.render-variant-card.is-error{border-color:rgba(248,113,113,.42)}
+.render-variant-card.is-rendering{border-color:rgba(96,165,250,.55);box-shadow:0 0 0 2px rgba(96,165,250,.14),0 14px 28px rgba(0,0,0,.28)}
+.render-variant-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#050912}
+.render-variant-card .caption{padding:10px 12px;color:#aab7c7;font-size:11px;line-height:1.35}
+.render-variant-card .caption strong{display:block;color:#eef5ff;font-size:12px;margin-bottom:3px}
+.render-variant-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:0 12px 12px}
+.render-variant-actions button{width:auto;min-width:0;padding:8px 10px;border-radius:8px;border:1px solid rgba(74,222,128,.35);background:rgba(74,222,128,.12);color:#bbf7d0;font-size:11px;font-weight:900;cursor:pointer}
+.render-variant-actions button.is-selected{background:#4ade80;color:#072211;border-color:#4ade80}
+.render-variant-status{font-size:10px;color:#8faed6;text-transform:uppercase;letter-spacing:.07em;font-weight:900}
+.render-variant-retry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:0 12px 12px}
+.render-variant-retry textarea{min-height:44px;border-radius:8px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);color:#eaf2ff;padding:8px 10px;font-size:11px;line-height:1.35;resize:vertical}
+.render-variant-retry button{border:1px solid rgba(231,154,77,.45);background:rgba(231,154,77,.12);color:#f3b56f;border-radius:8px;padding:8px 10px;font-size:11px;font-weight:900;cursor:pointer}
+.render-variant-retry button:disabled{opacity:.55;cursor:not-allowed}
+.render-next-step{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;margin:12px 0;padding:14px 16px;border:1px solid rgba(96,165,250,.25);background:rgba(96,165,250,.08);border-radius:12px;color:#cbd5e1}
+.render-next-step strong{display:block;color:#f5f7fb;font-size:14px;margin-bottom:3px}
+.render-next-step span{display:block;color:#9aa8ba;font-size:12px;line-height:1.35}
+.render-next-step.ready{border-color:rgba(74,222,128,.40);background:rgba(74,222,128,.10)}
+.render-next-step-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.render-next-step-actions button{border-radius:8px;border:1px solid rgba(255,255,255,.10);background:#111827;color:#e5edf7;padding:9px 12px;font-size:12px;font-weight:900;cursor:pointer}
+.render-next-step-actions button.primary{background:#e79a4d;border-color:#e79a4d;color:#121820}
+.render-review-row.is-rendering{border-color:rgba(96,165,250,.42)}
+.render-review-row.is-done{border-color:rgba(34,197,94,.42)}
+@media(max-width:1200px){.render-review-row{grid-template-columns:minmax(240px,320px) minmax(0,1fr)}.render-review-actions{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.render-review-row{grid-template-columns:1fr}.render-review-actions{grid-template-columns:1fr 1fr;min-width:0}.render-variant-retry,.render-next-step{grid-template-columns:1fr}.render-next-step-actions{justify-content:flex-start}}
+@media(max-width:760px){.gevel-style-grid{grid-template-columns:1fr}}
 
 /* HomePilot Campaign OS v2 */
 :root{
@@ -3884,6 +4422,11 @@ body.hp-ui-v2.hp-view-renderreview .hp-redesign-root [data-hp-view~="renderrevie
 body.hp-ui-v2.hp-view-output .hp-redesign-root [data-hp-view~="output"],
 body.hp-ui-v2.hp-view-settings .hp-redesign-root [data-hp-view~="settings"]{
   display:block !important;
+}
+body.hp-ui-v2 .hp-redesign-root #doneBanner:not(.active),
+body.hp-ui-v2 .hp-redesign-root #elapsedBar.hidden,
+body.hp-ui-v2 .hp-redesign-root #costCard.hidden{
+  display:none !important;
 }
 body.hp-ui-v2 .card,
 body.hp-ui-v2 .preview-panel,
@@ -4804,6 +5347,20 @@ body.hp-ui-v2.hp-view-intelligence .hp-topbar{
 .kC,.kD,.kLEAD,.kMAN{background:rgba(139,155,176,.13);color:var(--db-muted)}
 .scorebar{display:inline-block;width:54px;height:5px;border-radius:99px;background:rgba(255,255,255,.08);vertical-align:2px;margin-right:7px;overflow:hidden}
 .scorebar i{display:block;height:100%;background:linear-gradient(90deg,var(--db-accent2),var(--db-accent))}
+.scorecell{display:inline-flex;align-items:center;gap:8px}
+.score-info-btn{
+  width:24px;
+  height:24px;
+  border-radius:99px;
+  border:1px solid rgba(226,163,92,.42);
+  background:rgba(226,163,92,.12);
+  color:var(--db-accent);
+  font-weight:900;
+  font-size:12px;
+  cursor:pointer;
+  line-height:1;
+}
+.score-info-btn:hover{background:rgba(226,163,92,.22);color:#fff}
 .sdot{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--db-muted)}
 .sdot i{width:7px;height:7px;border-radius:99px;display:inline-block}
 .drawer{position:sticky;top:90px}
@@ -4821,6 +5378,24 @@ body.hp-ui-v2.hp-view-intelligence .hp-topbar{
 .mrow .bar{height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
 .mrow .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--db-blue),var(--db-green))}
 .mrow b{color:var(--db-ink);text-align:right;font-size:11.5px}
+.score-model{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 0}
+.score-pill{border:1px solid var(--db-line);background:rgba(255,255,255,.035);border-radius:999px;padding:5px 8px;font-size:10.5px;color:var(--db-muted);font-weight:800}
+.score-pill strong{color:var(--db-ink);font-variant-numeric:tabular-nums}
+.scorecomp{
+  border:1px solid var(--db-line);
+  border-radius:10px;
+  background:rgba(255,255,255,.025);
+  padding:10px;
+  margin-bottom:8px;
+}
+.scorecomp .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.scorecomp b{color:var(--db-ink);font-size:12.5px}
+.scorecomp .nums{font-variant-numeric:tabular-nums;color:var(--db-accent);font-weight:900;font-size:11px;white-space:nowrap}
+.scorecomp .evidence{color:var(--db-muted);font-size:11.5px;margin-top:5px}
+.scorecomp .explain{color:var(--db-dim);font-size:10.5px;line-height:1.35;margin-top:5px}
+.scorecomp .source{color:#7f8ea3;font-size:10px;line-height:1.3;margin-top:6px}
+.penalty{border-color:rgba(239,120,120,.28);background:rgba(239,120,120,.055)}
+.penalty .nums{color:#ef7878}
 .prov{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.06)}
 .prov b{font-weight:750;color:var(--db-ink)}
 .prov span{color:var(--db-dim);font-size:10.5px;text-align:right}
@@ -6010,7 +6585,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
       <div class="toggle-row" style="margin-top:8px">
         <div>
           <div class="toggle-label">Pre-render quality check <span class="badge ok">$0.001</span></div>
-          <div class="toggle-hint">Filter slechte foto's met gpt-4o-mini</div>
+          <div class="toggle-hint">Filter slechte foto's met beeldcheck</div>
         </div>
         <label class="toggle"><input type="checkbox" id="qualityCheck" checked><span class="slider"></span></label>
       </div>
@@ -6253,7 +6828,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
           </div>
           <div class="field">
             <label>Footer · regel 2</label>
-            <textarea data-copy-key="footer_line_2" placeholder="AI-gegenereerde impressie op basis van een straatfoto."></textarea>
+            <textarea data-copy-key="footer_line_2" placeholder="Render-impressie op basis van een straatfoto."></textarea>
           </div>
           <div class="field">
             <label>Footer · regel 3</label>
@@ -6347,7 +6922,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
       <div class="toggle-row">
         <div>
           <div class="toggle-label">3. Renders <span class="badge" id="modRender">--</span></div>
-          <div class="toggle-hint">Street View -> GPT Image renders</div>
+          <div class="toggle-hint">Bronfoto -> Render Engine</div>
         </div>
         <label class="toggle"><input type="checkbox" id="stepRender" checked><span class="slider"></span></label>
       </div>
@@ -6406,7 +6981,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
   <!-- RIGHT: Progress -->
   <div>
     <div class="done-banner" id="doneBanner">
-      <h3 id="doneTitle">Pipeline voltooid!</h3>
+      <h3 id="doneTitle">Klaar voor start</h3>
       <p id="doneSummary"></p>
     </div>
 
@@ -6418,7 +6993,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
       <div class="elapsed-gemeente" id="elapsedGemeente"></div>
       <div>
         <div class="elapsed-label">Status</div>
-        <div class="elapsed-value" style="font-size:14px" id="elapsedStatus">Bezig<span class="elapsed-dots" id="elapsedDots">.</span></div>
+        <div class="elapsed-value" style="font-size:14px" id="elapsedStatus">Wacht op start</div>
       </div>
     </div>
 
@@ -6440,7 +7015,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
           <div style="color:#94a3b8;font-size:11px;margin-top:2px"><span id="costQCDone">0</span>, <span id="costQCFailed" style="color:#fbbf24">0</span> skip</div>
         </div>
         <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px">
-          <div style="color:#94a3b8;text-transform:uppercase;font-size:10px;letter-spacing:0.5px;margin-bottom:4px">GPT Image</div>
+          <div style="color:#94a3b8;text-transform:uppercase;font-size:10px;letter-spacing:0.5px;margin-bottom:4px">Render Engine</div>
           <div style="font-size:15px;font-weight:700" id="costRender">$0.00</div>
           <div style="color:#94a3b8;font-size:11px;margin-top:2px"><span id="costRenderDone">0</span> renders</div>
         </div>
@@ -6641,21 +7216,13 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
     </div>
 
     <div class="card section" id="renderApprovalCard" data-hp-view="renderreview">
-      <h2>Render review — pas daarna flyers en landingspagina's</h2>
-      <div class="pipeline-gate-note">Correcte volgorde: geselecteerd adres → eigen foto gekoppeld → render maken → render goedkeuren → flyerproef → landingpagina → campagne go/no-go.</div>
+      <h2>Render review — GevelVoorstel-engine · Render Engine</h2>
+      <div class="pipeline-gate-note">Correcte volgorde: geselecteerd adres → eigen foto gekoppeld → kies afwerking en kleuren → render nafoto's met Render Engine → winnaar kiezen → flyerproef → landingpagina → campagne go/no-go.</div>
       <div class="field" style="margin-top:12px">
-        <label id="renderReviewPresetLabel">Afwerking voor deze render</label>
+        <label id="renderReviewPresetLabel">Kies de afwerking zoals op gevelvoorstel.html</label>
         <div class="preset-options" id="renderReviewPresetOptions"></div>
-        <div class="preset-cost" id="renderReviewPresetCost">1 afwerking per woning</div>
+        <div class="preset-cost" id="renderReviewPresetCost">Kies één of meer nafoto-varianten. Na rendering vink je één winnaar aan voor flyer en landingpagina.</div>
       </div>
-      <label class="toggle" style="margin-top:10px">
-        <div>
-          <div class="toggle-label">Auto-preset voor dit adres <span class="badge ok">optioneel</span></div>
-          <div class="toggle-hint">Laat de engine een passende hoofdafwerking kiezen, met jouw selectie als varianten wanneer je meerdere opties aanvinkt.</div>
-        </div>
-        <input type="checkbox" id="renderReviewAutoPreset">
-        <span class="slider"></span>
-      </label>
       <div id="renderReviewPipelineStatus" class="render-review-status">Renderstatus laden...</div>
       <div class="address-actions" style="margin-top:12px">
         <button type="button" onclick="renderDesktopRenderQueue()" class="primary">Ververs renderwachtrij</button>
@@ -6663,6 +7230,9 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
         <button type="button" onclick="loadRenderGallery();document.getElementById('renderCard').style.display='block';document.getElementById('renderCard').scrollIntoView({behavior:'smooth',block:'start'})">Open rendergalerij</button>
         <button type="button" onclick="switchReviewGate('flyer_proof');hpSetView('review');setTimeout(loadReview,80)">Open flyerproeven</button>
         <button type="button" onclick="switchReviewGate('campaign_go');hpSetView('review');setTimeout(loadReview,80)">Campagne go/no-go</button>
+      </div>
+      <div id="renderNextStep" class="render-next-step">
+        <div><strong>Volgende stap</strong><span>Kies per adres eerst één productiebeeld. Daarna gaan flyerproeven en landingspagina's open.</span></div>
       </div>
       <div id="desktopRenderQueue" class="render-review-list">
         <div class="render-review-empty">Nog geen gekoppelde bronfoto's geladen.</div>
@@ -6702,7 +7272,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
       <div id="renderReplaceTab" style="display:none">
         <div class="replace-section">
           <h4>Render vervangen</h4>
-          <p>Selecteer een render hierboven, gebruik de originele Street View foto om zelf een betere render te maken in ChatGPT, en upload het resultaat hier.</p>
+          <p>Selecteer een render hierboven, gebruik de originele bronfoto om zelf een betere render te maken in een goedgekeurde tool, en upload het resultaat hier.</p>
 
           <div id="selectedRenderInfo" style="margin-bottom:12px;display:none">
             <div class="preview-grid" style="margin-bottom:12px">
@@ -6716,7 +7286,7 @@ body.hp-ui-v2.hp-view-leads.hp-target-collapsed .map-review-layout{
               </div>
             </div>
             <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-              <button class="btn-sm btn-copy" onclick="copyFacadePrompt()">Kopieer prompt voor ChatGPT</button>
+              <button class="btn-sm btn-copy" onclick="copyFacadePrompt()">Kopieer renderprompt</button>
               <button class="btn-sm btn-copy" onclick="downloadStreetview()">Download Street View foto</button>
             </div>
           </div>
@@ -7022,6 +7592,33 @@ function hpPrimaryAction() {
   hpSetView('wizard');
 }
 
+function hpResetPipelineChrome() {
+  const banner = document.getElementById('doneBanner');
+  if (banner) banner.classList.remove('active');
+  const doneTitle = document.getElementById('doneTitle');
+  if (doneTitle) doneTitle.textContent = 'Klaar voor start';
+  const doneSummary = document.getElementById('doneSummary');
+  if (doneSummary) doneSummary.textContent = '';
+
+  const elapsed = document.getElementById('elapsedBar');
+  if (elapsed) elapsed.classList.add('hidden');
+  const elapsedTime = document.getElementById('elapsedTime');
+  if (elapsedTime) elapsedTime.textContent = '00:00';
+  const elapsedStatus = document.getElementById('elapsedStatus');
+  if (elapsedStatus) {
+    elapsedStatus.textContent = 'Wacht op start';
+    elapsedStatus.style.color = '#94a3b8';
+  }
+  const elapsedGemeente = document.getElementById('elapsedGemeente');
+  if (elapsedGemeente) elapsedGemeente.textContent = '';
+
+  const costCard = document.getElementById('costCard');
+  if (costCard) {
+    costCard.classList.add('hidden');
+    costCard.style.display = 'none';
+  }
+}
+
 function hpInstallRedesign() {
   document.body.classList.add('hp-ui-v2','hp-intelligence-theme');
   const saved = (() => { try { return localStorage.getItem('homepilot.facadepilot.view'); } catch (e) { return null; } })();
@@ -7040,6 +7637,7 @@ function hpInstallRedesign() {
   });
   document.querySelectorAll('input[name="clientBrandMode"]').forEach(el => el.addEventListener('change', hpSyncTopbar));
   hpSetView(saved || 'campaigns');
+  hpResetPipelineChrome();
   if (typeof loadFieldPhotos === 'function') setTimeout(loadFieldPhotos, 0);
   hpSyncTopbar();
   updateTargetDrawerButton();
@@ -7105,12 +7703,138 @@ const RENDER_PRESET_SETS = {
   ],
 };
 
+const GEVELVOORSTEL_STYLES = {
+  crepi: {
+    title: 'Crepi met buitenisolatie',
+    meta: 'Rustige lichte crepi over buitenisolatie.',
+    colors: [
+      {name:'Warm wit', swatch:'#efe4d0'},
+      {name:'Zandbeige', swatch:'#d8c4a3'},
+      {name:'Greige', swatch:'#beb5a8'},
+    ],
+  },
+  mineral: {
+    title: 'Minerale gevelpleister',
+    meta: 'Mat, subtiel en architecturaal.',
+    colors: [
+      {name:'Krijtwit', swatch:'#eee9dc'},
+      {name:'Lichtgrijs', swatch:'#cfd4d2'},
+      {name:'Basaltgrijs', swatch:'#7d8283'},
+    ],
+  },
+  strips: {
+    title: 'Steenstrips op isolatie',
+    meta: 'Moderne natuursteenstrips, geen klassieke baksteen.',
+    colors: [
+      {name:'Lichte kalksteen', swatch:'#d8d0bd'},
+      {name:'Warm beige', swatch:'#c5b596'},
+      {name:'Taupe grijs', swatch:'#aaa89d'},
+    ],
+  },
+  mix: {
+    title: 'Mix van steenstrips en crepi',
+    meta: 'Lichte basis met warme, logische accenten.',
+    colors: [
+      {name:'Warm wit + kalksteen', swatch:'linear-gradient(90deg,#efe4d0 0 58%,#d8d0bd 58%)'},
+      {name:'Greige + taupe', swatch:'linear-gradient(90deg,#cfc7b9 0 58%,#aaa89d 58%)'},
+      {name:'Zand + warm steen', swatch:'linear-gradient(90deg,#ded0b8 0 58%,#c5b596 58%)'},
+    ],
+  },
+  concrete: {
+    title: 'Betonlook en crepi',
+    meta: 'Strakke accentvlakken met rustige crepi.',
+    colors: [
+      {name:'Licht beton + warm wit', swatch:'linear-gradient(90deg,#cfcac0 0 45%,#efe4d0 45%)'},
+      {name:'Taupe beton + greige', swatch:'linear-gradient(90deg,#988b7d 0 45%,#cfc7b9 45%)'},
+      {name:'Donker beton + krijtwit', swatch:'linear-gradient(90deg,#5a5b58 0 45%,#eee9dc 45%)'},
+    ],
+  },
+  cladding: {
+    title: 'Gevelbekleding',
+    meta: 'Premium accenten of zijvolumes met materiaalgevoel.',
+    colors: [
+      {name:'Antraciet accent', swatch:'linear-gradient(90deg,#26313a 0 50%,#eee9dc 50%)'},
+      {name:'Brons hout', swatch:'linear-gradient(90deg,#8a6240 0 50%,#cfc7b9 50%)'},
+      {name:'Licht mineraal', swatch:'linear-gradient(90deg,#d8d4c8 0 50%,#efe4d0 50%)'},
+    ],
+  },
+};
+
+const GEVELVOORSTEL_STYLE_ORDER = ['crepi','mineral','strips','mix','concrete','cladding'];
+let _renderReviewColorByStyle = {};
+let _renderReviewStyleKey = 'crepi';
+let _renderReviewVariantSelections = new Set(['crepi|0']);
+
 function currentRenderPresetSet() {
   return RENDER_PRESET_SETS[getClientBrandMode()] || RENDER_PRESET_SETS.facadepilot;
 }
 
 function defaultRenderPresetKey() {
   return currentRenderPresetSet()[0].value;
+}
+
+function renderGevelVoorstelOptions() {
+  return GEVELVOORSTEL_STYLE_ORDER.map((key) => {
+    const style = GEVELVOORSTEL_STYLES[key];
+    const colors = style.colors || [{name:'Standaard', swatch:'#d8d4c8'}];
+    const selectedColors = colors
+      .map((_, colorIndex) => `${key}|${colorIndex}`)
+      .filter(variantId => _renderReviewVariantSelections.has(variantId));
+    const isActive = selectedColors.length > 0;
+    const colorHtml = colors.map((color, colorIndex) => {
+      const variantId = `${key}|${colorIndex}`;
+      const checked = _renderReviewVariantSelections.has(variantId);
+      return `<label class="gevel-color-choice" title="${escapeHtml(color.name)}">
+        <input class="gevel-color-input" type="checkbox" name="renderReviewGevelVariant" value="${escapeHtml(variantId)}" ${checked ? 'checked' : ''}>
+        <i class="gevel-color" style="background:${escapeHtml(color.swatch)}"></i>
+        <span class="gevel-color-name">${escapeHtml(color.name)}</span>
+      </label>`;
+    }).join('');
+    return `<article class="gevel-style-card ${isActive ? 'is-active' : ''}" data-gevel-card="${escapeHtml(key)}">
+      <div class="gevel-style-head">
+        <label class="gevel-style-toggle">
+          <input class="gevel-style-main" type="checkbox" name="renderReviewGevelStyle" value="${escapeHtml(key)}" ${isActive ? 'checked' : ''}>
+          <span class="gevel-style-copy">
+            <strong>${escapeHtml(style.title)}</strong>
+            <span>${escapeHtml(style.meta)}</span>
+          </span>
+        </label>
+        <span class="gevel-style-count">${selectedColors.length ? `${selectedColors.length} kleur${selectedColors.length === 1 ? '' : 'en'}` : 'uit'}</span>
+      </div>
+      <div class="gevel-color-row">${colorHtml}</div>
+    </article>`;
+  }).join('');
+}
+
+function bindGevelVoorstelOptions() {
+  document.querySelectorAll('input[name="renderReviewGevelStyle"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const key = input.value;
+      const style = GEVELVOORSTEL_STYLES[key] || {};
+      const colors = style.colors || [{name:'Standaard'}];
+      colors.forEach((_, colorIndex) => _renderReviewVariantSelections.delete(`${key}|${colorIndex}`));
+      if (input.checked) _renderReviewVariantSelections.add(`${key}|0`);
+      rerenderGevelVoorstelOptions();
+    });
+  });
+  document.querySelectorAll('input[name="renderReviewGevelVariant"]').forEach(input => {
+    input.addEventListener('change', () => {
+      if (input.checked) {
+        _renderReviewVariantSelections.add(input.value);
+      } else {
+        _renderReviewVariantSelections.delete(input.value);
+      }
+      rerenderGevelVoorstelOptions();
+    });
+  });
+}
+
+function rerenderGevelVoorstelOptions() {
+  const reviewEl = document.getElementById('renderReviewPresetOptions');
+  if (!reviewEl) return;
+  reviewEl.innerHTML = renderGevelVoorstelOptions();
+  bindGevelVoorstelOptions();
+  syncPresetSummary();
 }
 
 function renderPresetOptionsForBrand() {
@@ -7126,7 +7850,7 @@ function renderPresetOptionsForBrand() {
   const renderReviewLabel = document.getElementById('renderReviewPresetLabel');
   if (renderReviewLabel) renderReviewLabel.textContent = isWindowPilot
     ? 'Ramen en zonwering voor deze render'
-    : 'Afwerking voor deze render';
+    : 'Afwerkingen en kleuren voor deze render';
   const presets = currentRenderPresetSet();
   const html = presets.map((preset, index) => `
     <label class="preset-option">
@@ -7134,10 +7858,16 @@ function renderPresetOptionsForBrand() {
       <span><span class="preset-title">${escapeHtml(preset.title)}</span><span class="preset-meta">${escapeHtml(preset.meta)}</span></span>
     </label>
   `).join('');
-  ['presetOptions', 'manualPresetOptions', 'renderReviewPresetOptions'].forEach(id => {
+  ['presetOptions', 'manualPresetOptions'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = html;
   });
+  const reviewEl = document.getElementById('renderReviewPresetOptions');
+  if (reviewEl) {
+    reviewEl.innerHTML = isWindowPilot ? html : renderGevelVoorstelOptions();
+    reviewEl.classList.toggle('gevel-style-grid', !isWindowPilot);
+    bindGevelVoorstelOptions();
+  }
   const hiddenPreset = document.getElementById('facadePreset');
   if (hiddenPreset) hiddenPreset.value = defaultRenderPresetKey();
   document.querySelectorAll('#presetOptions input, #manualPresetOptions input, #renderReviewPresetOptions input').forEach(input => {
@@ -7517,6 +8247,30 @@ function setPresetSelection(groupId, presets) {
   syncPresetSummary();
 }
 
+function gevelVariantFromValue(value) {
+  const [rawKey, rawColorIndex] = String(value || 'crepi|0').split('|');
+  const key = GEVELVOORSTEL_STYLES[rawKey] ? rawKey : 'crepi';
+  const style = GEVELVOORSTEL_STYLES[key] || GEVELVOORSTEL_STYLES.crepi;
+  const colors = style.colors || [{name:'Standaard'}];
+  let colorIndex = Number(rawColorIndex || 0);
+  if (!Number.isFinite(colorIndex)) colorIndex = 0;
+  colorIndex = Math.max(0, Math.min(colorIndex, colors.length - 1));
+  const color = (style.colors || [])[colorIndex] || (style.colors || [])[0] || {name:'Standaard'};
+  return {variantId: `${key}|${colorIndex}`, key, style, colorIndex, color};
+}
+
+function selectedGevelVoorstelVariants() {
+  const values = Array.from(document.querySelectorAll('input[name="renderReviewGevelVariant"]:checked'))
+    .map(input => input.value)
+    .filter(Boolean);
+  const unique = Array.from(new Set(values.length ? values : Array.from(_renderReviewVariantSelections)));
+  return unique.map(gevelVariantFromValue);
+}
+
+function selectedGevelVoorstelStyle() {
+  return selectedGevelVoorstelVariants()[0] || gevelVariantFromValue('crepi|0');
+}
+
 function syncPresetSummary() {
   const selected = getSelectedPresets('presetOptions');
   const primary = selected[0] || defaultRenderPresetKey();
@@ -7542,9 +8296,15 @@ function syncPresetSummary() {
   const reviewSelected = getSelectedPresets('renderReviewPresetOptions');
   const reviewCost = document.getElementById('renderReviewPresetCost');
   if (reviewCost) {
-    reviewCost.textContent = reviewSelected.length <= 1
-      ? (isWindowPilot ? '1 schrijnwerkoptie voor dit adres' : '1 afwerking voor dit adres')
-      : `${reviewSelected.length} ${isWindowPilot ? 'schrijnwerkvarianten' : 'afwerkingsvarianten'} voor dit adres · ongeveer ${reviewSelected.length}x renderkost`;
+    if (!isWindowPilot) {
+      const variants = selectedGevelVoorstelVariants();
+      const count = variants.length || 1;
+      reviewCost.textContent = `${formatBENumber(count)} nafoto${count === 1 ? '' : "'s"} per adres. Kies meerdere kleuren of afwerkingen; vink daarna één winnaar aan voor flyer en landingspagina.`;
+    } else {
+      reviewCost.textContent = reviewSelected.length <= 1
+        ? '1 schrijnwerkoptie voor dit adres'
+        : `${reviewSelected.length} schrijnwerkvarianten voor dit adres · ongeveer ${reviewSelected.length}x renderkost`;
+    }
   }
 }
 
@@ -7745,6 +8505,15 @@ function updateUI(s) {
     }
   } else {
     bar.classList.add('hidden');
+    const elapsedTime = document.getElementById('elapsedTime');
+    if (elapsedTime) elapsedTime.textContent = '00:00';
+    const elapsedStatus = document.getElementById('elapsedStatus');
+    if (elapsedStatus) {
+      elapsedStatus.textContent = 'Wacht op start';
+      elapsedStatus.style.color = '#94a3b8';
+    }
+    const elapsedGemeente = document.getElementById('elapsedGemeente');
+    if (elapsedGemeente) elapsedGemeente.textContent = '';
   }
 
   // Steps
@@ -7813,6 +8582,14 @@ function updateUI(s) {
       document.getElementById('costSavedAmount').textContent =
         'Quality check bespaarde ~$' + saved.toFixed(2) + ' op ' + s.costs.renders_skipped_quality + ' slechte foto(s)';
     }
+  } else {
+    const costCard = document.getElementById('costCard');
+    if (costCard) {
+      costCard.classList.add('hidden');
+      costCard.style.display = 'none';
+    }
+    const savedEl = document.getElementById('costSavings');
+    if (savedEl) savedEl.style.display = 'none';
   }
 
   // Log
@@ -8412,7 +9189,7 @@ function intelligenceRenderTable() {
       const statusColor = INTEL_STATUS_COLORS[r.status] || '#8b9bb0';
       return `<tr data-lead-id="${escapeHtml(r.id)}" class="${r.id === intelligenceState.selectedId ? 'sel' : ''}" onclick="intelligenceOpenDossier('${jsq(r.id)}')">
         <td>${escapeHtml(r.adres)}</td>
-        <td><span class="scorebar"><i style="width:${Math.max(0, Math.min(100, r.score || 0))}%"></i></span>${Number(r.score || 0).toFixed(1)}</td>
+        <td><span class="scorecell"><button class="score-info-btn" title="Toon score-opbouw" onclick="event.stopPropagation(); intelligenceOpenDossier('${jsq(r.id)}')">i</button><span><span class="scorebar"><i style="width:${Math.max(0, Math.min(100, r.score || 0))}%"></i></span>${Number(r.score || 0).toFixed(1)}</span></span></td>
         <td><span class="kbadge k${klass}">${escapeHtml(r.klasse || '?')}</span></td>
         <td>${Number(r.m2 || 0).toLocaleString('nl-BE')}</td>
         <td>${intelligenceMoney(r.waarde || 0)}</td>
@@ -8452,13 +9229,37 @@ async function intelligenceOpenDossier(id) {
 function intelligenceRenderDrawer(d) {
   const drawer = document.getElementById('intelDrawer');
   if (!drawer) return;
-  const metrics = Object.entries(d.metrics || {}).map(([k,v]) => `<div class="mrow"><span>${escapeHtml(k)}</span><div class="bar"><i style="width:${Math.max(0, Math.min(100, Number(v)||0))}%"></i></div><b>${Number(v||0).toFixed(0)}</b></div>`).join('');
+  const components = (d.score_components && d.score_components.length)
+    ? d.score_components
+    : Object.entries(d.metrics || {}).map(([k,v]) => ({label:k, score:v, weight_pct:0, contribution:0, evidence:'', explanation:'', source:'legacy scorekolom'}));
+  const metrics = components.map(c => {
+    const score = Number(c.score || 0);
+    const weight = Number(c.weight_pct || 0);
+    const contribution = Number(c.contribution || 0);
+    const nums = weight ? `${score.toFixed(0)}/100 · ${weight.toFixed(0)}% · +${contribution.toFixed(1)}` : `${score.toFixed(0)}/100`;
+    return `<div class="scorecomp">
+      <div class="top"><b>${escapeHtml(c.label || 'Scorecomponent')}</b><span class="nums">${escapeHtml(nums)}</span></div>
+      <div class="mrow" style="grid-template-columns:1fr 38px;margin:8px 0 0"><div class="bar"><i style="width:${Math.max(0, Math.min(100, score))}%"></i></div><b>${score.toFixed(0)}</b></div>
+      ${c.evidence ? `<div class="evidence">${escapeHtml(c.evidence)}</div>` : ''}
+      ${c.explanation ? `<div class="explain">${escapeHtml(c.explanation)}</div>` : ''}
+      <div class="source">${escapeHtml(c.source || 'bron onbekend')}</div>
+    </div>`;
+  }).join('');
+  const penalties = (d.score_penalties || []).map(p => `<div class="scorecomp penalty">
+    <div class="top"><b>${escapeHtml(p.label || 'Aftrekpunt')}</b><span class="nums">-${Number(p.points || 0).toFixed(1)}</span></div>
+    ${p.evidence ? `<div class="evidence">${escapeHtml(p.evidence)}</div>` : ''}
+    <div class="source">${escapeHtml(p.source || 'bron onbekend')}</div>
+  </div>`).join('');
+  const confidence = Number(d.score_confidence || 0);
+  const model = d.score_method_version ? `<span class="score-pill">Model <strong>${escapeHtml(d.score_method_version)}</strong></span>` : '';
+  const confidencePill = confidence ? `<span class="score-pill">Datadekking <strong>${confidence.toFixed(0)}/100</strong></span>` : '';
+  const signals = d.score_confidence_signals ? `<span class="score-pill">${escapeHtml(d.score_confidence_signals)}</span>` : '';
   const sources = (d.sources || []).map(s => `<div class="prov"><b>${escapeHtml(s.field)}</b><span>${escapeHtml(s.source || 'bron onbekend')}<br>${escapeHtml(s.retrieved_at || 'datum onbekend')}</span></div>`).join('');
   const timeline = (d.timeline || []).map(e => `<div class="tlitem"><b>${escapeHtml(e.date)} · ${escapeHtml(e.status)}</b>${escapeHtml(e.label)}<br><span>${escapeHtml(e.source || '')}</span></div>`).join('');
   const render = d.render_path ? `<img src="/files/${encodeURI(d.render_path)}" alt="">` : '';
-  drawer.innerHTML = `<div class="dr-hero"><h3>${escapeHtml(d.adres)}</h3><div class="meta">${escapeHtml(d.klasse)} · score ${Number(d.score||0).toFixed(1)} · ${escapeHtml(d.partner || '')}</div></div>
+  drawer.innerHTML = `<div class="dr-hero"><h3>${escapeHtml(d.adres)}</h3><div class="meta">${escapeHtml(d.klasse)} · score ${Number(d.score||0).toFixed(1)} · ${escapeHtml(d.partner || '')}</div><div class="score-model">${model}${confidencePill}${signals}</div></div>
     <div class="dr-render">${render}</div>
-    <div class="dr-sec"><h4>Score-opbouw</h4>${metrics}</div>
+    <div class="dr-sec"><h4>Waarom deze score?</h4>${metrics}${penalties ? `<h4 style="margin-top:14px">Aftrekpunten</h4>${penalties}` : ''}</div>
     <div class="dr-sec"><h4>Bronnen</h4>${sources}<div class="intel-footnote" style="padding:10px 0 0">${escapeHtml(d.provenance_note || '')}</div></div>
     <div class="dr-sec"><h4>Historiek</h4><div class="tl">${timeline}</div></div>
     <div class="dr-cta"><button class="hp-secondary-action" onclick="intelligenceShowOnMap('${jsq(d.id)}')">Op kaart</button><button class="hp-secondary-action" onclick="intelligenceRetarget('${jsq(d.id)}')">Retarget</button><button class="hp-secondary-action" onclick="intelligenceAssign('${jsq(d.id)}')">Toewijzen</button></div>`;
@@ -9347,6 +10148,13 @@ function renderReviewPhotoHtml(photo) {
   return `<img src="/files/${encodeURI(photo.path)}" alt="${escapeHtml(fieldPhotoDisplayName(photo))}">`;
 }
 
+function renderReviewSourcePanel(photo) {
+  return `<div>
+    <div class="render-review-photo">${renderReviewPhotoHtml(photo)}</div>
+    <div class="render-review-source-caption">Bronfoto voor render · ${escapeHtml(fieldPhotoDisplayName(photo))}</div>
+  </div>`;
+}
+
 function fallbackFeatureFromPhoto(key, photo) {
   return {
     type: 'Feature',
@@ -9402,6 +10210,52 @@ function renderReviewRows() {
     || featureAddress(a).localeCompare(featureAddress(b), 'nl-BE'));
 }
 
+let _renderSelections = {};
+
+async function loadRenderSelections() {
+  try {
+    const data = await fetch('/api/render-selections').then(r => r.json());
+    _renderSelections = data && data.selections ? data.selections : {};
+  } catch (e) {
+    _renderSelections = {};
+  }
+  return _renderSelections;
+}
+
+function renderSelectionForFeature(feature) {
+  const key = featureKey(feature);
+  const address = featureAddress(feature);
+  if (key && _renderSelections[key]) return _renderSelections[key];
+  return Object.values(_renderSelections || {}).find(sel =>
+    sel && ((key && sel.capakey === key) || (address && sel.address === address))
+  ) || null;
+}
+
+function updateRenderNextStep(rows) {
+  const el = document.getElementById('renderNextStep');
+  if (!el) return;
+  const total = rows ? rows.length : renderReviewRows().length;
+  const selected = (rows || []).filter(feature => !!renderSelectionForFeature(feature)).length;
+  if (!total) {
+    el.classList.remove('ready');
+    el.innerHTML = `<div><strong>Volgende stap</strong><span>Koppel eerst eigen bronfoto's. Daarna kun je renders maken en productiebeelden kiezen.</span></div>`;
+    return;
+  }
+  if (selected < total) {
+    el.classList.remove('ready');
+    el.innerHTML = `<div><strong>${formatBENumber(selected)}/${formatBENumber(total)} productiebeelden gekozen</strong><span>Kies per adres één beste nafoto. Gebruik bij twijfel de correctieprompt onder de renderkaart en render opnieuw.</span></div>
+      <div class="render-next-step-actions"><button type="button" onclick="renderDesktopRenderQueue()">Ververs status</button></div>`;
+    return;
+  }
+  el.classList.add('ready');
+  el.innerHTML = `<div><strong>Alle productiebeelden zijn gekozen</strong><span>Volgende stap: maak of controleer de flyerproeven en landingspagina's. Pas daarna zet je campagne go/no-go open.</span></div>
+    <div class="render-next-step-actions">
+      <button type="button" class="primary" onclick="hpOpenFlyerEditor()">Open flyer editor</button>
+      <button type="button" onclick="switchReviewGate('flyer_proof');hpSetView('review');setTimeout(loadReview,80)">Open flyerproeven</button>
+      <button type="button" onclick="switchReviewGate('campaign_go');hpSetView('review');setTimeout(loadReview,80)">Campagne go/no-go</button>
+    </div>`;
+}
+
 function updateRenderReviewPipelineStatus(s) {
   const el = document.getElementById('renderReviewPipelineStatus');
   if (!el) return;
@@ -9429,11 +10283,204 @@ function updateRenderReviewPipelineStatus(s) {
   el.innerHTML = `<strong>${formatBENumber(nPhotos)}</strong> gekoppelde bronfoto${nPhotos === 1 ? '' : "'s"} klaar voor review. Kies hieronder een adres en start alleen die render.`;
 }
 
+function renderVariantLoadingCard(variant) {
+  return `<article class="render-variant-card" data-variant-id="${escapeHtml(variant.variantId)}">
+    <div class="render-review-empty">Render Engine maakt deze variant...</div>
+    <div class="caption"><strong>${escapeHtml(variant.style.title)}</strong>${escapeHtml(variant.color.name)}</div>
+  </article>`;
+}
+
+function renderVariantErrorCard(variant, message) {
+  return `<article class="render-variant-card is-error" data-variant-id="${escapeHtml(variant.variantId)}">
+    <div class="render-review-empty">Render mislukt: ${escapeHtml(message)}</div>
+    <div class="caption"><strong>${escapeHtml(variant.style.title)}</strong>${escapeHtml(variant.color.name)}</div>
+  </article>`;
+}
+
+function renderVariantDoneCard(data, variant, key, address, noteId) {
+  const imgSrc = data.render ? `/files/${data.render}?t=${Date.now()}` : `data:${data.mime || 'image/jpeg'};base64,${data.imageBase64 || ''}`;
+  const styleTitle = data.style?.title || variant.style.title;
+  const colorName = data.style?.color_name || variant.color.name;
+  const colorIndex = data.style?.color_index ?? variant.colorIndex ?? 0;
+  return `<article class="render-variant-card" data-variant-id="${escapeHtml(variant.variantId)}" data-render-path="${escapeHtml(data.render || '')}" data-style-key="${escapeHtml(data.style?.key || variant.key)}" data-color-index="${escapeHtml(String(colorIndex))}">
+    <img src="${imgSrc}" alt="Nafoto render" loading="lazy">
+    <div class="caption">
+      <strong>${escapeHtml(styleTitle)}</strong>
+      ${escapeHtml(colorName)} · Render Engine
+    </div>
+    <div class="render-variant-actions">
+      <span class="render-variant-status">klaar voor keuze</span>
+      <button type="button"
+        data-capakey="${escapeHtml(key)}"
+        data-address="${escapeHtml(address || '')}"
+        data-render="${escapeHtml(data.render || '')}"
+        data-source="${escapeHtml(data.source || '')}"
+        data-style-key="${escapeHtml(data.style?.key || variant.key)}"
+        data-color-index="${escapeHtml(String(colorIndex))}"
+        data-style-title="${escapeHtml(styleTitle)}"
+        data-color-name="${escapeHtml(colorName)}"
+        data-note-id="${escapeHtml(noteId || '')}"
+        onclick="selectRenderForProduction(this)">Gebruik voor productie</button>
+    </div>
+    <div class="render-variant-retry">
+      <textarea placeholder="Verbeterprompt voor nieuwe poging, bv. kleur subtieler, extra muurtje verwijderen, meer matte crepi"></textarea>
+      <button type="button"
+        data-capakey="${escapeHtml(key)}"
+        data-address="${escapeHtml(address || '')}"
+        data-style-key="${escapeHtml(data.style?.key || variant.key)}"
+        data-color-index="${escapeHtml(String(colorIndex))}"
+        data-note-id="${escapeHtml(noteId || '')}"
+        onclick="rerenderVariantWithPrompt(this)">Verbeter</button>
+    </div>
+  </article>`;
+}
+
+function setVariantCardHtml(resultBox, variant, html) {
+  const grid = resultBox.querySelector('.render-variant-grid');
+  if (!grid) return;
+  const current = Array.from(grid.querySelectorAll('.render-variant-card'))
+    .find(el => el.dataset.variantId === variant.variantId);
+  if (current) {
+    current.outerHTML = html;
+  } else {
+    grid.insertAdjacentHTML('beforeend', html);
+  }
+}
+
+async function selectRenderForProduction(button) {
+  const card = button.closest('.render-variant-card');
+  const row = button.closest('.render-review-row');
+  const noteEl = button.dataset.noteId ? document.getElementById(button.dataset.noteId) : null;
+  const payload = {
+    capakey: button.dataset.capakey || '',
+    address: button.dataset.address || '',
+    render: button.dataset.render || '',
+    source: button.dataset.source || '',
+    style_key: button.dataset.styleKey || '',
+    style_title: button.dataset.styleTitle || '',
+    color_name: button.dataset.colorName || '',
+    note: noteEl && noteEl.value.trim() ? noteEl.value.trim() : 'gekozen als beste render voor productie',
+  };
+  button.disabled = true;
+  try {
+    const res = await fetch('/api/render-selection', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'selectie opslaan mislukt');
+    if (row) {
+      row.querySelectorAll('.render-variant-card').forEach(el => el.classList.remove('is-selected'));
+      row.querySelectorAll('.render-variant-actions button').forEach(btn => {
+        btn.classList.remove('is-selected');
+        btn.textContent = 'Gebruik voor productie';
+        btn.disabled = false;
+      });
+    }
+    if (card) {
+      card.classList.add('is-selected');
+      const status = card.querySelector('.render-variant-status');
+      if (status) status.textContent = 'productiebeeld';
+    }
+    button.classList.add('is-selected');
+    button.textContent = 'Gekozen';
+    button.disabled = false;
+    _renderSelections[data.key || payload.capakey || payload.address || payload.render] = data.selection || payload;
+    updateRenderNextStep(renderReviewRows());
+    updateRenderReviewPipelineStatus({
+      running: false,
+      steps: {render: {status: 'done', message: `Productiebeeld gekozen voor ${payload.address || payload.capakey}`, progress: 1, total: 1}},
+    });
+  } catch (e) {
+    button.disabled = false;
+    alert('Productiekeuze opslaan mislukt: ' + e.message);
+  }
+}
+
+async function rerenderVariantWithPrompt(button) {
+  const card = button.closest('.render-variant-card');
+  const row = button.closest('.render-review-row');
+  const resultBox = row ? row.querySelector('[data-render-result]') : null;
+  const promptEl = card ? card.querySelector('.render-variant-retry textarea') : null;
+  const customPrompt = promptEl ? promptEl.value.trim() : '';
+  if (!customPrompt) {
+    alert('Schrijf eerst kort wat er beter moet, bv. kleur subtieler of geen extra muurtje.');
+    return;
+  }
+  const styleKey = button.dataset.styleKey || (card && card.dataset.styleKey) || 'crepi';
+  const style = GEVELVOORSTEL_STYLES[styleKey] || GEVELVOORSTEL_STYLES.crepi;
+  const colors = style.colors || [{name:'Standaard'}];
+  let colorIndex = Number(button.dataset.colorIndex || 0);
+  if (!Number.isFinite(colorIndex)) colorIndex = 0;
+  colorIndex = Math.max(0, Math.min(colorIndex, colors.length - 1));
+  const color = colors[colorIndex] || colors[0] || {name:'Standaard'};
+  const retryId = (card && card.dataset.variantId) || `${styleKey}|${colorIndex}`;
+  const retryVariant = {variantId: retryId, key: styleKey, style, colorIndex, color};
+  const noteEl = button.dataset.noteId ? document.getElementById(button.dataset.noteId) : null;
+  const baseNote = noteEl && noteEl.value.trim() ? noteEl.value.trim() : 'Operator renderreview: correctiepoging.';
+  const statusEl = card ? card.querySelector('.render-variant-status') : null;
+  const originalStatus = statusEl ? statusEl.textContent : '';
+  button.disabled = true;
+  button.textContent = 'Bezig...';
+  if (promptEl) promptEl.disabled = true;
+  if (card) {
+    card.classList.add('is-rendering');
+    if (statusEl) statusEl.textContent = 'correctie loopt';
+  } else if (resultBox) {
+    const grid = resultBox.querySelector('.render-variant-grid');
+    if (grid) grid.insertAdjacentHTML('beforeend', renderVariantLoadingCard(retryVariant).replace('Render Engine maakt deze variant...', 'Render Engine verwerkt je correctie...'));
+  }
+  updateRenderReviewPipelineStatus({
+    running: true,
+    current_step: 'correctierender',
+    steps: {render: {message: `${style.title} · ${color.name} verbeteren`, progress: 0, total: 1}},
+  });
+  try {
+    const res = await fetch('/api/facade-render', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        capakey: button.dataset.capakey || '',
+        address: button.dataset.address || '',
+        note: baseNote,
+        customPrompt,
+        attemptSuffix: `correctie_${Date.now()}`,
+        styleKey,
+        colorIndex,
+      }),
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Correctierender kon niet starten');
+    if (resultBox) setVariantCardHtml(resultBox, retryVariant, renderVariantDoneCard(data, retryVariant, button.dataset.capakey || '', button.dataset.address || '', button.dataset.noteId || ''));
+    if (promptEl) promptEl.value = '';
+    updateRenderReviewPipelineStatus({
+      running: false,
+      steps: {render: {status: 'done', message: 'Correctierender klaar. Kies de beste variant als productiebeeld.', progress: 1, total: 1}},
+    });
+    galleryLoaded = false;
+  } catch (e) {
+    if (card) {
+      card.classList.remove('is-rendering');
+      if (statusEl) statusEl.textContent = originalStatus || 'correctie mislukt';
+    } else if (resultBox) {
+      setVariantCardHtml(resultBox, retryVariant, renderVariantErrorCard(retryVariant, e.message));
+    }
+    updateRenderReviewPipelineStatus({error: e.message});
+    alert('Correctierender mislukt: ' + e.message);
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Verbeter';
+    if (promptEl) promptEl.disabled = false;
+  }
+}
+
 async function renderDesktopRenderQueue() {
   const target = document.getElementById('desktopRenderQueue');
   if (!target) return;
   target.innerHTML = '<div class="render-review-empty">Renderwachtrij laden...</div>';
   await ensureRenderReviewData();
+  await loadRenderSelections();
   updateRenderReviewPipelineStatus(null);
   try {
     const status = await fetch('/api/status').then(r => r.json());
@@ -9443,6 +10490,7 @@ async function renderDesktopRenderQueue() {
   }
   const rows = renderReviewRows();
   if (!rows.length) {
+    updateRenderNextStep(rows);
     target.innerHTML = `<div class="render-review-empty">
       Er staan nog geen adressen met gekoppelde bronfoto in deze renderwachtrij.<br>
       Ga naar <b>Foto's koppelen</b>, koppel een eigen foto en kom daarna terug naar Render review.
@@ -9450,6 +10498,7 @@ async function renderDesktopRenderQueue() {
     hpSyncTopbar();
     return;
   }
+  updateRenderNextStep(rows);
   target.innerHTML = rows.map((feature, index) => {
     const p = feature.properties || {};
     const key = featureKey(feature);
@@ -9457,7 +10506,7 @@ async function renderDesktopRenderQueue() {
     const noteId = `renderReviewNote_${index}`;
     const sourceLabel = p.field_photo_only ? 'foto uit index' : 'lead + foto';
     return `<div class="render-review-row is-ready" data-render-key="${escapeHtml(key)}">
-      <div class="render-review-photo">${renderReviewPhotoHtml(photo)}</div>
+      ${renderReviewSourcePanel(photo)}
       <div class="render-review-main">
         <strong>${escapeHtml(featureAddress(feature))}</strong>
         <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${formatBENumber(p.score || 0, 1)} · ${escapeHtml(fieldPhotoDisplayName(photo))}</span>
@@ -9467,9 +10516,12 @@ async function renderDesktopRenderQueue() {
           <b>${escapeHtml(sourceLabel)}</b>
         </div>
         <textarea class="render-review-note" id="${escapeHtml(noteId)}" placeholder="Feedback of briefing voor deze render, bv. moderne crepi, donkere ramen, geen villa-look"></textarea>
+        <div class="render-review-result" data-render-result="${escapeHtml(key)}">
+          <div class="render-variant-grid"></div>
+        </div>
       </div>
       <div class="render-review-actions">
-        <button type="button" class="primary" onclick="startDesktopFieldRender('${jsq(key)}', '${jsq(featureAddress(feature))}', '${jsq(noteId)}')">Start render</button>
+        <button type="button" class="primary" onclick="startDesktopFieldRender('${jsq(key)}', '${jsq(featureAddress(feature))}', '${jsq(noteId)}')">Render varianten</button>
         <button type="button" onclick="openExternalUrl(googleMapsSearchUrl(fallbackFeatureFromPhoto('${jsq(key)}', {address:'${jsq(featureAddress(feature))}'})))">Maps</button>
         <button type="button" onclick="hpSetView('photos')">Foto vervangen</button>
       </div>
@@ -9484,28 +10536,112 @@ async function startDesktopFieldRender(key, address, noteId) {
     .find(el => el.dataset.renderKey === key);
   const buttons = row ? Array.from(row.querySelectorAll('button')) : [];
   buttons.forEach(btn => btn.disabled = true);
-  const selectedPresets = requirePresetSelection('renderReviewPresetOptions');
-  const autoPreset = document.getElementById('renderReviewAutoPreset');
-  const body = new URLSearchParams({
-    capakey: key,
-    address: address || '',
-    note: noteEl && noteEl.value.trim() ? noteEl.value.trim() : 'Desktop renderreview: eigen bronfoto goedgekeurd voor render.',
-    source_csv: _currentMapCsv || '',
-    facade_preset: selectedPresets[0] || defaultRenderPresetKey(),
-    facade_presets: selectedPresets.join(','),
-    multi_preset: selectedPresets.length > 1 ? '1' : '0',
-    auto_preset: autoPreset && autoPreset.checked ? '1' : '0',
+  const note = noteEl && noteEl.value.trim() ? noteEl.value.trim() : 'Operator renderreview: eigen bronfoto goedgekeurd voor render.';
+  const resultBox = row ? row.querySelector('[data-render-result]') : null;
+  const isWindowPilot = getClientBrandMode() === 'windowpilot';
+  if (row) {
+    row.classList.remove('is-done');
+    row.classList.add('is-rendering');
+  }
+  if (resultBox) {
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = '<div class="caption">Render Engine maakt een nafoto op basis van de gekoppelde foto...</div>';
+  }
+  if (isWindowPilot) {
+    const selectedPresets = requirePresetSelection('renderReviewPresetOptions');
+    const body = new URLSearchParams({
+      capakey: key,
+      address: address || '',
+      note,
+      source_csv: _currentMapCsv || '',
+      facade_preset: selectedPresets[0] || defaultRenderPresetKey(),
+      facade_presets: selectedPresets.join(','),
+      multi_preset: selectedPresets.length > 1 ? '1' : '0',
+      auto_preset: '0',
+    });
+    updateRenderReviewPipelineStatus({running: true, current_step: 'render starten', steps: {render: {message: `Render starten met ${selectedPresets.length} optie${selectedPresets.length === 1 ? '' : 's'}...`, progress: 0, total: selectedPresets.length}}});
+    try {
+      const res = await fetch('/api/field_start_render', {method:'POST', body});
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Render kon niet starten');
+      if (row) row.classList.add('is-running');
+      updateRenderReviewPipelineStatus({running: true, current_step: 'render', steps: {render: {message: `Render gestart voor ${address || key}`, progress: 0, total: selectedPresets.length}}});
+      poll();
+    } catch (e) {
+      buttons.forEach(btn => btn.disabled = false);
+      if (row) row.classList.remove('is-rendering');
+      if (resultBox) resultBox.innerHTML = `<div class="caption">Render starten mislukt: ${escapeHtml(e.message)}</div>`;
+      updateRenderReviewPipelineStatus({error: e.message});
+      alert('Render starten mislukt: ' + e.message);
+    }
+    return;
+  }
+  const variants = selectedGevelVoorstelVariants();
+  if (!variants.length) {
+    buttons.forEach(btn => btn.disabled = false);
+    if (row) row.classList.remove('is-rendering');
+    alert('Kies minstens één kleur of afwerking om te renderen.');
+    return;
+  }
+  if (resultBox) {
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `<div class="render-variant-grid">${variants.map(renderVariantLoadingCard).join('')}</div>`;
+  }
+  updateRenderReviewPipelineStatus({
+    running: true,
+    current_step: 'directe Render Engine-render',
+    steps: {render: {message: `${variants.length} variant${variants.length === 1 ? '' : 'en'} worden met Render Engine toegepast op de gekoppelde foto...`, progress: 0, total: variants.length}},
   });
-  updateRenderReviewPipelineStatus({running: true, current_step: 'render starten', steps: {render: {message: `Render starten met ${selectedPresets.length} afwerking${selectedPresets.length === 1 ? '' : 'en'}...`, progress: 0, total: selectedPresets.length}}});
+  let successCount = 0;
+  let lastError = null;
   try {
-    const res = await fetch('/api/field_start_render', {method:'POST', body});
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Render kon niet starten');
-    if (row) row.classList.add('is-running');
-    updateRenderReviewPipelineStatus({running: true, current_step: 'render', steps: {render: {message: `Render gestart voor ${address || key} · ${selectedPresets.length} variant${selectedPresets.length === 1 ? '' : 'en'}`, progress: 0, total: selectedPresets.length}}});
-    poll();
+    for (let i = 0; i < variants.length; i += 1) {
+      const variant = variants[i];
+      updateRenderReviewPipelineStatus({
+        running: true,
+        current_step: 'directe Render Engine-render',
+        steps: {render: {message: `${variant.style.title} · ${variant.color.name}`, progress: i, total: variants.length}},
+      });
+      try {
+        const res = await fetch('/api/facade-render', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            capakey: key,
+            address: address || '',
+            note,
+            styleKey: variant.key,
+            colorIndex: variant.colorIndex,
+          }),
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || 'Render kon niet starten');
+        successCount += 1;
+        if (resultBox) setVariantCardHtml(resultBox, variant, renderVariantDoneCard(data, variant, key, address, noteId));
+      } catch (variantError) {
+        lastError = variantError;
+        if (resultBox) setVariantCardHtml(resultBox, variant, renderVariantErrorCard(variant, variantError.message));
+      }
+    }
+    if (!successCount) throw lastError || new Error('Geen enkele render is gelukt');
+    if (row) {
+      row.classList.remove('is-rendering');
+      row.classList.add('is-done');
+    }
+    updateRenderReviewPipelineStatus({
+      running: false,
+      steps: {render: {status: 'done', message: `${successCount}/${variants.length} variant${variants.length === 1 ? '' : 'en'} klaar voor ${address || key}`, progress: successCount, total: variants.length}},
+    });
+    galleryLoaded = false;
+    await loadRenderGallery(true);
+    buttons.forEach(btn => btn.disabled = false);
   } catch (e) {
     buttons.forEach(btn => btn.disabled = false);
+    if (row) row.classList.remove('is-rendering');
+    if (resultBox && !resultBox.querySelector('.render-variant-grid')) {
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `<div class="caption">Render mislukt: ${escapeHtml(e.message)}</div>`;
+    }
     updateRenderReviewPipelineStatus({error: e.message});
     alert('Render starten mislukt: ' + e.message);
   }
@@ -10906,6 +12042,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self._json(list_landing_pages((qs.get("dir", [""])[0] or "").strip()))
         elif url.path == "/api/renders":
             self._json(list_render_details())
+        elif url.path == "/api/render-selections":
+            self._json({"ok": True, "selections": load_render_selections()})
         elif url.path == "/api/flyer_editor_assets":
             try:
                 qs = parse_qs(url.query)
@@ -11215,6 +12353,32 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if fallback not in allowed:
                 fallback = "premium"
             return [fallback]
+
+        if url.path == "/api/facade-render":
+            try:
+                content_type = (self.headers.get("Content-Type") or "").lower()
+                if "application/json" in content_type:
+                    payload = json.loads(raw or "{}")
+                else:
+                    payload = {k: v[0] for k, v in data.items() if v}
+                result = render_gevelvoorstel_after(payload)
+                self._json(result, 200 if result.get("ok") else 400)
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
+            return
+
+        if url.path == "/api/render-selection":
+            try:
+                content_type = (self.headers.get("Content-Type") or "").lower()
+                if "application/json" in content_type:
+                    payload = json.loads(raw or "{}")
+                else:
+                    payload = {k: v[0] for k, v in data.items() if v}
+                result = post_render_selection(payload)
+                self._json(result, 200 if result.get("ok") else 400)
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)}, 500)
+            return
 
         if url.path == "/api/flyer_editor_export":
             try:
