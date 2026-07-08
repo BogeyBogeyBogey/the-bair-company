@@ -115,6 +115,61 @@ def attach_source_registry(df: pd.DataFrame, stage: str = "pipeline") -> pd.Data
     return result
 
 
+def ensure_score_breakdown(df: pd.DataFrame, module_key: str | None = None) -> pd.DataFrame:
+    """Ensure visible lead lists have explainable v2 scoring components.
+
+    Older local CSV exports may contain only ``lead_score``/``lead_klasse``.
+    For UI display we recalculate the current module scoring in-memory so every
+    listed home can expose the individual subscores behind the total score.
+    """
+    if df is None or len(df) == 0:
+        return df
+    result = df.copy()
+    if "score_breakdown_json" in result.columns:
+        existing = result["score_breakdown_json"].fillna("").astype(str).str.strip()
+        has_components = existing.str.contains('"components"', regex=False).all()
+        if has_components:
+            return result
+
+    inferred_module = str(module_key or "").strip().lower()
+    if not inferred_module and "module_key" in result.columns:
+        module_values = (
+            result["module_key"].dropna().astype(str).str.strip().str.lower()
+        )
+        module_values = module_values[module_values.isin(["facadepilot", "windowpilot"])]
+        if len(module_values):
+            inferred_module = str(module_values.iloc[0])
+    if inferred_module not in {"facadepilot", "windowpilot"}:
+        inferred_module = "facadepilot"
+
+    try:
+        from facadepilot_lead_scoring import score_leads
+
+        scored = score_leads(result, module_key=inferred_module)
+        score_cols = [
+            "lead_score",
+            "lead_klasse",
+            "score_breakdown_json",
+            "score_penalties_json",
+            "score_note",
+            "score_confidence",
+            "score_confidence_signals",
+            "score_method_version",
+            "module_key",
+            "property_opportunity_score",
+            "priority_score",
+            "weighted_pipeline_eur",
+            "partner_fit_score",
+        ]
+        for col in score_cols:
+            if col in scored.columns:
+                result[col] = scored[col]
+        return result
+    except Exception as exc:
+        log(f"Score-uitleg kon niet automatisch worden aangevuld: {exc}")
+        return result
+
+
 # ─── MODULE AVAILABILITY CHECK ───────────────────────────────────────────────
 
 def check_modules():
@@ -2076,6 +2131,9 @@ def get_leads_geojson(niscode: str | None = None, manual: bool = False) -> dict:
     if store:
         try:
             leads = store.list_leads(niscode=resolved_niscode, limit=5000)
+            if leads:
+                leads_df = ensure_score_breakdown(pd.DataFrame(leads))
+                leads = leads_df.to_dict("records")
             for l in leads:
                 lat, lon = l.get("lat"), l.get("lon")
                 if lat is None or lon is None:
@@ -2092,9 +2150,12 @@ def get_leads_geojson(niscode: str | None = None, manual: bool = False) -> dict:
                     "render_path": l.get("render_path") or "",
                     "streetview_path": l.get("streetview_path") or "",
                     "score_confidence": l.get("score_confidence", ""),
+                    "score_confidence_signals": l.get("score_confidence_signals", ""),
                     "score_method_version": l.get("score_method_version", ""),
                     "score_breakdown_json": l.get("score_breakdown_json", ""),
+                    "score_penalties_json": l.get("score_penalties_json", ""),
                     "score_note": l.get("score_note", ""),
+                    "module_key": l.get("module_key", ""),
                 }, capakey)
                 features.append({
                     "type": "Feature",
@@ -2127,6 +2188,7 @@ def get_leads_geojson(niscode: str | None = None, manual: bool = False) -> dict:
 
     try:
         df = pd.read_csv(csv_files[0], encoding="utf-8-sig")
+        df = ensure_score_breakdown(df)
         has_score = "lead_score" in df.columns
         has_klasse = "lead_klasse" in df.columns
         for _, row in df.iterrows():
@@ -2150,9 +2212,12 @@ def get_leads_geojson(niscode: str | None = None, manual: bool = False) -> dict:
                 "render_path": str(row.get("render_path", "") or ""),
                 "streetview_path": "",
                 "score_confidence": row.get("score_confidence", ""),
+                "score_confidence_signals": row.get("score_confidence_signals", ""),
                 "score_method_version": row.get("score_method_version", ""),
                 "score_breakdown_json": row.get("score_breakdown_json", ""),
+                "score_penalties_json": row.get("score_penalties_json", ""),
                 "score_note": row.get("score_note", ""),
+                "module_key": row.get("module_key", ""),
             }, capakey)
             features.append({
                 "type": "Feature",
@@ -3331,6 +3396,9 @@ h1{margin:5px 0 4px;font-size:26px;line-height:1.05;letter-spacing:-.02em}
 .thumb img{width:100%;height:100%;object-fit:cover}
 .addr{font-size:17px;font-weight:900;line-height:1.2}
 .meta{color:#98a6b8;font-size:13px;margin-top:4px;line-height:1.35}
+.score-mobile{display:inline-flex;align-items:center;gap:5px;vertical-align:middle}
+.score-mobile strong{color:#eef4ff}
+.score-mobile button{width:22px;height:22px;border-radius:50%;border:1px solid #335070;background:#13243a;color:#a7d8ff;font-size:12px;font-weight:950;line-height:1;padding:0}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .chip{border-radius:999px;background:#182433;color:#b8c5d7;font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;padding:5px 8px}
 .chip.good{background:#143322;color:#6ee7a8}
@@ -3388,6 +3456,51 @@ function keyOf(f) { return String(prop(f, 'capakey') || prop(f, 'adres') || '');
 function addressOf(f) { return String(prop(f, 'adres') || '').trim(); }
 function clsOf(f) { return String(prop(f, 'klasse') || '').trim(); }
 function scoreOf(f) { return Number(prop(f, 'score') || 0); }
+function parseScoreJson(value, fallback) {
+  if (!value || value === 'nan' || value === 'None' || value === 'null') return fallback;
+  if (typeof value === 'object') return value;
+  try { return JSON.parse(String(value)); } catch (e) { return fallback; }
+}
+function scoreInfoText(f) {
+  const breakdown = parseScoreJson(prop(f, 'score_breakdown_json'), {}) || {};
+  const components = Array.isArray(breakdown.components) ? breakdown.components : [];
+  const penalties = Array.isArray(breakdown.penalties)
+    ? breakdown.penalties
+    : (parseScoreJson(prop(f, 'score_penalties_json'), []) || []);
+  const lines = [
+    addressOf(f),
+    `Score ${pct.format(scoreOf(f))}/100 - klasse ${clsOf(f) || '-'}`,
+    prop(f, 'score_note') || breakdown.note || 'Property opportunity score, geen bewonersintentie.',
+    '',
+    'Individuele subscores:'
+  ];
+  if (!components.length) {
+    lines.push('- Nog geen scorecomponenten in deze lijst. Draai scoring v2 opnieuw.');
+  } else {
+    components.forEach(comp => {
+      const label = comp.label || comp.key || 'Subscore';
+      const score = pct.format(Number(comp.score || 0));
+      const weight = fmt.format(Number(comp.weight_pct || 0));
+      const contribution = pct.format(Number(comp.contribution || 0));
+      const evidence = comp.evidence ? ` - ${comp.evidence}` : '';
+      lines.push(`- ${label}: ${score}/100, gewicht ${weight}%, bijdrage +${contribution}${evidence}`);
+    });
+  }
+  if (Array.isArray(penalties) && penalties.length) {
+    lines.push('', 'Aftrekpunten:');
+    penalties.forEach(pen => lines.push(`- ${pen.label || 'Aftrekpunt'}: -${pct.format(Number(pen.points || 0))}${pen.evidence ? ` - ${pen.evidence}` : ''}`));
+  }
+  return lines.join('\n');
+}
+function showScoreInfo(k) {
+  const f = features.find(item => keyOf(item) === k);
+  if (!f) return showToast('Score-uitleg niet gevonden.');
+  alert(scoreInfoText(f));
+}
+function scoreInline(f) {
+  const title = prop(f, 'score_breakdown_json') ? 'Toon score-opbouw' : 'Score-opbouw nog niet beschikbaar';
+  return `<span class="score-mobile"><strong>${pct.format(scoreOf(f))}</strong><button type="button" title="${escapeHtml(title)}" onclick="event.stopPropagation(); showScoreInfo(${j(keyOf(f))})">i</button></span>`;
+}
 function reviewOf(f) { return String(prop(f, 'review_decision') || 'unreviewed'); }
 function hasPhoto(f) { return !!photos[keyOf(f)]; }
 function isUseful(f) {
@@ -3476,7 +3589,7 @@ function renderSelected() {
   panel.hidden = false;
   panel.innerHTML = `
     <h2>${escapeHtml(addressOf(f))}</h2>
-    <div class="meta">Klasse ${escapeHtml(clsOf(f) || '-')} · score ${pct.format(scoreOf(f))} · ${escapeHtml(String(prop(f, 'bebouwd_m2') || '-'))} m² bebouwd</div>
+    <div class="meta">Klasse ${escapeHtml(clsOf(f) || '-')} · score ${scoreInline(f)} · ${escapeHtml(String(prop(f, 'bebouwd_m2') || '-'))} m² bebouwd</div>
     <input class="hidden-input" id="selectedCameraInput" type="file" accept="image/*" capture="environment"
       onchange="uploadCameraFile(this, ${j(k)}, ${j(addressOf(f))})">
     <div class="selected-actions">
@@ -3510,7 +3623,7 @@ function renderList() {
           <div class="thumb">${img}</div>
           <div>
             <div class="addr">${escapeHtml(addressOf(f))}</div>
-            <div class="meta">Klasse ${escapeHtml(clsOf(f) || '-')} · score ${pct.format(scoreOf(f))} · ${escapeHtml(String(prop(f, 'bebouwd_m2') || '-'))} m²</div>
+            <div class="meta">Klasse ${escapeHtml(clsOf(f) || '-')} · score ${scoreInline(f)} · ${escapeHtml(String(prop(f, 'bebouwd_m2') || '-'))} m²</div>
             <div class="chips">
               <span class="chip ${photo ? 'good' : 'warn'}">${photo ? 'foto ok' : 'foto nodig'}</span>
               <span class="chip">${escapeHtml(reviewOf(f))}</span>
@@ -5387,6 +5500,120 @@ body.hp-ui-v2.hp-view-intelligence .hp-topbar{
   line-height:1;
 }
 .score-info-btn:hover{background:rgba(226,163,92,.22);color:#fff}
+.score-explain-inline{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  vertical-align:middle;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.score-explain-inline .score-text{font-weight:850;color:#eaf2ff}
+.score-explain-inline .score-info-btn{
+  width:20px;
+  height:20px;
+  font-size:11px;
+  vertical-align:middle;
+}
+.score-modal{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  background:rgba(2,6,12,.72);
+  backdrop-filter:blur(10px);
+}
+.score-modal[hidden]{display:none}
+.score-modal-panel{
+  width:min(780px,calc(100vw - 32px));
+  max-height:calc(100vh - 48px);
+  overflow:auto;
+  border:1px solid rgba(226,163,92,.26);
+  border-radius:18px;
+  background:linear-gradient(180deg,#142033,#0b121d);
+  box-shadow:0 28px 80px rgba(0,0,0,.45);
+  color:#eaf2ff;
+}
+.score-modal-head{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding:20px 22px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(226,163,92,.10),transparent);
+}
+.score-modal-head h3{margin:0;font-size:20px;line-height:1.15;color:#f5f7fb}
+.score-modal-head p{margin:5px 0 0;color:#9fb0c5;font-size:13px;line-height:1.4}
+.score-modal-close{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:#eaf2ff;
+  font-weight:900;
+  cursor:pointer;
+}
+.score-modal-summary{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:16px;
+  padding:18px 22px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.score-modal-score{
+  display:grid;
+  place-items:center;
+  min-height:126px;
+  border-radius:16px;
+  background:#080f19;
+  border:1px solid rgba(255,255,255,.08);
+}
+.score-modal-score strong{font-size:38px;font-variant-numeric:tabular-nums;line-height:1}
+.score-modal-score span{font-size:11px;color:#9fb0c5;text-transform:uppercase;letter-spacing:.08em;font-weight:900;margin-top:6px}
+.score-modal-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.score-modal-pill{
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  color:#c8dff5;
+  font-size:11px;
+  font-weight:850;
+  padding:6px 9px;
+}
+.score-modal-note{
+  border-left:3px solid #e2a35c;
+  padding:10px 12px;
+  background:rgba(226,163,92,.08);
+  border-radius:10px;
+  color:#d7e2ee;
+  font-size:12.5px;
+  line-height:1.45;
+}
+.score-modal-body{padding:18px 22px 22px;display:grid;gap:10px}
+.score-modal-body h4{
+  margin:4px 0 2px;
+  font-size:12px;
+  color:#f0b36d;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.score-modal-empty{
+  padding:16px;
+  border:1px dashed rgba(255,255,255,.16);
+  border-radius:12px;
+  color:#9fb0c5;
+  font-size:13px;
+  line-height:1.45;
+}
+@media(max-width:700px){
+  .score-modal{padding:10px}
+  .score-modal-summary{grid-template-columns:1fr}
+}
 .sdot{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--db-muted)}
 .sdot i{width:7px;height:7px;border-radius:99px;display:inline-block}
 .drawer{position:sticky;top:90px}
@@ -9500,6 +9727,124 @@ function formatBENumber(value, digits = 0) {
   return n.toLocaleString('nl-BE', {minimumFractionDigits: digits, maximumFractionDigits: digits});
 }
 
+function parseScoreJson(value, fallback) {
+  if (!value || value === 'nan' || value === 'None' || value === 'null') return fallback;
+  if (typeof value === 'object') return value;
+  try { return JSON.parse(String(value)); } catch (e) { return fallback; }
+}
+
+function scoreBreakdownForFeature(feature) {
+  const p = feature?.properties || {};
+  const breakdown = parseScoreJson(p.score_breakdown_json, {}) || {};
+  let components = Array.isArray(breakdown.components) ? breakdown.components : [];
+  let penalties = Array.isArray(breakdown.penalties) ? breakdown.penalties : parseScoreJson(p.score_penalties_json, []) || [];
+  if (!Array.isArray(penalties)) penalties = [];
+  const score = Number(p.score ?? breakdown.score ?? 0) || 0;
+  const klasse = String(p.klasse || breakdown.klasse || '?');
+  const moduleKey = String(p.module_key || breakdown.module_key || '').trim();
+  return {
+    address: featureAddress(feature),
+    score,
+    klasse,
+    label: p.lead_label || breakdown.label || '',
+    moduleKey,
+    model: p.score_method_version || breakdown.version || '',
+    confidence: Number(p.score_confidence || breakdown.confidence || 0) || 0,
+    confidenceSignals: p.score_confidence_signals || (Array.isArray(breakdown.confidence_signals) ? breakdown.confidence_signals.join(', ') : ''),
+    note: p.score_note || breakdown.note || 'Property opportunity score, geen bewonersintentie.',
+    components,
+    penalties,
+  };
+}
+
+function scoreInlineHtmlForFeature(feature) {
+  const key = featureKey(feature);
+  const p = feature?.properties || {};
+  const score = formatBENumber(p.score || 0, 1);
+  const title = p.score_breakdown_json
+    ? 'Toon score-opbouw'
+    : 'Score-opbouw nog niet beschikbaar: draai scoring v2 opnieuw';
+  return `<span class="score-explain-inline"><span class="score-text">${score}</span><button type="button" class="score-info-btn" title="${escapeHtml(title)}" onclick="event.stopPropagation(); openScoreExplanationForKey('${jsq(key)}')">i</button></span>`;
+}
+
+function openScoreExplanationForKey(key) {
+  const feature = featureByKey(key) || (_fieldRoute?.stops || []).find(f => featureKey(f) === key) || null;
+  if (!feature) return alert('Score-uitleg niet gevonden voor dit adres.');
+  openScoreExplanation(feature);
+}
+
+function closeScoreExplanation() {
+  const modal = document.getElementById('scoreExplainModal');
+  if (modal) modal.hidden = true;
+}
+
+function openScoreExplanation(feature) {
+  const data = scoreBreakdownForFeature(feature);
+  const modal = ensureScoreExplanationModal();
+  const panel = modal.querySelector('.score-modal-panel');
+  const klassColor = KLASSE_KLEUR[data.klasse] || '#94a3b8';
+  const moduleLabel = data.moduleKey === 'windowpilot'
+    ? 'WindowPilot'
+    : (data.moduleKey === 'facadepilot' ? 'FacadePilot' : 'HomePilot');
+  const componentHtml = data.components.length ? data.components.map(comp => {
+    const score = Number(comp.score || 0) || 0;
+    const weight = Number(comp.weight_pct || 0) || 0;
+    const contribution = Number(comp.contribution || 0) || 0;
+    return `<div class="scorecomp">
+      <div class="top"><b>${escapeHtml(comp.label || comp.key || 'Subscore')}</b><span class="nums">${formatBENumber(score, 1)}/100 · ${formatBENumber(weight, 0)}% · +${formatBENumber(contribution, 1)}</span></div>
+      <div class="mrow" style="grid-template-columns:1fr 44px;margin:9px 0 0"><div class="bar"><i style="width:${Math.max(0, Math.min(100, score))}%"></i></div><b>${formatBENumber(score, 0)}</b></div>
+      ${comp.evidence ? `<div class="evidence">${escapeHtml(comp.evidence)}</div>` : ''}
+      ${comp.explanation ? `<div class="explain">${escapeHtml(comp.explanation)}</div>` : ''}
+      ${comp.source ? `<div class="source">${escapeHtml(comp.source)}</div>` : ''}
+    </div>`;
+  }).join('') : `<div class="score-modal-empty">Deze woning heeft nog geen individuele scorecomponenten in de huidige lijst. Draai de scoring opnieuw met FacadePilot/WindowPilot scoring v2; daarna toont dit scherm per woning de onderliggende subscores.</div>`;
+  const penaltyHtml = data.penalties.length ? `<h4>Aftrekpunten</h4>` + data.penalties.map(pen => `
+    <div class="scorecomp penalty">
+      <div class="top"><b>${escapeHtml(pen.label || 'Aftrekpunt')}</b><span class="nums">-${formatBENumber(pen.points || 0, 1)}</span></div>
+      ${pen.evidence ? `<div class="evidence">${escapeHtml(pen.evidence)}</div>` : ''}
+      ${pen.source ? `<div class="source">${escapeHtml(pen.source)}</div>` : ''}
+    </div>`).join('') : '';
+  panel.innerHTML = `
+    <div class="score-modal-head">
+      <div>
+        <h3>${escapeHtml(data.address)}</h3>
+        <p>Waarom krijgt deze woning deze ${escapeHtml(moduleLabel)}-score?</p>
+      </div>
+      <button type="button" class="score-modal-close" onclick="closeScoreExplanation()">×</button>
+    </div>
+    <div class="score-modal-summary">
+      <div class="score-modal-score"><strong style="color:${klassColor}">${formatBENumber(data.score, 1)}</strong><span>klasse ${escapeHtml(data.klasse)}</span></div>
+      <div>
+        <div class="score-modal-pills">
+          <span class="score-modal-pill">${escapeHtml(moduleLabel)}</span>
+          ${data.model ? `<span class="score-modal-pill">Model ${escapeHtml(data.model)}</span>` : ''}
+          ${data.confidence ? `<span class="score-modal-pill">Datadekking ${formatBENumber(data.confidence, 0)}/100</span>` : ''}
+          ${data.confidenceSignals ? `<span class="score-modal-pill">${escapeHtml(data.confidenceSignals)}</span>` : ''}
+        </div>
+        <div class="score-modal-note">${escapeHtml(data.note || 'Property opportunity score, geen bewonersintentie.')}</div>
+      </div>
+    </div>
+    <div class="score-modal-body">
+      <h4>Individuele subscores</h4>
+      ${componentHtml}
+      ${penaltyHtml}
+    </div>`;
+  modal.hidden = false;
+}
+
+function ensureScoreExplanationModal() {
+  let modal = document.getElementById('scoreExplainModal');
+  if (modal) return modal;
+  modal = document.createElement('div');
+  modal.id = 'scoreExplainModal';
+  modal.className = 'score-modal';
+  modal.hidden = true;
+  modal.onclick = event => { if (event.target === modal) closeScoreExplanation(); };
+  modal.innerHTML = '<div class="score-modal-panel" role="dialog" aria-modal="true" aria-label="Score-uitleg"></div>';
+  document.body.appendChild(modal);
+  return modal;
+}
+
 const CLASS_ORDER = {"A+": 0, "A": 1, "B": 2, "C": 3, "D": 4, "LEAD": 5, "MAN": 6};
 
 function featureCoords(feature) {
@@ -9664,7 +10009,7 @@ function renderLeadAddressList() {
       </div>
       <div class="lead-address-main">
         <strong>${escapeHtml(featureAddress(feature))}</strong>
-        <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${formatBENumber(p.score || 0, 1)} · ${formatBENumber(p.bebouwd_m2 || 0)}m² bebouwd</span>
+        <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${scoreInlineHtmlForFeature(feature)} · ${formatBENumber(p.bebouwd_m2 || 0)}m² bebouwd</span>
         <div class="lead-address-badges">
           <b>${escapeHtml(REVIEW_LABELS[decision] || decision.replace('_',' '))}</b>
           <b>${escapeHtml(p.huistype || 'woningtype ?')}</b>
@@ -10023,7 +10368,7 @@ function renderFieldRouteBatch(index=0) {
   ` + batch.stops.map((feature, index) => `
     <div class="route-stop">
       <i>${index + 1}</i>
-      <div><strong>${escapeHtml(featureAddress(feature))}</strong><span>${escapeHtml((feature.properties || {}).klasse || '?')} · score ${formatBENumber((feature.properties || {}).score || 0, 1)} · ${escapeHtml((feature.properties || {}).review_decision || 'niet beoordeeld')}</span></div>
+      <div><strong>${escapeHtml(featureAddress(feature))}</strong><span>${escapeHtml((feature.properties || {}).klasse || '?')} · score ${scoreInlineHtmlForFeature(feature)} · ${escapeHtml((feature.properties || {}).review_decision || 'niet beoordeeld')}</span></div>
       <div class="route-stop-actions">
         <button type="button" onclick="openRouteStopReview('${jsq(featureKey(feature))}')">Review</button>
         <button type="button" onclick="openRouteStopMaps('${jsq(featureKey(feature))}')">Maps</button>
@@ -10098,6 +10443,7 @@ function renderFieldPhotoList() {
       <div class="photo-copy">
         <strong>${escapeHtml(featureAddress(feature))}</strong>
         <span>${photo ? `Foto gekoppeld: ${escapeHtml(fieldPhotoDisplayName(photo))}` : 'Nog geen eigen foto gekoppeld.'}</span>
+        <span>Klasse ${escapeHtml((feature.properties || {}).klasse || '?')} · score ${scoreInlineHtmlForFeature(feature)}</span>
       </div>
       <label class="photo-drop" for="${escapeHtml(inputId)}" ondragover="handleFieldPhotoDrag(event, true)" ondragleave="handleFieldPhotoDrag(event, false)" ondrop="dropFieldPhoto(event, '${jsq(key)}', '${jsq(featureAddress(feature))}')">
         <span class="photo-drop-button">Kies foto</span>
@@ -10535,7 +10881,7 @@ async function renderDesktopRenderQueue() {
       ${renderReviewSourcePanel(photo)}
       <div class="render-review-main">
         <strong>${escapeHtml(featureAddress(feature))}</strong>
-        <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${formatBENumber(p.score || 0, 1)} · ${escapeHtml(fieldPhotoDisplayName(photo))}</span>
+        <span>Klasse ${escapeHtml(p.klasse || '?')} · score ${scoreInlineHtmlForFeature(feature)} · ${escapeHtml(fieldPhotoDisplayName(photo))}</span>
         <div class="render-review-badges">
           <b class="ready">eigen bronfoto</b>
           <b>${escapeHtml(p.review_decision || 'selected')}</b>
@@ -10759,7 +11105,7 @@ async function reloadMap() {
       klasse: p.klasse,
     });
     let popup = `<div class="pop-adres">${escapeHtml(p.adres || '(geen adres)')}</div>`;
-    popup += `<div class="pop-meta">Klasse <b style="color:${kleur}">${p.klasse}</b> • Score ${(p.score||0).toFixed(1)} • ${p.huistype || 'huistype ?'}</div>`;
+    popup += `<div class="pop-meta">Klasse <b style="color:${kleur}">${escapeHtml(p.klasse || '?')}</b> • Score ${scoreInlineHtmlForFeature(f)} • ${escapeHtml(p.huistype || 'huistype ?')}</div>`;
     popup += `<div class="pop-meta">Review: ${reviewPill(reviewDecision)} • ${(p.bebouwd_m2||0).toFixed(0)}m² gevel</div>`;
     if (p.render_path) {
       popup += `<img src="/files/${p.render_path}" alt="">`;
@@ -10820,7 +11166,7 @@ async function openLeadReview(feature) {
       <div class="lead-review-title">${escapeHtml(p.adres || '(geen adres)')}</div>
       <div class="lead-review-meta">
         Klasse <b style="color:${KLASSE_KLEUR[p.klasse] || '#94a3b8'}">${escapeHtml(p.klasse || '?')}</b>
-        • score ${(p.score || 0).toFixed(1)} • ${escapeHtml(p.huistype || 'huistype ?')}<br>
+        • score ${scoreInlineHtmlForFeature(feature)} • ${escapeHtml(p.huistype || 'huistype ?')}<br>
         ${reviewPill(decision)} • ${(p.bebouwd_m2 || 0).toFixed(0)}m² bebouwd
       </div>
     </div>
