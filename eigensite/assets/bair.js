@@ -1,101 +1,122 @@
 /* ============================================================
-   THE BAIR CO. — shared engine
+   THE BAIR CO. shared engine
    header/footer injection · i18n (EN/NL/FR) · consent · motion
    ============================================================ */
 (function () {
   'use strict';
 
+  var scriptUrl = document.currentScript && document.currentScript.src;
+  var fileRoot = scriptUrl ? new URL('../', scriptUrl) : null;
+
+  function localPreviewUrl(value) {
+    if (window.location.protocol !== 'file:' || !fileRoot || !value || value.charAt(0) !== '/' || value.indexOf('//') === 0) return value;
+
+    var raw = value.slice(1);
+    var suffixAt = raw.search(/[?#]/);
+    var suffix = suffixAt > -1 ? raw.slice(suffixAt) : '';
+    var path = suffixAt > -1 ? raw.slice(0, suffixAt) : raw;
+
+    if (!path) path = 'index.html';
+    else if (!/\.[^/]+$/.test(path)) path += '.html';
+
+    return new URL(path + suffix, fileRoot).href;
+  }
+
+  function enableLocalPreview() {
+    if (window.location.protocol !== 'file:') return;
+
+    var nodes = document.querySelectorAll('[href^="/"], [src^="/"]');
+    for (var i = 0; i < nodes.length; i++) {
+      var attr = nodes[i].hasAttribute('href') ? 'href' : 'src';
+      nodes[i].setAttribute(attr, localPreviewUrl(nodes[i].getAttribute(attr)));
+    }
+  }
+
   /* ---------- shared translations ---------- */
   var COMMON = {
     en: {
       'nav.solutions': 'Solutions',
-      'nav.work': 'Work',
       'nav.company': 'Company',
       'nav.contact': 'Contact',
       'nav.cta': 'Start a project',
-      'foot.desc': 'AI solutions partner. We design, build and deploy AI products, intelligent automation and AI-ready platforms — for enterprises, mid-market companies and SMEs.',
+      'foot.desc': 'AI solutions partner for organisations worldwide. We design, build and deploy AI systems, intelligent automation and AI-ready platforms.',
       'foot.solutions': 'Solutions',
       'foot.s1': 'AI Products',
       'foot.s2': 'Intelligent Automation',
       'foot.s3': 'Enterprise AI',
       'foot.s4': 'AI-ready Platforms',
       'foot.company': 'Company',
-      'foot.work': 'Work',
       'foot.about': 'About',
       'foot.contact': 'Contact',
       'foot.get': 'Get in touch',
-      'foot.loc': 'Belgium — working across Europe',
+      'foot.loc': 'Working worldwide',
       'foot.rights': 'All rights reserved.',
       'foot.privacy': 'Privacy',
       'foot.terms': 'Terms',
       'foot.cookies': 'Cookies',
       'ck.title': 'Cookie preferences',
       'ck.desc': 'We use cookies to improve your experience. Choose which categories you allow.',
-      'ck.nec': 'Necessary — required for the site to function',
-      'ck.ana': 'Analytics — helps us understand how visitors use the site',
-      'ck.mkt': 'Marketing — used for personalised advertising',
+      'ck.nec': 'Necessary. Required for the site to function',
+      'ck.ana': 'Analytics. Helps us understand how visitors use the site',
+      'ck.mkt': 'Marketing. Used for personalised advertising',
       'ck.save': 'Save choices',
       'ck.all': 'Accept all',
       'ck.reopen': 'Cookies'
     },
     nl: {
       'nav.solutions': 'Oplossingen',
-      'nav.work': 'Werk',
       'nav.company': 'Bedrijf',
       'nav.contact': 'Contact',
       'nav.cta': 'Start een project',
-      'foot.desc': 'AI solutions partner. We ontwerpen, bouwen en implementeren AI-producten, intelligente automatisering en AI-ready platformen — voor enterprises, mid-market en kmo’s.',
+      'foot.desc': 'AI solutions partner voor organisaties wereldwijd. We ontwerpen, bouwen en implementeren AI-systemen, intelligente automatisering en AI-ready platformen.',
       'foot.solutions': 'Oplossingen',
       'foot.s1': 'AI-producten',
       'foot.s2': 'Intelligente automatisering',
       'foot.s3': 'Enterprise AI',
       'foot.s4': 'AI-ready platformen',
       'foot.company': 'Bedrijf',
-      'foot.work': 'Werk',
       'foot.about': 'Over ons',
       'foot.contact': 'Contact',
       'foot.get': 'Contacteer ons',
-      'foot.loc': 'België — actief in heel Europa',
+      'foot.loc': 'Wereldwijd actief',
       'foot.rights': 'Alle rechten voorbehouden.',
       'foot.privacy': 'Privacy',
       'foot.terms': 'Voorwaarden',
       'foot.cookies': 'Cookies',
       'ck.title': 'Cookie-instellingen',
       'ck.desc': 'Wij gebruiken cookies om je ervaring te verbeteren. Kies welke categorieën je toestaat.',
-      'ck.nec': 'Noodzakelijk — vereist voor de werking van de site',
-      'ck.ana': 'Analytisch — helpt ons begrijpen hoe bezoekers de site gebruiken',
-      'ck.mkt': 'Marketing — gebruikt voor gepersonaliseerde advertenties',
+      'ck.nec': 'Noodzakelijk. Vereist voor de werking van de site',
+      'ck.ana': 'Analytisch. Helpt ons begrijpen hoe bezoekers de site gebruiken',
+      'ck.mkt': 'Marketing. Gebruikt voor gepersonaliseerde advertenties',
       'ck.save': 'Keuzes opslaan',
       'ck.all': 'Alles accepteren',
       'ck.reopen': 'Cookies'
     },
     fr: {
       'nav.solutions': 'Solutions',
-      'nav.work': 'Réalisations',
       'nav.company': 'Entreprise',
       'nav.contact': 'Contact',
       'nav.cta': 'Démarrer un projet',
-      'foot.desc': 'Partenaire en solutions IA. Nous concevons, développons et déployons des produits IA, de l’automatisation intelligente et des plateformes AI-ready — pour les grandes entreprises, le mid-market et les PME.',
+      'foot.desc': 'Partenaire en solutions IA pour des organisations du monde entier. Nous concevons, développons et déployons des systèmes IA, de l’automatisation intelligente et des plateformes AI-ready.',
       'foot.solutions': 'Solutions',
       'foot.s1': 'Produits IA',
       'foot.s2': 'Automatisation intelligente',
       'foot.s3': 'IA d’entreprise',
       'foot.s4': 'Plateformes AI-ready',
       'foot.company': 'Entreprise',
-      'foot.work': 'Réalisations',
       'foot.about': 'À propos',
       'foot.contact': 'Contact',
       'foot.get': 'Contactez-nous',
-      'foot.loc': 'Belgique — actifs dans toute l’Europe',
+      'foot.loc': 'Actif dans le monde entier',
       'foot.rights': 'Tous droits réservés.',
       'foot.privacy': 'Confidentialité',
       'foot.terms': 'Conditions',
       'foot.cookies': 'Cookies',
       'ck.title': 'Préférences de cookies',
       'ck.desc': 'Nous utilisons des cookies pour améliorer votre expérience. Choisissez les catégories que vous autorisez.',
-      'ck.nec': 'Nécessaires — indispensables au fonctionnement du site',
-      'ck.ana': 'Analytiques — nous aident à comprendre l’utilisation du site',
-      'ck.mkt': 'Marketing — utilisés pour la publicité personnalisée',
+      'ck.nec': 'Nécessaires. Indispensables au fonctionnement du site',
+      'ck.ana': 'Analytiques. Nous aident à comprendre l’utilisation du site',
+      'ck.mkt': 'Marketing. Utilisés pour la publicité personnalisée',
       'ck.save': 'Enregistrer',
       'ck.all': 'Tout accepter',
       'ck.reopen': 'Cookies'
@@ -171,7 +192,6 @@
         '<button class="menu-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>' +
         '<nav class="nav-links" aria-label="Main">' +
           '<a href="/#solutions" data-i18n="nav.solutions" data-nav="solutions">Solutions</a>' +
-          '<a href="/cases" data-i18n="nav.work" data-nav="work">Work</a>' +
           '<a href="/over" data-i18n="nav.company" data-nav="company">Company</a>' +
           '<a href="/contact" data-i18n="nav.contact" data-nav="contact">Contact</a>' +
           langButtons() +
@@ -223,14 +243,13 @@
           '</div>' +
           '<div class="foot-col">' +
             '<h4 data-i18n="foot.company">Company</h4>' +
-            '<a href="/cases" data-i18n="foot.work">Work</a>' +
             '<a href="/over" data-i18n="foot.about">About</a>' +
             '<a href="/contact" data-i18n="foot.contact">Contact</a>' +
           '</div>' +
           '<div class="foot-col">' +
             '<h4 data-i18n="foot.get">Get in touch</h4>' +
             '<a href="mailto:kristof@baircompany.be">kristof@baircompany.be</a>' +
-            '<a href="/contact" data-i18n="foot.loc">Belgium — working across Europe</a>' +
+            '<a href="/contact" data-i18n="foot.loc">Working worldwide</a>' +
           '</div>' +
         '</div>' +
         '<div class="foot-bottom">' +
@@ -369,6 +388,7 @@
   function boot() {
     buildHeader();
     buildFooter();
+    enableLocalPreview();
     buildConsent();
     applyLang(current);
     initReveal();
