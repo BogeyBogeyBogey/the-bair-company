@@ -147,6 +147,19 @@
 
   var current = getLang();
 
+  function stripTerminalHeadingStops() {
+    var nodes = document.querySelectorAll('h1,h2,h3,h4,.hero-sub,.sec-sub,.case-tagline,.sec-label,.cta-band p');
+    for (var i = 0; i < nodes.length; i++) {
+      var walker = document.createTreeWalker(nodes[i], NodeFilter.SHOW_TEXT);
+      var last = null;
+      var textNode;
+      while ((textNode = walker.nextNode())) {
+        if (/\S/.test(textNode.nodeValue || '')) last = textNode;
+      }
+      if (last) last.nodeValue = last.nodeValue.replace(/\.+(\s*)$/, '$1');
+    }
+  }
+
   function applyLang(lang) {
     current = lang;
     try { localStorage.setItem('bair-lang', lang); } catch (e) {}
@@ -171,6 +184,7 @@
     for (var b = 0; b < btns.length; b++) {
       btns[b].classList.toggle('active', btns[b].getAttribute('data-lang') === lang);
     }
+    stripTerminalHeadingStops();
   }
 
   /* ---------- header / footer ---------- */
